@@ -1,0 +1,126 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#include "../../Renderers/DX9/DX9Global.h"
+#include "../../Renderers/DX9/CDX9Renderer.h"
+#include "../../Renderers/DX9/CDX9Shader.h"
+
+namespace DE
+{
+	CDX9Shader::CDX9Shader(const std::string & name, ID3DXConstantTable * constantTable) : IShaderBase(name)
+	{
+		this->m_constantTable = constantTable;
+	}
+
+	CDX9Shader::~CDX9Shader()
+	{
+		SAFE_RELEASE(this->m_constantTable);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const bool value)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetBool(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const int value)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetInt(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const float value)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetFloat(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const bool * value, const int size) {}
+
+	void CDX9Shader::SetParameter(const std::string & name, const int * value, const int size)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetIntArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const float * value, const int size)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetFloatArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CVector2F & vec) 
+	{
+		CheckHandle(name);
+		CVector4F vec2(vec.x, vec.y, 0, 0);
+		this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CVector3F & vec) 
+	{
+		CheckHandle(name);
+		CVector4F vec2(vec.x, vec.y, vec.z, 0);
+		this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CVector4F & vec)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CColor & color)
+	{
+		CheckHandle(name);
+		CVector4F vec = color.ToRGBAVector();
+		this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CMatrix & mat)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetMatrix(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(&mat));
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CVector4F * vec, const int size)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetVectorArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(vec), size);
+	}
+
+	void CDX9Shader::SetParameter(const std::string & name, const CMatrix * mat, const int size)
+	{
+		CheckHandle(name);
+		this->m_constantTable->SetMatrixArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(mat), size);
+	}
+
+	void CDX9Shader::CheckHandle(const std::string & name)
+	{
+		if(this->m_handles.find(name) == this->m_handles.end())
+			this->m_handles[name] = this->m_constantTable->GetConstantByName(nullptr, name.c_str());
+	}
+}

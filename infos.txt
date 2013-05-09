@@ -1,0 +1,40 @@
+APPLICATION_USE_SDL pour utiliser SDL comme fenêtrage
+
+
+===============================================================
+                               OpenGL
+===============================================================
+
+HLSL - Structure des uniforms:
+Pas de vec3, converti en vec4 
+
+Vertex Shaders
+Données en entré -> vertexPosition[0, 3], vertexTexcoord[0, 3], vertexNormal[0, 3], vertexColor[0, 3]
+
+Pixel Shaders:
+Texture sampler -> textureSampler[0, 3]
+Nom des render target suivant le nom déclaré dans le code (exemple albedoRT, normalRT, lightRT...)
+
+===============================================================
+                               OpenGL
+===============================================================
+
+===============================================================
+                              Shaders
+===============================================================
+
+Convertion des CColor (ARGB) en CVector4F (RGBA) avant envoi shaders
+
+===============================================================
+                              Shaders
+===============================================================
+
+===============================================================
+                              Renderer
+===============================================================
+
+
+
+===============================================================
+                              Renderer
+===============================================================

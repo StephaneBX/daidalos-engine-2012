@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Applications\ISDLApplication.h" />
+    <ClInclude Include="Applications\IWin32Application.h" />
+    <ClInclude Include="BSP\CBSPBrushNode.h" />
+    <ClInclude Include="BSP\CBSPPortal.h" />
+    <ClInclude Include="BSP\CBSPTreeNode.h" />
+    <ClInclude Include="BSP\CBSPSceneNode.h" />
+    <ClInclude Include="BSP\CBSPTriangle.h" />
+    <ClInclude Include="Core\CConfigurationManager.h" />
+    <ClInclude Include="Core\CGUIManager.h" />
+    <ClInclude Include="Core\CSoundContextManager.h" />
+    <ClInclude Include="Core\Enums.h" />
+    <ClInclude Include="Core\IApplication.h" />
+    <ClInclude Include="Core\IDeclaration.h" />
+    <ClInclude Include="Core\CInputDevice.h" />
+    <ClInclude Include="Core\ILoader.h" />
+    <ClInclude Include="Core\CLoaderExtensions.h" />
+    <ClInclude Include="Core\CMediaManager.h" />
+    <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Core\CSingletonManager.h" />
+    <ClInclude Include="Core\IRenderer.h" />
+    <ClInclude Include="Core\IResource.h" />
+    <ClInclude Include="Core\CResourceManager.h" />
+    <ClInclude Include="Core\Listeners\IInputGamepadListener.h" />
+    <ClInclude Include="Core\Listeners\IInputKeyboardListener.h" />
+    <ClInclude Include="Core\Listeners\IInputMouseListener.h" />
+    <ClInclude Include="Core\Logger\CLoggerFile.h" />
+    <ClInclude Include="Core\Logger\CLoggerMsgBox.h" />
+    <ClInclude Include="Core\Logger\ILogger.h" />
+    <ClInclude Include="Core\Memory\CException.h" />
+    <ClInclude Include="Core\Memory\CExceptionAssert.h" />
+    <ClInclude Include="Core\Memory\CExceptionDelete.h" />
+    <ClInclude Include="Core\Memory\CExceptionLoad.h" />
+    <ClInclude Include="Core\Memory\CMemoryAllocator.h" />
+    <ClInclude Include="Core\Utility\CArraySorter.h" />
+    <ClInclude Include="Core\Utility\CColor.h" />
+    <ClInclude Include="Core\Utility\CFile.h" />
+    <ClInclude Include="Core\Utility\CFPSCounter.h" />
+    <ClInclude Include="Core\Utility\CImage.h" />
+    <ClInclude Include="Core\Utility\CMatrix.h" />
+    <ClInclude Include="Core\Utility\CQuaternion.h" />
+    <ClInclude Include="Core\Utility\CRectangle.h" />
+    <ClInclude Include="Core\Utility\CTimer.h" />
+    <ClInclude Include="Core\Utility\CTokenizer.h" />
+    <ClInclude Include="Core\Utility\CVector2.h" />
+    <ClInclude Include="Core\Utility\CVector3.h" />
+    <ClInclude Include="Core\Utility\CVector4.h" />
+    <ClInclude Include="Gui\CGUIText.h" />
+    <ClInclude Include="Gui\IGUIBase.h" />
+    <ClInclude Include="Gui\IGUITextBase.h" />
+    <ClInclude Include="Loaders\CFontLoader.h" />
+    <ClInclude Include="Loaders\CImagesLoader.h" />
+    <ClInclude Include="Loaders\CMaterialsLoader.h" />
+    <ClInclude Include="Loaders\CMD2Loader.h" />
+    <ClInclude Include="Loaders\CMS3DLoader.h" />
+    <ClInclude Include="Loaders\COBJLoader.h" />
+    <ClInclude Include="Loaders\CSceneLoader.h" />
+    <ClInclude Include="Loaders\CStaticSoundLoader.h" />
+    <ClInclude Include="Loaders\CStreamSoundLoader.h" />
+    <ClInclude Include="Medias\CAnimatedMesh.h" />
+    <ClInclude Include="Medias\CBuffer.h" />
+    <ClInclude Include="Medias\CFont.h" />
+    <ClInclude Include="Medias\CFrameBuffer.h" />
+    <ClInclude Include="Medias\CMaterial.h" />
+    <ClInclude Include="Medias\CMD2Mesh.h" />
+    <ClInclude Include="Medias\CMS3DMesh.h" />
+    <ClInclude Include="Medias\COBJMesh.h" />
+    <ClInclude Include="Medias\CShaderProgram.h" />
+    <ClInclude Include="Medias\CSound.h" />
+    <ClInclude Include="Medias\CStaticMesh.h" />
+    <ClInclude Include="Medias\CTexture2D.h" />
+    <ClInclude Include="Medias\IAnimatedMeshBase.h" />
+    <ClInclude Include="Medias\IBufferBase.h" />
+    <ClInclude Include="Medias\IFontBase.h" />
+    <ClInclude Include="Medias\IFrameBufferBase.h" />
+    <ClInclude Include="Medias\IMaterialBase.h" />
+    <ClInclude Include="Medias\IMeshBase.h" />
+    <ClInclude Include="Medias\IRenderTargetBase.h" />
+    <ClInclude Include="Medias\IShaderBase.h" />
+    <ClInclude Include="Medias\IShaderProgramBase.h" />
+    <ClInclude Include="Medias\ISoundBase.h" />
+    <ClInclude Include="Medias\IStaticSoundBase.h" />
+    <ClInclude Include="Medias\IStreamSoundBase.h" />
+    <ClInclude Include="Medias\ITexture2DBase.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Buffer.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Declaration.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Enums.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Exception.h" />
+    <ClInclude Include="Renderers\DX9\CDX9FrameBuffer.h" />
+    <ClInclude Include="Renderers\DX9\CDX9PixelShader.h" />
+    <ClInclude Include="Renderers\DX9\CDX9PixelShadersLoader.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Renderer.h" />
+    <ClInclude Include="Renderers\DX9\CDX9RenderTarget.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Shader.h" />
+    <ClInclude Include="Renderers\DX9\CDX9Texture2D.h" />
+    <ClInclude Include="Renderers\DX9\CDX9VertexShader.h" />
+    <ClInclude Include="Renderers\DX9\CDX9VertexShadersLoader.h" />
+    <ClInclude Include="Renderers\DX9\DX9Global.h" />
+    <ClInclude Include="Renderers\OGL\COGLBuffer.h" />
+    <ClInclude Include="Renderers\OGL\COGLDeclaration.h" />
+    <ClInclude Include="Renderers\OGL\COGLEnums.h" />
+    <ClInclude Include="Renderers\OGL\COGLException.h" />
+    <ClInclude Include="Renderers\OGL\COGLFrameBuffer.h" />
+    <ClInclude Include="Renderers\OGL\COGLRenderer.h" />
+    <ClInclude Include="Renderers\OGL\COGLRenderTarget.h" />
+    <ClInclude Include="Renderers\OGL\COGLShader.h" />
+    <ClInclude Include="Renderers\OGL\COGLShaderProgram.h" />
+    <ClInclude Include="Renderers\OGL\COGLShadersLoader.h" />
+    <ClInclude Include="Renderers\OGL\COGLTexture2D.h" />
+    <ClInclude Include="Scene\CAABoundingBox.h" />
+    <ClInclude Include="Scene\CEllipse.h" />
+    <ClInclude Include="Scene\CEmptySceneNode.h" />
+    <ClInclude Include="Scene\CImpact.h" />
+    <ClInclude Include="Scene\COrthographicCameraSceneNode.h" />
+    <ClInclude Include="Scene\CPlane3D.h" />
+    <ClInclude Include="Scene\CProjectionCameraSceneNode.h" />
+    <ClInclude Include="Scene\CSphere.h" />
+    <ClInclude Include="Scene\CSceneManager.h" />
+    <ClInclude Include="Scene\CTriangle3D.h" />
+    <ClInclude Include="Scene\CAnimatedMeshSceneNode.h" />
+    <ClInclude Include="Scene\IBoundedLightSceneNode.h" />
+    <ClInclude Include="Scene\ICameraSceneNode.h" />
+    <ClInclude Include="Scene\CDirectionalLightSceneNode.h" />
+    <ClInclude Include="Scene\ILevelSceneNode.h" />
+    <ClInclude Include="Scene\CMeshBuffer.h" />
+    <ClInclude Include="Scene\ILightSceneNode.h" />
+    <ClInclude Include="Scene\IMeshSceneNode.h" />
+    <ClInclude Include="Scene\CPointLightSceneNode.h" />
+    <ClInclude Include="Scene\ISceneNode.h" />
+    <ClInclude Include="Scene\IShape3D.h" />
+    <ClInclude Include="Scene\CSoundSceneNode.h" />
+    <ClInclude Include="Scene\CSpotLightSceneNode.h" />
+    <ClInclude Include="Scene\CStaticMeshSceneNode.h" />
+    <ClInclude Include="Scene\ITriggerableSceneNode.h" />
+    <ClInclude Include="Scene\ITriggerListener.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Applications\ISDLApplication.cpp" />
+    <ClCompile Include="Applications\IWin32Application.cpp" />
+    <ClCompile Include="BSP\CBSPBrushNode.cpp" />
+    <ClCompile Include="BSP\CBSPPortal.cpp" />
+    <ClCompile Include="BSP\CBSPTreeNode.cpp" />
+    <ClCompile Include="BSP\CBSPSceneNode.cpp" />
+    <ClCompile Include="BSP\CBSPTriangle.cpp" />
+    <ClCompile Include="Core\CConfigurationManager.cpp" />
+    <ClCompile Include="Core\CGUIManager.cpp" />
+    <ClCompile Include="Core\CMediaManager.cpp" />
+    <ClCompile Include="Core\CSoundContextManager.cpp" />
+    <ClCompile Include="Core\IApplication.cpp" />
+    <ClCompile Include="Core\CInputDevice.cpp" />
+    <ClCompile Include="Core\IRenderer.cpp" />
+    <ClCompile Include="Core\IResource.cpp" />
+    <ClCompile Include="Core\CResourceManager.cpp" />
+    <ClCompile Include="Core\Logger\CLogger.cpp" />
+    <ClCompile Include="Core\Logger\CLoggerFile.cpp" />
+    <ClCompile Include="Core\Logger\CLoggerMsgBox.cpp" />
+    <ClCompile Include="Core\Memory\CException.cpp" />
+    <ClCompile Include="Core\Memory\CExceptionAssert.cpp" />
+    <ClCompile Include="Core\Memory\CExceptionDelete.cpp" />
+    <ClCompile Include="Core\Memory\CExceptionLoad.cpp" />
+    <ClCompile Include="Core\Utility\CColor.cpp" />
+    <ClCompile Include="Core\Utility\CFile.cpp" />
+    <ClCompile Include="Core\Utility\CFPSCounter.cpp" />
+    <ClCompile Include="Core\Utility\CImage.cpp" />
+    <ClCompile Include="Core\Utility\CTokenizer.cpp" />
+    <ClCompile Include="Gui\CGUIText.cpp" />
+    <ClCompile Include="Gui\IGUIBase.cpp" />
+    <ClCompile Include="Gui\IGUITextBase.cpp" />
+    <ClCompile Include="Loaders\CFontLoader.cpp" />
+    <ClCompile Include="Loaders\CImagesLoader.cpp" />
+    <ClCompile Include="Loaders\CMaterialsLoader.cpp" />
+    <ClCompile Include="Loaders\CMD2Loader.cpp" />
+    <ClCompile Include="Loaders\CMS3DLoader.cpp" />
+    <ClCompile Include="Loaders\COBJLoader.cpp" />
+    <ClCompile Include="Loaders\CSceneLoader.cpp" />
+    <ClCompile Include="Loaders\CStaticSoundLoader.cpp" />
+    <ClCompile Include="Loaders\CStreamSoundLoader.cpp" />
+    <ClCompile Include="Medias\CAnimatedMesh.cpp" />
+    <ClCompile Include="Medias\CBuffer.cpp" />
+    <ClCompile Include="Medias\CFont.cpp" />
+    <ClCompile Include="Medias\CFrameBuffer.cpp" />
+    <ClCompile Include="Medias\CMaterial.cpp" />
+    <ClCompile Include="Medias\CMD2Mesh.cpp" />
+    <ClCompile Include="Medias\CMS3DMesh.cpp" />
+    <ClCompile Include="Medias\COBJMesh.cpp" />
+    <ClCompile Include="Medias\CShaderProgram.cpp" />
+    <ClCompile Include="Medias\CSound.cpp" />
+    <ClCompile Include="Medias\CStaticMesh.cpp" />
+    <ClCompile Include="Medias\CTexture2D.cpp" />
+    <ClCompile Include="Medias\IAnimatedMeshBase.cpp" />
+    <ClCompile Include="Medias\IBufferBase.cpp" />
+    <ClCompile Include="Medias\IFontBase.cpp" />
+    <ClCompile Include="Medias\IFrameBufferBase.cpp" />
+    <ClCompile Include="Medias\IMaterialBase.cpp" />
+    <ClCompile Include="Medias\IMeshBase.cpp" />
+    <ClCompile Include="Medias\IRenderTargetBase.cpp" />
+    <ClCompile Include="Medias\IShaderBase.cpp" />
+    <ClCompile Include="Medias\IShaderProgramBase.cpp" />
+    <ClCompile Include="Medias\ISoundBase.cpp" />
+    <ClCompile Include="Medias\IStaticSoundBase.cpp" />
+    <ClCompile Include="Medias\IStreamSoundBase.cpp" />
+    <ClCompile Include="Medias\ITexture2DBase.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Declaration.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Enums.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Exception.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9FrameBuffer.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9PixelShader.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9PixelShadersLoader.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Renderer.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9RenderTarget.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Shader.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9Texture2D.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9VertexShader.cpp" />
+    <ClCompile Include="Renderers\DX9\CDX9VertexShadersLoader.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLDeclaration.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLEnums.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLException.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLFrameBuffer.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLRenderer.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLRenderTarget.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLShader.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLShaderProgram.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLShadersLoader.cpp" />
+    <ClCompile Include="Renderers\OGL\COGLTexture2D.cpp" />
+    <ClCompile Include="Scene\CEmptySceneNode.cpp" />
+    <ClCompile Include="Scene\CImpact.cpp" />
+    <ClCompile Include="Scene\COrthographicCameraSceneNode.cpp" />
+    <ClCompile Include="Scene\CProjectionCameraSceneNode.cpp" />
+    <ClCompile Include="Scene\CSceneManager.cpp" />
+    <ClCompile Include="Scene\CTriangle3D.cpp" />
+    <ClCompile Include="Scene\CAnimatedMeshSceneNode.cpp" />
+    <ClCompile Include="Scene\IBoundedLightSceneNode.cpp" />
+    <ClCompile Include="Scene\ICameraSceneNode.cpp" />
+    <ClCompile Include="Scene\CDirectionalLightSceneNode.cpp" />
+    <ClCompile Include="Scene\ILevelSceneNode.cpp" />
+    <ClCompile Include="Scene\CMeshBuffer.cpp" />
+    <ClCompile Include="Scene\ILightSceneNode.cpp" />
+    <ClCompile Include="Scene\IMeshSceneNode.cpp" />
+    <ClCompile Include="Scene\CPointLightSceneNode.cpp" />
+    <ClCompile Include="Scene\ISceneNode.cpp" />
+    <ClCompile Include="Scene\CSoundSceneNode.cpp" />
+    <ClCompile Include="Scene\CSpotLightSceneNode.cpp" />
+    <ClCompile Include="Scene\CStaticMeshSceneNode.cpp" />
+    <ClCompile Include="Scene\ITriggerableSceneNode.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ClosedEngine</RootNamespace>
+    <ProjectName>Daidalos Engine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Dependencies\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;DevIL.lib;libsndfile-1.lib;OpenAL32.lib;opengl32.lib;SiniP_debug.lib;TinyXML_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;..\Dependencies\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;DevIL.lib;OpenAL32.lib;opengl32.lib;SiniP.lib;TinyXML.lib;libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,20 @@
+#version 130
+precision highp float;
+
+uniform vec3 materialDiffuse;
+uniform vec3 materialAmbient;
+uniform vec3 materialSpecular;
+uniform vec3 materialEmission;
+uniform sampler2D textureSampler0;
+
+smooth in vec2 out_texcoord;
+smooth in vec3 out_normal;
+
+out vec4 colorPS;
+
+void main()
+{
+	vec3 lightDir = normalize(vec3(0,1,-4));
+	vec3 factor = clamp(dot(lightDir, out_normal) * materialDiffuse + materialAmbient, 0.0, 1.0);
+	colorPS = texture(textureSampler0, out_texcoord) * vec4(factor, 1);
+}

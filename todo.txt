@@ -1,0 +1,160 @@
+[Graphisme]
+- Trouver un logo
+
+[Inputs]
+- Position dépendant scale
+
+[Portabilité]
+- Rendre COGLRenderer portable
+
+[Arbre BSP]
+- Bug collision lors du chargement / faible fps
+- Ajout objets en mouvement?
+	std::vector<std::unique_ptr<SBSPBrush> > m_dynamicBrushes;
+	AddDynamicMesh(const CStaticMesh & mesh, const CMatrix & position, const CMatrix & rotation);
+	ClearDynamicMeshes();
+	Test collision: Tester les brushes dynamiques puis le bsp
+	Affichage: 
+		- RegisterDynamicBrushesForRendering();
+		- Afficher les brushes dynamiques en dernier (un à un? Faire du batching?)
+		
+	Cube - Cube collision -> au moins un coin avec distance(plan) < epsilon, pour tout plan
+	Cube - Sphere collision -> centre cercle tel que distance(plan) < epsilon + rayon, pour tout plan du cube
+	Cube - Cube collision -> distance entre centres inférieur à la somme des rayons
+
+- PVS
+- Grosse map pour tester
+- CircumSphere à revoir?
+
+[Skybox]
+	- FrameBuffer => stencil REPLACE à 1
+	- Après light pass => Render Skybox avec STENCIL_PASS à 1
+- Modèle
+- Classes
+- Shaders
+
+- Plusieurs textures par modèle
+- Créer un fichier de référence pour les contraintes du moteur (fichiers, OGL, DX9 etc)
+
+
+===============================================================
+                     Intéractions / Collisions
+===============================================================
+
+- ICollidableNode
+	bool m_collisionEnabled;
+	IShape * collisionShape;
+	void Slide(IShape * shape, CImptact * movement);
+	void SetCollisionEnabled(const bool enabled);
+	void SetCollisionShape(IShape * shape);
+	const bool IsCollisionEnabled() const;
+
+	
+Ignorer les noeuds inconnus
+	
+===============================================================
+                             Portals
+===============================================================
+
+CBSPPortal
+private:
+	std::array<CBSPTriangle, 2> m_triangles;
+	unsigned int m_numberOfLeafs
+	std::array<unsigned int, 2> m_leafsIndex;
+
+CBSPTreeNode (ajouts)
+	CBSPPortal * m_portal;
+	std::unique_ptr<CAABoundingBox> m_boundingBox;
+
+CBPSSceneNode (ajouts)
+	std::vector<CBSPTreeNode*> m_geometryNodes;
+	std::unique_ptr<int> m_masterPVS;
+
+Création d'un portal à chaque noeud avec bounding box
+Push du portal dans les noeuds
+Master PVS
+Anti-Penumbra
+
+===============================================================
+                             C++11
+===============================================================
+- final, override
+- auto
+- for(int & var : int_array)
+- Suppression méthodes: () = delete;
+- Remplacer tableaux statiques par std::array
+===============================================================
+                             C++11
+===============================================================
+
+
+===============================================================
+                             Logs
+===============================================================
+Log plus évolué:
+	#include <typeinfo>
+	typeid(i).name()
+	
+	ELogType
+===============================================================
+                             Logs
+===============================================================
+
+===============================================================
+                           Shadows
+===============================================================
+- Ajouter flags pour CSceneManager::RenderAll
+- Ajouter d'autres sources lumineuses
+
+- Gestion directional light et point light pour DX9 et OGL
+- Gestion globale des ombres dans IDeferredApplication
+- Gestion limitation des shadowCasters max
+
+- Directional lights => Ortographic view + position choisie dynamiquement
+	lightPosition = cameraPosition - (lightDirection * cameraViewDistance)
+- Traité ensuite comme une spot light simplifiée
+
+
+- Point light => 6 Spot lights de 90°
+- Traiter les point light comme 6 spot 90° dans les lights buffer
+
+===============================================================
+                           Shadows
+===============================================================
+
+===============================================================
+                           Application
+=========================================================
+
+struct SCinematicCameraStep
+{
+	DE::CVector3F position;
+	DE::CVector3F rotation;
+	float speed;
+};
+
+CCinematicCamera
+private:
+	CProjectionCameraSceneNode * node;
+	std::vector<SCinematicCameraStep> steps;
+	
+CCinematicCameraDelegate
+	void cinematicCameraDidEndAtStep(const SCinematicCameraStep & step);
+
+=========================================================
+
+- Prefab pour Deferred Shading (avec / sans shadows - lumières)
+
+===============================================================
+                           Application
+===============================================================
+
+===============================================================
+                           Lua
+===============================================================
+
+Implémentation de scripts lua pour définir le comportement des nodes
+
+===============================================================
+                           Lua
+===============================================================

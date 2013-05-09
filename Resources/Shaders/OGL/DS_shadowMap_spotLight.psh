@@ -1,0 +1,11 @@
+#version 130
+precision highp float;
+
+smooth in vec2 depth;
+
+out float depthRT;
+
+void main()
+{
+	depthRT = 1.0f - (depth.x / depth.y);
+}

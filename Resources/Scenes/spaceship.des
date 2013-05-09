@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene structure="0">
+	<!-- Level node with a bsp structure -->
+	<node type="0" name="level">
+		<!-- Level node geometry -->
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:0</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:0</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:20</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:20</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:40</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:40</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_T_half.obj">
+			<visible>true</visible>
+			<position>0:0:60</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_T_closed_half.obj">
+			<visible>true</visible>
+			<position>0:0:60</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-20:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-20:0:60</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-40:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-40:0:60</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-60:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-60:0:60</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-40:0.1:60</position>
+			<rotation>0:45:0</rotation>
+			<diffuse_texture>crate1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-40:0.1:63</position>
+			<rotation>0:35:0</rotation>
+			<diffuse_texture>crate1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-40:0.1:57</position>
+			<rotation>0:75:0</rotation>
+			<diffuse_texture>crate2_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-43:0.1:59</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>crate2_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-41.5:2.1:58</position>
+			<rotation>0:290:0</rotation>
+			<diffuse_texture>crate2_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:80</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:80</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:100</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_T_half.obj">
+			<visible>true</visible>
+			<position>0:0:100</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>20:0:100</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>20:0:100</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>40:0:100</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>40:0:100</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_T_half.obj">
+			<visible>true</visible>
+			<position>60:0:100</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>60:0:120</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_corner2.obj">
+			<visible>true</visible>
+			<position>60:0:140</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>80:0:140</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>100:0:140</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>120:0:140</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_corner2.obj">
+			<visible>true</visible>
+			<position>140:0:140</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>140:0:120</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>140:0:100</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>140:0:80</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_corner2.obj">
+			<visible>true</visible>
+			<position>140:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>120:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>100:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>80:0:60</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_corner2.obj">
+			<visible>true</visible>
+			<position>60:0:60</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>60:0:80</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:120</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>0:0:120</position>
+			<rotation>0:180:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_corner.obj">
+			<visible>true</visible>
+			<position>0:0:140</position>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-20:0:140</position>
+			<rotation>0:90:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="corridor_simple_half.obj">
+			<visible>true</visible>
+			<position>-20:0:140</position>
+			<rotation>0:270:0</rotation>
+			<diffuse_texture>spaceship1_d.png</diffuse_texture>
+		</bsp>
+		
+		<bsp file="crate.obj">
+			<position>-3:0.1:0</position>
+			<rotation>0:45:0</rotation>
+			<diffuse_texture>crate1_d.png</diffuse_texture>
+		</bsp>
+		
+		<!-- Point lights -->
+		<node type="3" name="pointLight0">
+			<position>-10.3:3:13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight1">
+			<position>-10.3:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight2">
+			<position>-10.3:3:-13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight3">
+			<position>10.3:3:13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight4">
+			<position>10.3:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight5">
+			<position>10.3:3:-13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight6">
+			<position>0:3:-13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight7">
+			<position>0:3:-25</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight8">
+			<position>0:3:-35</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight9">
+			<position>0:3:-45</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight10">
+			<position>0:3:13</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight11">
+			<position>0:3:25</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight12">
+			<position>0:3:35</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight13">
+			<position>0:3:45</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight14">
+			<position>-20:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight15">
+			<position>-30:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight16">
+			<position>-40:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight17">
+			<position>-50:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight18">
+			<position>20:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight19">
+			<position>30:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight20">
+			<position>40:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<node type="3" name="pointLight21">
+			<position>50:3:0</position>
+			<color>0.3:0.5:0.6:1</color>
+			<range>4</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<!-- Spot lights -->
+		<node type="2" name="spotLight0">
+			<position>0:7:1</position>
+			<rotation>50:0:0</rotation>
+			<color>0.2:0.2:1:1</color>
+			<range>20</range>
+			<radius>22</radius>
+			<falloff>0.7</falloff>
+			<tightness>0.6</tightness>
+		</node>
+		
+		<node type="2" name="spotLight1">
+			<position>10:7:-10</position>
+			<rotation>50:0:0</rotation>
+			<color>1:0.2:0.2:1</color>
+			<range>20</range>
+			<radius>22</radius>
+			<falloff>0.7</falloff>
+			<tightness>0.6</tightness>
+		</node>
+		
+		<node type="2" name="spotLight2">
+			<position>0:4:-8</position>
+			<color>0.8:0.8:0.8:1</color>
+			<range>30</range>
+			<radius>42</radius>
+			<falloff>0.7</falloff>
+			<tightness>0.6</tightness>
+		</node>
+		
+		<!-- Directional lights -->
+		<node type="4" name="directionalLight0">
+			<rotation>45:-90:0</rotation>
+			<color>0.3:0.1:0.1:1</color>
+		</node>
+		
+		<!-- Models -->
+		<node type="6" name="dwarf" file="dwarf.ms3d">
+			<position>0:1:1</position>
+			<scale>0.05:0.05:0.05</scale>
+			<diffuse_texture>dwarf_d.png</diffuse_texture>
+		</node>
+		
+		<node type="6" name="eva" file="eva.md2">
+			<position>2.5:2.5:-2</position>
+			<scale>0.07:0.07:0.07</scale>
+			<diffuse_texture>eva_d.png</diffuse_texture>
+		</node>
+		
+		<!-- Player camera-->
+		<node type="1" name="player">
+			<position>0:4:-8</position>
+			<rotation>0:0:0</rotation>
+			<fov>55</fov>
+			<near>0.5</near>
+			<far>300</far>
+			
+			<node type="2" name="flashlight">
+				<position>0:0:0</position>
+				<color>0.5:0.5:0.5:1</color>
+				<range>25</range>
+				<radius>20</radius>
+				<falloff>0.7</falloff>
+				<tightness>0.6</tightness>
+			</node>
+		</node>
+	</node>
+</scene>

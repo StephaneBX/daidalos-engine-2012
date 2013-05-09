@@ -1,0 +1,14 @@
+#version 130
+precision highp float;
+
+uniform vec4 textColor;
+uniform sampler2D textureSampler0;
+
+smooth in vec2 out_texcoord;
+
+out vec4 color;
+
+void main()
+{
+	color = texture(textureSampler0, out_texcoord) * textColor;
+}

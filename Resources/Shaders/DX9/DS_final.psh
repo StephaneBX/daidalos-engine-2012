@@ -1,0 +1,27 @@
+uniform float4 ambientColor;
+
+struct PS_INPUT
+{
+	float4 position 	: POSITION;
+	float2 texcoord		: TEXCOORD0;
+};
+
+struct PS_OUTPUT
+{
+	float4 color 	: COLOR;
+};
+
+sampler2D diffuseSampler;
+sampler2D lightSamper;
+
+PS_OUTPUT main(PS_INPUT IN)
+{
+	PS_OUTPUT OUT;
+	
+	OUT.color = float4(0,0,0,1);
+	
+	float4 diffuseAmbient = tex2D(diffuseSampler, IN.texcoord);
+	OUT.color.xyz = saturate(diffuseAmbient.xyz * tex2D(lightSamper, IN.texcoord).xyz + diffuseAmbient.xyz * diffuseAmbient.w * ambientColor);
+	
+	return OUT;
+}

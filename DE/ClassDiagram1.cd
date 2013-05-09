@@ -1,0 +1,1754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CFPSCamera" Collapsed="true">
+    <Position X="69.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IASAEQSAAAABAAAAAAAAAABEAAAAEAAgBAAgBAEAAAA=</HashCode>
+      <FileName>CFPSCamera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CTestApplication" Collapsed="true">
+    <Position X="17.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAyAgACACAAAAoAggAgAAckAAAAgAAAAChAAQQFwAAA=</HashCode>
+      <FileName>CTestApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CConfigurationManager" Collapsed="true">
+    <Position X="3.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAIgAAgCAAAAAA=</HashCode>
+      <FileName>Core\CConfigurationManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSingletonManager&lt;T&gt;" Collapsed="true">
+    <Position X="10.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAkAAAAAAAgAAgAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CSingletonManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IGUIBase" Collapsed="true">
+    <Position X="13" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIRAIASAACAIEAAgEIAAAEBCAAAAggAAABAgAAAIABA=</HashCode>
+      <FileName>Gui\IGUIBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CGUIManager" Collapsed="true">
+    <Position X="5.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAQAAAAAAEAEAAAAAAAAgABABAQAACBI=</HashCode>
+      <FileName>Core\CGUIManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSoundContextManager" Collapsed="true">
+    <Position X="8" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAACACAAAAQAIAAgAAAAAAI=</HashCode>
+      <FileName>Core\CSoundContextManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IApplication" Collapsed="true">
+    <Position X="16.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQQAAECBACAgAAABAAAAkAAQAAABAIGQABAgAQEAAAA=</HashCode>
+      <FileName>Core\IApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IDeclaration" Collapsed="true">
+    <Position X="21.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CInputDevice" Collapsed="true">
+    <Position X="10.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAABmAAAUgAAEgAAgABABAA4BAAAAAUAwAAggAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ILoader&lt;T&gt;" Collapsed="true">
+    <Position X="16.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Core\ILoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CLoaderExtensions&lt;T&gt;" Collapsed="true">
+    <Position X="67.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CLoaderExtensions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMediaManager" Collapsed="true">
+    <Position X="12.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAACIAAAAIAAAAAEAAAASAAAAAAggAAAAAAA=</HashCode>
+      <FileName>Core\CMediaManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IRenderer" Collapsed="true">
+    <Position X="9.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABARkalBCGADABIgghAAAAAIAHAZBCFMJaYgCABQIAI=</HashCode>
+      <FileName>Core\IRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IResource" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAABAEAAAAAAAQAACAAAIAAAAgABAAFAA=</HashCode>
+      <FileName>Core\IResource.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CResourceManager" Collapsed="true">
+    <Position X="14.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAQAAAAAAABAAgCASAAAA=</HashCode>
+      <FileName>Core\CResourceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CException" Collapsed="true">
+    <Position X="7.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAACAQAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CExceptionAssert" Collapsed="true">
+    <Position X="7.75" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionAssert.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CExceptionDelete" Collapsed="true">
+    <Position X="10" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionDelete.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CExceptionLoad" Collapsed="true">
+    <Position X="12.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionLoad.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMemoryAllocator&lt;T&gt;" Collapsed="true">
+    <Position X="72.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JSAgBAAFAAABACAgAAAAAIAABgOBAAAAAAAAAAAIAAQ=</HashCode>
+      <FileName>Core\Memory\CMemoryAllocator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CLoggerFile" Collapsed="true">
+    <Position X="3" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAABAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\CLoggerFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CLoggerMsgBox" Collapsed="true">
+    <Position X="5.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\CLoggerMsgBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ILogger" Collapsed="true">
+    <Position X="4.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAEAAAAAAAACAAABAAAgAgAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\ILogger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CArraySorter&lt;T&gt;" Collapsed="true">
+    <Position X="65.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABEAgEBAAAAAgAAAAAAAEgFAAAAAEAAAAAAAAg=</HashCode>
+      <FileName>Core\Utility\CArraySorter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CColor" Collapsed="true">
+    <Position X="74.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARCYgAEAACAAEgAYAAAAAQACAAAAAABAAAAgAAwAACI=</HashCode>
+      <FileName>Core\Utility\CColor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CFile" Collapsed="true">
+    <Position X="65.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAEAAAAABACAAAAAAAAAAAABAAQAAAAAQAA=</HashCode>
+      <FileName>Core\Utility\CFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CFPSCounter" Collapsed="true">
+    <Position X="71" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACCAAQEADQAAAAAACAAAAAAAAAAAABIAAACAAAA=</HashCode>
+      <FileName>Core\Utility\CFPSCounter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CImage" Collapsed="true">
+    <Position X="64" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQBAAEQAAAACAAMAAAAFAggAACAAAAAAAAEIAAAA=</HashCode>
+      <FileName>Core\Utility\CImage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMatrix" Collapsed="true">
+    <Position X="71" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAgARAACAggAAECIIIXQAAAAEACiQIEIiIggAAAI=</HashCode>
+      <FileName>Core\Utility\CMatrix.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CQuaternion" Collapsed="true">
+    <Position X="65.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKQgIAAAAAAAAAEAIAAUBAAAhAAAABgAhgAQAAAAA=</HashCode>
+      <FileName>Core\Utility\CQuaternion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CRectangle&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAICAAACMgQRQAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CTimer" Collapsed="true">
+    <Position X="74.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIAAAACAAAAABABAAAACAAAEAAAAAAAIAAgAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CTimer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CTokenizer" Collapsed="true">
+    <Position X="64" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAiAAQQAAAAAIAgAAAAIAAQAAAAAAEAAAAAAAABAABA=</HashCode>
+      <FileName>Core\Utility\CTokenizer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CVector2&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQEIAAAAAAAAAEAAAAQBAAAAAAABACABgAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CVector3&lt;T&gt;" Collapsed="true">
+    <Position X="25" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQEIAAAAAAAAAMAAAAQBAAAAAAABACABgAcAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CVector4&lt;T&gt;" Collapsed="true">
+    <Position X="17" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAAAAAAAAAEAAAAQBAAAAAAAAACAxgAQAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IInputGamepadListener" Collapsed="true">
+    <Position X="65.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputGamepadListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IInputKeyboardListener" Collapsed="true">
+    <Position X="67.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputKeyboardListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IInputMouseListener" Collapsed="true">
+    <Position X="69.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputMouseListener.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CFontLoader" Collapsed="true">
+    <Position X="15.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CFontLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CImagesLoader" Collapsed="true">
+    <Position X="20" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgABAABAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CImagesLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMaterialsLoader" Collapsed="true">
+    <Position X="22.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Loaders\CMaterialsLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMD2Loader" Collapsed="true">
+    <Position X="24.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAACAAAAAAAAAAAAAIAIAAAAIQBAEAA=</HashCode>
+      <FileName>Loaders\CMD2Loader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMS3DLoader" Collapsed="true">
+    <Position X="4.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAAAAAAAAAIEAAASAAAAwAACMAAAAIAAAEAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COBJLoader" Collapsed="true">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAEAAIAAAEAA=</HashCode>
+      <FileName>Loaders\COBJLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSceneLoader" Collapsed="true">
+    <Position X="11" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAgAAACAAAIAAAAAAAAAAAAAACIQAAAIQAEEgA=</HashCode>
+      <FileName>Loaders\CSceneLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CStaticSoundLoader" Collapsed="true">
+    <Position X="13.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAIAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CStaticSoundLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CStreamSoundLoader" Collapsed="true">
+    <Position X="17.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CStreamSoundLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CAnimatedMesh" Collapsed="true">
+    <Position X="64" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAEQAAAAAAAAAAAAgAIAA8AA=</HashCode>
+      <FileName>Medias\CAnimatedMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBuffer" Collapsed="true">
+    <Position X="72.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAQAAAAAAACAAAAAAAAAAAAACAAAAAIAABAAAAA=</HashCode>
+      <FileName>Medias\CBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CFont" Collapsed="true">
+    <Position X="67.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIACIAAAAACAABBAACAIAAggAAAAEAAgAAAAEAA=</HashCode>
+      <FileName>Medias\CFont.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CFrameBuffer" Collapsed="true">
+    <Position X="72.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgAAAAIBAgAAAGAABAAAAASAAQAAAAAAAAAAAQA=</HashCode>
+      <FileName>Medias\CFrameBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMaterial" Collapsed="true">
+    <Position X="69.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgABEAAAAAAAAAAAACAAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Medias\CMaterial.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMD2Mesh" Collapsed="true">
+    <Position X="47.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgBAAAAAAAAAAAAAAAAAAAAAAAIAAAgAAAAwAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMS3DMesh" Collapsed="true">
+    <Position X="50" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAICAAgAAAAwAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COBJMesh" Collapsed="true">
+    <Position X="45.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAIAAAgAAAAgAA=</HashCode>
+      <FileName>Medias\COBJMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CShaderProgram" Collapsed="true">
+    <Position X="67.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAJAAAACAABAAAAEAA=</HashCode>
+      <FileName>Medias\CShaderProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSound" Collapsed="true">
+    <Position X="69.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAwDKCQEAAAAxIAAAIAAAAAEQhAAAgEAEAAgAQAAFDE=</HashCode>
+      <FileName>Medias\CSound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CStaticMesh" Collapsed="true">
+    <Position X="71" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAQBAAAAAAAAAEAAAAAAAAAAAAAgAAAAkAA=</HashCode>
+      <FileName>Medias\CStaticMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CTexture2D" Collapsed="true">
+    <Position X="72.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAgQAiAIAAAgCAAAAAAUAwAgAAAAAAAAAgAAAAAAE=</HashCode>
+      <FileName>Medias\CTexture2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IAnimatedMeshBase" Collapsed="true">
+    <Position X="49" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAgAAAAAAEQAAAAAAAAAAAAgAAAAwAA=</HashCode>
+      <FileName>Medias\IAnimatedMeshBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IBufferBase" Collapsed="true">
+    <Position X="3.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAAAAAACAACAAAAAAAAAAAAAAAAAAACgAAIAAAA=</HashCode>
+      <FileName>Medias\IBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IFontBase" Collapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIACAAAAAACAABBAIAAIgAAgAAAIAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IFontBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IFrameBufferBase" Collapsed="true">
+    <Position X="42" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABCAACAgABAgAQAGIABAAIAAAAggAAKAAgAAAIAQI=</HashCode>
+      <FileName>Medias\IFrameBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IMaterialBase" Collapsed="true">
+    <Position X="20.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAgAAAAAAAAAAgAAAIAAI=</HashCode>
+      <FileName>Medias\IMaterialBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IMeshBase" Collapsed="true">
+    <Position X="47.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQMAAAAAgAQBgAAAEIoAAAAAAAABAAAgBEAIhgA=</HashCode>
+      <FileName>Medias\IMeshBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IRenderTargetBase" Collapsed="true">
+    <Position X="52.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAACgAQAAAAA=</HashCode>
+      <FileName>Medias\IRenderTargetBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IShaderBase" Collapsed="true">
+    <Position X="58" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IShaderBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IShaderProgramBase" Collapsed="true">
+    <Position X="61.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAABAAAAAAAAAAAACBAAABBACgAAIBAAA=</HashCode>
+      <FileName>Medias\IShaderProgramBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ISoundBase" Collapsed="true">
+    <Position X="32.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gARBCCQEAACgwIAAAMgAAAIEQhAAAgEAEAAgAQQAADE=</HashCode>
+      <FileName>Medias\ISoundBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IStaticSoundBase" Collapsed="true">
+    <Position X="31.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAABAAAAAAAAAAAAAAAAAQAAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IStaticSoundBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IStreamSoundBase" Collapsed="true">
+    <Position X="33.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gASAAAQAAAIAAIAAAAAQAACAQBAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>Medias\IStreamSoundBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ITexture2DBase" Collapsed="true">
+    <Position X="37.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAAGAAACAgAAAAAABAAAAgAAIRAAA=</HashCode>
+      <FileName>Medias\ITexture2DBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Buffer&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAQAAAAAAEAAAAAAAAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Declaration" Collapsed="true">
+    <Position X="22.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAAgAEEAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Declaration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Enums" Collapsed="true">
+    <Position X="64" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAgABAAAAAmBgABAAAAAAAQABAAAAAAEA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Enums.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Exception" Collapsed="true">
+    <Position X="5.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Exception.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9FrameBuffer" Collapsed="true">
+    <Position X="43" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgEAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9FrameBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9PixelShader" Collapsed="true">
+    <Position X="60.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAACAAAABAAAgAAAAAAg=</HashCode>
+      <FileName>Renderers\DX9\CDX9PixelShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9PixelShadersLoader" Collapsed="true">
+    <Position X="26.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACAAEAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9PixelShadersLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Renderer" Collapsed="true">
+    <Position X="10.25" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBADsalAAAADAQAgABgAAAUAAHAQAAgMBCYgCABAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9RenderTarget" Collapsed="true">
+    <Position X="53.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAABAAACIAAgAAAAACA=</HashCode>
+      <FileName>Renderers\DX9\CDX9RenderTarget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Shader" Collapsed="true">
+    <Position X="59.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAEAAAAABAAAEQAIgAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9Texture2D" Collapsed="true">
+    <Position X="38.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAGAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Texture2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9VertexShader" Collapsed="true">
+    <Position X="58" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAABBAAAAAAAAAAAAAAAAAAAAAgAAABAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9VertexShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDX9VertexShadersLoader" Collapsed="true">
+    <Position X="6.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9VertexShadersLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLBuffer&lt;type&gt;" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAQAAEAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLDeclaration" Collapsed="true">
+    <Position X="20" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAACQAEIAAAEAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLEnums" Collapsed="true">
+    <Position X="64" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgABAAAAAkBgABAAAAAAAQABAAAAAAEA=</HashCode>
+      <FileName>Renderers\OGL\COGLEnums.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLException" Collapsed="true">
+    <Position X="3.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLException.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLFrameBuffer" Collapsed="true">
+    <Position X="40.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQBAIAAAAAAAAAAAAAAQAgQAAAAAgAACAQAA=</HashCode>
+      <FileName>Renderers\OGL\COGLFrameBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLShader" Collapsed="true">
+    <Position X="55.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAEAEAAACAAAAAAABAAAAAEBgAABABAA=</HashCode>
+      <FileName>Renderers\OGL\COGLShader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLRenderer" Collapsed="true">
+    <Position X="8" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oDwZualtEACXESBiIRQM4NYgEH44GaNPFD4gBkBAEJo=</HashCode>
+      <FileName>Renderers\OGL\COGLRenderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLRenderTarget" Collapsed="true">
+    <Position X="51.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAAIAAgAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLRenderTarget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLShaderProgram" Collapsed="true">
+    <Position X="61.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAEQAABAAAAAggAAAAABAAgAAACAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLShaderProgram.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLShadersLoader" Collapsed="true">
+    <Position X="29" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAEAAQAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Renderers\OGL\COGLShadersLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COGLTexture2D" Collapsed="true">
+    <Position X="36.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQACBAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLTexture2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CAABoundingBox&lt;T&gt;" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAACACAAgAIAAAAAAICAAAAAAEAgAAAAAAABIAAAA=</HashCode>
+      <FileName>Scene\CAABoundingBox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CEllipse&lt;T&gt;" Collapsed="true">
+    <Position X="23" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAKAIBA=</HashCode>
+      <FileName>Scene\CEllipse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CImpact" Collapsed="true">
+    <Position X="65.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAEBBAAABEAQAAAAAAEQAAAEAAAAGAAAAARAAAgAg=</HashCode>
+      <FileName>Scene\CImpact.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::COrthographicCameraSceneNode" Collapsed="true">
+    <Position X="3.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAgAAAgAAAAAAAEAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Scene\COrthographicCameraSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CPlane3D&lt;T&gt;" Collapsed="true">
+    <Position X="21" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgBAAAAAAAIBAQAAAAIAgEABIAAgAEAAAAA=</HashCode>
+      <FileName>Scene\CPlane3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CProjectionCameraSceneNode" Collapsed="true">
+    <Position X="6" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQEAAAAAAACMAAAABAAAAACAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CProjectionCameraSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSphere&lt;T&gt;" Collapsed="true">
+    <Position X="25.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAAAFAAAKAAAA=</HashCode>
+      <FileName>Scene\CSphere.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSceneManager" Collapsed="true">
+    <Position X="17" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAIABIAAAAAAAAxAQBRACEIAEEQAgAAAQyAhAAAAFCg=</HashCode>
+      <FileName>Scene\CSceneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CTriangle3D" Collapsed="true">
+    <Position X="20" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICQABAECHBCAAAAAAAAAECYAEiYIAAGEAkgAAEAEAAo=</HashCode>
+      <FileName>Scene\CTriangle3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CAnimatedMeshSceneNode" Collapsed="true">
+    <Position X="17.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAEAAAAEAMAAAACAAAAAAAIAAQEA4AA=</HashCode>
+      <FileName>Scene\CAnimatedMeshSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IBoundedLightSceneNode" Collapsed="true">
+    <Position X="14" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAQAQAAAAAAAAAAEAEACAAIAAAgpABAAAAAA=</HashCode>
+      <FileName>Scene\IBoundedLightSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ICameraSceneNode" Collapsed="true">
+    <Position X="5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAagQAQAAACACAAJAACAECAAAAgCBIAhBAAAAQA=</HashCode>
+      <FileName>Scene\ICameraSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CDirectionalLightSceneNode" Collapsed="true">
+    <Position X="10.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CDirectionalLightSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ILevelSceneNode" Collapsed="true">
+    <Position X="8.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABEAAACAAIAAAABAAAAAIAAAAgAAACBAAQAAgBAg=</HashCode>
+      <FileName>Scene\ILevelSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CMeshBuffer" Collapsed="true">
+    <Position X="74.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAEAAAAAAAAEAAAQQQBAAAAAAAAAAAAIAAEAg=</HashCode>
+      <FileName>Scene\CMeshBuffer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ILightSceneNode" Collapsed="true">
+    <Position X="12.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAASASAAAAAAEAAAAAAAACCAAAAAAACAAAgAAAgAAAA=</HashCode>
+      <FileName>Scene\ILightSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IMeshSceneNode" Collapsed="true">
+    <Position X="18.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQABAQAACCABAAgAAAAEAAIEAAIAgAAABAQZgAQgAg=</HashCode>
+      <FileName>Scene\IMeshSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CPointLightSceneNode" Collapsed="true">
+    <Position X="12.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkA=</HashCode>
+      <FileName>Scene\CPointLightSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ISceneNode" Collapsed="true">
+    <Position X="12.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFQAIAgAACCAEGIIAAAACRCCAAIgahtAIBBBQoQABIg=</HashCode>
+      <FileName>Scene\ISceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IShape3D&lt;T&gt;" Collapsed="true">
+    <Position X="24" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIQAAACAAAAAAAAAAAAAAAAAAAgEAAAAQAQIAAAA=</HashCode>
+      <FileName>Scene\IShape3D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSoundSceneNode" Collapsed="true">
+    <Position X="21.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAgAAAAAAAACAFAAAA4AAACgAEBGAAAIAAACBAA=</HashCode>
+      <FileName>Scene\CSoundSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CSpotLightSceneNode" Collapsed="true">
+    <Position X="15" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAICEAAAAAAAAAAAAAAgAAAACAAiIAAA=</HashCode>
+      <FileName>Scene\CSpotLightSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CStaticMeshSceneNode" Collapsed="true">
+    <Position X="19.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgEA=</HashCode>
+      <FileName>Scene\CStaticMeshSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::ISDLApplication" Collapsed="true">
+    <Position X="15" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAgAAAEEABAACAABAgAAEAACA=</HashCode>
+      <FileName>Applications\ISDLApplication.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IWin32Application" Collapsed="true">
+    <Position X="17.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAABAAAggAgEAAAAABAEiAABAgAAEAAAY=</HashCode>
+      <FileName>Applications\IWin32Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBSPTreeNode" Collapsed="true">
+    <Position X="71" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAMQARADAAAIEACJIAQAQAAAAAAAMAAAAgAEAAAAA=</HashCode>
+      <FileName>BSP\CBSPTreeNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBSPBrushNode" Collapsed="true">
+    <Position X="67.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAABABAAAAAAAAAAAAAAAAAAAAIQEAAgCAAAAAA=</HashCode>
+      <FileName>BSP\CBSPBrushNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBSPPortal" Collapsed="true">
+    <Position X="69.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAQAAAAAAAIAABAAAAQAAAABAAAAAAAAIAgAAA=</HashCode>
+      <FileName>BSP\CBSPPortal.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBSPSceneNode" Collapsed="true">
+    <Position X="8.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIAAAAAAAAAAACABAAAAIAAAAAAAEAkhAgAEAADEA=</HashCode>
+      <FileName>BSP\CBSPSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CBSPTriangle" Collapsed="true">
+    <Position X="20" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAiBAAAJEIAAEoiACAAAAEAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>BSP\CBSPTriangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::CGUIText" Collapsed="true">
+    <Position X="74.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIACAAKAIEgCIAIAIAESCAAAAAgKAIAggCAAIABA=</HashCode>
+      <FileName>Gui\CGUIText.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DE::IGUITextBase" Collapsed="true">
+    <Position X="13" Y="22.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCACAAICAAAiKYAIAIABCAAAABAAKAABgACAoAAAA=</HashCode>
+      <FileName>Gui\IGUITextBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="STest" Collapsed="true">
+    <Position X="65.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CTestApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SScreenQuadVertexLight" Collapsed="true">
+    <Position X="74.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>CTestApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SLightVertexGeometry" Collapsed="true">
+    <Position X="67.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CTestApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SDeclarationElement" Collapsed="true">
+    <Position X="71" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAABAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SInputKey" Collapsed="true">
+    <Position X="64" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SInputAction" Collapsed="true">
+    <Position X="72.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAACAAAAAAAAQAEAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SInputActionDeclaration" Collapsed="true">
+    <Position X="74.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SScreenQuadElement" Collapsed="true">
+    <Position X="72.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IRenderer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DHeader" Collapsed="true">
+    <Position X="64" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DVertex" Collapsed="true">
+    <Position X="64" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAEAAAAAIIAIAAAAAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DFace" Collapsed="true">
+    <Position X="74.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAAAYAEAAAAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DMesh" Collapsed="true">
+    <Position X="74.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAEAAAEQAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DMaterial" Collapsed="true">
+    <Position X="72.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQBAAAAAAAAAACIAAAAAIIAAAAEAgAAAAAQAABAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DKeyFrame" Collapsed="true">
+    <Position X="71" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DJoint" Collapsed="true">
+    <Position X="69.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQMIABAAAAAAABgAECAIAAAAAAGgAAAAAAQAAAQAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DData" Collapsed="true">
+    <Position X="72.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAQAABAABMAACQAAACACAAQBAAgAAAAAAABAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Header" Collapsed="true">
+    <Position X="74.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAVCAAAAAAAAAABAYAAAAEAgAIABEAKAAAAAAAAgI=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Vertex" Collapsed="true">
+    <Position X="71" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAAAACAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Triangle" Collapsed="true">
+    <Position X="69.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2TextureCoordinates" Collapsed="true">
+    <Position X="67.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Frame" Collapsed="true">
+    <Position X="72.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAQAAAAACAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Skin" Collapsed="true">
+    <Position X="65.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2Face" Collapsed="true">
+    <Position X="71" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAIAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMD2InternalData" Collapsed="true">
+    <Position X="64" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAIAACAAAAQAAAAAAAAgABAAAAQAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DInternalDataMesh" Collapsed="true">
+    <Position X="67.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAACQAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMS3DInternalData" Collapsed="true">
+    <Position X="65.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SOBJInternalData" Collapsed="true">
+    <Position X="65.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAgAAgAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\COBJMesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SKerningPair" Collapsed="true">
+    <Position X="65.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgEAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFontBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SCharData" Collapsed="true">
+    <Position X="67.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAABhgAQAAAgA=</HashCode>
+      <FileName>Medias\IFontBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SCharDescriptor" Collapsed="true">
+    <Position X="69.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAABAAAQAAAgA=</HashCode>
+      <FileName>Medias\IFontBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SFontInternalData" Collapsed="true">
+    <Position X="74.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAQIAAAEAAAAAAIAgAAAAAAAAAgAAAAAAAAACAEA=</HashCode>
+      <FileName>Medias\IFontBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SFrameBufferElement" Collapsed="true">
+    <Position X="69.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SFrameBufferAttachment" Collapsed="true">
+    <Position X="64" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SFrameBufferDeclaration" Collapsed="true">
+    <Position X="65.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAACAAAAAAHAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SFrameBufferDepthDeclaration" Collapsed="true">
+    <Position X="67.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SMaterialElement" Collapsed="true">
+    <Position X="69.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAQAAAAAAAAAAAgAAAAIAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Medias\IMaterialBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::STexture2DFilterPolicy" Collapsed="true">
+    <Position X="67.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAQEAAAABAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Medias\ITexture2DBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SOGLDeclarationElement" Collapsed="true">
+    <Position X="67.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAQAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SOGLPixelFmt" Collapsed="true">
+    <Position X="69.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACCAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLEnums.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SSPotLightsShaderData" Collapsed="true">
+    <Position X="64" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAAAAAAAAIAAAAQCAIAAAAAAIAACAAAAAQAAAAAA=</HashCode>
+      <FileName>Scene\CSceneManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SPointLightsShaderData" Collapsed="true">
+    <Position X="71" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQCAAAIgAAAIAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Scene\CSceneManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SDirectionalLightsShaderData" Collapsed="true">
+    <Position X="72.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAACAAAAAAAAIAACAAAAAQAAAAAA=</HashCode>
+      <FileName>Scene\CSceneManager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SViewFrustum" Collapsed="true">
+    <Position X="69.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAQQAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\ICameraSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SBSPBrush" Collapsed="true">
+    <Position X="64" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACgAAAAAEAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>BSP\CBSPBrushNode.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SBSPBrushDefinition" Collapsed="true">
+    <Position X="65.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>BSP\CBSPSceneNode.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DE::SGUIData" Collapsed="true">
+    <Position X="71" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Gui\IGUIBase.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="DE::DeclarationPtr" Collapsed="true">
+    <Position X="64" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CRectangleI" Collapsed="true">
+    <Position X="11" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CRectangleF" Collapsed="true">
+    <Position X="8" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::TToken" Collapsed="true">
+    <Position X="69.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CTokenizer.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector2I" Collapsed="true">
+    <Position X="1" Y="24.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector2F" Collapsed="true">
+    <Position X="4" Y="26.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector3I" Collapsed="true">
+    <Position X="26" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector3F" Collapsed="true">
+    <Position X="25" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector4I" Collapsed="true">
+    <Position X="14" Y="23.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CVector4F" Collapsed="true">
+    <Position X="17" Y="25.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CDX9VertexBuffer" Collapsed="true">
+    <Position X="1.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CDX9IndexBuffer" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::COGLVertexBuffer" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLBuffer.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::COGLIndexBuffer" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLBuffer.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::TOGLDeclarationElementArray" Collapsed="true">
+    <Position X="67.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::TOGLDeclaration" Collapsed="true">
+    <Position X="65.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\OGL\COGLDeclaration.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CAABoundingBoxI" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CAABoundingBox.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CAABoundingBoxF" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CAABoundingBox.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CEllipseI" Collapsed="true">
+    <Position X="21" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CEllipse.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CEllipseF" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CEllipse.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CPlane3DI" Collapsed="true">
+    <Position X="23" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CPlane3D.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CPlane3DF" Collapsed="true">
+    <Position X="21" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CPlane3D.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CSphereI" Collapsed="true">
+    <Position X="26.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CSphere.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::CSphereF" Collapsed="true">
+    <Position X="28.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\CSphere.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::IShape3DI" Collapsed="true">
+    <Position X="24" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\IShape3D.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="DE::IShape3DF" Collapsed="true">
+    <Position X="21" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\IShape3D.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="EFPSCameraMovement" Collapsed="true">
+    <Position X="65.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAgAiABAAAAAQAAQAAAAAIAAAAAAAAAAIg=</HashCode>
+      <FileName>CFPSCamera.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EBuffersType" Collapsed="true">
+    <Position X="72.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EBuffersLock" Collapsed="true">
+    <Position X="71" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EMatrixType" Collapsed="true">
+    <Position X="67.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAHoAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EVertexDeclarationUsage" Collapsed="true">
+    <Position X="72.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAMADAAAgAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EVertexDeclarationTYPE" Collapsed="true">
+    <Position X="71" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAACAQAAAACAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EPrimitiveType" Collapsed="true">
+    <Position X="65.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAIEAAAQAACAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EPixelFormat" Collapsed="true">
+    <Position X="74.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIQIQAgAAgAIAAAAAAAAAAIBAAAgICIAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ECapability" Collapsed="true">
+    <Position X="74.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAECAAAAAAAAAAAAAAACAAAAAAAAAAAgAAACAEA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextureFlag" Collapsed="true">
+    <Position X="65.75" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextureFilterType" Collapsed="true">
+    <Position X="64" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAACAAAAACABAAAAIAAAAAAAgAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextureAddress" Collapsed="true">
+    <Position X="74.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAg=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateType" Collapsed="true">
+    <Position X="65.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAACAAIFAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ECompare" Collapsed="true">
+    <Position X="64" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAEAAAAAAAABAQAAEAAgAAAAAAIAAAAI=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateFillType" Collapsed="true">
+    <Position X="74.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateShadeType" Collapsed="true">
+    <Position X="64" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateCullType" Collapsed="true">
+    <Position X="72.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateBlendFunction" Collapsed="true">
+    <Position X="69.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgQIAAAAAAEAAAAIBMAEoAAAABIABAAAABAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderStateBlendOperation" Collapsed="true">
+    <Position X="71" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBIAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextureType" Collapsed="true">
+    <Position X="67.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEgAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EMeshShadingType" Collapsed="true">
+    <Position X="72.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EMeshAnimationState" Collapsed="true">
+    <Position X="69.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAIAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EFrameBufferAttachmentType" Collapsed="true">
+    <Position X="67.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EScreenQuadPoint" Collapsed="true">
+    <Position X="72.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAIAAAAAECAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESceneNodeType" Collapsed="true">
+    <Position X="71" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAEAAAAJAAAACAAAEAAABAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EFrustumPoint" Collapsed="true">
+    <Position X="71" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAAAAAAAAgAAAAAAAAAAAAAAAAjAQAACAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EFrustumPlane" Collapsed="true">
+    <Position X="69.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAABAgAAAAAAAggAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESceneNodeRootStructureType" Collapsed="true">
+    <Position X="69.25" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EBSPNodeType" Collapsed="true">
+    <Position X="67.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EBSPNodeChild" Collapsed="true">
+    <Position X="65.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EBSPTriangleOrientation" Collapsed="true">
+    <Position X="69.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESoundFormat" Collapsed="true">
+    <Position X="65.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESoundType" Collapsed="true">
+    <Position X="69.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESoundStatus" Collapsed="true">
+    <Position X="67.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAgQAIAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextHorizontalAlignment" Collapsed="true">
+    <Position X="72.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAABAAAAAAAAIAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ETextVerticalAlignment" Collapsed="true">
+    <Position X="69.25" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ESurfaceType" Collapsed="true">
+    <Position X="71" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EShaderProgramParameterFlag" Collapsed="true">
+    <Position X="74.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EInputKey" Collapsed="true">
+    <Position X="72.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>lFACIvoYjHpOkxiyoieFQBaA/9nEgIAKx+goI4hAajE=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EInputKeyGamepad" Collapsed="true">
+    <Position X="74.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAcAAAAAAAAAGPgHAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EInputKeyType" Collapsed="true">
+    <Position X="65.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACBAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EInputKeyState" Collapsed="true">
+    <Position X="64" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAIAIAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERectangleIntersection" Collapsed="true">
+    <Position X="67.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAAAQAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::ERenderTargetType" Collapsed="true">
+    <Position X="67.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IRenderTargetBase.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EAABoundingBoxPlane" Collapsed="true">
+    <Position X="64" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAgCAAAAAEAAAAEAAAAAQA=</HashCode>
+      <FileName>Scene\CAABoundingBox.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EPointOrientation" Collapsed="true">
+    <Position X="64" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Scene\CPlane3D.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EMeshBufferElement" Collapsed="true">
+    <Position X="71" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Scene\CMeshBuffer.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DE::EShapeType" Collapsed="true">
+    <Position X="64" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\IShape3D.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

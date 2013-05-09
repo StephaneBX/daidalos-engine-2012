@@ -1,0 +1,43 @@
+uniform float viewDistance;
+uniform float fogFalloff;
+uniform float materialNs;
+uniform float3 materialDiffuse;
+uniform float3 materialAmbient;
+uniform float3 materialSpecular;
+uniform float3 materialEmission;
+
+struct PS_INPUT
+{
+	float4 position 	: POSITION;
+	float2 texcoord		: TEXCOORD0;
+	float3 normal 		: TEXCOORD1;
+	float3 tangent 		: TEXCOORD2;
+	float3 binormal		: TEXCOORD3;
+	float  depth		: TEXCOORD4;
+};
+
+struct PS_OUTPUT
+{
+	float4 diffuse 	: COLOR0; // Diffuse + Fog factor
+	float4 normal 	: COLOR1; // Normal
+	float4 specular : COLOR2; // Specular + Ns
+	float4 depth 	: COLOR3; // Linear depth
+};
+
+sampler2D diffuseSampler;
+sampler2D normalSampler;
+
+PS_OUTPUT main(PS_INPUT IN)
+{
+	PS_OUTPUT OUT;
+	
+	float3x3 tangentToSpace = transpose(float3x3(IN.tangent, IN.binormal, IN.normal));
+	float fogFactor = IN.depth >= (viewDistance * fogFalloff) ? saturate(1.0f - (((IN.depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff))) : 1.0f;
+	
+	OUT.diffuse = float4(tex2D(diffuseSampler, IN.texcoord).xyz, fogFactor);
+	OUT.normal = float4((mul(tangentToSpace, tex2D(normalSampler, IN.texcoord).xyz * 2.0f - 1.0f) + 1.0f) / 2.0f, 1);
+	OUT.specular = float4(materialSpecular, materialNs / 128.0f);
+	OUT.depth = float4(IN.depth / viewDistance, 0, 0, 1);
+	
+	return OUT;
+}

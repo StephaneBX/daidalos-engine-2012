@@ -1,0 +1,19 @@
+#version 130
+precision highp float;
+
+uniform vec4 ambientColor;
+
+uniform sampler2D textureSampler0;
+uniform sampler2D textureSampler1;
+
+smooth in vec2 out_texcoord;
+
+out vec4 colorPS;
+
+void main()
+{
+	colorPS = vec4(0,0,0,1);
+	
+	vec4 diffuseAmbient = texture(textureSampler0, out_texcoord);
+	colorPS.xyz = clamp(diffuseAmbient.xyz * texture(textureSampler1, out_texcoord).xyz + diffuseAmbient.xyz * diffuseAmbient.w * ambientColor.xyz, 0.0f, 1.0f);
+}

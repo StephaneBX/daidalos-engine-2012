@@ -1,0 +1,106 @@
+#version 130
+precision highp float;
+
+#define EPSILON 0.0005f;
+
+uniform mat4 spotLightViewProj;
+uniform vec4 cameraPositionDistance;
+uniform vec4 spotLightPosition;
+uniform vec4 spotLightDirection;
+uniform vec4 spotLightRRFT;
+uniform vec4 spotLightColor;
+uniform float shadowMapSize;
+uniform bool shadowCaster;
+
+uniform sampler2D textureSampler0;
+uniform sampler2D textureSampler1;
+uniform sampler2D textureSampler2;
+uniform sampler2D textureSampler3;
+
+smooth in vec2 out_texcoord;
+smooth in vec3 out_viewDistance;
+
+out vec4 lightRT;
+
+float spotDistanceFactor(float distance)
+{
+	float result;
+	
+	if(distance >= spotLightRRFT.x)
+	{
+		result = 0;
+	}
+	else
+	{
+		if(distance > spotLightRRFT.x * spotLightRRFT.z)
+			result = 1 - ((distance - (spotLightRRFT.x * spotLightRRFT.z)) / ((1 - spotLightRRFT.z) * spotLightRRFT.x));
+		else 
+			result = 1;
+	}
+		
+	return result;
+}
+
+float spotTightnessFactor(float angle)
+{	
+	float result;
+	
+	if(angle > spotLightRRFT.y * spotLightRRFT.w)
+		result = 1 - ((angle - (spotLightRRFT.y * spotLightRRFT.w)) / ((1 - spotLightRRFT.w) * spotLightRRFT.y));
+	else
+		result = 1;
+	
+	return result;
+}
+
+void main()
+{
+	lightRT = vec4(0,0,0,1);
+	
+	vec3 currentPosition = cameraPositionDistance.xyz + (texture(textureSampler2, out_texcoord).r * out_viewDistance);
+	float angle = degrees(acos(dot(normalize(spotLightPosition.xyz - currentPosition), -spotLightDirection.xyz)));
+	
+	if(angle >= 0 && angle < spotLightRRFT.y && distance(currentPosition, spotLightPosition.xyz) <= spotLightRRFT.x)
+	{
+		float shadowTerm = 0.0f;
+		if(shadowCaster)
+		{
+			float fTexelSize = 1.0f / shadowMapSize;
+		
+			vec4 camToLight = spotLightViewProj * vec4(currentPosition, 1.0f);
+			vec2 shadowTexC = (camToLight.xy / camToLight.w) * vec2(0.5f, 0.5f) + vec2(0.5f + fTexelSize / 2.0f, 0.5f + fTexelSize / 2.0f);
+			
+			// Soft-edged shadows
+			vec2 vTexCoords[9];
+			vTexCoords[0] = shadowTexC;
+			vTexCoords[1] = shadowTexC + vec2(-fTexelSize, 0.0f);
+			vTexCoords[2] = shadowTexC + vec2(fTexelSize, 0.0f);
+			vTexCoords[3] = shadowTexC + vec2(0.0f, -fTexelSize);
+			vTexCoords[6] = shadowTexC + vec2(0.0f,  fTexelSize);
+			vTexCoords[4] = shadowTexC + vec2(-fTexelSize, -fTexelSize);
+			vTexCoords[5] = shadowTexC + vec2(fTexelSize, -fTexelSize);
+			vTexCoords[7] = shadowTexC + vec2(-fTexelSize,  fTexelSize);
+			vTexCoords[8] = shadowTexC + vec2(fTexelSize,  fTexelSize);
+			
+			
+			float depth = (camToLight.z / camToLight.w) - EPSILON;
+			for(int i = 0; i < 9; i++)
+				  shadowTerm += (1.0f - texture(textureSampler3, vTexCoords[i]).r) < depth ? 0.0f : 1.0f;
+			shadowTerm /= 9.0f;
+		}
+		else
+			shadowTerm = 1.0f;
+	
+		if(shadowTerm > 0.0f)
+		{
+			vec3 normal = (texture(textureSampler0, out_texcoord).xyz * 2) - 1.0f;
+			vec3 lightDir = normalize(spotLightPosition.xyz - currentPosition.xyz);
+			vec4 specularNs = texture(textureSampler1, out_texcoord);
+			
+			vec3 diffuse = spotLightColor.xyz * clamp(dot(lightDir, normal), 0.0f, 1.0f) * spotDistanceFactor(distance(currentPosition, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			vec3 specular = specularNs.xyz * spotLightColor.xyz * pow(clamp(dot(normalize(reflect(lightDir, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz)), 0.0f, 1.0f), specularNs.w * 128.0f) * spotDistanceFactor(distance(currentPosition, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			
+			lightRT.xyz = clamp(diffuse + specular, 0.0f, 1.0f) * shadowTerm;
+		}
+	}
+}

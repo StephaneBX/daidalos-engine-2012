@@ -1,0 +1,34 @@
+#version 130
+precision highp float;
+
+uniform float viewDistance;
+uniform float fogFalloff;
+uniform float materialNs;
+uniform vec3 materialDiffuse;
+uniform vec3 materialAmbient;
+uniform vec3 materialSpecular;
+uniform vec3 materialEmission;
+uniform sampler2D textureSampler0;
+uniform sampler2D textureSampler1;
+
+smooth in vec2 out_texcoord;
+smooth in vec3 out_normal;
+smooth in vec3 out_tangent;
+smooth in vec3 out_binormal;
+smooth in float depth;
+
+out vec4 diffuseRT;  // Diffuse + Fog factor
+out vec4 normalRT;   // Normal
+out vec4 specularRT; // Specular + Ns
+out float depthRT;   // Linear depth
+
+void main()
+{
+	mat3 tangentToSpace = transpose(mat3(out_tangent, out_binormal, out_normal));
+	float fogFactor = depth >= (viewDistance * fogFalloff) ? clamp(1.0f - (((depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff)), 0.0f, 1.0f) : 1.0f;
+	
+	diffuseRT = vec4(texture(textureSampler0, out_texcoord).xyz, fogFactor);
+	normalRT = vec4((((texture(textureSampler1, out_texcoord).xyz * 2.0f - 1.0f) * tangentToSpace) + 1.0f) / 2.0f, 1);
+	specularRT = vec4(materialSpecular, materialNs / 128.0f);
+	depthRT = depth / viewDistance;
+}

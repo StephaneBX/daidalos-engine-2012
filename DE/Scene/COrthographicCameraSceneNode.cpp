@@ -1,0 +1,114 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#include "../Scene/COrthographicCameraSceneNode.h"
+
+namespace DE
+{
+	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleI & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance)
+	{
+		SetBounds(bounds);
+	}
+
+	COrthographicCameraSceneNode::~COrthographicCameraSceneNode() {}
+
+	void COrthographicCameraSceneNode::SetBounds(const CRectangleI & bounds)
+	{
+		this->m_bounds = bounds;
+	}
+
+	void COrthographicCameraSceneNode::Update(const float time)
+	{
+		// Update the camera information
+		ICameraSceneNode::Update();
+
+		// Update the orthographic information
+		this->m_projMatrix.OrthoView((float)this->m_bounds.GetLeft(), (float)this->m_bounds.GetRight(), (float)this->m_bounds.GetBottom(), (float)this->m_bounds.GetTop(), this->m_nearDistance, this->m_farDistance);
+
+		// Update the view proj matrix
+		this->m_viewProjMatrix = this->m_viewMatrix * this->m_projMatrix;
+
+		/**
+		* Update the view frustum information
+		*/
+
+		// Z axis camera
+		this->m_frustum.forward = (this->m_absoluteLookAt - this->m_absolutePosition).Normalize();
+
+		// Find the absolute points
+		CMatrix viewProjMatrixInv = this->m_viewProjMatrix.Inverse();
+		CVector4F frustumCorner[FRUSTUM_POINT_SIZE];
+
+		// Screen space coordinates
+		frustumCorner[FRUSTUM_POINT_NEAR_TOP_LEFT] = CVector4F(-1.0f, 1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_NEAR_TOP_RIGHT] = CVector4F(1.0f, 1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] = CVector4F(1.0f, -1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT] = CVector4F(-1.0f, -1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_TOP_LEFT] = CVector4F(-1.0f, 1.0f, 1.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_TOP_RIGHT] = CVector4F(1.0f, 1.0f, 1.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_LEFT] = CVector4F(1.0f, -1.0f, 1.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = CVector4F(-1.0f, -1.0f, 1.0f, 1.0f);
+
+		// Screen space to world space
+		for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
+		{
+			frustumCorner[i] = viewProjMatrixInv.Transform(frustumCorner[i]);
+			frustumCorner[i].x /= frustumCorner[i].w;
+			frustumCorner[i].y /= frustumCorner[i].w;
+			frustumCorner[i].z /= frustumCorner[i].w;
+
+			this->m_frustum.absolutePoints[i] = CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z);
+		}
+
+		// Find the relative points
+		for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
+		{
+			this->m_frustum.relativePoints[i] = this->m_frustum.absolutePoints[i] - this->m_absolutePosition;
+		}
+
+		// Table creation for the frustum planes
+		CVector3F leftFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT]};
+		CVector3F rightFrustrum[3]  = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
+		CVector3F topFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT]};
+		CVector3F bottomFrustrum[3] = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT]};
+		CVector3F nearFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT]};
+		CVector3F farFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
+
+		// Update the frustum planes
+		this->m_frustum.planes[FRUSTUM_PLANE_LEFT].Build(leftFrustrum);
+		this->m_frustum.planes[FRUSTUM_PLANE_RIGHT].Build(rightFrustrum);
+		this->m_frustum.planes[FRUSTUM_PLANE_TOP].Build(topFrustrum);
+		this->m_frustum.planes[FRUSTUM_PLANE_BOTTOM].Build(bottomFrustrum);
+		this->m_frustum.planes[FRUSTUM_PLANE_NEAR].Build(nearFrustrum);
+		this->m_frustum.planes[FRUSTUM_PLANE_FAR].Build(farFrustrum);
+	}
+
+	const CRectangleI & COrthographicCameraSceneNode::GetBounds() const
+	{
+		return this->m_bounds;
+	}
+}

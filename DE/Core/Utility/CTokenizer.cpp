@@ -1,0 +1,191 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#include <fstream>
+#include "../../Core/Utility/CTokenizer.h"
+
+namespace DE
+{
+	CTokenizer::CTokenizer(){}
+
+	CTokenizer::CTokenizer(const std::string & filename)
+	{
+		OpenFile(filename);
+	}
+
+	CTokenizer::CTokenizer(const std::string & filename, const std::vector<std::string> & filterList)
+	{
+		bool valid = false;
+		std::string tmpLine;
+		this->m_tokens.clear();
+		this->m_buffer.clear();
+
+		// Open the file.
+		std::fstream file(filename.c_str());
+		if(file.is_open())
+		{
+			// While there is no errors.
+			while(file.good())
+			{
+				// Get a line.
+				std::getline(file, tmpLine);
+
+				// Ignore it if it start with a comment.
+				if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0)
+				{
+					// If a filter list is given, verify that the beginning of the line is recognized.
+					for(unsigned int i = 0 ; i < filterList.size() && !valid ; i++)
+					{
+						if(tmpLine.substr(0, filterList.at(i).length()) == filterList.at(i))
+							valid = true;
+					}
+
+					// If the line is valid, add it to the tokens.
+					if(valid)
+					{
+						this->m_tokens.push_back(tmpLine);
+						valid = false;
+					}
+				}
+			}
+			file.close();
+		}
+	}
+
+	CTokenizer::~CTokenizer(){}
+
+	void CTokenizer::OpenFile(const std::string & filename)
+	{
+		std::string tmpLine;
+		this->m_tokens.clear();
+		this->m_buffer.clear();
+
+		// Open the file.
+		std::fstream file(filename.c_str());
+
+		// While there is no errors.
+		while(file.good())
+		{
+			// Get a line.
+			std::getline(file, tmpLine);
+
+			// If the line isn't a comment, add it to the tokens.
+			if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0)
+				this->m_tokens.push_back(tmpLine);
+		}
+		file.close();
+	}
+
+	void CTokenizer::AddLine(const std::string & line)
+	{
+		this->m_tokens.push_back(line);
+	}
+
+	void CTokenizer::Clear()
+	{
+		this->m_tokens.clear();
+	}
+
+	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit)
+	{
+		bool valid = true;
+		this->m_buffer.clear();
+		int elementCount;
+
+		// Iterate through the tokens.
+		for(unsigned int i = 0 ; i < this->m_tokens.size() && valid ; i++)
+		{
+			// Split each token with the given delimiter.
+			elementCount = SplitString(this->m_tokens.at(i), delimiter);
+
+			// The tokenization process is valid if the number of split is not over maxSplit or if maxSplit = 0
+			if(maxSplit > 0 && elementCount != 1 && elementCount != maxSplit)
+				valid = false;
+		}
+
+		// Clear the tokens
+		this->m_tokens.clear();
+
+		// Put back the tokens in the tokens buffer.
+		for(unsigned int i = 0 ; i < this->m_buffer.size() && valid ; i++)
+			this->m_tokens.push_back(this->m_buffer.at(i));
+
+		return valid;
+	}
+
+	const int CTokenizer::Count(const std::string & token) const
+	{
+		int count = 0;
+
+		for(unsigned int i = 0 ; i < this->m_tokens.size() ; i++)
+		{
+			if(this->m_tokens.at(i) == token)
+				count++;
+		}
+
+		return count;
+	}
+
+	const TToken & CTokenizer::GetTokens() const
+	{
+		return this->m_tokens;
+	}
+
+	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter)
+	{
+		int elementCount = 1;
+		unsigned int start = 0;
+		unsigned int end = 0;
+		unsigned int size = 0;
+
+		// While the end of the token is not reached.
+		while(start < token.length())
+		{
+			// Find the next delimiter position.
+			end = token.find(delimiter, start);
+
+			// If a new split position is found.
+			if(end >= start && end < token.length())
+			{
+				// Push it in the temporary buffer.
+				size = end - start;
+				if(size > 0)
+					this->m_buffer.push_back(token.substr(start, size));
+
+				start = end + 1;
+				elementCount++;
+			}
+			else
+			{
+				// Push the remaining data in the temporary buffer.
+				this->m_buffer.push_back(token.substr(start, token.length() - start));
+				start = token.length() + 1;
+			}
+		}
+		return elementCount;
+	}
+}
