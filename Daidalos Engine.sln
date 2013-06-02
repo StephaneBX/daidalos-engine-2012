@@ -18,6 +18,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample 3", "Sample 3\Sample
 		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unit Test", "Unit Test\Unit Test.vcxproj", "{CFD0E207-244A-44B1-90C7-3A2F051155A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -40,6 +45,10 @@ Global
 		{1B437FE4-452D-4FA9-A3F9-A6C6193E1663}.Debug|Win32.Build.0 = Debug|Win32
 		{1B437FE4-452D-4FA9-A3F9-A6C6193E1663}.Release|Win32.ActiveCfg = Release|Win32
 		{1B437FE4-452D-4FA9-A3F9-A6C6193E1663}.Release|Win32.Build.0 = Release|Win32
+		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Debug|Win32.Build.0 = Debug|Win32
+		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Release|Win32.ActiveCfg = Release|Win32
+		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

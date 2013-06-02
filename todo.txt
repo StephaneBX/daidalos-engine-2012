@@ -46,19 +46,11 @@
 	IShape * collisionShape;
 	void Slide(IShape * shape, CImptact * movement);
 	void SetCollisionEnabled(const bool enabled);
-	void SetCollisionShape(IShape * shape);
+	void SetMeshCollisionShape(IShape * shape);
 	const bool IsCollisionEnabled() const;
 
 	
 Ignorer les noeuds inconnus
-
-
-
-
-functional
-- IEntity
-- ITriggerableEntity
-- ITriggerEntity
 	
 ===============================================================
                              Portals
