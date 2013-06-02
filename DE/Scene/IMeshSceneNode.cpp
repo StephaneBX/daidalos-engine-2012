@@ -155,7 +155,7 @@ namespace DE
 		// Activation check
 		this->m_active = !CSceneManager::GetInstance()->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
 
-		if(this->m_active)
+		if(this->m_active && this->m_enabled)
 		{
 			if(this->m_needGeometryUpdate)
 				FinalizeGeometry();

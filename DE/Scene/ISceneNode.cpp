@@ -42,6 +42,7 @@ namespace DE
 		this->m_localRotation = CVector3F(0,0,0);
 		this->m_localScale = CVector3F(1,1,1);
 		this->m_active = true;
+		this->m_enabled = true;
 	}
 
 	ISceneNode::ISceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation)
@@ -56,6 +57,7 @@ namespace DE
 		this->m_localRotation = rotation;
 		this->m_localScale = CVector3F(1,1,1);
 		this->m_active = true;
+		this->m_enabled = true;
 	}
 
 	
@@ -80,6 +82,11 @@ namespace DE
 		this->m_attributes[attributeName] = attributeValue;
 	}
 
+	void ISceneNode::SetEnabled(const bool enabled)
+	{
+		this->m_enabled = enabled;
+	}
+
 	void ISceneNode::SetPosition(const CVector3F & position)
 	{
 		this->m_localPosition = position;
@@ -93,11 +100,6 @@ namespace DE
 	void ISceneNode::SetScale(const CVector3F & scale)
 	{
 		this->m_localScale = scale;
-	}
-
-	void ISceneNode::SetActive(const bool active)
-	{
-		this->m_active = active;
 	}
 
 	void ISceneNode::Update(const float time)
@@ -163,14 +165,19 @@ namespace DE
 		return this->m_type;
 	}
 
-	const bool ISceneNode::IsTriggerable() const
+	const bool ISceneNode::IsCollidable() const
 	{
 		return false;
 	}
 
-	const bool ISceneNode::IsCollidable() const
+	const bool ISceneNode::IsEnabled() const
 	{
-		return false;
+		return this->m_enabled;
+	}
+
+	const bool ISceneNode::IsActive() const
+	{
+		return this->m_active;
 	}
 
 	const bool ISceneNode::RemoveChild(ISceneNode * child)

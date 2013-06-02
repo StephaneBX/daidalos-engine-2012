@@ -48,8 +48,8 @@ namespace DE
 		// Update the absolute position
 		ILightSceneNode::Update(time);
 
-		// If active, add it to the active lights list
-		if(this->m_active)
+		// If active and enabled, add it to the active lights list
+		if(this->m_active && this->m_enabled)
 		{
 			SDirectionalLightsShaderData * lights = CSceneManager::GetInstance()->GetActiveDirectionalLightsBuffer();
 

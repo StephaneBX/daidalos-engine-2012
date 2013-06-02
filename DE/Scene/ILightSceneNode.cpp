@@ -53,7 +53,7 @@ namespace DE
 
 	ILightSceneNode::ILightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(parent, name, position, rotation)
 	{
-		SetActive(enabled);
+		SetEnabled(enabled);
 		SetColor(color);
 		SetShadowCaster(shadowCaster);
 	}

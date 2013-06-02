@@ -25,30 +25,39 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __ITRIGGERLISTENER_H
-#define __ITRIGGERLISTENER_H
+#define ROTATION_SPEED 45
+#define TRIGGER_RADIUS 5
 
-namespace DE
+#include <Core/Utility/CVector3.h>
+#include "CFlashlightEntity.h"
+
+namespace SAMPLE3
 {
-	/**
-	* Basic class for trigger nodes
-	*/
-	class ITriggerListener
+	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, CFPSCamera * camera)
 	{
-	public:
-		/**
-		* Trigger the action if the requirments are met
-		*/
-		virtual void Trigger() = 0;
+		this->m_node = meshNode;
+		this->m_light = lightNode;
+		this->m_player = camera;
 
-	protected:
-		/**
-		* Check if a given shape triggers the node
-		* @param shape The shape to test with
-		* @return True if the node can be triggered
-		*/
-		virtual const bool CheckTrigger(const IShape3DF * shape) = 0;
-	};
+		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.SetRelativeToListener(true);
+	}
+
+	void CFlashlightEntity::Update(float const time)
+	{
+		DE::CVector3F rotation = this->m_node->GetRotation();
+		rotation.y += (ROTATION_SPEED * time) / 1000.0f;
+		if(rotation.y > 360)
+		{
+			rotation.y -= 360;
+		}
+		this->m_node->SetRotation(rotation);
+
+		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS)
+		{
+			this->m_node->SetEnabled(false);
+			this->m_light->SetEnabled(true);
+			this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+		}
+	}
 }
-
-#endif

@@ -489,13 +489,7 @@
     <ClInclude Include="BSP\CBSPPortal.h">
       <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\ITriggerableSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\CEmptySceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\ITriggerListener.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
   </ItemGroup>
@@ -814,9 +808,6 @@
     </ClCompile>
     <ClCompile Include="BSP\CBSPPortal.cpp">
       <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\ITriggerableSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene\CEmptySceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>

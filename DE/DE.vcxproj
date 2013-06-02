@@ -143,8 +143,6 @@
     <ClInclude Include="Scene\CSoundSceneNode.h" />
     <ClInclude Include="Scene\CSpotLightSceneNode.h" />
     <ClInclude Include="Scene\CStaticMeshSceneNode.h" />
-    <ClInclude Include="Scene\ITriggerableSceneNode.h" />
-    <ClInclude Include="Scene\ITriggerListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Applications\ISDLApplication.cpp" />
@@ -253,7 +251,6 @@
     <ClCompile Include="Scene\CSoundSceneNode.cpp" />
     <ClCompile Include="Scene\CSpotLightSceneNode.cpp" />
     <ClCompile Include="Scene\CStaticMeshSceneNode.cpp" />
-    <ClCompile Include="Scene\ITriggerableSceneNode.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>

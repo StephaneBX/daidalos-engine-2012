@@ -51,6 +51,14 @@
 
 	
 Ignorer les noeuds inconnus
+
+
+
+
+functional
+- IEntity
+- ITriggerableEntity
+- ITriggerEntity
 	
 ===============================================================
                              Portals

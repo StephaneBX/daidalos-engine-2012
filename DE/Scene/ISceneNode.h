@@ -46,6 +46,7 @@ namespace DE
 	class ISceneNode 
 	{
 	protected:
+		bool m_enabled;
 		bool m_active;
 		std::string m_name;
 		ESceneNodeType m_type;
@@ -108,6 +109,12 @@ namespace DE
 		void AddAttribute(const std::string & attributeName, const std::string attributeValue);
 
 		/**
+		* Set the node enabled status
+		* @param enabled The enabled status
+		*/
+		void SetEnabled(const bool enabled);
+
+		/**
 		* Set the local position
 		* @param position The local position
 		*/
@@ -124,12 +131,6 @@ namespace DE
 		* @param scale The local scale
 		*/
 		virtual void SetScale(const CVector3F & scale);
-
-		/**
-		* Set the node active status
-		* @param active The active status
-		*/
-		virtual void SetActive(const bool active);
 
 		/**
 		* Update the absolute position
@@ -161,15 +162,21 @@ namespace DE
 		ESceneNodeType GetType() const;
 
 		/**
-		* Check if the node is triggerable
-		* @return True if the node is triggerable
-		*/
-		virtual const bool IsTriggerable() const;
-
-		/**
 		* Check if the node is collidable
 		*/
 		virtual const bool IsCollidable() const;
+
+		/**
+		* Check if the node is enabled
+		* @return True if the node is enabled
+		*/
+		const bool IsEnabled() const;
+
+		/**
+		* Check if the node is active
+		* @return True if the node is active
+		*/
+		const bool IsActive() const;
 
 		/**
 		* Remove a child from the node

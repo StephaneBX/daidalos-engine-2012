@@ -56,8 +56,8 @@ namespace DE
 		// Update the data
 		IBoundedLightSceneNode::Update(time);
 
-		// If active, add it to the active lights list
-		if(this->m_active)
+		// If active and enabled, add it to the active lights list
+		if(this->m_active && this->m_enabled)
 		{
 			SSPotLightsShaderData * lights = scene->GetActiveSpotLightsBuffer();
 
