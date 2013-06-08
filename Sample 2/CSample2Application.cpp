@@ -141,7 +141,7 @@ namespace SAMPLE2
 		// --------------------------------------------------------------------------------------------------
 
 		this->m_scene->LoadScene("sample2.des");
-		this->m_camera = std::unique_ptr<CFPSCamera>(new CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player"), 0.5f));
+		this->m_camera = std::unique_ptr<CFPSCamera>(new CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
 		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene->GetNode("spotLight1");
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
 

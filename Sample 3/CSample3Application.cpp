@@ -142,7 +142,7 @@ namespace SAMPLE3
 		// --------------------------------------------------------------------------------------------------
 
 		this->m_scene->LoadScene("sample3.des");
-		this->m_camera = std::unique_ptr<CFPSCamera>(new CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player"), 0.5f));
+		this->m_camera = std::unique_ptr<CFPSCamera>(new CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
 
 		DE::SDeclarationElement decl[] =

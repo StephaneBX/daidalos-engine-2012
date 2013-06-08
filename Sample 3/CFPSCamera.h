@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CVector3.h>
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
+#include <SiniP/SiniP.h>
 
 namespace SAMPLE3
 {
@@ -58,7 +59,6 @@ namespace SAMPLE3
 	{
 	private:
 		unsigned int m_state;
-		float m_smooth;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
 		DE::CVector3F m_gravity;
@@ -67,13 +67,13 @@ namespace SAMPLE3
 		DE::CEllipseF m_shape;
 		DE::CSceneManager * m_scene;
 		DE::CSoundContextManager * m_soundContext;
+		SiniP m_options;
 
 	public:
 		/**
 		* @param cameraNode The camera node
-		* @param smooth The smooth view factor
 		*/
-		CFPSCamera(DE::ICameraSceneNode * cameraNode, const float smooth);
+		CFPSCamera(DE::ICameraSceneNode * cameraNode);
 
 		/**
 		* Update the camera

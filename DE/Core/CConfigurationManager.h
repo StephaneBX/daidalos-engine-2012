@@ -37,6 +37,7 @@ namespace DE
 	#define APPLICATION_OPTION_SECTION_GENERAL "general"
 	#define APPLICATION_OPTION_SECTION_SHADOWS "shadows"
 	#define APPLICATION_OPTION_SECTION_GAMEPAD "gamepad"
+	#define APPLICATION_OPTION_SECTION_MOUSE "mouse"
 
 	#define APPLICATION_OPTION_GENERAL_RENDERER "renderer"
 	#define APPLICATION_OPTION_GENERAL_RESOLUTION_X "resolution_x"
@@ -54,6 +55,9 @@ namespace DE
 	#define APPLICATION_OPTION_SHADOWS_MAX_POINTLIGHT_SOURCES "max_pointlight_sources"
 
 	#define APPLICATION_OPTION_GAMEPAD_DEAD_ZONE "dead_zone"
+
+	#define APPLICATION_OPTION_MOUSE_SENSIBILITY "sensibility"
+	#define APPLICATION_OPTION_MOUSE_SMOOTHING "smoothing"
 
 	/**
 	* Handle the ini configuration files of the engine

@@ -33,19 +33,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <limits>
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
+#include <Core/CConfigurationManager.h>
 #include "CFPSCamera.h"
 
 namespace SAMPLE1
 {
-	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode, const float smooth)
+	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode)
 	{
 		this->m_state = 0;
 		this->m_node = cameraNode;
-		this->m_smooth = smooth;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_scene = DE::CSceneManager::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
+		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		DE::SInputActionDeclaration decl[] = 
 		{
@@ -231,18 +232,18 @@ namespace SAMPLE1
 			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
 			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond;
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond;
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 
 			this->m_inputDevice->ResetMouseMovement();
 		}
 		else
 		{
 			// No movement detected this frame, use the smooth factor instead
-			this->m_previousMouseMovement *= this->m_smooth;
+			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond;
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond;
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 		}
 
 		// Keyboard view
