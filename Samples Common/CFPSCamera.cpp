@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CConfigurationManager.h>
 #include "CFPSCamera.h"
 
-namespace SAMPLE1
+namespace SAMPLES
 {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode)
 	{

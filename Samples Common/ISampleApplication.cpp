@@ -35,9 +35,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CMaterial.h>
 #include <Medias/CStaticMesh.h>
 #include <Medias/CFont.h>
-#include "CSample3Application.h"
+#include "ISampleApplication.h"
 
-namespace SAMPLE3
+namespace SAMPLES
 {
 	/**
 	* Test structure
@@ -63,7 +63,7 @@ namespace SAMPLE3
 		DE::CVector3F vertex;
 	};
 
-	CSample3Application::CSample3Application(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine")
+	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine")
 	{
 		this->m_scene = DE::CSceneManager::GetInstance();
 
@@ -140,11 +140,6 @@ namespace SAMPLE3
 		// --------------------------------------------------------------------------------------------------
 		// Deferred Shading
 		// --------------------------------------------------------------------------------------------------
-
-		this->m_scene->LoadScene("sample3.des");
-		this->m_camera = std::unique_ptr<CFPSCamera>(new CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
-
 		DE::SDeclarationElement decl[] =
 		{
 			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
@@ -154,48 +149,14 @@ namespace SAMPLE3
 			{0, DE::DECLARATION_USAGE_NORMAL2, DE::DECLARATION_TYPE_FLOAT3}
 		};
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(decl);
-
-		this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
-		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-
-		// Load the flashlight
-		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene->GetNode("flashlight_entity"), this->m_scene->GetNode("flashlight_spot"), this->m_camera.get()));
-
-		// Load the health bonus
-		std::vector<DE::ISceneNode*> health = this->m_scene->GetNodeArray("health_entity");
-		for(auto it = health.begin() ; it != health.end() ; it++)
-		{
-			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
-			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
-		}
-
-		MainLoop();
 	}
 
-	CSample3Application::~CSample3Application() 
+	ISampleApplication::~ISampleApplication() 
 	{
 		DE::CSceneManager::Kill();
 	}
 
-	void CSample3Application::Update(const float time) 
-	{
-		if(this->m_input->IsActionActive(FPS_CAMERA_EXIT))
-			this->m_alive = false;
-
-		this->m_camera->Update(time);
-
-		this->m_scene->UpdateAll(time);
-
-		// Update the entities
-		this->m_flashlight->Update(time);
-
-		for(auto it = this->m_health.begin() ; it != this->m_health.end() ; it++)
-		{
-			(*it)->Update(time);
-		}
-	}
-
-	void CSample3Application::Render()
+	void ISampleApplication::Render()
 	{
 		this->m_renderer->BeginScene();
 
@@ -204,7 +165,7 @@ namespace SAMPLE3
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 		this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("diffuseRT", 0);
 		this->m_DSFB.AttachElement("normalRT", 1);
@@ -215,7 +176,7 @@ namespace SAMPLE3
 		this->m_renderer->SetShaderProgram(this->m_DSFill.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 1.0f));
-		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_camera->GetCameraNode()->GetFarDistance());
+		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		this->m_scene->RenderAll();
 
@@ -224,10 +185,10 @@ namespace SAMPLE3
 		// ------------------------------
 		SScreenQuadVertexLight lightScreenQuad[] =
 		{
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].texcoord, this->m_camera->GetCameraNode()->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_RIGHT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].texcoord, this->m_camera->GetCameraNode()->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_LEFT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].texcoord, this->m_camera->GetCameraNode()->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_LEFT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].texcoord, this->m_camera->GetCameraNode()->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_RIGHT)}
+			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_RIGHT)},
+			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_LEFT)},
+			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_LEFT)},
+			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_RIGHT)}
 		};
 		this->m_screenQuadLightVB.Fill(lightScreenQuad, sizeof(SScreenQuadVertexLight), 4);
 
@@ -235,7 +196,7 @@ namespace SAMPLE3
 		// ------------------------------
 		// Deferred Shading: Spot / Point lights
 		// ------------------------------
-		DE::CVector4F cameraPositionDistance(this->m_camera->GetCameraNode()->GetPosition(), this->m_camera->GetCameraNode()->GetFarDistance());
+		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("lightRT", 0);
@@ -304,7 +265,7 @@ namespace SAMPLE3
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
 
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
 		this->m_renderer->SetShaderProgram(this->m_DSDirectionalLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());

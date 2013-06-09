@@ -5,6 +5,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Daidalos Engine", "DE\DE.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample 1", "Sample 1\Sample 1.vcxproj", "{BA7A5EB3-28D3-4AAD-A0F1-1E34E3455FBD}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8} = {B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}
 		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
 	EndProjectSection
 EndProject
@@ -19,6 +20,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample 3", "Sample 3\Sample
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unit Test", "Unit Test\Unit Test.vcxproj", "{CFD0E207-244A-44B1-90C7-3A2F051155A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Samples Common", "Samples Common\Samples Common.vcxproj", "{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
 	EndProjectSection
@@ -49,6 +55,10 @@ Global
 		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Debug|Win32.Build.0 = Debug|Win32
 		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Release|Win32.ActiveCfg = Release|Win32
 		{CFD0E207-244A-44B1-90C7-3A2F051155A0}.Release|Win32.Build.0 = Release|Win32
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Debug|Win32.Build.0 = Debug|Win32
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Release|Win32.ActiveCfg = Release|Win32
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

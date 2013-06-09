@@ -10,6 +10,13 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CSampleApplication.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CSampleApplication.cpp" />
+    <ClCompile Include="sample.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D3A6D256-D218-41C4-8EC3-A7FC47D6F90E}</ProjectGuid>
     <RootNamespace>Sample2</RootNamespace>
@@ -46,7 +53,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Dependencies\Includes;..\DE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\Includes;..\DE;..\Samples Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -60,7 +67,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\Dependencies\Includes;..\DE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Samples Common;..\DE;..\Dependencies\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -69,15 +76,6 @@
       <AdditionalLibraryDirectories>..\Dependencies\Libs;..\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="CFPSCamera.h" />
-    <ClInclude Include="CSample2Application.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CFPSCamera.cpp" />
-    <ClCompile Include="CSample2Application.cpp" />
-    <ClCompile Include="sample2.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

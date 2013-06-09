@@ -15,21 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CFPSCamera.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="CSample2Application.h">
+    <ClInclude Include="CSampleApplication.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CFPSCamera.cpp">
+    <ClCompile Include="CSampleApplication.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="CSample2Application.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="sample2.cpp">
+    <ClCompile Include="sample.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

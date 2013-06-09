@@ -25,86 +25,36 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CFPSCAMERA_H
-#define __CFPSCAMERA_H
+#include "CSampleApplication.h"
 
-#include <Scene/ICameraSceneNode.h>
-#include <Scene/CSceneManager.h>
-#include <Scene/CEllipse.h>
-#include <Core/Utility/CVector3.h>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
-#include <SiniP/SiniP.h>
-
-namespace SAMPLE3
+namespace SAMPLE2
 {
-	enum EFPSCameraMovement
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow)
 	{
-		FPS_CAMERA_EXIT			= 1 << 1,
-		FPS_CAMERA_STRAFELEFT	= 1 << 2,
-		FPS_CAMERA_STRAFERIGHT	= 1 << 3,
-		FPS_CAMERA_FORWARD		= 1 << 4,
-		FPS_CAMERA_BACKWARD		= 1 << 5,
-		FPS_CAMERA_JUMP			= 1 << 6,
-		FPS_CAMERA_LOOKUP		= 1 << 7,
-		FPS_CAMERA_LOOKDOWN		= 1 << 8,
-		FPS_CAMERA_LOOKLEFT		= 1 << 9,
-		FPS_CAMERA_LOOKRIGHT	= 1 << 10
-	};
+		this->m_scene->LoadScene("sample2.des");
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
+		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene->GetNode("spotLight1");
+		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_activeCamera = this->m_camera->GetCameraNode();
 
-	/**
-	* FPS type camera implementation
-	*/
-	class CFPSCamera
+		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+
+		MainLoop();
+	}
+
+	CSampleApplication::~CSampleApplication() {}
+
+	void CSampleApplication::Update(const float time) 
 	{
-	private:
-		unsigned int m_state;
-		DE::CVector2F m_previousMouseMovement;
-		DE::CVector3F m_rotation;
-		DE::CVector3F m_gravity;
-		DE::ICameraSceneNode * m_node;
-		DE::CInputDevice * m_inputDevice;
-		DE::CEllipseF m_shape;
-		DE::CSceneManager * m_scene;
-		DE::CSoundContextManager * m_soundContext;
-		SiniP m_options;
+		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
+			this->m_alive = false;
 
-	public:
-		/**
-		* @param cameraNode The camera node
-		*/
-		CFPSCamera(DE::ICameraSceneNode * cameraNode);
+		this->m_camera->Update(time);
 
-		/**
-		* Update the camera
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
+		DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
+		lightRotation.y += (40 * time) / 1000.0f;
+		this->m_spotLight->SetRotation(lightRotation);
 
-		/**
-		* Get the camera node
-		* @return The camera node
-		*/
-		DE::ICameraSceneNode * GetCameraNode() const;
-
-	private:
-		/**
-		* Update the state
-		*/
-		void UpdateState();
-
-		/**
-		* Update the movement
-		* @param timeSecond Elapsed time
-		*/
-		void UpdateMovement(const float timeSecond);
-
-		/**
-		* Update the view
-		* @param timeSecond Elapsed time
-		*/
-		void UpdateView(const float timeSecond);
-	};
+		this->m_scene->UpdateAll(time);
+	}
 }
-
-#endif

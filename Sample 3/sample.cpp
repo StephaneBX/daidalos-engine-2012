@@ -1,10 +1,11 @@
-#include "CSample3Application.h"
+#include "CSampleApplication.h"
 
 #pragma comment(lib, "Daidalos Engine.lib")
+#pragma comment(lib, "Samples Common.lib")
 
 void mainTest(HINSTANCE hInstance, int nCmdShow)
 {
-	SAMPLE3::CSample3Application app(hInstance, nCmdShow);
+	SAMPLE3::CSampleApplication app(hInstance, nCmdShow);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

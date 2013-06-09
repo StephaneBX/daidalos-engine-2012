@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLE3
 {
-	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, CFPSCamera * camera)
+	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera)
 	{
 		this->m_node = meshNode;
 		this->m_player = camera;

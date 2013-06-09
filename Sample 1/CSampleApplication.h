@@ -25,55 +25,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSAMPLE3APPLICATION_H
-#define __CSAMPLE3APPLICATION_H
+#ifndef __CSAMPLEAPPLICATION_H
+#define __CSAMPLEAPPLICATION_H
 
-#include <Scene/CSceneManager.h>
-#include <Scene/CStaticMeshSceneNode.h>
-#include <Scene/CAnimatedMeshSceneNode.h>
-#include <Scene/CSpotLightSceneNode.h>
-#include <Scene/CPointLightSceneNode.h>
-#include <Scene/CDirectionalLightSceneNode.h>
-#include <Medias/CBuffer.h>
-#include <Medias/CShaderProgram.h>
-#include <Medias/CTexture2D.h>
-#include <Medias/CFrameBuffer.h>
-#include <GUI/CGUIText.h>
-#include <Core/Utility/CColor.h>
-#include <Core/IRenderer.h>
-#include <Core/IDeclaration.h>
-#include <Applications/IWin32Application.h>
-#include "CFPSCamera.h"
-#include "CFlashlightEntity.h"
-#include "CHealthEntity.h"
+#include <ISampleApplication.h>
+#include <CFreeCamera.h>
 
-namespace SAMPLE3
+namespace SAMPLE1
 {
 	/**
 	* Test application implementation
 	*/
-	class CSample3Application : public DE::IWin32Application 
+	class CSampleApplication : public SAMPLES::ISampleApplication
 	{
 	private:
-		DE::CSceneManager * m_scene;
-		DE::DeclarationPtr m_declaration;
-		std::unique_ptr<CFPSCamera> m_camera;
-		std::unique_ptr<CFlashlightEntity> m_flashlight;
-		std::vector<std::unique_ptr<CHealthEntity> > m_health;
-
-		// Deferred Shading
-		DE::CFrameBuffer m_DSFB;
-		DE::CBuffer m_screenQuadLightVB;
-		DE::CBuffer m_screenQuadFinalVB;
-		DE::DeclarationPtr m_lightGeometryVD;
-		DE::DeclarationPtr m_screenQuadLightVD;
-		DE::DeclarationPtr m_screenQuadLightVD2;
-		DE::DeclarationPtr m_screenQuadFinalVD;
-		DE::CShaderProgram m_DSFill;
-		DE::CShaderProgram m_DSShadowSpotLight;
-		DE::CShaderProgram m_DSSpotLight;
-		DE::CShaderProgram m_DSDirectionalLight;
-		DE::CShaderProgram m_DSFinal;
+		DE::CSpotLightSceneNode * m_spotLight;
+		std::unique_ptr<SAMPLES::CFreeCamera> m_camera;
 
 	public:
 		/**
@@ -81,23 +48,18 @@ namespace SAMPLE3
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		CSample3Application(const HINSTANCE hInstance, const int nCmdShow);
+		CSampleApplication(const HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor
 		*/
-		~CSample3Application();
+		~CSampleApplication();
 
 		/**
 		* Update the application
 		* @param time Elapsed time
 		*/
-		void Update(const float time);
-
-		/**
-		* Render the application
-		*/
-		void Render();
+		virtual void Update(const float time);
 	};
 }
 

@@ -41,7 +41,7 @@ namespace SAMPLE3
 	{
 	private:
 		DE::ISceneNode * m_node;
-		CFPSCamera * m_player;
+		SAMPLES::CFPSCamera * m_player;
 		DE::CSound m_sound;
 		float m_respawnTime;
 
@@ -50,7 +50,7 @@ namespace SAMPLE3
 		* @param node The health node
 		* @param camera The player
 		*/
-		CHealthEntity(DE::ISceneNode * meshNode, CFPSCamera * camera);
+		CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera);
 
 		/**
 		* Update the health

@@ -25,87 +25,49 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CFPSCAMERA_H
-#define __CFPSCAMERA_H
+#include "CSampleApplication.h"
 
-#include <Scene/ICameraSceneNode.h>
-#include <Scene/CSceneManager.h>
-#include <Scene/CEllipse.h>
-#include <Core/Utility/CVector3.h>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
-#include <SiniP/SiniP.h>
-
-namespace SAMPLE2
+namespace SAMPLE3
 {
-	enum EFPSCameraMovement
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow)
 	{
-		FPS_CAMERA_EXIT			= 1 << 1,
-		FPS_CAMERA_STRAFELEFT	= 1 << 2,
-		FPS_CAMERA_STRAFERIGHT	= 1 << 3,
-		FPS_CAMERA_FORWARD		= 1 << 4,
-		FPS_CAMERA_BACKWARD		= 1 << 5,
-		FPS_CAMERA_JUMP			= 1 << 6,
-		FPS_CAMERA_LOOKUP		= 1 << 7,
-		FPS_CAMERA_LOOKDOWN		= 1 << 8,
-		FPS_CAMERA_LOOKLEFT		= 1 << 9,
-		FPS_CAMERA_LOOKRIGHT	= 1 << 10
-	};
+		this->m_scene->LoadScene("sample3.des");
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
+		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_activeCamera = this->m_camera->GetCameraNode();
 
-	/**
-	* FPS type camera implementation
-	*/
-	class CFPSCamera
+		// Load the flashlight
+		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene->GetNode("flashlight_entity"), this->m_scene->GetNode("flashlight_spot"), this->m_camera.get()));
+
+		// Load the health bonus
+		std::vector<DE::ISceneNode*> health = this->m_scene->GetNodeArray("health_entity");
+		for(auto it = health.begin() ; it != health.end() ; it++)
+		{
+			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
+			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
+		}
+
+		MainLoop();
+	}
+
+	CSampleApplication::~CSampleApplication() {}
+
+	void CSampleApplication::Update(const float time) 
 	{
-	private:
-		unsigned int m_state;
-		DE::CVector2F m_previousMouseMovement;
-		DE::CVector3F m_rotation;
-		DE::CVector3F m_gravity;
-		DE::ICameraSceneNode * m_node;
-		DE::CInputDevice * m_inputDevice;
-		DE::CEllipseF m_shape;
-		DE::CSceneManager * m_scene;
-		DE::CSoundContextManager * m_soundContext;
-		SiniP m_options;
+		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
+			this->m_alive = false;
 
-	public:
-		/**
-		* @param cameraNode The camera node
-		* @param smooth The smooth view factor
-		*/
-		CFPSCamera(DE::ICameraSceneNode * cameraNode);
+		this->m_camera->Update(time);
 
-		/**
-		* Update the camera
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
+		this->m_scene->UpdateAll(time);
 
-		/**
-		* Get the camera node
-		* @return The camera node
-		*/
-		DE::ICameraSceneNode * GetCameraNode() const;
+		// Update the entities
+		this->m_flashlight->Update(time);
 
-	private:
-		/**
-		* Update the state
-		*/
-		void UpdateState();
-
-		/**
-		* Update the movement
-		* @param timeSecond Elapsed time
-		*/
-		void UpdateMovement(const float timeSecond);
-
-		/**
-		* Update the view
-		* @param timeSecond Elapsed time
-		*/
-		void UpdateView(const float timeSecond);
-	};
+		for(auto it = this->m_health.begin() ; it != this->m_health.end() ; it++)
+		{
+			(*it)->Update(time);
+		}
+	}
 }
-
-#endif

@@ -34,11 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
-#include "CFPSCamera.h"
+#include "CFreeCamera.h"
 
-namespace SAMPLE3
+namespace SAMPLES
 {
-	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode)
+	CFreeCamera::CFreeCamera(DE::ICameraSceneNode * cameraNode)
 	{
 		this->m_state = 0;
 		this->m_node = cameraNode;
@@ -55,7 +55,6 @@ namespace SAMPLE3
 			{ FPS_CAMERA_STRAFERIGHT, FPS_CAMERA_STRAFELEFT },
 			{ FPS_CAMERA_FORWARD, FPS_CAMERA_BACKWARD },
 			{ FPS_CAMERA_BACKWARD, FPS_CAMERA_FORWARD },
-			{ FPS_CAMERA_JUMP, -1 },
 			{ FPS_CAMERA_LOOKUP, FPS_CAMERA_LOOKDOWN },
 			{ FPS_CAMERA_LOOKDOWN, FPS_CAMERA_LOOKUP },
 			{ FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT },
@@ -70,7 +69,6 @@ namespace SAMPLE3
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFERIGHT, DE::INPUT_KEY_KEYBOARD_D);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_FORWARD, DE::INPUT_KEY_KEYBOARD_Z);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_BACKWARD, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_JUMP, DE::INPUT_KEY_KEYBOARD_SPACE);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKUP, DE::INPUT_KEY_KEYBOARD_UP);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, DE::INPUT_KEY_KEYBOARD_DOWN);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
@@ -85,14 +83,13 @@ namespace SAMPLE3
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKDOWN, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYN);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0,1,0));
 		this->m_shape.SetRadius(DE::CVector2F(1,2.7f));
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
-	void CFPSCamera::Update(const float time)
+	void CFreeCamera::Update(const float time)
 	{
 		float timeSecond = time / 1000.0f;
 
@@ -109,14 +106,14 @@ namespace SAMPLE3
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
 
-	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const
+	DE::ICameraSceneNode * CFreeCamera::GetCameraNode() const
 	{
 		return this->m_node;
 	}
 
-	void CFPSCamera::UpdateState()
+	void CFreeCamera::UpdateState()
 	{
-		this->m_state = this->m_state & FPS_CAMERA_JUMP;
+		this->m_state = 0;
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT))
 			this->m_state |= FPS_CAMERA_STRAFELEFT;
@@ -141,15 +138,9 @@ namespace SAMPLE3
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT))
 			this->m_state |= FPS_CAMERA_LOOKRIGHT;
-
-		if((this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_state & FPS_CAMERA_JUMP))
-		{
-			this->m_state |= FPS_CAMERA_JUMP;
-			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
-		}
 	}
 
-	void CFPSCamera::UpdateMovement(const float timeSecond)
+	void CFreeCamera::UpdateMovement(const float timeSecond)
 	{
 		DE::CVector3F movement;
 
@@ -190,6 +181,7 @@ namespace SAMPLE3
 
 			movement.x += sin(this->m_rotation.y * PI_OVER_180) * factor;
 			movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
+			movement.y -= sin(this->m_rotation.x * PI_OVER_180) * factor;
 		}
 
 		if((this->m_state & FPS_CAMERA_BACKWARD) != 0)
@@ -203,27 +195,16 @@ namespace SAMPLE3
 
 			movement.x += -sin(this->m_rotation.y * PI_OVER_180) * factor;
 			movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
+			movement.y += sin(this->m_rotation.x * PI_OVER_180) * factor;
 		}
 
-		this->m_gravity.y += FPS_CAMERA_GRAVITY * timeSecond;
-
-		//movement = movement.Normalize();
-		DE::CVector3F collisionPoint;
+		movement = movement.Normalize();
 		DE::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
-		this->m_scene->Slide(this->m_shape, finalMovement);
-
-		finalMovement = this->m_gravity * timeSecond;
 		DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
-		this->m_scene->Slide(this->m_shape, finalMovement);
-	
-		if(this->m_shape.GetPosition().y > finalPosition.y)
-		{
-			this->m_gravity.y = 0;
-			this->m_state &= ~FPS_CAMERA_JUMP;
-		}
+		this->m_shape.SetPosition(finalPosition);
 	}
 
-	void CFPSCamera::UpdateView(const float timeSecond)
+	void CFreeCamera::UpdateView(const float timeSecond)
 	{
 		// Mouse view
 		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0)
@@ -258,7 +239,7 @@ namespace SAMPLE3
 
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
+
 		if((this->m_state & FPS_CAMERA_LOOKDOWN) != 0)
 		{
 			float factor = 1;
@@ -270,7 +251,7 @@ namespace SAMPLE3
 
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
+
 		if((this->m_state & FPS_CAMERA_LOOKLEFT) != 0)
 		{
 			float factor = 1;
@@ -282,7 +263,7 @@ namespace SAMPLE3
 
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
+
 		if((this->m_state & FPS_CAMERA_LOOKRIGHT) != 0)
 		{
 			float factor = 1;
@@ -297,7 +278,7 @@ namespace SAMPLE3
 
 
 		if(this->m_rotation.x >= 80.0f)
-				this->m_rotation.x = 80;
+			this->m_rotation.x = 80;
 
 		if(this->m_rotation.x < -80)
 			this->m_rotation.x = -80;

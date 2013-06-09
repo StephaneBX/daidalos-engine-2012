@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CSoundContextManager.h>
 #include <SiniP/SiniP.h>
 
-namespace SAMPLE1 
+namespace SAMPLES 
 {
 	enum EFPSCameraMovement
 	{

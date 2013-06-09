@@ -25,52 +25,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSAMPLE1APPLICATION_H
-#define __CSAMPLE1APPLICATION_H
+#ifndef __CSAMPLEAPPLICATION_H
+#define __CSAMPLEAPPLICATION_H
 
-#include <Scene/CSceneManager.h>
-#include <Scene/CStaticMeshSceneNode.h>
-#include <Scene/CAnimatedMeshSceneNode.h>
-#include <Scene/CSpotLightSceneNode.h>
-#include <Scene/CPointLightSceneNode.h>
-#include <Scene/CDirectionalLightSceneNode.h>
-#include <Medias/CBuffer.h>
-#include <Medias/CShaderProgram.h>
-#include <Medias/CTexture2D.h>
-#include <Medias/CFrameBuffer.h>
-#include <GUI/CGUIText.h>
-#include <Core/Utility/CColor.h>
-#include <Core/IRenderer.h>
-#include <Core/IDeclaration.h>
-#include <Applications/IWin32Application.h>
-#include "CFreeCamera.h"
+#include <ISampleApplication.h>
+#include <CFPSCamera.h>
+#include "CFlashlightEntity.h"
+#include "CHealthEntity.h"
 
-namespace SAMPLE1
+namespace SAMPLE3
 {
 	/**
 	* Test application implementation
 	*/
-	class CSample1Application : public DE::IWin32Application 
+	class CSampleApplication : public SAMPLES::ISampleApplication 
 	{
 	private:
-		DE::CSceneManager * m_scene;
-		DE::DeclarationPtr m_declaration;
-		std::unique_ptr<CFreeCamera> m_camera;
-		DE::CSpotLightSceneNode * m_spotLight;
-
-		// Deferred Shading
-		DE::CFrameBuffer m_DSFB;
-		DE::CBuffer m_screenQuadLightVB;
-		DE::CBuffer m_screenQuadFinalVB;
-		DE::DeclarationPtr m_lightGeometryVD;
-		DE::DeclarationPtr m_screenQuadLightVD;
-		DE::DeclarationPtr m_screenQuadLightVD2;
-		DE::DeclarationPtr m_screenQuadFinalVD;
-		DE::CShaderProgram m_DSFill;
-		DE::CShaderProgram m_DSShadowSpotLight;
-		DE::CShaderProgram m_DSSpotLight;
-		DE::CShaderProgram m_DSDirectionalLight;
-		DE::CShaderProgram m_DSFinal;
+		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
+		std::unique_ptr<CFlashlightEntity> m_flashlight;
+		std::vector<std::unique_ptr<CHealthEntity> > m_health;
 
 	public:
 		/**
@@ -78,23 +51,18 @@ namespace SAMPLE1
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		CSample1Application(const HINSTANCE hInstance, const int nCmdShow);
+		CSampleApplication(const HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor
 		*/
-		~CSample1Application();
+		~CSampleApplication();
 
 		/**
 		* Update the application
 		* @param time Elapsed time
 		*/
-		void Update(const float time);
-
-		/**
-		* Render the application
-		*/
-		void Render();
+		virtual void Update(const float time);
 	};
 }
 

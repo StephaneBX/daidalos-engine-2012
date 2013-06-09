@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLE3
 {
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, CFPSCamera * camera)
+	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, SAMPLES::CFPSCamera * camera)
 	{
 		this->m_node = meshNode;
 		this->m_light = lightNode;
