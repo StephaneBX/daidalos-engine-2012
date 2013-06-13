@@ -1,0 +1,1 @@
+DE:CSceneLoader Error: Invalid or missing node attribute 'type' in 'Resources\Scenes\sample1.des'.

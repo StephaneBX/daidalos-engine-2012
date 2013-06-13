@@ -36,6 +36,8 @@
 - Plusieurs textures par modèle
 - Créer un fichier de référence pour les contraintes du moteur (fichiers, OGL, DX9 etc)
 
+[Exceptions]
+
 
 ===============================================================
                      Intéractions / Collisions

@@ -42,6 +42,7 @@ namespace SAMPLE3
 
 		// Load the health bonus
 		std::vector<DE::ISceneNode*> health = this->m_scene->GetNodeArray("health_entity");
+
 		for(auto it = health.begin() ; it != health.end() ; it++)
 		{
 			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
@@ -63,7 +64,10 @@ namespace SAMPLE3
 		this->m_scene->UpdateAll(time);
 
 		// Update the entities
-		this->m_flashlight->Update(time);
+		if(this->m_flashlight != nullptr)
+		{
+			this->m_flashlight->Update(time);
+		}
 
 		for(auto it = this->m_health.begin() ; it != this->m_health.end() ; it++)
 		{

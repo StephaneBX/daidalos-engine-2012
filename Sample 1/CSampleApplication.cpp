@@ -51,9 +51,12 @@ namespace SAMPLE1
 
 		this->m_camera->Update(time);
 
-		DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
-		lightRotation.y += (40 * time) / 1000.0f;
-		this->m_spotLight->SetRotation(lightRotation);
+		if(this->m_spotLight != nullptr)
+		{
+			DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
+			lightRotation.y += (40 * time) / 1000.0f;
+			this->m_spotLight->SetRotation(lightRotation);
+		}
 
 		this->m_scene->UpdateAll(time);
 	}

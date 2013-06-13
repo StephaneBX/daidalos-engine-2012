@@ -299,12 +299,12 @@ namespace DE
 			break;
 		}
 
-		// Get the node attributes
-		attributes = GetNodeAttributes(handle);
-
 		// If a node has been successfully created
 		if(node != nullptr)
 		{
+			// Get the node attributes
+			attributes = GetNodeAttributes(handle);
+
 			// Add the attributes
 			node->SetAttributes(attributes);
 
