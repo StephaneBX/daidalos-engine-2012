@@ -87,12 +87,12 @@ namespace SAMPLES
 			{"specularRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, *this->m_renderer->GetDefaultTextureFilter(), DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
 			{"depthRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
 			{"lightRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, *this->m_renderer->GetDefaultTextureFilter(), DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"lightDepthRT", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_SHADOWS, APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_SHADOWS, APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE}
+			{"lightDepthRT", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE}
 		};
 		DE::SFrameBufferDepthDeclaration fbdd[] = 
 		{
 			{"depth", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_DEPTH24S8},
-			{"lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_SHADOWS, APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_SHADOWS, APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8}
+			{"lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8}
 		};
 		this->m_DSFB.CreateFromDeclaration(fbd, fbdd);
 		this->m_DSFB.AttachDepth("depth");
@@ -192,101 +192,29 @@ namespace SAMPLES
 		};
 		this->m_screenQuadLightVB.Fill(lightScreenQuad, sizeof(SScreenQuadVertexLight), 4);
 
-	
 		// ------------------------------
-		// Deferred Shading: Spot / Point lights
+		// Deferred Shading: Prepare the light RT
 		// ------------------------------
-		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
-
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("lightRT", 0);
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 
-		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveSpotLights() ; ++i)
-		{
-			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i])
-			{
-				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
-				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
-				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
-				this->m_renderer->SetViewport(DE::CRectangleI(0,0,1024,1024));
+		// ------------------------------
+		// Deferred Shading: Spot lights
+		// ------------------------------
+		SpotLightsRendering();
 
-				// Fill the shadow map
-				this->m_scene->SetActiveCamera(this->m_scene->GetActiveSpotLightsBuffer()->node[i]);
-				this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
-				this->m_DSFB.DetachAllElements();
-				this->m_DSFB.AttachElement("lightDepthRT", 0);
-				this->m_DSFB.AttachDepth("lightDepth");
-				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
-				this->m_renderer->SetShaderProgram(this->m_DSShadowSpotLight.GetShaderProgram());
-				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-				this->m_scene->RenderAll();
-			}
-
-			// Add the light effect to the lightRT
-			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
-			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
-			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, true);
-			this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
-		
-			this->m_DSFB.DetachAllElements();
-			this->m_DSFB.AttachElement("lightRT", 0);
-			this->m_DSFB.AttachDepth("depth");
-		
-			this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
-			this->m_renderer->SetShaderProgram(this->m_DSSpotLight.GetShaderProgram());
-			this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
-			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
-
-			this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
-			this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
-			this->m_renderer->SetTexture(2, this->m_DSFB.GetFrameBuffer()->GetTexture("depthRT"));
-			this->m_renderer->SetTexture(3, this->m_DSFB.GetFrameBuffer()->GetTexture("lightDepthRT"));
-
-			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_SHADOWS, APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE, 512));
-			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i]);
-			this->m_scene->SendSpotLightDataToShader(i);
-			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
-		}
+		// ------------------------------
+		// Deferred Shading: Point lights
+		// ------------------------------
+		PointLightsRendering();
 
 		// ------------------------------
 		// Deferred Shading: Directional lights
 		// ------------------------------
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
-
-		this->m_scene->SetActiveCamera(this->m_activeCamera);
-		this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
-		this->m_renderer->SetShaderProgram(this->m_DSDirectionalLight.GetShaderProgram());
-		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
-
-		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
-		this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
-		this->m_renderer->SetTexture(2, this->m_DSFB.GetFrameBuffer()->GetTexture("depthRT"));
-		this->m_renderer->SetTexture(3, this->m_DSFB.GetFrameBuffer()->GetTexture("lightDepthRT"));
-
-		this->m_DSDirectionalLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-	
-		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveDirectionalLights() ; ++i)
-		{
-			this->m_scene->SendDirectionalLightDataToShader(i);
-			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
-		}
-
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		DirectionalLightsRendering();
 
 		// ------------------------------
 		// Deferred Shading: Draw
@@ -322,5 +250,152 @@ namespace SAMPLES
 		this->m_renderer->SetTexture(0, nullptr);
 	
 		this->m_renderer->EndScene();
+	}
+
+	void ISampleApplication::SpotLightsRendering()
+	{
+		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+
+		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveSpotLights() ; ++i)
+		{
+			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i])
+			{
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+				this->m_renderer->SetViewport(DE::CRectangleI(0,0,1024,1024));
+
+				// Fill the shadow map
+				this->m_scene->SetActiveCamera(this->m_scene->GetActiveSpotLightsBuffer()->node[i]);
+				this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
+				this->m_DSFB.DetachAllElements();
+				this->m_DSFB.AttachElement("lightDepthRT", 0);
+				this->m_DSFB.AttachDepth("lightDepth");
+				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
+				this->m_renderer->SetShaderProgram(this->m_DSShadowSpotLight.GetShaderProgram());
+				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+				this->m_scene->RenderAll();
+			}
+
+			// Add the light effect to the lightRT
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, true);
+			this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
+
+			this->m_DSFB.DetachAllElements();
+			this->m_DSFB.AttachElement("lightRT", 0);
+			this->m_DSFB.AttachDepth("depth");
+
+			this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
+			this->m_renderer->SetShaderProgram(this->m_DSSpotLight.GetShaderProgram());
+			this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+
+			this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
+			this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
+			this->m_renderer->SetTexture(2, this->m_DSFB.GetFrameBuffer()->GetTexture("depthRT"));
+			this->m_renderer->SetTexture(3, this->m_DSFB.GetFrameBuffer()->GetTexture("lightDepthRT"));
+
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i]);
+			this->m_scene->SendSpotLightDataToShader(i);
+			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+		}
+	}
+
+	void ISampleApplication::PointLightsRendering()
+	{
+		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+
+		for(int i = 0 ; i < this->m_scene->GetNumberOfActivePointLights() ; ++i)
+		{
+			if(this->m_scene->GetActivePointLightsBuffer()->shadowCaster[i])
+			{
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
+				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+				this->m_renderer->SetViewport(DE::CRectangleI(0,0,1024,1024));
+
+				// Fill the shadow map
+				this->m_scene->SetActiveCamera(this->m_scene->GetActivePointLightsBuffer()->node[i]);
+				this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
+				this->m_DSFB.DetachAllElements();
+				this->m_DSFB.AttachElement("lightDepthRT", 0);
+				this->m_DSFB.AttachDepth("lightDepth");
+				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
+				this->m_renderer->SetShaderProgram(this->m_DSShadowSpotLight.GetShaderProgram());
+				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+				this->m_scene->RenderAll();
+			}
+
+			// Add the light effect to the lightRT
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, true);
+			this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
+
+			this->m_DSFB.DetachAllElements();
+			this->m_DSFB.AttachElement("lightRT", 0);
+			this->m_DSFB.AttachDepth("depth");
+
+			this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
+			this->m_renderer->SetShaderProgram(this->m_DSSpotLight.GetShaderProgram());
+			this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+
+			this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
+			this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
+			this->m_renderer->SetTexture(2, this->m_DSFB.GetFrameBuffer()->GetTexture("depthRT"));
+			this->m_renderer->SetTexture(3, this->m_DSFB.GetFrameBuffer()->GetTexture("lightDepthRT"));
+
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActivePointLightsBuffer()->shadowCaster[i]);
+			this->m_scene->SendPointLightDataToShader(i);
+			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+		}
+	}
+
+	void ISampleApplication::DirectionalLightsRendering()
+	{
+		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
+		this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
+		this->m_renderer->SetShaderProgram(this->m_DSDirectionalLight.GetShaderProgram());
+		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+
+		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
+		this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
+		this->m_renderer->SetTexture(2, this->m_DSFB.GetFrameBuffer()->GetTexture("depthRT"));
+		this->m_renderer->SetTexture(3, this->m_DSFB.GetFrameBuffer()->GetTexture("lightDepthRT"));
+
+		this->m_DSDirectionalLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+
+		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveDirectionalLights() ; ++i)
+		{
+			this->m_scene->SendDirectionalLightDataToShader(i);
+			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+		}
+
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 	}
 }

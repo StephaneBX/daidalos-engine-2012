@@ -93,6 +93,22 @@ namespace SAMPLES
 		* Render the application
 		*/
 		void Render();
+
+	protected:
+		/**
+		* Render the spot lights in the light RT
+		*/
+		void SpotLightsRendering();
+
+		/**
+		* Render the point lights in the light RT
+		*/
+		void PointLightsRendering();
+
+		/**
+		* Render the directional lights in the light RT
+		*/
+		void DirectionalLightsRendering();
 	};
 }
 

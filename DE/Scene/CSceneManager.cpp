@@ -30,12 +30,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ILevelSceneNode.h"
 #include "../Scene/CSceneManager.h"
 
+#define LIGHTNING_UPDATE_DELAY 20.0f
+
 namespace DE
 {
 	CSceneManager::~CSceneManager()
 	{
 		SAFE_DELETE(this->m_root);
 		SAFE_DELETE(this->m_activeSpotLights);
+		SAFE_DELETE(this->m_activePointLights);
 		SAFE_DELETE(this->m_activeDirectionalLights);
 	}
 
@@ -45,6 +48,7 @@ namespace DE
 		this->m_root = CMediaManager::GetInstance()->LoadMediaFromFile<ISceneNode>(sceneFile);
 
 		this->m_activeCamera = nullptr;
+		this->m_lighteningUpdateTimer = 0;
 	}
 
 	void CSceneManager::ClearAll()
@@ -67,18 +71,42 @@ namespace DE
 
 	void CSceneManager::UpdateAll(const float time)
 	{
-		this->m_activeSpotLights->numberOfLights = 0;
-		this->m_activeDirectionalLights->numberOfLights = 0;
+		this->m_lighteningUpdateTimer -= time;
 
-		std::fill(this->m_activeSpotLights->enabled, this->m_activeSpotLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
-		std::fill(this->m_activeDirectionalLights->enabled, this->m_activeDirectionalLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
+		// Check if the lightning needs to be updated 
+		if(this->m_lighteningUpdateTimer <= 0)
+		{
+			this->m_activeSpotLights->numberOfLights = 0;
+			this->m_activeSpotLights->updateRequired = true;
+
+			this->m_activePointLights->numberOfLights = 0;
+			this->m_activePointLights->updateRequired = true;
+
+			this->m_activeDirectionalLights->numberOfLights = 0;
+			this->m_activeDirectionalLights->updateRequired = true;
+
+			std::fill(this->m_activeSpotLights->enabled, this->m_activeSpotLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
+			std::fill(this->m_activePointLights->enabled, this->m_activePointLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
+			std::fill(this->m_activeDirectionalLights->enabled, this->m_activeDirectionalLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
+
+			this->m_lighteningUpdateTimer = LIGHTNING_UPDATE_DELAY;
+		}
 
 		// Update the active camera first, as it will be necessary for other nodes updates
 		if(this->m_activeCamera != nullptr)
 			this->m_activeCamera->Update(time);
 
+		// Update the nodes
 		Assert(this->m_root != nullptr);
 		this->m_root->Update(time);
+
+		// Sort the lights
+		SortLights();
+
+		// No need to update the lightening
+		this->m_activeSpotLights->updateRequired = false;
+		this->m_activeDirectionalLights->updateRequired = false;
+		this->m_activePointLights->updateRequired = false;
 	}
 
 	void CSceneManager::RenderAll()
@@ -119,6 +147,23 @@ namespace DE
 		renderer->SetScissor(this->m_activeSpotLights->scissor[id]);
 	}
 
+	void CSceneManager::SendPointLightDataToShader(const int id)
+	{
+		Assert(id >= 0 && id < GetNumberOfActivePointLights());
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		Assert(shaderProgram != nullptr);
+
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_POSITION), this->m_activePointLights->position[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_DIRECTION), this->m_activePointLights->direction[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_RRFT), this->m_activePointLights->rangeRadiusFalloffTightness[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_COLOR), this->m_activePointLights->color[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_VIEWPROJ), this->m_activePointLights->node[id]->GetViewProjMatrix());
+
+		renderer->SetScissor(this->m_activePointLights->scissor[id]);
+	}
+
 	void CSceneManager::SendDirectionalLightDataToShader(const int id)
 	{
 		Assert(id >= 0 && id < GetNumberOfActiveDirectionalLights());
@@ -144,6 +189,11 @@ namespace DE
 	const int CSceneManager::GetNumberOfActiveSpotLights() const
 	{
 		return this->m_activeSpotLights->numberOfLights;
+	}
+
+	const int CSceneManager::GetNumberOfActivePointLights() const
+	{
+		return this->m_activePointLights->numberOfLights;
 	}
 
 	const int CSceneManager::GetNumberOfActiveDirectionalLights() const
@@ -188,6 +238,11 @@ namespace DE
 		return this->m_activeSpotLights;
 	}
 
+	SSPotLightsShaderData * CSceneManager::GetActivePointLightsBuffer() const
+	{
+		return this->m_activePointLights;
+	}
+
 	SDirectionalLightsShaderData * CSceneManager::GetActiveDirectionalLightsBuffer() const
 	{
 		return this->m_activeDirectionalLights;
@@ -197,8 +252,14 @@ namespace DE
 	{
 		this->m_root = new ISceneNode(nullptr);
 		this->m_activeSpotLights = new SSPotLightsShaderData;
+		this->m_activePointLights = new SSPotLightsShaderData;
 		this->m_activeDirectionalLights = new SDirectionalLightsShaderData;
 		this->m_activeCamera = nullptr;
+	}
+
+	void CSceneManager::SortLights()
+	{
+		// Sort the spot lights
 	}
 
 	void CSceneManager::FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const

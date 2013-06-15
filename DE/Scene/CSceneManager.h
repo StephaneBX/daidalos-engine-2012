@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CAnimatedMeshSceneNode.h"
 #include "../Core/CSingletonManager.h"
 
-#define MAX_LIGHTS_IN_SHADERS 500
+#define MAX_LIGHTS_IN_SHADERS 200
 
 namespace DE
 {
@@ -45,6 +45,7 @@ namespace DE
 	*/
 	struct SSPotLightsShaderData
 	{
+		bool updateRequired;
 		int numberOfLights;
 		int enabled[MAX_LIGHTS_IN_SHADERS];
 		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
@@ -54,6 +55,10 @@ namespace DE
 		CVector4F color[MAX_LIGHTS_IN_SHADERS];
 		CRectangleI scissor[MAX_LIGHTS_IN_SHADERS];
 		ICameraSceneNode * node[MAX_LIGHTS_IN_SHADERS];
+
+		// Visibility data
+		int visibilityOrder[MAX_LIGHTS_IN_SHADERS];
+		float distanceToCamera[MAX_LIGHTS_IN_SHADERS];
 	};
 
 	/**
@@ -61,6 +66,7 @@ namespace DE
 	*/
 	struct SDirectionalLightsShaderData
 	{
+		bool updateRequired;
 		int numberOfLights;
 		int enabled[MAX_LIGHTS_IN_SHADERS];
 		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
@@ -76,8 +82,11 @@ namespace DE
 		friend class CSingletonManager<CSceneManager>;
 
 	private:
+		float m_lighteningUpdateTimer;
 		SSPotLightsShaderData * m_activeSpotLights;
+		SSPotLightsShaderData * m_activePointLights;
 		SDirectionalLightsShaderData * m_activeDirectionalLights;
+
 		ISceneNode * m_root;
 		ICameraSceneNode * m_activeCamera;
 
@@ -136,6 +145,12 @@ namespace DE
 		void SendSpotLightDataToShader(const int id);
 
 		/**
+		* Send a point light data to the current shader
+		* @param id The light id
+		*/
+		void SendPointLightDataToShader(const int id);
+
+		/**
 		* Send a directional light data to the current shader
 		* @param id The light id
 		*/
@@ -163,6 +178,12 @@ namespace DE
 		* @return The number of active spot lights
 		*/
 		const int GetNumberOfActiveSpotLights() const;
+
+		/**
+		* Get the number of active point lights
+		* @return The number of active point lights
+		*/
+		const int GetNumberOfActivePointLights() const;
 
 		/**
 		* Get the number of active directional lights
@@ -209,12 +230,23 @@ namespace DE
 		SSPotLightsShaderData * GetActiveSpotLightsBuffer() const;
 
 		/**
+		* Get the active point lights buffer
+		* @return The active point lights buffer
+		*/
+		SSPotLightsShaderData * GetActivePointLightsBuffer() const;
+
+		/**
 		* Get the active directional lights buffer
 		* @return The active directional lights buffer
 		*/
 		SDirectionalLightsShaderData * GetActiveDirectionalLightsBuffer() const;
 
 	private:
+		/**
+		* Order the lights in order the allow the most relevant one to be visible
+		*/
+		void SortLights();
+
 		/**
 		* Find all the nodes with a given name and store them in a vector
 		* @param currentNode The current node

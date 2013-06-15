@@ -59,10 +59,10 @@ namespace DE
 		// If active and enabled, add it to the active lights list
 		if(this->m_active && this->m_enabled)
 		{
-			SSPotLightsShaderData * lights = scene->GetActiveSpotLightsBuffer();
+			SSPotLightsShaderData * lights = scene->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
-			if(lights->numberOfLights + 6 <= MAX_LIGHTS_IN_SHADERS)
+			if(lights->updateRequired && lights->numberOfLights + 6 <= MAX_LIGHTS_IN_SHADERS)
 			{
 				for(unsigned int i = 0 ; i < this->m_cameras.size() ; i++)
 				{

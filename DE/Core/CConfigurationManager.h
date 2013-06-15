@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE
 {
 	#define APPLICATION_OPTION_SECTION_GENERAL "general"
-	#define APPLICATION_OPTION_SECTION_SHADOWS "shadows"
+	#define APPLICATION_OPTION_SECTION_LIGHTENING "lightening"
 	#define APPLICATION_OPTION_SECTION_GAMEPAD "gamepad"
 	#define APPLICATION_OPTION_SECTION_MOUSE "mouse"
 
@@ -48,11 +48,11 @@ namespace DE
 	#define APPLICATION_OPTION_GENERAL_SYNCHRO "synchro"
 	#define APPLICATION_OPTION_GENERAL_ANISOTROPIC "anisotropic"
 
-	#define APPLICATION_OPTION_SHADOWS_ENABLED "enabled"
-	#define APPLICATION_OPTION_SHADOWS_SHADOW_MAP_SIZE "shadowsmap_size"
-	#define APPLICATION_OPTION_SHADOWS_MAX_SPOTLIGHT_SOURCES "max_spotlight_sources"
-	#define APPLICATION_OPTION_SHADOWS_MAX_DIRECTIONALLIGHT_SOURCES "max_directionallight_sources"
-	#define APPLICATION_OPTION_SHADOWS_MAX_POINTLIGHT_SOURCES "max_pointlight_sources"
+	#define APPLICATION_OPTION_LIGHTENING_ENABLED "enable_shadows"
+	#define APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE "shadowsmap_size"
+	#define APPLICATION_OPTION_LIGHTENINGS_MAX_SPOTLIGHT_SOURCES "max_spotlight_sources"
+	#define APPLICATION_OPTION_LIGHTENING_MAX_DIRECTIONALLIGHT_SOURCES "max_directionallight_sources"
+	#define APPLICATION_OPTION_LIGHTENING_MAX_POINTLIGHT_SOURCES "max_pointlight_sources"
 
 	#define APPLICATION_OPTION_GAMEPAD_DEAD_ZONE "dead_zone"
 
