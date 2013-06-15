@@ -36,6 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CTokenizer.h"
 #include "../Core/Utility/CFile.h"
 #include "../Core/Memory/CExceptionLoad.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/ILoader.h"
 #include "../Core/CLoaderExtensions.h"
 #include "../Core/CSingletonManager.h"
@@ -129,7 +130,7 @@ namespace DE
 			CLoaderExtensions<T>::s_loaders[extension]->SaveToFile(object, filename);
 	}
 
-	template <class T> T * CMediaManager::LoadMediaFromFile(const std::string & filename)
+	template <class T> T * CMediaManager::LoadMediaFromFile(const std::string & filename) /* throw(CExceptionLoad) */
 	{
 		// Search the full path for the media
 		CFile MediaPath = FindMedia(filename);
@@ -141,7 +142,12 @@ namespace DE
 			return CLoaderExtensions<T>::s_loaders[extension]->LoadFromFile(MediaPath.GetFullname());
 		}
 		else
+		{
+			ILogger::Log() << "DE:CMediaManager Error: Unable to load the file " << filename << "'.\n";
+			ILogger::Kill();
+
 			throw new CExceptionLoad(filename);
+		}
 	}
 }
 

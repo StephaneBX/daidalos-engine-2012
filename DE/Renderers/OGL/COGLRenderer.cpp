@@ -349,7 +349,12 @@ namespace DE
 			// Verify the frame buffer
 			GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 			if(status != GL_FRAMEBUFFER_COMPLETE)
+			{
+				ILogger::Log() << "DE:COGLRenderer Error: Unable to bind the framebuffer.\n";
+				ILogger::Kill();
+
 				throw COGLException("SetFrameBuffer", "glCheckFramebufferStatus");
+			}		
 		}
 		else
 		{
@@ -603,12 +608,22 @@ namespace DE
 
 		// Set the pixel format of the device context
 		if(!SetPixelFormat(this->m_handle, ChoosePixelFormat(this->m_handle, &pixelDescriptor), &pixelDescriptor))
-			throw COGLException("SetPixelFormat", "Initialize");
+		{
+			ILogger::Log() << "DE:COGLRenderer Error: Unable to set the context pixel format.\n";
+			ILogger::Kill();
 
+			throw COGLException("SetPixelFormat", "Initialize");
+		}
+			
 		// Context creation
 		this->m_context = wglCreateContext(this->m_handle);
 		if (!wglMakeCurrent(this->m_handle, this->m_context))
+		{
+			ILogger::Log() << "DE:COGLRenderer Error: Unable to create the context.\n";
+			ILogger::Kill();
+
 			throw COGLException("wglMakeCurrent", "Initialize");
+		}
 
 		// Extensions initialization
 		this->m_extensions = reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS));

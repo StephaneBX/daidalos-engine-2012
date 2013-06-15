@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include "../../Core/Core.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/CDX9Enums.h"
 #include "../../Renderers/DX9/CDX9Exception.h"
 #include "../../Renderers/DX9/DX9Global.h"
@@ -67,7 +68,12 @@ namespace DE
 
 			IDirect3DSurface9 * src = nullptr;
 			if (FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(this->m_image.GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr)))
+			{
+				ILogger::Log() << "DE:CDX9Texture2D Error: Unable to create an offscreen plain surface.\n";
+				ILogger::Kill();
+
 				throw CDX9Exception("CreateOffscreenPlainSurface", "CDX9Texture::Update");
+			}
 
 			D3DLOCKED_RECT LockedRect;
 			src->LockRect(&LockedRect, nullptr, 0);
@@ -79,7 +85,12 @@ namespace DE
 
 			RECT destRect = {rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom()};
 			if (FAILED(D3DXLoadSurfaceFromSurface(dest, nullptr, &destRect, src, nullptr, nullptr, D3DX_DEFAULT, 0)))
+			{
+				ILogger::Log() << "DE:CDX9Texture2D Error: Unable to load an offscreen plain surface.\n";
+				ILogger::Kill();
+
 				throw CDX9Exception("D3DXLoadSurfaceFromSurface", "CDX9Texture::Update");
+			}
 		}
 
 		if(this->m_mipmaps)

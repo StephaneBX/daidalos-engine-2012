@@ -43,6 +43,7 @@
     <ClInclude Include="Core\Memory\CExceptionAssert.h" />
     <ClInclude Include="Core\Memory\CExceptionDelete.h" />
     <ClInclude Include="Core\Memory\CExceptionLoad.h" />
+    <ClInclude Include="Core\Memory\CExceptionSave.h" />
     <ClInclude Include="Core\Memory\CMemoryAllocator.h" />
     <ClInclude Include="Core\Utility\CArraySorter.h" />
     <ClInclude Include="Core\Utility\CColor.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Core\Memory\CExceptionAssert.cpp" />
     <ClCompile Include="Core\Memory\CExceptionDelete.cpp" />
     <ClCompile Include="Core\Memory\CExceptionLoad.cpp" />
+    <ClCompile Include="Core\Memory\CExceptionSave.cpp" />
     <ClCompile Include="Core\Utility\CColor.cpp" />
     <ClCompile Include="Core\Utility\CFile.cpp" />
     <ClCompile Include="Core\Utility\CFPSCounter.cpp" />

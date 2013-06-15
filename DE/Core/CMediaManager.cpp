@@ -45,6 +45,9 @@ namespace DE
 				return file;
 		}
 
+		ILogger::Log() << "DE:CMediaManager Error: Unable to locate the file '" << filename << "'.\n";
+		ILogger::Kill();
+
 		throw CExceptionLoad(filename);
 	}
 }

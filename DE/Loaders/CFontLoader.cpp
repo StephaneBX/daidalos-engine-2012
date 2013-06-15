@@ -110,6 +110,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:CFontLoader Error: Unable to load the font file '" << filename << "' (" << doc.ErrorDesc() << ").\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 

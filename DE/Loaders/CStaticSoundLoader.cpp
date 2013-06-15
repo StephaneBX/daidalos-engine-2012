@@ -49,6 +49,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:CStaticSoundLoader Error: Unable to load the sound '" << filename << "'.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -75,6 +76,7 @@ namespace DE
 		default:
 			ILogger::Log() << "DE:CStaticSoundLoader Error: Incompatible file '" << filename << "'. Only files with 1 or 2 channels are accepted.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -83,6 +85,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:CStaticSoundLoader Error: The file '" << filename << "' has corrupted information.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -98,6 +101,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:CStaticSoundLoader Error: Unable to fill the sound buffer for the file '" << filename << "'.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 

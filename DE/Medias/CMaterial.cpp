@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Core/CResourceManager.h"
 #include "../Core/CMediaManager.h"
 #include "../Medias/IMaterialBase.h"

@@ -181,7 +181,12 @@ namespace DE
 
 		IDirect3DTexture9 * texture = nullptr;
 		if(FAILED(D3DXCreateTexture(this->m_device, size.x, size.y, frameBufferType ? 1 : 0, usage, CDX9Enums::Get(format), pool, &texture)))
+		{
+			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a texture.\n";
+			ILogger::Kill();
+
 			throw CDX9Exception("D3DXCreateTexture", "CreateTexture2D");
+		}		
 
 		return new CDX9Texture2D(size, filter, format, mipmap, autoMipmap, texture);
 	}
@@ -400,7 +405,12 @@ namespace DE
 	{
 		LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
 		if (FAILED(this->m_device->CreateVertexBuffer(count * stride, CDX9Enums::BufferFlags(flags), 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr)))
+		{
+			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a vertex buffer.\n";
+			ILogger::Kill();
+
 			throw CDX9Exception("CreateVertexBuffer", "CreateVB");
+		}
 		return new CDX9VertexBuffer(count * stride, vertexBuffer);
 	}
 
@@ -408,7 +418,13 @@ namespace DE
 	{
 		LPDIRECT3DINDEXBUFFER9 indexBuffer;
 		if (FAILED(this->m_device->CreateIndexBuffer(count * stride, CDX9Enums::BufferFlags(flags), D3DFMT_INDEX32, D3DPOOL_DEFAULT, &indexBuffer, nullptr)))
+		{
+			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create an index buffer.\n";
+			ILogger::Kill();
+
 			throw CDX9Exception("CreateIndexBuffer", "CreateIB");
+		}
+			
 		return new CDX9IndexBuffer(count * stride, indexBuffer);
 	}
 
@@ -464,7 +480,12 @@ namespace DE
 
 		LPDIRECT3DVERTEXDECLARATION9 declaration = nullptr;
 		if (FAILED(this->m_device->CreateVertexDeclaration(&dx9Elements[0], &declaration)))
+		{
+			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a vertex declaration.\n";
+			ILogger::Kill();
+
 			throw CDX9Exception("CreateVertexDeclaration", "CreateVD");
+		}
 
 		return std::shared_ptr<IDeclaration>(new CDX9Declaration(declaration));
 	}
@@ -544,8 +565,13 @@ namespace DE
 		this->m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
 		if(FAILED(this->m_d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device)))
-			throw CDX9Exception("CreateDevice", "Initialize");
+		{
+			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create the device.\n";
+			ILogger::Kill();
 
+			throw CDX9Exception("CreateDevice", "Initialize");
+		}
+			
 		this->m_device->SetRenderState(D3DRS_DITHERENABLE, true);
 		this->m_device->SetRenderState(D3DRS_LIGHTING, false);
 		this->m_device->SetRenderState(D3DRS_ZENABLE, true);

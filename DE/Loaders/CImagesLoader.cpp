@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IL/il.h>
 #include "../Core/Core.h"
 #include "../Core/Memory/CExceptionLoad.h"
+#include "../Core/Memory/CExceptionSave.h"
 #include "../Core/Logger/ILogger.h"
 #include "../Loaders/CImagesLoader.h"
 
@@ -62,6 +63,7 @@ namespace DE
 			ILenum devilError = ilGetError();
 			ILogger::Log() << "DE:CImagesLoader Error: Unable to load the image '" << filename << "'.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -91,11 +93,21 @@ namespace DE
 		const int width = image.GetWidth();
 		const int height = image.GetHeight();
 
-		if (!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData()))
-			throw CExceptionLoad(filename);
+		if(!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData()))
+		{
+			ILogger::Log() << "DE:CImagesLoader Error: Unable to save the file '" << filename << "'.\n";
+			ILogger::Kill();
+
+			throw CExceptionSave(filename);
+		}
 
 		if (!ilSaveImage(const_cast<ILstring>(filename.c_str())))
-			throw CExceptionLoad(filename);
+		{
+			ILogger::Log() << "DE:CImagesLoader Error: Unable to save the file '" << filename << "'.\n";
+			ILogger::Kill();
+
+			throw CExceptionSave(filename);
+		}
 
 		ilBindImage(0);
 		ilDeleteImages(1, &texture);

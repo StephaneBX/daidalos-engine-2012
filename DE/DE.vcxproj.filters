@@ -492,6 +492,9 @@
     <ClInclude Include="Scene\CEmptySceneNode.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Memory\CExceptionSave.h">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -811,6 +814,9 @@
     </ClCompile>
     <ClCompile Include="Scene\CEmptySceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Memory\CExceptionSave.cpp">
+      <Filter>Fichiers sources\Core\Memory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

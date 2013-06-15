@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Memory/CExceptionLoad.h"
 #include "../Loaders/CMS3DLoader.h"
 
@@ -50,10 +51,20 @@ namespace DE
 		fread(&this->m_data->header.version, sizeof(int), 1, file);
 
 		if(strncmp(this->m_data->header.id, "MS3D000000", 10) != 0)
+		{
+			ILogger::Log() << "DE:CMS3DLoader Error: Invalid header id.\n";
+			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
+		}
 			
 		if(this->m_data->header.version != 4)
+		{
+			ILogger::Log() << "DE:CMS3DLoader Error: Invalid header version.\n";
+			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
+		}
 				
 
 		// Load the vertices

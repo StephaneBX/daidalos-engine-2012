@@ -59,8 +59,9 @@ namespace DE
 		// Shader creation error
 		if(shader == 0)
 		{
-			ILogger::Log() << "CE:COGLShadersLoader Error: Unable to create the shader.\n";
+			ILogger::Log() << "DE:COGLShadersLoader Error: Unable to create the shader.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -69,8 +70,9 @@ namespace DE
 		if(src == nullptr)
 		{
 			COGLRenderer::glDeleteShader(shader);
-			ILogger::Log() << "CE:COGLShadersLoader Error: The loaded source is empty.\n";
+			ILogger::Log() << "DE:COGLShadersLoader Error: The loaded source is empty.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -95,7 +97,7 @@ namespace DE
 			COGLRenderer::glGetShaderInfoLog(shader, logsize, &logsize, log);
 
 			// Log the error.
-			ILogger::Log() << "CE:COGLShadersLoader Error: " << log << ".\n";
+			ILogger::Log() << "DE:COGLShadersLoader Error: " << log << ".\n";
 			ILogger::Kill();
 
 			// Free the shader and the log buffer.

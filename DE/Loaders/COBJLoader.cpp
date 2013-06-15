@@ -252,6 +252,7 @@ namespace DE
 				{
 					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id).\n";
 					ILogger::Kill();
+
 					throw CExceptionLoad(this->m_filename);
 				}
 			}
@@ -284,6 +285,7 @@ namespace DE
 								{
 									ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid normal id).\n";
 									ILogger::Kill();
+
 									throw CExceptionLoad(this->m_filename);
 								}
 							}
@@ -294,6 +296,7 @@ namespace DE
 				{
 					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid number of normals).\n";
 					ILogger::Kill();
+
 					throw CExceptionLoad(this->m_filename);
 				}
 			}
@@ -314,6 +317,7 @@ namespace DE
 						{
 							ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id).\n";
 							ILogger::Kill();
+
 							throw CExceptionLoad(this->m_filename);
 						}
 					}
@@ -322,6 +326,7 @@ namespace DE
 				{
 					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid number of texcoords).\n";
 					ILogger::Kill();
+
 					throw CExceptionLoad(this->m_filename);
 				}
 			}
@@ -330,6 +335,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Less than 3 vertices found).\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(this->m_filename);
 		}
 	}

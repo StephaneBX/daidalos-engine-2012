@@ -49,6 +49,7 @@ namespace DE
 		{
 			ILogger::Log() << "DE:CStreamSoundLoader Error: Unable to load the sound '" << filename << "'.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 
@@ -74,6 +75,7 @@ namespace DE
 		default:
 			ILogger::Log() << "DE:CStreamSoundLoader Error: Incompatible file '" << filename << "'. Only files with 1 or 2 channels are accepted.\n";
 			ILogger::Kill();
+
 			throw CExceptionLoad(filename);
 		}
 

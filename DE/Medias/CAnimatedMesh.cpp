@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Memory/CExceptionAssert.h"
 #include "../Core/CResourceManager.h"
 #include "../Core/CMediaManager.h"
 #include "../Medias/CAnimatedMesh.h"
@@ -73,12 +74,18 @@ namespace DE
 
 	void CAnimatedMesh::Animate(const float frame)
 	{
-		this->m_mesh->Animate(frame);
+		Assert(this->m_mesh != nullptr);
+
+		if(this->m_mesh != nullptr)
+			this->m_mesh->Animate(frame);
 	}
 
 	void CAnimatedMesh::FinalizeGeometry(EMeshShadingType shadingType)
 	{
-		this->m_mesh->FinalizeGeometry(shadingType);
+		Assert(this->m_mesh != nullptr);
+
+		if(this->m_mesh != nullptr)
+			this->m_mesh->FinalizeGeometry(shadingType);
 	}
 
 	const int CAnimatedMesh::GetNumberOfFrames() const
