@@ -293,9 +293,15 @@ namespace DE
 
 		default:
 			// Invalid or missing type
-			ILogger::Log() << "DE:CSceneLoader Error: Invalid or missing node attribute 'type' in '" << this->m_filename << "'.\n";
-			ILogger::Kill();
-			throw CExceptionLoad(this->m_filename);
+			ILogger::Log() << "DE:CSceneLoader Error: Invalid or missing node attribute 'type' in '" << this->m_filename << "'. Using empty node instead.\n";
+			
+			// Search for defined values in the element or use default values
+			GetNodeData(handle, "position", position, CVector3F(0,0,0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+
+			// Create the node
+			node = new CEmptySceneNode(parent, name, position);
+			static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 			break;
 		}
 

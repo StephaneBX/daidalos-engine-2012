@@ -207,6 +207,13 @@
 			
 		</multi_brush>
 		
+		<brush file="crate.obj">
+			<diffuse_texture>crate_1d.png</diffuse_texture>
+			<normal_texture>crate_1n.png</normal_texture>
+			<position>28:0:22</position>
+			<rotation>0.0:0.0:0.0</rotation>
+		</brush>
+		
 		<!-- Models -->
 		<node type="6" name="dwarf" file="dwarf.ms3d">
 			<position>15:0:15</position>
@@ -214,13 +221,6 @@
 			<diffuse_texture>dwarf_d.png</diffuse_texture>
 			<normal_texture>dwarf_n.png</normal_texture>
 		</node>
-		
-		<brush file="crate.obj">
-			<diffuse_texture>crate_1d.png</diffuse_texture>
-			<normal_texture>crate_1n.png</normal_texture>
-			<position>28:0:22</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
 		
 		<!-- Test lights -->
 		<node type="8" name="spotLight1">
