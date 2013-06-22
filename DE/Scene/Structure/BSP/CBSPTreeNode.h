@@ -30,16 +30,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <vector>
 #include <memory>
-#include "../Core/Utility/CVector2.h"
-#include "../Core/Utility/CVector3.h"
-#include "../Core/Utility/CVector4.h"
-#include "../Medias/ITexture2DBase.h"
-#include "../Scene/CPlane3D.h"
-#include "../Scene/CSphere.h"
-#include "../Scene/CImpact.h"
-#include "../Scene/CAABoundingBox.h"
-#include "../BSP/CBSPTriangle.h"
-#include "../BSP/CBSPPortal.h"
+#include "../../../Core/Utility/CVector2.h"
+#include "../../../Core/Utility/CVector3.h"
+#include "../../../Core/Utility/CVector4.h"
+#include "../../../Medias/ITexture2DBase.h"
+#include "../../../Scene/CPlane3D.h"
+#include "../../../Scene/CSphere.h"
+#include "../../../Scene/CImpact.h"
+#include "../../../Scene/CAABoundingBox.h"
+#include "../../../Scene/Structure/BSP/CBSPTriangle.h"
+#include "../../../Scene/Structure/BSP/CBSPPortal.h"
 
 #define DEFAULT_BSP_SCORE 10000000.0f
 

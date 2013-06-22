@@ -238,19 +238,6 @@
 			</node>
 		</node>
 		
-		<node type="2" name="aaaaaa">
-			<position>0:10:30</position>
-			<rotation>40:0:0</rotation>
-			<color>0.6:0.2:0.2:1</color>
-			<range>40</range>
-			<radius>35</radius>
-			<falloff>0.7</falloff>
-			<tightness>0.6</tightness>
-			<shadow_caster>true</shadow_caster>
-		</node>
-		
-		
-		
 		<!-- Player camera -->
 		<node type="1" name="player">
 			<position>15:4:0</position>

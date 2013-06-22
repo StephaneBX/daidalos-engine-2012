@@ -13,11 +13,6 @@
   <ItemGroup>
     <ClInclude Include="Applications\ISDLApplication.h" />
     <ClInclude Include="Applications\IWin32Application.h" />
-    <ClInclude Include="BSP\CBSPBrushNode.h" />
-    <ClInclude Include="BSP\CBSPPortal.h" />
-    <ClInclude Include="BSP\CBSPTreeNode.h" />
-    <ClInclude Include="BSP\CBSPSceneNode.h" />
-    <ClInclude Include="BSP\CBSPTriangle.h" />
     <ClInclude Include="Core\CConfigurationManager.h" />
     <ClInclude Include="Core\CGUIManager.h" />
     <ClInclude Include="Core\CSoundContextManager.h" />
@@ -144,15 +139,16 @@
     <ClInclude Include="Scene\CSoundSceneNode.h" />
     <ClInclude Include="Scene\CSpotLightSceneNode.h" />
     <ClInclude Include="Scene\CStaticMeshSceneNode.h" />
+    <ClInclude Include="Scene\Structure\BSP\CBSPBrushNode.h" />
+    <ClInclude Include="Scene\Structure\BSP\CBSPPortal.h" />
+    <ClInclude Include="Scene\Structure\BSP\CBSPSceneNode.h" />
+    <ClInclude Include="Scene\Structure\BSP\CBSPTreeNode.h" />
+    <ClInclude Include="Scene\Structure\BSP\CBSPTriangle.h" />
+    <ClInclude Include="Scene\Structure\Simple\CSimpleSceneNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Applications\ISDLApplication.cpp" />
     <ClCompile Include="Applications\IWin32Application.cpp" />
-    <ClCompile Include="BSP\CBSPBrushNode.cpp" />
-    <ClCompile Include="BSP\CBSPPortal.cpp" />
-    <ClCompile Include="BSP\CBSPTreeNode.cpp" />
-    <ClCompile Include="BSP\CBSPSceneNode.cpp" />
-    <ClCompile Include="BSP\CBSPTriangle.cpp" />
     <ClCompile Include="Core\CConfigurationManager.cpp" />
     <ClCompile Include="Core\CGUIManager.cpp" />
     <ClCompile Include="Core\CMediaManager.cpp" />
@@ -253,6 +249,12 @@
     <ClCompile Include="Scene\CSoundSceneNode.cpp" />
     <ClCompile Include="Scene\CSpotLightSceneNode.cpp" />
     <ClCompile Include="Scene\CStaticMeshSceneNode.cpp" />
+    <ClCompile Include="Scene\Structure\BSP\CBSPBrushNode.cpp" />
+    <ClCompile Include="Scene\Structure\BSP\CBSPPortal.cpp" />
+    <ClCompile Include="Scene\Structure\BSP\CBSPSceneNode.cpp" />
+    <ClCompile Include="Scene\Structure\BSP\CBSPTreeNode.cpp" />
+    <ClCompile Include="Scene\Structure\BSP\CBSPTriangle.cpp" />
+    <ClCompile Include="Scene\Structure\Simple\CSimpleSceneNode.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>

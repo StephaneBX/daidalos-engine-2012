@@ -38,6 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CAnimatedMeshSceneNode.h"
 #include "../Scene/CSoundSceneNode.h"
 #include "../Scene/CEmptySceneNode.h"
+#include "../Scene/CPlane3D.h"
 #include "../Medias/CTexture2D.h"
 #include "../Medias/CMaterial.h"
 #include "../Loaders/CSceneLoader.h"
@@ -124,6 +125,14 @@ namespace DE
 
 			switch(this->m_structure)
 			{
+			// Simple structure
+			case SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE:
+				LoadSimpleStructure(parent, handle, node);
+				if(parent == nullptr)
+					parent = node;
+
+				break;
+
 			// BSP structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
 				LoadBSPStructure(parent, handle, node);
@@ -354,7 +363,7 @@ namespace DE
 				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
 				{
 					if(child2->ValueStr() == "brush")
-						AddBrushData(TiXmlHandle(child2), brush);
+						AddBSPBrushData(TiXmlHandle(child2), brush);
 				}
 
 				if(brush.geometry.size() > 0)
@@ -379,7 +388,7 @@ namespace DE
 				bspHandle.Element()->QueryBoolAttribute("collisions", &brush.collision);
 				bspHandle.Element()->QueryIntAttribute("id", &brush.id);
 
-				AddBrushData(bspHandle, brush);
+				AddBSPBrushData(bspHandle, brush);
 				brushDefinition.push_back(brush);
 			}
 		}
@@ -388,7 +397,57 @@ namespace DE
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::AddBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition)
+	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node)
+	{
+		TiXmlElement * child;
+		std::vector<SSimpleBrush> brushes;
+		node = new CSimpleSceneNode();
+		CVector3F ambientColor;
+		if(handle.Element()->Attribute("ambientColor") != nullptr)
+			ambientColor = CVector3F::GetFrom(handle.Element()->Attribute("ambientColor"));
+		static_cast<CSimpleSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+
+		// Read the bsp geometry
+		child = handle.FirstChildElement("multi_brush").ToElement();
+		for(child ; child ; child = child->NextSiblingElement())	
+		{
+			// A brush created with a bunch of static models
+			if(child->ValueStr() == "multi_brush")
+			{
+				TiXmlHandle bspHandle(child);
+				TiXmlElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
+				SSimpleBrush brush;
+
+				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
+				{
+					if(child2->ValueStr() == "brush")
+						AddSimpleBrushData(TiXmlHandle(child2), brush);
+				}
+
+				if(brush.geometry.size() > 0)
+					brushes.push_back(brush);
+			}
+		}
+
+		child = handle.FirstChildElement("brush").ToElement();
+		for(child ; child ; child = child->NextSiblingElement())	
+		{
+			// A simple brush
+			if(child->ValueStr() == "brush")
+			{
+				TiXmlHandle bspHandle(child);
+				SSimpleBrush brush;
+
+				AddSimpleBrushData(bspHandle, brush);
+				brushes.push_back(brush);
+			}
+		}
+
+		// Add all the geometry in the bsp scene node
+		static_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
+	}
+
+	void CSceneLoader::AddBSPBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition)
 	{
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
@@ -448,6 +507,86 @@ namespace DE
 				// Add the triangle to the geometry
 				brushDefinition.geometry.push_back(triangle);
 			}
+		}
+	}
+
+	void CSceneLoader::AddSimpleBrushData(const TiXmlHandle & handle, SSimpleBrush & brush)
+	{
+		bool visible, flatShading;
+		CVector3F position, rotation, scale;
+		std::string diffuseTexture, normalTexture, material;
+		std::ostringstream ss;
+
+		std::string name = handle.Element()->Attribute("file");
+		GetNodeData(handle, "visible", visible, true);
+		GetNodeData(handle, "position", position, CVector3F(0,0,0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+		GetNodeData(handle, "scale", scale, CVector3F(1,1,1));
+		GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
+		GetNodeData(handle, "normal_texture", normalTexture, "");
+		GetNodeData(handle, "flat_shading", flatShading, false);
+		GetNodeData(handle, "material", material, "default.mtl");
+
+		// Modification matrixes
+		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
+		CMatrix rotationMatrix = CMatrix(CVector3F(1,1,1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0,0,0));
+
+		CMaterial mat(material);
+
+		// Create the geometry
+		CStaticMesh mesh(name);
+		for(int i = 0 ; i < mesh.GetMesh()->GetNumberOfGroups() ; ++i)
+		{
+			CTexture2D diffuse;
+			CTexture2D normal;
+			CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+			CVector3F maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
+			if(diffuseTexture != "")
+				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+
+			if(normalTexture != "")
+				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+
+			for(int j = 0 ; j < mesh.GetMesh()->GetGroupSize(i) ; j += 3)
+			{
+				CTriangle3D * triangle = new CTriangle3D();
+
+				ss.str("");
+				ss << "group_" << (i + 1);
+
+				for(int k = 0 ; k < 3 ; ++k)
+				{
+					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
+					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
+					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
+
+					// Update the min and max values
+					minVector.x = std::min(minVector.x, triangle->GetVertex(k).x);
+					minVector.y = std::min(minVector.y, triangle->GetVertex(k).y);
+					minVector.z = std::min(minVector.z, triangle->GetVertex(k).z);
+
+					maxVector.x = std::max(maxVector.x, triangle->GetVertex(k).x);
+					maxVector.y = std::max(maxVector.y, triangle->GetVertex(k).y);
+					maxVector.z = std::max(maxVector.z, triangle->GetVertex(k).z);
+				}
+
+				triangle->SetTexture(diffuse, TEXTURE_TYPE_DIFFUSE);
+				triangle->SetTexture(normal, TEXTURE_TYPE_NORMAL);
+				triangle->SetMaterial(mat, this->m_materialsConf.GetValueString(name, ss.str(), "default"));
+				triangle->Update();
+
+				// Find the triangle plane
+				CVector3F tmp[] = {triangle->GetVertex(0), triangle->GetVertex(1), triangle->GetVertex(2)};
+				CPlane3DF plane = CPlane3DF(tmp);
+				triangle->SetFlatNormal(plane.GetNormal());
+
+				// Add the triangle to the geometry
+				brush.geometry.push_back(triangle);
+			}
+
+			// Add the visibility shape to the geometry
+			brush.visibilityShape = new CSphereF((maxVector + minVector) / 2.0f, (maxVector - minVector).Length() / 2.0f);
 		}
 	}
 

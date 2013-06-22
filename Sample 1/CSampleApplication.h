@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CSAMPLEAPPLICATION_H
 
 #include <ISampleApplication.h>
-#include <CFreeCamera.h>
+#include "CFreeCamera.h"
 
 namespace SAMPLE1
 {

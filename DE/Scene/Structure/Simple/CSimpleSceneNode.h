@@ -25,76 +25,83 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CBSPBRUSHNODE_H
-#define __CBSPBRUSHNODE_H
+#ifndef __CSIMPLESCENENODE_H
+#define __CSIMPLESCENENODE_H
 
-#include <vector>
-#include <memory>
-#include "../Core/Utility/CVector2.h"
-#include "../Core/Utility/CVector3.h"
-#include "../Core/Utility/CVector4.h"
-#include "../Scene/CPlane3D.h"
-#include "../Scene/IShape3D.h"
-#include "../Scene/CImpact.h"
-#include "../BSP/CBSPTriangle.h"
+#include "../../../Scene/CMeshBuffer.h"
+#include "../../../Scene/ICameraSceneNode.h"
+#include "../../../Scene/ILevelSceneNode.h"
+#include "../../../Scene/CSphere.h"
 
 namespace DE
 {
-	class CBSPTreeNode;
-
 	/**
-	* A bsp brush
+	* The structure used by the node
 	*/
-	struct SBSPBrush
+	struct SSimpleBrush
 	{
-		int id;
-		bool tested;
-		bool enabled;
-		std::unique_ptr<CBSPTreeNode> root;
+		CSphereF * visibilityShape;
+		std::vector<CTriangle3D*> geometry;
 	};
 
 	/**
-	* The bsp brush node class
-	* Handle the node of a BSP brush
+	* Handle a 3d simple node
 	*/
-	class CBSPBrushNode
+	class CSimpleSceneNode : public ILevelSceneNode
 	{
-	private:
-		EBSPNodeType m_type;
-		std::vector<SBSPBrush*> m_brushes;
-		CPlane3DF m_plane;
-		CBSPBrushNode * m_children[2];
-
+	protected:
+		std::vector<CTriangle3D*> m_visibleTriangles;
+		std::vector<SSimpleBrush> m_brushes;
+	
 	public:
 		/**
 		* Constructor
-		* @param root The tree node to duplicate
 		*/
-		CBSPBrushNode(CBSPTreeNode * root);
+		CSimpleSceneNode();
 
 		/**
 		* Destructor
 		*/
-		~CBSPBrushNode();
+		~CSimpleSceneNode();
 
 		/**
-		* Add a brush to the node
-		* @param brush The brush to add
-		* @param triangles The brush geometry
+		* Load a geometry in the node
+		* @param brushes A vector of brush
 		*/
-		void AddBrush(SBSPBrush * brush, const std::vector<CBSPTriangle*> & triangles);
+		void LoadGeometry(const std::vector<SSimpleBrush> & brushes);
 
 		/**
-		* Detect a collison with a shape in movement
-		* @param shape The object' shape
-		* @param impact The final impact
-		* @param iBrush The temporaty impact
+		* Render the node
 		*/
-		void CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush);
+		void Render();
+
+		/**
+		* Slide a shape on the bsp
+		* @param shape The shape to slide
+		* @param movement A CVector3F describing the shape movement
+		* @return True if a collision occurred
+		*/
+		const bool Slide(IShape3DF & shape, const CVector3F & movement);
+
+		/**
+		* Get the collision point of a moving shape
+		* @param shape The shape
+		* @param movement A CVector3F describing the shape movement
+		* @param point The CVector3F that will hold the collision position
+		* @return True if a collision occurred
+		*/
+		const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point);
+
+	protected:
+		/**
+		* Test the brushes and register their geometry for rendering if the brush is visible
+		* @param node A brush
+		*/
+		void RegisterBrushesForRendering();
 
 	private:
-		CBSPBrushNode(const CBSPBrushNode & copy);
-		const CBSPBrushNode & operator=(const CBSPBrushNode & copy);
+		CSimpleSceneNode(const CSimpleSceneNode & copy);
+		const CSimpleSceneNode & operator=(const CSimpleSceneNode & copy);
 	};
 }
 

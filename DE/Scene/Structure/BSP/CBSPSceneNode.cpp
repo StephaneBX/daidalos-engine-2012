@@ -26,10 +26,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Scene/CSceneManager.h"
-#include "../BSP/CBSPSceneNode.h"
+#include "../../../Core/Logger/ILogger.h"
+#include "../../../Core/Memory/CExceptionAssert.h"
+#include "../../../Scene/CSceneManager.h"
+#include "../../../Scene/Structure/BSP/CBSPSceneNode.h"
 
 #define BSP_MIN_MOVE 0.02f
 #define BSP_HEIGHT_EPSILON 0.4f

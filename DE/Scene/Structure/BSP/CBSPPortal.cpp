@@ -25,96 +25,42 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CBSPTRIANGLE_H
-#define __CBSPTRIANGLE_H
-
-#include "../Scene/CTriangle3D.h"
+#include "../../../Core/Memory/CExceptionAssert.h"
+#include "../../../Scene/Structure/BSP/CBSPPortal.h"
 
 namespace DE
 {
-	/**
-	* Handle a 3d triangle for the bsp
-	*/
-	class CBSPTriangle : public CTriangle3D
+	void CBSPPortal::SetTriangle(const CBSPTriangle & triangle, const unsigned int index)
 	{
-	protected:
-		bool m_separationPlane;
-		bool m_visible;
-		bool m_drawn;
-		CPlane3DF m_plane;
-	
-	public:
-		/**
-		* Constructor
-		*/
-		CBSPTriangle();
+		Assert(index >= 0 && index < 2);
+		this->m_triangles[index] = triangle;
+	}
 
-		/**
-		* Set the separation plane state
-		* @param separationPlane The separation plane state
-		*/
-		void SetSeparationPlane(const bool separationPlane);
+	void CBSPPortal::SetNumberOfLeafs(const unsigned int leafs)
+	{
+		this->m_numberOfLeafs = leafs;
+	}
 
-		/**
-		* Set the triangle visibility
-		* @param visible The triangle visibility
-		*/
-		void SetVisible(const bool visible);
+	void CBSPPortal::SetLeafIndex(const unsigned int leafMasterIndex, const unsigned int index)
+	{
+		Assert(index >= 0 && index < 2);
+		this->m_leafsIndex[index] = leafMasterIndex;
+	}
 
-		/**
-		* Set the triangle drawn state
-		* @param drawn The triangle drawn state
-		*/
-		void SetDrawn(const bool drawn);
+	const unsigned int CBSPPortal::GetNumberOfLeafs() const
+	{
+		return this->m_numberOfLeafs;
+	}
 
-		/**
-		* Set the plane
-		* @param plane The plane
-		*/
-		void SetPlane(const CPlane3DF & plane);
+	const unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const
+	{
+		Assert(index >= 0 && index < 2);
+		return this->m_leafsIndex[index];
+	}
 
-		/**
-		* Create the plane with the vertices information
-		*/
-		void CreatePlane();
-
-		/**
-		* Check if the triangle is a separation plane
-		* @return True if the triangle is a separation plane
-		*/
-		const bool IsSeparationPlane() const;
-
-		/**
-		* Check if the triangle is visible
-		* @return True if the triangle is visible
-		*/
-		const bool IsVisible() const;
-
-		/**
-		* Check if the triangle is drawn
-		* @return True if the triangle is drawn
-		*/
-		const bool IsDrawn() const;
-
-		/**
-		* Get the plane
-		* @return The plane
-		*/
-		const CPlane3DF & GetPlane() const;
-
-		/**
-		* Classify a triangle regarding a plane
-		* @param plane The plane used as a reference
-		* @return The triangle position toward the plane
-		*/
-		EBSPTriangleOrientation Classify(const CPlane3DF & plane);
-
-		/**
-		* Get the plane
-		* @return The plane
-		*/
-		CPlane3DF * GetPlanePointer();
-	};
+	const CBSPTriangle & CBSPPortal::GetTriangle(const unsigned int index) const
+	{
+		Assert(index >= 0 && index < 2);
+		return this->m_triangles[index];
+	}
 }
-
-#endif

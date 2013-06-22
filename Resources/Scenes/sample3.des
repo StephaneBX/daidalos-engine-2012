@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<scene structure="0">
+<scene structure="1">
 	<!-- Level node with a bsp structure -->
 	<node type="0" name="level" ambientColor="0.2:0.2:0.2">
 		<!-- Level node geometry -->

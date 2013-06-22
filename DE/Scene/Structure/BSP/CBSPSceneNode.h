@@ -28,11 +28,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CBSPSCENENODE_H
 #define __CBSPSCENENODE_H
 
-#include "../BSP/CBSPTreeNode.h"
-#include "../BSP/CBSPBrushNode.h"
-#include "../Scene/CMeshBuffer.h"
-#include "../Scene/ICameraSceneNode.h"
-#include "../Scene/ILevelSceneNode.h"
+#include "../../../Scene/Structure/BSP/CBSPTreeNode.h"
+#include "../../../Scene/Structure/BSP/CBSPBrushNode.h"
+#include "../../../Scene/CMeshBuffer.h"
+#include "../../../Scene/ICameraSceneNode.h"
+#include "../../../Scene/ILevelSceneNode.h"
 
 #define BSP_MAX_IMPACT 5
 

@@ -293,6 +293,7 @@ namespace DE
 
 	enum ESceneNodeRootStructureType
 	{
+		SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE,
 		SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP
 	};
 

@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <ISampleApplication.h>
 #include "CFPSCamera.h"
+//#include "CFreeCamera.h"
 
 namespace SAMPLE2
 {
@@ -40,6 +41,7 @@ namespace SAMPLE2
 	{
 	private:
 		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
+		//std::unique_ptr<SAMPLES::CFreeCamera> m_camera;
 		DE::CSpotLightSceneNode * m_spotLight;
 
 	public:

@@ -82,17 +82,29 @@
     <Filter Include="Fichiers d%27en-tête\Core\Listeners">
       <UniqueIdentifier>{6cd44f12-2ee3-47c1-ac2c-f2c5d009f3d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\BSP">
-      <UniqueIdentifier>{5712f0a7-cf0e-4204-9abb-a86dfa833f23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\BSP">
-      <UniqueIdentifier>{5beb43c2-dc59-4b7b-92aa-6cd11cef87a1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\GUI">
       <UniqueIdentifier>{8cd5ae09-3c6a-459a-882b-f3f2ec7893e0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\GUI">
       <UniqueIdentifier>{792e9085-39d4-41a9-ab10-cc2a84d6c489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Structure">
+      <UniqueIdentifier>{4d943e41-dd7a-45aa-8403-a35497ca6f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Structure\BSP">
+      <UniqueIdentifier>{c5f93afe-a0d9-4178-96ec-f77efed58dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\Structure">
+      <UniqueIdentifier>{996c6bd0-a551-4219-bec0-3acca12dd695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\Structure\BSP">
+      <UniqueIdentifier>{b8fa752e-01d4-4e5a-b795-7c1274f73ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Structure\Simple">
+      <UniqueIdentifier>{8f3c8527-d58b-4867-b323-eb0b16b55a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\Structure\Simple">
+      <UniqueIdentifier>{266faead-b152-45f3-a921-f4b911d6a261}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -357,12 +369,6 @@
     <ClInclude Include="Scene\CTriangle3D.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="BSP\CBSPTriangle.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="BSP\CBSPSceneNode.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
     <ClInclude Include="Loaders\CSceneLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
     </ClInclude>
@@ -374,12 +380,6 @@
     </ClInclude>
     <ClInclude Include="Scene\ILevelSceneNode.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BSP\CBSPTreeNode.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="BSP\CBSPBrushNode.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
     <ClInclude Include="Medias\CSound.h">
       <Filter>Fichiers d%27en-tête\Medias</Filter>
@@ -486,14 +486,29 @@
     <ClInclude Include="Scene\CAABoundingBox.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="BSP\CBSPPortal.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\CEmptySceneNode.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Core\Memory\CExceptionSave.h">
       <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\BSP\CBSPBrushNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\BSP\CBSPPortal.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\BSP\CBSPSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\BSP\CBSPTreeNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\BSP\CBSPTriangle.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Structure\Simple\CSimpleSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\Structure\Simple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -695,12 +710,6 @@
     <ClCompile Include="Scene\CTriangle3D.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BSP\CBSPTriangle.cpp">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
-    <ClCompile Include="BSP\CBSPSceneNode.cpp">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
     <ClCompile Include="Loaders\CSceneLoader.cpp">
       <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
@@ -712,12 +721,6 @@
     </ClCompile>
     <ClCompile Include="Scene\ILevelSceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="BSP\CBSPTreeNode.cpp">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
-    <ClCompile Include="BSP\CBSPBrushNode.cpp">
-      <Filter>Fichiers sources\BSP</Filter>
     </ClCompile>
     <ClCompile Include="Medias\CSound.cpp">
       <Filter>Fichiers sources\Medias</Filter>
@@ -809,14 +812,29 @@
     <ClCompile Include="Scene\CPointLightSceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BSP\CBSPPortal.cpp">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\CEmptySceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Core\Memory\CExceptionSave.cpp">
       <Filter>Fichiers sources\Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\BSP\CBSPBrushNode.cpp">
+      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\BSP\CBSPPortal.cpp">
+      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\BSP\CBSPSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\BSP\CBSPTreeNode.cpp">
+      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\BSP\CBSPTriangle.cpp">
+      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Structure\Simple\CSimpleSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\Structure\Simple</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

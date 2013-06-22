@@ -34,7 +34,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CConfigurationManager.h"
-#include "../BSP/CBSPSceneNode.h"
+#include "../Scene/Structure/BSP/CBSPSceneNode.h"
+#include "../Scene/Structure/Simple/CSimpleSceneNode.h"
 #include "../Scene/ISceneNode.h"
 
 namespace DE
@@ -93,11 +94,26 @@ namespace DE
 		void LoadBSPStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node);
 
 		/**
-		* Add data into the brush definition by reading the handle
+		* Load a simple structure
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		void LoadSimpleStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node);
+
+		/**
+		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		void AddBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition);
+		void AddBSPBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition);
+
+		/**
+		* Add data into the simple brush by reading the handle
+		* @param handle The handle for the data
+		* @param brushDefinition The brush definition
+		*/
+		void AddSimpleBrushData(const TiXmlHandle & handle, SSimpleBrush & brush);
 
 		/**
 		* Get a node data
