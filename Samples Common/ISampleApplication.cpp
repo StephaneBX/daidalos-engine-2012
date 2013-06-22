@@ -32,6 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Core.h>
 #include <Core/Logger/CLoggerFile.h>
 #include <Core/Utility/CMatrix.h>
+#include <Core/CGUIManager.h>
 #include <Medias/CMaterial.h>
 #include <Medias/CStaticMesh.h>
 #include <Medias/CFont.h>
@@ -149,6 +150,22 @@ namespace SAMPLES
 			{0, DE::DECLARATION_USAGE_NORMAL2, DE::DECLARATION_TYPE_FLOAT3}
 		};
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(decl);
+
+		
+		// --------------------------------------------------------------------------------------------------
+		// The texts
+		// --------------------------------------------------------------------------------------------------
+		this->m_positionText.SetBounds(DE::CRectangleI(5,0,200,30));
+		this->m_positionText.SetSize(25);
+		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
+		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_positionText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+
+		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150),0,150,30));
+		this->m_fpsText.SetSize(30);
+		this->m_fpsText.SetColor(DE::CColor(255, 255, 102, 255));
+		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_fpsText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 	}
 
 	ISampleApplication::~ISampleApplication() 
@@ -250,6 +267,9 @@ namespace SAMPLES
 		this->m_renderer->SetTexture(0, nullptr);
 	
 		this->m_renderer->EndScene();
+
+		// Render the texts
+		DE::CGUIManager::GetInstance()->Render();
 	}
 
 	void ISampleApplication::SpotLightsRendering()
@@ -258,7 +278,7 @@ namespace SAMPLES
 
 		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveSpotLights() ; ++i)
 		{
-			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i])
+			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]])
 			{
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -267,7 +287,7 @@ namespace SAMPLES
 				this->m_renderer->SetViewport(DE::CRectangleI(0,0,1024,1024));
 
 				// Fill the shadow map
-				this->m_scene->SetActiveCamera(this->m_scene->GetActiveSpotLightsBuffer()->node[i]);
+				this->m_scene->SetActiveCamera(this->m_scene->GetActiveSpotLightsBuffer()->node[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
 				this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
 				this->m_DSFB.DetachAllElements();
 				this->m_DSFB.AttachElement("lightDepthRT", 0);
@@ -303,8 +323,8 @@ namespace SAMPLES
 
 			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
-			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[i]);
-			this->m_scene->SendSpotLightDataToShader(i);
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
+			this->m_scene->SendSpotLightDataToShader(this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
 			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
 	}
@@ -315,7 +335,7 @@ namespace SAMPLES
 
 		for(int i = 0 ; i < this->m_scene->GetNumberOfActivePointLights() ; ++i)
 		{
-			if(this->m_scene->GetActivePointLightsBuffer()->shadowCaster[i])
+			if(this->m_scene->GetActivePointLightsBuffer()->shadowCaster[this->m_scene->GetActivePointLightsBuffer()->visibilityOrder[i]])
 			{
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -324,7 +344,7 @@ namespace SAMPLES
 				this->m_renderer->SetViewport(DE::CRectangleI(0,0,1024,1024));
 
 				// Fill the shadow map
-				this->m_scene->SetActiveCamera(this->m_scene->GetActivePointLightsBuffer()->node[i]);
+				this->m_scene->SetActiveCamera(this->m_scene->GetActivePointLightsBuffer()->node[this->m_scene->GetActivePointLightsBuffer()->visibilityOrder[i]]);
 				this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
 				this->m_DSFB.DetachAllElements();
 				this->m_DSFB.AttachElement("lightDepthRT", 0);
@@ -360,8 +380,8 @@ namespace SAMPLES
 
 			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
-			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActivePointLightsBuffer()->shadowCaster[i]);
-			this->m_scene->SendPointLightDataToShader(i);
+			this->m_DSSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene->GetActivePointLightsBuffer()->shadowCaster[this->m_scene->GetActivePointLightsBuffer()->visibilityOrder[i]]);
+			this->m_scene->SendPointLightDataToShader(this->m_scene->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
 	}

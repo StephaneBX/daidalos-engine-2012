@@ -40,6 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CFrameBuffer.h>
 #include <GUI/CGUIText.h>
 #include <Core/Utility/CColor.h>
+#include <Core/Utility/CFPSCounter.h>
 #include <Core/IRenderer.h>
 #include <Core/IDeclaration.h>
 #include <Applications/IWin32Application.h>
@@ -69,6 +70,11 @@ namespace SAMPLES
 		DE::CShaderProgram m_DSSpotLight;
 		DE::CShaderProgram m_DSDirectionalLight;
 		DE::CShaderProgram m_DSFinal;
+
+		DE::CGUIText m_fpsText;
+		DE::CGUIText m_positionText;
+
+		DE::CFPSCounter m_fpsCounter;
 
 	public:
 		/**

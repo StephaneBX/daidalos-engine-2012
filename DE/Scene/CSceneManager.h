@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CSCENEMANAGER_H
 
 #include "../Core/IRenderer.h"
+#include "../Core/CConfigurationManager.h"
 #include "../Scene/ICameraSceneNode.h"
 #include "../Scene/ILevelSceneNode.h"
 #include "../Scene/CStaticMeshSceneNode.h"
@@ -45,7 +46,6 @@ namespace DE
 	*/
 	struct SSPotLightsShaderData
 	{
-		bool updateRequired;
 		int numberOfLights;
 		int enabled[MAX_LIGHTS_IN_SHADERS];
 		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
@@ -66,7 +66,6 @@ namespace DE
 	*/
 	struct SDirectionalLightsShaderData
 	{
-		bool updateRequired;
 		int numberOfLights;
 		int enabled[MAX_LIGHTS_IN_SHADERS];
 		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
@@ -89,6 +88,7 @@ namespace DE
 
 		ISceneNode * m_root;
 		ICameraSceneNode * m_activeCamera;
+		SiniP m_options;
 
 	public:
 		/**
@@ -246,6 +246,11 @@ namespace DE
 		* Order the lights in order the allow the most relevant one to be visible
 		*/
 		void SortLights();
+
+		/**
+		* Make sure that the number of active lights do not exceed the values in the configuration file
+		*/
+		void ActiveLightsCheck();
 
 		/**
 		* Find all the nodes with a given name and store them in a vector

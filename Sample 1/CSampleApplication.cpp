@@ -49,6 +49,7 @@ namespace SAMPLE1
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_camera->Update(time);
 
 		if(this->m_spotLight != nullptr)

@@ -70,4 +70,9 @@ namespace DE
 	{
 		return this->m_fps;
 	}
+
+	const std::string CFPSCounter::GetText() const
+	{
+		return this->m_fpsStream.str();
+	}
 }

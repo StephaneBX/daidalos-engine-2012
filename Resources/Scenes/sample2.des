@@ -7870,14 +7870,14 @@
 		
 		<!-- Test sound -->
 		<node type="7" name="soundSpot1">
-			<position>-10:2:30</position>
+			<position>0:0:0</position>
 			<rotation>0:0:0</rotation>
 			<file>test.wav</file>
 			<type>1</type>
 			<gain>1</gain>
 			<reference_distance>4</reference_distance>
 			<max_distance>100</max_distance>
-			<relative_to_listener>false</relative_to_listener>
+			<relative_to_listener>true</relative_to_listener>
 			<looped>true</looped>
 			<play_on_startup>true</play_on_startup>
 		</node>
@@ -7900,7 +7900,7 @@
 			<node type="2" name="flashlight">
 				<position>0.5:-0.8:0</position>
 				<rotation>0:0:0</rotation>
-				<color>0.5:0.5:0.5:1</color>
+				<color>0.6:0.6:0.6:1</color>
 				<range>60</range>
 				<radius>17</radius>
 				<falloff>0.5</falloff>

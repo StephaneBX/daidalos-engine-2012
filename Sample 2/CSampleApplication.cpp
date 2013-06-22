@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <sstream>
 #include "CSampleApplication.h"
 
 namespace SAMPLE2
@@ -58,6 +59,16 @@ namespace SAMPLE2
 			this->m_spotLight->SetRotation(lightRotation);
 		}
 		
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_scene->UpdateAll(time);
+	
+		// Update the position
+		std::stringstream ss;
+		ss << "Position: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z;
+		this->m_positionText.SetText(ss.str());
+
+		// Update the fps
+		this->m_fpsCounter.Update(time);
+		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
 	}
 }

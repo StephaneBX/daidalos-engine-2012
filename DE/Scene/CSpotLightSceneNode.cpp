@@ -78,8 +78,15 @@ namespace DE
 		{
 			SSPotLightsShaderData * lights = scene->GetActiveSpotLightsBuffer();
 
-			// Add the light if the limit has not been reached
-			if(lights->updateRequired && lights->numberOfLights < MAX_LIGHTS_IN_SHADERS)
+			// Check if the light hasn't already been added
+			bool lightFound = false;
+			for(int i = 0 ; i < lights->numberOfLights && !lightFound ; i++)
+			{
+				lightFound = lights->node[i] == this->m_camera;
+			}
+
+			// Add the light if the limit has not been reached and the light is not already present
+			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS && !lightFound)
 			{
 				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition,0);
 				lights->direction[lights->numberOfLights] = CVector4F(this->m_camera->GetForwardVector(), 0);

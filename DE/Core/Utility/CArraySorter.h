@@ -77,8 +77,8 @@ namespace DE
 		* Quick Sort algorithm
 		* @param arrayList The data array
 		* @param order The order array
-		* @param first The starting indice
-		* @param last The last indice
+		* @param first The starting index
+		* @param last The last index
 		*/
 		void QuickSort(T * const arrayList, int * const order, const int first, const int last)
 		{
@@ -102,7 +102,7 @@ namespace DE
 				toDo = false;
 				for(int j = 0 ; j < arraySize - 1 - i ; j++)
 				{
-					if(this->m_arrayList[j] < this->m_arrayList[j + 1])
+					if(this->m_arrayList[j] > this->m_arrayList[j + 1])
 					{
 						Swap(j, j + 1);
 						toDo = true;
@@ -154,7 +154,7 @@ namespace DE
 			j = first;
 			for(int i = first ; i < last ; i++)
 			{
-				if(this->m_arrayList[i] > this->m_arrayList[last])
+				if(this->m_arrayList[i] < this->m_arrayList[last])
 				{
 					Swap(i, j);
 					j++;

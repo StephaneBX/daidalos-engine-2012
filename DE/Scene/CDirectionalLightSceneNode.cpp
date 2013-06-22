@@ -54,7 +54,7 @@ namespace DE
 			SDirectionalLightsShaderData * lights = CSceneManager::GetInstance()->GetActiveDirectionalLightsBuffer();
 
 			// Add the light if the limit has not been reached
-			if(lights->updateRequired && lights->numberOfLights < MAX_LIGHTS_IN_SHADERS)
+			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS)
 			{
 				lights->direction[lights->numberOfLights] = CVector4F(this->m_absoluteRotationMatrix.Transform(CVector3F(0,0,1)), 0);
 				lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();

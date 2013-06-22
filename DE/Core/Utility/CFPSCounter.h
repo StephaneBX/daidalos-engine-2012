@@ -80,6 +80,12 @@ namespace DE
 		* @return The current fps
 		*/
 		const float GetFPS() const;
+
+		/**
+		* Get the current fps as a string
+		* @return The current fps string
+		*/
+		const std::string GetText() const;
 	};
 }
 
