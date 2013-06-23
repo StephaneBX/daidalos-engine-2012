@@ -40,7 +40,7 @@ namespace DE
 
 		if(it != this->m_resources.end())
 		{
-			ILogger::Log() << "CE:CResourceManager Error : A resource with the name '" << name << "' is already registered in the resources database." << "\n";
+			 LOG_WARNING("A resource with the name '" << name << "' is already registered in the resources database.");
 		}
 		else
 		{
@@ -63,7 +63,7 @@ namespace DE
 		}
 		else
 		{
-			ILogger::Log() << "CE:CResourceManager Error : No resource with the name '" << name << "' is registered in the resources database." << "\n";
+			LOG_WARNING("No resource with the name '" << name << "' is registered in the resources database.");
 		}
 	}
 
@@ -81,6 +81,6 @@ namespace DE
 		}
 
 		if(!found)
-			ILogger::Log() << "CE:CResourceManager Error : No resource with the adress '" << resource << "' is registered in the resources database." << "\n";
+			LOG_WARNING("No resource with the adress '" << resource << "' is registered in the resources database.");
 	}
 }

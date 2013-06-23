@@ -47,7 +47,7 @@ namespace DE
 		// Open the file
 		if(!file)
 		{
-			ILogger::Log() << "DE:CStaticSoundLoader Error: Unable to load the sound '" << filename << "'.\n";
+			LOG_ERROR("Unable to load the sound '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
@@ -74,7 +74,7 @@ namespace DE
 			break;
 
 		default:
-			ILogger::Log() << "DE:CStaticSoundLoader Error: Incompatible file '" << filename << "'. Only files with 1 or 2 channels are accepted.\n";
+			LOG_ERROR("Incompatible file '" << filename << "'. Only files with 1 or 2 channels are accepted");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
@@ -83,7 +83,7 @@ namespace DE
 		// Read the content of the file
 		if(sf_read_short(file, &samples[0], nbSamples) < nbSamples)
 		{
-			ILogger::Log() << "DE:CStaticSoundLoader Error: The file '" << filename << "' has corrupted information.\n";
+			LOG_ERROR("The file '" << filename << "' has corrupted information");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
@@ -99,7 +99,7 @@ namespace DE
 
 		if(alGetError() != AL_NO_ERROR)
 		{
-			ILogger::Log() << "DE:CStaticSoundLoader Error: Unable to fill the sound buffer for the file '" << filename << "'.\n";
+			LOG_ERROR("Unable to fill the sound buffer for the file '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);

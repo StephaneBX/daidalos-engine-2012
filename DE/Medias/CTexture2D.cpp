@@ -202,7 +202,7 @@ namespace DE
 		// Check the compression compatibility
 		if(IsFormatCompressed(format) && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_DXT_COMPRESSION))
 		{
-			ILogger::Log() << "CE:CTexture2D Warning: Using a compressed format with a non compatible hardware. Switching to PIXEL_FORMAT_A8R8G8B8 format.\n";
+			LOG_WARNING("Using a compressed format with a non compatible hardware. Switching to PIXEL_FORMAT_A8R8G8B8 format");
 			format = PIXEL_FORMAT_A8R8G8B8;
 		}
 
@@ -210,7 +210,7 @@ namespace DE
 		CVector2I size = CVector2I(GetNearestPowerOfTwo(image.GetSize().x), GetNearestPowerOfTwo(image.GetSize().y));
 		if(size != image.GetSize() && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_NON_POW2_TEXTURES))
 		{
-			ILogger::Log() << "CE:CTexture2D Warning: Using a non power of two texture with a non compatible hardware. Resizing to the nearest power of two.\n";
+			LOG_WARNING("Using a non power of two texture with a non compatible hardware. Resizing to the nearest power of two");
 		}
 		else
 			size = image.GetSize();

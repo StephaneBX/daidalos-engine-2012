@@ -69,7 +69,7 @@ namespace DE
 			IDirect3DSurface9 * src = nullptr;
 			if (FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(this->m_image.GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr)))
 			{
-				ILogger::Log() << "DE:CDX9Texture2D Error: Unable to create an offscreen plain surface.\n";
+				LOG_ERROR("Unable to create an offscreen plain surface");
 				ILogger::Kill();
 
 				throw CDX9Exception("CreateOffscreenPlainSurface", "CDX9Texture::Update");
@@ -86,7 +86,7 @@ namespace DE
 			RECT destRect = {rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom()};
 			if (FAILED(D3DXLoadSurfaceFromSurface(dest, nullptr, &destRect, src, nullptr, nullptr, D3DX_DEFAULT, 0)))
 			{
-				ILogger::Log() << "DE:CDX9Texture2D Error: Unable to load an offscreen plain surface.\n";
+				LOG_ERROR("Unable to load an offscreen plain surface");
 				ILogger::Kill();
 
 				throw CDX9Exception("D3DXLoadSurfaceFromSurface", "CDX9Texture::Update");

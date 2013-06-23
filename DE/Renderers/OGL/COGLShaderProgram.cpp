@@ -107,7 +107,7 @@ namespace DE
 			COGLRenderer::glGetProgramInfoLog(this->m_programId, logsize, &logsize, log);
 
 			// Log the error.
-			ILogger::Log() << "DE:COGLShaderProgram Error: " << log << ".\n";
+			LOG_ERROR(log);
 			ILogger::Kill();
 
 			// Free the the log buffer.

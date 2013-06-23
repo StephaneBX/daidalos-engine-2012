@@ -182,7 +182,7 @@ namespace DE
 		IDirect3DTexture9 * texture = nullptr;
 		if(FAILED(D3DXCreateTexture(this->m_device, size.x, size.y, frameBufferType ? 1 : 0, usage, CDX9Enums::Get(format), pool, &texture)))
 		{
-			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a texture.\n";
+			LOG_ERROR("Unable to create a texture");
 			ILogger::Kill();
 
 			throw CDX9Exception("D3DXCreateTexture", "CreateTexture2D");
@@ -406,7 +406,7 @@ namespace DE
 		LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
 		if (FAILED(this->m_device->CreateVertexBuffer(count * stride, CDX9Enums::BufferFlags(flags), 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr)))
 		{
-			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a vertex buffer.\n";
+			LOG_ERROR("Unable to create a vertex buffer");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateVertexBuffer", "CreateVB");
@@ -419,7 +419,7 @@ namespace DE
 		LPDIRECT3DINDEXBUFFER9 indexBuffer;
 		if (FAILED(this->m_device->CreateIndexBuffer(count * stride, CDX9Enums::BufferFlags(flags), D3DFMT_INDEX32, D3DPOOL_DEFAULT, &indexBuffer, nullptr)))
 		{
-			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create an index buffer.\n";
+			LOG_ERROR("Unable to create an index buffer");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateIndexBuffer", "CreateIB");
@@ -481,7 +481,7 @@ namespace DE
 		LPDIRECT3DVERTEXDECLARATION9 declaration = nullptr;
 		if (FAILED(this->m_device->CreateVertexDeclaration(&dx9Elements[0], &declaration)))
 		{
-			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create a vertex declaration.\n";
+			LOG_ERROR("Unable to create a vertex declaration");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateVertexDeclaration", "CreateVD");
@@ -566,7 +566,7 @@ namespace DE
 
 		if(FAILED(this->m_d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device)))
 		{
-			ILogger::Log() << "DE:CDX9Renderer Error: Unable to create the device.\n";
+			LOG_ERROR("Unable to create the device");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateDevice", "Initialize");

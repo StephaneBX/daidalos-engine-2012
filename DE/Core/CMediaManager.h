@@ -143,7 +143,7 @@ namespace DE
 		}
 		else
 		{
-			ILogger::Log() << "DE:CMediaManager Error: Unable to load the file " << filename << "'.\n";
+			LOG_ERROR("Unable to load the file " << filename << "'");
 			ILogger::Kill();
 
 			throw new CExceptionLoad(filename);

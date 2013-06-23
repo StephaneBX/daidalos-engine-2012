@@ -52,7 +52,7 @@ namespace DE
 
 		if(strncmp(this->m_data->header.id, "MS3D000000", 10) != 0)
 		{
-			ILogger::Log() << "DE:CMS3DLoader Error: Invalid header id.\n";
+			LOG_ERROR("Invalid header id");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
@@ -60,7 +60,7 @@ namespace DE
 			
 		if(this->m_data->header.version != 4)
 		{
-			ILogger::Log() << "DE:CMS3DLoader Error: Invalid header version.\n";
+			LOG_ERROR("Invalid header version");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);

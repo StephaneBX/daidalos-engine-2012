@@ -250,7 +250,7 @@ namespace DE
 				}
 				else
 				{
-					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id).\n";
+					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id)");
 					ILogger::Kill();
 
 					throw CExceptionLoad(this->m_filename);
@@ -283,7 +283,7 @@ namespace DE
 							{
 								if(normalOrder.at(i) != 0)
 								{
-									ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid normal id).\n";
+									LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid normal id)");
 									ILogger::Kill();
 
 									throw CExceptionLoad(this->m_filename);
@@ -294,7 +294,7 @@ namespace DE
 				}
 				else
 				{
-					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid number of normals).\n";
+					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid number of normals)");
 					ILogger::Kill();
 
 					throw CExceptionLoad(this->m_filename);
@@ -315,7 +315,7 @@ namespace DE
 						}
 						else
 						{
-							ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id).\n";
+							LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id)");
 							ILogger::Kill();
 
 							throw CExceptionLoad(this->m_filename);
@@ -324,7 +324,7 @@ namespace DE
 				}
 				else
 				{
-					ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Invalid number of texcoords).\n";
+					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid number of texcoords)");
 					ILogger::Kill();
 
 					throw CExceptionLoad(this->m_filename);
@@ -333,7 +333,7 @@ namespace DE
 		}
 		else
 		{
-			ILogger::Log() << "DE:COBJLoaderLoader Error: Unable to load the mesh '" << this->m_filename << "' (Less than 3 vertices found).\n";
+			LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Less than 3 vertices found)");
 			ILogger::Kill();
 
 			throw CExceptionLoad(this->m_filename);

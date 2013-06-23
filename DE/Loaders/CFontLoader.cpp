@@ -108,7 +108,7 @@ namespace DE
 		}
 		else
 		{
-			ILogger::Log() << "DE:CFontLoader Error: Unable to load the font file '" << filename << "' (" << doc.ErrorDesc() << ").\n";
+			LOG_ERROR("Unable to load the font file '" << filename << "' (" << doc.ErrorDesc() << ")");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);

@@ -36,9 +36,6 @@
 - Plusieurs textures par modèle
 - Créer un fichier de référence pour les contraintes du moteur (fichiers, OGL, DX9 etc)
 
-[Exceptions]
-
-
 ===============================================================
                      Intéractions / Collisions
 ===============================================================
@@ -50,9 +47,6 @@
 	void SetCollisionEnabled(const bool enabled);
 	void SetMeshCollisionShape(IShape * shape);
 	const bool IsCollisionEnabled() const;
-
-	
-Ignorer les noeuds inconnus
 	
 ===============================================================
                              Portals

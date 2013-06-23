@@ -28,6 +28,35 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILOGGER_H
 #define __ILOGGER_H
 
+#define LOG_LEVEL_DEBUG 0
+#define LOG_LEVEL_INFO 1
+#define LOG_LEVEL_WARNING 2
+#define LOG_LEVEL_ERROR 3
+
+#if LOG_LEVEL <= LOG_LEVEL_ERROR
+	#define LOG_ERROR(stream) ILogger::Log() << __DATE__ << " - ERROR - " << __FUNCTION__ << " : " << stream << "\n";
+#else
+	#define LOG_ERROR(stream) {}
+#endif
+
+#if LOG_LEVEL <= LOG_LEVEL_WARNING
+	#define LOG_WARNING(stream) ILogger::Log() << __DATE__ << " - WARNING - " << __FUNCTION__ << " : " << stream << "\n";
+#else
+	#define LOG_WARNING(stream) {}
+#endif
+
+#if LOG_LEVEL <= LOG_LEVEL_INFO
+	#define LOG_INFO(stream) ILogger::Log() << __DATE__ << " - INFO - " << __FUNCTION__ << " : " << stream << "\n";
+#else
+	#define LOG_INFO(stream) {}
+#endif
+
+#if LOG_LEVEL <= LOG_LEVEL_DEBUG
+	#define LOG_DEBUG(stream) ILogger::Log() << __DATE__ << " - DEBUG - " << __FUNCTION__ << " : " << stream << "\n";
+#else
+	#define LOG_DEBUG(stream) {}
+#endif
+
 #include <string>
 #include <sstream>
 #include <memory>

@@ -256,7 +256,7 @@ namespace DE
 			if(attribIndex == -1)
 			{
 				// Log the error.
-				ILogger::Log() << "CE:COGLRenderer Error: Unable to get the attribute location '" << COGLRenderer::s_vertexAttributeName[i->usage] << "' for the shader program " << shaderProgram->GetName() << ".\n";
+				LOG_ERROR("Unable to get the attribute location '" << COGLRenderer::s_vertexAttributeName[i->usage] << "' for the shader program " << shaderProgram->GetName());
 				ILogger::Kill();
 
 				throw COGLException("SetVertexBuffer", "glGetAttribLocation");
@@ -350,7 +350,7 @@ namespace DE
 			GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 			if(status != GL_FRAMEBUFFER_COMPLETE)
 			{
-				ILogger::Log() << "DE:COGLRenderer Error: Unable to bind the framebuffer.\n";
+				LOG_ERROR("Unable to bind the framebuffer");
 				ILogger::Kill();
 
 				throw COGLException("SetFrameBuffer", "glCheckFramebufferStatus");
@@ -609,7 +609,7 @@ namespace DE
 		// Set the pixel format of the device context
 		if(!SetPixelFormat(this->m_handle, ChoosePixelFormat(this->m_handle, &pixelDescriptor), &pixelDescriptor))
 		{
-			ILogger::Log() << "DE:COGLRenderer Error: Unable to set the context pixel format.\n";
+			LOG_ERROR("Unable to set the context pixel format");
 			ILogger::Kill();
 
 			throw COGLException("SetPixelFormat", "Initialize");
@@ -619,7 +619,7 @@ namespace DE
 		this->m_context = wglCreateContext(this->m_handle);
 		if (!wglMakeCurrent(this->m_handle, this->m_context))
 		{
-			ILogger::Log() << "DE:COGLRenderer Error: Unable to create the context.\n";
+			LOG_ERROR("Unable to create the context");
 			ILogger::Kill();
 
 			throw COGLException("wglMakeCurrent", "Initialize");

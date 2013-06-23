@@ -37,7 +37,7 @@ namespace DE
 		ALCdevice * device = alcOpenDevice(nullptr);
 		if (!device)
 		{
-			ILogger::Log() << "DE::CSoundContextManager Error: Unable to open the default sound device.\n";
+			LOG_ERROR("Unable to open the default sound device");
 			return;
 		}
 
@@ -45,14 +45,14 @@ namespace DE
 		ALCcontext * context = alcCreateContext(device, nullptr);
 		if (!context)
 		{
-			ILogger::Log() << "DE::CSoundContextManager Error: Unable to create the sound context.\n";
+			LOG_ERROR("Unable to create the sound context");
 			return;
 		}
 
 		// Context activation
 		if (!alcMakeContextCurrent(context))
 		{
-			ILogger::Log() << "DE::CSoundContextManager Error: Unable to activate the sound context.\n";
+			LOG_ERROR("Unable to activate the sound context");
 			return;
 		}
 	}

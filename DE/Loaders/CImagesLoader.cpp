@@ -61,7 +61,7 @@ namespace DE
 		if(!ilLoadImage(const_cast<ILstring>(filename.c_str())))
 		{
 			ILenum devilError = ilGetError();
-			ILogger::Log() << "DE:CImagesLoader Error: Unable to load the image '" << filename << "'.\n";
+			LOG_ERROR("Unable to load the image '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
@@ -95,7 +95,7 @@ namespace DE
 
 		if(!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData()))
 		{
-			ILogger::Log() << "DE:CImagesLoader Error: Unable to save the file '" << filename << "'.\n";
+			LOG_ERROR("Unable to save the file '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionSave(filename);
@@ -103,7 +103,7 @@ namespace DE
 
 		if (!ilSaveImage(const_cast<ILstring>(filename.c_str())))
 		{
-			ILogger::Log() << "DE:CImagesLoader Error: Unable to save the file '" << filename << "'.\n";
+			LOG_ERROR("Unable to save the file '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionSave(filename);

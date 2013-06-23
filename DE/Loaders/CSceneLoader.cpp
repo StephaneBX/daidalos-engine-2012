@@ -81,7 +81,7 @@ namespace DE
 		}
 		else
 		{
-			ILogger::Log() << "DE:CSceneLoader Error: Unable to load the scene file '" << this->m_filename << "' (" << doc.ErrorDesc() << ").\n";
+			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.ErrorDesc() << ")");
 			ILogger::Kill();
 
 			throw CExceptionLoad(this->m_filename);
@@ -303,7 +303,7 @@ namespace DE
 
 		default:
 			// Invalid or missing type
-			ILogger::Log() << "DE:CSceneLoader Error: Invalid or missing node attribute 'type' in '" << this->m_filename << "'.\n";
+			LOG_WARNING("Invalid or missing node attribute 'type' in '" << this->m_filename << "'");
 			break;
 		}
 

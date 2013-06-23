@@ -58,7 +58,7 @@ namespace DE
 		if(FAILED(hr))
 		{
 			LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
-			ILogger::Log() << "CE:CDX9PixelShadersLoader Error: " << (const char*)pCompilErrors << "\n";
+			LOG_ERROR((const char*)pCompilErrors);
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);

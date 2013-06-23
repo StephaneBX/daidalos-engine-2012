@@ -144,7 +144,7 @@ namespace DE
 			if(this->m_variables[name] == -1)
 			{
 				// Log the error.
-				ILogger::Log() << "CE:COGLShader Warning: Unable to get the uniform location '" << name << "' for the shader " << this->m_name.GetFilename() << ".\n";
+				LOG_WARNING("Unable to get the uniform location '" << name << "' for the shader " << this->m_name.GetFilename());
 			}
 		}
 	}

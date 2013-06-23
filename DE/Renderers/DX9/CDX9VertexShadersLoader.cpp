@@ -57,7 +57,7 @@ namespace DE
 		if(FAILED(hr))
 		{
 			LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
-			ILogger::Log() << "DE:CDX9VertexShadersLoader Error: " << (const char*)pCompilErrors << "\n";
+			LOG_ERROR((const char*)pCompilErrors);
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
