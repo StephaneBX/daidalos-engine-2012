@@ -46,7 +46,7 @@ namespace DE
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * numberOfElements)
 		{
 			// Create a new one if the current one can't hold the data
-			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, numberOfElements, 0, nullptr);
+			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, numberOfElements, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
 
 		int pitch = 0;
@@ -109,7 +109,7 @@ namespace DE
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * triangles.size() * 3)
 		{
 			// Create a new one if the current one can't hold the data
-			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, triangles.size() * 3, 0, nullptr);
+			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, triangles.size() * 3, BUFFER_DYNAMIC |BUFFER_WRITEONLY, nullptr);
 		}
 
 		int pitch = 0;

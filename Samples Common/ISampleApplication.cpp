@@ -119,7 +119,7 @@ namespace SAMPLES
 			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
 		};
 		this->m_screenQuadLightVD2 = this->m_renderer->CreateVertexDeclaration(screenQuadDecl2);
-		this->m_screenQuadLightVB = this->m_renderer->CreateVertexBuffer(sizeof(SScreenQuadVertexLight), 4, 0, nullptr);
+		this->m_screenQuadLightVB = this->m_renderer->CreateVertexBuffer(sizeof(SScreenQuadVertexLight), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, nullptr);
 
 		// Final screen quad
 		DE::SDeclarationElement screenQuadDecl3[] =
@@ -128,7 +128,7 @@ namespace SAMPLES
 			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
 		};
 		this->m_screenQuadFinalVD = this->m_renderer->CreateVertexDeclaration(screenQuadDecl3);
-		this->m_screenQuadFinalVB = this->m_renderer->CreateVertexBuffer(sizeof(DE::SScreenQuadElement), 4, 0, this->m_renderer->GetScreenQuad());
+		this->m_screenQuadFinalVB = this->m_renderer->CreateVertexBuffer(sizeof(DE::SScreenQuadElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, this->m_renderer->GetScreenQuad());
 
 		// Shaders
 		this->m_DSFill.LoadFromFile("DS_fill_normal_mapping");

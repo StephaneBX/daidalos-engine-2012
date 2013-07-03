@@ -91,7 +91,7 @@ namespace DE
 			{
 				// Create a new buffer if the current one is too small
 				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
-					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), 0, nullptr);
+					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 
 				// Lock and copy the data
 				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);

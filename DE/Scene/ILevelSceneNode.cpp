@@ -51,4 +51,9 @@ namespace DE
 	{
 		return this->m_ambientColor;
 	}
+
+	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const
+	{
+		return this->m_numberOfVisibleTriangles;
+	}
 }

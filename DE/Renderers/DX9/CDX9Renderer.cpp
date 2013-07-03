@@ -298,7 +298,8 @@ namespace DE
 
 	void CDX9Renderer::SetFrameBuffer(IFrameBufferBase * frameBuffer)
 	{
-		for(int i = 0 ; i < 4 ; ++i)
+		// Default values for the optional render targets
+		for(int i = 1 ; i < 4 ; ++i)
 			this->m_device->SetRenderTarget(i, nullptr);
 
 		if(frameBuffer != nullptr)
@@ -547,6 +548,9 @@ namespace DE
 		RECT rect;
 		GetClientRect(this->m_hwnd, &rect);
 
+		UINT adapterToUse = D3DADAPTER_DEFAULT;
+		D3DDEVTYPE deviceType = D3DDEVTYPE_HAL;
+
 		this->m_d3dpp.Windowed = true;
 		this->m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		this->m_d3dpp.hDeviceWindow = this->m_hwnd;
@@ -562,9 +566,26 @@ namespace DE
 		else
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
+
+#ifdef PERFHUD_VERSION
+		for (UINT Adapter = 0 ; Adapter < this->m_d3d->GetAdapterCount() ; Adapter++)
+		{
+			D3DADAPTER_IDENTIFIER9  Identifier;
+			HRESULT Res;
+
+			Res = this->m_d3d->GetAdapterIdentifier(Adapter,0,&Identifier);
+			if(strstr(Identifier.Description,"PerfHUD") != 0)
+			{ 
+				adapterToUse = Adapter;
+				deviceType = D3DDEVTYPE_REF;
+				break;
+			}
+		}
+#endif
+
 		this->m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-		if(FAILED(this->m_d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device)))
+		if(FAILED(this->m_d3d->CreateDevice(adapterToUse, deviceType, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device)))
 		{
 			LOG_ERROR("Unable to create the device");
 			ILogger::Kill();

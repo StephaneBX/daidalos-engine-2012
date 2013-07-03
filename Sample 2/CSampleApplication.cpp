@@ -64,7 +64,7 @@ namespace SAMPLE2
 	
 		// Update the position
 		std::stringstream ss;
-		ss << "Position: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z;
+		ss << "P: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z << " - G:" << this->m_scene->GetNumberOfVisibleTriangles();
 		this->m_positionText.SetText(ss.str());
 
 		// Update the fps

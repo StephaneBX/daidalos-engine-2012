@@ -344,7 +344,7 @@ namespace DE
 			}
 
 			// Update the gamepad
-			UpdateGamepads();
+			//UpdateGamepads();
 
 			Update(time);
 			Render();
@@ -363,7 +363,7 @@ namespace DE
 			joyInfo.dwSize = sizeof(JOYINFOEX);
 			joyInfo.dwFlags = JOY_RETURNALL;
 
-			// If the date has been reveived
+			// If the data has been reveived
 			if(joyGetPosEx(JOYSTICKID1 + gamepadId, &joyInfo) == 0)
 			{
 				// Update the buttons

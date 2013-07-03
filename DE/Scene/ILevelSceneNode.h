@@ -41,6 +41,7 @@ namespace DE
 	{
 	protected:
 		EMeshShadingType m_shadingType;
+		int m_numberOfVisibleTriangles;
 		CVector4F m_ambientColor;
 		std::vector<ITexture2DBase*> m_diffuseTextures;
 		std::vector<ITexture2DBase*> m_normalTextures;
@@ -66,6 +67,12 @@ namespace DE
 		* @param ambientColor The ambient color
 		*/
 		void SetAmbientColor(const CVector4F & ambientColor);
+
+		/**
+		* Get the number of visible triangles
+		* @return The number of visible triangles
+		*/
+		const int GetNumberOfVisibleTriangles() const;
 
 		/**
 		* Get the ambient color

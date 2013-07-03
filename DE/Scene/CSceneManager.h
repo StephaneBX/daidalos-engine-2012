@@ -192,6 +192,12 @@ namespace DE
 		const int GetNumberOfActiveDirectionalLights() const;
 
 		/**
+		* Get the number of visible triangles
+		* @return The number of visible triangles
+		*/
+		const int GetNumberOfVisibleTriangles() const;
+
+		/**
 		* Get the ambient color of the scene
 		* @return The ambient color
 		*/

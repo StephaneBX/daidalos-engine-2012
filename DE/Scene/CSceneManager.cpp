@@ -196,6 +196,13 @@ namespace DE
 		return this->m_activeDirectionalLights->numberOfLights;
 	}
 
+	const int CSceneManager::GetNumberOfVisibleTriangles() const
+	{
+		Assert(this->m_root != nullptr);
+
+		return static_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
+	}
+
 	const CVector4F & CSceneManager::GetAmbientColor() const
 	{
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();

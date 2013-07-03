@@ -118,6 +118,7 @@ namespace DE
 
 		this->m_activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
 		RegisterNodeForRendering(this->m_bsp.get());
+		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0)
 		{
 			// World matrixes

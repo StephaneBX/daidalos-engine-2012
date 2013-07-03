@@ -137,6 +137,9 @@ namespace DE
 		if((flags & BUFFER_DYNAMIC) != 0)
 			lockFlags = D3DUSAGE_DYNAMIC;
 
+		if ((flags & BUFFER_WRITEONLY) != 0)
+			lockFlags |= D3DUSAGE_WRITEONLY;
+
 		return lockFlags;
 	}
 

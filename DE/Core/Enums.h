@@ -33,7 +33,8 @@ namespace DE
 	enum EBuffersType
     {
         BUFFER_STATIC  = 1,
-        BUFFER_DYNAMIC = 2
+        BUFFER_DYNAMIC = 2,
+		BUFFER_WRITEONLY = 4
     };
 
     enum EBuffersLock
