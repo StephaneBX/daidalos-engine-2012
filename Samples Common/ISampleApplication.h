@@ -68,6 +68,7 @@ namespace SAMPLES
 		DE::CShaderProgram m_DSFill;
 		DE::CShaderProgram m_DSShadowSpotLight;
 		DE::CShaderProgram m_DSSpotLight;
+		DE::CShaderProgram m_DSPointLight;
 		DE::CShaderProgram m_DSDirectionalLight;
 		DE::CShaderProgram m_DSFinal;
 

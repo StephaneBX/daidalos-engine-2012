@@ -34,17 +34,11 @@ namespace DE
 	CPointLightSceneNode::CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(parent, name, position, CVector3F(0,0,0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true)
 	{
 		this->m_type = SCENE_NODE_POINTLIGHT;
-
-		// Cameras for the shadow rendering
-		AddCameras();
 	}
 
 	CPointLightSceneNode::CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(parent, name, position, CVector3F(0,0,0), color, shadowCaster, range, falloff, enabled)
 	{
 		this->m_type = SCENE_NODE_POINTLIGHT;
-
-		// Cameras for the shadow rendering
-		AddCameras();
 	}
 
 	CPointLightSceneNode::~CPointLightSceneNode() {}
@@ -59,51 +53,18 @@ namespace DE
 		// If active and enabled, add it to the active lights list
 		if(this->m_active && this->m_enabled)
 		{
-			SSPotLightsShaderData * lights = scene->GetActivePointLightsBuffer();
+			SPointLightsShaderData * lights = scene->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
-			if(lights->numberOfLights + 6 <= MAX_LIGHTS_IN_SHADERS)
+			if(lights->numberOfLights <= MAX_LIGHTS_IN_SHADERS)
 			{
-				for(unsigned int i = 0 ; i < this->m_cameras.size() ; i++)
-				{
-					lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition,0);
-					lights->direction[lights->numberOfLights] = CVector4F(this->m_cameras[i]->GetForwardVector(), 0);
-					lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();
-					lights->rangeRadiusFalloffTightness[lights->numberOfLights] = CVector4F(this->m_range, 90, this->m_falloff, 1);
-					lights->enabled[lights->numberOfLights] = 1;
-					lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
-					lights->scissor[lights->numberOfLights] = this->m_scissor;
-					lights->node[lights->numberOfLights] = this->m_cameras[i];
-					++lights->numberOfLights;
-				}	
+				lights->positionRange[lights->numberOfLights] = CVector4F(this->m_absolutePosition, this->m_range);
+				lights->colorFalloff[lights->numberOfLights] = CVector4F(this->m_color.ToRGBVector(), this->m_falloff);
+				lights->enabled[lights->numberOfLights] = 1;
+				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
+				lights->scissor[lights->numberOfLights] = this->m_scissor;
+				++lights->numberOfLights;	
 			}
 		}
-	}
-
-	void CPointLightSceneNode::AddCameras() 
-	{
-		CProjectionCameraSceneNode * cameraLeft = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(0, -90, 0), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[0] = cameraLeft;
-		AddChild(cameraLeft);
-
-		CProjectionCameraSceneNode * cameraForward = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[1] = cameraForward;
-		AddChild(cameraForward);
-
-		CProjectionCameraSceneNode * cameraRight = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(0, 90, 0), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[2] = cameraRight;
-		AddChild(cameraRight);
-
-		CProjectionCameraSceneNode * cameraBackward = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(0, 180, 0), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[3] = cameraBackward;
-		AddChild(cameraBackward);
-
-		CProjectionCameraSceneNode * cameraUp = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(-90, 0, 0), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[4] = cameraUp;
-		AddChild(cameraUp);
-
-		CProjectionCameraSceneNode * cameraDown = new  CProjectionCameraSceneNode(this, "", CVector3F(), CVector3F(90, 0, 0), DegreeToRadian(90), 1, 0.1f, this->m_range);
-		this->m_cameras[5] = cameraDown;
-		AddChild(cameraDown);
 	}
 }

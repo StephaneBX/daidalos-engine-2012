@@ -1,0 +1,49 @@
+#version 130
+precision highp float;
+
+uniform vec4 cameraPositionDistance;
+uniform vec4 pointLightPositionRange;
+uniform vec4 pointLightColorFalloff;
+
+uniform sampler2D textureSampler0;
+uniform sampler2D textureSampler1;
+uniform sampler2D textureSampler2;
+
+smooth in vec2 out_texcoord;
+smooth in vec3 out_viewDistance;
+
+out vec4 lightRT;
+
+float pointDistanceFactor(float distance)
+{
+	float result;
+	
+	if(distance >= pointLightPositionRange.w)
+	{
+		result = 0;
+	}
+	else
+	{
+		if(distance > pointLightPositionRange.w * pointLightColorFalloff.w)
+			result = 1 - ((distance - (pointLightPositionRange.w * pointLightColorFalloff.w)) / ((1 - pointLightColorFalloff.w) * pointLightPositionRange.w));
+		else 
+			result = 1;
+	}
+		
+	return result;
+}
+
+void main()
+{
+	lightRT.w = 1;
+	
+	vec3 normal = (texture(textureSampler0, out_texcoord).xyz * 2) - 1.0f;
+	vec3 currentPosition = cameraPositionDistance.xyz + (texture(textureSampler2, out_texcoord).r * out_viewDistance);
+	vec4 specularNs = texture(textureSampler1, out_texcoord);
+	vec3 lightDir = normalize(pointLightPositionRange.xyz - currentPosition.xyz);
+		
+	vec3 diffuse = pointLightColorFalloff.xyz * clamp(dot(lightDir, normal), 0.0f, 1.0f) * pointDistanceFactor(distance(currentPosition, pointLightPositionRange.xyz));
+	vec3 specular = specularNs.xyz * pointLightColorFalloff.xyz * pow(clamp(dot(normalize(reflect(lightDir, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz)), 0.0f, 1.0f), specularNs.w * 128.0f) * pointDistanceFactor(distance(currentPosition, pointLightPositionRange.xyz));
+	
+	lightRT.xyz = clamp(diffuse + specular, 0.0f, 1.0f);
+}

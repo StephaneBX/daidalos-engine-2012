@@ -77,12 +77,6 @@ namespace DE
 		* @param time The elapsed time
 		*/
 		void Update(const float time = 0);
-
-	protected:
-		/**
-		* Add the cameras
-		*/
-		void AddCameras();
 	};
 }
 

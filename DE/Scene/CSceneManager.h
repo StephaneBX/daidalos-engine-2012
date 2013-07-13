@@ -62,6 +62,23 @@ namespace DE
 	};
 
 	/**
+	* Point lights data structure for shaders
+	*/
+	struct SPointLightsShaderData
+	{
+		int numberOfLights;
+		int enabled[MAX_LIGHTS_IN_SHADERS];
+		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
+		CVector4F positionRange[MAX_LIGHTS_IN_SHADERS];
+		CVector4F colorFalloff[MAX_LIGHTS_IN_SHADERS];
+		CRectangleI scissor[MAX_LIGHTS_IN_SHADERS];
+
+		// Visibility data
+		int visibilityOrder[MAX_LIGHTS_IN_SHADERS];
+		float distanceToCamera[MAX_LIGHTS_IN_SHADERS];
+	};
+
+	/**
 	* Directional lights data structure for shaders
 	*/
 	struct SDirectionalLightsShaderData
@@ -83,7 +100,7 @@ namespace DE
 	private:
 		float m_lighteningUpdateTimer;
 		SSPotLightsShaderData * m_activeSpotLights;
-		SSPotLightsShaderData * m_activePointLights;
+		SPointLightsShaderData * m_activePointLights;
 		SDirectionalLightsShaderData * m_activeDirectionalLights;
 
 		ISceneNode * m_root;
@@ -239,7 +256,7 @@ namespace DE
 		* Get the active point lights buffer
 		* @return The active point lights buffer
 		*/
-		SSPotLightsShaderData * GetActivePointLightsBuffer() const;
+		SPointLightsShaderData * GetActivePointLightsBuffer() const;
 
 		/**
 		* Get the active directional lights buffer

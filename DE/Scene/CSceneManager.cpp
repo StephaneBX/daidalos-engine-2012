@@ -83,7 +83,6 @@ namespace DE
 		std::fill(this->m_activePointLights->enabled, this->m_activePointLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
 		std::fill(this->m_activePointLights->visibilityOrder, this->m_activePointLights->visibilityOrder + MAX_LIGHTS_IN_SHADERS, -1);
 		std::fill(this->m_activePointLights->distanceToCamera, this->m_activePointLights->distanceToCamera + MAX_LIGHTS_IN_SHADERS, this->m_activeCamera->GetFarDistance() * 2);
-		std::fill(this->m_activePointLights->node, this->m_activePointLights->node + MAX_LIGHTS_IN_SHADERS, nullptr);
 
 		this->m_activeDirectionalLights->numberOfLights = 0;
 		std::fill(this->m_activeDirectionalLights->enabled, this->m_activeDirectionalLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
@@ -150,11 +149,8 @@ namespace DE
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_POSITION), this->m_activePointLights->position[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_DIRECTION), this->m_activePointLights->direction[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_RRFT), this->m_activePointLights->rangeRadiusFalloffTightness[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_COLOR), this->m_activePointLights->color[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_VIEWPROJ), this->m_activePointLights->node[id]->GetViewProjMatrix());
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, "pointLightPositionRange", this->m_activePointLights->positionRange[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, "pointLightColorFalloff", this->m_activePointLights->colorFalloff[id]);
 
 		renderer->SetScissor(this->m_activePointLights->scissor[id]);
 	}
@@ -240,7 +236,7 @@ namespace DE
 		return this->m_activeSpotLights;
 	}
 
-	SSPotLightsShaderData * CSceneManager::GetActivePointLightsBuffer() const
+	SPointLightsShaderData * CSceneManager::GetActivePointLightsBuffer() const
 	{
 		return this->m_activePointLights;
 	}
@@ -254,7 +250,7 @@ namespace DE
 	{
 		this->m_root = new ISceneNode(nullptr);
 		this->m_activeSpotLights = new SSPotLightsShaderData;
-		this->m_activePointLights = new SSPotLightsShaderData;
+		this->m_activePointLights = new SPointLightsShaderData;
 		this->m_activeDirectionalLights = new SDirectionalLightsShaderData;
 		this->m_activeCamera = nullptr;
 
@@ -271,13 +267,13 @@ namespace DE
 			this->m_activeSpotLights->visibilityOrder[i] = i;
 			this->m_activeSpotLights->distanceToCamera[i] = CVector3F(this->m_activeSpotLights->position[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
-		//sorter.QuickSort(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->visibilityOrder, 0, this->m_activeSpotLights->numberOfLights);
+		sorter.QuickSort(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->visibilityOrder, 0, this->m_activeSpotLights->numberOfLights);
 
 		// Sort the point lights
 		for(int i = 0 ; i < this->m_activePointLights->numberOfLights ; i++)
 		{
 			this->m_activePointLights->visibilityOrder[i] = i;
-			this->m_activePointLights->distanceToCamera[i] = CVector3F(this->m_activePointLights->position[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
+			this->m_activePointLights->distanceToCamera[i] = CVector3F(this->m_activePointLights->positionRange[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
 		sorter.QuickSort(this->m_activePointLights->distanceToCamera, this->m_activePointLights->visibilityOrder, 0, this->m_activePointLights->numberOfLights);
 	}

@@ -7849,21 +7849,21 @@
 		
 		<node type="3" name="pointLight1">
 			<position>-15:5:50</position>
-			<color>0.3:0.2:0.2:1</color>
+			<color>0.4:0.3:0.3:1</color>
 			<range>10</range>
 			<falloff>0.7</falloff>
 		</node>
 		
 		<node type="3" name="pointLight2">
 			<position>150:11:100</position>
-			<color>0.3:0.2:0.2:1</color>
+			<color>0.4:0.3:0.3:1</color>
 			<range>5</range>
 			<falloff>0.7</falloff>
 		</node>
 		
 		<node type="3" name="pointLight2">
 			<position>170:11:100</position>
-			<color>0.3:0.2:0.2:1</color>
+			<color>0.4:0.3:0.3:1</color>
 			<range>5</range>
 			<falloff>0.7</falloff>
 		</node>
