@@ -27,6 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #ifdef _WIN32
 
+#define DIRECTINPUT_VERSION 0x0800
+
 #include "../Renderers/OGL/COGLRenderer.h"
 #include "../Renderers/DX9/CDX9Renderer.h"
 
@@ -35,6 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Applications/IWin32Application.h"
 
 #pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"dinput8.lib")
 
 namespace DE
 {
@@ -232,6 +235,8 @@ namespace DE
 		RegisterClassEx(&this->m_wc);
 
 		InitializeWindow();
+
+		InitializeGamepad();
 	}
 
 	IWin32Application::~IWin32Application()
@@ -240,6 +245,14 @@ namespace DE
 		{
 			DestroyWindow(this->m_hWnd);
 			UnregisterClass(APPLICATION_NAME, this->m_hInstance);
+		}
+
+		// Release Direct Input related data
+		SAFE_RELEASE(this->m_directInput);
+
+		for(unsigned int i = 0 ; i < this->m_gamepad.size() ; i++)
+		{
+			SAFE_RELEASE(this->m_gamepad[i]);
 		}
 	}
 
@@ -270,6 +283,22 @@ namespace DE
 		this->m_renderer->SetDisplayBounds(this->m_displayBounds);
 
 		this->m_gui->Initialize();
+	}
+
+	void IWin32Application::InitializeGamepad()
+	{
+		// Create the direct input context
+		DirectInput8Create(this->m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&this->m_directInput, NULL);
+
+		// Enumerate the plugged gamepad and create a device for each one (maximum MAX_GAMEPADS)
+		this->m_directInput->EnumDevices(DI8DEVCLASS_GAMECTRL, CreateDeviceCallback, NULL, DIEDFL_ATTACHEDONLY);
+
+		// Change the gamepad data format and acquire them
+		for(unsigned int i = 0 ; i < this->m_gamepad.size() ; i++)
+		{
+			this->m_gamepad[i]->SetDataFormat(&c_dfDIJoystick);
+			this->m_gamepad[i]->Acquire();
+		}
 	}
 
 	void IWin32Application::MainLoop()
@@ -344,7 +373,7 @@ namespace DE
 			}
 
 			// Update the gamepad
-			//UpdateGamepads();
+			UpdateGamepads();
 
 			Update(time);
 			Render();
@@ -355,22 +384,24 @@ namespace DE
 
 	void IWin32Application::UpdateGamepads()
 	{
-		// Update each gamepad
-		for(unsigned int gamepadId = 0 ; gamepadId < MAX_GAMEPADS ; gamepadId++)
+		// Loop through the active gamepads
+		for(unsigned int gamepadId = 0 ; gamepadId < this->m_gamepad.size() ; gamepadId++)
 		{
-			// Get the gamepad information
-			JOYINFOEX joyInfo;
-			joyInfo.dwSize = sizeof(JOYINFOEX);
-			joyInfo.dwFlags = JOY_RETURNALL;
+			// Get the gamepad state
+			DIJOYSTATE state;
+			HRESULT res = this->m_gamepad[gamepadId]->GetDeviceState(sizeof(state),(LPVOID)&state);
 
-			// If the data has been reveived
-			if(joyGetPosEx(JOYSTICKID1 + gamepadId, &joyInfo) == 0)
+			if(SUCCEEDED(res))
 			{
+				// If the call succeed, update the gamepad state
+
 				// Update the buttons
 				for(int i = 0 ; i < INPUT_KEY_GAMEPAD_BUTTON_END ; i++)
 				{
 					float buttonState = 0;
-					if((joyInfo.dwButtons & (1 << i)) != 0)
+
+					// If the button is down
+					if(state.rgbButtons[i] & 0x80)
 					{
 						buttonState = 1;
 					}
@@ -383,16 +414,16 @@ namespace DE
 				float axisFactor = 0;
 
 				// X
-				if(joyInfo.dwXpos < axisCenter * axisThreshold)
+				if(state.lX < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwXpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lX / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwXpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lX > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwXpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lX - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
 					}
 					else
@@ -404,16 +435,16 @@ namespace DE
 				}
 
 				// Y
-				if(joyInfo.dwYpos < axisCenter * axisThreshold)
+				if(state.lY < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwYpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lY / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwYpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lY > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwYpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lY - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
 					}
 					else
@@ -425,16 +456,16 @@ namespace DE
 				}
 
 				// Z
-				if(joyInfo.dwZpos < axisCenter * axisThreshold)
+				if(state.lZ < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwZpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lZ / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwZpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lZ > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwZpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lZ - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
 					}
 					else
@@ -446,16 +477,16 @@ namespace DE
 				}
 
 				// R
-				if(joyInfo.dwRpos < axisCenter * axisThreshold)
+				if(state.lRx < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwRpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lRx / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwRpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lRx > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwRpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lRx - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
 					}
 					else
@@ -467,16 +498,16 @@ namespace DE
 				}
 
 				// U
-				if(joyInfo.dwUpos < axisCenter * axisThreshold)
+				if(state.lRy < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwUpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lRy / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwUpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lRy > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwUpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lRy - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
 					}
 					else
@@ -488,16 +519,16 @@ namespace DE
 				}
 
 				// V
-				if(joyInfo.dwVpos < axisCenter * axisThreshold)
+				if(state.lRz < axisCenter * axisThreshold)
 				{
-					axisFactor = std::min(1.0f, 1.0f - (joyInfo.dwVpos / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0f, 1.0f - (state.lRz / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
 				}
 				else
 				{
-					if(joyInfo.dwVpos > axisCenter + (axisCenter * (1.0f - axisThreshold)))
+					if(state.lRz > axisCenter + (axisCenter * (1.0f - axisThreshold)))
 					{
-						axisFactor = std::min(1.0f, (joyInfo.dwVpos - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+						axisFactor = std::min(1.0f, (state.lRz - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					}
 					else
@@ -507,6 +538,11 @@ namespace DE
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					}
 				}
+			}
+			else
+			{
+				// Try to acquire back the gamepad
+				this->m_gamepad[gamepadId]->Acquire();
 			}
 		}
 	}
@@ -520,25 +556,25 @@ namespace DE
 		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
 	}
 
-	/**
-	* 
-	*/
+	std::vector<LPDIRECTINPUTDEVICEA> & IWin32Application::GetGamepad()
+	{
+		return this->m_gamepad;
+	}
+
+	const LPDIRECTINPUT IWin32Application::GetDirectInput() const
+	{
+		return this->m_directInput;
+	}
+
 	LRESULT CALLBACK IWin32Application::GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam)
 	{
 		return s_instance->WindowProc(Hwnd, Message, WParam, LParam);
 	}
 
-	/**
-	* 
-	*/
 	LRESULT CALLBACK IWin32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		switch(message)
 		{
-			case WM_CREATE:
-				joySetCapture(hWnd, JOYSTICKID1, NULL, FALSE);
-				break;
-
 			case WM_DESTROY:
 				PostQuitMessage(0);
 				return 0;
@@ -560,6 +596,26 @@ namespace DE
 				break;
 		}
 		return DefWindowProc (hWnd, message, wParam, lParam);
+	}
+
+	BOOL CALLBACK IWin32Application::CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference)
+	{
+		// Handle a maximum of MAX_GAMEPADS gamepad
+		if(s_instance->GetGamepad().size() < MAX_GAMEPADS)
+		{
+			// Create the device
+			LPDIRECTINPUTDEVICEA device;
+			HRESULT result = s_instance->GetDirectInput()->CreateDevice( instance->guidInstance, &device, NULL);
+
+			// If the creation succeeded
+			if(SUCCEEDED(result))
+			{
+				 // Add the gamepad to the vector
+				s_instance->GetGamepad().push_back(device);
+			}
+			return DIENUM_CONTINUE;
+		}
+		return DIENUM_STOP;
 	}
 }
 

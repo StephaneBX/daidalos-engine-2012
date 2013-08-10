@@ -35,6 +35,11 @@ namespace DE
 {
 	#define SAFE_DELETE(x){ if(x != nullptr){ delete x; x = nullptr; }}
 	#define SAFE_DELETE_ARRAY(x){ if(x != nullptr){ delete[] x; x = nullptr; }}
+
+	#ifdef WIN32
+		#define SAFE_RELEASE(x){ if(x != nullptr){ x->Release(); x = nullptr; } }
+	#endif
+
 	#define PI 3.14159265f
 	#define PI_OVER_180 0.0174532925f
 	#define EPSILON 0.001f

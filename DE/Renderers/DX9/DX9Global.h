@@ -28,6 +28,4 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DX9GLOBAL_H
 #define __DX9GLOBAL_H
 
-#define SAFE_RELEASE(x){ if(x != nullptr){ x->Release(); x = nullptr; } }
-
 #endif

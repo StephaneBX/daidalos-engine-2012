@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IWIN32APPLICATION_H
 
 #include <string>
+#include <dinput.h>
 #include "../Core/IApplication.h"
 
 namespace DE
@@ -43,6 +44,8 @@ namespace DE
 		int m_nCmdShow;
 		HINSTANCE m_hInstance;
 		WNDCLASSEX m_wc;
+		LPDIRECTINPUT m_directInput;
+		std::vector<LPDIRECTINPUTDEVICEA> m_gamepad;
 		
 		static IWin32Application * s_instance;
 		static EInputKey s_keyCode[];
@@ -66,6 +69,11 @@ namespace DE
 		* Initialize the window
 		*/
 		virtual void InitializeWindow();
+
+		/**
+		* Initialize the gamepads
+		*/
+		virtual void InitializeGamepad();
 
 		/**
 		* The main loop of the application
@@ -96,6 +104,16 @@ namespace DE
 		virtual void Resize(const int width, const int height);
 
 		/**
+		* Get the gamepads vector
+		*/
+		std::vector<LPDIRECTINPUTDEVICEA> & GetGamepad();
+
+		/**
+		* Get the Direct Input context
+		*/
+		const LPDIRECTINPUT GetDirectInput() const;
+
+		/**
 		* The global window procedure for messages
 		*/
 		static LRESULT CALLBACK GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam);
@@ -104,6 +122,11 @@ namespace DE
 		* The window procedure for messages
 		*/
 		LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+		/**
+		* Called for each enumerated devices by Direct Input
+		*/
+		static BOOL CALLBACK CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference);
 
 	private:
 		IWin32Application(const IWin32Application & copy);

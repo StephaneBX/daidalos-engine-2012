@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <d3d9.h>
-#include "../../Renderers/DX9/DX9Global.h"
+#include "../../Core/Core.h"
 #include "../../Renderers/DX9/CDX9Declaration.h"
 
 namespace DE
