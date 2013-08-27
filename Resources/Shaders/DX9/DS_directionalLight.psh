@@ -1,6 +1,12 @@
+#define EPSILON 0.0002f;
+
+uniform float4x4 directionalLightViewProj;
 uniform float4 cameraPositionDistance;
+uniform float4 directionalLightPosition;
 uniform float3 directionalLightDirection;
 uniform float4 directionalLightColor;
+uniform float shadowMapSize;
+uniform int shadowCaster;
 
 struct PS_INPUT
 {
@@ -17,20 +23,55 @@ struct PS_OUTPUT
 sampler2D normalSampler;
 sampler2D specularSampler;
 sampler2D depthSampler;
+sampler2D lightDepthSampler;
 
 PS_OUTPUT main(PS_INPUT IN)
 {
 	PS_OUTPUT OUT;
 	OUT.color = float4(0,0,0,1);
 	
-	float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
 	float3 currentPosition = cameraPositionDistance.xyz + (tex2D(depthSampler, IN.texcoord).r * IN.viewDistance);
-	float4 specularNs = tex2D(specularSampler, IN.texcoord);
 	
-	float3 diffuse = directionalLightColor.xyz * saturate(dot(directionalLightDirection, normal));
-	float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(normalize(reflect(directionalLightDirection, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz))), specularNs.w * 128.0f);
+	float shadowTerm = 0.0f;
+	if(shadowCaster)
+	{
+		float fTexelSize = 1.0f / shadowMapSize;
 	
-	OUT.color.xyz = saturate(diffuse + specular);
+		float4 camToLight = mul(float4(currentPosition, 1.0f), directionalLightViewProj);
+		float2 shadowTexC = (camToLight.xy / camToLight.w) * float2(0.5f, -0.5f) + float2(0.5f + fTexelSize / 2.0f, 0.5f + fTexelSize / 2.0f);
+		
+		// Soft-edged shadows
+		float2 vTexCoords[9];
+		vTexCoords[0] = shadowTexC;
+		vTexCoords[1] = shadowTexC + float2(-fTexelSize, 0.0f);
+		vTexCoords[2] = shadowTexC + float2(fTexelSize, 0.0f);
+		vTexCoords[3] = shadowTexC + float2(0.0f, -fTexelSize);
+		vTexCoords[6] = shadowTexC + float2(0.0f,  fTexelSize);
+		vTexCoords[4] = shadowTexC + float2(-fTexelSize, -fTexelSize);
+		vTexCoords[5] = shadowTexC + float2(fTexelSize, -fTexelSize);
+		vTexCoords[7] = shadowTexC + float2(-fTexelSize,  fTexelSize);
+		vTexCoords[8] = shadowTexC + float2(fTexelSize,  fTexelSize);
+		
+		
+		float depth = (camToLight.z / camToLight.w) - EPSILON;
+		for(int i = 0; i < 9; i++)
+			  shadowTerm += (1.0f - tex2D(lightDepthSampler, vTexCoords[i]).r) < depth ? 0.0f : 1.0f;
+		shadowTerm /= 9.0f;
+	}
+	else
+		shadowTerm = 1.0f;
+	
+	if(shadowTerm > 0.0f)
+	{
+		float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
+		float3 currentPosition = cameraPositionDistance.xyz + (tex2D(depthSampler, IN.texcoord).r * IN.viewDistance);
+		float4 specularNs = tex2D(specularSampler, IN.texcoord);
+		
+		float3 diffuse = directionalLightColor.xyz * saturate(dot(directionalLightDirection, normal));
+		float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(normalize(reflect(directionalLightDirection, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz))), specularNs.w * 128.0f);
+		
+		OUT.color.xyz = saturate(diffuse + specular);
+	}
 	
 	return OUT;
 }

@@ -36,6 +36,7 @@ namespace DE
 {
 	COGLShaderProgram::COGLShaderProgram(const std::string & name) : IShaderProgramBase(name)
 	{
+		this->m_programId = 0;
 		SetShader(name);
 	}
 

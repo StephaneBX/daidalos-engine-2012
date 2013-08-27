@@ -47,7 +47,7 @@ namespace DE
 		ICameraSceneNode::Update();
 
 		// Update the orthographic information
-		this->m_projMatrix.OrthoView((float)this->m_bounds.GetLeft(), (float)this->m_bounds.GetRight(), (float)this->m_bounds.GetBottom(), (float)this->m_bounds.GetTop(), this->m_nearDistance, this->m_farDistance);
+		this->m_projMatrix.OrthographicView((float)this->m_bounds.GetWidth(), (float)this->m_bounds.GetHeight(), this->m_nearDistance, this->m_farDistance);
 
 		// Update the view proj matrix
 		this->m_viewProjMatrix = this->m_viewMatrix * this->m_projMatrix;

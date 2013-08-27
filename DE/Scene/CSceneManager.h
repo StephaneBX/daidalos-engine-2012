@@ -86,8 +86,10 @@ namespace DE
 		int numberOfLights;
 		int enabled[MAX_LIGHTS_IN_SHADERS];
 		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
+		CVector4F position[MAX_LIGHTS_IN_SHADERS];
 		CVector4F direction[MAX_LIGHTS_IN_SHADERS];
 		CVector4F color[MAX_LIGHTS_IN_SHADERS];
+		ICameraSceneNode * node[MAX_LIGHTS_IN_SHADERS];
 	};
 
 	/**

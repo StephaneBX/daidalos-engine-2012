@@ -36,7 +36,7 @@ namespace DE
 	void CGUIManager::Initialize()
 	{
 		this->m_renderer = IRenderer::GetRenderer();
-		this->m_proj.OrthoView(0, (float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y, 0, 0.0f, 1.0f);
+		this->m_proj.OrthographicView(0, (float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y, 0, 0.0f, 1.0f);
 
 		// Vertex declaration used by every GUI element
 		SDeclarationElement guiDecl[] =

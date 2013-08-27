@@ -26,6 +26,11 @@
 - Grosse map pour tester
 - CircumSphere à revoir?
 
+
+===============================================================
+							Skybox
+===============================================================
+
 [Skybox]
 	- FrameBuffer => stencil REPLACE à 1
 	- Après light pass => Render Skybox avec STENCIL_PASS à 1
@@ -35,6 +40,7 @@
 
 - Plusieurs textures par modèle
 - Créer un fichier de référence pour les contraintes du moteur (fichiers, OGL, DX9 etc)
+
 
 ===============================================================
                      Intéractions / Collisions
@@ -47,6 +53,7 @@
 	void SetCollisionEnabled(const bool enabled);
 	void SetMeshCollisionShape(IShape * shape);
 	const bool IsCollisionEnabled() const;
+	
 	
 ===============================================================
                              Portals
@@ -71,6 +78,7 @@ Push du portal dans les noeuds
 Master PVS
 Anti-Penumbra
 
+
 ===============================================================
                              C++11
 ===============================================================
@@ -79,22 +87,7 @@ Anti-Penumbra
 - for(int & var : int_array)
 - Suppression méthodes: () = delete;
 - Remplacer tableaux statiques par std::array
-===============================================================
-                             C++11
-===============================================================
 
-
-===============================================================
-                             Logs
-===============================================================
-Log plus évolué:
-	#include <typeinfo>
-	typeid(i).name()
-	
-	ELogType
-===============================================================
-                             Logs
-===============================================================
 
 ===============================================================
                            Shadows
@@ -102,7 +95,7 @@ Log plus évolué:
 - Ajouter flags pour CSceneManager::RenderAll
 - Ajouter d'autres sources lumineuses
 
-- Gestion directional light et point light pour DX9 et OGL
+- Gestion directional light pour DX9 et OGL
 - Gestion globale des ombres dans IDeferredApplication
 - Gestion limitation des shadowCasters max
 
@@ -111,16 +104,9 @@ Log plus évolué:
 - Traité ensuite comme une spot light simplifiée
 
 
-- Point light => 6 Spot lights de 90°
-- Traiter les point light comme 6 spot 90° dans les lights buffer
-
-===============================================================
-                           Shadows
-===============================================================
-
 ===============================================================
                            Application
-=========================================================
+===============================================================
 
 struct SCinematicCameraStep
 {
@@ -137,13 +123,8 @@ private:
 CCinematicCameraDelegate
 	void cinematicCameraDidEndAtStep(const SCinematicCameraStep & step);
 
-=========================================================
-
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
 
-===============================================================
-                           Application
-===============================================================
 
 ===============================================================
                            Lua
@@ -151,6 +132,9 @@ CCinematicCameraDelegate
 
 Implémentation de scripts lua pour définir le comportement des nodes
 
+
 ===============================================================
-                           Lua
+						Optimisations
 ===============================================================
+- Collisions toute les 5 frames
+- Mise à jour des lumières toute les x ms

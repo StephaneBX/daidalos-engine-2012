@@ -32,6 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CColor.h"
 #include "../Scene/CSphere.h"
 #include "../Scene/ILightSceneNode.h"
+#include "../Scene/COrthographicCameraSceneNode.h"
 
 namespace DE
 {
@@ -40,6 +41,9 @@ namespace DE
 	*/
 	class CDirectionalLightSceneNode : public ILightSceneNode
 	{
+	protected:
+		COrthographicCameraSceneNode * m_camera;
+
 	public:
 		/**
 		* Constructor

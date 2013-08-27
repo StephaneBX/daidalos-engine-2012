@@ -60,8 +60,11 @@ namespace DE
 		"spotLightColor",
 		"spotLightViewProj",
 
+		"directionalLightPosition",
 		"directionalLightDirection",
 		"directionalLightColor",
+		"directionalLightViewProj",
+
 		"textColor"
 	};
 

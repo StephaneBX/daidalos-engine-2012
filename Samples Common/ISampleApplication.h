@@ -66,7 +66,7 @@ namespace SAMPLES
 		DE::DeclarationPtr m_screenQuadLightVD2;
 		DE::DeclarationPtr m_screenQuadFinalVD;
 		DE::CShaderProgram m_DSFill;
-		DE::CShaderProgram m_DSShadowSpotLight;
+		DE::CShaderProgram m_DSShadowMap;
 		DE::CShaderProgram m_DSSpotLight;
 		DE::CShaderProgram m_DSPointLight;
 		DE::CShaderProgram m_DSDirectionalLight;

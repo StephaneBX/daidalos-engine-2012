@@ -226,16 +226,13 @@
 		<node type="8" name="spotLight1">
 			<position>15:8:15</position>
 
-			<node type="2">
-				<position>0:0:-15</position>
-				<rotation>10:0:0</rotation>
-				<color>0.5:0.5:0.5:1</color>
-				<range>50</range>
-				<radius>25</radius>
-				<falloff>0.7</falloff>
-				<tightness>0.7</tightness>
-				<shadow_caster>true</shadow_caster>
-			</node>
+			
+		</node>
+		
+		<node type="4" name="direrctionalLight">
+			<rotation>40:180:0</rotation>
+			<color>0.5:0.5:0.5:1</color>
+			<shadow_caster>true</shadow_caster>
 		</node>
 		
 		<!-- Player camera -->

@@ -68,14 +68,14 @@ namespace DE
 
 	const CRectangleI COGLRenderer::GetLightScissor(const CVector4F & positionRadius) const
 	{
-		int rect[4] = {0, 0, this->m_resolution.x, this->m_resolution.y};
+		int rect[4] = {0, 0, this->m_internalResolution.x, this->m_internalResolution.y};
 
 		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
 		CVector3F l2 = l * l;
 		float r = positionRadius.w;
 		float r2 = r * r;
 		float e = 1.2f;
-		float a = this->m_resolution.x / (float)this->m_resolution.y;
+		float a = this->m_internalResolution.x / (float)this->m_internalResolution.y;
 
 		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
 		if(d > 0)
@@ -92,7 +92,7 @@ namespace DE
 			if(pz1 > 0)
 			{
 				float fx = (-nz1 * e) / nx1;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz1 * nz1 / nx1;
 
 				if (px < l.x)
@@ -104,7 +104,7 @@ namespace DE
 			if(pz2 > 0)
 			{
 				float fx = (-nz2 * e) / nx2;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz2 * nz2 / nx2;
 
 				if (px < l.x)
@@ -129,7 +129,7 @@ namespace DE
 			if(pz1 > 0)
 			{
 				float fy = (-nz1 * e * a) / ny1;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz1 * nz1 / ny1;
 
 				if (py < l.y)
@@ -141,7 +141,7 @@ namespace DE
 			if(pz2 > 0)
 			{
 				float fy = (-nz2 * e * a) / ny2;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz2 * nz2 / ny2;
 
 				if (py < l.y)
@@ -302,7 +302,10 @@ namespace DE
 	{
 		// Disable textures
 		for(int i = 0; i < MAXIMUM_TEXTURE_UNIT; ++i)
+		{
 			glActiveTextureARB(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 
 		if(declaration != nullptr)
 		{
@@ -341,8 +344,8 @@ namespace DE
 
 			COGLFrameBuffer * buffer = static_cast<COGLFrameBuffer*>(frameBuffer);
 
-			glBindFramebuffer(GL_FRAMEBUFFER, buffer->GetFrameBuffer());
-
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, buffer->GetFrameBuffer());
+			
 			// Update the buffers call
 			glDrawBuffers(buffer->GetAttachmentSize(), buffer->GetActiveBuffers());
 
@@ -359,10 +362,12 @@ namespace DE
 		else
 		{
 			// Unbind any framebuffer
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 
-			GLenum buffer = GL_COLOR_ATTACHMENT0;
-			glDrawBuffers(1, &buffer);
+			//GLenum buffer = GL_BACK_LEFT;
+			//glDrawBuffers(1, &buffer);
+
+			glDrawBuffer(GL_BACK);
 		}
 	}
 
@@ -638,6 +643,9 @@ namespace DE
 		SiniP options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 		this->m_internalResolution.x = options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_INTERNAL_RESOLUTION_X, this->m_resolution.x);
 		this->m_internalResolution.y = options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_INTERNAL_RESOLUTION_Y, this->m_resolution.y);
+		// Remove window borders
+		this->m_internalResolution.x -= (options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_RESOLUTION_X, this->m_resolution.x) - this->m_resolution.x);
+		this->m_internalResolution.y -= (options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_RESOLUTION_Y, this->m_resolution.y) - this->m_resolution.y);
 
 		// Default states
 		glStencilMask(0xFFFFFFFF);

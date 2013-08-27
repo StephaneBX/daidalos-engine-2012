@@ -34,17 +34,31 @@ namespace DE
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(parent, name, CVector3F(0,0,0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true)
 	{
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
+
+		// Camera for the shadow rendering
+		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleI(0,0,20,20), 0.1f, 1);
+		AddChild(this->m_camera);
 	}
 
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ILightSceneNode(parent, name, CVector3F(0,0,0), rotation, color, shadowCaster, enabled)
 	{
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
+
+		// Camera for the shadow rendering
+		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleI(0,0,20,20), 0.1f, 1);
+		AddChild(this->m_camera);
 	}
 
 	CDirectionalLightSceneNode::~CDirectionalLightSceneNode() {}
 
 	void CDirectionalLightSceneNode::Update(const float time)
 	{
+		// Find the light 'position'. Usefull only to generate the camera for shadow computation
+		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0,0,1)).Normalize();
+		ICameraSceneNode* activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
+		this->m_camera->SetFarDistance(activeCamera->GetFarDistance() * 2);
+		this->m_localPosition = activeCamera->GetAbsolutePosition() - (direction * this->m_camera->GetFarDistance());
+
 		// Update the absolute position
 		ILightSceneNode::Update(time);
 
@@ -56,10 +70,12 @@ namespace DE
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS)
 			{
-				lights->direction[lights->numberOfLights] = CVector4F(this->m_absoluteRotationMatrix.Transform(CVector3F(0,0,1)), 0);
+				lights->direction[lights->numberOfLights] = CVector4F(direction, 0);
+				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition, 0);
 				lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();
 				lights->enabled[lights->numberOfLights] = 1;
 				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
+				lights->node[lights->numberOfLights] = this->m_camera;
 				++lights->numberOfLights;
 			}
 		}

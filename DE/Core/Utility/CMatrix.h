@@ -88,7 +88,8 @@ namespace DE
 		operator const float * () const;
 		void LookAt(const CVector3F & eye, const CVector3F & at, const CVector3F & up = CVector3F(0,1,0));
 		void PerspectiveFOV(const float fovy, const float ratio, const float znear, const float zfar);
-		void OrthoView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar);
+		void OrthographicView(const float width, const float height, const float znear, const float zfar);
+		void OrthographicView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar);
 		static void TransformArray(CVector3F * out, CVector3F * input, const CMatrix & matrix, const int n, const bool normalize);
 		static void RotationQuaternion(CMatrix & out, const CQuaternion & quat);
 		static void Decompose(CVector3F & outScale, CQuaternion & outRotation, CVector3F & outTranslation, const CMatrix & matrix);
@@ -711,6 +712,21 @@ namespace DE
 
 	/**
 	* Create an orthographic view
+	* @param width The camera space width
+	* @param height The camera space height
+	* @param znear The near plane
+	* @param zfar The far plane
+	*/
+	inline void CMatrix::OrthographicView(const float width, const float height, const float znear, const float zfar)
+	{
+		this->_11 = 2 / width;	this->_12 = 0.0f;		this->_13 = 0.0f;						this->_14 = 0.0f;
+		this->_21 = 0.0f;		this->_22 = 2 / height;	this->_23 = 0.0f;						this->_24 = 0.0f;
+		this->_31 = 0.0f;		this->_32 = 0.0f;		this->_33 = 1 / (zfar - znear);			this->_34 = 0.0f;
+		this->_41 = 0.0f;		this->_42 = 0.0f;		this->_43 = -znear / (zfar - znear);	this->_44 = 1.0f;
+	}
+
+	/**
+	* Create an orthographic view
 	* @param left The left corner
 	* @param right The right corner
 	* @param bottom The bottom value
@@ -718,7 +734,7 @@ namespace DE
 	* @param znear The near plane
 	* @param zfar The far plane
 	*/
-	inline void CMatrix::OrthoView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar)
+	inline void CMatrix::OrthographicView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar)
 	{
 		this->_11 = 2 / (right - left);					this->_12 = 0.0f;								this->_13 = 0.0f;								this->_14 = 0.0f;
 		this->_21 = 0.0f;								this->_22 = 2 / (top - bottom);					this->_23 = 0.0f;								this->_24 = 0.0f;
