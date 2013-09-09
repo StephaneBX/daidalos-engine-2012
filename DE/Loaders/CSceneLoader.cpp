@@ -63,25 +63,25 @@ namespace DE
 
 		this->m_filename = filename;
 		ISceneNode * root = nullptr;
-		TiXmlElement * element = nullptr;
+		tinyxml2::XMLElement * element = nullptr;
 
-		TiXmlDocument doc(filename.c_str());
-		bool loadOk = doc.LoadFile();
-		if(loadOk)
+		tinyxml2::XMLDocument doc;
+		int loadOk = doc.LoadFile(filename.c_str());
+		if(loadOk == tinyxml2::XML_NO_ERROR)
 		{
-			TiXmlHandle hDoc(&doc);
+			tinyxml2::XMLHandle hDoc(&doc);
 
 			int tmpInt = 0;
-			hDoc.FirstChild("scene").Element()->QueryIntAttribute("structure", &tmpInt);
+			hDoc.FirstChildElement("scene").ToElement()->QueryIntAttribute("structure", &tmpInt);
 			this->m_structure = (ESceneNodeRootStructureType)tmpInt;
 
-			element = hDoc.FirstChild("scene").FirstChild("node").ToElement();
+			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
 			for(element ; element ; element = element->NextSiblingElement())
-				LoadNode(root, TiXmlHandle(element));
+				LoadNode(root, tinyxml2::XMLHandle(element));
 		}
 		else
 		{
-			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.ErrorDesc() << ")");
+			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
 
 			throw CExceptionLoad(this->m_filename);
@@ -95,7 +95,7 @@ namespace DE
 
 	}
 
-	void CSceneLoader::LoadNode(ISceneNode *& parent, const TiXmlHandle & handle)
+	void CSceneLoader::LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle)
 	{
 		// Global data variables
 		bool visible, flatShading, enabled, shadowCaster;
@@ -103,17 +103,17 @@ namespace DE
 		CVector3F position, rotation, scale;
 		std::map<std::string, std::string> attributes;
 		CColor color;
-		TiXmlElement * child = nullptr;
+		tinyxml2::XMLElement * child = nullptr;
 		ISceneNode * node = nullptr;
 		int type = -1;
-		handle.Element()->QueryIntAttribute("type", &type);
+		handle.ToElement()->QueryIntAttribute("type", &type);
 		std::string file, diffuseTexture, normalTexture, material;
 		CTokenizer tokenizer;
 
 		std::string name = "undefined";
-		if(handle.Element()->Attribute("name"))
+		if(handle.ToElement()->Attribute("name"))
 		{
-			name = handle.Element()->Attribute("name");
+			name = handle.ToElement()->Attribute("name");
 		}
 		
 		CVector4F nodeDefaultColor;
@@ -213,7 +213,7 @@ namespace DE
 			GetNodeData(handle, "normal_texture", normalTexture, "");
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
-			file = handle.Element()->Attribute("file");
+			file = handle.ToElement()->Attribute("file");
 			
 			// Create the node
 			node = new CStaticMeshSceneNode(parent, name, file, position, rotation, scale);
@@ -238,7 +238,7 @@ namespace DE
 			GetNodeData(handle, "normal_texture", normalTexture, "");
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
-			file = handle.Element()->Attribute("file");
+			file = handle.ToElement()->Attribute("file");
 			
 			// Create the node
 			node = new CAnimatedMeshSceneNode(parent, name, file, position, rotation,  scale);
@@ -325,20 +325,20 @@ namespace DE
 			for(child ; child ; child = child->NextSiblingElement())
 			{
 				// Read only nodes
-				if(child->ValueStr() == "node")
-					LoadNode(node, TiXmlHandle(child));
+				if(std::string(child->Name()) == "node")
+					LoadNode(node, tinyxml2::XMLHandle(child));
 			}
 		}
 	}
 
-	void CSceneLoader::LoadBSPStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node)
+	void CSceneLoader::LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node)
 	{
-		TiXmlElement * child;
+		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode();
 		CVector3F ambientColor;
-		if(handle.Element()->Attribute("ambientColor") != nullptr)
-			ambientColor = CVector3F::GetFrom(handle.Element()->Attribute("ambientColor"));
+		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
+			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
 		static_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Read the bsp geometry
@@ -346,10 +346,10 @@ namespace DE
 		for(child ; child ; child = child->NextSiblingElement())	
 		{
 			// A brush created with a bunch of static models
-			if(child->ValueStr() == "multi_brush")
+			if(std::string(child->Name()) == "multi_brush")
 			{
-				TiXmlHandle bspHandle(child);
-				TiXmlElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
+				tinyxml2::XMLHandle bspHandle(child);
+				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SBSPBrushDefinition brush;
 
 				// Default values
@@ -357,13 +357,13 @@ namespace DE
 				brush.collision = true;
 
 				// Get the brush options
-				bspHandle.Element()->QueryBoolAttribute("collisions", &brush.collision);
-				bspHandle.Element()->QueryIntAttribute("id", &brush.id);
+				bspHandle.ToElement()->QueryBoolAttribute("collisions", &brush.collision);
+				bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
 
 				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
 				{
-					if(child2->ValueStr() == "brush")
-						AddBSPBrushData(TiXmlHandle(child2), brush);
+					if(std::string(child2->Name()) == "brush")
+						AddBSPBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
 
 				if(brush.geometry.size() > 0)
@@ -375,9 +375,9 @@ namespace DE
 		for(child ; child ; child = child->NextSiblingElement())	
 		{
 			// A simple brush
-			if(child->ValueStr() == "brush")
+			if(std::string(child->Name()) == "brush")
 			{
-				TiXmlHandle bspHandle(child);
+				tinyxml2::XMLHandle bspHandle(child);
 				SBSPBrushDefinition brush;
 
 				// Default values
@@ -385,8 +385,8 @@ namespace DE
 				brush.collision = true;
 
 				// Get the brush options
-				bspHandle.Element()->QueryBoolAttribute("collisions", &brush.collision);
-				bspHandle.Element()->QueryIntAttribute("id", &brush.id);
+				bspHandle.ToElement()->QueryBoolAttribute("collisions", &brush.collision);
+				bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
 
 				AddBSPBrushData(bspHandle, brush);
 				brushDefinition.push_back(brush);
@@ -397,14 +397,14 @@ namespace DE
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node)
+	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node)
 	{
-		TiXmlElement * child;
+		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode();
 		CVector3F ambientColor;
-		if(handle.Element()->Attribute("ambientColor") != nullptr)
-			ambientColor = CVector3F::GetFrom(handle.Element()->Attribute("ambientColor"));
+		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
+			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
 		static_cast<CSimpleSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Read the bsp geometry
@@ -412,16 +412,16 @@ namespace DE
 		for(child ; child ; child = child->NextSiblingElement())	
 		{
 			// A brush created with a bunch of static models
-			if(child->ValueStr() == "multi_brush")
+			if(std::string(child->Name()) == "multi_brush")
 			{
-				TiXmlHandle bspHandle(child);
-				TiXmlElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
+				tinyxml2::XMLHandle bspHandle(child);
+				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SSimpleBrush brush;
 
 				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
 				{
-					if(child2->ValueStr() == "brush")
-						AddSimpleBrushData(TiXmlHandle(child2), brush);
+					if(std::string(child2->Name()) == "brush")
+						AddSimpleBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
 
 				if(brush.geometry.size() > 0)
@@ -433,9 +433,9 @@ namespace DE
 		for(child ; child ; child = child->NextSiblingElement())	
 		{
 			// A simple brush
-			if(child->ValueStr() == "brush")
+			if(std::string(child->Name()) == "brush")
 			{
-				TiXmlHandle bspHandle(child);
+				tinyxml2::XMLHandle bspHandle(child);
 				SSimpleBrush brush;
 
 				AddSimpleBrushData(bspHandle, brush);
@@ -447,14 +447,14 @@ namespace DE
 		static_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
 	}
 
-	void CSceneLoader::AddBSPBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition)
+	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition)
 	{
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
 		std::ostringstream ss;
 
-		std::string name = handle.Element()->Attribute("file");
+		std::string name = handle.ToElement()->Attribute("file");
 		GetNodeData(handle, "visible", visible, true);
 		GetNodeData(handle, "position", position, CVector3F(0,0,0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
@@ -510,14 +510,14 @@ namespace DE
 		}
 	}
 
-	void CSceneLoader::AddSimpleBrushData(const TiXmlHandle & handle, SSimpleBrush & brush)
+	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush)
 	{
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
 		std::ostringstream ss;
 
-		std::string name = handle.Element()->Attribute("file");
+		std::string name = handle.ToElement()->Attribute("file");
 		GetNodeData(handle, "visible", visible, true);
 		GetNodeData(handle, "position", position, CVector3F(0,0,0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
@@ -590,9 +590,9 @@ namespace DE
 		}
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, bool & data, const bool defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue)
 	{
-		TiXmlText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 		{
 			std::string tmpText = TrimString(text->Value());
@@ -607,9 +607,9 @@ namespace DE
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, int & data, const int defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue)
 	{
-		TiXmlText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 		{
 			std::istringstream ss(text->Value());
@@ -619,28 +619,28 @@ namespace DE
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue)
 	{
 		CTokenizer tokenizer;
 		data = defaultValue;
-		TiXmlText * text = handle.FirstChild(name.c_str()).FirstChild().Text();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 			data = CVector3F::GetFrom(std::string(text->Value()), defaultValue);
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue)
 	{
 		CTokenizer tokenizer;
 		data = defaultValue;
-		TiXmlText * text = handle.FirstChild(name.c_str()).FirstChild().Text();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 			data = CVector4F::GetFrom(std::string(text->Value()), defaultValue);
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue)
 	{
 		CTokenizer tokenizer;
-		TiXmlText * text = handle.FirstChild(name.c_str()).FirstChild().Text();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 			tokenizer.AddLine(text->Value());
 
@@ -667,9 +667,9 @@ namespace DE
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, float & data, const float defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue)
 	{
-		TiXmlText * text = handle.FirstChild(name.c_str()).FirstChild().Text();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 		{
 			std::istringstream ss(text->Value());
@@ -679,9 +679,9 @@ namespace DE
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(const TiXmlHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue)
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue)
 	{
-		TiXmlText * text = handle.FirstChild(name.c_str()).FirstChild().Text();
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 		{
 			data = text->Value();
@@ -690,27 +690,27 @@ namespace DE
 			data = defaultValue;
 	}
 
-	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(const TiXmlHandle & handle)
+	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle)
 	{
 		std::map<std::string, std::string> attributes;
-		TiXmlElement * child;
+		tinyxml2::XMLElement * child;
 		std::string attributeName;
 
 		child = handle.FirstChildElement("attributes").FirstChild().ToElement();
 		for(child ; child ; child = child->NextSiblingElement())	
 		{
-			TiXmlHandle attributeHandle(child);
+			tinyxml2::XMLHandle attributeHandle(child);
 
 			// Get the attribute name
-			attributeName = attributeHandle.Element()->ValueStr();
+			attributeName = attributeHandle.ToElement()->Name();
 
 			// Get the attribute value
-			TiXmlText * valueText = attributeHandle.FirstChild().Text();
+			tinyxml2::XMLText * valueText = attributeHandle.FirstChild().ToText();
 
 			// Add the attribue only if the two elements are valid
 			if(valueText != nullptr)
 			{
-				attributes[attributeName] = valueText->ValueStr();
+				attributes[attributeName] = valueText->Value();
 			}
 		}
 

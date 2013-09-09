@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IBOUNDEDLIGHTSCENENODE_H
 
 #include <limits>
+#include <memory>
 #include "../Scene/ILightSceneNode.h"
 #include "../Scene/CSphere.h"
 

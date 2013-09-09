@@ -51,6 +51,7 @@ public:
 	void SetName(const std::string & name);
 	void AddElement(SiniPElement * element);
 	void Copy(const SiniPSection & section);
+	void RemoveAllComments();
 	const SiniPSection & operator=(const SiniPSection & section);
 	const TSectionElements & GetElements() const;
 	const std::string & GetName() const;

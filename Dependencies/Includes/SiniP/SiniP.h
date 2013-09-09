@@ -25,6 +25,12 @@ along with SiniP.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef __SINIP_H
 #define __SINIP_H
 
+#ifdef SINIP_DLL_EXPORTS
+#define SINIP_DLL_API __declspec(dllexport) 
+#else
+#define SINIP_DLL_API 
+#endif
+
 #include <utility>
 #include <string>
 #include <vector>
@@ -45,27 +51,28 @@ protected:
 	std::vector<SiniPSection*> m_data;
 
 public:
-	SiniP();
-	SiniP(const SiniP & sinip);
-	SiniP(const std::string & filename);
-	~SiniP();
-	void Parse(const std::string & filename);
-	void SetValueBool(const std::string & section, const std::string & key, const bool value);
-	void SetValueInt(const std::string & section, const std::string & key, const int value);
-	void SetValueFloat(const std::string & section, const std::string & key, const float value);
-	void SetValueDouble(const std::string & section, const std::string & key, const double value);
-	void SetValueString(const std::string & section, const std::string & key, const std::string & value);
-	void Clear();
-	void RemoveSection(const std::string & section);
-	void Copy(const SiniP & sinip);
-	void Save();
-	void SaveToFile(const std::string & filename);
-	const SiniP & operator=(const SiniP & sinip);
-	const bool GetValueBool(const std::string & section, const std::string & key, const bool defaultValue) const;
-	const int GetValueInt(const std::string & section, const std::string & key, const int defaultValue) const;
-	const float GetValueFloat(const std::string & section, const std::string & key, const float defaultValue) const;
-	const double GetValueDouble(const std::string & section, const std::string & key, const double defaultValue) const;
-	const std::string GetValueString(const std::string & section, const std::string & key, const std::string & defaultValue) const;
+	SINIP_DLL_API SiniP();
+	SINIP_DLL_API SiniP(const SiniP & sinip);
+	SINIP_DLL_API SiniP(const std::string & filename);
+	SINIP_DLL_API ~SiniP();
+	SINIP_DLL_API void Parse(const std::string & filename);
+	SINIP_DLL_API void SetValueBool(const std::string & section, const std::string & key, const bool value);
+	SINIP_DLL_API void SetValueInt(const std::string & section, const std::string & key, const int value);
+	SINIP_DLL_API void SetValueFloat(const std::string & section, const std::string & key, const float value);
+	SINIP_DLL_API void SetValueDouble(const std::string & section, const std::string & key, const double value);
+	SINIP_DLL_API void SetValueString(const std::string & section, const std::string & key, const std::string & value);
+	SINIP_DLL_API void Clear();
+	SINIP_DLL_API void RemoveSection(const std::string & section);
+	SINIP_DLL_API void RemoveAllComments();
+	SINIP_DLL_API void Copy(const SiniP & sinip);
+	SINIP_DLL_API void Save();
+	SINIP_DLL_API void SaveToFile(const std::string & filename);
+	SINIP_DLL_API const SiniP & operator=(const SiniP & sinip);
+	SINIP_DLL_API const bool GetValueBool(const std::string & section, const std::string & key, const bool defaultValue) const;
+	SINIP_DLL_API const int GetValueInt(const std::string & section, const std::string & key, const int defaultValue) const;
+	SINIP_DLL_API const float GetValueFloat(const std::string & section, const std::string & key, const float defaultValue) const;
+	SINIP_DLL_API const double GetValueDouble(const std::string & section, const std::string & key, const double defaultValue) const;
+	SINIP_DLL_API const std::string GetValueString(const std::string & section, const std::string & key, const std::string & defaultValue) const;
 
 protected:
 	const std::string Trim(const std::string & text) const;

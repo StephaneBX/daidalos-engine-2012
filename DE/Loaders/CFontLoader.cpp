@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <TinyXML/tinyxml.h>
+#include <TinyXML2/tinyxml2.h>
 #include "../Core/IRenderer.h"
 #include "../Core/Utility/CVector2.h"
 #include "../Core/Utility/CVector4.h"
@@ -42,41 +42,41 @@ namespace DE
 	IFontBase * CFontLoader::LoadFromFile(const std::string & filename)
 	{
 		SFontInternalData * data = nullptr;
-		TiXmlDocument doc(filename.c_str());
-		bool loadOk = doc.LoadFile();
-		if(loadOk)
+		tinyxml2::XMLDocument doc;
+		int loadOk = doc.LoadFile(filename.c_str());
+		if(loadOk == tinyxml2::XML_NO_ERROR)
 		{
 			data = new SFontInternalData;
 			std::string tmpString;
-			TiXmlHandle hDoc(&doc);
+			tinyxml2::XMLHandle hDoc(&doc);
 
 			/**
 			* General informations
 			*/
-			TiXmlElement * info = hDoc.FirstChild("font").FirstChild("info").Element();
-			info->QueryStringAttribute("face", &data->fontName);
+			tinyxml2::XMLElement * info = hDoc.FirstChildElement("font").FirstChildElement("info").ToElement();
+			data->fontName = info->Attribute("face");
 			info->QueryBoolAttribute("bold", &data->bold);
 			info->QueryBoolAttribute("italic", &data->italic);
 			info->QueryIntAttribute("size", &data->size);
 
-			info->QueryStringAttribute("padding", &tmpString);
+			tmpString = info->Attribute("padding");
 			data->padding = CVector4I::GetFrom(tmpString, CVector4I(), ",");
 
-			info->QueryStringAttribute("spacing", &tmpString);
+			tmpString = info->Attribute("spacing");
 			data->spacing = CVector2I::GetFrom(tmpString, CVector2I(), ",");
 
-			TiXmlElement * common = hDoc.FirstChild("font").FirstChild("common").Element();
+			tinyxml2::XMLElement * common = hDoc.FirstChildElement("font").FirstChildElement("common").ToElement();
 			common->QueryIntAttribute("lineHeight", &data->lineHeight);
 			common->QueryIntAttribute("base", &data->base);
 
-			TiXmlElement * page = hDoc.FirstChild("font").FirstChild("pages").FirstChild("page").Element();
-			page->QueryStringAttribute("file", &tmpString);
+			tinyxml2::XMLElement * page = hDoc.FirstChildElement("font").FirstChildElement("pages").FirstChildElement("page").ToElement();
+			tmpString = page->Attribute("file");
 			data->texture.CreateFromFile(tmpString, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 
 			/**
 			* Load the chars
 			*/
-			TiXmlElement * character = hDoc.FirstChild("font").FirstChild("chars").FirstChild("char").Element();
+			tinyxml2::XMLElement * character = hDoc.FirstChildElement("font").FirstChildElement("chars").FirstChildElement("char").ToElement();
 			for(character ; character ; character = character->NextSiblingElement())
 			{
 				SCharData charData;
@@ -95,7 +95,7 @@ namespace DE
 			/**
 			* Load the kernings
 			*/
-			TiXmlElement * kerning = hDoc.FirstChild("font").FirstChild("kernings").FirstChild("kerning").Element();
+			tinyxml2::XMLElement * kerning = hDoc.FirstChildElement("font").FirstChildElement("kernings").FirstChildElement("kerning").ToElement();
 			for(kerning ; kerning ; kerning = kerning->NextSiblingElement())
 			{
 				SKerningPair kerningData;
@@ -108,7 +108,7 @@ namespace DE
 		}
 		else
 		{
-			LOG_ERROR("Unable to load the font file '" << filename << "' (" << doc.ErrorDesc() << ")");
+			LOG_ERROR("Unable to load the font file '" << filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);

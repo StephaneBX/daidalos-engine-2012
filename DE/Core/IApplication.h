@@ -39,17 +39,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 	#include <Windows.h>
 #endif
 
-#ifdef _DEBUG
-	#pragma comment(lib, "SiniP_debug.lib")
-	#pragma comment(lib, "TinyXML_debug.lib")
-#else
-	#pragma comment(lib, "SiniP.lib")
-	#pragma comment(lib, "TinyXML.lib")
-#endif
-
+#pragma comment(lib, "SiniP.lib")
+#pragma comment(lib, "tinyxml2.lib")
 #pragma comment(lib, "OpenAL32.lib")
 #pragma comment(lib, "DevIL.lib")
-
 #pragma comment(lib, "libsndfile-1.lib")
 
 namespace DE

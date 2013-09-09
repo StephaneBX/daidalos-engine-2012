@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSCENELOADER_H
 #define __CSCENELOADER_H
 
-#include <TinyXML/tinyxml.h>
+#include <TinyXML2/tinyxml2.h>
 #include <string>
 #include <map>
 #include "../Core/ILoader.h"
@@ -83,7 +83,7 @@ namespace DE
 		* @param parent The node parent
 		* @param xmlElement The xml element describing the node
 		*/
-		void LoadNode(ISceneNode *& parent, const TiXmlHandle & handle);
+		void LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle);
 
 		/**
 		* Load a BSP structure
@@ -91,7 +91,7 @@ namespace DE
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadBSPStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node);
+		void LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Load a simple structure
@@ -99,21 +99,21 @@ namespace DE
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadSimpleStructure(ISceneNode *& parent, const TiXmlHandle & handle, ISceneNode *& node);
+		void LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		void AddBSPBrushData(const TiXmlHandle & handle, SBSPBrushDefinition & brushDefinition);
+		void AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition);
 
 		/**
 		* Add data into the simple brush by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		void AddSimpleBrushData(const TiXmlHandle & handle, SSimpleBrush & brush);
+		void AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush);
 
 		/**
 		* Get a node data
@@ -122,7 +122,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, bool & data, const bool defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue);
 
 		/**
 		* Get a node data
@@ -131,7 +131,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, int & data, const int defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue);
 
 		/**
 		* Get a node data
@@ -140,7 +140,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue);
 
 		/**
 		* Get a node data
@@ -149,7 +149,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue);
 
 		/**
 		* Get a node data
@@ -158,7 +158,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue);
 
 		/**
 		* Get a node data
@@ -167,7 +167,7 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, float & data, const float defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue);
 
 		/**
 		* Get a node data
@@ -176,14 +176,14 @@ namespace DE
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(const TiXmlHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue);
 
 		/**
 		* Get the attributes map to a given child
 		* @param handle The handle
 		* @return The attributes map
 		*/
-		const std::map<std::string, std::string> GetNodeAttributes(const TiXmlHandle & handle);
+		const std::map<std::string, std::string> GetNodeAttributes(tinyxml2::XMLHandle & handle);
 	};
 }
 
