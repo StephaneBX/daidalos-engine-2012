@@ -30,6 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	* @param filename The exception owner file
+	* @param line The error line
+	*/
 	CExceptionAssert::CExceptionAssert(const std::string & filename, const int line)
 	{
 		std::ostringstream stream;

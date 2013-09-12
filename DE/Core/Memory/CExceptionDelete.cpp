@@ -30,6 +30,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	* @param ptr The memory address
+	* @param filename The exception owner file
+	* @param line The error line
+	* @param isArray if the memory block is an array
+	*/
 	CExceptionDelete::CExceptionDelete(void * ptr, const std::string & filename, const int line, const bool isArray)
 	{
 		std::ostringstream stream;

@@ -28,6 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IWIN32APPLICATION_H
 #define __IWIN32APPLICATION_H
 
+#define DIRECTINPUT_VERSION 0x0800
+
 #include <string>
 #include <dinput.h>
 #include "../Core/IApplication.h"
@@ -98,7 +100,7 @@ namespace DE
 
 		/**
 		* Resize the window
-		* @param width The ne width
+		* @param width The new width
 		* @param height The new height
 		*/
 		virtual void Resize(const int width, const int height);

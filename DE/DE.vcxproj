@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Applications\ISDLApplication.h" />
     <ClInclude Include="Applications\IWin32Application.h" />
     <ClInclude Include="Core\CConfigurationManager.h" />
     <ClInclude Include="Core\CGUIManager.h" />
@@ -104,17 +103,6 @@
     <ClInclude Include="Renderers\DX9\CDX9VertexShader.h" />
     <ClInclude Include="Renderers\DX9\CDX9VertexShadersLoader.h" />
     <ClInclude Include="Renderers\DX9\DX9Global.h" />
-    <ClInclude Include="Renderers\OGL\COGLBuffer.h" />
-    <ClInclude Include="Renderers\OGL\COGLDeclaration.h" />
-    <ClInclude Include="Renderers\OGL\COGLEnums.h" />
-    <ClInclude Include="Renderers\OGL\COGLException.h" />
-    <ClInclude Include="Renderers\OGL\COGLFrameBuffer.h" />
-    <ClInclude Include="Renderers\OGL\COGLRenderer.h" />
-    <ClInclude Include="Renderers\OGL\COGLRenderTarget.h" />
-    <ClInclude Include="Renderers\OGL\COGLShader.h" />
-    <ClInclude Include="Renderers\OGL\COGLShaderProgram.h" />
-    <ClInclude Include="Renderers\OGL\COGLShadersLoader.h" />
-    <ClInclude Include="Renderers\OGL\COGLTexture2D.h" />
     <ClInclude Include="Scene\CAABoundingBox.h" />
     <ClInclude Include="Scene\CEllipse.h" />
     <ClInclude Include="Scene\CEmptySceneNode.h" />
@@ -147,7 +135,6 @@
     <ClInclude Include="Scene\Structure\Simple\CSimpleSceneNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Applications\ISDLApplication.cpp" />
     <ClCompile Include="Applications\IWin32Application.cpp" />
     <ClCompile Include="Core\CConfigurationManager.cpp" />
     <ClCompile Include="Core\CGUIManager.cpp" />
@@ -220,16 +207,6 @@
     <ClCompile Include="Renderers\DX9\CDX9Texture2D.cpp" />
     <ClCompile Include="Renderers\DX9\CDX9VertexShader.cpp" />
     <ClCompile Include="Renderers\DX9\CDX9VertexShadersLoader.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLDeclaration.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLEnums.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLException.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLFrameBuffer.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLRenderer.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLRenderTarget.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLShader.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLShaderProgram.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLShadersLoader.cpp" />
-    <ClCompile Include="Renderers\OGL\COGLTexture2D.cpp" />
     <ClCompile Include="Scene\CEmptySceneNode.cpp" />
     <ClCompile Include="Scene\CImpact.cpp" />
     <ClCompile Include="Scene\COrthographicCameraSceneNode.cpp" />

@@ -29,10 +29,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	*/
 	CException::CException() {}
 
+	/**
+	* Destructor
+	*/
 	CException::~CException() throw() {}
 
+	/**
+	* Get the exception message
+	* @return The exception message
+	*/
 	const char * CException::what() const throw()
 	{
 		return this->m_message.c_str();

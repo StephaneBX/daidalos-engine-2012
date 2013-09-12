@@ -310,6 +310,7 @@ namespace DE
 		int positiveIndex1, positiveIndex2, negativeIndex1, negativeIndex2, pivotIndex;
 		float kFactor1, kFactor2;
 		CBSPTriangle * tmp;
+		int firstOrderIndex, secondOrderIndex, thirdOrderIndex;
 
 		// Test the triangle in order to know its position regarding the plane
 		for(int i = 0 ; i < 3 ; ++i)
@@ -399,37 +400,63 @@ namespace DE
 			// Find the intersection point
 			intersection1 = this->m_plane.IntersectSegment(triangle->GetVertex(positiveIndex1), triangle->GetVertex(negativeIndex1), kFactor1);
 
+			// Default index
+			firstOrderIndex = 0;
+			secondOrderIndex = 1;
+			thirdOrderIndex = 2;
+
+			// Check the element order 
+			if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(triangle->GetVertex(pivotIndex) - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
+			{
+				secondOrderIndex = 2;
+				thirdOrderIndex = 1;
+			}
+
+
 			// Fill the front triangle
 			tmp = new CBSPTriangle(*triangle);
-			tmp->SetVertex(triangle->GetVertex(positiveIndex1), 0);
-			tmp->SetVertex(intersection1, 1);
-			tmp->SetVertex(triangle->GetVertex(pivotIndex), 2);
-			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), 0);
-			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), 1);
-			tmp->SetTexcoord(triangle->GetTexcoord(pivotIndex), 2);
-			tmp->SetNormal(triangle->GetNormal(positiveIndex1), 0);
-			tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), 1);
-			tmp->SetNormal(triangle->GetNormal(pivotIndex), 2);
-			tmp->SetColor(triangle->GetColor(positiveIndex1), 0);
-			tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), 1);
-			tmp->SetColor(triangle->GetColor(pivotIndex), 2);
+			tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
+			tmp->SetVertex(intersection1, secondOrderIndex);
+			tmp->SetVertex(triangle->GetVertex(pivotIndex), thirdOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), firstOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), secondOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(pivotIndex), thirdOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(positiveIndex1), firstOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), secondOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(pivotIndex), thirdOrderIndex);
+			tmp->SetColor(triangle->GetColor(positiveIndex1), firstOrderIndex);
+			tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), secondOrderIndex);
+			tmp->SetColor(triangle->GetColor(pivotIndex), thirdOrderIndex);
 			tmp->Update();
 			front.push_back(tmp);
 
+
+			// Default index
+			firstOrderIndex = 0;
+			secondOrderIndex = 1;
+			thirdOrderIndex = 2;
+
+			// Check the element order 
+			if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(pivotIndex) - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
+			{
+				secondOrderIndex = 2;
+				thirdOrderIndex = 1;
+			}
+
 			// Fill the back triangle
 			tmp = new CBSPTriangle(*triangle);
-			tmp->SetVertex(triangle->GetVertex(negativeIndex1), 0);
-			tmp->SetVertex(triangle->GetVertex(pivotIndex), 1);
-			tmp->SetVertex(intersection1, 2);
-			tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), 0);
-			tmp->SetTexcoord(triangle->GetTexcoord(pivotIndex), 1);
-			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), 2);
-			tmp->SetNormal(triangle->GetNormal(negativeIndex1), 0);
-			tmp->SetNormal(triangle->GetNormal(pivotIndex), 1);
-			tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), 2);
-			tmp->SetColor(triangle->GetColor(negativeIndex1), 0);
-			tmp->SetColor(triangle->GetColor(pivotIndex), 1);
-			tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), 2);
+			tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
+			tmp->SetVertex(triangle->GetVertex(pivotIndex), secondOrderIndex);
+			tmp->SetVertex(intersection1, thirdOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), firstOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(pivotIndex), secondOrderIndex);
+			tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), thirdOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(negativeIndex1), firstOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(pivotIndex), secondOrderIndex);
+			tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), thirdOrderIndex);
+			tmp->SetColor(triangle->GetColor(negativeIndex1), firstOrderIndex);
+			tmp->SetColor(triangle->GetColor(pivotIndex), secondOrderIndex);
+			tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), thirdOrderIndex);
 			tmp->Update();
 			back.push_back(tmp);
 
@@ -477,53 +504,92 @@ namespace DE
 				intersection1 = this->m_plane.IntersectSegment(triangle->GetVertex(positiveIndex1), triangle->GetVertex(negativeIndex1), kFactor1);
 				intersection2 = this->m_plane.IntersectSegment(triangle->GetVertex(positiveIndex2), triangle->GetVertex(negativeIndex1), kFactor2);
 
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection1 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
+
 				// Fill the front triangles
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(positiveIndex1), 0);
-				tmp->SetVertex(intersection2, 1);
-				tmp->SetVertex(intersection1, 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), 2);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex1), 0);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), 1);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), 2);
-				tmp->SetColor(triangle->GetColor(positiveIndex1), 0);
-				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), 1);
-				tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), 2);
+				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
+				tmp->SetVertex(intersection2, secondOrderIndex);
+				tmp->SetVertex(intersection1, thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex1), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex1), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), thirdOrderIndex);
 				tmp->Update();
 				front.push_back(tmp);
 
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(positiveIndex2) - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
+
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(positiveIndex1), 0);
-				tmp->SetVertex(triangle->GetVertex(positiveIndex2), 1);
-				tmp->SetVertex(intersection2, 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), 2);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex1), 0);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex2), 1);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), 2);
-				tmp->SetColor(triangle->GetColor(positiveIndex1), 0);
-				tmp->SetColor(triangle->GetColor(positiveIndex2), 1);
-				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), 2);
+				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
+				tmp->SetVertex(triangle->GetVertex(positiveIndex2), secondOrderIndex);
+				tmp->SetVertex(intersection2, thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex1), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex2), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex1), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex2), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), thirdOrderIndex);
 				tmp->Update();
 				front.push_back(tmp);
+
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection2 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
 
 				// Fill the back triangle
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(negativeIndex1), 0);
-				tmp->SetVertex(intersection1, 1);
-				tmp->SetVertex(intersection2, 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), 2);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex1), 0);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), 1);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), 2);
-				tmp->SetColor(triangle->GetColor(negativeIndex1), 0);
-				tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), 1);
-				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), 2);
+				tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
+				tmp->SetVertex(intersection1, secondOrderIndex);
+				tmp->SetVertex(intersection2, thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1) + kFactor1 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex1)), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex2) + kFactor2 * (triangle->GetTexcoord(negativeIndex1) - triangle->GetTexcoord(positiveIndex2)), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex1), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex1) + kFactor1 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex1)), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex2) + kFactor2 * (triangle->GetNormal(negativeIndex1) - triangle->GetNormal(positiveIndex2)), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex1), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex1) + kFactor1 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex1)), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex2) + kFactor2 * (triangle->GetColor(negativeIndex1) - triangle->GetColor(positiveIndex2)), thirdOrderIndex);
 				tmp->Update();
 				back.push_back(tmp);
 
@@ -574,53 +640,92 @@ namespace DE
 				intersection1 = this->m_plane.IntersectSegment(triangle->GetVertex(negativeIndex1), triangle->GetVertex(positiveIndex1), kFactor1);
 				intersection2 = this->m_plane.IntersectSegment(triangle->GetVertex(negativeIndex2), triangle->GetVertex(positiveIndex1), kFactor2);
 
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
+
 				// Fill the front triangle
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(positiveIndex1), 0);
-				tmp->SetVertex(intersection1, 1);
-				tmp->SetVertex(intersection2, 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1) + kFactor1 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex1)), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), 2);
-				tmp->SetNormal(triangle->GetNormal(positiveIndex1), 0);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex1) + kFactor1 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex1)), 1);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), 2);
-				tmp->SetColor(triangle->GetColor(positiveIndex1), 0);
-				tmp->SetColor(triangle->GetColor(negativeIndex1) + kFactor1 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex1)), 1);
-				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), 2);
+				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
+				tmp->SetVertex(intersection1, secondOrderIndex);
+				tmp->SetVertex(intersection2, thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(positiveIndex1), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1) + kFactor1 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex1)), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(positiveIndex1), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex1) + kFactor1 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex1)), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(positiveIndex1), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex1) + kFactor1 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex1)), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), thirdOrderIndex);
 				tmp->Update();
 				front.push_back(tmp);
 
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
+
 				// Fill the back triangles
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(negativeIndex1), 0);
-				tmp->SetVertex(intersection2, 1);
-				tmp->SetVertex(intersection1, 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1) + kFactor1 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex1)), 2);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex1), 0);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), 1);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex1) + kFactor1 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex1)), 2);
-				tmp->SetColor(triangle->GetColor(negativeIndex1), 0);
-				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), 1);
-				tmp->SetColor(triangle->GetColor(negativeIndex1) + kFactor1 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex1)), 2);
+				tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
+				tmp->SetVertex(intersection2, secondOrderIndex);
+				tmp->SetVertex(intersection1, thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1) + kFactor1 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex1)), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex1), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex1) + kFactor1 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex1)), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex1), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex1) + kFactor1 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex1)), thirdOrderIndex);
 				tmp->Update();
 				back.push_back(tmp);
 
+
+				// Default index
+				firstOrderIndex = 0;
+				secondOrderIndex = 1;
+				thirdOrderIndex = 2;
+
+				// Check the element order 
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex2)).CrossProduct(triangle->GetVertex(negativeIndex1) - triangle->GetVertex(negativeIndex2)).Normalize()) < 0)
+				{
+					secondOrderIndex = 2;
+					thirdOrderIndex = 1;
+				}
+
 				tmp = new CBSPTriangle(*triangle);
-				tmp->SetVertex(triangle->GetVertex(negativeIndex2), 0);
-				tmp->SetVertex(intersection2, 1);
-				tmp->SetVertex(triangle->GetVertex(negativeIndex1), 2);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2), 0);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), 1);
-				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), 2);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex2), 0);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), 1);
-				tmp->SetNormal(triangle->GetNormal(negativeIndex1), 2);
-				tmp->SetColor(triangle->GetColor(negativeIndex2), 0);
-				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), 1);
-				tmp->SetColor(triangle->GetColor(negativeIndex1), 2);
+				tmp->SetVertex(triangle->GetVertex(negativeIndex2), firstOrderIndex);
+				tmp->SetVertex(intersection2, secondOrderIndex);
+				tmp->SetVertex(triangle->GetVertex(negativeIndex1), thirdOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2), firstOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex2) + kFactor2 * (triangle->GetTexcoord(positiveIndex1) - triangle->GetTexcoord(negativeIndex2)), secondOrderIndex);
+				tmp->SetTexcoord(triangle->GetTexcoord(negativeIndex1), thirdOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex2), firstOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex2) + kFactor2 * (triangle->GetNormal(positiveIndex1) - triangle->GetNormal(negativeIndex2)), secondOrderIndex);
+				tmp->SetNormal(triangle->GetNormal(negativeIndex1), thirdOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex2), firstOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex2) + kFactor2 * (triangle->GetColor(positiveIndex1) - triangle->GetColor(negativeIndex2)), secondOrderIndex);
+				tmp->SetColor(triangle->GetColor(negativeIndex1), thirdOrderIndex);
 				tmp->Update();
 				back.push_back(tmp);
 

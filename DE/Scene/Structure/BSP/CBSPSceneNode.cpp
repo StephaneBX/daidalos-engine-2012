@@ -334,13 +334,15 @@ namespace DE
 
 	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node)
 	{
+		CSceneManager * sceneManager = CSceneManager::GetInstance();
+
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin() ; it != m_geometryLeafs.end() ; ++it)
 		{
 			// Loop through each triangle
 			for(auto it2 = (*it)->GetTriangles().begin() ; it2 != (*it)->GetTriangles().end() ; ++it2)
 			{
-				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && !this->m_activeCamera->BackfaceCull((*it2)->GetVertex(0), (*it2)->GetPlane().GetNormal()))
+				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()))
 				{
 					this->m_visibleTriangles.push_back((*it2).get());
 					(*it2)->SetDrawn(true);

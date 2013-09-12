@@ -42,7 +42,7 @@ namespace DE
 	public:
 		/**
 		* Constructor
-		* @param ptr The memory adress
+		* @param ptr The memory address
 		* @param filename The exception owner file
 		* @param line The error line
 		* @param isArray if the memory block is an array

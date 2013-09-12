@@ -229,7 +229,7 @@
 			
 		</node>
 		
-		<node type="4" name="direrctionalLight">
+		<node type="4" name="directionalLight">
 			<rotation>40:180:0</rotation>
 			<color>0.5:0.5:0.5:1</color>
 			<shadow_caster>true</shadow_caster>

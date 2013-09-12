@@ -352,6 +352,11 @@ namespace DE
 		this->m_device->SetRenderState(D3DRS_BLENDFACTOR, D3DCOLOR(color.ToARGB()));
 	}
 
+	void CDX9Renderer::SetCullType(ERenderStateCullType cullType)
+	{
+		this->m_device->SetRenderState(D3DRS_CULLMODE, CDX9Enums::Get(cullType));
+	}
+
 	void CDX9Renderer::SetScissor(const CRectangleI & rectangle)
 	{
 		RECT rect = {rectangle.GetLeft(), rectangle.GetTop(), rectangle.GetRight(), rectangle.GetBottom()};

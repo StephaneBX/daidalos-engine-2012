@@ -130,6 +130,13 @@ namespace DE
 		D3DBLENDOP_MAX
 	};
 
+	D3DCULL CDX9Enums::s_renderStateCullType[] =
+	{
+		D3DCULL_NONE,
+		D3DCULL_CW,
+		D3DCULL_CCW
+	};
+
 	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags)
 	{
 		unsigned long lockFlags = 0;
@@ -210,5 +217,10 @@ namespace DE
 	D3DBLENDOP CDX9Enums::Get(ERenderStateBlendOperation type)
 	{
 		return s_renderStateBlendOperation[type];
+	}
+
+	D3DCULL CDX9Enums::Get(ERenderStateCullType type)
+	{
+		return s_renderStateCullType[type];
 	}
 }

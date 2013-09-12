@@ -138,6 +138,7 @@ namespace DE
 
 	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement)
 	{
+		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
@@ -148,6 +149,8 @@ namespace DE
 
 	void CSimpleSceneNode::RegisterBrushesForRendering()
 	{
+		CSceneManager * sceneManager = CSceneManager::GetInstance();
+
 		// Loop through each brush
 		for(auto it = this->m_brushes.begin() ; it != this->m_brushes.end() ; it++)
 		{
@@ -157,7 +160,7 @@ namespace DE
 				// Loop through each triangle
 				for(auto it2 = (*it).geometry.begin() ; it2 != (*it).geometry.end() ; ++it2)
 				{
-					if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && !this->m_activeCamera->BackfaceCull((*it2)->GetVertex(0), (*it2)->GetFlatNormal()))
+					if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()))
 					{
 						this->m_visibleTriangles.push_back((*it2));
 					}

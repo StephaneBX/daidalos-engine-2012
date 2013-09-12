@@ -64,11 +64,6 @@ namespace DE
 		this->m_viewMatrix.LookAt(this->m_absolutePosition, this->m_absoluteLookAt, this->m_absoluteUp);
 	}
 
-	const bool ICameraSceneNode::BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const
-	{
-		return (this->m_absolutePosition - vertex).Normalize().DotProduct(faceNormal) <= 0;
-	}
-
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const
 	{
 		bool result = false;

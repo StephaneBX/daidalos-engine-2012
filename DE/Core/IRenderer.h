@@ -260,6 +260,12 @@ namespace DE
 		virtual void SetBlendColor(const CColor & color) = 0;
 
 		/**
+		* Set the cull type
+		* @param The cull type
+		*/
+		virtual void SetCullType(ERenderStateCullType cullType) = 0;
+
+		/**
 		* Set the scissor
 		* @param rectangle The rectangle
 		*/

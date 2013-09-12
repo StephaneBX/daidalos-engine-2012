@@ -245,7 +245,7 @@ namespace DE
 
 		/**
 		* Set the alpha channel with an integer
-		* @param alpha The akpha channel value
+		* @param alpha The alpha channel value
 		*/
 		void SetAlpha(const int alpha);
 

@@ -87,14 +87,6 @@ namespace DE
 		virtual void Update(const float time = 0);
 
 		/**
-		* Perform a back-face culling test (test if the face is in front of the camera)
-		* @param vertex The vertices
-		* @param faceNormal The face normal
-		* @return True if the face can be culled or false otherwise
-		*/
-		virtual const bool BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const;
-
-		/**
 		* Perform a frustum culling test with the face to determine if it need to be discared for the rendering process
 		* The goal here is to verify the following restriction in order to be considered as visible:
 		* - The face is within the view range

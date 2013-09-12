@@ -61,12 +61,6 @@
     <Filter Include="Fichiers d%27en-tête\Renderers\DX9">
       <UniqueIdentifier>{022b7470-a1f2-4a87-8a3e-0a31d6038a87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Renderers\OGL">
-      <UniqueIdentifier>{3cd40108-14e1-449e-be02-b60489b893a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Renderers\OGL">
-      <UniqueIdentifier>{d8a5d43e-436c-4ec3-8e9a-402612324e74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers d%27en-tête\Scene">
       <UniqueIdentifier>{89cdbaf5-14f2-4a09-b306-97b9969978b6}</UniqueIdentifier>
     </Filter>
@@ -261,30 +255,6 @@
     <ClInclude Include="Renderers\DX9\CDX9Texture2D.h">
       <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
     </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLBuffer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLException.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLRenderer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLDeclaration.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLEnums.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLShader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLShadersLoader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLTexture2D.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
     <ClInclude Include="Medias\CAnimatedMesh.h">
       <Filter>Fichiers d%27en-tête\Medias</Filter>
     </ClInclude>
@@ -350,15 +320,6 @@
     </ClInclude>
     <ClInclude Include="Renderers\DX9\CDX9RenderTarget.h">
       <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLFrameBuffer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLRenderTarget.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Applications\ISDLApplication.h">
-      <Filter>Fichiers d%27en-tête\Applications</Filter>
     </ClInclude>
     <ClInclude Include="Applications\IWin32Application.h">
       <Filter>Fichiers d%27en-tête\Applications</Filter>
@@ -431,9 +392,6 @@
     </ClInclude>
     <ClInclude Include="Medias\IShaderProgramBase.h">
       <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\OGL\COGLShaderProgram.h">
-      <Filter>Fichiers d%27en-tête\Renderers\OGL</Filter>
     </ClInclude>
     <ClInclude Include="Core\Listeners\IInputGamepadListener.h">
       <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
@@ -611,27 +569,6 @@
     <ClCompile Include="Renderers\DX9\CDX9Texture2D.cpp">
       <Filter>Fichiers sources\Renderers\DX9</Filter>
     </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLException.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLRenderer.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLDeclaration.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLEnums.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLShader.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLShadersLoader.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLTexture2D.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
     <ClCompile Include="Core\CMediaManager.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
@@ -691,15 +628,6 @@
     </ClCompile>
     <ClCompile Include="Renderers\DX9\CDX9RenderTarget.cpp">
       <Filter>Fichiers sources\Renderers\DX9</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLFrameBuffer.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLRenderTarget.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
-    </ClCompile>
-    <ClCompile Include="Applications\ISDLApplication.cpp">
-      <Filter>Fichiers sources\Applications</Filter>
     </ClCompile>
     <ClCompile Include="Applications\IWin32Application.cpp">
       <Filter>Fichiers sources\Applications</Filter>
@@ -772,9 +700,6 @@
     </ClCompile>
     <ClCompile Include="Medias\IShaderProgramBase.cpp">
       <Filter>Fichiers sources\Medias</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderers\OGL\COGLShaderProgram.cpp">
-      <Filter>Fichiers sources\Renderers\OGL</Filter>
     </ClCompile>
     <ClCompile Include="Scene\CAnimatedMeshSceneNode.cpp">
       <Filter>Fichiers sources\Scene</Filter>

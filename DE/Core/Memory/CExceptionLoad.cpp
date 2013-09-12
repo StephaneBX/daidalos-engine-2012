@@ -30,6 +30,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	* @param filename The loading file
+	*/
 	CExceptionLoad::CExceptionLoad(const std::string & filename)
 	{
 		std::ostringstream stream;

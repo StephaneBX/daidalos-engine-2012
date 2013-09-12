@@ -47,6 +47,7 @@ namespace DE
 		static D3DCMPFUNC s_compare[];
 		static D3DBLEND s_renderStateBlendFunction[];
 		static D3DBLENDOP s_renderStateBlendOperation[];
+		static D3DCULL s_renderStateCullType[];
 
 	public:
 		/**
@@ -125,6 +126,12 @@ namespace DE
 		* @return The DX9 render state blend operation
 		*/
 		static D3DBLENDOP Get(ERenderStateBlendOperation type);
+
+		/**
+		* Get the DX9 render state cull type
+		* @param type The render state cull type
+		*/
+		static D3DCULL Get(ERenderStateCullType type);
 	};
 }
 

@@ -32,22 +32,40 @@ namespace DE
 {
 	ILogger * ILogger::s_logger = nullptr;
 
+	/**
+	* Destructor
+	*/
 	ILogger::~ILogger() {}
 
+	/**
+	* Get the logger
+	* @return The logger
+	*/
 	ILogger & ILogger::Log()
 	{
 		return *s_logger;
 	}
 
+	/**
+	* Set the logger
+	* @param logger The logger to use
+	*/
 	void ILogger::SetLogger(ILogger * const logger)
 	{
 		s_logger = logger;
 	}
 
+	/**
+	* Kill the logger
+	*/
 	void ILogger::Kill()
 	{
 		SAFE_DELETE(s_logger);
 	}
 
+	/**
+	* Write a message
+	* @param message The message
+	*/
 	void ILogger::Write(const std::string & message) {}
 }

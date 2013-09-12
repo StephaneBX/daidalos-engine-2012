@@ -27,11 +27,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #ifdef _WIN32
 
-#define DIRECTINPUT_VERSION 0x0800
+#define NOMINMAX
 
-#include "../Renderers/OGL/COGLRenderer.h"
 #include "../Renderers/DX9/CDX9Renderer.h"
-
 #include "../Core/IRenderer.h"
 #include "../Core/Utility/CTimer.h"
 #include "../Applications/IWin32Application.h"
@@ -213,6 +211,12 @@ namespace DE
 		INPUT_KEY_KEYBOARD_RMETA, // 165
 	};
 
+	/**
+	* Constructor
+	* @param hInstance The program instance
+	* @param nCmdShow The commands
+	* @param title The application title
+	*/
 	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication()
 	{
 		this->m_name = title;
@@ -239,6 +243,9 @@ namespace DE
 		InitializeGamepad();
 	}
 
+	/**
+	* The destructor
+	*/
 	IWin32Application::~IWin32Application()
 	{
 		if(this->m_hWnd)
@@ -256,6 +263,9 @@ namespace DE
 		}
 	}
 
+	/**
+	* Initialize the window
+	*/
 	void IWin32Application::InitializeWindow()
 	{
 		if(this->m_fullscreen)
@@ -274,10 +284,7 @@ namespace DE
 		this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 
 		// Renderer creation
-		if(this->m_rendererName == "dx9")
-			IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_hWnd));
-		else
-			IRenderer::SetRenderer(new COGLRenderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_hWnd));
+		IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_hWnd));
 
 		this->m_renderer = IRenderer::GetRenderer();
 		this->m_renderer->SetDisplayBounds(this->m_displayBounds);
@@ -285,6 +292,9 @@ namespace DE
 		this->m_gui->Initialize();
 	}
 
+	/**
+	* Initialize the gamepads
+	*/
 	void IWin32Application::InitializeGamepad()
 	{
 		// Create the direct input context
@@ -301,6 +311,9 @@ namespace DE
 		}
 	}
 
+	/**
+	* The main loop of the application
+	*/
 	void IWin32Application::MainLoop()
 	{
 		MSG msg;
@@ -380,8 +393,15 @@ namespace DE
 		}
 	}
 
+	/**
+	* The update method
+	* @param time Elapsed time
+	*/
 	void IWin32Application::Update(const float time) {}
 
+	/**
+	* Update the gamepad inputs
+	*/
 	void IWin32Application::UpdateGamepads()
 	{
 		// Loop through the active gamepads
@@ -547,8 +567,16 @@ namespace DE
 		}
 	}
 
+	/**
+	* The render method
+	*/
 	void IWin32Application::Render() {}
 
+	/**
+	* Resize the window
+	* @param width The new width
+	* @param height The new height
+	*/
 	void IWin32Application::Resize(const int width, const int height) 
 	{
 		RECT rect;
@@ -556,21 +584,33 @@ namespace DE
 		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
 	}
 
+	/**
+	* Get the gamepads vector
+	*/
 	std::vector<LPDIRECTINPUTDEVICEA> & IWin32Application::GetGamepad()
 	{
 		return this->m_gamepad;
 	}
 
+	/**
+	* Get the Direct Input context
+	*/
 	const LPDIRECTINPUT IWin32Application::GetDirectInput() const
 	{
 		return this->m_directInput;
 	}
 
+	/**
+	* The global window procedure for messages
+	*/
 	LRESULT CALLBACK IWin32Application::GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam)
 	{
 		return s_instance->WindowProc(Hwnd, Message, WParam, LParam);
 	}
 
+	/**
+	* The window procedure for messages
+	*/
 	LRESULT CALLBACK IWin32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		switch(message)
@@ -598,6 +638,9 @@ namespace DE
 		return DefWindowProc (hWnd, message, wParam, lParam);
 	}
 
+	/**
+	* Called for each enumerated devices by Direct Input
+	*/
 	BOOL CALLBACK IWin32Application::CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference)
 	{
 		// Handle a maximum of MAX_GAMEPADS gamepad

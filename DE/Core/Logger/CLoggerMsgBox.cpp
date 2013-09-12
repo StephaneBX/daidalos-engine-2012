@@ -31,6 +31,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Write a message
+	* @param message The message
+	*/
 	void CLoggerMsgBox::Write(const std::string & message)
 	{
 		MessageBox(nullptr, message.c_str(), "Closed Engine Error", MB_OK);

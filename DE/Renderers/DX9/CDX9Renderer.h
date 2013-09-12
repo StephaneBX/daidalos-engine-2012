@@ -192,6 +192,12 @@ namespace DE
 		void SetBlendColor(const CColor & color);
 
 		/**
+		* Set the cull type
+		* @param The cull type
+		*/
+		void SetCullType(ERenderStateCullType cullType);
+
+		/**
 		* Set the scissor
 		* @param rectangle The rectangle
 		*/
