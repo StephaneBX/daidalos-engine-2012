@@ -65,6 +65,8 @@ namespace DE
 		const CVector3<T> CrossProduct(const CVector3<T> & vec) const;
 		const CVector3<T> LinearInterpolation(const CVector3<T> & vec, const float interpolation) const;
 		const CVector3<T> CosineInterpolation(const CVector3<T> & vec, const float interpolation) const;
+		const CVector3<T> Min(const CVector3<T> & vec) const;
+		const CVector3<T> Max(const CVector3<T> & vec) const;
 		const bool operator==(const CVector3<T> & vec) const;
 		const bool operator!=(const CVector3<T> & vec) const;
 		const T Length() const;
@@ -75,6 +77,8 @@ namespace DE
 		static const CVector3<T> CrossProduct(const CVector3<T> & vec1, const CVector3<T> & vec2);
 		static const CVector3<T> LinearInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation);
 		static const CVector3<T> CosineInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation);
+		static const CVector3<T> Min(const CVector3<T> & vec1, const CVector3<T> & vec2);
+		static const CVector3<T> Max(const CVector3<T> & vec1, const CVector3<T> & vec2);
 		static const CVector3<T> GetFrom(const std::string text, const CVector3<T> & defaultValue = CVector3<T>(), const std::string separator = ":");
 		static const T Length(const CVector3<T> & vec);
 		static const T DotProduct(const CVector3<T> & vec1, const CVector3<T> & vec2);
@@ -334,6 +338,36 @@ namespace DE
 	}
 
 	/**
+	* Return the min values
+	* @param vec The second vector
+	* @return A vector containing the minimum values
+	*/
+	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec) const
+	{
+		CVector3<T> ret;
+		ret.x = std::min(this->x, vec.x);
+		ret.y = std::min(this->y, vec.y);
+		ret.z = std::min(this->z, vec.z);
+
+		return ret;
+	}
+
+	/**
+	* Return the max values
+	* @param vec The second vector
+	* @return A vector containing the maximum values
+	*/
+	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec) const
+	{
+		CVector3<T> ret;
+		ret.x = std::max(this->x, vec.x);
+		ret.y = std::max(this->y, vec.y);
+		ret.z = std::max(this->z, vec.z);
+
+		return ret;
+	}
+
+	/**
 	* == operator override
 	* @param vec CVector3
 	* @return The equal result
@@ -433,6 +467,28 @@ namespace DE
 	template <class T> inline const CVector3<T> CVector3<T>::CosineInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation)
 	{
 		return vec1.CosineInterpolation(vec2, interpolation);
+	}
+
+	/**
+	* Return the min values
+	* @param vec1 The first vector
+	* @param vec2 The second vector
+	* @return A vector containing the minimum values
+	*/
+	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec1, const CVector3<T> & vec2) 
+	{
+		return vec1.Min(vec2);
+	}
+
+	/**
+	* Return the max values
+	* @param vec1 The first vector
+	* @param vec2 The second vector
+	* @return A vector containing the maximum values
+	*/
+	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec1, const CVector3<T> & vec2)
+	{
+		return vec1.Max(vec2);
 	}
 
 	/**

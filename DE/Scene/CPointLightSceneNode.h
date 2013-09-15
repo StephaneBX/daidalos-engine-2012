@@ -42,9 +42,6 @@ namespace DE
 	*/
 	class CPointLightSceneNode : public IBoundedLightSceneNode
 	{
-	protected:
-		std::array<CProjectionCameraSceneNode*, 6> m_cameras;
-
 	public:
 		/**
 		* Constructor
@@ -77,6 +74,13 @@ namespace DE
 		* @param time The elapsed time
 		*/
 		void Update(const float time = 0);
+
+		/**
+		* Get a camera node
+		* @param id The camera id
+		* @return The camera
+		*/
+		ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const;
 	};
 }
 

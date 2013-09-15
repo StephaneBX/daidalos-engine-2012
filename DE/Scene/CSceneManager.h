@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ILevelSceneNode.h"
 #include "../Scene/CStaticMeshSceneNode.h"
 #include "../Scene/CAnimatedMeshSceneNode.h"
+#include "../Scene/CAABoundingBox.h"
 #include "../Core/CSingletonManager.h"
 
 #define MAX_LIGHTS_IN_SHADERS 200
@@ -221,6 +222,12 @@ namespace DE
 		* @return The ambient color
 		*/
 		const CVector4F & GetAmbientColor() const;
+
+		/**
+		* Get the scene bounding box
+		* @return The scene bounding box
+		*/
+		const CAABoundingBoxF GetSceneBoundingBox();
 
 		/**
 		* Get the first node found with the given name

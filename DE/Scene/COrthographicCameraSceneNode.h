@@ -40,7 +40,7 @@ namespace DE
 	class COrthographicCameraSceneNode : public ICameraSceneNode
 	{
 	private:
-		CRectangleI m_bounds;
+		CRectangleF m_bounds;
 
 	public:
 		/**
@@ -53,7 +53,7 @@ namespace DE
 		* @param nearDistance The near distance
 		* @param farDistance The far distance
 		*/
-		COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleI & bounds, const float nearDistance, const float farDistance);
+		COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance);
 
 		/**
 		* Destructor
@@ -64,7 +64,7 @@ namespace DE
 		* Set the view bounds
 		* @param bounds The view bounds
 		*/
-		void SetBounds(const CRectangleI & bounds);
+		void SetBounds(const CRectangleF & bounds);
 
 		/**
 		* Update the camera
@@ -73,10 +73,25 @@ namespace DE
 		void Update(const float time = 0);
 
 		/**
+		* Update The projection
+		*/
+		void UpdateProjection();
+
+		/**
+		* Perform a frustum culling test with the face to determine if it need to be discarded for the rendering process
+		* The goal here is to verify the following restriction in order to be considered as visible:
+		* - The face is within the view range
+		* - The face is is the frustum represented by six planes
+		* @param shape The shape that need to be tested
+		* @return True if the shape can be culled or false otherwise
+		*/
+		const bool FrustumCull(IShape3DF * shape) const;
+
+		/**
 		* Get the view bounds
 		* @return The view bounds
 		*/
-		const CRectangleI & GetBounds() const;
+		const CRectangleF & GetBounds() const;
 
 	private:
 		COrthographicCameraSceneNode();

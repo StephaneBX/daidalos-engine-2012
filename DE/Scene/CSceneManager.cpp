@@ -163,7 +163,6 @@ namespace DE
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_POSITION), this->m_activeDirectionalLights->position[id]);
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_DIRECTION), this->m_activeDirectionalLights->direction[id]);
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_COLOR), this->m_activeDirectionalLights->color[id]);
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_VIEWPROJ), this->m_activeDirectionalLights->node[id]->GetViewProjMatrix());
@@ -204,6 +203,15 @@ namespace DE
 	const CVector4F & CSceneManager::GetAmbientColor() const
 	{
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
+	}
+
+	/**
+	* Get the scene bounding box
+	* @return The scene bounding box
+	*/
+	const CAABoundingBoxF CSceneManager::GetSceneBoundingBox()
+	{
+		return static_cast<ILevelSceneNode*>(this->m_root)->GetBoundingBox();
 	}
 
 	ISceneNode * CSceneManager::GetNode(const std::string & name) const

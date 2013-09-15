@@ -31,8 +31,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	*/
 	CFile::CFile() {}
 
+	/**
+	* Constructor
+	* @param name The full filename
+	*/
 	CFile::CFile(const std::string & name)
 	{
 		this->m_name = name;
@@ -44,6 +51,10 @@ namespace DE
 		#endif
 	}
 
+	/**
+	* Constructor
+	* @param name The full filename
+	*/
 	CFile::CFile(const char * name)
 	{
 		this->m_name = std::string(name);
@@ -55,6 +66,10 @@ namespace DE
 		#endif
 	}
 
+	/**
+	* Check if a file exists
+	* @return True if the file exists, false otherwise
+	*/
 	const bool CFile::FileExists() const
 	{
 		bool result = false;
@@ -69,6 +84,10 @@ namespace DE
 		return result;
 	}
 
+	/**
+	* Get the file size (in Byte)
+	* @return The file size in Byte
+	*/
 	const int CFile::GetFileSize() const
 	{
 		int size = 0;
@@ -82,11 +101,19 @@ namespace DE
 		return size;
 	}
 
+	/**
+	* Get the full filename
+	* @return The full filename
+	*/
 	const std::string & CFile::GetFullname() const
 	{
 		return this->m_name;
 	}
 
+	/**
+	* Get the filename
+	* @return The filename
+	*/
 	const std::string CFile::GetFilename() const
 	{
 		std::string::size_type position = this->m_name.find_last_of("\\/");
@@ -97,11 +124,19 @@ namespace DE
 			return this->m_name;
 	}
 
+	/**
+	* Get the short filename
+	* @return The file full name
+	*/
 	const std::string CFile::GetShortname() const
 	{
 		return GetFilename().substr(0, GetFilename().find_last_of("."));
 	}
 
+	/**
+	* Get the extension
+	* @return The extension
+	*/
 	const std::string CFile::GetExtension() const
 	{
 		std::string::size_type position = this->m_name.find_last_of(".");

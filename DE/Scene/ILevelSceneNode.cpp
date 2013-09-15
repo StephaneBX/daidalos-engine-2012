@@ -52,6 +52,11 @@ namespace DE
 		return this->m_ambientColor;
 	}
 
+	const CAABoundingBoxF ILevelSceneNode::GetBoundingBox()
+	{
+		return this->m_boundingBox;
+	}
+
 	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const
 	{
 		return this->m_numberOfVisibleTriangles;

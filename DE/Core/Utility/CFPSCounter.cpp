@@ -29,18 +29,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	*/
 	CFPSCounter::CFPSCounter()
 	{
 		Initialize();
 	}
 
+	/**
+	* Destructor
+	*/
 	CFPSCounter::~CFPSCounter(){}
 
+	/**
+	* Initialize the manager
+	*/
 	void CFPSCounter::Initialize()
 	{
 		Reset();
 	}
 
+	/**
+	* Update the manager
+	* @param time Elapsed time
+	*/
 	void CFPSCounter::Update(const float time)
 	{
 		this->m_frameCount++;
@@ -57,6 +70,9 @@ namespace DE
 		}
 	}
 
+	/**
+	* Reset the fps counter
+	*/
 	void CFPSCounter::Reset()
 	{
 		this->m_frameCount = 0;
@@ -66,11 +82,19 @@ namespace DE
 		this->m_fpsStream << "FPS: 0";
 	}
 
+	/**
+	* Get the current fps
+	* @return The current fps
+	*/
 	const float CFPSCounter::GetFPS() const
 	{
 		return this->m_fps;
 	}
 
+	/**
+	* Get the current fps as a string
+	* @return The current fps string
+	*/
 	const std::string CFPSCounter::GetText() const
 	{
 		return this->m_fpsStream.str();

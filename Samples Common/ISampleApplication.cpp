@@ -297,7 +297,6 @@ namespace SAMPLES
 				this->m_DSFB.AttachDepth("lightDepth");
 				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
 				this->m_renderer->SetShaderProgram(this->m_DSShadowMap.GetShaderProgram());
-				this->m_DSShadowMap.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_scene->GetActiveSpotLightsBuffer()->rangeRadiusFalloffTightness[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]].x);
 				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
 				this->m_scene->RenderAll();

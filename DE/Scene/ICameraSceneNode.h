@@ -127,11 +127,18 @@ namespace DE
 		const CMatrix & GetViewProjMatrix() const;
 
 		/**
-		* Get a view frustm point
+		* Get a view frustum point
 		* @param point The point to get
 		* @return A view frustum point
 		*/
 		const CVector3F & GetViewFrustumRelativePoint(EFrustumPoint point) const;
+
+		/**
+		* Get a view frustum absolute point
+		* @param point The point to get
+		* @return A view frustum absolute point
+		*/
+		const CVector3F & GetViewFrustumAbsolutePoint(EFrustumPoint point) const;
 
 		/**
 		* Get a view frustum plane

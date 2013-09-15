@@ -46,6 +46,10 @@ namespace DE
 
 	void CSimpleSceneNode::LoadGeometry(const std::vector<SSimpleBrush> & brushes)
 	{
+		// Bounding box variables
+		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
 		for(unsigned int i = 0 ; i < brushes.size() ; ++i)
 		{
 			for(unsigned int j = 0 ; j < brushes.at(i).geometry.size() ; ++j)
@@ -57,11 +61,21 @@ namespace DE
 				// Add the normal texture to the normal textures vector
 				if(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
 					this->m_normalTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL));	
+
+				// Update the bounding box
+				for(unsigned int k = 0 ; k < 3 ; k++)
+				{
+					minPosition = minPosition.Min(brushes.at(i).geometry.at(j)->GetVertex(k));
+					maxPosition = maxPosition.Max(brushes.at(i).geometry.at(j)->GetVertex(k));
+				}
 			}
 		}
 
 		// Add the brush to the brush list
 		this->m_brushes = brushes;
+
+		// Set the bounding box
+		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
 	void CSimpleSceneNode::Render()

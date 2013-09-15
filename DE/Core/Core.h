@@ -40,6 +40,12 @@ namespace DE
 		#define SAFE_RELEASE(x){ if(x != nullptr){ x->Release(); x = nullptr; } }
 	#endif
 
+	#ifdef DE_DLL_EXPORTS
+		#define DE_DLL_API __declspec(dllexport) 
+	#else
+		#define DE_DLL_API 
+	#endif
+
 	#define PI 3.14159265f
 	#define PI_OVER_180 0.0174532925f
 	#define EPSILON 0.001f

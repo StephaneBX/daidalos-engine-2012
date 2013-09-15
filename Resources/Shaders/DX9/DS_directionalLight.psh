@@ -1,8 +1,7 @@
-#define EPSILON 0.0002f;
+#define EPSILON 0.01f;
 
 uniform float4x4 directionalLightViewProj;
 uniform float4 cameraPositionDistance;
-uniform float4 directionalLightPosition;
 uniform float3 directionalLightDirection;
 uniform float4 directionalLightColor;
 uniform float shadowMapSize;
@@ -64,11 +63,10 @@ PS_OUTPUT main(PS_INPUT IN)
 	if(shadowTerm > 0.0f)
 	{
 		float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
-		float3 currentPosition = cameraPositionDistance.xyz + (tex2D(depthSampler, IN.texcoord).r * IN.viewDistance);
 		float4 specularNs = tex2D(specularSampler, IN.texcoord);
 		
-		float3 diffuse = directionalLightColor.xyz * saturate(dot(directionalLightDirection, normal));
-		float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(normalize(reflect(directionalLightDirection, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz))), specularNs.w * 128.0f);
+		float3 diffuse = directionalLightColor.xyz * saturate(dot(-directionalLightDirection, normal));
+		float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(normalize(reflect(-directionalLightDirection, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz))), specularNs.w * 128.0f);
 		
 		OUT.color.xyz = saturate(diffuse + specular);
 	}

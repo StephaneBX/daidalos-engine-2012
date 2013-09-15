@@ -32,6 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor
+	* @param size The image size
+	* @param format The image format
+	*/
 	CImage::CImage(const CVector2I & size, EPixelFormat format)
 	{
 		this->m_size = size;
@@ -39,6 +44,12 @@ namespace DE
 		this->m_data = std::vector<unsigned char>(this->m_size.x * this->m_size.y * GetBytesPerPixel(format), 0x00);
 	}
 
+	/**
+	* Constructor
+	* @param size The image size
+	* @param format The image format
+	* @param data The data
+	*/
 	CImage::CImage(const CVector2I & size, EPixelFormat format, const unsigned char * data)
 	{
 		this->m_size = size;
@@ -46,21 +57,39 @@ namespace DE
 		this->m_data = std::vector<unsigned char>(data, data + this->m_size.x * this->m_size.y * GetBytesPerPixel(format));
 	}
 
+	/**
+	* Get the image width
+	* @return The image width
+	*/
 	const int CImage::GetWidth() const
 	{
 		return this->m_size.x;
 	}
 
+	/**
+	* Get the image height
+	* @return The image height
+	*/
 	const int CImage::GetHeight() const
 	{
 		return this->m_size.y;
 	}
 
+	/**
+	* Get the image data
+	* @return The image data
+	*/
 	const unsigned char * CImage::GetData() const
 	{
 		return &this->m_data[0];
 	}
 
+	/**
+	* Get a pixel and return it in pixel
+	* @param x The x coordinate
+	* @param y The y coordinate
+	* @return The color
+	*/
 	const CColor CImage::GetPixel(const int x, const int y) const
 	{
 		unsigned char tmp[4];
@@ -70,16 +99,29 @@ namespace DE
 		return CColor(tmp[2], tmp[1], tmp[0], tmp[3]);
 	}
 
+	/**
+	* Get the image size
+	* @return The image size
+	*/
 	const CVector2I & CImage::GetSize() const
 	{
 		return this->m_size;
 	}
 
+	/**
+	* Get the image format
+	* @return The image format
+	*/
 	EPixelFormat CImage::GetFormat() const
 	{
 		return this->m_format;
 	}
 
+	/**
+	* Get a sub image.
+	* @param rect
+	* @return The image
+	*/
 	CImage CImage::SubImage(const CRectangleI & rect) const
 	{
 		// The sub image
@@ -102,11 +144,23 @@ namespace DE
 		return sub;
 	}
 
+	/**
+	* Get a pixel and return it in pixel
+	* @param x The x coordinate
+	* @param y The y coordinate
+	* @param pixel The color
+	*/
 	void CImage::GetPixel(const int x, const int y, unsigned char * pixel) const
 	{
 		memcpy(pixel, GetData() + y * this->m_size.x + x, GetBytesPerPixel(this->m_format));
 	}
 
+	/**
+	* Set a pixel
+	* @param x The x coordinate
+	* @param y Th y coordinate
+	* @param color The color
+	*/
 	void CImage::SetPixel(const int x, const int y, const CColor & color)
 	{
 		unsigned char tmp[4] = {color.GetBlue(), color.GetGreen(), color.GetRed(), color.GetAlpha()};
@@ -115,11 +169,21 @@ namespace DE
 		ConvertPixel(PIXEL_FORMAT_A8R8G8B8, this->m_format, &tmp[0], pix);
 	}
 
+	/**
+	* Set a pixel
+	* @param x The x coordinate
+	* @param y Th y coordinate
+	* @param pixel The pixel
+	*/
 	void CImage::SetPixel(const int x, const int y, const unsigned char * pixel)
 	{
 		memcpy(&this->m_data[0] + y * this->m_size.x + x, pixel, GetBytesPerPixel(this->m_format));
 	}
 
+	/**
+	* Fill the image with a color
+	* @param color The color
+	*/
 	void CImage::Fill(const CColor & color)
 	{
 		SetPixel(0, 0, color);
@@ -131,6 +195,10 @@ namespace DE
 			std::copy(begin, begin + bpp, it);
 	}
 
+	/**
+	* Copy an image
+	* @param image The image to copy
+	*/
 	void CImage::Copy(const CImage & image)
 	{
 		// Compare the sizes
@@ -190,6 +258,9 @@ namespace DE
 		}
 	}
 
+	/**
+	* Flip the image vertically
+	*/
 	void CImage::Flip()
 	{
 		int bpp = GetBytesPerPixel(this->m_format);
@@ -202,6 +273,9 @@ namespace DE
 		}
 	}
 
+	/**
+	* Flip the image horizontally
+	*/
 	void CImage::Mirror()
 	{
 		int bpp = GetBytesPerPixel(this->m_format);

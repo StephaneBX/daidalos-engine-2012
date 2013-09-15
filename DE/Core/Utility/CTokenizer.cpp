@@ -30,13 +30,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Constructor.
+	*/
 	CTokenizer::CTokenizer(){}
 
+	/**
+	* Constructor.
+	* @param filename The file to be tokenized.
+	*/
 	CTokenizer::CTokenizer(const std::string & filename)
 	{
 		OpenFile(filename);
 	}
 
+	/**
+	* Constructor.
+	* @param filename The file to be tokenized.
+	* @param filterList The filter list that contains all the accepted keywords.
+	*/
 	CTokenizer::CTokenizer(const std::string & filename, const std::vector<std::string> & filterList)
 	{
 		bool valid = false;
@@ -76,8 +88,15 @@ namespace DE
 		}
 	}
 
+	/**
+	* Destructor.
+	*/
 	CTokenizer::~CTokenizer(){}
 
+	/**
+	* Open a file, read its content and put it in the token list.
+	* @param filename The file to open.
+	*/
 	void CTokenizer::OpenFile(const std::string & filename)
 	{
 		std::string tmpLine;
@@ -100,16 +119,29 @@ namespace DE
 		file.close();
 	}
 
+	/**
+	* Add a line to the line list.
+	* @param line The line to add.
+	*/
 	void CTokenizer::AddLine(const std::string & line)
 	{
 		this->m_tokens.push_back(line);
 	}
 
+	/**
+	* Clear the tokens.
+	*/
 	void CTokenizer::Clear()
 	{
 		this->m_tokens.clear();
 	}
 
+	/**
+	* Tokenize the token list.
+	* @param delimiter The delimiter that is used to split.
+	* @param maxSplit The maximum split accepted for each split process.
+	* @return True if the split is valid
+	*/
 	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit)
 	{
 		bool valid = true;
@@ -137,6 +169,11 @@ namespace DE
 		return valid;
 	}
 
+	/**
+	* Count the number of 'token' tokens.
+	* @param token The token to count.
+	* @return The number of 'token' tokens found.
+	*/
 	const int CTokenizer::Count(const std::string & token) const
 	{
 		int count = 0;
@@ -150,11 +187,21 @@ namespace DE
 		return count;
 	}
 
+	/** 
+	* Get the tokens.
+	* @return The tokens.
+	*/
 	const TToken & CTokenizer::GetTokens() const
 	{
 		return this->m_tokens;
 	}
 
+	/**
+	* Split a token with a delimiter and push the result in the buffer.
+	* @param token The token to split.
+	* @param delimiter The delimiter to use.
+	* @return The number of pushed tokens.
+	*/
 	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter)
 	{
 		int elementCount = 1;

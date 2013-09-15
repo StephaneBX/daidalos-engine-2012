@@ -66,7 +66,7 @@ namespace DE
 
 		/**
 		* Update the manager
-		* @param time Elaped time
+		* @param time Elapsed time
 		*/
 		void Update(const float time);
 

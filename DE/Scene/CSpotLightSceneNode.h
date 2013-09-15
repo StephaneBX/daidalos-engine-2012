@@ -106,6 +106,13 @@ namespace DE
 		* @return The tightness
 		*/
 		const float GetTightness() const;
+
+		/**
+		* Get a camera node
+		* @param id The camera id
+		* @return The camera
+		*/
+		ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const;
 	};
 }
 

@@ -108,6 +108,16 @@ namespace DE
 		return this->m_frustum.relativePoints[point];
 	}
 
+	/**
+	* Get a view frustum absolute point
+	* @param point The point to get
+	* @return A view frustum absolute point
+	*/
+	const CVector3F & ICameraSceneNode::GetViewFrustumAbsolutePoint(EFrustumPoint point) const
+	{
+		return this->m_frustum.absolutePoints[point];
+	}
+
 	const CPlane3DF & ICameraSceneNode::GetViewFrustumPlane(EFrustumPlane plane) const
 	{
 		return this->m_frustum.planes[plane];

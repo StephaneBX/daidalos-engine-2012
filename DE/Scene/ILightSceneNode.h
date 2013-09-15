@@ -80,7 +80,7 @@ namespace DE
 		* @param id The camera id
 		* @return The camera
 		*/
-		ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const;
+		virtual ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const = 0;
 
 	protected:
 		/**

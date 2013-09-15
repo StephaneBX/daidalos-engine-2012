@@ -29,14 +29,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
-	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleI & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance)
+	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance)
 	{
 		SetBounds(bounds);
 	}
 
 	COrthographicCameraSceneNode::~COrthographicCameraSceneNode() {}
 
-	void COrthographicCameraSceneNode::SetBounds(const CRectangleI & bounds)
+	void COrthographicCameraSceneNode::SetBounds(const CRectangleF & bounds)
 	{
 		this->m_bounds = bounds;
 	}
@@ -46,8 +46,18 @@ namespace DE
 		// Update the camera information
 		ICameraSceneNode::Update();
 
+		// Update the projection
+		UpdateProjection();
+	}
+
+	/**
+	* Update The projection by giving custom bounds and distances
+	*/
+	void COrthographicCameraSceneNode::UpdateProjection()
+	{
 		// Update the orthographic information
-		this->m_projMatrix.OrthographicView((float)this->m_bounds.GetWidth(), (float)this->m_bounds.GetHeight(), this->m_nearDistance, this->m_farDistance);
+		this->m_projMatrix.OrthographicView(this->m_bounds.GetWidth(), this->m_bounds.GetHeight(), this->m_nearDistance, this->m_farDistance);
+		//this->m_projMatrix.OrthographicView(this->m_bounds.GetLeft(), this->m_bounds.GetRight(), this->m_bounds.GetBottom(), this->m_bounds.GetTop(), this->m_nearDistance, this->m_farDistance);
 
 		// Update the view proj matrix
 		this->m_viewProjMatrix = this->m_viewMatrix * this->m_projMatrix;
@@ -107,7 +117,12 @@ namespace DE
 		this->m_frustum.planes[FRUSTUM_PLANE_FAR].Build(farFrustrum);
 	}
 
-	const CRectangleI & COrthographicCameraSceneNode::GetBounds() const
+	const bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const
+	{
+		return false;
+	}
+
+	const CRectangleF & COrthographicCameraSceneNode::GetBounds() const
 	{
 		return this->m_bounds;
 	}

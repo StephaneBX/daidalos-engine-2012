@@ -34,6 +34,12 @@
 [Skybox]
 	- FrameBuffer => stencil REPLACE à 1
 	- Après light pass => Render Skybox avec STENCIL_PASS à 1
+	
+	- Scale à near * 1.05 du frustum centré sur la caméra
+	- z-writing à off
+	- Dessiner en premier
+	
+	- Utiliser w du lightRT comme facteur de lumière pour ignorer la gestion de la lumière sur les pixels de la skybox
 - Modèle
 - Classes
 - Shaders

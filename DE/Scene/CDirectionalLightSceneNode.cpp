@@ -28,15 +28,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CSphere.h"
 #include "../Scene/CSceneManager.h"
 #include "../Scene/CDirectionalLightSceneNode.h"
+#include "../Scene/CAABoundingBox.h"
 
 namespace DE
 {
+	#define DISTANCE_FACTOR 2.0f
+
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(parent, name, CVector3F(0,0,0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true)
 	{
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleI(0,0,20,20), 0.1f, 1);
+		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
 		AddChild(this->m_camera);
 	}
 
@@ -45,7 +48,7 @@ namespace DE
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleI(0,0,20,20), 0.1f, 1);
+		this->m_camera = new COrthographicCameraSceneNode(this, "", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
 		AddChild(this->m_camera);
 	}
 
@@ -53,14 +56,58 @@ namespace DE
 
 	void CDirectionalLightSceneNode::Update(const float time)
 	{
-		// Find the light 'position'. Usefull only to generate the camera for shadow computation
+		// Get the light direction
 		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0,0,1)).Normalize();
-		ICameraSceneNode* activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
-		this->m_camera->SetFarDistance(activeCamera->GetFarDistance() * 2);
-		this->m_localPosition = activeCamera->GetAbsolutePosition() - (direction * this->m_camera->GetFarDistance());
 
-		// Update the absolute position
+		CSceneManager * sceneManager = CSceneManager::GetInstance();
+		CVector3F centroid;
+		CAABoundingBoxF boundingBox;
+		//if(sceneManager->GetActiveCamera() != this->m_camera)
+		//{
+			// If the active camera is not the light camera, use the active camera frustum as a bounding box
+			CVector3F boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+			CVector3F boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
+			// Find the min and max
+			for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
+			{
+				boundingBoxMin = boundingBoxMin.Min(sceneManager->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
+				boundingBoxMax = boundingBoxMax.Max(sceneManager->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
+			}
+
+			// Set the bounding box
+			boundingBox.SetMinMax(boundingBoxMin, boundingBoxMax);
+		//}
+		//else
+		//{
+			// If the active camera is the light camera, use the world bounding box
+			boundingBox = sceneManager->GetSceneBoundingBox();
+		//}
+
+		// Find the centroid
+		centroid = boundingBox.GetPosition();
+
+		// Find the distance from the centroid to one corner
+		float distance = (boundingBox.GetMin()).Distance(centroid);
+
+		// Find the light position based on the centroid, the light direction and the distance from the centroid to one corner
+		this->m_localPosition = centroid - (direction * distance);
+
+		// Update the absolute position and the camera view matrix
+		this->m_camera->SetFarDistance(distance);
 		ILightSceneNode::Update(time);
+
+		// Transform the bounding box to the light view space
+		CVector3F minPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Min(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
+		CVector3F maxPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Max(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
+
+
+		// Update the camera rect/near/far values
+		this->m_camera->SetBounds(CRectangleF(minPosition.x, minPosition.y, maxPosition.x - minPosition.x, maxPosition.y - minPosition.y));
+		this->m_camera->SetNearDistance(minPosition.z);
+		this->m_camera->SetFarDistance(maxPosition.z + minPosition.z);
+		this->m_camera->UpdateProjection();
+
 
 		// If active and enabled, add it to the active lights list
 		if(this->m_active && this->m_enabled)
@@ -79,5 +126,10 @@ namespace DE
 				++lights->numberOfLights;
 			}
 		}
+	}
+
+	ICameraSceneNode * CDirectionalLightSceneNode::GetCameraNode(const unsigned int id) const
+	{
+		return this->m_camera;
 	}
 }

@@ -55,6 +55,11 @@ namespace DE
 		std::vector<CBSPTriangle*> global;
 		std::vector<CBSPTriangle*> brushGeometry;
 
+		// Bounding box variables
+		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
+		// Loop through the brushes
 		for(unsigned int i = 0 ; i < brushDefinition.size() ; ++i)
 		{
 			brushGeometry.clear();
@@ -99,10 +104,23 @@ namespace DE
 			// Add the brushes to the collision bsp
 			this->m_collisionBsp->AddBrush(this->m_brushes.at(i).get(), brushDefinition.at(i).geometry);
 
+			// Update the bounding box
+			for(unsigned int j = 0 ; j < brushDefinition.at(i).geometry.size() ; ++j)
+			{
+				for(unsigned int k = 0 ; k < 3 ; k++)
+				{
+					minPosition = minPosition.Min(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
+					maxPosition = maxPosition.Max(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
+				}
+			}
+
 			// Delete the triangles as they're no longer needed
 			for(unsigned int j = 0 ; j < brushDefinition.at(i).geometry.size() ; ++j)
 				delete brushDefinition.at(i).geometry.at(j);
 		}
+
+		// Set the bounding box
+		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
 	void CBSPSceneNode::Render()

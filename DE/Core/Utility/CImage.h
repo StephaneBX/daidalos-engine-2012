@@ -144,12 +144,12 @@ namespace DE
 		void Copy(const CImage & image);
 
 		/**
-		* Flip the image verticaly
+		* Flip the image vertically
 		*/
 		void Flip();
 
 		/**
-		* Flip the image horizontaly
+		* Flip the image horizontally
 		*/
 		void Mirror();
 	};

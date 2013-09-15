@@ -110,4 +110,9 @@ namespace DE
 	{
 		return this->m_tightness;
 	}
+
+	ICameraSceneNode * CSpotLightSceneNode::GetCameraNode(const unsigned int id) const
+	{
+		return this->m_camera;
+	}
 }

@@ -39,7 +39,7 @@ namespace SAMPLE1
 	class CSampleApplication : public SAMPLES::ISampleApplication
 	{
 	private:
-		DE::CSpotLightSceneNode * m_spotLight;
+		DE::CDirectionalLightSceneNode * m_directionalLight;
 		std::unique_ptr<SAMPLES::CFreeCamera> m_camera;
 
 	public:

@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CMeshBuffer.h"
 #include "../Scene/ICameraSceneNode.h"
 #include "../Scene/ISceneNode.h"
+#include "../Scene/CAABoundingBox.h"
 
 namespace DE
 {
@@ -48,6 +49,7 @@ namespace DE
 		std::vector<int> m_batchSize;
 		CMeshBuffer m_levelBuffer;
 		ICameraSceneNode * m_activeCamera;
+		CAABoundingBoxF m_boundingBox;
 	
 	public:
 		/**
@@ -79,6 +81,12 @@ namespace DE
 		* @return The ambient color
 		*/
 		const CVector4F & GetAmbientColor() const;
+
+		/**
+		* Get the bounding box
+		* @return The bounding box
+		*/
+		const CAABoundingBoxF GetBoundingBox();
 
 		/**
 		* Render the level

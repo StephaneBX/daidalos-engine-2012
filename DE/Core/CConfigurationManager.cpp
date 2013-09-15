@@ -29,6 +29,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+		* Destructor
+		*/
 	CConfigurationManager::~CConfigurationManager() {}
 
 	SiniP & CConfigurationManager::GetConfiguration(const std::string & filename)

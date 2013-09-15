@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "CSampleApplication.h"
+#include "Scene/CDirectionalLightSceneNode.h"
 
 namespace SAMPLE1
 {
@@ -33,10 +34,9 @@ namespace SAMPLE1
 	{
 		this->m_scene->LoadScene("sample1.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene->GetNode("spotLight1");
+		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene->GetNode("directionalLight");
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
 		this->m_activeCamera = this->m_camera->GetCameraNode();
-
 		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
 		MainLoop();
@@ -52,11 +52,11 @@ namespace SAMPLE1
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_camera->Update(time);
 
-		if(this->m_spotLight != nullptr)
+		if(this->m_directionalLight != nullptr)
 		{
-			DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
+			DE::CVector3F lightRotation = this->m_directionalLight->GetRotation();
 			lightRotation.y += (40 * time) / 1000.0f;
-			this->m_spotLight->SetRotation(lightRotation);
+			this->m_directionalLight->SetRotation(lightRotation);
 		}
 
 		this->m_scene->UpdateAll(time);

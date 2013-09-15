@@ -67,4 +67,9 @@ namespace DE
 			}
 		}
 	}
+
+	ICameraSceneNode * CPointLightSceneNode::GetCameraNode(const unsigned int id) const
+	{
+		return nullptr;
+	}
 }
