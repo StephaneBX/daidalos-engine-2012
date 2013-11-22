@@ -50,6 +50,11 @@ namespace DE
 
 		this->m_activeCamera = nullptr;
 		this->m_lighteningUpdateTimer = 0;
+
+		if(((ILevelSceneNode*)this->m_root)->GetSkyName() != "")
+		{
+			this->m_skybox.SetName(((ILevelSceneNode*)this->m_root)->GetSkyName());
+		}
 	}
 
 	void CSceneManager::ClearAll()
@@ -101,6 +106,14 @@ namespace DE
 		SortLights();
 
 		ActiveLightsCheck();
+	}
+
+	void CSceneManager::RenderSkybox()
+	{
+		if(this->m_skybox.IsVisible())
+		{
+			this->m_skybox.Render();
+		}
 	}
 
 	void CSceneManager::RenderAll()
@@ -203,6 +216,15 @@ namespace DE
 	const CVector4F & CSceneManager::GetAmbientColor() const
 	{
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
+	}
+
+	/**
+	* Get the sky ambient color of the scene
+	* @return The sky ambient color
+	*/
+	const CVector4F & CSceneManager::GetSkyAmbientColor() const
+	{
+		return static_cast<ILevelSceneNode*>(this->m_root)->GetSkyAmbientColor();
 	}
 
 	/**

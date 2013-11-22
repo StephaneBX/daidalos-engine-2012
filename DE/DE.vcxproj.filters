@@ -468,6 +468,9 @@
     <ClInclude Include="Scene\Structure\Simple\CSimpleSceneNode.h">
       <Filter>Fichiers d%27en-tête\Scene\Structure\Simple</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\CSkybox.h">
+      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -760,6 +763,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Structure\Simple\CSimpleSceneNode.cpp">
       <Filter>Fichiers sources\Scene\Structure\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CSkybox.cpp">
+      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

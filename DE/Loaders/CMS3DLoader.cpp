@@ -373,7 +373,7 @@ namespace DE
 			{
 				for(int k = 0 ; k < 3 ; ++k)
 				{
-					this->m_internalData->mesh[i].textureCoordinates[j * 3 + k].x = 1 - this->m_data->face[this->m_data->mesh[i].facesIndices[j]].texCoords[0][k];
+					this->m_internalData->mesh[i].textureCoordinates[j * 3 + k].x = this->m_data->face[this->m_data->mesh[i].facesIndices[j]].texCoords[0][k];
 					this->m_internalData->mesh[i].textureCoordinates[j * 3 + k].y = this->m_data->face[this->m_data->mesh[i].facesIndices[j]].texCoords[1][k];
 				}
 			}

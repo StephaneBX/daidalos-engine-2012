@@ -29,12 +29,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	/**
+	* Set the mesh format
+	* @param format The mesh format
+	*/
 	void ILevelSceneNode::SetMeshFormat(const int format)
 	{
 		this->m_levelBuffer.SetMeshFormat(format);
 		ISceneNode::SetMeshFormat(format);
 	}
 
+	/**
+	* Set the mesh shading type
+	* @param shadingType The mesh shading type
+	*/
 	void ILevelSceneNode::SetMeshShadingType(EMeshShadingType shadingType)
 	{
 		this->m_shadingType = shadingType;
@@ -42,23 +50,75 @@ namespace DE
 		ISceneNode::SetMeshShadingType(shadingType);
 	}
 
+	/**
+	* Set the ambient color of the level
+	* @param ambientColor The ambient color
+	*/
 	void ILevelSceneNode::SetAmbientColor(const CVector4F & ambientColor)
 	{
 		this->m_ambientColor = ambientColor;
 	}
 
+	/**
+	* Set the sky name
+	* @param name The sky name
+	*/
+	void ILevelSceneNode::SetSkyName(const std::string & name)
+	{
+		this->m_skyName = name;
+	}
+
+	/**
+	* Set the sky ambient color
+	* @param ambientColor The sky ambient color
+	*/
+	void ILevelSceneNode::SetSkyAmbientColor(const CVector4F & ambientColor)
+	{
+		this->m_skyAmbientColor = ambientColor;
+	}
+
+	/**
+	* Get the number of visible triangles
+	* @return The number of visible triangles
+	*/
+	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const
+	{
+		return this->m_numberOfVisibleTriangles;
+	}
+
+	/**
+	* Get the ambient color
+	* @return The ambient color
+	*/
 	const CVector4F & ILevelSceneNode::GetAmbientColor() const
 	{
 		return this->m_ambientColor;
 	}
 
+	/**
+	* Get the sky name
+	* @return The sky name
+	*/
+	const std::string & ILevelSceneNode::GetSkyName() const
+	{
+		return this->m_skyName;
+	}
+
+	/**
+	* Get the sky ambient color
+	* @return The sky ambient color
+	*/
+	const CVector4F & ILevelSceneNode::GetSkyAmbientColor() const
+	{
+		return this->m_skyAmbientColor;
+	}
+
+	/**
+	* Get the bounding box
+	* @return The bounding box
+	*/
 	const CAABoundingBoxF ILevelSceneNode::GetBoundingBox()
 	{
 		return this->m_boundingBox;
-	}
-
-	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const
-	{
-		return this->m_numberOfVisibleTriangles;
 	}
 }

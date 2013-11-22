@@ -35,6 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CStaticMeshSceneNode.h"
 #include "../Scene/CAnimatedMeshSceneNode.h"
 #include "../Scene/CAABoundingBox.h"
+#include "../Scene/CSkybox.h"
 #include "../Core/CSingletonManager.h"
 
 #define MAX_LIGHTS_IN_SHADERS 200
@@ -106,6 +107,7 @@ namespace DE
 		SPointLightsShaderData * m_activePointLights;
 		SDirectionalLightsShaderData * m_activeDirectionalLights;
 
+		CSkybox m_skybox;
 		ISceneNode * m_root;
 		ICameraSceneNode * m_activeCamera;
 		SiniP m_options;
@@ -146,6 +148,11 @@ namespace DE
 		* @param time The elapsed time
 		*/
 		void UpdateAll(const float time = 0);
+
+		/**
+		* Render the skybox
+		*/
+		void RenderSkybox();
 
 		/**
 		* Render all the nodes
@@ -222,6 +229,12 @@ namespace DE
 		* @return The ambient color
 		*/
 		const CVector4F & GetAmbientColor() const;
+
+		/**
+		* Get the sky ambient color of the scene
+		* @return The sky ambient color
+		*/
+		const CVector4F & GetSkyAmbientColor() const;
 
 		/**
 		* Get the scene bounding box

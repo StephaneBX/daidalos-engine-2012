@@ -50,6 +50,9 @@ namespace DE
 		CMeshBuffer m_levelBuffer;
 		ICameraSceneNode * m_activeCamera;
 		CAABoundingBoxF m_boundingBox;
+
+		std::string m_skyName;
+		CVector4F m_skyAmbientColor;
 	
 	public:
 		/**
@@ -71,6 +74,18 @@ namespace DE
 		void SetAmbientColor(const CVector4F & ambientColor);
 
 		/**
+		* Set the sky name
+		* @param name The sky name
+		*/
+		void SetSkyName(const std::string & name);
+
+		/**
+		* Set the sky ambient color
+		* @param ambientColor The sky ambient color
+		*/
+		void SetSkyAmbientColor(const CVector4F & ambientColor);
+
+		/**
 		* Get the number of visible triangles
 		* @return The number of visible triangles
 		*/
@@ -81,6 +96,18 @@ namespace DE
 		* @return The ambient color
 		*/
 		const CVector4F & GetAmbientColor() const;
+
+		/**
+		* Get the sky name
+		* @return The sky name
+		*/
+		const std::string & GetSkyName() const;
+
+		/**
+		* Get the sky ambient color
+		* @return The sky ambient color
+		*/
+		const CVector4F & GetSkyAmbientColor() const;
 
 		/**
 		* Get the bounding box

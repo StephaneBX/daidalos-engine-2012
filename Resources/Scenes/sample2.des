@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene structure="1">
 	<!-- Level node with a bsp structure -->
-	<node type="0" name="level" ambientColor="0.1:0.1:0.1">
+	<node type="0" name="level" ambientColor="0.1:0.1:0.1" >
 		<!-- Level node geometry -->
 		
 		<multi_brush>
@@ -6571,32 +6571,32 @@
 			<rotation>0.0:0.0:0.0</rotation>
 		</brush>
 		
-		<brush file="stairs.obj">
+		<brush file="slope_low.obj">
 			<diffuse_texture>ground_1d.png</diffuse_texture>
 			<normal_texture>ground_1n.png</normal_texture>
 			<position>60.0:0.0:40.0</position>
-			<rotation>0.0:270.0:0.0</rotation>
+			<rotation>0.0:90.0:0.0</rotation>
 		</brush>
 		
-		<brush file="stairs.obj">
+		<brush file="slope_high.obj">
 			<diffuse_texture>ground_1d.png</diffuse_texture>
 			<normal_texture>ground_1n.png</normal_texture>
-			<position>70.0:4.0:40.0</position>
-			<rotation>0.0:270.0:0.0</rotation>
+			<position>70.0:0.0:40.0</position>
+			<rotation>0.0:90.0:0.0</rotation>
 		</brush>
 
-		<brush file="stairs.obj">
+		<brush file="slope_low.obj">
 			<diffuse_texture>ground_1d.png</diffuse_texture>
 			<normal_texture>ground_1n.png</normal_texture>
 			<position>60.0:0.0:50.0</position>
-			<rotation>0.0:270.0:0.0</rotation>
+			<rotation>0.0:90.0:0.0</rotation>
 		</brush>
 		
-		<brush file="stairs.obj">
+		<brush file="slope_high.obj">
 			<diffuse_texture>ground_1d.png</diffuse_texture>
 			<normal_texture>ground_1n.png</normal_texture>
-			<position>70.0:4.0:50.0</position>
-			<rotation>0.0:270.0:0.0</rotation>
+			<position>70.0:0.0:50.0</position>
+			<rotation>0.0:90.0:0.0</rotation>
 		</brush>
 
 		<brush file="pillar.obj">

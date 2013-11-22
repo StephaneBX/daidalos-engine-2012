@@ -179,11 +179,10 @@ namespace SAMPLES
 		this->m_renderer->BeginScene();
 
 		// ------------------------------
-		// Deferred Shading : Fill
+		// Sky box
 		// ------------------------------
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("diffuseRT", 0);
@@ -191,10 +190,26 @@ namespace SAMPLES
 		this->m_DSFB.AttachElement("specularRT", 2);
 		this->m_DSFB.AttachElement("depthRT", 3);
 		this->m_DSFB.AttachDepth("depth");
+		this->m_renderer->SetFrameBuffer(nullptr);
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_scene->RenderSkybox();
+
+
+		// ------------------------------
+		// Deferred Shading : Fill
+		// ------------------------------
+		this->m_DSFB.DetachAllElements();
+		this->m_DSFB.AttachElement("diffuseRT", 0);
+		this->m_DSFB.AttachElement("normalRT", 1);
+		this->m_DSFB.AttachElement("specularRT", 2);
+		this->m_DSFB.AttachElement("depthRT", 3);
+		this->m_DSFB.AttachDepth("depth");
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_scene->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
 		this->m_renderer->SetShaderProgram(this->m_DSFill.GetShaderProgram());
-		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 1.0f));
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		this->m_scene->RenderAll();
@@ -217,6 +232,7 @@ namespace SAMPLES
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("lightRT", 0);
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 
@@ -238,21 +254,21 @@ namespace SAMPLES
 		// ------------------------------
 		// Deferred Shading: Draw
 		// ------------------------------
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadFinalVD.get());
 		this->m_renderer->SetShaderProgram(this->m_DSFinal.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 1.0f));
 		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
 		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
 		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("diffuseRT"));
 		this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("lightRT"));
 
 		this->m_DSFinal.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_AMBIENT_COLOR), this->m_scene->GetAmbientColor());
+		this->m_DSFinal.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SKYBOX_AMBIENT_COLOR), this->m_scene->GetSkyAmbientColor());
 
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
@@ -261,7 +277,6 @@ namespace SAMPLES
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
-		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 		this->m_gui->Render();
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 

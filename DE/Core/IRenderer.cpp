@@ -65,7 +65,11 @@ namespace DE
 		"directionalLightColor",
 		"directionalLightViewProj",
 
-		"textColor"
+		"textColor",
+
+		"skyboxSize",
+		"skyboxPosition",
+		"skyAmbientColor"
 	};
 
 	IRenderer::~IRenderer() {}

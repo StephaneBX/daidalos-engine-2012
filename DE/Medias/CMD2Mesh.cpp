@@ -55,7 +55,7 @@ namespace DE
 		{
 			for(int j = 0 ; j < 3 ; j++)
 			{
-				this->m_texcoord[0][i * 3 + j].x = 1 - (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
+				this->m_texcoord[0][i * 3 + j].x = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
 				this->m_texcoord[0][i * 3 + j].y = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].v) / ((float)this->m_internalData->header.skinHeight);
 			}
 		}

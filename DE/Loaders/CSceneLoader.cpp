@@ -336,10 +336,23 @@ namespace DE
 		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode();
-		CVector3F ambientColor;
+		std::string skyName;
+		CVector3F ambientColor, skyAmbientColor;
+
+		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
 		static_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+
+		// Get the sky name
+		if(handle.ToElement()->Attribute("skyName") != nullptr)
+			skyName = handle.ToElement()->Attribute("skyName");
+		static_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
+
+		// Get the sky ambient color
+		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
+			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		static_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
@@ -402,10 +415,23 @@ namespace DE
 		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode();
-		CVector3F ambientColor;
+		std::string skyName;
+		CVector3F ambientColor, skyAmbientColor;
+
+		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
-		static_cast<CSimpleSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+		static_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+
+		// Get the sky name
+		if(handle.ToElement()->Attribute("skyName") != nullptr)
+			skyName = handle.ToElement()->Attribute("skyName");
+		static_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
+
+		// Get the sky ambient color
+		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
+			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		static_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();

@@ -110,6 +110,7 @@
     <ClInclude Include="Scene\COrthographicCameraSceneNode.h" />
     <ClInclude Include="Scene\CPlane3D.h" />
     <ClInclude Include="Scene\CProjectionCameraSceneNode.h" />
+    <ClInclude Include="Scene\CSkybox.h" />
     <ClInclude Include="Scene\CSphere.h" />
     <ClInclude Include="Scene\CSceneManager.h" />
     <ClInclude Include="Scene\CTriangle3D.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Scene\COrthographicCameraSceneNode.cpp" />
     <ClCompile Include="Scene\CProjectionCameraSceneNode.cpp" />
     <ClCompile Include="Scene\CSceneManager.cpp" />
+    <ClCompile Include="Scene\CSkybox.cpp" />
     <ClCompile Include="Scene\CTriangle3D.cpp" />
     <ClCompile Include="Scene\CAnimatedMeshSceneNode.cpp" />
     <ClCompile Include="Scene\IBoundedLightSceneNode.cpp" />

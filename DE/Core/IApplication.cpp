@@ -82,6 +82,7 @@ namespace DE
 		CMediaManager::GetInstance()->AddSearchPath("");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Textures/");
+		CMediaManager::GetInstance()->AddSearchPath("Resources/Textures/Sky/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Models/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Materials/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Sounds/");

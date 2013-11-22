@@ -1,4 +1,5 @@
 uniform float4 ambientColor;
+uniform float4 skyAmbientColor;
 
 struct PS_INPUT
 {
@@ -18,10 +19,11 @@ PS_OUTPUT main(PS_INPUT IN)
 {
 	PS_OUTPUT OUT;
 	
-	OUT.color = float4(0,0,0,1);
-	
 	float4 diffuseAmbient = tex2D(diffuseSampler, IN.texcoord);
-	OUT.color.xyz = saturate(diffuseAmbient.xyz * tex2D(lightSamper, IN.texcoord).xyz + diffuseAmbient.xyz * diffuseAmbient.w * ambientColor);
+	float4 light = tex2D(lightSamper, IN.texcoord);
+	
+	OUT.color.xyz = saturate(diffuseAmbient.xyz * light.xyz + diffuseAmbient.xyz * ambientColor.xyz);
+	OUT.color.w = diffuseAmbient.w;
 	
 	return OUT;
 }

@@ -71,7 +71,7 @@ namespace DE
 		const unsigned char * pixels = ilGetData();
 
 		CImage * image = new CImage(size, PIXEL_FORMAT_A8R8G8B8, pixels);
-		image->Mirror();
+		//image->Mirror();
 
 		ilBindImage(0);
 		ilDeleteImages(1, &texture);
