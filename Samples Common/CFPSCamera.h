@@ -59,9 +59,11 @@ namespace SAMPLES
 	{
 	private:
 		unsigned int m_state;
+		float m_lastCollisionUpdateTimer;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
 		DE::CVector3F m_gravity;
+		DE::CVector3F m_visiblePosition;
 		DE::ICameraSceneNode * m_node;
 		DE::CInputDevice * m_inputDevice;
 		DE::CEllipseF m_shape;
@@ -97,7 +99,7 @@ namespace SAMPLES
 		* Update the movement
 		* @param timeSecond Elapsed time
 		*/
-		void UpdateMovement(const float timeSecond);
+		void UpdateMovement(const float timeSecond, const float time);
 
 		/**
 		* Update the view

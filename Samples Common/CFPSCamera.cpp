@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_ROTATION_SPEED 60.0f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
+#define FPS_CAMERA_COLLISION_UPDATE 16
 
 #include <limits>
 #include <Core/CInputDevice.h>
@@ -90,6 +91,7 @@ namespace SAMPLES
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0,1,0));
 		this->m_shape.SetRadius(DE::CVector2F(1,2.7f));
 		this->m_rotation = this->m_node->GetRotation();
+		this->m_visiblePosition = this->m_node->GetPosition();
 	}
 
 	void CFPSCamera::Update(const float time)
@@ -98,13 +100,13 @@ namespace SAMPLES
 
 		UpdateState();
 		UpdateView(timeSecond);
-		UpdateMovement(timeSecond);	
+		UpdateMovement(timeSecond, time);	
 
-		this->m_node->SetPosition(this->m_shape.GetPosition() + DE::CVector3F(0,1,0));
+		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0,1,0));
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
-		this->m_soundContext->SetListenerPosition(this->m_shape.GetPosition());
+		this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
 		float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
@@ -149,7 +151,7 @@ namespace SAMPLES
 		}
 	}
 
-	void CFPSCamera::UpdateMovement(const float timeSecond)
+	void CFPSCamera::UpdateMovement(const float timeSecond, const float time)
 	{
 		DE::CVector3F movement;
 
@@ -205,21 +207,41 @@ namespace SAMPLES
 			movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
 		}
 
+		this->m_lastCollisionUpdateTimer += time;
 		this->m_gravity.y += FPS_CAMERA_GRAVITY * timeSecond;
 
-		//movement = movement.Normalize();
-		DE::CVector3F collisionPoint;
-		DE::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
-		this->m_scene->Slide(this->m_shape, finalMovement);
+		// Visibility position update
+		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
 
-		finalMovement = this->m_gravity * timeSecond;
-		DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
-		this->m_scene->Slide(this->m_shape, finalMovement);
-	
-		if(this->m_shape.GetPosition().y > finalPosition.y)
+		// If a collision test is required 
+		if(this->m_lastCollisionUpdateTimer >= FPS_CAMERA_COLLISION_UPDATE)
 		{
-			this->m_gravity.y = 0;
-			this->m_state &= ~FPS_CAMERA_JUMP;
+			// Collision test with only the movement
+			DE::CVector3F finalMovement = this->m_visiblePosition - this->m_shape.GetPosition();
+			this->m_scene->Slide(this->m_shape, finalMovement);
+
+			// Collision test of the gravity
+			finalMovement = this->m_gravity * timeSecond;
+			DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+			this->m_scene->Slide(this->m_shape, finalMovement);
+
+			// Reset gravity and state if the player has touched the ground
+			if(this->m_shape.GetPosition().y > finalPosition.y)
+			{
+				this->m_gravity.y = 0;
+				this->m_state &= ~FPS_CAMERA_JUMP;
+			}
+
+			// Update the visibility position
+			this->m_visiblePosition = this->m_shape.GetPosition();
+
+			// Reset the collision timer
+			this->m_lastCollisionUpdateTimer = 0;
+		}
+		else
+		{
+			// Add the gravity when a collision test is not needed
+			this->m_visiblePosition += this->m_gravity * timeSecond;
 		}
 	}
 

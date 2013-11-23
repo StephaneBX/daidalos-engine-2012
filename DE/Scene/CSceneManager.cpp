@@ -91,6 +91,7 @@ namespace DE
 
 		this->m_activeDirectionalLights->numberOfLights = 0;
 		std::fill(this->m_activeDirectionalLights->enabled, this->m_activeDirectionalLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
+		std::fill(this->m_activeDirectionalLights->node, this->m_activeDirectionalLights->node + MAX_LIGHTS_IN_SHADERS, nullptr);
 
 		this->m_lighteningUpdateTimer = LIGHTNING_UPDATE_DELAY;
 

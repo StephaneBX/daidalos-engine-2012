@@ -722,7 +722,7 @@ namespace DE
 		this->_11 = 2 / width;	this->_12 = 0.0f;		this->_13 = 0.0f;						this->_14 = 0.0f;
 		this->_21 = 0.0f;		this->_22 = 2 / height;	this->_23 = 0.0f;						this->_24 = 0.0f;
 		this->_31 = 0.0f;		this->_32 = 0.0f;		this->_33 = 1 / (zfar - znear);			this->_34 = 0.0f;
-		this->_41 = 0.0f;		this->_42 = 0.0f;		this->_43 = -znear / (zfar - znear);	this->_44 = 1.0f;
+		this->_41 = 0.0f;		this->_42 = 0.0f;		this->_43 = znear / (znear - zfar);	this->_44 = 1.0f;
 	}
 
 	/**

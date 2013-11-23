@@ -62,8 +62,8 @@ namespace DE
 		CSceneManager * sceneManager = CSceneManager::GetInstance();
 		CVector3F centroid;
 		CAABoundingBoxF boundingBox;
-		//if(sceneManager->GetActiveCamera() != this->m_camera)
-		//{
+		if(sceneManager->GetActiveCamera() != this->m_camera)
+		{
 			// If the active camera is not the light camera, use the active camera frustum as a bounding box
 			CVector3F boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 			CVector3F boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
@@ -77,12 +77,12 @@ namespace DE
 
 			// Set the bounding box
 			boundingBox.SetMinMax(boundingBoxMin, boundingBoxMax);
-		//}
-		//else
-		//{
+		}
+		else
+		{
 			// If the active camera is the light camera, use the world bounding box
 			boundingBox = sceneManager->GetSceneBoundingBox();
-		//}
+		}
 
 		// Find the centroid
 		centroid = boundingBox.GetPosition();
@@ -104,6 +104,12 @@ namespace DE
 
 		// Update the camera rect/near/far values
 		this->m_camera->SetBounds(CRectangleF(minPosition.x, minPosition.y, maxPosition.x - minPosition.x, maxPosition.y - minPosition.y));
+		this->m_camera->SetNearDistance(minPosition.z);
+		this->m_camera->SetFarDistance(maxPosition.z + minPosition.z);
+		this->m_camera->UpdateProjection();
+
+		const float boundValue = std::max(boundingBox.GetMax().x - boundingBox.GetMin().x, boundingBox.GetMax().y - boundingBox.GetMin().y);
+		this->m_camera->SetBounds(CRectangleF(0, 0, boundValue, boundValue));
 		this->m_camera->SetNearDistance(minPosition.z);
 		this->m_camera->SetFarDistance(maxPosition.z + minPosition.z);
 		this->m_camera->UpdateProjection();
