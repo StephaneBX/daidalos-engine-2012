@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/IRenderer.h"
 #include "../Scene/CProjectionCameraSceneNode.h"
 
 namespace DE
@@ -131,6 +132,39 @@ namespace DE
 		this->m_frustum.planes[FRUSTUM_PLANE_BOTTOM].Build(bottomFrustrum);
 		this->m_frustum.planes[FRUSTUM_PLANE_NEAR].Build(nearFrustrum);
 		this->m_frustum.planes[FRUSTUM_PLANE_FAR].Build(farFrustrum);
+
+
+		// Update the debug buffer
+
+		// Check the vertex buffer size
+		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2)
+		{
+			// Create a new one if the current one can't hold the data
+			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+		}
+
+		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], 
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT],
+			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT]
+		};
+
+		unsigned char * lock = (unsigned char*)this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY);
+		memcpy(lock, pointsData, sizeof(pointsData));
+		this->m_debugBuffer.Unlock();
 	}
 
 	const float CProjectionCameraSceneNode::GetAngle() const

@@ -157,7 +157,12 @@ namespace DE
 	{
 		// Render the children
 		for(auto it = this->m_children.begin() ; it != this->m_children.end() ; ++it)
-			(*it)->Render();
+		{
+			if((*it)->GetType() == SCENE_NODE_ROOT || (*it)->GetType() == SCENE_NODE_STATICMESH || (*it)->GetType() == SCENE_NODE_ANIMATEDMESH)
+			{
+				(*it)->Render();
+			}
+		}
 	}
 
 	ESceneNodeType ISceneNode::GetType() const

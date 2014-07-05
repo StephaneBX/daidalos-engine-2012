@@ -132,6 +132,33 @@ namespace DE
 		this->m_root->Render();
 	}
 
+	void CSceneManager::RenderDebugInformation()
+	{
+		Assert(this->m_root != nullptr);
+		Assert(this->m_activeCamera != nullptr);
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+
+		// Disable writing to the z-buffer
+		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTHTEST, false);
+
+		// Set the renderer
+		renderer->SetVertexDeclaration(this->m_debugVertexDeclaration.get());
+		renderer->SetShaderProgram(this->m_debugShader.GetShaderProgram());
+
+		// Global parameters of the scene
+		this->m_debugShader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+
+		const std::vector<ISceneNode*> cameras = GetNodeArray(SCENE_NODE_CAMERA);
+		for(unsigned int i = 0 ; i < cameras.size() ; ++i)
+		{
+			if(cameras.at(i) != this->m_activeCamera)
+			{
+				cameras.at(i)->Render();
+			}
+		}
+	}
+
 	void CSceneManager::SetMeshFormat(const int format)
 	{
 		Assert(this->m_root != nullptr);
@@ -254,6 +281,16 @@ namespace DE
 		return nodes;
 	}
 
+	std::vector<ISceneNode*> CSceneManager::GetNodeArray(ESceneNodeType nodeType) const
+	{
+		Assert(this->m_root != nullptr);
+
+		std::vector<ISceneNode*> nodes;
+		FindAllNodes(m_root, nodeType, nodes);
+
+		return nodes;
+	}
+
 	ILevelSceneNode * CSceneManager::GetRootNode() const
 	{
 		return static_cast<ILevelSceneNode*>(this->m_root);
@@ -288,6 +325,17 @@ namespace DE
 		this->m_activeCamera = nullptr;
 
 		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+
+		// Create the debug data
+		IRenderer * renderer = IRenderer::GetRenderer();
+		this->m_debugShader.LoadFromFile("simple");
+
+		// Create the vertex declaration
+		DE::SDeclarationElement declaration[] =
+		{
+			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3}
+		};
+		this->m_debugVertexDeclaration = renderer->CreateVertexDeclaration(declaration);
 	}
 
 	void CSceneManager::SortLights()
@@ -343,6 +391,17 @@ namespace DE
 		for(auto it = currentNode->GetChildren().begin() ; it != currentNode->GetChildren().end() ; ++it)
 		{
 			FindAllNodes(*it, name, vector);
+		}
+	}
+
+	void CSceneManager::FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const
+	{
+		if(currentNode->GetType() == nodeType)
+			vector.push_back(currentNode);
+
+		for(auto it = currentNode->GetChildren().begin() ; it != currentNode->GetChildren().end() ; ++it)
+		{
+			FindAllNodes(*it, nodeType, vector);
 		}
 	}
 

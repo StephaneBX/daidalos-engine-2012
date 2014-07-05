@@ -31,9 +31,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CMatrix.h"
 #include "../Core/Utility/CVector3.h"
 #include "../Scene/ISceneNode.h"
+#include "../Medias/CBuffer.h"
 
 namespace DE
 {
+	#define DEBUG_LINES_COUNT 16
+	#define DEBUG_LINES_STRIDE sizeof(CVector3F)
+
 	/**
 	* Structure that hold view frustum information
 	*/
@@ -62,6 +66,8 @@ namespace DE
 		CVector3F m_absoluteLookAt;
 		SViewFrustum m_frustum;
 
+		CBuffer m_debugBuffer;
+
 	public:
 		/**
 		* Destructor
@@ -87,7 +93,12 @@ namespace DE
 		virtual void Update(const float time = 0);
 
 		/**
-		* Perform a frustum culling test with the face to determine if it need to be discared for the rendering process
+		* Render the debug lines
+		*/
+		virtual void Render();
+
+		/**
+		* Perform a frustum culling test with the face to determine if it need to be discarded for the rendering process
 		* The goal here is to verify the following restriction in order to be considered as visible:
 		* - The face is within the view range
 		* - The face is is the frustum represented by six planes

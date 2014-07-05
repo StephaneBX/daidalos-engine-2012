@@ -112,6 +112,9 @@ namespace DE
 		ICameraSceneNode * m_activeCamera;
 		SiniP m_options;
 
+		CShaderProgram m_debugShader;
+		DeclarationPtr m_debugVertexDeclaration;
+
 	public:
 		/**
 		* Destructor
@@ -158,6 +161,11 @@ namespace DE
 		* Render all the nodes
 		*/
 		void RenderAll();
+
+		/**
+		* Render the debug information
+		*/
+		void RenderDebugInformation();
 
 		/**
 		* Set the mesh format for all nodes
@@ -251,10 +259,17 @@ namespace DE
 
 		/**
 		* Get all the nodes with the given name
-		* @pram name The node name
+		* @param name The node name
 		* @return A vector containing all the nodes with the given name
 		*/
 		std::vector<ISceneNode*> GetNodeArray(const std::string & name) const;
+
+		/**
+		* Get all the nodes with the given type
+		* @param nodeType The node type
+		* @return A vector containing all the nodes with the given type
+		*/
+		std::vector<ISceneNode*> GetNodeArray(ESceneNodeType nodeType) const;
 
 		/**
 		* Get the root node
@@ -304,6 +319,14 @@ namespace DE
 		* @param vector The vector to store the nodes into
 		*/
 		void FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const;
+
+		/**
+		* Find all the nodes with a given name and store them in a vector
+		* @param currentNode The current node
+		* @param nodeType The node type
+		* @param vector The vector to store the nodes into
+		*/
+		void FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const;
 
 		/**
 		* Find a node with the given name

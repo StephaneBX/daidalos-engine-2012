@@ -273,6 +273,13 @@ namespace SAMPLES
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		// ------------------------------
+		// Debug
+		// ------------------------------
+		this->m_scene->SetActiveCamera(this->m_activeCamera);
+		this->m_scene->RenderDebugInformation();
+		
+
+		// ------------------------------
 		// GUI: Prepare the renderer and draw
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);

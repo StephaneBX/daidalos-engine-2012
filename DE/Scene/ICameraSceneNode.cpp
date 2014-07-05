@@ -25,6 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/IRenderer.h"
+#include "../Core/Memory/CExceptionAssert.h"
 #include "../Scene/ICameraSceneNode.h"
 
 namespace DE
@@ -62,6 +64,13 @@ namespace DE
 			this->m_absoluteUp = this->m_localUp;
 		}
 		this->m_viewMatrix.LookAt(this->m_absolutePosition, this->m_absoluteLookAt, this->m_absoluteUp);
+	}
+
+	void ICameraSceneNode::Render() 
+	{
+		IRenderer * renderer = IRenderer::GetRenderer();
+		renderer->SetVertexBuffer(0, this->m_debugBuffer, DEBUG_LINES_STRIDE);
+		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 	}
 
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const
