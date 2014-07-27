@@ -44,6 +44,7 @@
     <ClInclude Include="Core\Utility\CFile.h" />
     <ClInclude Include="Core\Utility\CFPSCounter.h" />
     <ClInclude Include="Core\Utility\CImage.h" />
+    <ClInclude Include="Core\Utility\CInset.h" />
     <ClInclude Include="Core\Utility\CMatrix.h" />
     <ClInclude Include="Core\Utility\CQuaternion.h" />
     <ClInclude Include="Core\Utility\CRectangle.h" />

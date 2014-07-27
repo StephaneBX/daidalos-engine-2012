@@ -174,7 +174,8 @@ namespace SAMPLES
 		// Button test
 		this->m_button.SetDefaultTexture("button.png");
 		this->m_button.SetBounds(DE::CRectangleI(100,200,350,100));
-		this->m_button.SetResizableRectangle(DE::CRectangleF(0.2f, 0.2f, 0.6f, 0.6f));
+		this->m_button.SetImageInset(DE::CInsetF(0.2f, 0.2f, 0.2f, 0.2f));
+		this->m_button.SetEnabled(false);
 		DE::CGUIManager::GetInstance()->AddToMainView(this->m_button.GetGUIElement());
 	}
 

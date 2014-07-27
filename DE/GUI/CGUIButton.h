@@ -83,11 +83,11 @@ namespace DE
 		void SetBounds(const CRectangleI & bounds);
 
 		/**
-		* Set the resizable rectangle
-		* The rectangle represents the part of the button that can be expanded to fill the required size
+		* Set the image inset
+		* The inset represents the parts of the button that will not be resized with the button
 		* The values are between 0 and 1
 		*/
-		void SetResizableRectangle(const CRectangleF & rectangle);
+		void SetImageInset(const CInsetF & inset);
 
 		/**
 		* Set the default texture

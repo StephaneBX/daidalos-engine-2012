@@ -477,6 +477,9 @@
     <ClInclude Include="GUI\CGUIButton.h">
       <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Utility\CInset.h">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">

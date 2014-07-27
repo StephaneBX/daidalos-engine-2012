@@ -65,9 +65,9 @@ namespace DE
 		this->m_button->SetBounds(bounds);
 	}
 
-	void CGUIButton::SetResizableRectangle(const CRectangleF & rectangle)
+	void CGUIButton::SetImageInset(const CInsetF & inset)
 	{
-		this->m_button->SetResizableRectangle(rectangle);
+		this->m_button->SetImageInset(inset);
 	}
 
 	void CGUIButton::SetDefaultTexture(const std::string & texture)

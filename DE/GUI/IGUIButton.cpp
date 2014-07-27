@@ -35,7 +35,7 @@ namespace DE
 	{
 		this->m_enabled = true;
 		this->m_clicked = false;
-		this->m_resizableRectangle = CRectangleF(0,0,1,1);
+		this->m_imageInset = CInsetF(0,0,0,0);
 		this->m_changed = true;
 	}
 
@@ -44,11 +44,11 @@ namespace DE
 		this->m_enabled = enabled;
 	}
 
-	void IGUIButton::SetResizableRectangle(const CRectangleF & rectangle)
+	void IGUIButton::SetImageInset(const CInsetF & inset)
 	{
-		if(rectangle.GetLeft() >= 0.0f && rectangle.GetTop() >= 0.0f && rectangle.GetRight() <= 1.0f && rectangle.GetBottom() <= 1.0f) 
+		if(inset.GetLeft() >= 0.0f && inset.GetTop() >= 0.0f && inset.GetRight() >= 0.0f && inset.GetBottom() >= 0.0f) 
 		{
-			this->m_resizableRectangle = rectangle;
+			this->m_imageInset = inset;
 			this->m_changed = true;
 		}
 	}
@@ -120,11 +120,11 @@ namespace DE
 	{
 		if(this->m_data.size() > 0)
 		{
-			// Handle the transparency
+			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
 			if(!this->m_enabled)
 			{
-				color = CColor(1.0f, 1.0f, 1.0f, 0.5f);
+				color = CColor(0.5f, 0.5f, 0.5f, 1.0f);
 			}
 
 			IRenderer * renderer = IRenderer::GetRenderer();
@@ -177,67 +177,67 @@ namespace DE
 	{
 		this->m_data.clear();
 
-		// Create the simple button if the resizable rectange fill the entire button or if no texture is given
-		if((this->m_resizableRectangle.GetHeight() == 1.0f && this->m_resizableRectangle.GetWidth() == 1.0f) || this->m_defaultTexture.GetTexture() == nullptr)
+		// Create the simple button if the inset is 0 or if no texture is given
+		if((this->m_imageInset.GetLeft() == 0.0f && this->m_imageInset.GetTop() == 0.0f && this->m_imageInset.GetRight() == 0.0f && this->m_imageInset.GetBottom() == 0.0f) || this->m_defaultTexture.GetTexture() == nullptr)
 		{
 			// Simple button with only on quad
-			this->m_data = GenerateQuad(GetBoundingRectangle(), this->m_resizableRectangle);
+			this->m_data = GenerateQuad(GetBoundingRectangle(), CRectangleF(0,0,1,1));
 		}
 		else
 		{
 			// Generate a 9 quad button
 
 			// Create the top left part
-			CRectangleI topLeftPosition		= CRectangleI(this->m_position.x, this->m_position.y, (int)(this->m_resizableRectangle.GetLeft() * this->m_defaultTexture.GetSize().x), (int)(this->m_resizableRectangle.GetTop() * this->m_defaultTexture.GetSize().y));
-			CRectangleF topLeftCoordinates	= CRectangleF(0, 0, this->m_resizableRectangle.GetLeft(), this->m_resizableRectangle.GetTop());
+			CRectangleI topLeftPosition		= CRectangleI(this->m_position.x, this->m_position.y, (int)(this->m_imageInset.GetLeft() * this->m_defaultTexture.GetSize().x), (int)(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
+			CRectangleF topLeftCoordinates	= CRectangleF(0, 0, this->m_imageInset.GetLeft(), this->m_imageInset.GetTop());
 			std::vector<SGUIData> topLeft	= GenerateQuad(topLeftPosition, topLeftCoordinates);							
 			this->m_data.insert(this->m_data.end(), topLeft.begin(), topLeft.end());
 
 			// Create the bottom left part
-			CRectangleI bottomLeftPosition		= CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - (int)((1.0f - this->m_resizableRectangle.GetBottom()) * this->m_defaultTexture.GetSize().y)), topLeftPosition.GetWidth(), (int)((1.0f - this->m_resizableRectangle.GetBottom()) * this->m_defaultTexture.GetSize().y));
-			CRectangleF bottomLeftCoordinates	= CRectangleF(0, this->m_resizableRectangle.GetBottom(), this->m_resizableRectangle.GetLeft(), (1.0f - this->m_resizableRectangle.GetBottom()));
+			CRectangleI bottomLeftPosition		= CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - (int)(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y)), topLeftPosition.GetWidth(), (int)(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y));
+			CRectangleF bottomLeftCoordinates	= CRectangleF(0, (1.0f - this->m_imageInset.GetBottom()), this->m_imageInset.GetLeft(), this->m_imageInset.GetBottom());
 			std::vector<SGUIData> bottomLeft	= GenerateQuad(bottomLeftPosition, bottomLeftCoordinates);
 			this->m_data.insert(this->m_data.end(), bottomLeft.begin(), bottomLeft.end());
 
 			// Create the middle left part
 			CRectangleI middleLeftPosition		= CRectangleI(topLeftPosition.GetLeft(), topLeftPosition.GetBottom(), topLeftPosition.GetWidth(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
-			CRectangleF middleLeftCoordinates	= CRectangleF(0, this->m_resizableRectangle.GetTop(), this->m_resizableRectangle.GetLeft(), this->m_resizableRectangle.GetHeight());
+			CRectangleF middleLeftCoordinates	= CRectangleF(0, this->m_imageInset.GetTop(), this->m_imageInset.GetLeft(), 1 - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
 			std::vector<SGUIData> middleLeft	= GenerateQuad(middleLeftPosition, middleLeftCoordinates);
 			this->m_data.insert(this->m_data.end(), middleLeft.begin(), middleLeft.end());
 
 			// Create the top right part
-			CRectangleI topRightPosition	= CRectangleI(this->m_position.x + (this->m_preferredsize.x - (int)((1.0f - this->m_resizableRectangle.GetRight()) * this->m_defaultTexture.GetSize().x)), this->m_position.y, (int)((1.0f - this->m_resizableRectangle.GetRight()) * this->m_defaultTexture.GetSize().x), (int)(this->m_resizableRectangle.GetTop() * this->m_defaultTexture.GetSize().y));
-			CRectangleF topRightCoordinates = CRectangleF(this->m_resizableRectangle.GetRight(), 0, (1.0f - this->m_resizableRectangle.GetRight()), this->m_resizableRectangle.GetTop());
+			CRectangleI topRightPosition	= CRectangleI(this->m_position.x + (this->m_preferredsize.x - (int)(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x)), this->m_position.y, (int)(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x), (int)(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
+			CRectangleF topRightCoordinates = CRectangleF((1.0f - this->m_imageInset.GetRight()), 0, this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
 			std::vector<SGUIData> topRight	= GenerateQuad(topRightPosition, topRightCoordinates);
 			this->m_data.insert(this->m_data.end(), topRight.begin(), topRight.end());
 
 			// Create the top part
 			CRectangleI topPosition		= CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetTop(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), topLeftPosition.GetHeight());
-			CRectangleF topCoordinates	= CRectangleF(this->m_resizableRectangle.GetLeft(), 0, this->m_resizableRectangle.GetWidth(), this->m_resizableRectangle.GetTop());
+			CRectangleF topCoordinates	= CRectangleF(this->m_imageInset.GetLeft(), 0, 1.0f - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
 			std::vector<SGUIData> top	= GenerateQuad(topPosition, topCoordinates);
 			this->m_data.insert(this->m_data.end(), top.begin(), top.end());
 
 			// Create the bottom right part
 			CRectangleI bottomRightPosition		= CRectangleI(topRightPosition.GetLeft(), bottomLeftPosition.GetTop(), topRightPosition.GetWidth(), bottomLeftPosition.GetHeight());
-			CRectangleF bottomRightCoordinates	= CRectangleF(this->m_resizableRectangle.GetRight(), this->m_resizableRectangle.GetBottom(), (1.0f - this->m_resizableRectangle.GetRight()), (1.0f - this->m_resizableRectangle.GetBottom()));
+			CRectangleF bottomRightCoordinates	= CRectangleF(1.0f - this->m_imageInset.GetRight(), 1.0f - this->m_imageInset.GetBottom(), this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
 			std::vector<SGUIData> bottomRight	= GenerateQuad(bottomRightPosition, bottomRightCoordinates);
 			this->m_data.insert(this->m_data.end(), bottomRight.begin(), bottomRight.end());
 
 			// Create the middle right part
 			CRectangleI middleRightPosition		= CRectangleI(topRightPosition.GetLeft(), topRightPosition.GetBottom(), topRightPosition.GetWidth(), bottomRightPosition.GetTop() - topRightPosition.GetBottom());
-			CRectangleF middleRightCoordinates	= CRectangleF(this->m_resizableRectangle.GetRight(), this->m_resizableRectangle.GetTop(), (1.0f - this->m_resizableRectangle.GetRight()), this->m_resizableRectangle.GetHeight());
+			CRectangleF middleRightCoordinates	= CRectangleF(1.0f - this->m_imageInset.GetRight(), this->m_imageInset.GetTop(), this->m_imageInset.GetRight(), 1.0f - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
 			std::vector<SGUIData> middleRight	= GenerateQuad(middleRightPosition, middleRightCoordinates);
 			this->m_data.insert(this->m_data.end(), middleRight.begin(), middleRight.end());
 
 			// Create the bottom part
 			CRectangleI bottomPosition = CRectangleI(bottomLeftPosition.GetRight(), bottomLeftPosition.GetTop(), bottomRightPosition.GetLeft() - bottomLeftPosition.GetRight(), bottomLeftPosition.GetHeight());
-			CRectangleF bottomCoordinates = CRectangleF(this->m_resizableRectangle.GetLeft(), this->m_resizableRectangle.GetBottom(), this->m_resizableRectangle.GetWidth(), (1.0f - this->m_resizableRectangle.GetBottom()));
+			CRectangleF bottomCoordinates = CRectangleF(this->m_imageInset.GetLeft(), 1.0f - this->m_imageInset.GetBottom(), 1.0f - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
 			std::vector<SGUIData> bottom = GenerateQuad(bottomPosition, bottomCoordinates);
 			this->m_data.insert(this->m_data.end(), bottom.begin(), bottom.end());
 
 			// Create the center part
 			CRectangleI centerPosition = CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetBottom(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
-			std::vector<SGUIData> center = GenerateQuad(centerPosition, this->m_resizableRectangle);
+			std::vector<SGUIData> center = GenerateQuad(centerPosition, CRectangleF(this->m_imageInset.GetLeft(), this->m_imageInset.GetTop(), 1.0f - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), 1.0f - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom()));
 			this->m_data.insert(this->m_data.end(), center.begin(), center.end());
 		}
 

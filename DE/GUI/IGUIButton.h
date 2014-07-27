@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IGUIBUTTON_H
 
 #include "../GUI/IGUIView.h"
-#include "../Core/Utility/CRectangle.h"
+#include "../Core/Utility/CInset.h"
 #include "../Medias/CTexture2D.h"
 
 namespace DE
@@ -42,7 +42,7 @@ namespace DE
 	private:
 		bool m_enabled;
 		bool m_clicked;
-		CRectangleF m_resizableRectangle;
+		CInsetF m_imageInset;
 		CTexture2D m_defaultTexture;
 		CTexture2D m_focusedTexture;
 		CTexture2D m_clickedTexture;
@@ -62,11 +62,11 @@ namespace DE
 		void SetEnabled(const bool enabled);
 
 		/**
-		* Set the resizable rectangle
-		* The rectangle represents the part of the button that can be expanded to fill the required size
+		* Set the image inset
+		* The inset represents the parts of the button that will not be resized with the button
 		* The values are between 0 and 1
 		*/
-		void SetResizableRectangle(const CRectangleF & rectangle);
+		void SetImageInset(const CInsetF & inset);
 
 		/**
 		* Set the default texture
