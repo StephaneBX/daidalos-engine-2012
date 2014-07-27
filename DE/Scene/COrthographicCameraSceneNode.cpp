@@ -77,12 +77,12 @@ namespace DE
 		// Screen space coordinates
 		frustumCorner[FRUSTUM_POINT_NEAR_TOP_LEFT] = CVector4F(-1.0f, 1.0f, 0.0f, 1.0f);
 		frustumCorner[FRUSTUM_POINT_NEAR_TOP_RIGHT] = CVector4F(1.0f, 1.0f, 0.0f, 1.0f);
-		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] = CVector4F(1.0f, -1.0f, 0.0f, 1.0f);
-		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT] = CVector4F(-1.0f, -1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] = CVector4F(-1.0f, -1.0f, 0.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT] = CVector4F(1.0f, -1.0f, 0.0f, 1.0f);
 		frustumCorner[FRUSTUM_POINT_FAR_TOP_LEFT] = CVector4F(-1.0f, 1.0f, 1.0f, 1.0f);
 		frustumCorner[FRUSTUM_POINT_FAR_TOP_RIGHT] = CVector4F(1.0f, 1.0f, 1.0f, 1.0f);
-		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_LEFT] = CVector4F(1.0f, -1.0f, 1.0f, 1.0f);
-		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = CVector4F(-1.0f, -1.0f, 1.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_LEFT] = CVector4F(-1.0f, -1.0f, 1.0f, 1.0f);
+		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = CVector4F(1.0f, -1.0f, 1.0f, 1.0f);
 
 		// Screen space to world space
 		for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
@@ -92,7 +92,7 @@ namespace DE
 			frustumCorner[i].y /= frustumCorner[i].w;
 			frustumCorner[i].z /= frustumCorner[i].w;
 
-			this->m_frustum.absolutePoints[i] = CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z);
+			this->m_frustum.absolutePoints[i] = CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z) + this->m_absolutePosition;
 		}
 
 		// Find the relative points

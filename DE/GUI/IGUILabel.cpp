@@ -27,11 +27,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/IRenderer.h"
 #include "../Core/Memory/CExceptionAssert.h"
-#include "../GUI/IGUITextBase.h"
+#include "../GUI/IGUILabel.h"
 
 namespace DE
 {
-	IGUITextBase::IGUITextBase(const std::string & text, const std::string & font)
+	IGUILabel::IGUILabel(const std::string & text, const std::string & font)
 	{
 		SetText(text);
 		SetFont(font);
@@ -42,44 +42,44 @@ namespace DE
 		this->m_size = 12;
 	}
 
-	void IGUITextBase::SetFont(const std::string & font)
+	void IGUILabel::SetFont(const std::string & font)
 	{
 		this->m_font.LoadFromFile(font);
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 		this->m_changed = true;
 	}
 
-	void IGUITextBase::SetText(const std::string & text)
+	void IGUILabel::SetText(const std::string & text)
 	{
 		this->m_text = text;
 		this->m_changed = true;
 	}
 
-	void IGUITextBase::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
+	void IGUILabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
 	{
 		this->m_horizontalAlignment = alignment;
 		this->m_changed = true;
 	}
 
-	void IGUITextBase::SetVerticalAlignment(ETextVerticalAlignment alignment)
+	void IGUILabel::SetVerticalAlignment(ETextVerticalAlignment alignment)
 	{
 		this->m_verticalAlignment = alignment;
 		this->m_changed = true;
 	}
 
-	void IGUITextBase::SetSize(const unsigned int size)
+	void IGUILabel::SetSize(const unsigned int size)
 	{
 		this->m_size = size;
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 	}
 
-	void IGUITextBase::SetColor(const CColor & color)
+	void IGUILabel::SetColor(const CColor & color)
 	{
 		this->m_color = color;
 		this->m_changed = true;
 	}
 
-	void IGUITextBase::Update()
+	void IGUILabel::Update()
 	{
 		if(this->m_changed)
 		{
@@ -99,9 +99,12 @@ namespace DE
 				this->m_buffer.Unlock();
 			}
 		}
+
+		// Update the subviews
+		IGUIView::Update();
 	}
 
-	void IGUITextBase::Render()
+	void IGUILabel::Render()
 	{
 		if(this->m_data.size() > 0)
 		{
@@ -109,6 +112,7 @@ namespace DE
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
 
 			renderer->SetTexture(0, this->m_font.GetTexture().GetTexture());
@@ -116,39 +120,42 @@ namespace DE
 			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));
 			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
 		}
+
+		// Render the subviews
+		IGUIView::Render();
 	}
 
-	ETextHorizontalAlignment IGUITextBase::GetHorizontalAlignment() const
+	ETextHorizontalAlignment IGUILabel::GetHorizontalAlignment() const
 	{
 		return this->m_horizontalAlignment;
 	}
 
-	ETextVerticalAlignment IGUITextBase::GetVerticalAlignment() const
+	ETextVerticalAlignment IGUILabel::GetVerticalAlignment() const
 	{
 		return this->m_verticalAlignment;
 	}
 
-	const unsigned int IGUITextBase::GetSize() const
+	const unsigned int IGUILabel::GetSize() const
 	{
 		return this->m_size;
 	}
 
-	const std::string & IGUITextBase::GetFontName() const
+	const std::string & IGUILabel::GetFontName() const
 	{
 		return this->m_font.GetFontName();
 	}
 
-	const std::string & IGUITextBase::GetText() const
+	const std::string & IGUILabel::GetText() const
 	{
 		return this->m_text;
 	}
 
-	const CColor & IGUITextBase::GetColor() const
+	const CColor & IGUILabel::GetColor() const
 	{
 		return this->m_color;
 	}
 
-	void IGUITextBase::GenerateTextGeometry()
+	void IGUILabel::GenerateTextGeometry()
 	{
 		this->m_data.clear();
 
@@ -215,33 +222,8 @@ namespace DE
 					CRectangleI pos = CRectangleI((int)(descriptor->position.GetLeft() * this->m_scale), (int)(descriptor->position.GetTop() * this->m_scale), (int)(descriptor->position.GetWidth() * this->m_scale), (int)(descriptor->position.GetHeight() * this->m_scale)) + cursor;
 
 					// Add the geometry
-					SGUIData data;
-
-					// First triangle
-					data.position = CVector3F((float)pos.GetLeft(), (float)pos.GetTop(), 0);
-					data.texcoords = CVector2F(coord.GetLeft(), coord.GetTop());
-					this->m_data.push_back(data);
-
-					data.position = CVector3F((float)pos.GetRight(), (float)pos.GetBottom(), 0);
-					data.texcoords = CVector2F(coord.GetRight(), coord.GetBottom());
-					this->m_data.push_back(data);
-
-					data.position = CVector3F((float)pos.GetLeft(), (float)pos.GetBottom(), 0);
-					data.texcoords = CVector2F(coord.GetLeft(), coord.GetBottom());
-					this->m_data.push_back(data);
-
-					// Second triangle
-					data.position = CVector3F((float)pos.GetLeft(), (float)pos.GetTop(), 0);
-					data.texcoords = CVector2F(coord.GetLeft(), coord.GetTop());
-					this->m_data.push_back(data);
-
-					data.position = CVector3F((float)pos.GetRight(), (float)pos.GetTop(), 0);
-					data.texcoords = CVector2F(coord.GetRight(), coord.GetTop());
-					this->m_data.push_back(data);
-
-					data.position = CVector3F((float)pos.GetRight(), (float)pos.GetBottom(), 0);
-					data.texcoords = CVector2F(coord.GetRight(), coord.GetBottom());
-					this->m_data.push_back(data);
+					std::vector<SGUIData> data = GenerateQuad(pos, coord);
+					this->m_data.insert(this->m_data.end(), data.begin(), data.end());
 				}
 
 				// Advance the cursor
@@ -316,7 +298,7 @@ namespace DE
 		this->m_changed = false;
 	}
 
-	const bool IGUITextBase::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart)
+	const bool IGUILabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart)
 	{
 		// If a preferred width has been set and the line is too long for the last word
 		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x)

@@ -25,140 +25,138 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/CGUIManager.h"
-#include "../GUI/CGUIText.h"
+#include "../GUI/CGUILabel.h"
 
 namespace DE
 {
-	CGUIText::CGUIText(const std::string & text, const std::string & font)
+	CGUILabel::CGUILabel(const std::string & text, const std::string & font)
 	{
-		this->m_text = new IGUITextBase(text, font);
-		CGUIManager::GetInstance()->RegisterElement(this->m_text);
+		this->m_text = new IGUILabel(text, font);
 	}
 
-	CGUIText::~CGUIText()
+	CGUILabel::~CGUILabel()
 	{
-		CGUIManager::GetInstance()->UnregisterElement(this->m_text);
+		this->m_text->RemoveFromParentView();
 		delete this->m_text;
 	}
 
-	void CGUIText::SetVisible(const bool visible)
+	void CGUILabel::SetVisible(const bool visible)
 	{
 		this->m_text->SetVisible(visible);
 	}
 
-	void CGUIText::SetPosition(const CVector2I & position)
+	void CGUILabel::SetPosition(const CVector2I & position)
 	{
 		this->m_text->SetPosition(position);
 	}
 
-	void CGUIText::SetPreferredSize(const CVector2I & size)
+	void CGUILabel::SetPreferredSize(const CVector2I & size)
 	{
 		this->m_text->SetPreferredSize(size);
 	}
 
-	void CGUIText::SetBounds(const CRectangleI & bounds)
+	void CGUILabel::SetBounds(const CRectangleI & bounds)
 	{
 		this->m_text->SetBounds(bounds);
 	}
 
-	void CGUIText::SetFont(const std::string & font)
+	void CGUILabel::SetFont(const std::string & font)
 	{
 		this->m_text->SetFont(font);
 	}
 
-	void CGUIText::SetText(const std::string & text)
+	void CGUILabel::SetText(const std::string & text)
 	{
 		this->m_text->SetText(text);
 	}
 
-	void CGUIText::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
+	void CGUILabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
 	{
 		this->m_text->SetHorizontalAlignment(alignment);
 	}
 
-	void CGUIText::SetVerticalAlignment(ETextVerticalAlignment alignment)
+	void CGUILabel::SetVerticalAlignment(ETextVerticalAlignment alignment)
 	{
 		this->m_text->SetVerticalAlignment(alignment);
 	}
 
-	void CGUIText::SetSize(const unsigned int size)
+	void CGUILabel::SetSize(const unsigned int size)
 	{
 		this->m_text->SetSize(size);
 	}
 
-	void CGUIText::SetColor(const CColor & color)
+	void CGUILabel::SetColor(const CColor & color)
 	{
 		this->m_text->SetColor(color);
 	}
 
-	ETextHorizontalAlignment CGUIText::GetHorizontalAlignment() const
+	ETextHorizontalAlignment CGUILabel::GetHorizontalAlignment() const
 	{
 		return this->m_text->GetHorizontalAlignment();
 	}
 
-	ETextVerticalAlignment CGUIText::GetVerticalAlignment() const
+	ETextVerticalAlignment CGUILabel::GetVerticalAlignment() const
 	{
 		return this->m_text->GetVerticalAlignment();
 	}
 
-	const bool CGUIText::IsChanged() const
+	const bool CGUILabel::IsChanged() const
 	{
 		return this->m_text->IsChanged();
 	}
 
-	const bool CGUIText::IsVisible() const
+	const bool CGUILabel::IsVisible() const
 	{
 		return this->m_text->IsVisible();
 	}
 
-	const bool CGUIText::IsInside(const CVector2I & point) const
+	const bool CGUILabel::IsInside(const CVector2I & point) const
 	{
 		return this->m_text->IsInside(point);
 	}
 
-	const unsigned int CGUIText::GetSize() const
+	const unsigned int CGUILabel::GetSize() const
 	{
 		return this->m_text->GetSize();
 	}
 
-	const std::string & CGUIText::GetFontName() const
+	const std::string & CGUILabel::GetFontName() const
 	{
 		return this->m_text->GetFontName();
 	}
 
-	const std::string & CGUIText::GetText() const
+	const std::string & CGUILabel::GetText() const
 	{
 		return this->m_text->GetText();
 	}
 
-	const CVector2I & CGUIText::GetPosition() const
+	const CVector2I & CGUILabel::GetPosition() const
 	{
 		return this->m_text->GetPosition();
 	}
 
-	const CVector2I & CGUIText::GetPreferredSize() const
+	const CVector2I & CGUILabel::GetPreferredSize() const
 	{
 		return this->m_text->GetPreferredSize();
 	}
 
-	const CRectangleI & CGUIText::GetBoundingRectangle() const
+	const CRectangleI & CGUILabel::GetBoundingRectangle() const
 	{
 		return this->m_text->GetBoundingRectangle();
 	}
 
-	const CColor & CGUIText::GetColor() const
+	const CColor & CGUILabel::GetColor() const
 	{
 		return this->m_text->GetColor();
 	}
 
-	const CGUIText & CGUIText::operator=(const CGUIText & copy)
+	const CGUILabel & CGUILabel::operator=(const CGUILabel & copy)
 	{
 		*this->m_text = *copy.GetGUIElement();
 		return *this;
 	}
 
-	IGUITextBase * CGUIText::GetGUIElement() const
+	IGUILabel * CGUILabel::GetGUIElement() const
 	{
 		return this->m_text;
 	}

@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../GUI/IGUIBase.h"
+#include "../GUI/IGUIView.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CGUIManager.h"
 
@@ -50,16 +50,14 @@ namespace DE
 		this->m_shaderProgram.LoadFromFile("gui");
 	}
 
-	void CGUIManager::RegisterElement(IGUIBase * element)
+	void CGUIManager::AddToMainView(IGUIView * element)
 	{
-		this->m_elements.insert(element);
+		this->m_mainView.AddSubview(element);
 	}
 
-	void CGUIManager::UnregisterElement(IGUIBase * element)
+	void CGUIManager::RemoveFromMainView(IGUIView * element)
 	{
-		auto it = this->m_elements.find(element);
-		if(it != this->m_elements.end())
-			this->m_elements.erase(it);
+		this->m_mainView.RemoveSubview(element);
 	}
 
 	void CGUIManager::Render()
@@ -69,12 +67,9 @@ namespace DE
 		this->m_renderer->SetShaderProgram(this->m_shaderProgram.GetShaderProgram());
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_proj);
 
-		// Draw each element
-		for(auto it = this->m_elements.begin() ; it != this->m_elements.end() ; ++it)
-		{
-			(*it)->Update();
-			(*it)->Render();
-		}
+		// Draw the main element
+		this->m_mainView.Update();
+		this->m_mainView.Render();
 	}
 
 	/**

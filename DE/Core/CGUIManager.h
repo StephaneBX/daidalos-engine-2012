@@ -34,11 +34,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IDeclaration.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CSingletonManager.h"
+#include "../GUI/IGUIView.h"
 
 namespace DE
 {
-	class IGUIBase;
-
 	/**
 	* Handle the gui elements
 	*/
@@ -51,8 +50,7 @@ namespace DE
 		IRenderer * m_renderer;
 		DeclarationPtr m_declaration;
 		CShaderProgram m_shaderProgram;
-
-		std::set<IGUIBase*> m_elements;
+		IGUIView m_mainView;
 
 	public:
 		/**
@@ -66,16 +64,16 @@ namespace DE
 		void Initialize();
 
 		/**
-		* Register the element in the manager
+		* Add the element in the main view
 		* @param element The gui element
 		*/
-		void RegisterElement(IGUIBase * element);
+		void AddToMainView(IGUIView * element);
 
 		/**
-		* Unregister the element in the manager
+		* Remove the element from the main view
 		* @param element The gui element
 		*/
-		void UnregisterElement(IGUIBase * element);
+		void RemoveFromMainView(IGUIView * element);
 
 		/**
 		* Render the gui

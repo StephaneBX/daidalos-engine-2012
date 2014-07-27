@@ -101,6 +101,13 @@ namespace DE
 		* @param name The parameter name
 		* @param vec The value
 		*/
+		virtual void SetParameter(const std::string & name, const CVector2I & vec) = 0;
+
+		/**
+		* Set a shader parameter
+		* @param name The parameter name
+		* @param vec The value
+		*/
 		virtual void SetParameter(const std::string & name, const CVector3F & vec) = 0;
 
 		/**

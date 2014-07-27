@@ -1,3 +1,4 @@
+uniform float3 translation;
 uniform float4x4 projMatrix;
 
 struct VS_INPUT
@@ -16,7 +17,7 @@ VS_OUTPUT main(VS_INPUT IN)
 {
 	VS_OUTPUT OUT;
 	
-	OUT.position = mul(float4(IN.position, 1), projMatrix);
+	OUT.position = mul(float4(IN.position + translation, 1), projMatrix);
 	OUT.texcoord = IN.texcoord;
 	
 	return OUT;

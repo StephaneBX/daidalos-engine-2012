@@ -163,6 +163,21 @@ namespace DE
 		}
 	}
 
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec)
+	{
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
+		{
+			Assert(this->m_vertexShader);
+			this->m_vertexShader->SetParameter(name, vec);
+		}
+
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
+		{
+			Assert(this->m_pixelShader);
+			this->m_pixelShader->SetParameter(name, vec);
+		}
+	}
+
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec)
 	{
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)

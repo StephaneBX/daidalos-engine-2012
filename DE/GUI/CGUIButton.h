@@ -25,63 +25,44 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __IGUIBASE_H
-#define __IGUIBASE_H
+#ifndef __CGUIBUTTON_H
+#define __CGUIBUTTON_H
 
-#include <vector>
-#include "../Core/Utility/CVector3.h"
-#include "../Core/Utility/CVector2.h"
-#include "../Core/Utility/CColor.h"
-#include "../Core/Utility/CRectangle.h"
-#include "../Medias/CBuffer.h"
+#include "../GUI/IGUIButton.h"
 
 namespace DE
 {
 	/**
-	* The GUI data structure for the shaders
+	* Gui button enclosing class
 	*/
-	struct SGUIData
+	class CGUIButton
 	{
-		CVector3F position;
-		CVector2F texcoords;
-	};
-
-	/**
-	* Basic class for gui
-	*/
-	class IGUIBase
-	{
-	protected:
-		bool m_changed;
-		bool m_visible;
-		std::vector<SGUIData> m_data;
-		CBuffer m_buffer;
-		CVector2I m_position;
-		CVector2I m_preferredsize;
-		CRectangleI m_boundingRectangle;
+	private:
+		IGUIButton * m_button;
 
 	public:
 		/**
-		* Update the text geometry
+		* Constructor
+		* @param texture The default Texture
 		*/
-		virtual void Update() = 0;
+		CGUIButton(const std::string & texture = "");
 
 		/**
-		* Render the text
+		* Destructor
 		*/
-		virtual void Render() = 0;
-		
-		/**
-		* Set the changed value
-		* @param changed The changed value
-		*/
-		void SetChanged(const bool changed);
+		~CGUIButton();
 
 		/**
 		* Set the visible value
 		* @param visible The visible value
 		*/
 		void SetVisible(const bool visible);
+
+		/**
+		* Set the enabled state
+		* @param enabled The enabled state
+		*/
+		void SetEnabled(const bool enabled);
 
 		/**
 		* Set the position
@@ -102,6 +83,28 @@ namespace DE
 		void SetBounds(const CRectangleI & bounds);
 
 		/**
+		* Set the resizable rectangle
+		* The rectangle represents the part of the button that can be expanded to fill the required size
+		* The values are between 0 and 1
+		*/
+		void SetResizableRectangle(const CRectangleF & rectangle);
+
+		/**
+		* Set the default texture
+		*/
+		void SetDefaultTexture(const std::string & texture);
+
+		/**
+		* Set the clicked texture
+		*/
+		void SetClickedTexture(const std::string & texture);
+
+		/**
+		* Set the focused texture
+		*/
+		void SetFocusedTexture(const std::string & texture);
+
+		/**
 		* Get the changed value
 		* @return The changed value
 		*/
@@ -114,9 +117,15 @@ namespace DE
 		const bool IsVisible() const;
 
 		/**
+		* Check if the button is enabled
+		* @return True if the button is enabled, false otherwise
+		*/
+		const bool IsEnabled() const;
+
+		/**
 		* Check if a point is inside the gui
 		* @param point The point to test
-		* @return Trueif the point is inside the gui
+		* @return True if the point is inside the gui
 		*/
 		const bool IsInside(const CVector2I & point) const;
 
@@ -138,24 +147,18 @@ namespace DE
 		*/
 		const CRectangleI & GetBoundingRectangle() const;
 
-	protected:
-		/**
-		* Constructor
-		*/
-		IGUIBase();
-
-		/**
-		* Constructor
-		* @param copy The element to copy
-		*/
-		IGUIBase(const IGUIBase & copy);
-
 		/**
 		* = operator override
-		* @param copy A GUI element copy
-		* @return The GUI element
+		* @param copy A CGUIText element copy
+		* @return The CGUIText
 		*/
-		const IGUIBase & operator=(const IGUIBase & copy);
+		const CGUIButton & operator=(const CGUIButton & copy);
+
+		/**
+		* Get the GUI element
+		* @return the GUI element
+		*/
+		IGUIButton * GetGUIElement() const;
 	};
 }
 

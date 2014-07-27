@@ -25,20 +25,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CGUITEXT_H
-#define __CGUITEXT_H
+#ifndef __CGUILABEL_H
+#define __CGUILABEL_H
 
-#include "../GUI/IGUITextBase.h"
+#include "../GUI/IGUILabel.h"
 
 namespace DE
 {
 	/**
-	* Gui text enclosing class
+	* Gui label enclosing class
 	*/
-	class CGUIText
+	class CGUILabel
 	{
 	private:
-		IGUITextBase * m_text;
+		IGUILabel * m_text;
 
 	public:
 		/**
@@ -46,12 +46,12 @@ namespace DE
 		* @param text The text
 		* @param font The font to use
 		*/
-		CGUIText(const std::string & text = "", const std::string & font = "arial.fnt");
+		CGUILabel(const std::string & text = "", const std::string & font = "arial.fnt");
 
 		/**
 		* Destructor
 		*/
-		~CGUIText();
+		~CGUILabel();
 
 		/**
 		* Set the visible value
@@ -140,7 +140,7 @@ namespace DE
 		/**
 		* Check if a point is inside the gui
 		* @param point The point to test
-		* @return Trueif the point is inside the gui
+		* @return True if the point is inside the gui
 		*/
 		const bool IsInside(const CVector2I & point) const;
 
@@ -191,13 +191,13 @@ namespace DE
 		* @param copy A CGUIText element copy
 		* @return The CGUIText
 		*/
-		const CGUIText & operator=(const CGUIText & copy);
+		const CGUILabel & operator=(const CGUILabel & copy);
 
 		/**
 		* Get the GUI element
 		* @return the GUI element
 		*/
-		IGUITextBase * GetGUIElement() const;
+		IGUILabel * GetGUIElement() const;
 	};
 }
 

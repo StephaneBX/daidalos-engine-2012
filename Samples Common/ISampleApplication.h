@@ -38,7 +38,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CShaderProgram.h>
 #include <Medias/CTexture2D.h>
 #include <Medias/CFrameBuffer.h>
-#include <GUI/CGUIText.h>
+#include <GUI/CGUILabel.h>
+#include <GUI/CGUIButton.h>
 #include <Core/Utility/CColor.h>
 #include <Core/Utility/CFPSCounter.h>
 #include <Core/IRenderer.h>
@@ -72,8 +73,10 @@ namespace SAMPLES
 		DE::CShaderProgram m_DSDirectionalLight;
 		DE::CShaderProgram m_DSFinal;
 
-		DE::CGUIText m_fpsText;
-		DE::CGUIText m_positionText;
+		DE::CGUILabel m_fpsText;
+		DE::CGUILabel m_positionText;
+		DE::CGUIButton m_button;
+
 
 		DE::CFPSCounter m_fpsCounter;
 

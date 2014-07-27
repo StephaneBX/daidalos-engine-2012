@@ -25,22 +25,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __IGUITEXTBASE_H
-#define __IGUITEXTBASE_H
+#ifndef __IGUILABEL_H
+#define __IGUILABEL_H
 
 #include <string>
 #include <set>
 #include "../Medias/CFont.h"
 #include "../Core/Utility/CColor.h"
 #include "../Core/Enums.h"
-#include "../GUI/IGUIBase.h"
+#include "../GUI/IGUIView.h"
 
 namespace DE
 {
 	/**
 	* Basic class for gui text
 	*/
-	class IGUITextBase : public IGUIBase
+	class IGUILabel : public IGUIView
 	{
 	private:
 		unsigned int m_size;
@@ -57,7 +57,7 @@ namespace DE
 		* @param text The text
 		* @param font The font name
 		*/
-		IGUITextBase(const std::string & text = "", const std::string & font = "arial.fnt");
+		IGUILabel(const std::string & text = "", const std::string & font = "arial.fnt");
 
 		/**
 		* Set the font

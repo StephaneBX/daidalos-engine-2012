@@ -124,6 +124,20 @@ namespace DE
 		}
 	}
 
+	void CDX9Shader::SetParameter(const std::string & name, const CVector2I & vec) 
+	{
+		CheckHandle(name);
+		if(this->m_handles[name] != nullptr)
+		{
+			CVector4F vec2((float)vec.x, (float)vec.y, 0, 0);
+			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
+		}
+		else
+		{
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+		}
+	}
+
 	void CDX9Shader::SetParameter(const std::string & name, const CVector3F & vec) 
 	{
 		CheckHandle(name);

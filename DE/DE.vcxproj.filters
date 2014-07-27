@@ -372,15 +372,6 @@
     <ClInclude Include="Loaders\CFontLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Gui\IGUIBase.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui\IGUITextBase.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui\CGUIText.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Core\CGUIManager.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
@@ -470,6 +461,21 @@
     </ClInclude>
     <ClInclude Include="Scene\CSkybox.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\IGUIView.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\IGUILabel.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\CGUILabel.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\IGUIButton.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\CGUIButton.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -680,15 +686,6 @@
     <ClCompile Include="Medias\IFontBase.cpp">
       <Filter>Fichiers sources\Medias</Filter>
     </ClCompile>
-    <ClCompile Include="Gui\IGUIBase.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui\IGUITextBase.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui\CGUIText.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Core\CGUIManager.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
@@ -766,6 +763,21 @@
     </ClCompile>
     <ClCompile Include="Scene\CSkybox.cpp">
       <Filter>Fichiers sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\IGUIView.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\IGUILabel.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\CGUILabel.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\IGUIButton.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\CGUIButton.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

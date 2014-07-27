@@ -90,11 +90,12 @@ namespace DE
 		// Find the distance from the centroid to one corner
 		float distance = (boundingBox.GetMin()).Distance(centroid);
 
-		// Find the light position based on the centroid, the light direction and the distance from the centroid to one corner
-		this->m_localPosition = centroid - (direction * distance);
+		// Find the light position based on the centroid
+		this->m_localPosition = centroid;
 
 		// Update the absolute position and the camera view matrix
-		this->m_camera->SetFarDistance(distance);
+		this->m_camera->SetNearDistance(0);
+		this->m_camera->SetFarDistance(distance + 5);
 		ILightSceneNode::Update(time);
 
 		// Transform the bounding box to the light view space
@@ -103,16 +104,16 @@ namespace DE
 
 
 		// Update the camera rect/near/far values
-		this->m_camera->SetBounds(CRectangleF(minPosition.x, minPosition.y, maxPosition.x - minPosition.x, maxPosition.y - minPosition.y));
-		this->m_camera->SetNearDistance(minPosition.z);
-		this->m_camera->SetFarDistance(maxPosition.z + minPosition.z);
+		this->m_camera->SetBounds(CRectangleF(minPosition.x - 10, minPosition.y - 10, maxPosition.x - minPosition.x + 20, maxPosition.y - minPosition.y + 20));
+		//this->m_camera->SetNearDistance(0);
+		//this->m_camera->SetFarDistance(distance);
 		this->m_camera->UpdateProjection();
 
-		const float boundValue = std::max(boundingBox.GetMax().x - boundingBox.GetMin().x, boundingBox.GetMax().y - boundingBox.GetMin().y);
+		/*const float boundValue = std::max(boundingBox.GetMax().x - boundingBox.GetMin().x, boundingBox.GetMax().y - boundingBox.GetMin().y);
 		this->m_camera->SetBounds(CRectangleF(0, 0, boundValue, boundValue));
 		this->m_camera->SetNearDistance(minPosition.z);
 		this->m_camera->SetFarDistance(maxPosition.z + minPosition.z);
-		this->m_camera->UpdateProjection();
+		this->m_camera->UpdateProjection();*/
 
 
 		// If active and enabled, add it to the active lights list

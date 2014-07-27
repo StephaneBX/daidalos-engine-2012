@@ -127,6 +127,14 @@ namespace DE
 		* @param name The parameter name
 		* @param vec The value
 		*/
+		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec);
+
+		/**
+		* Set a shader parameter
+		* @param flags The flags for the parameter target(s)
+		* @param name The parameter name
+		* @param vec The value
+		*/
 		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec);
 
 		/**

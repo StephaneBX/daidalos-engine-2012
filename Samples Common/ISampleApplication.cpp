@@ -161,12 +161,21 @@ namespace SAMPLES
 		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
 		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_positionText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		DE::CGUIManager::GetInstance()->AddToMainView(this->m_positionText.GetGUIElement());
 
 		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150),0,150,30));
 		this->m_fpsText.SetSize(30);
 		this->m_fpsText.SetColor(DE::CColor(255, 255, 102, 255));
 		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_fpsText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		DE::CGUIManager::GetInstance()->AddToMainView(this->m_fpsText.GetGUIElement());
+
+
+		// Button test
+		this->m_button.SetDefaultTexture("button.png");
+		this->m_button.SetBounds(DE::CRectangleI(100,200,350,100));
+		this->m_button.SetResizableRectangle(DE::CRectangleF(0.2f, 0.2f, 0.6f, 0.6f));
+		DE::CGUIManager::GetInstance()->AddToMainView(this->m_button.GetGUIElement());
 	}
 
 	ISampleApplication::~ISampleApplication() 

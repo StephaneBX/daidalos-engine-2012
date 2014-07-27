@@ -35,6 +35,7 @@ namespace SAMPLE1
 		this->m_scene->LoadScene("sample1.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
 		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene->GetNode("directionalLight");
+		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene->GetNode("dwarf");
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
 		this->m_activeCamera = this->m_camera->GetCameraNode();
 		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
@@ -57,6 +58,11 @@ namespace SAMPLE1
 			DE::CVector3F lightRotation = this->m_directionalLight->GetRotation();
 			lightRotation.y += (40 * time) / 1000.0f;
 			this->m_directionalLight->SetRotation(lightRotation);
+		}
+
+		if(this->m_dwarfNode->GetAnimationState() ==  DE::MESH_ANIMATION_STATE_STOPPED)
+		{
+			this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
 		}
 
 		this->m_scene->UpdateAll(time);

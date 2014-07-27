@@ -40,6 +40,7 @@ namespace SAMPLE1
 	{
 	private:
 		DE::CDirectionalLightSceneNode * m_directionalLight;
+		DE::CAnimatedMeshSceneNode * m_dwarfNode;
 		std::unique_ptr<SAMPLES::CFreeCamera> m_camera;
 
 	public:
