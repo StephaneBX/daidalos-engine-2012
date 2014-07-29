@@ -38,6 +38,14 @@ namespace DE
 		this->m_clicked = false;
 		this->m_imageInset = CInsetF(0,0,0,0);
 		this->m_changed = true;
+
+		this->m_title = new IGUILabel();
+		AddSubview(this->m_title);
+	}
+
+	IGUIButton::~IGUIButton()
+	{
+		delete this->m_title;
 	}
 
 	void IGUIButton::AddButtonListener(IGUIButtonListener * listener)
@@ -105,11 +113,27 @@ namespace DE
 		}
 	}
 
+	void IGUIButton::SetDefaultTitleColor(const CColor & color)
+	{
+		this->m_defaultTitleColor = color;
+	}
+
+	void IGUIButton::SetClickedTitleColor(const CColor & color)
+	{
+		this->m_clickedTitleColor = color;
+	}
+
+	void IGUIButton::SetFocusedTitleColor(const CColor & color)
+	{
+		this->m_focusedTitleColor = color;
+	}
+
 	void IGUIButton::Update()
 	{
 		if(this->m_changed)
 		{
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
+			this->m_title->SetPreferredSize(this->m_preferredsize);
 
 			IRenderer * renderer = IRenderer::GetRenderer();
 
@@ -156,6 +180,9 @@ namespace DE
 			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
 		}
 
+		// Set the title color
+		SetTitleColor();
+
 		// Render the subviews
 		IGUIView::Render();
 	}
@@ -196,6 +223,11 @@ namespace DE
 	const bool IGUIButton::IsEnabled() const
 	{
 		return this->m_enabled;
+	}
+
+	IGUILabel * IGUIButton::GetTitleElement()
+	{
+		return this->m_title;
 	}
 
 	void IGUIButton::GenerateGeometry()
@@ -267,6 +299,25 @@ namespace DE
 		}
 
 		this->m_changed = false;
+	}
+
+	void IGUIButton::SetTitleColor()
+	{
+		if(this->m_clicked)
+		{
+			this->m_title->SetColor(this->m_clickedTitleColor);
+		}
+		else
+		{
+			if(this->m_hitTest)
+			{
+				this->m_title->SetColor(this->m_focusedTitleColor);
+			}
+			else
+			{
+				this->m_title->SetColor(this->m_defaultTitleColor);
+			}
+		}
 	}
 
 	ITexture2DBase * IGUIButton::GetTextureToRender()

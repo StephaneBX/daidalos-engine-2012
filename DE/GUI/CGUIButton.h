@@ -122,6 +122,54 @@ namespace DE
 		void SetFocusedTexture(const std::string & texture);
 
 		/**
+		* Set the title font
+		* @param font The font name
+		*/
+		void SetTitleFont(const std::string & font);
+
+		/**
+		* Set the title
+		* @param text The text
+		*/
+		void SetTitle(const std::string & text);
+
+		/**
+		* Set the title horizontal alignment
+		* @param alignment The horizontal alignment
+		*/
+		void SetTitleHorizontalAlignment(ETextHorizontalAlignment alignment);
+
+		/**
+		* Set the title vertical alignment
+		* @param alignment The vertical alignment
+		*/
+		void SetTitleVerticalAlignment(ETextVerticalAlignment alignment);
+
+		/**
+		* Set the title size
+		* @param size The size
+		*/
+		void SetTitleSize(const unsigned int size);
+
+		/**
+		* Set the default title color
+		* @param color The color
+		*/
+		void SetDefaultTitleColor(const CColor & color);
+		/**
+		* Set the clicked title color
+		* @param color The color
+		*/
+		void SetClickedTitleColor(const CColor & color);
+
+		/**
+		* Set the focused title color
+		* @param color The color
+		*/
+		void SetFocusedTitleColor(const CColor & color);
+
+
+		/**
 		* Get the changed value
 		* @return The changed value
 		*/

@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <set>
 #include "../GUI/IGUIView.h"
+#include "../GUI/IGUILabel.h"
 #include "../GUI/Listeners/IGUIButtonListener.h"
 #include "../Core/Utility/CInset.h"
 #include "../Medias/CTexture2D.h"
@@ -49,6 +50,10 @@ namespace DE
 		CTexture2D m_focusedTexture;
 		CTexture2D m_clickedTexture;
 		std::set<IGUIButtonListener *> m_buttonListeners;
+		IGUILabel *  m_title;
+		CColor m_defaultTitleColor;
+		CColor m_clickedTitleColor;
+		CColor m_focusedTitleColor;
 
 	public:
 		/**
@@ -56,6 +61,11 @@ namespace DE
 		* @param texture The texture name
 		*/
 		IGUIButton(const std::string & texture);
+
+		/**
+		* Destructor
+		*/
+		~IGUIButton();
 
 		/**
 		* Add a button listener
@@ -103,6 +113,23 @@ namespace DE
 		void SetFocusedTexture(const std::string & texture);
 
 		/**
+		* Set the default title color
+		* @param color The color
+		*/
+		void SetDefaultTitleColor(const CColor & color);
+		/**
+		* Set the clicked title color
+		* @param color The color
+		*/
+		void SetClickedTitleColor(const CColor & color);
+
+		/**
+		* Set the focused title color
+		* @param color The color
+		*/
+		void SetFocusedTitleColor(const CColor & color);
+
+		/**
 		* Update the state and the geometry
 		*/
 		void Update();
@@ -126,11 +153,22 @@ namespace DE
 		*/
 		const bool IsEnabled() const;
 
+		/**
+		* Get the title
+		* @return The title
+		*/
+		IGUILabel * GetTitleElement();
+
 	private:
 		/**
 		* Generate the geometry
 		*/
 		void GenerateGeometry();
+
+		/**
+		* Set the title color
+		*/
+		void SetTitleColor();
 
 		/**
 		* Get the texture to used for rendering

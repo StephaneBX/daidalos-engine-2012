@@ -163,7 +163,7 @@ namespace DE
 		return this->m_position;
 	}
 
-	const CVector2I & IGUIView::GetAbsolutePosition() const
+	const CVector2I IGUIView::GetAbsolutePosition() const
 	{
 		if(this->m_parent != nullptr)
 		{

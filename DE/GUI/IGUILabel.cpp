@@ -245,11 +245,11 @@ namespace DE
 			switch(this->m_verticalAlignment)
 			{
 			case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
-				verticalDecal = (int)(this->m_data[this->m_data.size() - 1].position.y - this->m_data[0].position.y);
+				verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
 				break;
 
 			case TEXT_VERTICAL_ALIGNMENT_CENTERED:
-				verticalDecal = (int)(this->m_data[this->m_data.size() - 1].position.y - this->m_data[0].position.y) / 2;
+				verticalDecal = (int)(this->m_preferredsize.y -  this->m_data[this->m_data.size() - 1].position.y) / 2;
 				break;
 			}
 
@@ -271,19 +271,19 @@ namespace DE
 				switch(this->m_horizontalAlignment)
 				{
 				case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
-					horizontalDecal = (int)(this->m_data[lineEnd].position.x - this->m_data[*it].position.x);
+					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
 					break;
 
 				case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
-					horizontalDecal = (int)(this->m_data[lineEnd].position.x - this->m_data[*it].position.x) / 2;
+					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
 					break;
 				}
 
 				for(unsigned int j = *it ; j <= lineEnd ; ++j)
 				{
 					// Apply horizontal and vertical alignment
-					this->m_data[j].position.x = this->m_data[j].position.x - horizontalDecal + this->m_position.x;
-					this->m_data[j].position.y = this->m_data[j].position.y - verticalDecal + this->m_position.y;
+					this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
+					this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
 
 					// Get the min and max x value for the bounding box
 					boundingBoxMin.x = std::min(boundingBoxMin.x, this->m_data[j].position.x);

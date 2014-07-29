@@ -100,6 +100,46 @@ namespace DE
 		this->m_button->SetFocusedTexture(texture);
 	}
 
+	void CGUIButton::SetTitleFont(const std::string & font)
+	{
+		this->m_button->GetTitleElement()->SetFont(font);
+	}
+
+	void CGUIButton::SetTitle(const std::string & text)
+	{
+		this->m_button->GetTitleElement()->SetText(text);
+	}
+
+	void CGUIButton::SetTitleHorizontalAlignment(ETextHorizontalAlignment alignment)
+	{
+		this->m_button->GetTitleElement()->SetHorizontalAlignment(alignment);
+	}
+
+	void CGUIButton::SetTitleVerticalAlignment(ETextVerticalAlignment alignment)
+	{
+		this->m_button->GetTitleElement()->SetVerticalAlignment(alignment);
+	}
+
+	void CGUIButton::SetTitleSize(const unsigned int size)
+	{
+		this->m_button->GetTitleElement()->SetSize(size);
+	}
+
+	void CGUIButton::SetDefaultTitleColor(const CColor & color)
+	{
+		this->m_button->SetDefaultTitleColor(color);
+	}
+
+	void CGUIButton::SetClickedTitleColor(const CColor & color)
+	{
+		this->m_button->SetClickedTitleColor(color);
+	}
+
+	void CGUIButton::SetFocusedTitleColor(const CColor & color)
+	{
+		this->m_button->SetFocusedTitleColor(color);
+	}
+
 	const bool CGUIButton::IsChanged() const
 	{
 		return this->m_button->IsChanged();

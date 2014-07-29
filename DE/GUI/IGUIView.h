@@ -182,7 +182,7 @@ namespace DE
 		* Get the absolute position
 		* @return The absolute position
 		*/
-		const CVector2I & GetAbsolutePosition() const;
+		const CVector2I GetAbsolutePosition() const;
 
 		/**
 		* Get the preferred size
