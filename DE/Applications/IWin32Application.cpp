@@ -376,6 +376,30 @@ namespace DE
 						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELDOWN);
 					break;
 
+				case WM_LBUTTONDOWN:
+					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON0);
+					break;
+
+				case WM_LBUTTONUP:
+					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON0);
+					break;
+
+				case WM_RBUTTONDOWN:
+					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON1);
+					break;
+
+				case WM_RBUTTONUP:
+					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON1);
+					break;
+
+				case WM_MBUTTONDOWN:
+					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON2);
+					break;
+
+				case WM_MBUTTONUP:
+					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON2);
+					break;
+
 				case WM_QUIT:
 					this->m_alive = false;
 					break;
@@ -390,6 +414,8 @@ namespace DE
 
 			Update(time);
 			Render();
+
+			this->m_input->ResetMouseMovement();
 		}
 	}
 

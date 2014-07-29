@@ -53,6 +53,23 @@ namespace DE
 		~CGUIButton();
 
 		/**
+		* Add a button listener
+		* @param listener The button listener
+		*/
+		void AddButtonListener(IGUIButtonListener * listener);
+
+		/**
+		* Remove a button listener
+		* @param listener The button listener
+		*/
+		void RemoveButtonListener(IGUIButtonListener * listener);
+
+		/**
+		* Remove all the listeners
+		*/
+		void RemoveAllButtonListeners();
+
+		/**
 		* Set the visible value
 		* @param visible The visible value
 		*/

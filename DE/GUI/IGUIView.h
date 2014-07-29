@@ -37,6 +37,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	#define GUI_VIEW_LEFT_CLICK 1 << 30
+
 	/**
 	* The GUI data structure for the shaders
 	*/
@@ -80,24 +82,12 @@ namespace DE
 		virtual void Render();
 
 		/**
-		* Call when a left click occurred
+		* Perform a hit test, checking if the point is inside in the the subview or in this view
+		* The test is exclusive, only 1 view can succeed in the hit test
+		* @param point The point to test in screen coordinate
+		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual void LeftClick();
-
-		/**
-		* Call when a right click occurred
-		*/
-		virtual void RightClick();
-
-		/**
-		* Call when a left unclick occurred
-		*/
-		virtual void LeftClickRelease();
-
-		/**
-		* Call when a right unclick occurred
-		*/
-		virtual void RightClickRelease();
+		virtual const bool HitTest(const CVector2I & point);
 		
 		/**
 		* Set the changed value
@@ -183,14 +173,6 @@ namespace DE
 		const bool IsInside(const CVector2I & point) const;
 
 		/**
-		* Perform a hit test, checking if the point is inside in the the subview or in this view
-		* The test is exclusive, only 1 view can succeed in the hit test
-		* @param point The point to test in screen coordinate
-		* @return True if the point is inside the view on inside one of its subviews
-		*/
-		const bool HitTest(const CVector2I & point);
-
-		/**
 		* Get the position relative to the parent
 		* @return The position
 		*/
@@ -218,7 +200,7 @@ namespace DE
 		* Get the absolute bounding rectangle
 		* @return The absolute bounding rectangle
 		*/
-		const CRectangleI & GetAbsoluteBoundingRectangle() const;
+		const CRectangleI GetAbsoluteBoundingRectangle() const;
 
 	protected:
 		/**

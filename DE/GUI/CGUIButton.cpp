@@ -40,6 +40,21 @@ namespace DE
 		delete this->m_button;
 	}
 
+	void CGUIButton::AddButtonListener(IGUIButtonListener * listener)
+	{
+		this->m_button->AddButtonListener(listener);
+	}
+
+	void CGUIButton::RemoveButtonListener(IGUIButtonListener * listener)
+	{
+		this->m_button->RemoveButtonListener(listener);
+	}
+
+	void CGUIButton::RemoveAllButtonListeners()
+	{
+		this->m_button->RemoveAllButtonListeners();
+	}
+
 	void CGUIButton::SetVisible(const bool visible)
 	{
 		this->m_button->SetVisible(visible);

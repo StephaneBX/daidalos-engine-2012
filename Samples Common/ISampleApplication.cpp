@@ -153,9 +153,12 @@ namespace SAMPLES
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(decl);
 
 		
-		// --------------------------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------------------------
 		// The texts
 		// --------------------------------------------------------------------------------------------------
+		DE::CGUIManager::GetInstance()->SetCursorTexture("cursor.png");
+		DE::CGUIManager::GetInstance()->SetCursorVisible(true);
+
 		this->m_positionText.SetBounds(DE::CRectangleI(5,0,200,30));
 		this->m_positionText.SetSize(25);
 		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
@@ -172,10 +175,11 @@ namespace SAMPLES
 
 
 		// Button test
-		this->m_button.SetDefaultTexture("button.png");
+		this->m_button.SetDefaultTexture("button1.png");
+		this->m_button.SetFocusedTexture("button3.png");
+		this->m_button.SetClickedTexture("button2.png");
 		this->m_button.SetBounds(DE::CRectangleI(100,200,350,100));
 		this->m_button.SetImageInset(DE::CInsetF(0.2f, 0.2f, 0.2f, 0.2f));
-		this->m_button.SetEnabled(false);
 		DE::CGUIManager::GetInstance()->AddToMainView(this->m_button.GetGUIElement());
 	}
 

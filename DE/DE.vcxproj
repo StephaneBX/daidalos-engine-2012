@@ -54,10 +54,12 @@
     <ClInclude Include="Core\Utility\CVector3.h" />
     <ClInclude Include="Core\Utility\CVector4.h" />
     <ClInclude Include="GUI\CGUIButton.h" />
+    <ClInclude Include="GUI\IGUICursor.h" />
     <ClInclude Include="Gui\CGUILabel.h" />
     <ClInclude Include="GUI\IGUIButton.h" />
     <ClInclude Include="Gui\IGUIView.h" />
     <ClInclude Include="Gui\IGUILabel.h" />
+    <ClInclude Include="GUI\Listeners\IGUIButtonListener.h" />
     <ClInclude Include="Loaders\CFontLoader.h" />
     <ClInclude Include="Loaders\CImagesLoader.h" />
     <ClInclude Include="Loaders\CMaterialsLoader.h" />
@@ -163,6 +165,7 @@
     <ClCompile Include="Core\Utility\CImage.cpp" />
     <ClCompile Include="Core\Utility\CTokenizer.cpp" />
     <ClCompile Include="GUI\CGUIButton.cpp" />
+    <ClCompile Include="GUI\IGUICursor.cpp" />
     <ClCompile Include="Gui\CGUILabel.cpp" />
     <ClCompile Include="GUI\IGUIButton.cpp" />
     <ClCompile Include="Gui\IGUIView.cpp" />

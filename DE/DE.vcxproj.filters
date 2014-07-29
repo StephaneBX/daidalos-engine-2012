@@ -100,6 +100,9 @@
     <Filter Include="Fichiers sources\Scene\Structure\Simple">
       <UniqueIdentifier>{266faead-b152-45f3-a921-f4b911d6a261}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\GUI\Listeners">
+      <UniqueIdentifier>{8fb2039f-2811-4d99-a0b5-837cf9c9248a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Memory\CException.h">
@@ -480,6 +483,12 @@
     <ClInclude Include="Core\Utility\CInset.h">
       <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="GUI\IGUICursor.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Listeners\IGUIButtonListener.h">
+      <Filter>Fichiers d%27en-tête\GUI\Listeners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -780,6 +789,9 @@
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
     <ClCompile Include="GUI\CGUIButton.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\IGUICursor.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
   </ItemGroup>

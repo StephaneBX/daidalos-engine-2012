@@ -60,16 +60,40 @@ namespace DE
 		this->m_mainView.RemoveSubview(element);
 	}
 
+	void CGUIManager::SetCursorVisible(const bool visible)
+	{
+		this->m_cursor.SetVisible(visible);
+	}
+
+	void CGUIManager::SetCursorTexture(const std::string & texture)
+	{
+		this->m_cursor.SetTexture(texture);
+	}
+
 	void CGUIManager::Render()
 	{
+		// Update the cursor position
+		this->m_cursor.Update();
+
+		// Update the elements
+		this->m_mainView.Update();
+
+		// Hit test
+		this->m_mainView.HitTest(this->m_cursor.GetPosition());
+
 		// Global data for all elements
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderProgram.GetShaderProgram());
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_proj);
 
-		// Draw the main element
-		this->m_mainView.Update();
+		// Draw all the elements
 		this->m_mainView.Render();
+
+		// Draw the cursor
+		if(this->m_cursor.IsVisible())
+		{
+			this->m_cursor.Render();
+		}
 	}
 
 	/**

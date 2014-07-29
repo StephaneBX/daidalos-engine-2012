@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/IRenderer.h"
 #include "../Core/Memory/CExceptionAssert.h"
+#include "../Core/CInputDevice.h"
 #include "../GUI/IGUIButton.h"
 
 namespace DE
@@ -37,6 +38,21 @@ namespace DE
 		this->m_clicked = false;
 		this->m_imageInset = CInsetF(0,0,0,0);
 		this->m_changed = true;
+	}
+
+	void IGUIButton::AddButtonListener(IGUIButtonListener * listener)
+	{
+		this->m_buttonListeners.insert(listener);
+	}
+
+	void IGUIButton::RemoveButtonListener(IGUIButtonListener * listener)
+	{
+		this->m_buttonListeners.erase(listener);
+	}
+
+	void IGUIButton::RemoveAllButtonListeners()
+	{
+		this->m_buttonListeners.clear();
 	}
 
 	void IGUIButton::SetEnabled(const bool enabled)
@@ -144,28 +160,37 @@ namespace DE
 		IGUIView::Render();
 	}
 
-	void IGUIButton::LeftClick()
+	const bool IGUIButton::HitTest(const CVector2I & point)
 	{
-		if(this->m_hitTest)
+		this->m_hitTest = IsInside(point);
+
+		// Click canceled by the user
+		if(this->m_clicked && !this->m_hitTest)
+		{
+			this->m_clicked = false;
+		}
+
+		CInputDevice * inputDevice = CInputDevice::GetInstance();
+
+		// Click start test
+		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && this->m_hitTest)
 		{
 			this->m_clicked = true;
+		} 
+		else
+		{
+			// Click end test
+			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest)
+			{
+				this->m_clicked = false;
+				
+				// Call the listeners
+				for(auto it = this->m_buttonListeners.begin() ; it != this->m_buttonListeners.end() ; ++it)
+					(*it)->OnButtonClicked(this);
+			}
 		}
-	}
 
-	void IGUIButton::RightClick()
-	{
-
-	}
-
-	void IGUIButton::LeftClickRelease()
-	{
-		this->m_clicked = false;
-		// callback
-	}
-
-	void IGUIButton::RightClickRelease()
-	{
-
+		return this->m_hitTest;
 	}
 
 	const bool IGUIButton::IsEnabled() const

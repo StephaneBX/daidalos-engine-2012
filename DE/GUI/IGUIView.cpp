@@ -59,48 +59,19 @@ namespace DE
 		}
 	}
 
-	void IGUIView::LeftClick()
+	const bool IGUIView::HitTest(const CVector2I & point) 
 	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->IsVisible())
-			{
-				(*it)->LeftClick();
-			}
-		}
-	}
+		this->m_hitTest = false;
 
-	void IGUIView::RightClick()
-	{
 		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
 		{
-			if((*it)->IsVisible())
-			{
-				(*it)->RightClick();
+			if((*it)->HitTest(point)) {
+				return true;
 			}
 		}
-	}
 
-	void IGUIView::LeftClickRelease()
-	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->IsVisible())
-			{
-				(*it)->LeftClickRelease();
-			}
-		}
-	}
-
-	void IGUIView::RightClickRelease()
-	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->IsVisible())
-			{
-				(*it)->RightClickRelease();
-			}
-		}
+		this->m_hitTest = IsInside(point);
+		return this->m_hitTest;
 	}
 
 	void IGUIView::SetChanged(const bool changed)
@@ -187,21 +158,6 @@ namespace DE
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
 	}
 
-	const bool IGUIView::HitTest(const CVector2I & point) 
-	{
-		this->m_hitTest = false;
-
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->HitTest(point)) {
-				return true;
-			}
-		}
-
-		this->m_hitTest = IsInside(point);
-		return this->m_hitTest;
-	}
-
 	const CVector2I & IGUIView::GetPosition() const
 	{
 		return this->m_position;
@@ -226,11 +182,11 @@ namespace DE
 		return this->m_boundingRectangle;
 	}
 
-	const CRectangleI & IGUIView::GetAbsoluteBoundingRectangle() const
+	const CRectangleI IGUIView::GetAbsoluteBoundingRectangle() const
 	{
 		if(this->m_parent != nullptr)
 		{
-			return this->m_parent->GetAbsolutePosition() + this->m_boundingRectangle;
+			return this->m_boundingRectangle + this->m_parent->GetAbsolutePosition();
 		}
 		return m_boundingRectangle;
 	}

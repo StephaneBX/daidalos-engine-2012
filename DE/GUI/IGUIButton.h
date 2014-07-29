@@ -28,7 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IGUIBUTTON_H
 #define __IGUIBUTTON_H
 
+#include <set>
 #include "../GUI/IGUIView.h"
+#include "../GUI/Listeners/IGUIButtonListener.h"
 #include "../Core/Utility/CInset.h"
 #include "../Medias/CTexture2D.h"
 
@@ -46,14 +48,31 @@ namespace DE
 		CTexture2D m_defaultTexture;
 		CTexture2D m_focusedTexture;
 		CTexture2D m_clickedTexture;
+		std::set<IGUIButtonListener *> m_buttonListeners;
 
 	public:
 		/**
 		* Constructor
-		* @param text The texture name
-		* @param font The font name
+		* @param texture The texture name
 		*/
 		IGUIButton(const std::string & texture);
+
+		/**
+		* Add a button listener
+		* @param listener The button listener
+		*/
+		void AddButtonListener(IGUIButtonListener * listener);
+
+		/**
+		* Remove a button listener
+		* @param listener The button listener
+		*/
+		void RemoveButtonListener(IGUIButtonListener * listener);
+
+		/**
+		* Remove all the listeners
+		*/
+		void RemoveAllButtonListeners();
 
 		/**
 		* Set the enabled state
@@ -94,24 +113,12 @@ namespace DE
 		void Render();
 
 		/**
-		* Call when a left click occurred
+		* Perform a hit test, checking if the point is inside in the the subview or in this view
+		* The test is exclusive, only 1 view can succeed in the hit test
+		* @param point The point to test in screen coordinate
+		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		void LeftClick();
-
-		/**
-		* Call when a right click occurred
-		*/
-		void RightClick();
-
-		/**
-		* Call when a left unclick occurred
-		*/
-		void LeftClickRelease();
-
-		/**
-		* Call when a right unclick occurred
-		*/
-		void RightClickRelease();
+		const bool HitTest(const CVector2I & point);
 
 		/**
 		* Check if the button is enabled

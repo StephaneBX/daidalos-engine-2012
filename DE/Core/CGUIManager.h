@@ -35,6 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Core/CSingletonManager.h"
 #include "../GUI/IGUIView.h"
+#include "../GUI/IGUICursor.h"
 
 namespace DE
 {
@@ -51,6 +52,7 @@ namespace DE
 		DeclarationPtr m_declaration;
 		CShaderProgram m_shaderProgram;
 		IGUIView m_mainView;
+		IGUICursor m_cursor;
 
 	public:
 		/**
@@ -74,6 +76,18 @@ namespace DE
 		* @param element The gui element
 		*/
 		void RemoveFromMainView(IGUIView * element);
+
+		/**
+		* Set the cursor visibility
+		* @param visible If the cursor is visible
+		*/
+		void SetCursorVisible(const bool visible);
+
+		/**
+		* Set the cursor texture
+		* @param texture The cursor texture
+		*/
+		void SetCursorTexture(const std::string & texture);
 
 		/**
 		* Render the gui
