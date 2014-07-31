@@ -53,8 +53,10 @@
     <ClInclude Include="Core\Utility\CVector2.h" />
     <ClInclude Include="Core\Utility\CVector3.h" />
     <ClInclude Include="Core\Utility\CVector4.h" />
+    <ClInclude Include="GUI\CGUICheckbox.h" />
     <ClInclude Include="GUI\CGUICursor.h" />
     <ClInclude Include="GUI\CGUIButton.h" />
+    <ClInclude Include="GUI\CGUIPanel.h" />
     <ClInclude Include="Gui\IGUIView.h" />
     <ClInclude Include="Gui\CGUILabel.h" />
     <ClInclude Include="GUI\Listeners\IGUIButtonListener.h" />
@@ -162,8 +164,10 @@
     <ClCompile Include="Core\Utility\CFPSCounter.cpp" />
     <ClCompile Include="Core\Utility\CImage.cpp" />
     <ClCompile Include="Core\Utility\CTokenizer.cpp" />
+    <ClCompile Include="GUI\CGUICheckbox.cpp" />
     <ClCompile Include="GUI\CGUICursor.cpp" />
     <ClCompile Include="GUI\CGUIButton.cpp" />
+    <ClCompile Include="GUI\CGUIPanel.cpp" />
     <ClCompile Include="Gui\IGUIView.cpp" />
     <ClCompile Include="Gui\CGUILabel.cpp" />
     <ClCompile Include="Loaders\CFontLoader.cpp" />

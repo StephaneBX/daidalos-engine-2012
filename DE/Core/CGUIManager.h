@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IDeclaration.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CSingletonManager.h"
-#include "../GUI/IGUIView.h"
+#include "../GUI/CGUIPanel.h"
 #include "../GUI/CGUICursor.h"
 
 namespace DE
@@ -51,7 +51,7 @@ namespace DE
 		IRenderer * m_renderer;
 		DeclarationPtr m_declaration;
 		CShaderProgram m_shaderProgram;
-		IGUIView m_mainView;
+		std::unique_ptr<CGUIPanel> m_mainView;
 		CGUICursor m_cursor;
 
 	public:

@@ -4,9 +4,6 @@
 [Inputs]
 - Position dépendant scale
 
-[Portabilité]
-- Rendre COGLRenderer portable
-
 [Arbre BSP]
 - Bug collision lors du chargement / faible fps
 - Ajout objets en mouvement?

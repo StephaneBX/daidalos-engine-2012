@@ -29,14 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
-	IGUIView::IGUIView()
-	{
-		this->m_changed = false;
-		this->m_visible = true;
-		this->m_hitTest = false;
-		this->m_parent = nullptr;
-	}
-
 	IGUIView::~IGUIView()
 	{
 		if(this->m_parent != nullptr)
@@ -104,8 +96,9 @@ namespace DE
 
 	void IGUIView::SetBounds(const CRectangleI & bounds)
 	{
-		SetPosition(CVector2I(bounds.GetLeft(), bounds.GetBottom()));
+		SetPosition(CVector2I(bounds.GetLeft(), bounds.GetTop()));
 		SetPreferredSize(CVector2I(bounds.GetWidth(), bounds.GetHeight()));
+		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
 	void IGUIView::SetParent(IGUIView * parent)
@@ -197,6 +190,14 @@ namespace DE
 			return this->m_boundingRectangle + this->m_parent->GetAbsolutePosition();
 		}
 		return m_boundingRectangle;
+	}
+
+	IGUIView::IGUIView()
+	{
+		this->m_changed = false;
+		this->m_visible = true;
+		this->m_hitTest = false;
+		this->m_parent = nullptr;
 	}
 
 	IGUIView::IGUIView(const IGUIView & copy)

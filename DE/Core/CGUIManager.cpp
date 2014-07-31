@@ -31,6 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	#define GUI_SHADER_PROGRAM_NAME "gui"
+
 	CGUIManager::~CGUIManager() {}
 
 	void CGUIManager::Initialize()
@@ -47,17 +49,21 @@ namespace DE
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(guiDecl);
 
 		// Shader program used for gui rendering
-		this->m_shaderProgram.LoadFromFile("gui");
+		this->m_shaderProgram.LoadFromFile(GUI_SHADER_PROGRAM_NAME);
+
+		// Create the main view
+		this->m_mainView = std::unique_ptr<CGUIPanel>(new CGUIPanel());
+		this->m_mainView->SetBounds(CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
 	}
 
 	void CGUIManager::AddToMainView(IGUIView * element)
 	{
-		this->m_mainView.AddSubview(element);
+		this->m_mainView->AddSubview(element);
 	}
 
 	void CGUIManager::RemoveFromMainView(IGUIView * element)
 	{
-		this->m_mainView.RemoveSubview(element);
+		this->m_mainView->RemoveSubview(element);
 	}
 
 	void CGUIManager::SetCursorVisible(const bool visible)
@@ -76,10 +82,10 @@ namespace DE
 		this->m_cursor.Update();
 
 		// Update the elements
-		this->m_mainView.Update();
+		this->m_mainView->Update();
 
 		// Hit test
-		this->m_mainView.HitTest(this->m_cursor.GetPosition());
+		this->m_mainView->HitTest(this->m_cursor.GetPosition());
 
 		// Global data for all elements
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
@@ -87,7 +93,7 @@ namespace DE
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_proj);
 
 		// Draw all the elements
-		this->m_mainView.Render();
+		this->m_mainView->Render();
 
 		// Draw the cursor
 		if(this->m_cursor.IsVisible())

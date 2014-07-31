@@ -67,11 +67,6 @@ namespace DE
 
 	public:
 		/**
-		* Constructor
-		*/
-		IGUIView();
-
-		/**
 		* Destructor
 		*/
 		virtual ~IGUIView();
@@ -208,6 +203,11 @@ namespace DE
 		const CRectangleI GetAbsoluteBoundingRectangle() const;
 
 	protected:
+		/**
+		* Constructor
+		*/
+		IGUIView();
+
 		/**
 		* Constructor
 		* @param copy The element to copy
