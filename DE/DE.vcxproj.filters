@@ -468,26 +468,20 @@
     <ClInclude Include="Gui\IGUIView.h">
       <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Gui\IGUILabel.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Core\Utility\CInset.h">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Gui\CGUILabel.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\IGUIButton.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="GUI\Listeners\IGUIButtonListener.h">
+      <Filter>Fichiers d%27en-tête\GUI\Listeners</Filter>
     </ClInclude>
     <ClInclude Include="GUI\CGUIButton.h">
       <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Utility\CInset.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI\IGUICursor.h">
+    <ClInclude Include="GUI\CGUICursor.h">
       <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\Listeners\IGUIButtonListener.h">
-      <Filter>Fichiers d%27en-tête\GUI\Listeners</Filter>
+    <ClInclude Include="Gui\CGUILabel.h">
+      <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -779,19 +773,13 @@
     <ClCompile Include="Gui\IGUIView.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Gui\IGUILabel.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui\CGUILabel.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GUI\IGUIButton.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="GUI\CGUIButton.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\IGUICursor.cpp">
+    <ClCompile Include="GUI\CGUICursor.cpp">
+      <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\CGUILabel.cpp">
       <Filter>Fichiers sources\GUI</Filter>
     </ClCompile>
   </ItemGroup>

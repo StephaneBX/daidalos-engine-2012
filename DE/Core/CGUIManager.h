@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Core/CSingletonManager.h"
 #include "../GUI/IGUIView.h"
-#include "../GUI/IGUICursor.h"
+#include "../GUI/CGUICursor.h"
 
 namespace DE
 {
@@ -52,7 +52,7 @@ namespace DE
 		DeclarationPtr m_declaration;
 		CShaderProgram m_shaderProgram;
 		IGUIView m_mainView;
-		IGUICursor m_cursor;
+		CGUICursor m_cursor;
 
 	public:
 		/**

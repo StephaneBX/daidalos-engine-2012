@@ -160,12 +160,12 @@ namespace SAMPLES
 		DE::CGUIManager::GetInstance()->SetCursorVisible(true);
 
 		this->m_positionText.SetBounds(DE::CRectangleI(5,0,200,30));
-		this->m_positionText.SetSize(25);
+		this->m_positionText.SetSize(26);
 		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
 		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_positionText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_positionText.SetText("Position");
-		DE::CGUIManager::GetInstance()->AddToMainView(this->m_positionText.GetGUIElement());
+		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_positionText);
 
 		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150),0,150,30));
 		this->m_fpsText.SetSize(30);
@@ -173,7 +173,7 @@ namespace SAMPLES
 		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_fpsText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_fpsText.SetText("FPS");
-		DE::CGUIManager::GetInstance()->AddToMainView(this->m_fpsText.GetGUIElement());
+		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_fpsText);
 
 
 		// Button test
@@ -182,13 +182,13 @@ namespace SAMPLES
 		this->m_button.SetClickedTexture("button2.png");
 		this->m_button.SetBounds(DE::CRectangleI(100,200,350,100));
 		this->m_button.SetImageInset(DE::CInsetF(0.2f, 0.2f, 0.2f, 0.2f));
-		this->m_button.SetTitle("Texte de test");
+		this->m_button.GetTitleElement()->SetText("Texte de test");
 		this->m_button.SetDefaultTitleColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
 		this->m_button.SetClickedTitleColor(DE::CColor(0.0f, 0.0f, 0.0f, 1.0f));
 		this->m_button.SetFocusedTitleColor(DE::CColor(1.0f, 0.5f, 0.5f, 1.0f));
-		this->m_button.SetTitleSize(40);
-		this->m_button.SetTitleVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
-		DE::CGUIManager::GetInstance()->AddToMainView(this->m_button.GetGUIElement());
+		this->m_button.GetTitleElement()->SetSize(40);
+		this->m_button.GetTitleElement()->SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_button);
 	}
 
 	ISampleApplication::~ISampleApplication() 

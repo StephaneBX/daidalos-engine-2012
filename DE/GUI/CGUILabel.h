@@ -28,54 +28,36 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CGUILABEL_H
 #define __CGUILABEL_H
 
-#include "../GUI/IGUILabel.h"
+#include <string>
+#include <set>
+#include "../Medias/CFont.h"
+#include "../Core/Utility/CColor.h"
+#include "../Core/Enums.h"
+#include "../GUI/IGUIView.h"
 
 namespace DE
 {
 	/**
-	* Gui label enclosing class
+	* Basic class for gui text
 	*/
-	class CGUILabel
+	class CGUILabel : public IGUIView
 	{
 	private:
-		IGUILabel * m_text;
+		unsigned int m_size;
+		float m_scale;
+		CFont m_font;
+		std::string m_text;
+		CColor m_color;
+		ETextHorizontalAlignment m_horizontalAlignment;
+		ETextVerticalAlignment m_verticalAlignment;
 
 	public:
 		/**
 		* Constructor
 		* @param text The text
-		* @param font The font to use
+		* @param font The font name
 		*/
 		CGUILabel(const std::string & text = "", const std::string & font = "arial.fnt");
-
-		/**
-		* Destructor
-		*/
-		~CGUILabel();
-
-		/**
-		* Set the visible value
-		* @param visible The visible value
-		*/
-		void SetVisible(const bool visible);
-
-		/**
-		* Set the position
-		* @param position The position
-		*/
-		void SetPosition(const CVector2I & position);
-
-		/**
-		* Set the preferred size
-		* @param size The preferred size
-		*/
-		void SetPreferredSize(const CVector2I & size);
-
-		/**
-		* Set the bounds (position + preferred size)
-		* @param bounds The bounds
-		*/
-		void SetBounds(const CRectangleI & bounds);
 
 		/**
 		* Set the font
@@ -114,6 +96,16 @@ namespace DE
 		void SetColor(const CColor & color);
 
 		/**
+		* Update the text geometry
+		*/
+		void Update();
+
+		/**
+		* Render the text
+		*/
+		void Render();
+
+		/**
 		* Get the horizontal alignment
 		* @return The horizontal alignment
 		*/
@@ -124,25 +116,6 @@ namespace DE
 		* @return The vertical alignment
 		*/
 		ETextVerticalAlignment GetVerticalAlignment() const;
-
-		/**
-		* Get the changed value
-		* @return The changed value
-		*/
-		const bool IsChanged() const;
-
-		/**
-		* Get the visible value
-		* @return The visible value
-		*/
-		const bool IsVisible() const;
-
-		/**
-		* Check if a point is inside the gui
-		* @param point The point to test
-		* @return True if the point is inside the gui
-		*/
-		const bool IsInside(const CVector2I & point) const;
 
 		/**
 		* Get the text size
@@ -163,41 +136,24 @@ namespace DE
 		const std::string & GetText() const;
 
 		/**
-		* Get the position
-		* @return The position
-		*/
-		const CVector2I & GetPosition() const;
-
-		/**
-		* Get the preferred size
-		* @return The preferred size
-		*/
-		const CVector2I & GetPreferredSize() const;
-
-		/**
-		* Get the bounding rectangle
-		* @return The bounding rectangle
-		*/
-		const CRectangleI & GetBoundingRectangle() const;
-
-		/**
 		* Get the color
 		* @return The color
 		*/
 		const CColor & GetColor() const;
 
+	private:
 		/**
-		* = operator override
-		* @param copy A CGUIText element copy
-		* @return The CGUIText
+		* Generate the text geometry
 		*/
-		const CGUILabel & operator=(const CGUILabel & copy);
+		void GenerateTextGeometry();
 
 		/**
-		* Get the GUI element
-		* @return the GUI element
+		* Check the word placement regarding the preferred size and move it to the next line if necessary
+		* @param wordStartAt The index of the word in th data
+		* @param cursor The current cursor position
+		* @param lineStart The index of each line in the data
 		*/
-		IGUILabel * GetGUIElement() const;
+		const bool CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart);
 	};
 }
 

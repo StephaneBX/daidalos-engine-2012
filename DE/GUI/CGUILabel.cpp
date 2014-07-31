@@ -25,139 +25,306 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/IRenderer.h"
+#include "../Core/Memory/CExceptionAssert.h"
 #include "../GUI/CGUILabel.h"
 
 namespace DE
 {
 	CGUILabel::CGUILabel(const std::string & text, const std::string & font)
 	{
-		this->m_text = new IGUILabel(text, font);
-	}
+		SetText(text);
+		SetFont(font);
+		SetColor(CColor(0xFFFFFFFF));
 
-	CGUILabel::~CGUILabel()
-	{
-		this->m_text->RemoveFromParentView();
-		delete this->m_text;
-	}
-
-	void CGUILabel::SetVisible(const bool visible)
-	{
-		this->m_text->SetVisible(visible);
-	}
-
-	void CGUILabel::SetPosition(const CVector2I & position)
-	{
-		this->m_text->SetPosition(position);
-	}
-
-	void CGUILabel::SetPreferredSize(const CVector2I & size)
-	{
-		this->m_text->SetPreferredSize(size);
-	}
-
-	void CGUILabel::SetBounds(const CRectangleI & bounds)
-	{
-		this->m_text->SetBounds(bounds);
+		this->m_horizontalAlignment = TEXT_HORIZONTAL_ALIGNMENT_CENTERED;
+		this->m_verticalAlignment = TEXT_VERTICAL_ALIGNMENT_TOP;
+		this->m_size = 12;
 	}
 
 	void CGUILabel::SetFont(const std::string & font)
 	{
-		this->m_text->SetFont(font);
+		this->m_font.LoadFromFile(font);
+		this->m_scale = this->m_size / (float)this->m_font.GetSize();
+		this->m_changed = true;
 	}
 
 	void CGUILabel::SetText(const std::string & text)
 	{
-		this->m_text->SetText(text);
+		this->m_text = text;
+		this->m_changed = true;
 	}
 
 	void CGUILabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
 	{
-		this->m_text->SetHorizontalAlignment(alignment);
+		this->m_horizontalAlignment = alignment;
+		this->m_changed = true;
 	}
 
 	void CGUILabel::SetVerticalAlignment(ETextVerticalAlignment alignment)
 	{
-		this->m_text->SetVerticalAlignment(alignment);
+		this->m_verticalAlignment = alignment;
+		this->m_changed = true;
 	}
 
 	void CGUILabel::SetSize(const unsigned int size)
 	{
-		this->m_text->SetSize(size);
+		this->m_size = size;
+		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 	}
 
 	void CGUILabel::SetColor(const CColor & color)
 	{
-		this->m_text->SetColor(color);
+		this->m_color = color;
+		this->m_changed = true;
+	}
+
+	void CGUILabel::Update()
+	{
+		if(this->m_changed)
+		{
+			IRenderer * renderer = IRenderer::GetRenderer();
+
+			GenerateTextGeometry();
+
+			if(this->m_data.size() > 0)
+			{
+				// Create a new buffer if the current one is too small
+				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
+					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+
+				// Lock and copy the data
+				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
+					memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
+				this->m_buffer.Unlock();
+			}
+		}
+
+		// Update the subviews
+		IGUIView::Update();
+	}
+
+	void CGUILabel::Render()
+	{
+		if(this->m_data.size() > 0)
+		{
+			IRenderer * renderer = IRenderer::GetRenderer();
+			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			Assert(shaderProgram != nullptr);
+
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
+
+			renderer->SetTexture(0, this->m_font.GetTexture().GetTexture());
+			renderer->SetTexture(1, nullptr);
+			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));
+			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+		}
+
+		// Render the subviews
+		IGUIView::Render();
 	}
 
 	ETextHorizontalAlignment CGUILabel::GetHorizontalAlignment() const
 	{
-		return this->m_text->GetHorizontalAlignment();
+		return this->m_horizontalAlignment;
 	}
 
 	ETextVerticalAlignment CGUILabel::GetVerticalAlignment() const
 	{
-		return this->m_text->GetVerticalAlignment();
-	}
-
-	const bool CGUILabel::IsChanged() const
-	{
-		return this->m_text->IsChanged();
-	}
-
-	const bool CGUILabel::IsVisible() const
-	{
-		return this->m_text->IsVisible();
-	}
-
-	const bool CGUILabel::IsInside(const CVector2I & point) const
-	{
-		return this->m_text->IsInside(point);
+		return this->m_verticalAlignment;
 	}
 
 	const unsigned int CGUILabel::GetSize() const
 	{
-		return this->m_text->GetSize();
+		return this->m_size;
 	}
 
 	const std::string & CGUILabel::GetFontName() const
 	{
-		return this->m_text->GetFontName();
+		return this->m_font.GetFontName();
 	}
 
 	const std::string & CGUILabel::GetText() const
 	{
-		return this->m_text->GetText();
-	}
-
-	const CVector2I & CGUILabel::GetPosition() const
-	{
-		return this->m_text->GetPosition();
-	}
-
-	const CVector2I & CGUILabel::GetPreferredSize() const
-	{
-		return this->m_text->GetPreferredSize();
-	}
-
-	const CRectangleI & CGUILabel::GetBoundingRectangle() const
-	{
-		return this->m_text->GetBoundingRectangle();
+		return this->m_text;
 	}
 
 	const CColor & CGUILabel::GetColor() const
 	{
-		return this->m_text->GetColor();
+		return this->m_color;
 	}
 
-	const CGUILabel & CGUILabel::operator=(const CGUILabel & copy)
+	void CGUILabel::GenerateTextGeometry()
 	{
-		*this->m_text = *copy.GetGUIElement();
-		return *this;
+		this->m_data.clear();
+
+		std::set<unsigned int> lineStart;
+		lineStart.insert(0);
+		CVector2I cursor;
+		unsigned char currentCharacter;
+		unsigned int lastWordStartAt = 0;
+
+		for(unsigned int i = 0 ; i < this->m_text.length() ; ++i)
+		{
+			switch(this->m_text[i])
+			{
+			case '\n':
+
+				// End of a word, check its placement
+				if(this->m_data.size() > 0)
+				{
+					if(CheckWordPlacement(lastWordStartAt, cursor, lineStart))
+						break;
+				}
+
+				// If it's not the end of the text
+				if((i + 1) < this->m_text.length())
+				{
+					lastWordStartAt = this->m_data.size();
+					cursor.x = 0;
+					cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+
+					// If a preferred height has been set and the text is too high, stop here
+					if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y)
+						break;
+
+					lineStart.insert(this->m_data.size());
+				}
+				continue;
+
+			case '\t':
+			case ' ':
+				currentCharacter = ' ';
+
+				// End of a word, check its placement
+				if(CheckWordPlacement(lastWordStartAt, cursor, lineStart))
+					break;
+
+				lastWordStartAt = this->m_data.size();
+				break;
+
+			default:
+				currentCharacter = this->m_text[i];
+				break;
+			}
+
+			// Create the geometry
+			const SCharDescriptor * descriptor = this->m_font.GetCharDescriptor(currentCharacter);
+
+			// Check the character compatibility with the font
+			if(descriptor != nullptr)
+			{
+				// No need to create geometry for ' '
+				if(currentCharacter != ' ')
+				{
+					CRectangleF coord = descriptor->coordinates;
+					CRectangleI pos = CRectangleI((int)(descriptor->position.GetLeft() * this->m_scale), (int)(descriptor->position.GetTop() * this->m_scale), (int)(descriptor->position.GetWidth() * this->m_scale), (int)(descriptor->position.GetHeight() * this->m_scale)) + cursor;
+
+					// Add the geometry
+					std::vector<SGUIData> data = GenerateQuad(pos, coord);
+					this->m_data.insert(this->m_data.end(), data.begin(), data.end());
+				}
+
+				// Advance the cursor
+				cursor.x += (int)(descriptor->xadvance * this->m_scale);
+			}
+		}
+
+		CVector2F boundingBoxMin, boundingBoxMax;
+
+		// Final calculation if there is a geometry 
+		if(this->m_data.size() > 0)
+		{
+			// Last word, check its placement
+			CheckWordPlacement(lastWordStartAt, cursor, lineStart);
+
+			// Perform alignment calculation
+			int verticalDecal = 0;
+			int horizontalDecal = 0;
+			switch(this->m_verticalAlignment)
+			{
+			case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
+				verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
+				break;
+
+			case TEXT_VERTICAL_ALIGNMENT_CENTERED:
+				verticalDecal = (int)(this->m_preferredsize.y -  this->m_data[this->m_data.size() - 1].position.y) / 2;
+				break;
+			}
+
+			boundingBoxMin.x = this->m_data[0].position.x;
+			boundingBoxMin.y = this->m_data[0].position.y;
+			boundingBoxMax.x = this->m_data[this->m_data.size() - 1].position.x;
+			boundingBoxMax.y = this->m_data[this->m_data.size() - 1].position.y;
+
+			// Update each line
+			for(auto it = lineStart.begin() ; it != lineStart.end() ; ++it)
+			{
+				unsigned int lineEnd = this->m_data.size() - 1;
+				auto next = it;
+				++next;
+
+				if(next != lineStart.end())
+					lineEnd = (*next - 1);
+
+				switch(this->m_horizontalAlignment)
+				{
+				case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
+					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
+					break;
+
+				case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
+					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
+					break;
+				}
+
+				for(unsigned int j = *it ; j <= lineEnd ; ++j)
+				{
+					// Apply horizontal and vertical alignment
+					this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
+					this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
+
+					// Get the min and max x value for the bounding box
+					boundingBoxMin.x = std::min(boundingBoxMin.x, this->m_data[j].position.x);
+					boundingBoxMax.x = std::max(boundingBoxMax.x, this->m_data[j].position.x);
+				}
+			}
+		}
+
+		// Final bounding box calculation
+		this->m_boundingRectangle = CRectangleI((int)boundingBoxMin.x + this->m_position.x, (int)boundingBoxMin.y + this->m_position.y, (int)(boundingBoxMax.x - boundingBoxMin.x), (int)(boundingBoxMax.y - boundingBoxMin.y));
+
+		this->m_changed = false;
 	}
 
-	IGUILabel * CGUILabel::GetGUIElement() const
+	const bool CGUILabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart)
 	{
-		return this->m_text;
+		// If a preferred width has been set and the line is too long for the last word
+		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x)
+		{
+			float decal = this->m_data[wordStartAt].position.x;
+			cursor.x -= (int)decal;
+			cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+
+			// If a preferred height has been set and the text is too high, stop here and remove the word
+			if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y)
+			{
+				this->m_data.erase(this->m_data.begin() + wordStartAt, this->m_data.end());
+				return true;
+			}
+
+			// Add a line
+			lineStart.insert(wordStartAt);
+
+			// Replace the last word at the beginning of the next line
+			for(unsigned int j = wordStartAt ; j < this->m_data.size() ; ++j)
+			{
+				this->m_data[j].position.x -= decal;
+				this->m_data[j].position.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+			}
+		}
+
+		return false;
 	}
 }

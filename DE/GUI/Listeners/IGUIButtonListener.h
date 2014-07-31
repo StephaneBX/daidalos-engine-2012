@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
-	class IGUIButton;
+	class CGUIButton;
 
 	/**
 	* GUI button listener interface.
@@ -44,7 +44,7 @@ namespace DE
 		* Called when the button is clicked
 		* @param button The button that trigger the action
 		*/
-		virtual void OnButtonClicked(IGUIButton * button) = 0;
+		virtual void OnButtonClicked(CGUIButton * button) = 0;
 	};
 }
 

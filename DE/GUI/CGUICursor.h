@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __IGUICURSOR_H
-#define __IGUICURSOR_H
+#ifndef __CGUICURSOR_H
+#define __CGUICURSOR_H
 
 #include "../GUI/IGUIView.h"
 #include "../Medias/CTexture2D.h"
@@ -36,7 +36,7 @@ namespace DE
 	/**
 	* Basic class for gui cursor
 	*/
-	class IGUICursor : public IGUIView
+	class CGUICursor : public IGUIView
 	{
 	private:
 		CTexture2D m_texture;
@@ -46,7 +46,7 @@ namespace DE
 		* Constructor
 		* @param texture The texture name
 		*/
-		IGUICursor(const std::string & texture = "");
+		CGUICursor(const std::string & texture = "");
 
 		/**
 		* Set the texture

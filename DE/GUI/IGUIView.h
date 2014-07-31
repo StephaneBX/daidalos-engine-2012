@@ -72,6 +72,11 @@ namespace DE
 		IGUIView();
 
 		/**
+		* Destructor
+		*/
+		virtual ~IGUIView();
+
+		/**
 		* Update the text geometry
 		*/
 		virtual void Update();

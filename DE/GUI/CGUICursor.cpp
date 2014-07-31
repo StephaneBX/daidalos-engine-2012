@@ -28,11 +28,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Core/CInputDevice.h"
-#include "../GUI/IGUICursor.h"
+#include "../GUI/CGUICursor.h"
 
 namespace DE
 {
-	IGUICursor::IGUICursor(const std::string & texture)
+	CGUICursor::CGUICursor(const std::string & texture)
 	{
 		this->m_changed = true;
 
@@ -43,7 +43,7 @@ namespace DE
 		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, DE::INPUT_KEY_MOUSE_BUTTON0);
 	}
 
-	void IGUICursor::SetTexture(const std::string & texture)
+	void CGUICursor::SetTexture(const std::string & texture)
 	{
 		if(texture != "")
 		{
@@ -57,7 +57,7 @@ namespace DE
 		}
 	}
 
-	void IGUICursor::Update()
+	void CGUICursor::Update()
 	{
 		UpdatePosition();
 
@@ -81,7 +81,7 @@ namespace DE
 		IGUIView::Update();
 	}
 
-	void IGUICursor::Render()
+	void CGUICursor::Render()
 	{
 		if(this->m_data.size() > 0)
 		{
@@ -102,7 +102,7 @@ namespace DE
 		IGUIView::Render();
 	}
 
-	void IGUICursor::UpdatePosition()
+	void CGUICursor::UpdatePosition()
 	{
 		IRenderer * renderer = IRenderer::GetRenderer();
 

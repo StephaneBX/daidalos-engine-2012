@@ -37,6 +37,14 @@ namespace DE
 		this->m_parent = nullptr;
 	}
 
+	IGUIView::~IGUIView()
+	{
+		if(this->m_parent != nullptr)
+		{
+			RemoveFromParentView();
+		}
+	}
+
 	void IGUIView::Update()
 	{
 		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)

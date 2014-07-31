@@ -28,22 +28,37 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CGUIBUTTON_H
 #define __CGUIBUTTON_H
 
-#include "../GUI/IGUIButton.h"
+#include <set>
+#include "../GUI/IGUIView.h"
+#include "../GUI/CGUILabel.h"
+#include "../GUI/Listeners/IGUIButtonListener.h"
+#include "../Core/Utility/CInset.h"
+#include "../Medias/CTexture2D.h"
 
 namespace DE
 {
 	/**
-	* Gui button enclosing class
+	* Basic class for gui button
 	*/
-	class CGUIButton
+	class CGUIButton : public IGUIView
 	{
 	private:
-		IGUIButton * m_button;
+		bool m_enabled;
+		bool m_clicked;
+		CInsetF m_imageInset;
+		CTexture2D m_defaultTexture;
+		CTexture2D m_focusedTexture;
+		CTexture2D m_clickedTexture;
+		std::set<IGUIButtonListener *> m_buttonListeners;
+		CGUILabel *  m_title;
+		CColor m_defaultTitleColor;
+		CColor m_clickedTitleColor;
+		CColor m_focusedTitleColor;
 
 	public:
 		/**
 		* Constructor
-		* @param texture The default Texture
+		* @param texture The texture name
 		*/
 		CGUIButton(const std::string & texture = "");
 
@@ -70,34 +85,10 @@ namespace DE
 		void RemoveAllButtonListeners();
 
 		/**
-		* Set the visible value
-		* @param visible The visible value
-		*/
-		void SetVisible(const bool visible);
-
-		/**
 		* Set the enabled state
 		* @param enabled The enabled state
 		*/
 		void SetEnabled(const bool enabled);
-
-		/**
-		* Set the position
-		* @param position The position
-		*/
-		void SetPosition(const CVector2I & position);
-
-		/**
-		* Set the preferred size
-		* @param size The preferred size
-		*/
-		void SetPreferredSize(const CVector2I & size);
-
-		/**
-		* Set the bounds (position + preferred size)
-		* @param bounds The bounds
-		*/
-		void SetBounds(const CRectangleI & bounds);
 
 		/**
 		* Set the image inset
@@ -122,36 +113,6 @@ namespace DE
 		void SetFocusedTexture(const std::string & texture);
 
 		/**
-		* Set the title font
-		* @param font The font name
-		*/
-		void SetTitleFont(const std::string & font);
-
-		/**
-		* Set the title
-		* @param text The text
-		*/
-		void SetTitle(const std::string & text);
-
-		/**
-		* Set the title horizontal alignment
-		* @param alignment The horizontal alignment
-		*/
-		void SetTitleHorizontalAlignment(ETextHorizontalAlignment alignment);
-
-		/**
-		* Set the title vertical alignment
-		* @param alignment The vertical alignment
-		*/
-		void SetTitleVerticalAlignment(ETextVerticalAlignment alignment);
-
-		/**
-		* Set the title size
-		* @param size The size
-		*/
-		void SetTitleSize(const unsigned int size);
-
-		/**
 		* Set the default title color
 		* @param color The color
 		*/
@@ -168,18 +129,23 @@ namespace DE
 		*/
 		void SetFocusedTitleColor(const CColor & color);
 
+		/**
+		* Update the state and the geometry
+		*/
+		void Update();
 
 		/**
-		* Get the changed value
-		* @return The changed value
+		* Render the button
 		*/
-		const bool IsChanged() const;
+		void Render();
 
 		/**
-		* Get the visible value
-		* @return The visible value
+		* Perform a hit test, checking if the point is inside in the the subview or in this view
+		* The test is exclusive, only 1 view can succeed in the hit test
+		* @param point The point to test in screen coordinate
+		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		const bool IsVisible() const;
+		const bool HitTest(const CVector2I & point);
 
 		/**
 		* Check if the button is enabled
@@ -188,42 +154,26 @@ namespace DE
 		const bool IsEnabled() const;
 
 		/**
-		* Check if a point is inside the gui
-		* @param point The point to test
-		* @return True if the point is inside the gui
+		* Get the title
+		* @return The title
 		*/
-		const bool IsInside(const CVector2I & point) const;
+		CGUILabel * GetTitleElement();
+
+	private:
+		/**
+		* Generate the geometry
+		*/
+		void GenerateGeometry();
 
 		/**
-		* Get the position
-		* @return The position
+		* Set the title color
 		*/
-		const CVector2I & GetPosition() const;
+		void SetTitleColor();
 
 		/**
-		* Get the preferred size
-		* @return The preferred size
+		* Get the texture to used for rendering
 		*/
-		const CVector2I & GetPreferredSize() const;
-
-		/**
-		* Get the bounding rectangle
-		* @return The bounding rectangle
-		*/
-		const CRectangleI & GetBoundingRectangle() const;
-
-		/**
-		* = operator override
-		* @param copy A CGUIText element copy
-		* @return The CGUIText
-		*/
-		const CGUIButton & operator=(const CGUIButton & copy);
-
-		/**
-		* Get the GUI element
-		* @return the GUI element
-		*/
-		IGUIButton * GetGUIElement() const;
+		ITexture2DBase * GetTextureToRender();
 	};
 }
 
