@@ -239,55 +239,58 @@ namespace DE
 			// Last word, check its placement
 			CheckWordPlacement(lastWordStartAt, cursor, lineStart);
 
-			// Perform alignment calculation
-			int verticalDecal = 0;
-			int horizontalDecal = 0;
-			switch(this->m_verticalAlignment)
+			if(this->m_data.size() > 0)
 			{
-			case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
-				verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
-				break;
-
-			case TEXT_VERTICAL_ALIGNMENT_CENTERED:
-				verticalDecal = (int)(this->m_preferredsize.y -  this->m_data[this->m_data.size() - 1].position.y) / 2;
-				break;
-			}
-
-			boundingBoxMin.x = this->m_data[0].position.x;
-			boundingBoxMin.y = this->m_data[0].position.y;
-			boundingBoxMax.x = this->m_data[this->m_data.size() - 1].position.x;
-			boundingBoxMax.y = this->m_data[this->m_data.size() - 1].position.y;
-
-			// Update each line
-			for(auto it = lineStart.begin() ; it != lineStart.end() ; ++it)
-			{
-				unsigned int lineEnd = this->m_data.size() - 1;
-				auto next = it;
-				++next;
-
-				if(next != lineStart.end())
-					lineEnd = (*next - 1);
-
-				switch(this->m_horizontalAlignment)
+				// Perform alignment calculation
+				int verticalDecal = 0;
+				int horizontalDecal = 0;
+				switch(this->m_verticalAlignment)
 				{
-				case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
-					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
+				case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
+					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
 					break;
 
-				case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
-					horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
+				case TEXT_VERTICAL_ALIGNMENT_CENTERED:
+					verticalDecal = (int)(this->m_preferredsize.y -  this->m_data[this->m_data.size() - 1].position.y) / 2;
 					break;
 				}
 
-				for(unsigned int j = *it ; j <= lineEnd ; ++j)
-				{
-					// Apply horizontal and vertical alignment
-					this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
-					this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
+				boundingBoxMin.x = this->m_data[0].position.x;
+				boundingBoxMin.y = this->m_data[0].position.y;
+				boundingBoxMax.x = this->m_data[this->m_data.size() - 1].position.x;
+				boundingBoxMax.y = this->m_data[this->m_data.size() - 1].position.y;
 
-					// Get the min and max x value for the bounding box
-					boundingBoxMin.x = std::min(boundingBoxMin.x, this->m_data[j].position.x);
-					boundingBoxMax.x = std::max(boundingBoxMax.x, this->m_data[j].position.x);
+				// Update each line
+				for(auto it = lineStart.begin() ; it != lineStart.end() ; ++it)
+				{
+					unsigned int lineEnd = this->m_data.size() - 1;
+					auto next = it;
+					++next;
+
+					if(next != lineStart.end())
+						lineEnd = (*next - 1);
+
+					switch(this->m_horizontalAlignment)
+					{
+					case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
+						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
+						break;
+
+					case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
+						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
+						break;
+					}
+
+					for(unsigned int j = *it ; j <= lineEnd ; ++j)
+					{
+						// Apply horizontal and vertical alignment
+						this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
+						this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
+
+						// Get the min and max x value for the bounding box
+						boundingBoxMin.x = std::min(boundingBoxMin.x, this->m_data[j].position.x);
+						boundingBoxMax.x = std::max(boundingBoxMax.x, this->m_data[j].position.x);
+					}
 				}
 			}
 		}

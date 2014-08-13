@@ -189,6 +189,17 @@ namespace SAMPLES
 		this->m_button.GetTitleElement()->SetSize(40);
 		this->m_button.GetTitleElement()->SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_button);
+
+		// Checkbox test
+		this->m_checkbox.SetUncheckedTexture("checkbox_off.png");
+		this->m_checkbox.SetCheckedTexture("checkbox_on.png");
+		this->m_checkbox.SetClickedTexture("checkbox_clicked.png");
+		this->m_checkbox.SetBounds(DE::CRectangleI(100,400,150,32));
+		this->m_checkbox.SetLabelInset(DE::CInsetI(10, 0, 0, 0));
+		this->m_checkbox.GetLabelElement()->SetText("Test checkbox");
+		this->m_checkbox.GetLabelElement()->SetSize(16);
+		this->m_checkbox.GetLabelElement()->SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_checkbox);
 	}
 
 	ISampleApplication::~ISampleApplication() 

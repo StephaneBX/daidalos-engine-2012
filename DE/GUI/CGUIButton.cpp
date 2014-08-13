@@ -81,7 +81,7 @@ namespace DE
 	{
 		if(texture != "")
 		{
-			this->m_defaultTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
+			this->m_defaultTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		}
 		else
 		{
@@ -93,7 +93,7 @@ namespace DE
 	{
 		if(texture != "")
 		{
-			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
+			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		}
 		else
 		{
@@ -105,7 +105,7 @@ namespace DE
 	{
 		if(texture != "")
 		{
-			this->m_focusedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
+			this->m_focusedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		}
 		else
 		{

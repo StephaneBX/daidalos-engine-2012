@@ -40,6 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CFrameBuffer.h>
 #include <GUI/CGUILabel.h>
 #include <GUI/CGUIButton.h>
+#include <GUI/CGUICheckbox.h>
 #include <Core/Utility/CColor.h>
 #include <Core/Utility/CFPSCounter.h>
 #include <Core/IRenderer.h>
@@ -76,6 +77,7 @@ namespace SAMPLES
 		DE::CGUILabel m_fpsText;
 		DE::CGUILabel m_positionText;
 		DE::CGUIButton m_button;
+		DE::CGUICheckbox m_checkbox;
 
 
 		DE::CFPSCounter m_fpsCounter;

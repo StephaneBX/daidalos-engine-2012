@@ -33,6 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector2.h"
 #include "../Core/Utility/CColor.h"
 #include "../Core/Utility/CRectangle.h"
+#include "../Medias/CTexture2D.h"
 #include "../Medias/CBuffer.h"
 
 namespace DE
@@ -64,6 +65,7 @@ namespace DE
 		CVector2I m_preferredsize;
 		CRectangleI m_boundingRectangle;
 		IGUIView * m_parent;
+		STexture2DFilterPolicy m_textureFilter;
 
 	public:
 		/**

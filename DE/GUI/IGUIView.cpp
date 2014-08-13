@@ -198,6 +198,14 @@ namespace DE
 		this->m_visible = true;
 		this->m_hitTest = false;
 		this->m_parent = nullptr;
+
+		// Default 2D texture filter
+		this->m_textureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.addressU = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_textureFilter.addressV = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_textureFilter.maxAnisotropy = 0;
 	}
 
 	IGUIView::IGUIView(const IGUIView & copy)
