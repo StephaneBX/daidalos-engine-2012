@@ -28,30 +28,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/DX9Global.h"
 #include "../../Renderers/DX9/CDX9RenderTarget.h"
 
-namespace DE
-{
-	CDX9RenderTarget::CDX9RenderTarget(ERenderTargetType type) : IRenderTargetBase(type)
-	{
+namespace DE {
+	CDX9RenderTarget::CDX9RenderTarget(ERenderTargetType type) : IRenderTargetBase(type) {
 		this->m_renderTarget = nullptr;
 	}
 
-	CDX9RenderTarget::CDX9RenderTarget(IDirect3DSurface9 * renderTarget, ERenderTargetType type) : IRenderTargetBase(type)
-	{
+	CDX9RenderTarget::CDX9RenderTarget(IDirect3DSurface9 * renderTarget, ERenderTargetType type) : IRenderTargetBase(type) {
 		this->m_renderTarget = renderTarget;
 	}
 
-	CDX9RenderTarget::~CDX9RenderTarget()
-	{
+	CDX9RenderTarget::~CDX9RenderTarget() {
 		SAFE_RELEASE(this->m_renderTarget);
 	}
 
-	void CDX9RenderTarget::LinkWithTexture(CDX9Texture2D * texture)
-	{
+	void CDX9RenderTarget::LinkWithTexture(CDX9Texture2D * texture) {
 		texture->GetTexture()->GetSurfaceLevel(0, &this->m_renderTarget);
 	}
 
-	IDirect3DSurface9 * CDX9RenderTarget::GetRenderTarget() const
-	{
+	IDirect3DSurface9 * CDX9RenderTarget::GetRenderTarget() const {
 		return this->m_renderTarget;
 	}
 }

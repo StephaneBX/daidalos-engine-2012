@@ -33,19 +33,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionLoad.h"
 #include "../Loaders/CFontLoader.h"
 
-namespace DE
-{
+namespace DE {
 	CFontLoader::CFontLoader() {}
 
 	CFontLoader::~CFontLoader() {}
 
-	IFontBase * CFontLoader::LoadFromFile(const std::string & filename)
-	{
+	IFontBase * CFontLoader::LoadFromFile(const std::string & filename) {
 		SFontInternalData * data = nullptr;
 		tinyxml2::XMLDocument doc;
 		int loadOk = doc.LoadFile(filename.c_str());
-		if(loadOk == tinyxml2::XML_NO_ERROR)
-		{
+		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			data = new SFontInternalData;
 			std::string tmpString;
 			tinyxml2::XMLHandle hDoc(&doc);
@@ -77,8 +74,7 @@ namespace DE
 			* Load the chars
 			*/
 			tinyxml2::XMLElement * character = hDoc.FirstChildElement("font").FirstChildElement("chars").FirstChildElement("char").ToElement();
-			for(character ; character ; character = character->NextSiblingElement())
-			{
+			for(character; character; character = character->NextSiblingElement()) {
 				SCharData charData;
 				character->QueryUnsignedAttribute("id", &charData.id);
 				character->QueryIntAttribute("x", &charData.x);
@@ -96,8 +92,7 @@ namespace DE
 			* Load the kernings
 			*/
 			tinyxml2::XMLElement * kerning = hDoc.FirstChildElement("font").FirstChildElement("kernings").FirstChildElement("kerning").ToElement();
-			for(kerning ; kerning ; kerning = kerning->NextSiblingElement())
-			{
+			for(kerning; kerning; kerning = kerning->NextSiblingElement()) {
 				SKerningPair kerningData;
 				kerning->QueryUnsignedAttribute("first", &kerningData.first);
 				kerning->QueryUnsignedAttribute("second", &kerningData.second);
@@ -105,9 +100,7 @@ namespace DE
 
 				data->charData[kerningData.first].kerning[kerningData.second] = kerningData;
 			}
-		}
-		else
-		{
+		} else {
 			LOG_ERROR("Unable to load the font file '" << filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
 
@@ -117,8 +110,7 @@ namespace DE
 		return new IFontBase(filename, data);
 	}
 
-	void CFontLoader::SaveToFile(const IFontBase * object, const std::string & filename)
-	{
+	void CFontLoader::SaveToFile(const IFontBase * object, const std::string & filename) {
 
 	}
 }

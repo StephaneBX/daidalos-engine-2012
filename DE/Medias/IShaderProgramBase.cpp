@@ -30,18 +30,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/IShaderProgramBase.h"
 
-namespace DE
-{
-	IShaderProgramBase::IShaderProgramBase(const std::string & name) : IResource(name)
-	{
+namespace DE {
+	IShaderProgramBase::IShaderProgramBase(const std::string & name) : IResource(name) {
 		this->m_vertexShader = nullptr;
 		this->m_pixelShader = nullptr;
 
 		SetShader(name);
 	}
 
-	IShaderProgramBase::~IShaderProgramBase()
-	{
+	IShaderProgramBase::~IShaderProgramBase() {
 		if(this->m_vertexShader != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_vertexShader->GetName());
 
@@ -49,8 +46,7 @@ namespace DE
 			CResourceManager::GetInstance()->ReleaseResource(this->m_pixelShader->GetName());
 	}
 
-	void IShaderProgramBase::SetShader(const std::string & name)
-	{
+	void IShaderProgramBase::SetShader(const std::string & name) {
 		this->m_vertexShader = nullptr;
 		this->m_pixelShader = nullptr;
 
@@ -58,228 +54,183 @@ namespace DE
 		Load(this->m_pixelShader, name + ".psh");
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value, size);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value, size);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, value, size);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, vec);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, vec);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, vec);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, vec);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, color);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, color);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, mat);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, mat);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec, size);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, vec, size);
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size)
-	{
-		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0)
-		{
+	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
+		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, mat, size);
 		}
 
-		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0)
-		{
+		if((flags & SHADERPROGRAM_FLAG_PIXEL) != 0) {
 			Assert(this->m_pixelShader);
 			this->m_pixelShader->SetParameter(name, mat, size);
 		}
 	}
 
-	IShaderBase * IShaderProgramBase::GetVertexShader() const
-	{
+	IShaderBase * IShaderProgramBase::GetVertexShader() const {
 		return this->m_vertexShader;
 	}
 
-	IShaderBase * IShaderProgramBase::GetPixelShader() const
-	{
+	IShaderBase * IShaderProgramBase::GetPixelShader() const {
 		return this->m_pixelShader;
 	}
 
-	void IShaderProgramBase::Load(IShaderBase *& shader, const std::string & name)
-	{
+	void IShaderProgramBase::Load(IShaderBase *& shader, const std::string & name) {
 		// Release previously used resource
 		if(shader != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(shader->GetName());
@@ -287,12 +238,10 @@ namespace DE
 		// Check the existence of the resource and load it if necessary
 		IShaderBase * tmp = CResourceManager::GetInstance()->GetResource<IShaderBase>(name);
 
-		if(tmp == nullptr)
-		{
+		if(tmp == nullptr) {
 			shader = CMediaManager::GetInstance()->LoadMediaFromFile<IShaderBase>(name);
 			CResourceManager::GetInstance()->AddResource(name, shader);
-		}
-		else
+		} else
 			shader = tmp;
 	}
 }

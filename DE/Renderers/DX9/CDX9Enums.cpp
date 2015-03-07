@@ -28,8 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3d9.h>
 #include "../../Renderers/DX9/CDX9Enums.h"
 
-namespace DE
-{
+namespace DE {
 	D3DPRIMITIVETYPE CDX9Enums::s_primitiveType[] =
 	{
 		D3DPT_TRIANGLELIST,
@@ -42,7 +41,7 @@ namespace DE
 
 	D3DFORMAT CDX9Enums::s_formatType[] =
 	{
-		D3DFMT_L8, 
+		D3DFMT_L8,
 		D3DFMT_A8L8,
 		D3DFMT_A1R5G5B5,
 		D3DFMT_A4R4G4B4,
@@ -137,90 +136,78 @@ namespace DE
 		D3DCULL_CCW
 	};
 
-	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags)
-	{
+	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
 		unsigned long lockFlags = 0;
 
 		if((flags & BUFFER_DYNAMIC) != 0)
 			lockFlags = D3DUSAGE_DYNAMIC;
 
-		if ((flags & BUFFER_WRITEONLY) != 0)
+		if((flags & BUFFER_WRITEONLY) != 0)
 			lockFlags |= D3DUSAGE_WRITEONLY;
 
 		return lockFlags;
 	}
 
-	const unsigned long CDX9Enums::LockFlags(const unsigned long flags)
-	{
+	const unsigned long CDX9Enums::LockFlags(const unsigned long flags) {
 		unsigned long lockFlags = 0;
 
-		if ((flags & LOCK_READONLY) != 0)
+		if((flags & LOCK_READONLY) != 0)
 			lockFlags = D3DLOCK_READONLY;
 
-		if ((flags & LOCK_WRITEONLY) != 0)
+		if((flags & LOCK_WRITEONLY) != 0)
 			lockFlags = D3DLOCK_DISCARD;
 
 		return lockFlags;
 	}
 
-	const unsigned long CDX9Enums::SurfaceFlags(const unsigned long flags)
-	{
+	const unsigned long CDX9Enums::SurfaceFlags(const unsigned long flags) {
 		unsigned long surfaceFlags = 0;
 
-		if ((flags & SURFACE_TYPE_TARGET) != 0)
+		if((flags & SURFACE_TYPE_TARGET) != 0)
 			surfaceFlags |= D3DCLEAR_TARGET;
 
-		if ((flags & SURFACE_TYPE_DEPTH) != 0)
+		if((flags & SURFACE_TYPE_DEPTH) != 0)
 			surfaceFlags |= D3DCLEAR_ZBUFFER;
 
-		if ((flags & SURFACE_TYPE_STENCIL) != 0)
+		if((flags & SURFACE_TYPE_STENCIL) != 0)
 			surfaceFlags |= D3DCLEAR_STENCIL;
 
 		return surfaceFlags;
 	}
 
-	D3DPRIMITIVETYPE CDX9Enums::Get(EPrimitiveType type)
-	{
+	D3DPRIMITIVETYPE CDX9Enums::Get(EPrimitiveType type) {
 		return s_primitiveType[type];
 	}
 
-	D3DFORMAT CDX9Enums::Get(EPixelFormat type)
-	{
+	D3DFORMAT CDX9Enums::Get(EPixelFormat type) {
 		return s_formatType[type];
 	}
 
-	D3DTEXTUREFILTERTYPE CDX9Enums::Get(ETextureFilterType type)
-	{
+	D3DTEXTUREFILTERTYPE CDX9Enums::Get(ETextureFilterType type) {
 		return s_textureFilterType[type];
 	}
 
-	D3DTEXTUREADDRESS CDX9Enums::Get(ETextureAddress type)
-	{
+	D3DTEXTUREADDRESS CDX9Enums::Get(ETextureAddress type) {
 		return s_textureAddressType[type];
 	}
 
-	D3DRENDERSTATETYPE CDX9Enums::Get(ERenderStateType type)
-	{
+	D3DRENDERSTATETYPE CDX9Enums::Get(ERenderStateType type) {
 		return s_renderStateType[type];
 	}
 
-	D3DCMPFUNC CDX9Enums::Get(ECompare compare)
-	{
+	D3DCMPFUNC CDX9Enums::Get(ECompare compare) {
 		return s_compare[compare];
 	}
 
-	D3DBLEND CDX9Enums::Get(ERenderStateBlendFunction type)
-	{
+	D3DBLEND CDX9Enums::Get(ERenderStateBlendFunction type) {
 		return s_renderStateBlendFunction[type];
 	}
 
-	D3DBLENDOP CDX9Enums::Get(ERenderStateBlendOperation type)
-	{
+	D3DBLENDOP CDX9Enums::Get(ERenderStateBlendOperation type) {
 		return s_renderStateBlendOperation[type];
 	}
 
-	D3DCULL CDX9Enums::Get(ERenderStateCullType type)
-	{
+	D3DCULL CDX9Enums::Get(ERenderStateCullType type) {
 		return s_renderStateCullType[type];
 	}
 }

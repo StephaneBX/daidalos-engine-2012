@@ -28,20 +28,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Logger/CLoggerFile.h"
 
-namespace DE
-{
-	CLoggerFile::CLoggerFile(const std::string & filename)
-	{
+namespace DE {
+	CLoggerFile::CLoggerFile(const std::string & filename) {
 		this->m_outputStream.open(filename.c_str());
 	}
 
-	CLoggerFile::~CLoggerFile()
-	{
+	CLoggerFile::~CLoggerFile() {
 		this->m_outputStream.close();
 	}
 
-	void CLoggerFile::Write(const std::string & message)
-	{
+	void CLoggerFile::Write(const std::string & message) {
 		this->m_outputStream << message;
-	}	
+	}
 }

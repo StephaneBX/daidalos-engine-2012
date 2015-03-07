@@ -27,8 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Memory/CException.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	*/
@@ -43,8 +42,7 @@ namespace DE
 	* Get the exception message
 	* @return The exception message
 	*/
-	const char * CException::what() const throw()
-	{
+	const char * CException::what() const throw() {
 		return this->m_message.c_str();
 	}
 }

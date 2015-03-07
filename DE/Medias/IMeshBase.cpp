@@ -28,15 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.h"
 #include "../Medias/IMeshBase.h"
 
-namespace DE
-{
-	IMeshBase::~IMeshBase()
-	{
-		for(unsigned int i = 0 ; i < this->m_groupSize.size() ; ++i)
-		{
+namespace DE {
+	IMeshBase::~IMeshBase() {
+		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			if(this->m_vertex != nullptr)
 				SAFE_DELETE_ARRAY(this->m_vertex[i]);
-		
+
 			if(this->m_normal != nullptr)
 				SAFE_DELETE_ARRAY(this->m_normal[i]);
 
@@ -58,62 +55,50 @@ namespace DE
 		SAFE_DELETE(this->m_visibilityShape);
 	}
 
-	const int IMeshBase::GetNumberOfGroups() const
-	{
+	const int IMeshBase::GetNumberOfGroups() const {
 		return this->m_groupSize.size();
 	}
 
-	const int IMeshBase::GetGroupSize(const int group) const
-	{
+	const int IMeshBase::GetGroupSize(const int group) const {
 		return this->m_groupSize[group];
 	}
 
-	CVector3F * IMeshBase::GetVertices(const int group) const
-	{
+	CVector3F * IMeshBase::GetVertices(const int group) const {
 		return this->m_vertex[group];
 	}
 
-	CVector3F * IMeshBase::GetNormals(const int group) const
-	{
+	CVector3F * IMeshBase::GetNormals(const int group) const {
 		return this->m_normal[group];
 	}
 
-	CVector3F * IMeshBase::GetTangents(const int group) const
-	{
+	CVector3F * IMeshBase::GetTangents(const int group) const {
 		return this->m_tangent[group];
 	}
 
-	CVector3F * IMeshBase::GetBinormals(const int group) const
-	{
+	CVector3F * IMeshBase::GetBinormals(const int group) const {
 		return this->m_binormal[group];
 	}
 
-	CVector2F * IMeshBase::GetTexcoords(const int group) const
-	{
+	CVector2F * IMeshBase::GetTexcoords(const int group) const {
 		return this->m_texcoord[group];
 	}
 
-	CSphereF * IMeshBase::GetVisibilityShape() const
-	{
+	CSphereF * IMeshBase::GetVisibilityShape() const {
 		return this->m_visibilityShape;
 	}
 
-	IMeshBase::IMeshBase(const std::string & name) : IResource(name)
-	{
+	IMeshBase::IMeshBase(const std::string & name) : IResource(name) {
 		this->m_vertex = nullptr;
 		this->m_normal = nullptr;
 		this->m_texcoord = nullptr;
 		this->m_visibilityShape = new CSphereF();
 	}
 
-	void IMeshBase::FlatShadingNormals()
-	{
+	void IMeshBase::FlatShadingNormals() {
 		// Loop through the groups
-		for(unsigned int i = 0 ; i < this->m_groupSize.size() ; ++i)
-		{
+		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			// Loop through the vertices
-			for(int j = 0 ; j < this->m_groupSize[i] ; j += 3)
-			{
+			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
 				// Normal calculation
 				CVector3F ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
 				CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
@@ -125,30 +110,23 @@ namespace DE
 		}
 	}
 
-	void IMeshBase::TangentAndBinormalCalculation()
-	{
+	void IMeshBase::TangentAndBinormalCalculation() {
 		CVector3F ab, ac;
 		CVector2F abuv, acuv;
 
-		for(unsigned int i = 0 ; i < this->m_groupSize.size() ; ++i)
-		{
-			for(int j = 0 ; j < this->m_groupSize[i] ; j += 3)
-			{
+		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
+			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
 				ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
 				ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
 				abuv = this->m_texcoord[i][j + 1] - this->m_texcoord[i][j];
 				acuv = this->m_texcoord[i][j + 2] - this->m_texcoord[i][j];
 				float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
 
-				for(int k = 0 ; k < 3 ; ++k)
-				{
-					if(fDenominator >= -EPSILON && fDenominator <= EPSILON)
-					{
-						this->m_tangent[i][j + k] = CVector3F(1,0,0);
+				for(int k = 0; k < 3; ++k) {
+					if(fDenominator >= -EPSILON && fDenominator <= EPSILON) {
+						this->m_tangent[i][j + k] = CVector3F(1, 0, 0);
 						this->m_binormal[i][j + k] = this->m_tangent[i][j + k].CrossProduct(this->m_normal[i][j + k]).Normalize();
-					}
-					else
-					{
+					} else {
 						float fScale1 = 1.0f / fDenominator;
 						this->m_tangent[i][j + k] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 

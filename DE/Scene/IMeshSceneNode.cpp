@@ -33,18 +33,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CSceneManager.h"
 #include "../Scene/IMeshSceneNode.h"
 
-namespace DE
-{
-	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) 
-	{
+namespace DE {
+	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		this->m_visibilityShape = new CSphereF();
 		this->m_needVisibilityShapeUpdate = true;
 		this->m_needGeometryUpdate = true;
 	}
 
-	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(parent, name, position, rotation) 
-	{
+	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(parent, name, position, rotation) {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
@@ -52,8 +49,7 @@ namespace DE
 		this->m_needGeometryUpdate = true;
 	}
 
-	IMeshSceneNode::~IMeshSceneNode()
-	{
+	IMeshSceneNode::~IMeshSceneNode() {
 		SAFE_DELETE_ARRAY(this->m_buffer);
 		SAFE_DELETE_ARRAY(this->m_diffuseTexture);
 		SAFE_DELETE_ARRAY(this->m_normalTexture);
@@ -61,15 +57,13 @@ namespace DE
 		SAFE_DELETE(this->m_visibilityShape);
 	}
 
-	void IMeshSceneNode::SetMeshMaterial(const std::string & filename)
-	{
+	void IMeshSceneNode::SetMeshMaterial(const std::string & filename) {
 		std::ostringstream ss;
 		this->m_material.LoadFromFile(filename);
 		this->m_materialElement.clear();
 
 		SiniP materialConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
-		for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
-		{
+		for(int i = 0; i < this->m_numberOfGroups; ++i) {
 			ss.str("");
 			ss << "group_" << (i + 1);
 			this->m_materialElement.push_back(materialConf.GetValueString(this->m_filename, ss.str(), "default"));
@@ -80,31 +74,25 @@ namespace DE
 		}
 	}
 
-	void IMeshSceneNode::SetMeshTexture(ETextureType textureType, const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const int group)
-	{
-		if(group == MESHSCENE_ALL_GROUPS)
-		{
+	void IMeshSceneNode::SetMeshTexture(ETextureType textureType, const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const int group) {
+		if(group == MESHSCENE_ALL_GROUPS) {
 			// Set the texture in all the groups
-			switch(textureType)
-			{
+			switch(textureType) {
 			case TEXTURE_TYPE_DIFFUSE:
-				for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
+				for(int i = 0; i < this->m_numberOfGroups; ++i)
 					this->m_diffuseTexture[i].CreateFromFile(filename, format, filter);
 				break;
 
 			case TEXTURE_TYPE_NORMAL:
-				for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
+				for(int i = 0; i < this->m_numberOfGroups; ++i)
 					this->m_normalTexture[i].CreateFromFile(filename, format, filter);
 				break;
 			}
-		}
-		else
-		{
+		} else {
 			// Set the texture to the chosen group
 			Assert(group >= 0 && group < this->m_numberOfGroups);
-			
-			switch(textureType)
-			{
+
+			switch(textureType) {
 			case TEXTURE_TYPE_DIFFUSE:
 				this->m_diffuseTexture[group].CreateFromFile(filename, format, filter);
 				break;
@@ -116,26 +104,22 @@ namespace DE
 		}
 	}
 
-	void IMeshSceneNode::Update(const float time) 
-	{
+	void IMeshSceneNode::Update(const float time) {
 		ISceneNode::Update(time);
 	}
 
-	void IMeshSceneNode::SetPosition(const CVector3F & position)
-	{
+	void IMeshSceneNode::SetPosition(const CVector3F & position) {
 		ISceneNode::SetPosition(position);
 		this->m_needVisibilityShapeUpdate = true;
 	}
 
-	void IMeshSceneNode::SetScale(const CVector3F & scale)
-	{
+	void IMeshSceneNode::SetScale(const CVector3F & scale) {
 		ISceneNode::SetScale(scale);
 		this->m_needVisibilityShapeUpdate = true;
 	}
 
-	void IMeshSceneNode::SetMeshFormat(const int format)
-	{
-		for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
+	void IMeshSceneNode::SetMeshFormat(const int format) {
+		for(int i = 0; i < this->m_numberOfGroups; ++i)
 			this->m_buffer[i].SetMeshFormat(format);
 
 		this->m_needGeometryUpdate = true;
@@ -143,20 +127,17 @@ namespace DE
 		ISceneNode::SetMeshFormat(format);
 	}
 
-	void IMeshSceneNode::SetMeshShadingType(EMeshShadingType shadingType)
-	{
+	void IMeshSceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
 		this->m_shadingType = shadingType;
 
 		ISceneNode::SetMeshShadingType(shadingType);
 	}
 
-	void IMeshSceneNode::Render() 
-	{
+	void IMeshSceneNode::Render() {
 		// Activation check
 		this->m_active = !CSceneManager::GetInstance()->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
 
-		if(this->m_active && this->m_enabled)
-		{
+		if(this->m_active && this->m_enabled) {
 			if(this->m_needGeometryUpdate)
 				FinalizeGeometry();
 
@@ -170,8 +151,7 @@ namespace DE
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
 
 			// Group paramaters
-			for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
-			{
+			for(int i = 0; i < this->m_numberOfGroups; ++i) {
 				// Material
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kDiffuse);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kAmbient);
@@ -179,8 +159,7 @@ namespace DE
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kEmission);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_ns);
 
-				if((this->m_buffer[i].GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0)
-				{
+				if((this->m_buffer[i].GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 					renderer->SetTexture(0, this->m_diffuseTexture[i].GetTexture());
 					renderer->SetTexture(1, this->m_normalTexture[i].GetTexture());
 				}
@@ -190,7 +169,7 @@ namespace DE
 			}
 
 		}
-		
+
 		ISceneNode::Render();
 	}
 

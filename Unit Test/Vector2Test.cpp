@@ -4,8 +4,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector2Test);
 
-void Vector2Test::TestConstructors()
-{
+void Vector2Test::TestConstructors() {
 	// Default constuctor
 	DE::CVector2F test1;
 	CPPUNIT_ASSERT(test1.x == 0 && test1.y == 0);
@@ -19,13 +18,12 @@ void Vector2Test::TestConstructors()
 	CPPUNIT_ASSERT(test3.x == 10.0f && test3.y == 20.0f);
 
 	// Array constructor
-	float testArray[2] = {5.0f, 9.0f};
+	float testArray[2] = { 5.0f, 9.0f };
 	DE::CVector2F test4(testArray);
 	CPPUNIT_ASSERT(test4.x == testArray[0] && test4.y == testArray[1]);
 }
 
-void Vector2Test::TestOperators()
-{
+void Vector2Test::TestOperators() {
 	DE::CVector2F vec1(5.0f, 15.0f);
 	DE::CVector2F vec2(8.0f, 2.0f);
 
@@ -123,9 +121,8 @@ void Vector2Test::TestOperators()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test2[1], vec1.y, EPSILON);
 }
 
-void Vector2Test::TestLength()
-{
-	DE::CVector2F test(10.0f,10.0f);
+void Vector2Test::TestLength() {
+	DE::CVector2F test(10.0f, 10.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
 
@@ -134,30 +131,26 @@ void Vector2Test::TestLength()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
 }
 
-void Vector2Test::TestDotProduct()
-{
-	DE::CVector2F test1(2.0f,5.0f);
-	DE::CVector2F test2(8.0f,3.0f);
+void Vector2Test::TestDotProduct() {
+	DE::CVector2F test1(2.0f, 5.0f);
+	DE::CVector2F test2(8.0f, 3.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.DotProduct(test2), test1.x * test2.x + test1.y * test2.y, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::DotProduct(test1, test2), test1.x * test2.x + test1.y * test2.y, EPSILON);
 }
 
-void Vector2Test::TestDistance()
-{
-	DE::CVector2F test1(2.0f,5.0f);
-	DE::CVector2F test2(8.0f,3.0f);
+void Vector2Test::TestDistance() {
+	DE::CVector2F test1(2.0f, 5.0f);
+	DE::CVector2F test2(8.0f, 3.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.Distance(test2), (test2 - test1).Length(), EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Distance(test1, test2), (test2 - test1).Length(), EPSILON);
 }
 
-void Vector2Test::TestNormalize()
-{
-	DE::CVector2F test(2.0f,5.0f);
+void Vector2Test::TestNormalize() {
+	DE::CVector2F test(2.0f, 5.0f);
 	CPPUNIT_ASSERT_EQUAL(test.Normalize(), test / test.Length());
 }
 
-void Vector2Test::TestGetFrom()
-{
+void Vector2Test::TestGetFrom() {
 	std::string test1 = "1.5f:10.0f";
 	std::string test2 = "efvgregefeqfe";
 	std::string test3 = "3;7";

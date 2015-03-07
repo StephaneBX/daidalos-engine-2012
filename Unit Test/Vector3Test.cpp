@@ -4,8 +4,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector3Test);
 
-void Vector3Test::TestConstructors()
-{
+void Vector3Test::TestConstructors() {
 	// Default constuctor
 	DE::CVector3F test1;
 	CPPUNIT_ASSERT(test1.x == 0 && test1.y == 0 && test1.z == 0);
@@ -19,13 +18,12 @@ void Vector3Test::TestConstructors()
 	CPPUNIT_ASSERT(test3.x == test2.x && test3.y == test2.y && test3.z == test2.z);
 
 	// Array constructor
-	float testArray[3] = {5.0f, 9.0f, -4.0f};
+	float testArray[3] = { 5.0f, 9.0f, -4.0f };
 	DE::CVector3F test4(testArray);
 	CPPUNIT_ASSERT(test4.x == testArray[0] && test4.y == testArray[1] && test4.z == testArray[2]);
 }
 
-void Vector3Test::TestOperators()
-{
+void Vector3Test::TestOperators() {
 	DE::CVector3F vec1(5.0f, 15.0f, -1.0f);
 	DE::CVector3F vec2(8.0f, 2.0f, -10.0f);
 
@@ -139,9 +137,8 @@ void Vector3Test::TestOperators()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test2[2], vec1.z, EPSILON);
 }
 
-void Vector3Test::TestLength()
-{
-	DE::CVector3F test(10.0f,10.0f, 10.0f);
+void Vector3Test::TestLength() {
+	DE::CVector3F test(10.0f, 10.0f, 10.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z), EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z), EPSILON);
 
@@ -150,18 +147,16 @@ void Vector3Test::TestLength()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z), EPSILON);
 }
 
-void Vector3Test::TestDotProduct()
-{
-	DE::CVector3F test1(2.0f,5.0f, -4.0f);
-	DE::CVector3F test2(8.0f,3.0f, 11.0f);
+void Vector3Test::TestDotProduct() {
+	DE::CVector3F test1(2.0f, 5.0f, -4.0f);
+	DE::CVector3F test2(8.0f, 3.0f, 11.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.DotProduct(test2), test1.x * test2.x + test1.y * test2.y + test1.z * test2.z, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::DotProduct(test1, test2), test1.x * test2.x + test1.y * test2.y + test1.z * test2.z, EPSILON);
 }
 
-void Vector3Test::TestCrossProduct()
-{
-	DE::CVector3F test1(2.0f,5.0f, -4.0f);
-	DE::CVector3F test2(8.0f,3.0f, 11.0f);
+void Vector3Test::TestCrossProduct() {
+	DE::CVector3F test1(2.0f, 5.0f, -4.0f);
+	DE::CVector3F test2(8.0f, 3.0f, 11.0f);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.CrossProduct(test2).x, test1.y * test2.z - test1.z * test2.y, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.CrossProduct(test2).y, test1.z * test2.x - test1.x * test2.z, EPSILON);
@@ -172,22 +167,19 @@ void Vector3Test::TestCrossProduct()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::CrossProduct(test1, test2).z, test1.x * test2.y - test1.y * test2.x, EPSILON);
 }
 
-void Vector3Test::TestDistance()
-{
-	DE::CVector3F test1(2.0f,5.0f, -15.0f);
-	DE::CVector3F test2(8.0f,3.0f, 10.0f);
+void Vector3Test::TestDistance() {
+	DE::CVector3F test1(2.0f, 5.0f, -15.0f);
+	DE::CVector3F test2(8.0f, 3.0f, 10.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.Distance(test2), (test2 - test1).Length(), EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::Distance(test1, test2), (test2 - test1).Length(), EPSILON);
 }
 
-void Vector3Test::TestNormalize()
-{
-	DE::CVector3F test(2.0f,5.0f, -15.0f);
+void Vector3Test::TestNormalize() {
+	DE::CVector3F test(2.0f, 5.0f, -15.0f);
 	CPPUNIT_ASSERT_EQUAL(test.Normalize(), test / test.Length());
 }
 
-void Vector3Test::TestGetFrom()
-{
+void Vector3Test::TestGetFrom() {
 	std::string test1 = "1.5f:10.0f:-2.0f";
 	std::string test2 = "efvgregefeqfe";
 	std::string test3 = "3;7;5";
@@ -199,10 +191,9 @@ void Vector3Test::TestGetFrom()
 	CPPUNIT_ASSERT_EQUAL(DE::CVector3F::GetFrom(test4), DE::CVector3F());
 }
 
-void Vector3Test::TestLinearInterpolation()
-{
-	DE::CVector3F test1(2.0f,5.0f, -15.0f);
-	DE::CVector3F test2(8.0f,3.0f, 10.0f);
+void Vector3Test::TestLinearInterpolation() {
+	DE::CVector3F test1(2.0f, 5.0f, -15.0f);
+	DE::CVector3F test2(8.0f, 3.0f, 10.0f);
 	float interpolation = 0.3f;
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.LinearInterpolation(test2, interpolation).x, test1.x + interpolation * (test2.x - test1.x), EPSILON);
@@ -214,10 +205,9 @@ void Vector3Test::TestLinearInterpolation()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector3F::LinearInterpolation(test1, test2, interpolation).z, test1.z + interpolation * (test2.z - test1.z), EPSILON);
 }
 
-void Vector3Test::TestCosineInterpolation()
-{
-	DE::CVector3F test1(2.0f,5.0f, -15.0f);
-	DE::CVector3F test2(8.0f,3.0f, 10.0f);
+void Vector3Test::TestCosineInterpolation() {
+	DE::CVector3F test1(2.0f, 5.0f, -15.0f);
+	DE::CVector3F test2(8.0f, 3.0f, 10.0f);
 	float interpolation = 0.3f;
 	float interpolation2 = (1 - std::cosf(interpolation * PI)) / 2.0f;
 

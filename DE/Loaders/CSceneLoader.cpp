@@ -43,10 +43,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CMaterial.h"
 #include "../Loaders/CSceneLoader.h"
 
-namespace DE
-{
-	CSceneLoader::CSceneLoader() 
-	{
+namespace DE {
+	CSceneLoader::CSceneLoader() {
 		// Nodes default configuration file
 		this->m_nodesConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_NODES_CONFIGURATION);
 		this->m_materialsConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
@@ -56,8 +54,7 @@ namespace DE
 
 	CSceneLoader::~CSceneLoader() {}
 
-	ISceneNode * CSceneLoader::LoadFromFile(const std::string & filename)
-	{
+	ISceneNode * CSceneLoader::LoadFromFile(const std::string & filename) {
 		if(this->m_renderer == nullptr)
 			this->m_renderer = IRenderer::GetRenderer();
 
@@ -67,8 +64,7 @@ namespace DE
 
 		tinyxml2::XMLDocument doc;
 		int loadOk = doc.LoadFile(filename.c_str());
-		if(loadOk == tinyxml2::XML_NO_ERROR)
-		{
+		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			tinyxml2::XMLHandle hDoc(&doc);
 
 			int tmpInt = 0;
@@ -76,11 +72,9 @@ namespace DE
 			this->m_structure = (ESceneNodeRootStructureType)tmpInt;
 
 			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
-			for(element ; element ; element = element->NextSiblingElement())
+			for(element; element; element = element->NextSiblingElement())
 				LoadNode(root, tinyxml2::XMLHandle(element));
-		}
-		else
-		{
+		} else {
 			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
 
@@ -90,13 +84,11 @@ namespace DE
 		return root;
 	}
 
-	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename)
-	{
+	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename) {
 
 	}
 
-	void CSceneLoader::LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle)
-	{
+	void CSceneLoader::LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
 		// Global data variables
 		bool visible, flatShading, enabled, shadowCaster;
 		float fov, ratio, near, far, range, radius, falloff, tightness;
@@ -111,21 +103,18 @@ namespace DE
 		CTokenizer tokenizer;
 
 		std::string name = "undefined";
-		if(handle.ToElement()->Attribute("name"))
-		{
+		if(handle.ToElement()->Attribute("name")) {
 			name = handle.ToElement()->Attribute("name");
 		}
-		
+
 		CVector4F nodeDefaultColor;
 		CVector3F nodeDefaultScale;
 
-		switch(type)
-		{
+		switch(type) {
 		case SCENE_NODE_ROOT:
 
-			switch(this->m_structure)
-			{
-			// Simple structure
+			switch(this->m_structure) {
+				// Simple structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE:
 				LoadSimpleStructure(parent, handle, node);
 				if(parent == nullptr)
@@ -133,7 +122,7 @@ namespace DE
 
 				break;
 
-			// BSP structure
+				// BSP structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
 				LoadBSPStructure(parent, handle, node);
 				if(parent == nullptr)
@@ -146,9 +135,9 @@ namespace DE
 
 		case SCENE_NODE_CAMERA:
 			// Search for defined values in the element or use default values
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
-			GetNodeData(handle, "scale", scale, CVector3F(1,1,1));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+			GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 			GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
 			GetNodeData(handle, "ratio", ratio, this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y);
 			GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1f));
@@ -163,8 +152,8 @@ namespace DE
 			// Search for defined values in the element or use default values
 			GetNodeData(handle, "enabled", enabled, true);
 			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("ISpotLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 			GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "range", 100.0f));
@@ -180,7 +169,7 @@ namespace DE
 			// Search for defined values in the element or use default values
 			GetNodeData(handle, "enabled", enabled, true);
 			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 			GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "range", 100.0f));
@@ -194,7 +183,7 @@ namespace DE
 			// Search for defined values in the element or use default values
 			GetNodeData(handle, "enabled", enabled, true);
 			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 
@@ -205,8 +194,8 @@ namespace DE
 		case SCENE_NODE_STATICMESH:
 			// Search for defined values in the element or use default values
 			GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IStaticMeshSceneNode", "visible", true));
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 			GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
@@ -214,7 +203,7 @@ namespace DE
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
 			file = handle.ToElement()->Attribute("file");
-			
+
 			// Create the node
 			node = new CStaticMeshSceneNode(parent, name, file, position, rotation, scale);
 			if(diffuseTexture != "")
@@ -230,8 +219,8 @@ namespace DE
 		case SCENE_NODE_ANIMATEDMESH:
 			// Search for defined values in the element or use default values
 			GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IAnimatedMeshSceneNode", "visible", true));
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 			GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
@@ -239,9 +228,9 @@ namespace DE
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
 			file = handle.ToElement()->Attribute("file");
-			
+
 			// Create the node
-			node = new CAnimatedMeshSceneNode(parent, name, file, position, rotation,  scale);
+			node = new CAnimatedMeshSceneNode(parent, name, file, position, rotation, scale);
 			if(diffuseTexture != "")
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(normalTexture != "")
@@ -263,8 +252,8 @@ namespace DE
 			bool looped;
 			bool playOnStartup;
 
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", 0));
 			GetNodeData(handle, "gain", gain, this->m_nodesConf.GetValueBool("ISoundSceneNode", "gain", 1));
 			GetNodeData(handle, "cone_inner_angle", coneInnerAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_inner_angle", 360.0f));
@@ -293,8 +282,8 @@ namespace DE
 
 		case SCENE_NODE_EMPTY:
 			// Search for defined values in the element or use default values
-			GetNodeData(handle, "position", position, CVector3F(0,0,0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
+			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 
 			// Create the node
 			node = new CEmptySceneNode(parent, name, position);
@@ -308,8 +297,7 @@ namespace DE
 		}
 
 		// If a node has been successfully created
-		if(node != nullptr)
-		{
+		if(node != nullptr) {
 			// Get the node attributes
 			attributes = GetNodeAttributes(handle);
 
@@ -322,8 +310,7 @@ namespace DE
 
 			// Check for attached nodes
 			child = handle.FirstChildElement("node").ToElement();
-			for(child ; child ; child = child->NextSiblingElement())
-			{
+			for(child; child; child = child->NextSiblingElement()) {
 				// Read only nodes
 				if(std::string(child->Name()) == "node")
 					LoadNode(node, tinyxml2::XMLHandle(child));
@@ -331,8 +318,7 @@ namespace DE
 		}
 	}
 
-	void CSceneLoader::LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node)
-	{
+	void CSceneLoader::LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode();
@@ -356,11 +342,9 @@ namespace DE
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(child ; child ; child = child->NextSiblingElement())	
-		{
+		for(child; child; child = child->NextSiblingElement()) {
 			// A brush created with a bunch of static models
-			if(std::string(child->Name()) == "multi_brush")
-			{
+			if(std::string(child->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(child);
 				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SBSPBrushDefinition brush;
@@ -373,8 +357,7 @@ namespace DE
 				bspHandle.ToElement()->QueryBoolAttribute("collisions", &brush.collision);
 				bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
 
-				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
-				{
+				for(child2; child2; child2 = child2->NextSiblingElement()) {
 					if(std::string(child2->Name()) == "brush")
 						AddBSPBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
@@ -385,11 +368,9 @@ namespace DE
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(child ; child ; child = child->NextSiblingElement())	
-		{
+		for(child; child; child = child->NextSiblingElement()) {
 			// A simple brush
-			if(std::string(child->Name()) == "brush")
-			{
+			if(std::string(child->Name()) == "brush") {
 				tinyxml2::XMLHandle bspHandle(child);
 				SBSPBrushDefinition brush;
 
@@ -410,8 +391,7 @@ namespace DE
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node)
-	{
+	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode();
@@ -435,17 +415,14 @@ namespace DE
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(child ; child ; child = child->NextSiblingElement())	
-		{
+		for(child; child; child = child->NextSiblingElement()) {
 			// A brush created with a bunch of static models
-			if(std::string(child->Name()) == "multi_brush")
-			{
+			if(std::string(child->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(child);
 				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SSimpleBrush brush;
 
-				for(child2 ; child2 ; child2 = child2->NextSiblingElement())	
-				{
+				for(child2; child2; child2 = child2->NextSiblingElement()) {
 					if(std::string(child2->Name()) == "brush")
 						AddSimpleBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
@@ -456,11 +433,9 @@ namespace DE
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(child ; child ; child = child->NextSiblingElement())	
-		{
+		for(child; child; child = child->NextSiblingElement()) {
 			// A simple brush
-			if(std::string(child->Name()) == "brush")
-			{
+			if(std::string(child->Name()) == "brush") {
 				tinyxml2::XMLHandle bspHandle(child);
 				SSimpleBrush brush;
 
@@ -473,8 +448,7 @@ namespace DE
 		static_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
 	}
 
-	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition)
-	{
+	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
@@ -482,9 +456,9 @@ namespace DE
 
 		std::string name = handle.ToElement()->Attribute("file");
 		GetNodeData(handle, "visible", visible, true);
-		GetNodeData(handle, "position", position, CVector3F(0,0,0));
-		GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
-		GetNodeData(handle, "scale", scale, CVector3F(1,1,1));
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
 		GetNodeData(handle, "normal_texture", normalTexture, "");
 		GetNodeData(handle, "flat_shading", flatShading, false);
@@ -492,32 +466,29 @@ namespace DE
 
 		// Modification matrixes
 		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
-		CMatrix rotationMatrix = CMatrix(CVector3F(1,1,1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0,0,0));
+		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
 
 		CMaterial mat(material);
 
 		// Create the geometry
 		CStaticMesh mesh(name);
-		for(int i = 0 ; i < mesh.GetMesh()->GetNumberOfGroups() ; ++i)
-		{
+		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 			CTexture2D diffuse;
 			CTexture2D normal;
 
 			if(diffuseTexture != "")
-					diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 
 			if(normalTexture != "")
-					normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 
-			for(int j = 0 ; j < mesh.GetMesh()->GetGroupSize(i) ; j += 3)
-			{
+			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CBSPTriangle * triangle = new CBSPTriangle();
-				
+
 				ss.str("");
 				ss << "group_" << (i + 1);
 
-				for(int k = 0 ; k < 3 ; ++k)
-				{
+				for(int k = 0; k < 3; ++k) {
 					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
 					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
 					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
@@ -536,8 +507,7 @@ namespace DE
 		}
 	}
 
-	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush)
-	{
+	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush) {
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
@@ -545,9 +515,9 @@ namespace DE
 
 		std::string name = handle.ToElement()->Attribute("file");
 		GetNodeData(handle, "visible", visible, true);
-		GetNodeData(handle, "position", position, CVector3F(0,0,0));
-		GetNodeData(handle, "rotation", rotation, CVector3F(0,0,0));
-		GetNodeData(handle, "scale", scale, CVector3F(1,1,1));
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
 		GetNodeData(handle, "normal_texture", normalTexture, "");
 		GetNodeData(handle, "flat_shading", flatShading, false);
@@ -555,14 +525,13 @@ namespace DE
 
 		// Modification matrixes
 		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
-		CMatrix rotationMatrix = CMatrix(CVector3F(1,1,1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0,0,0));
+		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
 
 		CMaterial mat(material);
 
 		// Create the geometry
 		CStaticMesh mesh(name);
-		for(int i = 0 ; i < mesh.GetMesh()->GetNumberOfGroups() ; ++i)
-		{
+		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 			CTexture2D diffuse;
 			CTexture2D normal;
 			CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
@@ -574,15 +543,13 @@ namespace DE
 			if(normalTexture != "")
 				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 
-			for(int j = 0 ; j < mesh.GetMesh()->GetGroupSize(i) ; j += 3)
-			{
+			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CTriangle3D * triangle = new CTriangle3D();
 
 				ss.str("");
 				ss << "group_" << (i + 1);
 
-				for(int k = 0 ; k < 3 ; ++k)
-				{
+				for(int k = 0; k < 3; ++k) {
 					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
 					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
 					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
@@ -603,7 +570,7 @@ namespace DE
 				triangle->Update();
 
 				// Find the triangle plane
-				CVector3F tmp[] = {triangle->GetVertex(0), triangle->GetVertex(1), triangle->GetVertex(2)};
+				CVector3F tmp[] = { triangle->GetVertex(0), triangle->GetVertex(1), triangle->GetVertex(2) };
 				CPlane3DF plane = CPlane3DF(tmp);
 				triangle->SetFlatNormal(plane.GetNormal());
 
@@ -616,37 +583,30 @@ namespace DE
 		}
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
-		{
+		if(text != nullptr) {
 			std::string tmpText = TrimString(text->Value());
 			std::transform(tmpText.begin(), tmpText.end(), tmpText.begin(), tolower);
-			
+
 			if(tmpText == "true" || tmpText == "1")
 				data = true;
 			if(tmpText == "false" || tmpText == "0")
 				data = false;
-		}
-		else
+		} else
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
-		{
+		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
-		}
-		else
+		} else
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
@@ -654,8 +614,7 @@ namespace DE
 			data = CVector3F::GetFrom(std::string(text->Value()), defaultValue);
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
@@ -663,18 +622,16 @@ namespace DE
 			data = CVector4F::GetFrom(std::string(text->Value()), defaultValue);
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) {
 		CTokenizer tokenizer;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
 			tokenizer.AddLine(text->Value());
 
-		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4)
-		{
+		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 			std::istringstream ss;
 			float r, g, b, a;
-			
+
 			ss.str(tokenizer.GetTokens().at(0));
 			ss >> r;
 			ss.clear();
@@ -688,43 +645,34 @@ namespace DE
 			ss >> a;
 
 			data = CColor(r, g, b, a);
-		}
-		else
+		} else
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
-		{
+		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
-		}
-		else
+		} else
 			data = defaultValue;
 	}
 
-	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue)
-	{
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
-		{
+		if(text != nullptr) {
 			data = text->Value();
-		}
-		else
+		} else
 			data = defaultValue;
 	}
 
-	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle)
-	{
+	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle) {
 		std::map<std::string, std::string> attributes;
 		tinyxml2::XMLElement * child;
 		std::string attributeName;
 
 		child = handle.FirstChildElement("attributes").FirstChild().ToElement();
-		for(child ; child ; child = child->NextSiblingElement())	
-		{
+		for(child; child; child = child->NextSiblingElement()) {
 			tinyxml2::XMLHandle attributeHandle(child);
 
 			// Get the attribute name
@@ -734,8 +682,7 @@ namespace DE
 			tinyxml2::XMLText * valueText = attributeHandle.FirstChild().ToText();
 
 			// Add the attribue only if the two elements are valid
-			if(valueText != nullptr)
-			{
+			if(valueText != nullptr) {
 				attributes[attributeName] = valueText->Value();
 			}
 		}

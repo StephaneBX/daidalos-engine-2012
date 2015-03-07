@@ -28,22 +28,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/IBoundedLightSceneNode.h"
 #include "../Scene/CSceneManager.h"
 
-namespace DE
-{
-	IBoundedLightSceneNode::~IBoundedLightSceneNode(){}
+namespace DE {
+	IBoundedLightSceneNode::~IBoundedLightSceneNode() {}
 
-	void IBoundedLightSceneNode::SetRange(const float range)
-	{
+	void IBoundedLightSceneNode::SetRange(const float range) {
 		this->m_range = range;
 	}
 
-	void IBoundedLightSceneNode::SetFalloff(const float falloff)
-	{
+	void IBoundedLightSceneNode::SetFalloff(const float falloff) {
 		this->m_falloff = falloff;
 	}
 
-	void IBoundedLightSceneNode::Update(const float time)
-	{
+	void IBoundedLightSceneNode::Update(const float time) {
 		CSceneManager * scene = CSceneManager::GetInstance();
 		ISceneNode::Update(time);
 
@@ -60,28 +56,23 @@ namespace DE
 		this->m_active = !scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0);
 	}
 
-	const float IBoundedLightSceneNode::GetRange() const
-	{
+	const float IBoundedLightSceneNode::GetRange() const {
 		return this->m_range;
 	}
 
-	const float IBoundedLightSceneNode::GetFalloff() const
-	{
+	const float IBoundedLightSceneNode::GetFalloff() const {
 		return this->m_falloff;
 	}
 
-	const CRectangleI & IBoundedLightSceneNode::GetScissor() const
-	{
+	const CRectangleI & IBoundedLightSceneNode::GetScissor() const {
 		return this->m_scissor;
 	}
 
-	CSphereF * IBoundedLightSceneNode::GetVisibilitySphere() const
-	{
+	CSphereF * IBoundedLightSceneNode::GetVisibilitySphere() const {
 		return this->m_visibilityShape.get();
 	}
 
-	IBoundedLightSceneNode::IBoundedLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled) : ILightSceneNode(parent, name, position, rotation, color, shadowCaster, enabled)
-	{
+	IBoundedLightSceneNode::IBoundedLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled) : ILightSceneNode(parent, name, position, rotation, color, shadowCaster, enabled) {
 		SetRange(range);
 		SetFalloff(falloff);
 

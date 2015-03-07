@@ -29,32 +29,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.h"
 #include "../Medias/CStaticMesh.h"
 
-namespace DE
-{
-	CStaticMesh::CStaticMesh()
-	{
+namespace DE {
+	CStaticMesh::CStaticMesh() {
 		this->m_mesh = nullptr;
 	}
 
-	CStaticMesh::CStaticMesh(const std::string & filename)
-	{
+	CStaticMesh::CStaticMesh(const std::string & filename) {
 		this->m_mesh = nullptr;
 		LoadFromFile(filename);
 	}
 
-	CStaticMesh::CStaticMesh(const CStaticMesh & copy)
-	{
+	CStaticMesh::CStaticMesh(const CStaticMesh & copy) {
 		*this = copy;
 	}
 
-	CStaticMesh::~CStaticMesh()
-	{
+	CStaticMesh::~CStaticMesh() {
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 	}
 
-	void CStaticMesh::LoadFromFile(const std::string & filename)
-	{
+	void CStaticMesh::LoadFromFile(const std::string & filename) {
 		// Release previously used resource
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
@@ -62,22 +56,18 @@ namespace DE
 		// Check the existence of the resource and load it if necessary
 		IMeshBase * tmp = CResourceManager::GetInstance()->GetResource<IMeshBase>(filename);
 
-		if(tmp == nullptr)
-		{
+		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IMeshBase>(filename);
 			CResourceManager::GetInstance()->AddResource(filename, this->m_mesh);
-		}
-		else
+		} else
 			this->m_mesh = tmp;
 	}
 
-	void CStaticMesh::FinalizeGeometry(EMeshShadingType shadingType)
-	{
+	void CStaticMesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		this->m_mesh->FinalizeGeometry(shadingType);
 	}
 
-	const CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy)
-	{
+	const CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy) {
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 
@@ -89,8 +79,7 @@ namespace DE
 		return *this;
 	}
 
-	IMeshBase * CStaticMesh::GetMesh() const
-	{
+	IMeshBase * CStaticMesh::GetMesh() const {
 		return this->m_mesh;
 	}
 }

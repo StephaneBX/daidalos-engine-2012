@@ -35,26 +35,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.h"
 #include "../Medias/CTexture2D.h"
 
-namespace DE
-{
-	CTexture2D::CTexture2D()
-	{
+namespace DE {
+	CTexture2D::CTexture2D() {
 		this->m_texture = nullptr;
 	}
 
-	CTexture2D::CTexture2D(const CTexture2D & texture)
-	{
+	CTexture2D::CTexture2D(const CTexture2D & texture) {
 		*this = texture;
 	}
 
-	CTexture2D::~CTexture2D()
-	{
+	CTexture2D::~CTexture2D() {
 		if(this->m_texture != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 	}
 
-	const CTexture2D & CTexture2D::operator=(const CTexture2D & texture)
-	{
+	const CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
 		if(this->m_texture != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 
@@ -66,54 +61,44 @@ namespace DE
 		return *this;
 	}
 
-	const CVector2I & CTexture2D::GetSize() const
-	{
+	const CVector2I & CTexture2D::GetSize() const {
 		return this->m_texture->m_size;
 	}
 
-	const CImage & CTexture2D::GetImage() const
-	{
+	const CImage & CTexture2D::GetImage() const {
 		return this->m_texture->m_image;
 	}
 
-	const STexture2DFilterPolicy & CTexture2D::GetTextureFilterPolicy() const
-	{
+	const STexture2DFilterPolicy & CTexture2D::GetTextureFilterPolicy() const {
 		return this->m_texture->m_filter;
 	}
 
-	EPixelFormat CTexture2D::GetFormat() const
-	{
+	EPixelFormat CTexture2D::GetFormat() const {
 		return this->m_texture->m_format;
 	}
 
-	ITexture2DBase * CTexture2D::GetTexture() const
-	{
+	ITexture2DBase * CTexture2D::GetTexture() const {
 		return this->m_texture;
 	}
 
-	bool CTexture2D::operator==(const CTexture2D & texture) const
-	{
+	bool CTexture2D::operator==(const CTexture2D & texture) const {
 		return this->m_texture == texture.m_texture;
 	}
 
-	bool CTexture2D::operator!=(const CTexture2D & texture) const
-	{
+	bool CTexture2D::operator!=(const CTexture2D & texture) const {
 		return !(*this == texture);
 	}
 
-	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags)
-	{
+	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
 		STexture2DFilterPolicy usedFilter;
-		if(filter == nullptr)
-		{
+		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.maxAnisotropy = 0;
-		}
-		else
+		} else
 			usedFilter = *filter;
 
 		// Release previously used resource
@@ -123,20 +108,17 @@ namespace DE
 		Load(CImage(size, format), usedFilter, format, flags, name);
 	}
 
-    void CTexture2D::CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags)
-	{
+	void CTexture2D::CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
 		// If no filter policy is given, use the default one
 		STexture2DFilterPolicy usedFilter;
-		if(filter == nullptr)
-		{
+		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.maxAnisotropy = 0;
-		}
-		else
+		} else
 			usedFilter = *filter;
 
 		// Release previously used resource
@@ -146,30 +128,25 @@ namespace DE
 		// Check the existence of the resource and load it if necessary
 		ITexture2DBase * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(filename);
 
-		if(tmp == nullptr)
-		{
+		if(tmp == nullptr) {
 			CImage * img = CMediaManager::GetInstance()->LoadMediaFromFile<CImage>(filename);
 			Load(*img, usedFilter, format, flags, filename);
 			delete img;
-		}
-		else
+		} else
 			this->m_texture = tmp;
 	}
 
-    void CTexture2D::CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name)
-	{
+	void CTexture2D::CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name) {
 		// If no filter policy is given, use the default one
 		STexture2DFilterPolicy usedFilter;
-		if(filter == nullptr)
-		{
+		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.maxAnisotropy = 0;
-		}
-		else
+		} else
 			usedFilter = *filter;
 
 		// Release previously used resource
@@ -184,35 +161,29 @@ namespace DE
 			this->m_texture = tmp;
 	}
 
-    void CTexture2D::SaveToFile(const std::string & filename) const
-	{
+	void CTexture2D::SaveToFile(const std::string & filename) const {
 		CMediaManager::GetInstance()->SaveMediaToFile<ITexture2DBase>(this->m_texture, this->m_texture->GetName());
 	}
 
-	void CTexture2D::Update(const CRectangleI & rect)
-	{
+	void CTexture2D::Update(const CRectangleI & rect) {
 		if(rect.GetSize().x == -1)
-			this->m_texture->Update(CRectangleI(CVector2I(0,0), this->m_texture->m_size));
+			this->m_texture->Update(CRectangleI(CVector2I(0, 0), this->m_texture->m_size));
 		else
 			this->m_texture->Update(rect);
 	}
 
-	void CTexture2D::Load(const CImage & image, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags, const std::string name)
-	{
+	void CTexture2D::Load(const CImage & image, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags, const std::string name) {
 		// Check the compression compatibility
-		if(IsFormatCompressed(format) && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_DXT_COMPRESSION))
-		{
+		if(IsFormatCompressed(format) && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_DXT_COMPRESSION)) {
 			LOG_WARNING("Using a compressed format with a non compatible hardware. Switching to PIXEL_FORMAT_A8R8G8B8 format");
 			format = PIXEL_FORMAT_A8R8G8B8;
 		}
 
 		// Check non power of two compatibility
 		CVector2I size = CVector2I(GetNearestPowerOfTwo(image.GetSize().x), GetNearestPowerOfTwo(image.GetSize().y));
-		if(size != image.GetSize() && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_NON_POW2_TEXTURES))
-		{
+		if(size != image.GetSize() && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_NON_POW2_TEXTURES)) {
 			LOG_WARNING("Using a non power of two texture with a non compatible hardware. Resizing to the nearest power of two");
-		}
-		else
+		} else
 			size = image.GetSize();
 
 		this->m_texture = IRenderer::GetRenderer()->CreateTexture2D(size, filter, format, flags);

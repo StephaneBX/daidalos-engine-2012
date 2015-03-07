@@ -33,20 +33,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.h"
 #include "../Loaders/CStreamSoundLoader.h"
 
-namespace DE
-{
+namespace DE {
 	CStreamSoundLoader::CStreamSoundLoader() {}
 
 	CStreamSoundLoader::~CStreamSoundLoader() {}
 
-	IStreamSoundBase * CStreamSoundLoader::LoadFromFile(const std::string & filename)
-	{
+	IStreamSoundBase * CStreamSoundLoader::LoadFromFile(const std::string & filename) {
 		SF_INFO fileInfos;
 		SNDFILE* file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
 
 		// Open the file
-		if(!file)
-		{
+		if(!file) {
 			LOG_ERROR("Unable to load the sound '" << filename << "'");
 			ILogger::Kill();
 
@@ -60,8 +57,7 @@ namespace DE
 		ESoundFormat format;
 		ALenum openALFormat;
 
-		switch(fileInfos.channels)
-		{
+		switch(fileInfos.channels) {
 		case 1:
 			format = SOUND_FORMAT_MONO16;
 			openALFormat = AL_FORMAT_MONO16;

@@ -32,32 +32,27 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define BSP_MIN_DISTANCE 0.01f
 
-namespace DE
-{
-	CBSPTreeNode::CBSPTreeNode()
-	{
+namespace DE {
+	CBSPTreeNode::CBSPTreeNode() {
 		this->m_type = BSP_NODE_TYPE_NODE;
 		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
 	}
 
-	CBSPTreeNode::CBSPTreeNode(EBSPNodeType type)
-	{
+	CBSPTreeNode::CBSPTreeNode(EBSPNodeType type) {
 		this->m_type = type;
 		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
 	}
 
-	CBSPTreeNode::~CBSPTreeNode()
-	{
+	CBSPTreeNode::~CBSPTreeNode() {
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_FRONT]);
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_BACK]);
 	}
 
-	void CBSPTreeNode::LoadTriangleList(const std::vector<CBSPTriangle*> & triangles)
-	{
+	void CBSPTreeNode::LoadTriangleList(const std::vector<CBSPTriangle*> & triangles) {
 		// Get the bounding box
 		CalculateBoundingBox(triangles);
 
@@ -71,19 +66,14 @@ namespace DE
 		std::vector<CBSPTriangle*> front;
 		std::vector<CBSPTriangle*> back;
 
-		for(auto it = triangles.begin() ; it != triangles.end() ; ++it)
-		{
-			switch((*it)->Classify(this->m_plane))
-			{
+		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
+			switch((*it)->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_COPLANAR:
 				// We need to test if the triangle is in the same orientation as the plane
-				if((*it)->GetPlane().GetNormal().DotProduct(this->m_plane.GetNormal()) >= 0)
-				{
+				if((*it)->GetPlane().GetNormal().DotProduct(this->m_plane.GetNormal()) >= 0) {
 					// Goes to the front child
 					front.push_back((*it));
-				}
-				else
-				{
+				} else {
 					// Fix?
 					// Changed from back to front in order to correct collision problems with 2 coplanar plans with opposite normal
 					front.push_back((*it));
@@ -110,51 +100,38 @@ namespace DE
 
 		// Check front splitters
 		int usableCount = 0;
-		for(auto it = front.begin() ; it != front.end() ; ++it)
-		{
-			if(!(*it)->IsSeparationPlane())
-			{
+		for(auto it = front.begin(); it != front.end(); ++it) {
+			if(!(*it)->IsSeparationPlane()) {
 				++usableCount;
 			}
 		}
 
 		// If all the triangles are splitters, we have a leaf
-		if(usableCount == 0)
-		{
+		if(usableCount == 0) {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPTreeNode(BSP_NODE_TYPE_EMPTY_LEAF);
 			this->m_children[BSP_NODE_CHILD_FRONT]->AddTriangles(front);
 			this->m_children[BSP_NODE_CHILD_FRONT]->CalculateBoundingBox(front);
-		}
-		else
-		{
+		} else {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPTreeNode(BSP_NODE_TYPE_NODE);
 			this->m_children[BSP_NODE_CHILD_FRONT]->LoadTriangleList(front);
 		}
 
 		// Back child
-		if(back.size() == 0)
-		{
+		if(back.size() == 0) {
 			this->m_children[BSP_NODE_CHILD_BACK] = new CBSPTreeNode(BSP_NODE_TYPE_SOLID_LEAF);
-		}
-		else
-		{
+		} else {
 			usableCount = 0;
-			for(auto it = back.begin() ; it != back.end() ; ++it)
-			{
-				if(!(*it)->IsSeparationPlane())
-				{
+			for(auto it = back.begin(); it != back.end(); ++it) {
+				if(!(*it)->IsSeparationPlane()) {
 					++usableCount;
 				}
 			}
 
 			// Invalid geometry but still, we want to prevent crash
-			if(usableCount == 0)
-			{
+			if(usableCount == 0) {
 				this->m_children[BSP_NODE_CHILD_BACK] = new CBSPTreeNode(BSP_NODE_TYPE_SOLID_LEAF);
 				this->m_children[BSP_NODE_CHILD_BACK]->AddTriangles(back);
-			}
-			else
-			{
+			} else {
 				// Valid node
 				this->m_children[BSP_NODE_CHILD_BACK] = new CBSPTreeNode(BSP_NODE_TYPE_NODE);
 				this->m_children[BSP_NODE_CHILD_BACK]->LoadTriangleList(back);
@@ -162,9 +139,8 @@ namespace DE
 		}
 	}
 
-	void CBSPTreeNode::ResetDraw()
-	{
-		for(auto it = this->m_triangles.begin() ; it != this->m_triangles.end() ; ++it)
+	void CBSPTreeNode::ResetDraw() {
+		for(auto it = this->m_triangles.begin(); it != this->m_triangles.end(); ++it)
 			(*it)->SetDrawn(false);
 
 		if(this->m_children[BSP_NODE_CHILD_FRONT] != nullptr)
@@ -174,21 +150,18 @@ namespace DE
 			this->m_children[BSP_NODE_CHILD_BACK]->ResetDraw();
 	}
 
-	void CBSPTreeNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush)
-	{
+	void CBSPTreeNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
 		float impactFraction, realFraction;
 		CVector3F normalTemp;
 
 		// Empty leaf, no collision possible
-		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF)
-		{
+		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF) {
 			iBrush.ClearImpact();
 			return;
 		}
 
 		// Solid leaf, check for nearest impact
-		if(this->m_type == BSP_NODE_TYPE_SOLID_LEAF)
-		{
+		if(this->m_type == BSP_NODE_TYPE_SOLID_LEAF) {
 			impact.SetNearestImpact(iBrush.GetPlaneNormal(), iBrush.GetImpactFraction(), iBrush.GetRealFraction());
 			iBrush.ClearImpact();
 			return;
@@ -204,8 +177,7 @@ namespace DE
 		float offset = shape.GetInnerDepth(this->m_plane);
 
 		// Front check
-		if(d1 > offset && d2 > offset)
-		{
+		if(d1 > offset && d2 > offset) {
 			// The impact is in front of the plane, we need to visit the front child
 			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
 			return;
@@ -216,39 +188,32 @@ namespace DE
 		this->m_plane.Inverse();
 
 		// Back check
-		if(d1 < -offset2 && d2 < -offset2)
-		{
+		if(d1 < -offset2 && d2 < -offset2) {
 			// The impact is in the back of the plane, we need to visit the back child
 			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
 			return;
 		}
 
 		// Cross check
-		if(d1 > offset && d2 <= offset2)
-		{
+		if(d1 > offset && d2 <= offset2) {
 			float d1r = d1 - offset;
 			float d2r = d2 - offset;
 			realFraction = d1r / (d1r - d2r);
 
 			if(realFraction >= impact.GetRealFraction())
 				return;
-		
-			if(realFraction < iBrush.GetRealFraction()) 
-			{
+
+			if(realFraction < iBrush.GetRealFraction()) {
 				normalTemp = this->m_plane.GetNormal();
 				impactFraction = (d1r - BSP_MIN_DISTANCE) / (d1r - d2r);
 				iBrush.SetImpact(normalTemp, impactFraction, realFraction);
-			}
-			else
-			{
+			} else {
 				// Memorize iBrush data
 				normalTemp = iBrush.GetPlaneNormal();
 				impactFraction = iBrush.GetImpactFraction();
 				realFraction = iBrush.GetRealFraction();
 			}
-		}
-		else
-		{
+		} else {
 			// Memorize iBrush data
 			normalTemp = iBrush.GetPlaneNormal();
 			impactFraction = iBrush.GetImpactFraction();
@@ -260,10 +225,8 @@ namespace DE
 		this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
 	}
 
-	void CBSPTreeNode::ClearTriangles()
-	{
-		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF)
-		{
+	void CBSPTreeNode::ClearTriangles() {
+		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF) {
 			this->m_triangles.clear();
 			return;
 		}
@@ -275,34 +238,28 @@ namespace DE
 		this->m_children[BSP_NODE_CHILD_BACK]->ClearTriangles();
 	}
 
-	EBSPNodeType CBSPTreeNode::GetType() const
-	{
+	EBSPNodeType CBSPTreeNode::GetType() const {
 		return this->m_type;
 	}
 
-	const CPlane3DF & CBSPTreeNode::GetPlane() const
-	{
+	const CPlane3DF & CBSPTreeNode::GetPlane() const {
 		return this->m_plane;
 	}
 
-	const std::vector<std::unique_ptr<CBSPTriangle>> & CBSPTreeNode::GetTriangles() const
-	{
+	const std::vector<std::unique_ptr<CBSPTriangle>> & CBSPTreeNode::GetTriangles() const {
 		return this->m_triangles;
 	}
 
-	CBSPTreeNode * CBSPTreeNode::GetChild(EBSPNodeChild child)
-	{
+	CBSPTreeNode * CBSPTreeNode::GetChild(EBSPNodeChild child) {
 		return this->m_children[child];
 	}
 
-	void CBSPTreeNode::AddTriangles(const std::vector<CBSPTriangle*> & triangles)
-	{
-		for(auto it = triangles.begin() ; it < triangles.end() ; ++it)
+	void CBSPTreeNode::AddTriangles(const std::vector<CBSPTriangle*> & triangles) {
+		for(auto it = triangles.begin(); it < triangles.end(); ++it)
 			this->m_triangles.push_back(std::unique_ptr<CBSPTriangle>((*it)));
 	}
 
-	void CBSPTreeNode::SplitTriangle(CBSPTriangle * triangle, std::vector<CBSPTriangle*> & front, std::vector<CBSPTriangle*> & back)
-	{
+	void CBSPTreeNode::SplitTriangle(CBSPTriangle * triangle, std::vector<CBSPTriangle*> & front, std::vector<CBSPTriangle*> & back) {
 		CVector3F pivot, positive1, positive2, negative1, negative2, intersection1, intersection2;
 		bool split = true;
 		EPointOrientation orientation[3];
@@ -313,11 +270,9 @@ namespace DE
 		int firstOrderIndex, secondOrderIndex, thirdOrderIndex;
 
 		// Test the triangle in order to know its position regarding the plane
-		for(int i = 0 ; i < 3 ; ++i)
-		{
+		for(int i = 0; i < 3; ++i) {
 			orientation[i] = this->m_plane.ClassifyPoint(triangle->GetVertex(i));
-			switch(orientation[i])
-			{
+			switch(orientation[i]) {
 			case POINT_ORIENTATION_POSITIVE_SIDE:
 				++orientationCounter;
 				break;
@@ -329,68 +284,52 @@ namespace DE
 		}
 
 		// Apply modifications depending on the triangle position
-		switch(orientationCounter)
-		{
-		// The triangle is on the positive side with one vertex on the plane
-		// Or
-		// The triangle is entirely on the positive side, no need to split
+		switch(orientationCounter) {
+			// The triangle is on the positive side with one vertex on the plane
+			// Or
+			// The triangle is entirely on the positive side, no need to split
 		case 2:
 		case 3:
 			front.push_back(triangle);
 			break;
 
-		// The triangle is on the negative side with one vertex on the plane
-		// Or
-		// The triangle is entirely on the negative side, no need to split
+			// The triangle is on the negative side with one vertex on the plane
+			// Or
+			// The triangle is entirely on the negative side, no need to split
 		case -2:
 		case -3:
 			back.push_back(triangle);
 			break;
 
-		// The triangle has one vertex on the negative side, one vertex on the positive side and one vertex on the plane
+			// The triangle has one vertex on the negative side, one vertex on the positive side and one vertex on the plane
 		case 0:
 
 			// Fill the variables depending on the orientation of the vertices
-			if(orientation[0] == POINT_ORIENTATION_ON_PLANE)
-			{
+			if(orientation[0] == POINT_ORIENTATION_ON_PLANE) {
 				pivotIndex = 0;
-				if(orientation[1] == POINT_ORIENTATION_POSITIVE_SIDE)
-				{
+				if(orientation[1] == POINT_ORIENTATION_POSITIVE_SIDE) {
 					positiveIndex1 = 1;
 					negativeIndex1 = 2;
-				}
-				else
-				{
+				} else {
 					positiveIndex1 = 2;
 					negativeIndex1 = 1;
 				}
-			}
-			else
-			{
-				if(orientation[1] == POINT_ORIENTATION_ON_PLANE)
-				{
+			} else {
+				if(orientation[1] == POINT_ORIENTATION_ON_PLANE) {
 					pivotIndex = 1;
-					if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE)
-					{
+					if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE) {
 						positiveIndex1 = 0;
 						negativeIndex1 = 2;
-					}
-					else
-					{
+					} else {
 						positiveIndex1 = 2;
 						negativeIndex1 = 0;
 					}
-				}
-				else
-				{
+				} else {
 					pivotIndex = 2;
-					if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE)
-					{
+					if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE) {
 						positiveIndex1 = 0;
 						negativeIndex1 = 1;
-					}
-					else
-					{
+					} else {
 						positiveIndex1 = 1;
 						negativeIndex1 = 0;
 					}
@@ -406,8 +345,7 @@ namespace DE
 			thirdOrderIndex = 2;
 
 			// Check the element order 
-			if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(triangle->GetVertex(pivotIndex) - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
-			{
+			if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(triangle->GetVertex(pivotIndex) - triangle->GetVertex(positiveIndex1)).Normalize()) < 0) {
 				secondOrderIndex = 2;
 				thirdOrderIndex = 1;
 			}
@@ -437,8 +375,7 @@ namespace DE
 			thirdOrderIndex = 2;
 
 			// Check the element order 
-			if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(pivotIndex) - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
-			{
+			if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(pivotIndex) - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0) {
 				secondOrderIndex = 2;
 				thirdOrderIndex = 1;
 			}
@@ -464,36 +401,28 @@ namespace DE
 			delete triangle;
 			break;
 
-		// The triangle has one vertex on the negative side and two vertices on the positive side
-		// Or,
-		// The triangle has two vertices on the plane and on vertex on the positive side
+			// The triangle has one vertex on the negative side and two vertices on the positive side
+			// Or,
+			// The triangle has two vertices on the plane and on vertex on the positive side
 		case 1:
 			// Check the presence of vertice on the plane
-			for(int i = 0 ; i < 3 ; ++i)
-			{
+			for(int i = 0; i < 3; ++i) {
 				if(orientation[i] == POINT_ORIENTATION_ON_PLANE)
 					split = false;
 			}
 
 			// Fill the variables depending on the orientation of the vertices
-			if(split)
-			{
-				if(orientation[0] == POINT_ORIENTATION_NEGATIVE_SIDE)
-				{
+			if(split) {
+				if(orientation[0] == POINT_ORIENTATION_NEGATIVE_SIDE) {
 					negativeIndex1 = 0;
 					positiveIndex1 = 1;
 					positiveIndex2 = 2;
-				}
-				else
-				{
-					if(orientation[1] == POINT_ORIENTATION_NEGATIVE_SIDE)
-					{
+				} else {
+					if(orientation[1] == POINT_ORIENTATION_NEGATIVE_SIDE) {
 						negativeIndex1 = 1;
 						positiveIndex1 = 0;
 						positiveIndex2 = 2;
-					}
-					else
-					{
+					} else {
 						negativeIndex1 = 2;
 						positiveIndex1 = 0;
 						positiveIndex2 = 1;
@@ -511,8 +440,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection1 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection1 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -541,8 +469,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(positiveIndex2) - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((triangle->GetVertex(positiveIndex2) - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -570,8 +497,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection2 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection2 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -595,41 +521,32 @@ namespace DE
 
 				// Delete the original triangle
 				delete triangle;
-			}
-			else
+			} else
 				front.push_back(triangle);
 			break;
 
-		// The triangle has two vertices on the negative side and one vertex on the positive side
-		// Or,
-		// The triangle has two vertices on the plane and one vertex on the negative side
+			// The triangle has two vertices on the negative side and one vertex on the positive side
+			// Or,
+			// The triangle has two vertices on the plane and one vertex on the negative side
 		case -1:
 			// Check the presence of vertice on the plane
-			for(int i = 0 ; i < 3 ; ++i)
-			{
+			for(int i = 0; i < 3; ++i) {
 				if(orientation[i] == POINT_ORIENTATION_ON_PLANE)
 					split = false;
 			}
 
 			// Fill the variables depending on the orientation of the vertices
-			if(split)
-			{
-				if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE)
-				{
+			if(split) {
+				if(orientation[0] == POINT_ORIENTATION_POSITIVE_SIDE) {
 					positiveIndex1 = 0;
 					negativeIndex1 = 1;
 					negativeIndex2 = 2;
-				}
-				else
-				{
-					if(orientation[1] == POINT_ORIENTATION_POSITIVE_SIDE)
-					{
+				} else {
+					if(orientation[1] == POINT_ORIENTATION_POSITIVE_SIDE) {
 						positiveIndex1 = 1;
 						negativeIndex1 = 0;
 						negativeIndex2 = 2;
-					}
-					else
-					{
+					} else {
 						positiveIndex1 = 2;
 						negativeIndex1 = 0;
 						negativeIndex2 = 1;
@@ -647,8 +564,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((intersection1 - triangle->GetVertex(positiveIndex1)).CrossProduct(intersection2 - triangle->GetVertex(positiveIndex1)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -677,8 +593,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex1)).CrossProduct(intersection1 - triangle->GetVertex(negativeIndex1)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -707,8 +622,7 @@ namespace DE
 				thirdOrderIndex = 2;
 
 				// Check the element order 
-				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex2)).CrossProduct(triangle->GetVertex(negativeIndex1) - triangle->GetVertex(negativeIndex2)).Normalize()) < 0)
-				{
+				if(triangle->GetFlatNormal().DotProduct((intersection2 - triangle->GetVertex(negativeIndex2)).CrossProduct(triangle->GetVertex(negativeIndex1) - triangle->GetVertex(negativeIndex2)).Normalize()) < 0) {
 					secondOrderIndex = 2;
 					thirdOrderIndex = 1;
 				}
@@ -731,25 +645,21 @@ namespace DE
 
 				// Delete the original triangle
 				delete triangle;
-			}
-			else
+			} else
 				back.push_back(triangle);
 
 			break;
 		}
 	}
 
-	void CBSPTreeNode::CalculateBoundingBox(const std::vector<CBSPTriangle*> triangles)
-	{
+	void CBSPTreeNode::CalculateBoundingBox(const std::vector<CBSPTriangle*> triangles) {
 		// Initial values
 		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		// Read each vertex for each triangle
-		for(auto it = triangles.begin() ; it != triangles.end() ; ++it)
-		{
-			for(int i = 0 ; i < 3 ; ++i)
-			{
+		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
+			for(int i = 0; i < 3; ++i) {
 				minPosition.x = std::min(minPosition.x, (*it)->GetVertex(i).x);
 				minPosition.y = std::min(minPosition.y, (*it)->GetVertex(i).y);
 				minPosition.z = std::min(minPosition.z, (*it)->GetVertex(i).z);
@@ -763,28 +673,21 @@ namespace DE
 		this->m_boundingBox->SetMinMax(minPosition, maxPosition);
 	}
 
-	void CBSPTreeNode::BuildInitialPortal()
-	{
+	void CBSPTreeNode::BuildInitialPortal() {
 		float distanceBoundingBoxToPlane = this->m_plane.PointDistance(this->m_boundingBox->GetPosition());
 		CVector3F portalCenter = this->m_boundingBox->GetPosition() + (this->m_plane.GetNormal() * distanceBoundingBoxToPlane);
 
 		CVector3F tempAxis;
 		// Get the valid axis 
-		if(std::fabsf(this->m_plane.GetNormal().y) > std::fabsf(this->m_plane.GetNormal().z))
-		{
+		if(std::fabsf(this->m_plane.GetNormal().y) > std::fabsf(this->m_plane.GetNormal().z)) {
 			if(std::fabsf(this->m_plane.GetNormal().z) < std::fabsf(this->m_plane.GetNormal().x))
 				tempAxis.z = 1;
 			else
 				tempAxis.x = 1;
-		}
-		else
-		{
-			if(std::fabsf(this->m_plane.GetNormal().y <= std::fabsf(this->m_plane.GetNormal().x)))
-			{
+		} else {
+			if(std::fabsf(this->m_plane.GetNormal().y <= std::fabsf(this->m_plane.GetNormal().x))) {
 				tempAxis.y = 1;
-			}
-			else
-			{
+			} else {
 				tempAxis.x = 1;
 			}
 		}
@@ -808,8 +711,7 @@ namespace DE
 		// Create the portal
 	}
 
-	CBSPTriangle * CBSPTreeNode::FindBestSplitter(const std::vector<CBSPTriangle*> & triangles)
-	{
+	CBSPTriangle * CBSPTreeNode::FindBestSplitter(const std::vector<CBSPTriangle*> & triangles) {
 		float score;
 		float bspScore = DEFAULT_BSP_SCORE;
 		CBSPTriangle * chosenSplitter = nullptr;
@@ -818,23 +720,18 @@ namespace DE
 		if(triangles.size() == 0)
 			return nullptr;
 
-		for(auto it = triangles.begin() ; it != triangles.end() ; ++it)
-		{
-			if(!(*it)->IsSeparationPlane())
-			{
+		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
+			if(!(*it)->IsSeparationPlane()) {
 				int frontCounter = 0;
 				int backCounter = 0;
 				int splitCounter = 0;
 				int coplanarCounter = 0;
 
-				for(auto it2 = triangles.begin() ; it2 != triangles.end() ; ++it2)
-				{
+				for(auto it2 = triangles.begin(); it2 != triangles.end(); ++it2) {
 					// Avoid comparing the same triangle or an already used triangle as a splitter
-					if((*it) != (*it2) && !(*it2)->IsSeparationPlane())
-					{
+					if((*it) != (*it2) && !(*it2)->IsSeparationPlane()) {
 						// Classify test
-						switch((*it2)->Classify((*it)->GetPlane()))
-						{
+						switch((*it2)->Classify((*it)->GetPlane())) {
 						case BSP_TRIANGLE_ORIENTATION_FRONT:
 							++frontCounter;
 							break;
@@ -858,8 +755,7 @@ namespace DE
 				score = (float)(2 * splitCounter + abs(frontCounter - backCounter) + coplanarCounter);
 
 				// Update the chosen splitter if necessary
-				if(score >= 0 && score < bspScore)
-				{
+				if(score >= 0 && score < bspScore) {
 					bspScore = score;
 					chosenSplitter = (*it);
 				}
@@ -867,10 +763,8 @@ namespace DE
 		}
 
 		// Set the triangle with the same plane as the chosen splitter to used
-		if(chosenSplitter != nullptr)
-		{
-			for(auto it = triangles.begin() ; it != triangles.end() ; ++it)
-			{
+		if(chosenSplitter != nullptr) {
+			for(auto it = triangles.begin(); it != triangles.end(); ++it) {
 				if((*it)->Classify(chosenSplitter->GetPlane()) == BSP_TRIANGLE_ORIENTATION_COPLANAR && (*it)->GetPlane().GetNormal().DotProduct(chosenSplitter->GetPlane().GetNormal()) >= 0)
 					(*it)->SetSeparationPlane(true);
 			}

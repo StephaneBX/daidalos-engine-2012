@@ -28,10 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Renderers/DX9/CDX9Exception.h"
 
-namespace DE
-{
-	CDX9Exception::CDX9Exception(const std::string & function, const std::string & func)
-	{
+namespace DE {
+	CDX9Exception::CDX9Exception(const std::string & function, const std::string & func) {
 		std::ostringstream stream;
 		stream << "[DX9 Renderer] Unable to achieve " << function << " in " << func << std::endl;
 

@@ -37,10 +37,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CConfigurationManager.h>
 #include "CFPSCamera.h"
 
-namespace SAMPLES
-{
-	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode)
-	{
+namespace SAMPLES {
+	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
 
@@ -49,7 +47,7 @@ namespace SAMPLES
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
 		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
-		DE::SInputActionDeclaration decl[] = 
+		DE::SInputActionDeclaration decl[] =
 		{
 			{ FPS_CAMERA_EXIT, -1 },
 			{ FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT },
@@ -88,21 +86,20 @@ namespace SAMPLES
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
 
-		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0,1,0));
-		this->m_shape.SetRadius(DE::CVector2F(1,2.7f));
+		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
+		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
 	}
 
-	void CFPSCamera::Update(const float time)
-	{
+	void CFPSCamera::Update(const float time) {
 		float timeSecond = time / 1000.0f;
 
 		UpdateState();
 		UpdateView(timeSecond);
-		UpdateMovement(timeSecond, time);	
+		UpdateMovement(timeSecond, time);
 
-		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0,1,0));
+		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
@@ -111,13 +108,11 @@ namespace SAMPLES
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
 
-	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const
-	{
+	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
-	void CFPSCamera::UpdateState()
-	{
+	void CFPSCamera::UpdateState() {
 		this->m_state = this->m_state & FPS_CAMERA_JUMP;
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT))
@@ -144,23 +139,19 @@ namespace SAMPLES
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT))
 			this->m_state |= FPS_CAMERA_LOOKRIGHT;
 
-		if((this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_state & FPS_CAMERA_JUMP))
-		{
+		if((this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_state & FPS_CAMERA_JUMP)) {
 			this->m_state |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 		}
 	}
 
-	void CFPSCamera::UpdateMovement(const float timeSecond, const float time)
-	{
+	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		DE::CVector3F movement;
 
-		if((this->m_state & FPS_CAMERA_STRAFELEFT) != 0)
-		{
+		if((this->m_state & FPS_CAMERA_STRAFELEFT) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFELEFT);
 			}
 
@@ -168,12 +159,10 @@ namespace SAMPLES
 			movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_STRAFERIGHT) != 0)
-		{
+		if((this->m_state & FPS_CAMERA_STRAFERIGHT) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFERIGHT);
 			}
 
@@ -181,12 +170,10 @@ namespace SAMPLES
 			movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_FORWARD) != 0)
-		{
+		if((this->m_state & FPS_CAMERA_FORWARD) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_FORWARD);
 			}
 
@@ -194,12 +181,10 @@ namespace SAMPLES
 			movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_BACKWARD) != 0)
-		{
+		if((this->m_state & FPS_CAMERA_BACKWARD) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_BACKWARD);
 			}
 
@@ -214,8 +199,7 @@ namespace SAMPLES
 		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
 
 		// If a collision test is required 
-		if(this->m_lastCollisionUpdateTimer >= FPS_CAMERA_COLLISION_UPDATE)
-		{
+		if(this->m_lastCollisionUpdateTimer >= FPS_CAMERA_COLLISION_UPDATE) {
 			// Collision test with only the movement
 			DE::CVector3F finalMovement = this->m_visiblePosition - this->m_shape.GetPosition();
 			this->m_scene->Slide(this->m_shape, finalMovement);
@@ -226,8 +210,7 @@ namespace SAMPLES
 			this->m_scene->Slide(this->m_shape, finalMovement);
 
 			// Reset gravity and state if the player has touched the ground
-			if(this->m_shape.GetPosition().y > finalPosition.y)
-			{
+			if(this->m_shape.GetPosition().y > finalPosition.y) {
 				this->m_gravity.y = 0;
 				this->m_state &= ~FPS_CAMERA_JUMP;
 			}
@@ -237,28 +220,22 @@ namespace SAMPLES
 
 			// Reset the collision timer
 			this->m_lastCollisionUpdateTimer = 0;
-		}
-		else
-		{
+		} else {
 			// Add the gravity when a collision test is not needed
 			this->m_visiblePosition += this->m_gravity * timeSecond;
 		}
 	}
 
-	void CFPSCamera::UpdateView(const float timeSecond)
-	{
+	void CFPSCamera::UpdateView(const float timeSecond) {
 		// Mouse view
-		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0)
-		{
+		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0) {
 			// Update the movement
 			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
 			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
 
 			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-		}
-		else
-		{
+		} else {
 			// No movement detected this frame, use the smooth factor instead
 			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
 
@@ -267,48 +244,40 @@ namespace SAMPLES
 		}
 
 		// Keyboard view
-		if((this->m_state & FPS_CAMERA_LOOKUP) != 0)
-		{
+		if((this->m_state & FPS_CAMERA_LOOKUP) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP);
 			}
 
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
-		if((this->m_state & FPS_CAMERA_LOOKDOWN) != 0)
-		{
+
+		if((this->m_state & FPS_CAMERA_LOOKDOWN) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN);
 			}
 
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
-		if((this->m_state & FPS_CAMERA_LOOKLEFT) != 0)
-		{
+
+		if((this->m_state & FPS_CAMERA_LOOKLEFT) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT);
 			}
 
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
-	
-		if((this->m_state & FPS_CAMERA_LOOKRIGHT) != 0)
-		{
+
+		if((this->m_state & FPS_CAMERA_LOOKRIGHT) != 0) {
 			float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT))
-			{
+			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT);
 			}
 
@@ -317,7 +286,7 @@ namespace SAMPLES
 
 
 		if(this->m_rotation.x >= 80.0f)
-				this->m_rotation.x = 80;
+			this->m_rotation.x = 80;
 
 		if(this->m_rotation.x < -80)
 			this->m_rotation.x = -80;

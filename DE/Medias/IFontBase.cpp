@@ -27,15 +27,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IFontBase.h"
 
-namespace DE
-{
-	IFontBase::IFontBase(const std::string & name, SFontInternalData * data) : IResource(name) 
-	{
+namespace DE {
+	IFontBase::IFontBase(const std::string & name, SFontInternalData * data) : IResource(name) {
 		this->m_internalData = std::unique_ptr<SFontInternalData>(data);
 
 		// Create the char descriptors
-		for(auto it = this->m_internalData->charData.begin() ; it != this->m_internalData->charData.end() ; ++it)
-		{
+		for(auto it = this->m_internalData->charData.begin(); it != this->m_internalData->charData.end(); ++it) {
 			SCharDescriptor descriptor;
 			descriptor.id = it->second.id;
 			descriptor.xadvance = it->second.xadvance;
@@ -47,43 +44,35 @@ namespace DE
 		}
 	}
 
-	const bool IFontBase::IsBold() const
-	{
+	const bool IFontBase::IsBold() const {
 		return this->m_internalData->bold;
 	}
 
-	const bool IFontBase::IsItalic() const
-	{
+	const bool IFontBase::IsItalic() const {
 		return this->m_internalData->italic;
 	}
 
-	const int IFontBase::GetSize() const
-	{
+	const int IFontBase::GetSize() const {
 		return this->m_internalData->size;
 	}
 
-	const int IFontBase::GetLineHeight() const
-	{
+	const int IFontBase::GetLineHeight() const {
 		return this->m_internalData->lineHeight;
 	}
 
-	const int IFontBase::GetBase() const
-	{
+	const int IFontBase::GetBase() const {
 		return this->m_internalData->base;
 	}
 
-	const std::string & IFontBase::GetFontName() const
-	{
+	const std::string & IFontBase::GetFontName() const {
 		return this->m_internalData->fontName;
 	}
 
-	const CTexture2D & IFontBase::GetTexture() const
-	{
+	const CTexture2D & IFontBase::GetTexture() const {
 		return this->m_internalData->texture;
 	}
 
-	const SCharDescriptor * IFontBase::GetCharDescriptor(const unsigned int id) const
-	{
+	const SCharDescriptor * IFontBase::GetCharDescriptor(const unsigned int id) const {
 		auto it = this->m_charDescriptor.find(id);
 		if(it != this->m_charDescriptor.end())
 			return &it->second;

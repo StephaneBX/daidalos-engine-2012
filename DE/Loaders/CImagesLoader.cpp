@@ -32,10 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.h"
 #include "../Loaders/CImagesLoader.h"
 
-namespace DE
-{
-	CImagesLoader::CImagesLoader()
-	{
+namespace DE {
+	CImagesLoader::CImagesLoader() {
 		ilInit();
 
 		ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
@@ -46,20 +44,17 @@ namespace DE
 		ilSetInteger(IL_FORMAT_MODE, IL_BGRA);
 		ilEnable(IL_FORMAT_SET);
 	}
-	
-	CImagesLoader::~CImagesLoader()
-	{
+
+	CImagesLoader::~CImagesLoader() {
 		ilShutDown();
 	}
 
-	CImage * CImagesLoader::LoadFromFile(const std::string & filename)
-	{
+	CImage * CImagesLoader::LoadFromFile(const std::string & filename) {
 		ILuint texture;
 		ilGenImages(1, &texture);
 		ilBindImage(texture);
 
-		if(!ilLoadImage(const_cast<ILstring>(filename.c_str())))
-		{
+		if(!ilLoadImage(const_cast<ILstring>(filename.c_str()))) {
 			ILenum devilError = ilGetError();
 			LOG_ERROR("Unable to load the image '" << filename << "'");
 			ILogger::Kill();
@@ -79,8 +74,7 @@ namespace DE
 		return image;
 	}
 
-	void CImagesLoader::SaveToFile(const CImage * object, const std::string & filename)
-	{
+	void CImagesLoader::SaveToFile(const CImage * object, const std::string & filename) {
 		CImage image(object->GetSize(), PIXEL_FORMAT_A8R8G8B8);
 		image.Copy(*object);
 
@@ -93,16 +87,14 @@ namespace DE
 		const int width = image.GetWidth();
 		const int height = image.GetHeight();
 
-		if(!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData()))
-		{
+		if(!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData())) {
 			LOG_ERROR("Unable to save the file '" << filename << "'");
 			ILogger::Kill();
 
 			throw CExceptionSave(filename);
 		}
 
-		if (!ilSaveImage(const_cast<ILstring>(filename.c_str())))
-		{
+		if(!ilSaveImage(const_cast<ILstring>(filename.c_str()))) {
 			LOG_ERROR("Unable to save the file '" << filename << "'");
 			ILogger::Kill();
 

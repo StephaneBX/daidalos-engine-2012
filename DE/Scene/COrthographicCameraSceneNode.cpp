@@ -28,22 +28,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Scene/COrthographicCameraSceneNode.h"
 
-namespace DE
-{
-	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance)
-	{
+namespace DE {
+	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance) {
 		SetBounds(bounds);
 	}
 
 	COrthographicCameraSceneNode::~COrthographicCameraSceneNode() {}
 
-	void COrthographicCameraSceneNode::SetBounds(const CRectangleF & bounds)
-	{
+	void COrthographicCameraSceneNode::SetBounds(const CRectangleF & bounds) {
 		this->m_bounds = bounds;
 	}
 
-	void COrthographicCameraSceneNode::Update(const float time)
-	{
+	void COrthographicCameraSceneNode::Update(const float time) {
 		// Update the camera information
 		ICameraSceneNode::Update();
 
@@ -54,8 +50,7 @@ namespace DE
 	/**
 	* Update The projection by giving custom bounds and distances
 	*/
-	void COrthographicCameraSceneNode::UpdateProjection()
-	{
+	void COrthographicCameraSceneNode::UpdateProjection() {
 		// Update the orthographic information
 		this->m_projMatrix.OrthographicView(this->m_bounds.GetWidth(), this->m_bounds.GetHeight(), this->m_nearDistance, this->m_farDistance);
 		//this->m_projMatrix.OrthographicView(this->m_bounds.GetLeft(), this->m_bounds.GetRight(), this->m_bounds.GetBottom(), this->m_bounds.GetTop(), this->m_nearDistance, this->m_farDistance);
@@ -85,8 +80,7 @@ namespace DE
 		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = CVector4F(1.0f, -1.0f, 1.0f, 1.0f);
 
 		// Screen space to world space
-		for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
-		{
+		for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
 			frustumCorner[i] = viewProjMatrixInv.Transform(frustumCorner[i]);
 			frustumCorner[i].x /= frustumCorner[i].w;
 			frustumCorner[i].y /= frustumCorner[i].w;
@@ -96,18 +90,17 @@ namespace DE
 		}
 
 		// Find the relative points
-		for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
-		{
+		for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
 			this->m_frustum.relativePoints[i] = this->m_frustum.absolutePoints[i] - this->m_absolutePosition;
 		}
 
 		// Table creation for the frustum planes
-		CVector3F leftFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT]};
-		CVector3F rightFrustrum[3]  = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
-		CVector3F topFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT]};
-		CVector3F bottomFrustrum[3] = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT]};
-		CVector3F nearFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT]};
-		CVector3F farFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
+		CVector3F leftFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT] };
+		CVector3F rightFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
+		CVector3F topFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT] };
+		CVector3F bottomFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT] };
+		CVector3F nearFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] };
+		CVector3F farFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
 
 		// Update the frustum planes
 		this->m_frustum.planes[FRUSTUM_PLANE_LEFT].Build(leftFrustrum);
@@ -120,14 +113,13 @@ namespace DE
 		// Update the debug buffer
 
 		// Check the vertex buffer size
-		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2)
-		{
+		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
 			// Create a new one if the current one can't hold the data
 			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
 
 		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], 
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
@@ -150,13 +142,11 @@ namespace DE
 		this->m_debugBuffer.Unlock();
 	}
 
-	const bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const
-	{
+	const bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		return false;
 	}
 
-	const CRectangleF & COrthographicCameraSceneNode::GetBounds() const
-	{
+	const CRectangleF & COrthographicCameraSceneNode::GetBounds() const {
 		return this->m_bounds;
 	}
 }

@@ -27,8 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Renderers/DX9/CDX9FrameBuffer.h"
 
-namespace DE
-{
+namespace DE {
 	CDX9FrameBuffer::CDX9FrameBuffer() : IFrameBufferBase() {}
 
 	CDX9FrameBuffer::~CDX9FrameBuffer() {}

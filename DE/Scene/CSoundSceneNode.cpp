@@ -27,101 +27,83 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/CSoundSceneNode.h"
 
-namespace DE
-{
-	CSoundSceneNode::CSoundSceneNode(const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(parent, name)
-	{
+namespace DE {
+	CSoundSceneNode::CSoundSceneNode(const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) {
 		this->m_sound.LoadFromFile(filename, type);
 	}
 
 	CSoundSceneNode::~CSoundSceneNode() {}
 
-	void CSoundSceneNode::Update(const float time)
-	{
+	void CSoundSceneNode::Update(const float time) {
 		ISceneNode::Update(time);
 
 		// Update the sound position and orientation
 		this->m_sound.SetPosition(this->m_absolutePosition);
-		if(this->m_sound.GetConeInnerAngle() < 360.0f || this->m_sound.GetConeOuterAngle() < 360.0f)
-		{
-			CVector3F lookAt(0,0,this->m_sound.GetMaxDistance());
-			CVector3F up(0,1,0);
+		if(this->m_sound.GetConeInnerAngle() < 360.0f || this->m_sound.GetConeOuterAngle() < 360.0f) {
+			CVector3F lookAt(0, 0, this->m_sound.GetMaxDistance());
+			CVector3F up(0, 1, 0);
 			lookAt = this->m_absoluteRotationMatrix.Transform(lookAt);
 			up = this->m_absoluteRotationMatrix.Transform(lookAt, true);
 
-			float orientation[] = {lookAt.x, lookAt.y, lookAt.z, up.x, up.y, up.z};
+			float orientation[] = { lookAt.x, lookAt.y, lookAt.z, up.x, up.y, up.z };
 			this->m_sound.SetOrientation(orientation);
 		}
 		this->m_sound.Update();
 	}
 
-	void CSoundSceneNode::SetSoundStatus(ESoundStatus status)
-	{
+	void CSoundSceneNode::SetSoundStatus(ESoundStatus status) {
 		this->m_sound.SetStatus(status);
 	}
 
-	void CSoundSceneNode::SetSoundGain(const float gain)
-	{
+	void CSoundSceneNode::SetSoundGain(const float gain) {
 		this->m_sound.SetGain(gain);
 	}
 
-	void CSoundSceneNode::SetSoundVelocity(const CVector3F & velocity)
-	{
+	void CSoundSceneNode::SetSoundVelocity(const CVector3F & velocity) {
 		this->m_sound.SetVelocity(velocity);
 	}
 
-	void CSoundSceneNode::SetSoundConeInnerAngle(const float angle)
-	{
+	void CSoundSceneNode::SetSoundConeInnerAngle(const float angle) {
 		this->m_sound.SetConeInnerAngle(angle);
 	}
 
-	void CSoundSceneNode::SetSoundConeOuterAngle(const float angle)
-	{
+	void CSoundSceneNode::SetSoundConeOuterAngle(const float angle) {
 		this->m_sound.SetConeOuterAngle(angle);
 	}
 
-	void CSoundSceneNode::SetSoundReferenceDistance(const float distance)
-	{
+	void CSoundSceneNode::SetSoundReferenceDistance(const float distance) {
 		this->m_sound.SetReferenceDistance(distance);
 	}
 
-	void CSoundSceneNode::SetSoundMaxDistance(const float distance)
-	{
+	void CSoundSceneNode::SetSoundMaxDistance(const float distance) {
 		this->m_sound.SetMaxDistance(distance);
 	}
 
-	void CSoundSceneNode::SetSoundRelativeToListener(const bool relative)
-	{
+	void CSoundSceneNode::SetSoundRelativeToListener(const bool relative) {
 		this->m_sound.SetRelativeToListener(relative);
 	}
 
-	void CSoundSceneNode::SetSoundLooped(const bool loop)
-	{
+	void CSoundSceneNode::SetSoundLooped(const bool loop) {
 		this->m_sound.SetLooped(loop);
 	}
 
-	ESoundFormat CSoundSceneNode::GetSoundFormat() const
-	{
+	ESoundFormat CSoundSceneNode::GetSoundFormat() const {
 		return this->m_sound.GetFormat();
 	}
 
-	ESoundStatus CSoundSceneNode::GetSoundStatus() const
-	{
+	ESoundStatus CSoundSceneNode::GetSoundStatus() const {
 		return this->m_sound.GetStatus();
 	}
 
-	ESoundType CSoundSceneNode::GetSoundType() const
-	{
+	ESoundType CSoundSceneNode::GetSoundType() const {
 		return this->m_sound.GetType();
 	}
 
-	const bool CSoundSceneNode::IsSoundLooped() const
-	{
+	const bool CSoundSceneNode::IsSoundLooped() const {
 		return this->m_sound.IsLooped();
 	}
 
-	const int CSoundSceneNode::GetSoundChannelsCount() const
-	{
+	const int CSoundSceneNode::GetSoundChannelsCount() const {
 		return this->m_sound.GetChannelsCount();
 	}
 }

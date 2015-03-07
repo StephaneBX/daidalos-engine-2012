@@ -27,17 +27,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IAnimatedMeshBase.h"
 
-namespace DE
-{
+namespace DE {
 	IAnimatedMeshBase::~IAnimatedMeshBase() {}
 
-	void IAnimatedMeshBase::Animate(const float frame)
-	{
+	void IAnimatedMeshBase::Animate(const float frame) {
 		this->m_frame = frame;
 	}
 
-	IAnimatedMeshBase::IAnimatedMeshBase(const std::string & name) : IMeshBase(name)
-	{
+	IAnimatedMeshBase::IAnimatedMeshBase(const std::string & name) : IMeshBase(name) {
 		this->m_frame = 0;
 	}
 

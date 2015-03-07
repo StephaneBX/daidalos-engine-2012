@@ -30,12 +30,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CDirectionalLightSceneNode.h"
 #include "../Scene/CAABoundingBox.h"
 
-namespace DE
-{
-	#define DISTANCE_FACTOR 2.0f
+namespace DE {
+#define DISTANCE_FACTOR 2.0f
 
-	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(parent, name, CVector3F(0,0,0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true)
-	{
+	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true) {
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
@@ -43,8 +41,7 @@ namespace DE
 		AddChild(this->m_camera);
 	}
 
-	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ILightSceneNode(parent, name, CVector3F(0,0,0), rotation, color, shadowCaster, enabled)
-	{
+	CDirectionalLightSceneNode::CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ILightSceneNode(parent, name, CVector3F(0, 0, 0), rotation, color, shadowCaster, enabled) {
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
@@ -54,32 +51,27 @@ namespace DE
 
 	CDirectionalLightSceneNode::~CDirectionalLightSceneNode() {}
 
-	void CDirectionalLightSceneNode::Update(const float time)
-	{
+	void CDirectionalLightSceneNode::Update(const float time) {
 		// Get the light direction
-		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0,0,1)).Normalize();
+		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0, 0, 1)).Normalize();
 
 		CSceneManager * sceneManager = CSceneManager::GetInstance();
 		CVector3F centroid;
 		CAABoundingBoxF boundingBox;
-		if(sceneManager->GetActiveCamera() != this->m_camera)
-		{
+		if(sceneManager->GetActiveCamera() != this->m_camera) {
 			// If the active camera is not the light camera, use the active camera frustum as a bounding box
 			CVector3F boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 			CVector3F boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 			// Find the min and max
-			for(int i = 0 ; i < FRUSTUM_POINT_SIZE ; ++i)
-			{
+			for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
 				boundingBoxMin = boundingBoxMin.Min(sceneManager->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
 				boundingBoxMax = boundingBoxMax.Max(sceneManager->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
 			}
 
 			// Set the bounding box
 			boundingBox.SetMinMax(boundingBoxMin, boundingBoxMax);
-		}
-		else
-		{
+		} else {
 			// If the active camera is the light camera, use the world bounding box
 			boundingBox = sceneManager->GetSceneBoundingBox();
 		}
@@ -117,13 +109,11 @@ namespace DE
 
 
 		// If active and enabled, add it to the active lights list
-		if(this->m_active && this->m_enabled)
-		{
+		if(this->m_active && this->m_enabled) {
 			SDirectionalLightsShaderData * lights = CSceneManager::GetInstance()->GetActiveDirectionalLightsBuffer();
 
 			// Add the light if the limit has not been reached
-			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS)
-			{
+			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
 				lights->direction[lights->numberOfLights] = CVector4F(direction, 0);
 				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition, 0);
 				lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();
@@ -135,8 +125,7 @@ namespace DE
 		}
 	}
 
-	ICameraSceneNode * CDirectionalLightSceneNode::GetCameraNode(const unsigned int id) const
-	{
+	ICameraSceneNode * CDirectionalLightSceneNode::GetCameraNode(const unsigned int id) const {
 		return this->m_camera;
 	}
 }

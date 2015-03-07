@@ -29,14 +29,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Logger/CLoggerMsgBox.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Write a message
 	* @param message The message
 	*/
-	void CLoggerMsgBox::Write(const std::string & message)
-	{
+	void CLoggerMsgBox::Write(const std::string & message) {
 		MessageBox(nullptr, message.c_str(), "Closed Engine Error", MB_OK);
 	}
 }

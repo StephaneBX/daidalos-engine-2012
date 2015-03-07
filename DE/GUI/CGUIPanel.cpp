@@ -29,32 +29,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../GUI/CGUIPanel.h"
 
-namespace DE
-{
-	#define PANEL_TEXTURE_NAME "white.png"
+namespace DE {
+#define PANEL_TEXTURE_NAME "white.png"
 
-	CGUIPanel::CGUIPanel() : IGUIView()
-	{
+	CGUIPanel::CGUIPanel() : IGUIView() {
 		this->m_changed = true;
-		this->m_backgroundColor = CColor(0,0,0,0);
+		this->m_backgroundColor = CColor(0, 0, 0, 0);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 	}
 
-	void CGUIPanel::SetBackgroundColor(const CColor & color)
-	{
+	void CGUIPanel::SetBackgroundColor(const CColor & color) {
 		this->m_backgroundColor = color;
 	}
 
-	void CGUIPanel::Update()
-	{
-		if(this->m_changed)
-		{
+	void CGUIPanel::Update() {
+		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
-			this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0,0,1,1));
+			this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1));
 
-			if(this->m_data.size() > 0)
-			{
+			if(this->m_data.size() > 0) {
 				// Create a new buffer if the current one is too small
 				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
 					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
@@ -70,10 +64,8 @@ namespace DE
 		IGUIView::Update();
 	}
 
-	void CGUIPanel::Render()
-	{
-		if(this->m_data.size() > 0 && this->m_backgroundColor.GetAlpha() > 0)
-		{
+	void CGUIPanel::Render() {
+		if(this->m_data.size() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);

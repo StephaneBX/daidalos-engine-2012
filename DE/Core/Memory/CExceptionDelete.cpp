@@ -28,8 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Memory/CExceptionDelete.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	* @param ptr The memory address
@@ -37,8 +36,7 @@ namespace DE
 	* @param line The error line
 	* @param isArray if the memory block is an array
 	*/
-	CExceptionDelete::CExceptionDelete(void * ptr, const std::string & filename, const int line, const bool isArray)
-	{
+	CExceptionDelete::CExceptionDelete(void * ptr, const std::string & filename, const int line, const bool isArray) {
 		std::ostringstream stream;
 		stream << "Bad delete operation" << std::endl << "Adress: 0x" << ptr << std::endl << "File: " << filename << std::endl << "Line: " << line << std::endl << "Array: ";
 		if(isArray)

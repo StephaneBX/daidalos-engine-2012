@@ -27,32 +27,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/ILightSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	ILightSceneNode::~ILightSceneNode() {}
 
-	void ILightSceneNode::SetShadowCaster(const bool shadowCaster)
-	{
+	void ILightSceneNode::SetShadowCaster(const bool shadowCaster) {
 		this->m_shadowCaster = shadowCaster;
 	}
 
-	void ILightSceneNode::SetColor(const CColor & color)
-	{
+	void ILightSceneNode::SetColor(const CColor & color) {
 		this->m_color = color;
 	}
 
-	const bool ILightSceneNode::IsShadowCaster() const
-	{
+	const bool ILightSceneNode::IsShadowCaster() const {
 		return this->m_shadowCaster;
 	}
 
-	const CColor & ILightSceneNode::GetColor() const
-	{
+	const CColor & ILightSceneNode::GetColor() const {
 		return this->m_color;
 	}
 
-	ILightSceneNode::ILightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(parent, name, position, rotation)
-	{
+	ILightSceneNode::ILightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(parent, name, position, rotation) {
 		SetEnabled(enabled);
 		SetColor(color);
 		SetShadowCaster(shadowCaster);

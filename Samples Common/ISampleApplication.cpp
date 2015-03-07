@@ -38,13 +38,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CFont.h>
 #include "ISampleApplication.h"
 
-namespace SAMPLES
-{
+namespace SAMPLES {
 	/**
 	* Test structure
 	*/
-	struct STest
-	{
+	struct STest {
 		std::string aaa;
 		int bbb;
 	};
@@ -52,20 +50,17 @@ namespace SAMPLES
 	/**
 	* Screen quad used for deferred shading
 	*/
-	struct SScreenQuadVertexLight
-	{
+	struct SScreenQuadVertexLight {
 		DE::CVector3F vertex;
 		DE::CVector2F texcoord;
 		DE::CVector3F viewDistance;
 	};
 
-	struct SLightVertexGeometry
-	{
+	struct SLightVertexGeometry {
 		DE::CVector3F vertex;
 	};
 
-	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine")
-	{
+	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 		this->m_scene = DE::CSceneManager::GetInstance();
 
 		DE::STexture2DFilterPolicy textureFilter2;
@@ -83,17 +78,17 @@ namespace SAMPLES
 		// Main Frame buffer
 		DE::SFrameBufferDeclaration fbd[] =
 		{
-			{"diffuseRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"normalRT",this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"specularRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"depthRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"lightRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE},
-			{"lightDepthRT", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE}
+			{ "diffuseRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE },
+			{ "normalRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE },
+			{ "specularRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE },
+			{ "depthRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE },
+			{ "lightRT", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE },
+			{ "lightDepthRT", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE }
 		};
-		DE::SFrameBufferDepthDeclaration fbdd[] = 
+		DE::SFrameBufferDepthDeclaration fbdd[] =
 		{
-			{"depth", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_DEPTH24S8},
-			{"lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8}
+			{ "depth", this->m_renderer->GetInternalResolution(), DE::PIXEL_FORMAT_DEPTH24S8 },
+			{ "lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8 }
 		};
 		this->m_DSFB.CreateFromDeclaration(fbd, fbdd);
 		this->m_DSFB.AttachDepth("depth");
@@ -101,22 +96,22 @@ namespace SAMPLES
 		// Light geometry
 		DE::SDeclarationElement lightGeometryDecl[] =
 		{
-			 {0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 }
 		};
 		this->m_lightGeometryVD = this->m_renderer->CreateVertexDeclaration(lightGeometryDecl);
 
 		// Light screen quad
 		DE::SDeclarationElement screenQuadDecl1[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2},
-			{0, DE::DECLARATION_USAGE_TEXCOORD1, DE::DECLARATION_TYPE_FLOAT3}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD1, DE::DECLARATION_TYPE_FLOAT3 }
 		};
 		this->m_screenQuadLightVD = this->m_renderer->CreateVertexDeclaration(screenQuadDecl1);
 		DE::SDeclarationElement screenQuadDecl2[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_screenQuadLightVD2 = this->m_renderer->CreateVertexDeclaration(screenQuadDecl2);
 		this->m_screenQuadLightVB = this->m_renderer->CreateVertexBuffer(sizeof(SScreenQuadVertexLight), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, nullptr);
@@ -124,8 +119,8 @@ namespace SAMPLES
 		// Final screen quad
 		DE::SDeclarationElement screenQuadDecl3[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_screenQuadFinalVD = this->m_renderer->CreateVertexDeclaration(screenQuadDecl3);
 		this->m_screenQuadFinalVB = this->m_renderer->CreateVertexBuffer(sizeof(DE::SScreenQuadElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, this->m_renderer->GetScreenQuad());
@@ -144,22 +139,22 @@ namespace SAMPLES
 		// --------------------------------------------------------------------------------------------------
 		DE::SDeclarationElement decl[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2},
-			{0, DE::DECLARATION_USAGE_NORMAL0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_NORMAL1, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_NORMAL2, DE::DECLARATION_TYPE_FLOAT3}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 },
+			{ 0, DE::DECLARATION_USAGE_NORMAL0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_NORMAL1, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_NORMAL2, DE::DECLARATION_TYPE_FLOAT3 }
 		};
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(decl);
 
-		
+
 		// ------------------------------------------------------------------------------------------------
 		// The texts
 		// --------------------------------------------------------------------------------------------------
 		DE::CGUIManager::GetInstance()->SetCursorTexture("cursor.png");
 		DE::CGUIManager::GetInstance()->SetCursorVisible(true);
 
-		this->m_positionText.SetBounds(DE::CRectangleI(5,0,200,30));
+		this->m_positionText.SetBounds(DE::CRectangleI(5, 0, 200, 30));
 		this->m_positionText.SetSize(26);
 		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
 		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -167,7 +162,7 @@ namespace SAMPLES
 		this->m_positionText.SetText("Position");
 		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_positionText);
 
-		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150),0,150,30));
+		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150), 0, 150, 30));
 		this->m_fpsText.SetSize(30);
 		this->m_fpsText.SetColor(DE::CColor(255, 255, 102, 255));
 		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -180,9 +175,9 @@ namespace SAMPLES
 		this->m_button.SetDefaultTexture("button1.png");
 		this->m_button.SetFocusedTexture("button3.png");
 		this->m_button.SetClickedTexture("button2.png");
-		this->m_button.SetBounds(DE::CRectangleI(100,200,350,100));
+		this->m_button.SetBounds(DE::CRectangleI(100, 200, 350, 100));
 		this->m_button.SetImageInset(DE::CInsetF(0.2f, 0.2f, 0.2f, 0.2f));
-		this->m_button.GetTitleElement()->SetText("Texte de test");
+		this->m_button.GetTitleElement()->SetText("TEXTE DE TEST");
 		this->m_button.SetDefaultTitleColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
 		this->m_button.SetClickedTitleColor(DE::CColor(0.0f, 0.0f, 0.0f, 1.0f));
 		this->m_button.SetFocusedTitleColor(DE::CColor(1.0f, 0.5f, 0.5f, 1.0f));
@@ -194,21 +189,19 @@ namespace SAMPLES
 		this->m_checkbox.SetUncheckedTexture("checkbox_off.png");
 		this->m_checkbox.SetCheckedTexture("checkbox_on.png");
 		this->m_checkbox.SetClickedTexture("checkbox_clicked.png");
-		this->m_checkbox.SetBounds(DE::CRectangleI(100,400,150,32));
+		this->m_checkbox.SetBounds(DE::CRectangleI(100, 400, 150, 32));
 		this->m_checkbox.SetLabelInset(DE::CInsetI(10, 0, 0, 0));
-		this->m_checkbox.GetLabelElement()->SetText("Test checkbox");
+		this->m_checkbox.GetLabelElement()->SetText("TEST CHECKBOX");
 		this->m_checkbox.GetLabelElement()->SetSize(16);
 		this->m_checkbox.GetLabelElement()->SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
 		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_checkbox);
 	}
 
-	ISampleApplication::~ISampleApplication() 
-	{
+	ISampleApplication::~ISampleApplication() {
 		DE::CSceneManager::Kill();
 	}
 
-	void ISampleApplication::Render()
-	{
+	void ISampleApplication::Render() {
 		this->m_renderer->BeginScene();
 
 		// ------------------------------
@@ -252,10 +245,10 @@ namespace SAMPLES
 		// ------------------------------
 		SScreenQuadVertexLight lightScreenQuad[] =
 		{
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_RIGHT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_LEFT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_LEFT)},
-			{this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_RIGHT)}
+			{ this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_RIGHT) },
+			{ this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_BOTTOM_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_BOTTOM_LEFT) },
+			{ this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_LEFT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_LEFT) },
+			{ this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].vertex, this->m_renderer->GetScreenQuad()[DE::SCREEN_QUAD_POINT_TOP_RIGHT].texcoord, this->m_activeCamera->GetViewFrustumRelativePoint(DE::FRUSTUM_POINT_FAR_TOP_RIGHT) }
 		};
 		this->m_screenQuadLightVB.Fill(lightScreenQuad, sizeof(SScreenQuadVertexLight), 4);
 
@@ -310,7 +303,7 @@ namespace SAMPLES
 		// ------------------------------
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_scene->RenderDebugInformation();
-		
+
 
 		// ------------------------------
 		// GUI: Prepare the renderer and draw
@@ -326,23 +319,20 @@ namespace SAMPLES
 		this->m_renderer->SetVertexDeclaration(nullptr);
 		this->m_renderer->SetShaderProgram(nullptr);
 		this->m_renderer->SetTexture(0, nullptr);
-	
+
 		this->m_renderer->EndScene();
 	}
 
-	void ISampleApplication::SpotLightsRendering()
-	{
+	void ISampleApplication::SpotLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
-		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveSpotLights() ; ++i)
-		{
-			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]])
-			{
+		for(int i = 0; i < this->m_scene->GetNumberOfActiveSpotLights(); ++i) {
+			if(this->m_scene->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
-				this->m_renderer->SetViewport(DE::CRectangleI(0,0, this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)));
+				this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)));
 
 				// Fill the shadow map
 				this->m_scene->SetActiveCamera(this->m_scene->GetActiveSpotLightsBuffer()->node[this->m_scene->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
@@ -387,8 +377,7 @@ namespace SAMPLES
 		}
 	}
 
-	void ISampleApplication::PointLightsRendering()
-	{
+	void ISampleApplication::PointLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
 		// Add the light effect to the lightRT
@@ -411,26 +400,22 @@ namespace SAMPLES
 
 		this->m_DSPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 
-		for(int i = 0 ; i < this->m_scene->GetNumberOfActivePointLights() ; ++i)
-		{
+		for(int i = 0; i < this->m_scene->GetNumberOfActivePointLights(); ++i) {
 			this->m_scene->SendPointLightDataToShader(this->m_scene->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
 	}
 
-	void ISampleApplication::DirectionalLightsRendering()
-	{
+	void ISampleApplication::DirectionalLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
-		for(int i = 0 ; i < this->m_scene->GetNumberOfActiveDirectionalLights() ; ++i)
-		{
-			if(this->m_scene->GetActiveDirectionalLightsBuffer()->shadowCaster[i])
-			{
+		for(int i = 0; i < this->m_scene->GetNumberOfActiveDirectionalLights(); ++i) {
+			if(this->m_scene->GetActiveDirectionalLightsBuffer()->shadowCaster[i]) {
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
-				this->m_renderer->SetViewport(DE::CRectangleI(0,0, this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)));
+				this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)));
 
 				// Fill the shadow map
 				this->m_scene->SetActiveCamera(this->m_scene->GetActiveDirectionalLightsBuffer()->node[i]);

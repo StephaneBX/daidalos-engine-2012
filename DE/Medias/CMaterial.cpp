@@ -31,32 +31,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IMaterialBase.h"
 #include "../Medias/CMaterial.h"
 
-namespace DE
-{
-	CMaterial::CMaterial() 
-	{
+namespace DE {
+	CMaterial::CMaterial() {
 		this->m_material = nullptr;
 	}
 
-	CMaterial::CMaterial(const std::string & filename)
-	{
+	CMaterial::CMaterial(const std::string & filename) {
 		this->m_material = nullptr;
 		LoadFromFile(filename);
 	}
 
-	CMaterial::CMaterial(const CMaterial & copy)
-	{
+	CMaterial::CMaterial(const CMaterial & copy) {
 		*this = copy;
 	}
 
-	CMaterial::~CMaterial() 
-	{
+	CMaterial::~CMaterial() {
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
 	}
 
-	void CMaterial::LoadFromFile(const std::string & filename)
-	{
+	void CMaterial::LoadFromFile(const std::string & filename) {
 		// Release previously used resource
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
@@ -64,17 +58,14 @@ namespace DE
 		// Check the existence of the resource and load it if necessary
 		IMaterialBase * tmp = CResourceManager::GetInstance()->GetResource<IMaterialBase>(filename);
 
-		if(tmp == nullptr)
-		{
+		if(tmp == nullptr) {
 			this->m_material = CMediaManager::GetInstance()->LoadMediaFromFile<IMaterialBase>(filename);
 			CResourceManager::GetInstance()->AddResource(filename, this->m_material);
-		}
-		else
+		} else
 			this->m_material = tmp;
 	}
 
-	const CMaterial & CMaterial::operator=(const CMaterial & copy)
-	{
+	const CMaterial & CMaterial::operator=(const CMaterial & copy) {
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
 
@@ -86,8 +77,7 @@ namespace DE
 		return *this;
 	}
 
-	IMaterialBase * CMaterial::GetMaterial() const
-	{
+	IMaterialBase * CMaterial::GetMaterial() const {
 		return this->m_material;
 	}
 }

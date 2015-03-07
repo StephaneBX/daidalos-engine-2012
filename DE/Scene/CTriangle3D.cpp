@@ -27,46 +27,37 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/CTriangle3D.h"
 
-namespace DE
-{
-	CTriangle3D::CTriangle3D()
-	{
-		for(int i = 0 ; i < 3 ; ++i)
-			this->m_colors[i] = CVector4F(1,1,1,1);
+namespace DE {
+	CTriangle3D::CTriangle3D() {
+		for(int i = 0; i < 3; ++i)
+			this->m_colors[i] = CVector4F(1, 1, 1, 1);
 
 		this->m_material.LoadFromFile("default.mtl");
 		this->m_materialElement = "default";
 	}
 
-	CTriangle3D::CTriangle3D(const CTriangle3D & triangle)
-	{
+	CTriangle3D::CTriangle3D(const CTriangle3D & triangle) {
 		*this = triangle;
 	}
 
-	void CTriangle3D::SetVertex(const CVector3F & vertex, const int id)
-	{
+	void CTriangle3D::SetVertex(const CVector3F & vertex, const int id) {
 		this->m_vertices[id] = vertex;
 	}
 
-	void CTriangle3D::SetNormal(const CVector3F & normal, const int id)
-	{
+	void CTriangle3D::SetNormal(const CVector3F & normal, const int id) {
 		this->m_normals[id] = normal;
 	}
 
-	void CTriangle3D::SetTexcoord(const CVector2F & texcoord, const int id)
-	{
+	void CTriangle3D::SetTexcoord(const CVector2F & texcoord, const int id) {
 		this->m_texcoords[id] = texcoord;
 	}
 
-	void CTriangle3D::SetColor(const CVector4F & color, const int id)
-	{
+	void CTriangle3D::SetColor(const CVector4F & color, const int id) {
 		this->m_colors[id] = color;
 	}
 
-	void CTriangle3D::SetTexture(const CTexture2D & texture, ETextureType type)
-	{
-		switch(type)
-		{
+	void CTriangle3D::SetTexture(const CTexture2D & texture, ETextureType type) {
+		switch(type) {
 		case TEXTURE_TYPE_DIFFUSE:
 			this->m_diffuseTexture = texture;
 			break;
@@ -77,8 +68,7 @@ namespace DE
 		}
 	}
 
-	void CTriangle3D::SetMaterial(const CMaterial & material, const std::string & elementName)
-	{
+	void CTriangle3D::SetMaterial(const CMaterial & material, const std::string & elementName) {
 		this->m_material = material;
 
 		if(this->m_material.GetMaterial()->GetElement(elementName) != nullptr)
@@ -87,20 +77,18 @@ namespace DE
 			this->m_materialElement = "default";
 	}
 
-	void CTriangle3D::SetFlatNormal(const CVector3F & normal)
-	{
+	void CTriangle3D::SetFlatNormal(const CVector3F & normal) {
 		this->m_flatNormal = normal;
 	}
 
-	void CTriangle3D::Update()
-	{
+	void CTriangle3D::Update() {
 		// Circum sphere
 		float alpha, beta, gamma;
-		
-		alpha	= (std::pow((this->m_vertices[1] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[0] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
-		beta	= (std::pow((this->m_vertices[0] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[1] - this->m_vertices[0], this->m_vertices[1] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
-		gamma	= (std::pow((this->m_vertices[0] - this->m_vertices[1]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[2] - this->m_vertices[0], this->m_vertices[2] - this->m_vertices[1])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
-		
+
+		alpha = (std::pow((this->m_vertices[1] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[0] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+		beta = (std::pow((this->m_vertices[0] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[1] - this->m_vertices[0], this->m_vertices[1] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+		gamma = (std::pow((this->m_vertices[0] - this->m_vertices[1]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[2] - this->m_vertices[0], this->m_vertices[2] - this->m_vertices[1])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+
 		this->m_circumSphere.SetPosition(alpha * this->m_vertices[0] + beta * this->m_vertices[1] + gamma * this->m_vertices[2]);
 		this->m_circumSphere.SetRadius((this->m_circumSphere.GetPosition() - this->m_vertices[0]).Length() * 1.5f);
 
@@ -111,15 +99,11 @@ namespace DE
 		CVector2F acuv = this->m_texcoords[2] - this->m_texcoords[0];
 		float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
 
-		for(int j = 0 ; j < 3 ; ++j)
-		{
-			if(fDenominator >= -EPSILON && fDenominator <= EPSILON)
-			{
-				this->m_tangents[j] = CVector3F(1,0,0);
+		for(int j = 0; j < 3; ++j) {
+			if(fDenominator >= -EPSILON && fDenominator <= EPSILON) {
+				this->m_tangents[j] = CVector3F(1, 0, 0);
 				this->m_binormals[j] = this->m_tangents[j].CrossProduct(this->m_normals[j]).Normalize();
-			}
-			else
-			{
+			} else {
 				float fScale1 = 1.0f / fDenominator;
 				this->m_tangents[j] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
@@ -130,55 +114,44 @@ namespace DE
 		}
 	}
 
-	const CVector3F & CTriangle3D::GetVertex(const int id) const
-	{
+	const CVector3F & CTriangle3D::GetVertex(const int id) const {
 		return this->m_vertices[id];
 	}
 
-	const CVector3F & CTriangle3D::GetNormal(const int id) const
-	{
+	const CVector3F & CTriangle3D::GetNormal(const int id) const {
 		return this->m_normals[id];
 	}
 
-	const CVector3F & CTriangle3D::GetTangent(const int id) const
-	{
+	const CVector3F & CTriangle3D::GetTangent(const int id) const {
 		return this->m_tangents[id];
 	}
 
-	const CVector3F & CTriangle3D::GetBinormal(const int id) const
-	{
+	const CVector3F & CTriangle3D::GetBinormal(const int id) const {
 		return this->m_binormals[id];
 	}
 
-	const CVector3F & CTriangle3D::GetFlatNormal() const
-	{
+	const CVector3F & CTriangle3D::GetFlatNormal() const {
 		return this->m_flatNormal;
 	}
 
-	const CVector2F & CTriangle3D::GetTexcoord(const int id) const
-	{
+	const CVector2F & CTriangle3D::GetTexcoord(const int id) const {
 		return this->m_texcoords[id];
 	}
 
-	const CVector4F & CTriangle3D::GetColor(const int id) const
-	{
+	const CVector4F & CTriangle3D::GetColor(const int id) const {
 		return this->m_colors[id];
 	}
 
-	const CVector3F CTriangle3D::GetIncenter() const
-	{
+	const CVector3F CTriangle3D::GetIncenter() const {
 		return (this->m_vertices[0] + this->m_vertices[1] + this->m_vertices[2]) / 3.0f;
 	}
 
-	CSphereF & CTriangle3D::GetCircumSphere()
-	{
+	CSphereF & CTriangle3D::GetCircumSphere() {
 		return this->m_circumSphere;
 	}
 
-	ITexture2DBase * CTriangle3D::GetTexture(ETextureType type) const
-	{
-		switch(type)
-		{
+	ITexture2DBase * CTriangle3D::GetTexture(ETextureType type) const {
+		switch(type) {
 		case TEXTURE_TYPE_DIFFUSE:
 			return this->m_diffuseTexture.GetTexture();
 			break;
@@ -193,8 +166,7 @@ namespace DE
 		}
 	}
 
-	SMaterialElement * CTriangle3D::GetMaterialElement() const
-	{
+	SMaterialElement * CTriangle3D::GetMaterialElement() const {
 		return this->m_material.GetMaterial()->GetElement(this->m_materialElement);
 	}
 }

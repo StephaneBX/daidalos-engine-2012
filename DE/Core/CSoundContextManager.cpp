@@ -30,62 +30,52 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.h"
 #include "../Core/CSoundContextManager.h"
 
-namespace DE
-{
-	CSoundContextManager::CSoundContextManager()
-	{
+namespace DE {
+	CSoundContextManager::CSoundContextManager() {
 		ALCdevice * device = alcOpenDevice(nullptr);
-		if (!device)
-		{
+		if(!device) {
 			LOG_ERROR("Unable to open the default sound device");
 			return;
 		}
 
 		// Context creation
 		ALCcontext * context = alcCreateContext(device, nullptr);
-		if (!context)
-		{
+		if(!context) {
 			LOG_ERROR("Unable to create the sound context");
 			return;
 		}
 
 		// Context activation
-		if (!alcMakeContextCurrent(context))
-		{
+		if(!alcMakeContextCurrent(context)) {
 			LOG_ERROR("Unable to activate the sound context");
 			return;
 		}
 	}
 
-	CSoundContextManager::~CSoundContextManager()
-	{
+	CSoundContextManager::~CSoundContextManager() {
 		ALCcontext * context = alcGetCurrentContext();
-		ALCdevice *  device  = alcGetContextsDevice(context);
+		ALCdevice *  device = alcGetContextsDevice(context);
 
 		alcMakeContextCurrent(nullptr);
 		alcDestroyContext(context);
 		alcCloseDevice(device);
 	}
 
-	void CSoundContextManager::SetListenerGain(const float gain)
-	{
+	void CSoundContextManager::SetListenerGain(const float gain) {
 		alListenerf(AL_GAIN, gain);
 	}
 
-	void CSoundContextManager::SetListenerPosition(const CVector3F & position)
-	{
+	void CSoundContextManager::SetListenerPosition(const CVector3F & position) {
 		CVector3F pos(position.x, position.y, -position.z);
 		alListenerfv(AL_POSITION, pos);
 	}
 
-	void CSoundContextManager::SetListenerOrientation(float * orientation)
-	{
+	void CSoundContextManager::SetListenerOrientation(float * orientation) {
 		float orientation2[] = { orientation[0], orientation[1], -orientation[2], orientation[3], orientation[4], -orientation[5] };
 		alListenerfv(AL_ORIENTATION, orientation2);
 	}
 
-	void CSoundContextManager::SetListenerVelocity(const CVector3F & velocity)
-	{
+	void CSoundContextManager::SetListenerVelocity(const CVector3F & velocity) {
 		alListenerfv(AL_VELOCITY, velocity);
 	}
 }

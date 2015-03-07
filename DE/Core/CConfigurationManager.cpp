@@ -27,15 +27,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/CConfigurationManager.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 		* Destructor
 		*/
 	CConfigurationManager::~CConfigurationManager() {}
 
-	SiniP & CConfigurationManager::GetConfiguration(const std::string & filename)
-	{
+	SiniP & CConfigurationManager::GetConfiguration(const std::string & filename) {
 		auto it = this->m_files.find(filename);
 
 		// Load the file if it has not been loaded yet

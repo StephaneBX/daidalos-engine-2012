@@ -25,15 +25,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <algorithm>
 #include "../Core/Core.h"
 #include "../Core/Utility/CMatrix.h"
 #include "../Core/Utility/CVector3.h"
 #include "../Medias/CMD2Mesh.h"
 
-namespace DE
-{
-	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name)
-	{
+namespace DE {
+	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name) {
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[1];
@@ -51,10 +50,8 @@ namespace DE
 		this->m_texcoord[0] = new CVector2F[this->m_internalData->header.numTriangle * 3];
 
 		// Copy texture coordinates
-		for(int i = 0 ; i < this->m_internalData->header.numTriangle ; i++)
-		{
-			for(int j = 0 ; j < 3 ; j++)
-			{
+		for(int i = 0; i < this->m_internalData->header.numTriangle; i++) {
+			for(int j = 0; j < 3; j++) {
 				this->m_texcoord[0][i * 3 + j].x = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
 				this->m_texcoord[0][i * 3 + j].y = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].v) / ((float)this->m_internalData->header.skinHeight);
 			}
@@ -62,12 +59,11 @@ namespace DE
 
 		// Visibility shape calculation
 		CVector3F min, max;
-		for(this->m_frame = 0 ; this->m_frame < this->m_internalData->header.frameSize ; ++this->m_frame)
-		{
+		for(this->m_frame = 0; this->m_frame < this->m_internalData->header.frameSize; ++this->m_frame) {
 			FinalizeGeometry(MESH_SHADING_SMOOTH);
 
-			for(int j = 0 ; j < this->m_internalData->header.numTriangle * 3 ; ++j)
-			{
+			for(int j = 0; j < this->m_internalData->header.numTriangle * 3; ++j) {
+
 				max.x = std::max(max.x, this->m_vertex[0][j].x);
 				max.y = std::max(max.y, this->m_vertex[0][j].y);
 				max.z = std::max(max.z, this->m_vertex[0][j].z);
@@ -87,22 +83,20 @@ namespace DE
 		TangentAndBinormalCalculation();
 	}
 
-	CMD2Mesh::~CMD2Mesh()
-	{
+	CMD2Mesh::~CMD2Mesh() {
 		SAFE_DELETE_ARRAY(this->m_internalData->skin);
 		SAFE_DELETE_ARRAY(this->m_internalData->textureCoordinates);
 		SAFE_DELETE_ARRAY(this->m_internalData->triangle);
 		SAFE_DELETE_ARRAY(this->m_internalData->transformedVertex);
 		SAFE_DELETE_ARRAY(this->m_internalData->transformedNormal);
 
-		for(int i = 0 ; i < this->m_internalData->header.numFrames ; ++i)
+		for(int i = 0; i < this->m_internalData->header.numFrames; ++i)
 			SAFE_DELETE_ARRAY(this->m_internalData->frame[i].vertex);
 		SAFE_DELETE_ARRAY(this->m_internalData->frame);
 		SAFE_DELETE(this->m_internalData);
 	}
 
-	void CMD2Mesh::FinalizeGeometry(EMeshShadingType shadingType)
-	{
+	void CMD2Mesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		int frameA = (int)floor(this->m_frame);
 		int frameB = (int)floor(this->m_frame + 1);
 
@@ -113,15 +107,13 @@ namespace DE
 		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0f;
 
 		// Use the first frame if the choosen frame is less than 0
-		if(frameA < 0)
-		{
+		if(frameA < 0) {
 			frameA = 0;
 			frameB = 0;
 		}
 
 		// Use the last frame if the choosen frame is bigger than this->m_header.m_numFrames - 1
-		if(frameB > this->m_internalData->header.numFrames - 1)
-		{
+		if(frameB > this->m_internalData->header.numFrames - 1) {
 			frameA = this->m_internalData->header.numFrames - 1;
 			frameB = this->m_internalData->header.numFrames - 1;
 		}
@@ -132,8 +124,7 @@ namespace DE
 		SMD2Vertex * currentVertexB;
 		CVector3F currentNormalA, currentNormalB, currentPositionA, currentPositionB;
 
-		for(int i = 0 ; i < this->m_internalData->header.numVertices ; i++)
-		{
+		for(int i = 0; i < this->m_internalData->header.numVertices; i++) {
 			currentVertexA = &currentFrameA->vertex[i];
 			currentVertexB = &currentFrameB->vertex[i];
 
@@ -160,23 +151,20 @@ namespace DE
 		}
 
 		// Do a 90 degree rotation to match with the engine space coordinates
-		CMatrix rotation(CVector3F(1,1,1), CVector3F(0,DegreeToRadian(90),0), CVector3F(0,1,0));
+		CMatrix rotation(CVector3F(1, 1, 1), CVector3F(0, DegreeToRadian(90), 0), CVector3F(0, 1, 0));
 		CMatrix::TransformArray(this->m_internalData->transformedVertex, this->m_internalData->transformedVertex, rotation, this->m_internalData->header.numVertices, false);
 		CMatrix::TransformArray(this->m_internalData->transformedNormal, this->m_internalData->transformedNormal, rotation, this->m_internalData->header.numVertices, true);
 
 		// Copy the vertices
-		for(int i = 0 ; i < this->m_internalData->header.numTriangle ; ++i)
-		{
-			for(int j = 0 ; j < 3 ; ++j)
-			{
+		for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+			for(int j = 0; j < 3; ++j) {
 				this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
 				this->m_normal[0][i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
 			}
 		}
 	}
 
-	const int CMD2Mesh::GetNumberOfFrames() const
-	{
+	const int CMD2Mesh::GetNumberOfFrames() const {
 		return this->m_internalData->header.numFrames;
 	}
 }

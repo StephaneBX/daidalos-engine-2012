@@ -29,21 +29,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Renderer.h"
 #include "../../Renderers/DX9/CDX9VertexShader.h"
 
-namespace DE
-{
-	CDX9VertexShader::CDX9VertexShader(const std::string & name, IDirect3DVertexShader9 * vertexShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable)
-	{
+namespace DE {
+	CDX9VertexShader::CDX9VertexShader(const std::string & name, IDirect3DVertexShader9 * vertexShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable) {
 		this->m_vertexShader = vertexShader;
 		this->m_constantTable = constantTable;
 	}
 
-	CDX9VertexShader::~CDX9VertexShader()
-	{
+	CDX9VertexShader::~CDX9VertexShader() {
 		SAFE_RELEASE(this->m_vertexShader);
 	}
 
-	IDirect3DVertexShader9 * CDX9VertexShader::GetVertexShader() const
-	{
+	IDirect3DVertexShader9 * CDX9VertexShader::GetVertexShader() const {
 		return this->m_vertexShader;
 	}
 }

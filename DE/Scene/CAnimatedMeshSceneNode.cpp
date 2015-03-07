@@ -27,10 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/CAnimatedMeshSceneNode.h"
 
-namespace DE
-{
-	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(parent, name)
-	{
+namespace DE {
+	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(parent, name) {
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -50,8 +48,7 @@ namespace DE
 		this->m_mesh.Animate(0);
 	}
 
-	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(parent, name, position, rotation, scale)
-	{
+	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(parent, name, position, rotation, scale) {
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -62,7 +59,7 @@ namespace DE
 		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
 
 		SetMeshMaterial("default.mtl");
-		
+
 		this->m_animationStart = 0;
 		this->m_animationEnd = 0;
 		this->m_animationSpeed = 0;
@@ -71,31 +68,26 @@ namespace DE
 		this->m_mesh.Animate(0);
 	}
 
-	void CAnimatedMeshSceneNode::StartAnimation(const float startFrame, const float endFrame, const float speed)
-	{
+	void CAnimatedMeshSceneNode::StartAnimation(const float startFrame, const float endFrame, const float speed) {
 		this->m_animationStart = startFrame;
 		this->m_animationEnd = endFrame;
 		this->m_animationSpeed = speed;
 		this->m_animationState = MESH_ANIMATION_STATE_PLAYING;
 	}
 
-	void CAnimatedMeshSceneNode::PauseAnimation()
-	{
+	void CAnimatedMeshSceneNode::PauseAnimation() {
 		this->m_animationState = MESH_ANIMATION_STATE_PAUSED;
 	}
 
-	void CAnimatedMeshSceneNode::StopAnimation()
-	{
+	void CAnimatedMeshSceneNode::StopAnimation() {
 		this->m_animationState = MESH_ANIMATION_STATE_STOPPED;
 	}
 
-	void CAnimatedMeshSceneNode::Update(const float time)
-	{
+	void CAnimatedMeshSceneNode::Update(const float time) {
 		IMeshSceneNode::Update(time);
 
 		// Animation update
-		if(this->m_animationState == MESH_ANIMATION_STATE_PLAYING && time > 0)
-		{
+		if(this->m_animationState == MESH_ANIMATION_STATE_PLAYING && time > 0) {
 			this->m_animationStart += (this->m_animationSpeed * time) / 1000.0f;
 			if(this->m_animationStart >= this->m_animationEnd)
 				StopAnimation();
@@ -105,30 +97,26 @@ namespace DE
 		}
 
 		// Update the activation shape
-		if(this->m_needVisibilityShapeUpdate)
-		{
+		if(this->m_needVisibilityShapeUpdate) {
 			this->m_visibilityShape->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 			CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-			
+
 			this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 			this->m_needVisibilityShapeUpdate = false;
 		}
 	}
 
-	const int CAnimatedMeshSceneNode::GetNumberOfFrames() const
-	{
+	const int CAnimatedMeshSceneNode::GetNumberOfFrames() const {
 		return this->m_mesh.GetNumberOfFrames();
 	}
 
-	EMeshAnimationState CAnimatedMeshSceneNode::GetAnimationState() const
-	{
+	EMeshAnimationState CAnimatedMeshSceneNode::GetAnimationState() const {
 		return this->m_animationState;
 	}
 
-	void CAnimatedMeshSceneNode::FinalizeGeometry()
-	{
+	void CAnimatedMeshSceneNode::FinalizeGeometry() {
 		this->m_mesh.FinalizeGeometry(this->m_shadingType);
-		for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
+		for(int i = 0; i < this->m_numberOfGroups; ++i)
 			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));
 		this->m_needGeometryUpdate = false;
 	}

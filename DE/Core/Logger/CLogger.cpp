@@ -28,8 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Core.h"
 #include "../../Core/Logger/ILogger.h"
 
-namespace DE
-{
+namespace DE {
 	ILogger * ILogger::s_logger = nullptr;
 
 	/**
@@ -41,8 +40,7 @@ namespace DE
 	* Get the logger
 	* @return The logger
 	*/
-	ILogger & ILogger::Log()
-	{
+	ILogger & ILogger::Log() {
 		return *s_logger;
 	}
 
@@ -50,16 +48,14 @@ namespace DE
 	* Set the logger
 	* @param logger The logger to use
 	*/
-	void ILogger::SetLogger(ILogger * const logger)
-	{
+	void ILogger::SetLogger(ILogger * const logger) {
 		s_logger = logger;
 	}
 
 	/**
 	* Kill the logger
 	*/
-	void ILogger::Kill()
-	{
+	void ILogger::Kill() {
 		SAFE_DELETE(s_logger);
 	}
 

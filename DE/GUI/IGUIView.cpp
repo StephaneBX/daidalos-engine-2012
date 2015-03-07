@@ -27,44 +27,33 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Gui/IGUIView.h"
 
-namespace DE
-{
-	IGUIView::~IGUIView()
-	{
-		if(this->m_parent != nullptr)
-		{
+namespace DE {
+	IGUIView::~IGUIView() {
+		if(this->m_parent != nullptr) {
 			RemoveFromParentView();
 		}
 	}
 
-	void IGUIView::Update()
-	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->IsVisible())
-			{
+	void IGUIView::Update() {
+		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if((*it)->IsVisible()) {
 				(*it)->Update();
 			}
 		}
 	}
 
-	void IGUIView::Render()
-	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it)->IsVisible())
-			{
+	void IGUIView::Render() {
+		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if((*it)->IsVisible()) {
 				(*it)->Render();
 			}
 		}
 	}
 
-	const bool IGUIView::HitTest(const CVector2I & point) 
-	{
+	const bool IGUIView::HitTest(const CVector2I & point) {
 		this->m_hitTest = false;
 
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
+		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it)->HitTest(point)) {
 				return true;
 			}
@@ -74,126 +63,101 @@ namespace DE
 		return this->m_hitTest;
 	}
 
-	void IGUIView::SetChanged(const bool changed)
-	{
+	void IGUIView::SetChanged(const bool changed) {
 		this->m_changed = changed;
 	}
 
-	void IGUIView::SetVisible(const bool visible)
-	{
+	void IGUIView::SetVisible(const bool visible) {
 		this->m_visible = visible;
 	}
 
-	void IGUIView::SetPosition(const CVector2I & position)
-	{
+	void IGUIView::SetPosition(const CVector2I & position) {
 		this->m_position = position;
 	}
 
-	void IGUIView::SetPreferredSize(const CVector2I & size)
-	{
+	void IGUIView::SetPreferredSize(const CVector2I & size) {
 		this->m_preferredsize = size;
 	}
 
-	void IGUIView::SetBounds(const CRectangleI & bounds)
-	{
+	void IGUIView::SetBounds(const CRectangleI & bounds) {
 		SetPosition(CVector2I(bounds.GetLeft(), bounds.GetTop()));
 		SetPreferredSize(CVector2I(bounds.GetWidth(), bounds.GetHeight()));
 		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
-	void IGUIView::SetParent(IGUIView * parent)
-	{
+	void IGUIView::SetParent(IGUIView * parent) {
 		this->m_parent = parent;
 	}
 
-	void IGUIView::AddSubview(IGUIView * view)
-	{
+	void IGUIView::AddSubview(IGUIView * view) {
 		this->m_subviews.push_back(view);
 		view->SetParent(this);
 	}
 
-	void IGUIView::RemoveSubview(IGUIView * view)
-	{
-		for(auto it = this->m_subviews.begin() ; it != this->m_subviews.end() ; it++)
-		{
-			if((*it) == view)
-			{
+	void IGUIView::RemoveSubview(IGUIView * view) {
+		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if((*it) == view) {
 				this->m_subviews.erase(it);
 				view->SetParent(nullptr);
 				return;
 			}
 		}
-		
+
 	}
 
-	void IGUIView::RemoveFromParentView()
-	{
-		if(this->m_parent != nullptr)
-		{
+	void IGUIView::RemoveFromParentView() {
+		if(this->m_parent != nullptr) {
 			this->m_parent->RemoveSubview(this);
 		}
 	}
 
-	void IGUIView::RemoveAllSubviews()
-	{
+	void IGUIView::RemoveAllSubviews() {
 		this->m_subviews.clear();
 	}
-	
-	const bool IGUIView::IsChanged() const
-	{
+
+	const bool IGUIView::IsChanged() const {
 		return this->m_changed;
 	}
 
-	const bool IGUIView::IsVisible() const
-	{
+	const bool IGUIView::IsVisible() const {
 		return this->m_visible;
 	}
 
-	const bool IGUIView::isHit() const 
-	{
+	const bool IGUIView::isHit() const {
 		return this->m_hitTest;
 	}
 
-	const bool IGUIView::IsInside(const CVector2I & point) const
-	{
+	const bool IGUIView::IsInside(const CVector2I & point) const {
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
 	}
 
-	const CVector2I & IGUIView::GetPosition() const
-	{
+	const CVector2I & IGUIView::GetPosition() const {
 		return this->m_position;
 	}
 
-	const CVector2I IGUIView::GetAbsolutePosition() const
-	{
-		if(this->m_parent != nullptr)
-		{
+	const CVector2I IGUIView::GetAbsolutePosition() const {
+		if(this->m_parent != nullptr) {
 			return this->m_parent->GetAbsolutePosition() + this->m_position;
 		}
 		return m_position;
 	}
 
-	const CVector2I & IGUIView::GetPreferredSize() const
-	{
+	const CVector2I & IGUIView::GetPreferredSize() const {
 		return this->m_preferredsize;
 	}
 
-	const CRectangleI & IGUIView::GetBoundingRectangle() const
-	{
+	const CRectangleI & IGUIView::GetBoundingRectangle() const {
 		return this->m_boundingRectangle;
 	}
 
-	const CRectangleI IGUIView::GetAbsoluteBoundingRectangle() const
-	{
-		if(this->m_parent != nullptr)
-		{
+	const CRectangleI IGUIView::GetAbsoluteBoundingRectangle() const {
+		if(this->m_parent != nullptr) {
 			return this->m_boundingRectangle + this->m_parent->GetAbsolutePosition();
 		}
 		return m_boundingRectangle;
 	}
 
-	IGUIView::IGUIView()
-	{
+	IGUIView::IGUIView() {
 		this->m_changed = false;
 		this->m_visible = true;
 		this->m_hitTest = false;
@@ -208,13 +172,11 @@ namespace DE
 		this->m_textureFilter.maxAnisotropy = 0;
 	}
 
-	IGUIView::IGUIView(const IGUIView & copy)
-	{
+	IGUIView::IGUIView(const IGUIView & copy) {
 		*this = copy;
 	}
 
-	const IGUIView & IGUIView::operator=(const IGUIView & copy)
-	{
+	const IGUIView & IGUIView::operator=(const IGUIView & copy) {
 		this->m_changed = copy.m_changed;
 		this->m_visible = copy.m_visible;
 		this->m_position = copy.m_position;
@@ -224,8 +186,7 @@ namespace DE
 		return *this;
 	}
 
-	const std::vector<SGUIData> IGUIView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates)
-	{
+	const std::vector<SGUIData> IGUIView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates) {
 		std::vector<SGUIData> dataSet;
 		SGUIData data;
 

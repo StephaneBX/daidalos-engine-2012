@@ -29,10 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CSceneManager.h"
 #include "../Scene/CStaticMeshSceneNode.h"
 
-namespace DE
-{
-	CStaticMeshSceneNode::CStaticMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(parent, name)
-	{
+namespace DE {
+	CStaticMeshSceneNode::CStaticMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(parent, name) {
 		this->m_type = SCENE_NODE_STATICMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -45,8 +43,7 @@ namespace DE
 		SetMeshMaterial("default.mtl");
 	}
 
-	CStaticMeshSceneNode::CStaticMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(parent, name, position, rotation, scale)
-	{
+	CStaticMeshSceneNode::CStaticMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(parent, name, position, rotation, scale) {
 		this->m_type = SCENE_NODE_STATICMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -59,25 +56,22 @@ namespace DE
 		SetMeshMaterial("default.mtl");
 	}
 
-	void CStaticMeshSceneNode::Update(const float time)
-	{
+	void CStaticMeshSceneNode::Update(const float time) {
 		IMeshSceneNode::Update(time);
 
 		// Update the activation shape
-		if(this->m_needVisibilityShapeUpdate)
-		{
+		if(this->m_needVisibilityShapeUpdate) {
 			this->m_visibilityShape->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 			CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-			
+
 			this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 			this->m_needVisibilityShapeUpdate = false;
 		}
 	}
 
-	void CStaticMeshSceneNode::FinalizeGeometry()
-	{
+	void CStaticMeshSceneNode::FinalizeGeometry() {
 		this->m_mesh.FinalizeGeometry(this->m_shadingType);
-		for(int i = 0 ; i < this->m_numberOfGroups ; ++i)
+		for(int i = 0; i < this->m_numberOfGroups; ++i)
 			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));
 		this->m_needGeometryUpdate = false;
 	}

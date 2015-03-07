@@ -29,57 +29,46 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Medias/CFrameBuffer.h"
 
-namespace DE
-{
-	CFrameBuffer::CFrameBuffer()
-	{
+namespace DE {
+	CFrameBuffer::CFrameBuffer() {
 		this->m_frameBuffer = nullptr;
 	}
 
-	CFrameBuffer::~CFrameBuffer() 
-	{
+	CFrameBuffer::~CFrameBuffer() {
 		SAFE_DELETE(this->m_frameBuffer);
 	}
 
-	IFrameBufferBase * CFrameBuffer::GetFrameBuffer() const
-	{
+	IFrameBufferBase * CFrameBuffer::GetFrameBuffer() const {
 		return this->m_frameBuffer;
 	}
 
-	const int CFrameBuffer::GetBufferSize() const
-	{
+	const int CFrameBuffer::GetBufferSize() const {
 		return this->m_frameBuffer->GetBufferSize();
 	}
 
-	void CFrameBuffer::CreateEmpty()
-	{
+	void CFrameBuffer::CreateEmpty() {
 		SAFE_DELETE(this->m_frameBuffer);
 
 		this->m_frameBuffer = IRenderer::GetRenderer()->CreateFrameBuffer(nullptr, 0, nullptr, 0);
 	}
 
-	void CFrameBuffer::AddElement(const std::string & name, SFrameBufferElement & element)
-	{
+	void CFrameBuffer::AddElement(const std::string & name, SFrameBufferElement & element) {
 		this->m_frameBuffer->AddElement(name, element);
 	}
 
-	void CFrameBuffer::AttachElement(const std::string & name, const int attachment)
-	{
+	void CFrameBuffer::AttachElement(const std::string & name, const int attachment) {
 		this->m_frameBuffer->AttachElement(name, attachment);
 	}
 
-	void CFrameBuffer::AttachDepth(const std::string & name)
-	{
+	void CFrameBuffer::AttachDepth(const std::string & name) {
 		this->m_frameBuffer->AttachDepth(name);
 	}
 
-	void CFrameBuffer::DetachElement(const int attachment)
-	{
+	void CFrameBuffer::DetachElement(const int attachment) {
 		this->m_frameBuffer->DetachElement(attachment);
 	}
 
-	void CFrameBuffer::DetachAllElements()
-	{
+	void CFrameBuffer::DetachAllElements() {
 		this->m_frameBuffer->DetachAllElements();
 	}
 }

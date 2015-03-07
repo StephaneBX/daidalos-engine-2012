@@ -34,37 +34,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define BSP_MIN_MOVE 0.02f
 #define BSP_HEIGHT_EPSILON 0.4f
 
-namespace DE
-{
-	CSimpleSceneNode::CSimpleSceneNode() 
-	{
+namespace DE {
+	CSimpleSceneNode::CSimpleSceneNode() {
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 	}
 
 	CSimpleSceneNode::~CSimpleSceneNode() {}
 
-	void CSimpleSceneNode::LoadGeometry(const std::vector<SSimpleBrush> & brushes)
-	{
+	void CSimpleSceneNode::LoadGeometry(const std::vector<SSimpleBrush> & brushes) {
 		// Bounding box variables
 		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
-		for(unsigned int i = 0 ; i < brushes.size() ; ++i)
-		{
-			for(unsigned int j = 0 ; j < brushes.at(i).geometry.size() ; ++j)
-			{
+		for(unsigned int i = 0; i < brushes.size(); ++i) {
+			for(unsigned int j = 0; j < brushes.at(i).geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
 				if(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
 					this->m_diffuseTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
 				if(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-					this->m_normalTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL));	
+					this->m_normalTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Update the bounding box
-				for(unsigned int k = 0 ; k < 3 ; k++)
-				{
+				for(unsigned int k = 0; k < 3; k++) {
 					minPosition = minPosition.Min(brushes.at(i).geometry.at(j)->GetVertex(k));
 					maxPosition = maxPosition.Max(brushes.at(i).geometry.at(j)->GetVertex(k));
 				}
@@ -78,8 +72,7 @@ namespace DE
 		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
-	void CSimpleSceneNode::Render()
-	{
+	void CSimpleSceneNode::Render() {
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
@@ -91,8 +84,7 @@ namespace DE
 		this->m_activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
 		RegisterBrushesForRendering();
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
-		if(this->m_visibleTriangles.size() > 0)
-		{
+		if(this->m_visibleTriangles.size() > 0) {
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
@@ -104,8 +96,7 @@ namespace DE
 			SMaterialElement * batchMaterialElement;
 
 			// Sort with the diffuse texture and the material
-			while(this->m_visibleTriangles.size() > 0)
-			{
+			while(this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
 				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
@@ -115,14 +106,11 @@ namespace DE
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
 				// Check for compatible triangles
-				for(auto it = this->m_visibleTriangles.begin() ; it != this->m_visibleTriangles.end() ; )
-				{
-					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement))
-					{
+				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
 						batchTriangles.push_back(*it);
 						it = this->m_visibleTriangles.erase(it);
-					}
-					else
+					} else
 						++it;
 				}
 
@@ -136,8 +124,7 @@ namespace DE
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), batchMaterialElement->m_kEmission);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
 
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0)
-				{
+				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 					renderer->SetTexture(0, batchDiffuseTexture);
 					renderer->SetTexture(1, batchNormalTexture);
 				}
@@ -150,35 +137,29 @@ namespace DE
 		ISceneNode::Render();
 	}
 
-	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement)
-	{
+	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
-	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point)
-	{
+	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		return false;
 	}
 
-	void CSimpleSceneNode::RegisterBrushesForRendering()
-	{
+	void CSimpleSceneNode::RegisterBrushesForRendering() {
 		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
 		// Loop through each brush
-		for(auto it = this->m_brushes.begin() ; it != this->m_brushes.end() ; it++)
-		{
+		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {
 			// Check if the brush is visible
 			//if(!this->m_activeCamera->FrustumCull((*it).visibilityShape))
 			//{
-				// Loop through each triangle
-				for(auto it2 = (*it).geometry.begin() ; it2 != (*it).geometry.end() ; ++it2)
-				{
-					if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()))
-					{
-						this->m_visibleTriangles.push_back((*it2));
-					}
+			// Loop through each triangle
+			for(auto it2 = (*it).geometry.begin(); it2 != (*it).geometry.end(); ++it2) {
+				if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere())) {
+					this->m_visibleTriangles.push_back((*it2));
 				}
+			}
 			//}
 		}
 	}

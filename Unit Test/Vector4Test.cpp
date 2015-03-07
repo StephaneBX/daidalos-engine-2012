@@ -4,8 +4,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector4Test);
 
-void Vector4Test::TestConstructors()
-{
+void Vector4Test::TestConstructors() {
 	// Default constuctor
 	DE::CVector4F test1;
 	CPPUNIT_ASSERT(test1.x == 0 && test1.y == 0 && test1.z == 0 && test1.w == 0);
@@ -19,13 +18,12 @@ void Vector4Test::TestConstructors()
 	CPPUNIT_ASSERT(test3.x == test2.x && test3.y == test2.y && test3.z == test2.z && test3.w == test2.w);
 
 	// Array constructor
-	float testArray[4] = {5.0f, 9.0f, -4.0f, 21.0f};
+	float testArray[4] = { 5.0f, 9.0f, -4.0f, 21.0f };
 	DE::CVector4F test4(testArray);
 	CPPUNIT_ASSERT(test4.x == testArray[0] && test4.y == testArray[1] && test4.z == testArray[2] && test4.w == testArray[3]);
 }
 
-void Vector4Test::TestOperators()
-{
+void Vector4Test::TestOperators() {
 	DE::CVector4F vec1(5.0f, 15.0f, -1.0f, 21.0f);
 	DE::CVector4F vec2(8.0f, 2.0f, -10.0f, -21.0f);
 
@@ -147,9 +145,8 @@ void Vector4Test::TestOperators()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test2[3], vec1.w, EPSILON);
 }
 
-void Vector4Test::TestLength()
-{
-	DE::CVector4F test(10.0f,10.0f, 10.0f, 10.0f);
+void Vector4Test::TestLength() {
+	DE::CVector4F test(10.0f, 10.0f, 10.0f, 10.0f);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
 
@@ -158,14 +155,12 @@ void Vector4Test::TestLength()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
 }
 
-void Vector4Test::TestNormalize()
-{
+void Vector4Test::TestNormalize() {
 	DE::CVector4F test(2.0f, 5.0f, -15.0f, 33.0f);
 	CPPUNIT_ASSERT_EQUAL(test.Normalize(), test / test.Length());
 }
 
-void Vector4Test::TestGetFrom()
-{
+void Vector4Test::TestGetFrom() {
 	std::string test1 = "1.5f:10.0f:-2.0f:-15.0f";
 	std::string test2 = "efvgregefeqfe";
 	std::string test3 = "3;7;5;9";

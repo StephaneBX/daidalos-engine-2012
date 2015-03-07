@@ -3,13 +3,11 @@
 #pragma comment(lib, "Daidalos Engine.lib")
 #pragma comment(lib, "Samples Common.lib")
 
-void mainTest(HINSTANCE hInstance, int nCmdShow)
-{
+void mainTest(HINSTANCE hInstance, int nCmdShow) {
 	SAMPLE1::CSampleApplication app(hInstance, nCmdShow);
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #ifdef _WIN32
 	// Debuging code
 	int BreakAlloc = -1;

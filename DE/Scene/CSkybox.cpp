@@ -30,16 +30,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Scene/CSceneManager.h"
 
-namespace DE
-{
-	#define SIZE_FACTOR 1.5f
-	#define SHADER_NAME "skybox"
+namespace DE {
+#define SIZE_FACTOR 1.5f
+#define SHADER_NAME "skybox"
 
 	/**
 	* Skybox element
 	*/
-	struct SSkyboxElement
-	{
+	struct SSkyboxElement {
 		CVector3F vertex;
 		CVector2F texcoord;
 	};
@@ -47,8 +45,7 @@ namespace DE
 	/**
 	* Constructor
 	*/
-	CSkybox::CSkybox()
-	{
+	CSkybox::CSkybox() {
 		this->m_visible = false;
 		CreateGeometry();
 	}
@@ -57,8 +54,7 @@ namespace DE
 	* Constructor
 	* @param name The start name without the extension and the face
 	*/
-	CSkybox::CSkybox(const std::string & name)
-	{
+	CSkybox::CSkybox(const std::string & name) {
 		this->m_visible = true;
 		SetName(name);
 		CreateGeometry();
@@ -68,8 +64,7 @@ namespace DE
 	* Set the skybox texture name
 	* @param name The start name without the extension and the face
 	*/
-	void CSkybox::SetName(const std::string & name)
-	{
+	void CSkybox::SetName(const std::string & name) {
 
 		std::ostringstream ss;
 
@@ -102,8 +97,7 @@ namespace DE
 	/**
 	* Render the skybox
 	*/
-	void CSkybox::Render()
-	{
+	void CSkybox::Render() {
 		IRenderer * renderer = IRenderer::GetRenderer();
 		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
@@ -121,8 +115,7 @@ namespace DE
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), sceneManager->GetActiveCamera()->GetViewProjMatrix());
 
 		// Draw each part of the skybox
-		for(int i = 0 ; i < SKYBOX_FACE_SIZE ; i++)
-		{
+		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {
 			renderer->SetVertexBuffer(0, this->m_buffers.at(i), sizeof(DE::SSkyboxElement), 0, 4);
 			renderer->SetTexture(0, this->m_textures.at(i).GetTexture());
 			renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
@@ -136,83 +129,81 @@ namespace DE
 	* If the skybox is visible
 	* @return True is the skybox is visible and can be rendered
 	*/
-	const bool CSkybox::IsVisible() const
-	{
+	const bool CSkybox::IsVisible() const {
 		return this->m_visible;
 	}
 
 	/**
 	* Create the necessary geometry
 	*/
-	void CSkybox::CreateGeometry()
-	{
+	void CSkybox::CreateGeometry() {
 		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Create the buffers
 		SSkyboxElement front[] =
 		{
-			{ CVector3F(-1,  1, 1 ), CVector2F(0,0) },
-			{ CVector3F( 1,  1, 1 ), CVector2F(1,0) },
-			{ CVector3F( 1, -1, 1 ), CVector2F(1,1) },
-			{ CVector3F(-1, -1, 1 ), CVector2F(0,1) }
+			{ CVector3F(-1, 1, 1), CVector2F(0, 0) },
+			{ CVector3F(1, 1, 1), CVector2F(1, 0) },
+			{ CVector3F(1, -1, 1), CVector2F(1, 1) },
+			{ CVector3F(-1, -1, 1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_FRONT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, front);
 
 		SSkyboxElement right[] =
 		{
-			{ CVector3F( 1,  1,  1 ), CVector2F(0,0) },
-			{ CVector3F( 1,  1, -1 ), CVector2F(1,0) },
-			{ CVector3F( 1, -1, -1 ), CVector2F(1,1) },
-			{ CVector3F( 1, -1,  1 ), CVector2F(0,1) }
+			{ CVector3F(1, 1, 1), CVector2F(0, 0) },
+			{ CVector3F(1, 1, -1), CVector2F(1, 0) },
+			{ CVector3F(1, -1, -1), CVector2F(1, 1) },
+			{ CVector3F(1, -1, 1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_RIGHT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, right);
 
 		SSkyboxElement back[] =
 		{
-			{ CVector3F( 1,  1, -1 ), CVector2F(0,0) },
-			{ CVector3F(-1,  1, -1 ), CVector2F(1,0) },
-			{ CVector3F(-1, -1, -1 ), CVector2F(1,1) },
-			{ CVector3F( 1, -1, -1 ), CVector2F(0,1) }
+			{ CVector3F(1, 1, -1), CVector2F(0, 0) },
+			{ CVector3F(-1, 1, -1), CVector2F(1, 0) },
+			{ CVector3F(-1, -1, -1), CVector2F(1, 1) },
+			{ CVector3F(1, -1, -1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_BACK] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, back);
 
 		SSkyboxElement left[] =
 		{
-			{ CVector3F(-1,  1, -1 ), CVector2F(0,0) },
-			{ CVector3F(-1,  1,  1 ), CVector2F(1,0) },
-			{ CVector3F(-1, -1,  1 ), CVector2F(1,1) },
-			{ CVector3F(-1, -1, -1 ), CVector2F(0,1) }
+			{ CVector3F(-1, 1, -1), CVector2F(0, 0) },
+			{ CVector3F(-1, 1, 1), CVector2F(1, 0) },
+			{ CVector3F(-1, -1, 1), CVector2F(1, 1) },
+			{ CVector3F(-1, -1, -1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_LEFT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, left);
 
 		SSkyboxElement up[] =
 		{
-			{ CVector3F(-1,  1, -1 ), CVector2F(0,0) },
-			{ CVector3F( 1,  1, -1 ), CVector2F(1,0) },
-			{ CVector3F( 1,  1,  1 ), CVector2F(1,1) },
-			{ CVector3F(-1,  1,  1 ), CVector2F(0,1) }
+			{ CVector3F(-1, 1, -1), CVector2F(0, 0) },
+			{ CVector3F(1, 1, -1), CVector2F(1, 0) },
+			{ CVector3F(1, 1, 1), CVector2F(1, 1) },
+			{ CVector3F(-1, 1, 1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_UP] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, up);
 
 		SSkyboxElement down[] =
 		{
-			{ CVector3F(-1, -1,  1 ), CVector2F(0,0) },
-			{ CVector3F( 1, -1,  1 ), CVector2F(1,0) },
-			{ CVector3F( 1, -1, -1 ), CVector2F(1,1) },
-			{ CVector3F(-1, -1, -1 ), CVector2F(0,1) }
+			{ CVector3F(-1, -1, 1), CVector2F(0, 0) },
+			{ CVector3F(1, -1, 1), CVector2F(1, 0) },
+			{ CVector3F(1, -1, -1), CVector2F(1, 1) },
+			{ CVector3F(-1, -1, -1), CVector2F(0, 1) }
 		};
 		this->m_buffers[SKYBOX_FACE_DOWN] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, down);
 
 		// Create the vertex declaration
 		DE::SDeclarationElement declaration[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_vertexDeclaration = renderer->CreateVertexDeclaration(declaration);
 
 		// Create the index buffer
-		int indices[] = {0,1,2,2,3,0};
+		int indices[] = { 0, 1, 2, 2, 3, 0 };
 		this->m_indexBuffer = renderer->CreateIndexBuffer(6, 0, indices);
 
 		// Load the shader program

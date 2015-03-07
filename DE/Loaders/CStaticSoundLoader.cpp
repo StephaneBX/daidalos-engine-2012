@@ -33,20 +33,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.h"
 #include "../Loaders/CStaticSoundLoader.h"
 
-namespace DE
-{
+namespace DE {
 	CStaticSoundLoader::CStaticSoundLoader() {}
 
 	CStaticSoundLoader::~CStaticSoundLoader() {}
 
-	IStaticSoundBase * CStaticSoundLoader::LoadFromFile(const std::string & filename)
-	{
+	IStaticSoundBase * CStaticSoundLoader::LoadFromFile(const std::string & filename) {
 		SF_INFO fileInfos;
 		SNDFILE* file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
 
 		// Open the file
-		if(!file)
-		{
+		if(!file) {
 			LOG_ERROR("Unable to load the sound '" << filename << "'");
 			ILogger::Kill();
 
@@ -61,8 +58,7 @@ namespace DE
 		ESoundFormat format;
 		ALenum openALFormat;
 
-		switch(fileInfos.channels)
-		{
+		switch(fileInfos.channels) {
 		case 1:
 			format = SOUND_FORMAT_MONO16;
 			openALFormat = AL_FORMAT_MONO16;
@@ -81,8 +77,7 @@ namespace DE
 		}
 
 		// Read the content of the file
-		if(sf_read_short(file, &samples[0], nbSamples) < nbSamples)
-		{
+		if(sf_read_short(file, &samples[0], nbSamples) < nbSamples) {
 			LOG_ERROR("The file '" << filename << "' has corrupted information");
 			ILogger::Kill();
 
@@ -97,8 +92,7 @@ namespace DE
 
 		alBufferData(buffer, openALFormat, &samples[0], nbSamples * sizeof(ALushort), sampleRate);
 
-		if(alGetError() != AL_NO_ERROR)
-		{
+		if(alGetError() != AL_NO_ERROR) {
 			LOG_ERROR("Unable to fill the sound buffer for the file '" << filename << "'");
 			ILogger::Kill();
 

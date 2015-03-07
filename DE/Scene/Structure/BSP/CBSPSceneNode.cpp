@@ -34,10 +34,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define BSP_MIN_MOVE 0.02f
 #define BSP_HEIGHT_EPSILON 0.4f
 
-namespace DE
-{
-	CBSPSceneNode::CBSPSceneNode() 
-	{
+namespace DE {
+	CBSPSceneNode::CBSPSceneNode() {
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
@@ -46,8 +44,7 @@ namespace DE
 
 	CBSPSceneNode::~CBSPSceneNode() {}
 
-	void CBSPSceneNode::LoadGeometry(const std::vector<SBSPBrushDefinition> & brushDefinition)
-	{
+	void CBSPSceneNode::LoadGeometry(const std::vector<SBSPBrushDefinition> & brushDefinition) {
 		// Reset triangles count
 		this->m_geometryLeafs.clear();
 
@@ -60,11 +57,9 @@ namespace DE
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		// Loop through the brushes
-		for(unsigned int i = 0 ; i < brushDefinition.size() ; ++i)
-		{
+		for(unsigned int i = 0; i < brushDefinition.size(); ++i) {
 			brushGeometry.clear();
-			for(unsigned int j = 0 ; j < brushDefinition.at(i).geometry.size() ; ++j)
-			{
+			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
 				if(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
 					this->m_diffuseTextures.push_back(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE));
@@ -77,7 +72,7 @@ namespace DE
 				global.push_back(new CBSPTriangle(*brushDefinition.at(i).geometry.at(j)));
 
 				// Add a copy in the brush vector
-				brushGeometry.push_back(new CBSPTriangle(*brushDefinition.at(i).geometry.at(j)));	
+				brushGeometry.push_back(new CBSPTriangle(*brushDefinition.at(i).geometry.at(j)));
 			}
 
 			// Create the brush and add it to the brush list
@@ -99,23 +94,20 @@ namespace DE
 		// Create the collision bsp by cloning the main bsp nodes
 		this->m_collisionBsp = std::unique_ptr<CBSPBrushNode>(new CBSPBrushNode(this->m_bsp.get()));
 
-		for(unsigned int i = 0 ; i < this->m_brushes.size() ; ++i)
-		{
+		for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
 			// Add the brushes to the collision bsp
 			this->m_collisionBsp->AddBrush(this->m_brushes.at(i).get(), brushDefinition.at(i).geometry);
 
 			// Update the bounding box
-			for(unsigned int j = 0 ; j < brushDefinition.at(i).geometry.size() ; ++j)
-			{
-				for(unsigned int k = 0 ; k < 3 ; k++)
-				{
+			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j) {
+				for(unsigned int k = 0; k < 3; k++) {
 					minPosition = minPosition.Min(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
 					maxPosition = maxPosition.Max(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
 				}
 			}
 
 			// Delete the triangles as they're no longer needed
-			for(unsigned int j = 0 ; j < brushDefinition.at(i).geometry.size() ; ++j)
+			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j)
 				delete brushDefinition.at(i).geometry.at(j);
 		}
 
@@ -123,8 +115,7 @@ namespace DE
 		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
-	void CBSPSceneNode::Render()
-	{
+	void CBSPSceneNode::Render() {
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
@@ -137,8 +128,7 @@ namespace DE
 		this->m_activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
 		RegisterNodeForRendering(this->m_bsp.get());
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
-		if(this->m_visibleTriangles.size() > 0)
-		{
+		if(this->m_visibleTriangles.size() > 0) {
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
@@ -150,8 +140,7 @@ namespace DE
 			SMaterialElement * batchMaterialElement;
 
 			// Sort with the diffuse texture and the material
-			while(this->m_visibleTriangles.size() > 0)
-			{
+			while(this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
 				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
@@ -161,14 +150,11 @@ namespace DE
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
 				// Check for compatible triangles
-				for(auto it = this->m_visibleTriangles.begin() ; it != this->m_visibleTriangles.end() ; )
-				{
-					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement))
-					{
+				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
 						batchTriangles.push_back(*it);
 						it = this->m_visibleTriangles.erase(it);
-					}
-					else
+					} else
 						++it;
 				}
 
@@ -182,8 +168,7 @@ namespace DE
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), batchMaterialElement->m_kEmission);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
 
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0)
-				{
+				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 					renderer->SetTexture(0, batchDiffuseTexture);
 					renderer->SetTexture(1, batchNormalTexture);
 				}
@@ -196,8 +181,7 @@ namespace DE
 		ISceneNode::Render();
 	}
 
-	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement)
-	{
+	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		CVector3F endPoint, edge, distance;
 		bool isCollision = false;
 		float dot;
@@ -214,8 +198,7 @@ namespace DE
 
 		bool elevated = false;
 
-		for(int impactLoop = 0 ; impactLoop < BSP_MAX_IMPACT ; ++impactLoop)
-		{
+		for(int impactLoop = 0; impactLoop < BSP_MAX_IMPACT; ++impactLoop) {
 			endPoint = startPoint + remainingDistance;
 
 			// Impacts initialization
@@ -225,11 +208,9 @@ namespace DE
 			// Collision test
 			this->m_collisionBsp->CollisionDetection(shape, impact, iBrush);
 
-			if(impact.IsImpact())
-			{
+			if(impact.IsImpact()) {
 				// Test with an slightly elevated position for wall type collisions
-				if(!elevated && impact.GetPlaneNormal().y <= 0)
-				{
+				if(!elevated && impact.GetPlaneNormal().y <= 0) {
 					CImpact impactEpsilon;
 					CImpact iBrushEpsilon;
 					CVector3F shapePositionOld = shape.GetPosition();
@@ -243,29 +224,23 @@ namespace DE
 					this->m_collisionBsp->CollisionDetection(shape, impactEpsilon, iBrushEpsilon);
 
 					// Use the elevated position only if the impact fraction is bigger (more distance traveled)
-					if(impactEpsilon.GetImpactFraction() > impact.GetImpactFraction()) 
-					{
+					if(impactEpsilon.GetImpactFraction() > impact.GetImpactFraction()) {
 						impact = impactEpsilon;
 						iBrush = iBrushEpsilon;
 
 						// If the elevated position causes no collision, stop here
-						if(!impactEpsilon.IsImpact())
-						{
+						if(!impactEpsilon.IsImpact()) {
 							shape.SetPosition(impactEpsilon.GetEndPoint());
 							return isCollision;
 						}
-					} 
-					else
-					{
+					} else {
 						// Use the old position
 						shape.SetPosition(shapePositionOld);
 					}
 				}
-				
+
 				isCollision = true;
-			}
-			else
-			{
+			} else {
 				shape.SetPosition(endPoint);
 				return isCollision;
 			}
@@ -275,7 +250,7 @@ namespace DE
 
 			// Reset the normal index if the distance shape-impact is too big
 			if(distance.Length() > BSP_MIN_MOVE)
-				normalIndex =  0;
+				normalIndex = 0;
 
 			// Memorize the plane normal
 			this->m_normals[normalIndex] = impact.GetPlaneNormal();
@@ -284,15 +259,12 @@ namespace DE
 			startPoint += distance;
 
 			// Normals verification
-			for(i = 0 ; i < normalIndex ; ++i)
-			{
+			for(i = 0; i < normalIndex; ++i) {
 				dot = velocity.DotProduct(this->m_normals[i]);
 				remainingDistance = velocity - this->m_normals[i] * dot;
 
-				for(j = 0 ; j < normalIndex ; ++j)
-				{
-					if(i != j)
-					{
+				for(j = 0; j < normalIndex; ++j) {
+					if(i != j) {
 						if(remainingDistance.DotProduct(this->m_normals[j]) < 0)
 							break;
 					}
@@ -303,16 +275,12 @@ namespace DE
 			}
 
 			// Position modification depending on the number of normals
-			if(i == normalIndex)
-			{
-				if(normalIndex == 2)
-				{
+			if(i == normalIndex) {
+				if(normalIndex == 2) {
 					edge = this->m_normals[0].CrossProduct(this->m_normals[1]).Normalize();
 					dot = edge.DotProduct(velocity);
 					remainingDistance = edge * dot;
-				}
-				else
-				{
+				} else {
 					shape.SetPosition(startPoint);
 					return isCollision;
 				}
@@ -321,11 +289,10 @@ namespace DE
 			remainingDistance *= fraction;
 
 			// Don't move if the sliding movement is toward the velocity or too small
-			if(velocity.DotProduct(remainingDistance) < 0 || remainingDistance.Length() < BSP_MIN_MOVE)
-			{
+			if(velocity.DotProduct(remainingDistance) < 0 || remainingDistance.Length() < BSP_MIN_MOVE) {
 				/*CVector3F distance = startPoint - shape.GetPosition();
 				if(distance.Length() >= BSP_MIN_MOVE)
-					shape.SetPosition(startPoint);*/
+				shape.SetPosition(startPoint);*/
 
 				shape.SetPosition(startPoint);
 
@@ -336,8 +303,7 @@ namespace DE
 		return isCollision;
 	}
 
-	const bool CBSPSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point)
-	{
+	const bool CBSPSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		CImpact impact;
 		CImpact iBrush;
 
@@ -350,18 +316,14 @@ namespace DE
 		return impact.IsImpact();
 	}
 
-	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node)
-	{
+	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node) {
 		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
 		// Loop through each leaf
-		for(auto it = this->m_geometryLeafs.begin() ; it != m_geometryLeafs.end() ; ++it)
-		{
+		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
 			// Loop through each triangle
-			for(auto it2 = (*it)->GetTriangles().begin() ; it2 != (*it)->GetTriangles().end() ; ++it2)
-			{
-				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()))
-				{
+			for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
+				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere())) {
 					this->m_visibleTriangles.push_back((*it2).get());
 					(*it2)->SetDrawn(true);
 				}
@@ -369,8 +331,7 @@ namespace DE
 		}
 	}
 
-	void CBSPSceneNode::RegisterLeafs(CBSPTreeNode * node)
-	{
+	void CBSPSceneNode::RegisterLeafs(CBSPTreeNode * node) {
 		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF)
 			this->m_geometryLeafs.push_back(node);
 

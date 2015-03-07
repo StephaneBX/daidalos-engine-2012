@@ -30,43 +30,35 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CInputDevice.h"
 #include "../GUI/CGUICursor.h"
 
-namespace DE
-{
-	CGUICursor::CGUICursor(const std::string & texture)
-	{
+namespace DE {
+	CGUICursor::CGUICursor(const std::string & texture) {
 		this->m_changed = true;
 
 		// Add the left click action
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
-		SInputActionDeclaration leftClickAction = {GUI_VIEW_LEFT_CLICK, -1};
+		SInputActionDeclaration leftClickAction = { GUI_VIEW_LEFT_CLICK, -1 };
 		inputDevice->AddAction(leftClickAction);
 		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, DE::INPUT_KEY_MOUSE_BUTTON0);
 	}
 
-	void CGUICursor::SetTexture(const std::string & texture)
-	{
-		if(texture != "")
-		{
+	void CGUICursor::SetTexture(const std::string & texture) {
+		if(texture != "") {
 			this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 			this->m_preferredsize = this->m_texture.GetSize();
 			this->m_changed = true;
-		}
-		else
-		{
+		} else {
 			this->m_texture = CTexture2D();
 		}
 	}
 
-	void CGUICursor::Update()
-	{
+	void CGUICursor::Update() {
 		UpdatePosition();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
 
-		this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0,0,1,1));
+		this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1));
 
-		if(this->m_data.size() > 0)
-		{
+		if(this->m_data.size() > 0) {
 			// Create a new buffer if the current one is too small
 			if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
 				this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
@@ -81,10 +73,8 @@ namespace DE
 		IGUIView::Update();
 	}
 
-	void CGUICursor::Render()
-	{
-		if(this->m_data.size() > 0)
-		{
+	void CGUICursor::Render() {
+		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
@@ -102,8 +92,7 @@ namespace DE
 		IGUIView::Render();
 	}
 
-	void CGUICursor::UpdatePosition()
-	{
+	void CGUICursor::UpdatePosition() {
 		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Update the cursor position

@@ -28,10 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSampleApplication.h"
 #include "Scene/CDirectionalLightSceneNode.h"
 
-namespace SAMPLE1
-{
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : ISampleApplication(hInstance, nCmdShow)
-	{
+namespace SAMPLE1 {
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : ISampleApplication(hInstance, nCmdShow) {
 		this->m_scene->LoadScene("sample1.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
 		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene->GetNode("directionalLight");
@@ -45,23 +43,20 @@ namespace SAMPLE1
 
 	CSampleApplication::~CSampleApplication() {}
 
-	void CSampleApplication::Update(const float time) 
-	{
+	void CSampleApplication::Update(const float time) {
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_camera->Update(time);
 
-		if(this->m_directionalLight != nullptr)
-		{
+		if(this->m_directionalLight != nullptr) {
 			DE::CVector3F lightRotation = this->m_directionalLight->GetRotation();
 			lightRotation.y += (40 * time) / 1000.0f;
 			this->m_directionalLight->SetRotation(lightRotation);
 		}
 
-		if(this->m_dwarfNode->GetAnimationState() ==  DE::MESH_ANIMATION_STATE_STOPPED)
-		{
+		if(this->m_dwarfNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
 		}
 

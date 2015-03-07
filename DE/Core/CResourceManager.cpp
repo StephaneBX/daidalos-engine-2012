@@ -28,22 +28,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.h"
 #include "../Core/CResourceManager.h"
 
-namespace DE
-{
+namespace DE {
 	CResourceManager::CResourceManager() {}
 
 	CResourceManager::~CResourceManager() {}
 
-	void CResourceManager::AddResource(const std::string & name, IResource * resource)
-	{
+	void CResourceManager::AddResource(const std::string & name, IResource * resource) {
 		auto it = this->m_resources.find(name);
 
-		if(it != this->m_resources.end())
-		{
-			 LOG_WARNING("A resource with the name '" << name << "' is already registered in the resources database.");
-		}
-		else
-		{
+		if(it != this->m_resources.end()) {
+			LOG_WARNING("A resource with the name '" << name << "' is already registered in the resources database.");
+		} else {
 			/**
 			* Add the ressource and add a reference, this function being called by the first class that created the ressource
 			*/
@@ -52,28 +47,21 @@ namespace DE
 		}
 	}
 
-	void CResourceManager::ReleaseResource(const std::string & name)
-	{
+	void CResourceManager::ReleaseResource(const std::string & name) {
 		auto it = this->m_resources.find(name);
 
-		if(it != this->m_resources.end())
-		{
+		if(it != this->m_resources.end()) {
 			if(it->second->Release() == 0)
 				this->m_resources.erase(it);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("No resource with the name '" << name << "' is registered in the resources database.");
 		}
 	}
 
-	void CResourceManager::ReleaseResource(IResource * resource)
-	{
+	void CResourceManager::ReleaseResource(IResource * resource) {
 		bool found = false;
-		for(auto it = this->m_resources.begin() ; it != this->m_resources.end() && !found ; ++it)
-		{
-			if(it->second == resource)
-			{
+		for(auto it = this->m_resources.begin(); it != this->m_resources.end() && !found; ++it) {
+			if(it->second == resource) {
 				if(it->second->Release() == 0)
 					this->m_resources.erase(it);
 				found = true;

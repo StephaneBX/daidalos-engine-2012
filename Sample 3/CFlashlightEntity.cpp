@@ -31,10 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CVector3.h>
 #include "CFlashlightEntity.h"
 
-namespace SAMPLE3
-{
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, SAMPLES::CFPSCamera * camera)
-	{
+namespace SAMPLE3 {
+	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, SAMPLES::CFPSCamera * camera) {
 		this->m_node = meshNode;
 		this->m_light = lightNode;
 		this->m_player = camera;
@@ -43,18 +41,15 @@ namespace SAMPLE3
 		this->m_sound.SetRelativeToListener(true);
 	}
 
-	void CFlashlightEntity::Update(float const time)
-	{
+	void CFlashlightEntity::Update(float const time) {
 		DE::CVector3F rotation = this->m_node->GetRotation();
 		rotation.y += (ROTATION_SPEED * time) / 1000.0f;
-		if(rotation.y > 360)
-		{
+		if(rotation.y > 360) {
 			rotation.y -= 360;
 		}
 		this->m_node->SetRotation(rotation);
 
-		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS)
-		{
+		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS) {
 			this->m_node->SetEnabled(false);
 			this->m_light->SetEnabled(true);
 			this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);

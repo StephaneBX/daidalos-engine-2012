@@ -31,22 +31,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStreamSoundBase.h"
 #include "../Medias/CSound.h"
 
-namespace DE
-{
+namespace DE {
 	CSound::CSound() {}
 
-	CSound::CSound(const std::string & filename, ESoundType type)
-	{
+	CSound::CSound(const std::string & filename, ESoundType type) {
 		LoadFromFile(filename, type);
 	}
 
 	CSound::~CSound() {}
 
-	void CSound::LoadFromFile(const std::string & filename, ESoundType type)
-	{
+	void CSound::LoadFromFile(const std::string & filename, ESoundType type) {
 		this->m_type = type;
-		switch(type)
-		{
+		switch(type) {
 		case SOUND_TYPE_STATIC:
 			this->m_sound = std::unique_ptr<IStaticSoundBase>(CMediaManager::GetInstance()->LoadMediaFromFile<IStaticSoundBase>(filename));
 			break;
@@ -57,146 +53,122 @@ namespace DE
 		}
 	}
 
-	void CSound::SetStatus(ESoundStatus status)
-	{
+	void CSound::SetStatus(ESoundStatus status) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetStatus(status);
 	}
 
-	void CSound::SetGain(const float gain)
-	{
+	void CSound::SetGain(const float gain) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetGain(gain);
 	}
 
-	void CSound::SetPosition(const CVector3F & position)
-	{
+	void CSound::SetPosition(const CVector3F & position) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetPosition(position);
 	}
 
-	void CSound::SetOrientation(float * orientation)
-	{
+	void CSound::SetOrientation(float * orientation) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetOrientation(orientation);
 	}
 
-	void CSound::SetVelocity(const CVector3F & velocity)
-	{
+	void CSound::SetVelocity(const CVector3F & velocity) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetVelocity(velocity);
 	}
 
-	void CSound::SetConeInnerAngle(const float angle)
-	{
+	void CSound::SetConeInnerAngle(const float angle) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetConeInnerAngle(angle);
 	}
 
-	void CSound::SetConeOuterAngle(const float angle)
-	{
+	void CSound::SetConeOuterAngle(const float angle) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetConeOuterAngle(angle);
 	}
 
-	void CSound::SetReferenceDistance(const float distance)
-	{
+	void CSound::SetReferenceDistance(const float distance) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetReferenceDistance(distance);
 	}
 
-	void CSound::SetMaxDistance(const float distance)
-	{
+	void CSound::SetMaxDistance(const float distance) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetMaxDistance(distance);
 	}
 
-	void CSound::SetRelativeToListener(const bool relative)
-	{
+	void CSound::SetRelativeToListener(const bool relative) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetRelativeToListener(relative);
 	}
 
-	void CSound::SetLooped(const bool loop)
-	{
+	void CSound::SetLooped(const bool loop) {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetLooped(loop);
 	}
 
-	void CSound::Update()
-	{
+	void CSound::Update() {
 		Assert(this->m_sound != nullptr);
 		this->m_sound->Update();
 	}
 
-	ESoundFormat CSound::GetFormat() const
-	{
+	ESoundFormat CSound::GetFormat() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetFormat();
 	}
 
-	ESoundStatus CSound::GetStatus() const
-	{
+	ESoundStatus CSound::GetStatus() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetStatus();
 	}
-		
-	ESoundType CSound::GetType() const
-	{
+
+	ESoundType CSound::GetType() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_type;
 	}
 
-	const bool CSound::IsRelativeToListener() const
-	{
+	const bool CSound::IsRelativeToListener() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsRelativeToListener();
 	}
 
-	const bool CSound::IsLooped() const
-	{
+	const bool CSound::IsLooped() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsLooped();
 	}
 
-	const int CSound::GetChannelsCount() const
-	{
+	const int CSound::GetChannelsCount() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetChannelsCount();
 	}
 
-	const float CSound::GetGain() const
-	{
+	const float CSound::GetGain() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetGain();
 	}
 
-	const float CSound::GetConeInnerAngle() const
-	{
+	const float CSound::GetConeInnerAngle() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeInnerAngle();
 	}
 
-	const float CSound::GetConeOuterAngle() const
-	{
+	const float CSound::GetConeOuterAngle() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeOuterAngle();
 	}
 
-	const float CSound::GetReferenceDistance() const
-	{
+	const float CSound::GetReferenceDistance() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetReferenceDistance();
 	}
 
-	const float CSound::GetMaxDistance() const
-	{
+	const float CSound::GetMaxDistance() const {
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetMaxDistance();
 	}
 
-	ISoundBase * CSound::GetSound() const
-	{
+	ISoundBase * CSound::GetSound() const {
 		return this->m_sound.get();
 	}
 }

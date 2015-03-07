@@ -25,12 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <algorithm>
 #include "../Medias/CMS3DMesh.h"
 
-namespace DE
-{
-	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name)
-	{
+namespace DE {
+	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name) {
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[this->m_internalData->numberOfMeshes];
@@ -40,8 +39,7 @@ namespace DE
 		this->m_texcoord = new CVector2F*[this->m_internalData->numberOfMeshes];
 
 		// Data initialization
-		for(int i = 0 ; i < this->m_internalData->numberOfMeshes ; ++i)
-		{
+		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 			this->m_groupSize.push_back(this->m_internalData->mesh[i].numberOfFaces * 3);
 			this->m_vertex[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
 			this->m_normal[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
@@ -51,21 +49,17 @@ namespace DE
 		}
 
 		// Copy texture coordinates
-		for(int i = 0 ; i < this->m_internalData->numberOfMeshes ; ++i)
-		{
+		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 			memcpy(this->m_texcoord[i], this->m_internalData->mesh[i].textureCoordinates, sizeof(CVector2F) * this->m_internalData->mesh[i].numberOfFaces * 3);
 		}
 
 		// Visibility shape calculation
 		CVector3F min, max;
-		for(this->m_frame = 0 ; this->m_frame < this->m_internalData->numberOfFrames ; ++this->m_frame)
-		{
+		for(this->m_frame = 0; this->m_frame < this->m_internalData->numberOfFrames; ++this->m_frame) {
 			FinalizeGeometry(MESH_SHADING_SMOOTH);
 
-			for(int j = 0 ; j < this->m_internalData->numberOfMeshes ; ++j)
-			{
-				for(int k = 0 ; k < this->m_internalData->mesh[j].numberOfFaces * 3 ; ++k)
-				{
+			for(int j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
+				for(int k = 0; k < this->m_internalData->mesh[j].numberOfFaces * 3; ++k) {
 					max.x = std::max(max.x, this->m_vertex[j][k].x);
 					max.y = std::max(max.y, this->m_vertex[j][k].y);
 					max.z = std::max(max.z, this->m_vertex[j][k].z);
@@ -86,12 +80,9 @@ namespace DE
 		TangentAndBinormalCalculation();
 	}
 
-	CMS3DMesh::~CMS3DMesh()
-	{
-		for(int i = 0 ; i < this->m_internalData->numberOfMeshes ; ++i)
-		{
-			for(int j = 0 ; j < this->m_internalData->numberOfFrames ; ++j)
-			{
+	CMS3DMesh::~CMS3DMesh() {
+		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+			for(int j = 0; j < this->m_internalData->numberOfFrames; ++j) {
 				SAFE_DELETE_ARRAY(this->m_internalData->mesh[i].vertex[j]);
 				SAFE_DELETE_ARRAY(this->m_internalData->mesh[i].normal[j]);
 			}
@@ -105,8 +96,7 @@ namespace DE
 		SAFE_DELETE(this->m_internalData);
 	}
 
-	void CMS3DMesh::FinalizeGeometry(EMeshShadingType shadingType)
-	{
+	void CMS3DMesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		int frameA = (int)floor(this->m_frame);
 		int frameB = (int)floor(this->m_frame + 1);
 
@@ -117,15 +107,13 @@ namespace DE
 		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0f;
 
 		// Use the first frame if the choosen frame is less than 0
-		if(frameA < 0)
-		{
+		if(frameA < 0) {
 			frameA = 0;
 			frameB = 0;
 		}
 
 		// Use the last frame if the choosen frame is bigger than this->m_header.m_numFrames - 1
-		if(frameB > this->m_internalData->numberOfFrames - 1)
-		{
+		if(frameB > this->m_internalData->numberOfFrames - 1) {
 			frameA = this->m_internalData->numberOfFrames - 1;
 			frameB = this->m_internalData->numberOfFrames - 1;
 		}
@@ -133,18 +121,15 @@ namespace DE
 		/**
 		* Data interpolation
 		*/
-		for(int i = 0 ; i < this->m_internalData->numberOfMeshes ; ++i)
-		{
-			for(int j = 0 ; j < this->m_internalData->mesh[i].numberOfFaces * 3 ; ++j)
-			{
+		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+			for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
 				this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
 				this->m_normal[i][j] = this->m_internalData->mesh[i].normal[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
 			}
 		}
 	}
 
-	const int CMS3DMesh::GetNumberOfFrames() const
-	{
+	const int CMS3DMesh::GetNumberOfFrames() const {
 		return this->m_internalData->numberOfFrames;
 	}
 }

@@ -28,28 +28,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Scene/CProjectionCameraSceneNode.h"
 
-namespace DE
-{
-	CProjectionCameraSceneNode::CProjectionCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance)
-	{
+namespace DE {
+	CProjectionCameraSceneNode::CProjectionCameraSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance) {
 		SetAngle(angle);
 		SetRatio(ratio);
 	}
 
 	CProjectionCameraSceneNode::~CProjectionCameraSceneNode() {}
 
-	void CProjectionCameraSceneNode::SetAngle(const float angle)
-	{
+	void CProjectionCameraSceneNode::SetAngle(const float angle) {
 		this->m_angle = angle;
 	}
 
-	void CProjectionCameraSceneNode::SetRatio(const float ratio)
-	{
+	void CProjectionCameraSceneNode::SetRatio(const float ratio) {
 		this->m_ratio = ratio;
 	}
 
-	void CProjectionCameraSceneNode::Update(const float time)
-	{
+	void CProjectionCameraSceneNode::Update(const float time) {
 		// Update the camera information
 		ICameraSceneNode::Update();
 
@@ -118,12 +113,12 @@ namespace DE
 
 
 		// Table creation four the frustum planes
-		CVector3F leftFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT]};
-		CVector3F rightFrustrum[3]  = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
-		CVector3F topFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT]};
-		CVector3F bottomFrustrum[3] = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT]};
-		CVector3F nearFrustrum[3]   = {this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT]};
-		CVector3F farFrustrum[3]    = {this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT]};
+		CVector3F leftFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT] };
+		CVector3F rightFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
+		CVector3F topFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT] };
+		CVector3F bottomFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT] };
+		CVector3F nearFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] };
+		CVector3F farFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
 
 		// Update the frustum planes
 		this->m_frustum.planes[FRUSTUM_PLANE_LEFT].Build(leftFrustrum);
@@ -137,14 +132,13 @@ namespace DE
 		// Update the debug buffer
 
 		// Check the vertex buffer size
-		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2)
-		{
+		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
 			// Create a new one if the current one can't hold the data
 			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
 
 		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], 
+			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
 			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
@@ -167,13 +161,11 @@ namespace DE
 		this->m_debugBuffer.Unlock();
 	}
 
-	const float CProjectionCameraSceneNode::GetAngle() const
-	{
+	const float CProjectionCameraSceneNode::GetAngle() const {
 		return this->m_angle;
 	}
 
-	const float CProjectionCameraSceneNode::GetRatio() const
-	{
+	const float CProjectionCameraSceneNode::GetRatio() const {
 		return this->m_ratio;
 	}
 }

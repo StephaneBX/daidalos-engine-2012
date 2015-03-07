@@ -27,17 +27,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/ITexture2DBase.h"
 
-namespace DE
-{
+namespace DE {
 	ITexture2DBase::~ITexture2DBase() {}
 
-	const STexture2DFilterPolicy & ITexture2DBase::GetTextureFilterPolicy() const
-	{
+	const STexture2DFilterPolicy & ITexture2DBase::GetTextureFilterPolicy() const {
 		return this->m_filter;
 	}
 
-	ITexture2DBase::ITexture2DBase(const CVector2I& size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap) : IResource("texture")
-	{
+	ITexture2DBase::ITexture2DBase(const CVector2I& size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap) : IResource("texture") {
 		this->m_size = size;
 		this->m_filter = filter;
 		this->m_format = format;

@@ -28,15 +28,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Memory/CExceptionAssert.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	* @param filename The exception owner file
 	* @param line The error line
 	*/
-	CExceptionAssert::CExceptionAssert(const std::string & filename, const int line)
-	{
+	CExceptionAssert::CExceptionAssert(const std::string & filename, const int line) {
 		std::ostringstream stream;
 		stream << "Assertion error" << std::endl << "File: " << filename << std::endl << "Line " << line << std::endl;
 		this->m_message = stream.str();

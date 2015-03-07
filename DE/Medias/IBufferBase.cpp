@@ -26,18 +26,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #include "../Medias/IBufferBase.h"
 
-namespace DE
-{
-	IBufferBase::IBufferBase(const unsigned long size) : IResource()
-	{
+namespace DE {
+	IBufferBase::IBufferBase(const unsigned long size) : IResource() {
 		this->m_size = size;
 	}
 
 	IBufferBase::~IBufferBase() {}
 
-	
-	const unsigned long IBufferBase::GetSize() const
-	{
+
+	const unsigned long IBufferBase::GetSize() const {
 		return this->m_size;
 	}
 }

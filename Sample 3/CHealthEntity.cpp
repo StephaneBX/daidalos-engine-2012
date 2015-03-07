@@ -32,10 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CVector3.h>
 #include "CHealthEntity.h"
 
-namespace SAMPLE3
-{
-	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera)
-	{
+namespace SAMPLE3 {
+	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera) {
 		this->m_node = meshNode;
 		this->m_player = camera;
 
@@ -44,30 +42,23 @@ namespace SAMPLE3
 		this->m_respawnTime = RESPAWN_TIME;
 	}
 
-	void CHealthEntity::Update(float const time)
-	{
+	void CHealthEntity::Update(float const time) {
 		DE::CVector3F rotation = this->m_node->GetRotation();
 		rotation.y += (ROTATION_SPEED * time) / 1000.0f;
-		if(rotation.y > 360)
-		{
+		if(rotation.y > 360) {
 			rotation.y -= 360;
 		}
 		this->m_node->SetRotation(rotation);
 
-		if(this->m_node->IsEnabled())
-		{
-			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS)
-			{
+		if(this->m_node->IsEnabled()) {
+			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS) {
 				this->m_node->SetEnabled(false);
 				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}
-		}
-		else
-		{
+		} else {
 			this->m_respawnTime -= time;
 
-			if(this->m_respawnTime <= 0)
-			{
+			if(this->m_respawnTime <= 0) {
 				this->m_node->SetEnabled(true);
 				this->m_respawnTime = RESPAWN_TIME;
 			}

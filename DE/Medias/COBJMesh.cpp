@@ -29,10 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.h"
 #include "../Medias/COBJMesh.h"
 
-namespace DE
-{
-	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name)
-	{
+namespace DE {
+	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name) {
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[this->m_internalData->groupSize.size()];
@@ -43,8 +41,7 @@ namespace DE
 
 		// Copy the data
 		this->m_groupSize = this->m_internalData->groupSize;
-		for(unsigned int i = 0 ; i < this->m_internalData->groupSize.size() ; ++i)
-		{
+		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 			this->m_vertex[i] = new CVector3F[this->m_internalData->groupSize[i]];
 			this->m_normal[i] = new CVector3F[this->m_internalData->groupSize[i]];
 			this->m_tangent[i] = new CVector3F[this->m_internalData->groupSize[i]];
@@ -54,29 +51,24 @@ namespace DE
 			memcpy(this->m_vertex[i], this->m_internalData->vertex[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
 			memcpy(this->m_texcoord[i], this->m_internalData->texcoord[i], sizeof(CVector2F) * this->m_internalData->groupSize[i]);
 
-			if(this->m_internalData->normal[i] == nullptr)
-			{
+			if(this->m_internalData->normal[i] == nullptr) {
 				// If no normals are present, calculate them (flat)
-				for(int j = 0 ; j < this->m_internalData->groupSize[i] ; j += 3)
-				{
+				for(int j = 0; j < this->m_internalData->groupSize[i]; j += 3) {
 					CVector3F tmp = this->m_internalData->vertex[i][j + 1] - this->m_internalData->vertex[i][j];
 					CVector3F normal = tmp.CrossProduct(this->m_internalData->vertex[i][j + 2] - this->m_internalData->vertex[i][j]).Normalize();
 
-					for(int k = 0 ; k < 3 ; ++k)
+					for(int k = 0; k < 3; ++k)
 						this->m_normal[i][j + k] = normal;
 				}
-			}
-			else
+			} else
 				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
-			
+
 		}
 
 		// Visibilty shape calculation
 		CVector3F min, max;
-		for(unsigned int i = 0 ; i < this->m_internalData->groupSize.size() ; ++i)
-		{
-			for(int j = 0 ; j < this->m_internalData->groupSize[i] ; ++j)
-			{
+		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
+			for(int j = 0; j < this->m_internalData->groupSize[i]; ++j) {
 				max.x = std::max(max.x, this->m_vertex[i][j].x);
 				max.y = std::max(max.y, this->m_vertex[i][j].y);
 				max.z = std::max(max.z, this->m_vertex[i][j].z);
@@ -96,13 +88,11 @@ namespace DE
 		TangentAndBinormalCalculation();
 	}
 
-	COBJMesh::~COBJMesh() 
-	{
-		for(unsigned int i = 0 ; i < this->m_internalData->groupSize.size() ; ++i)
-		{
+	COBJMesh::~COBJMesh() {
+		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 			if(this->m_internalData->vertex != nullptr)
 				SAFE_DELETE_ARRAY(this->m_internalData->vertex[i]);
-		
+
 			if(this->m_internalData->normal != nullptr)
 				SAFE_DELETE_ARRAY(this->m_internalData->normal[i]);
 
@@ -116,16 +106,14 @@ namespace DE
 		SAFE_DELETE(this->m_internalData);
 	}
 
-	void COBJMesh::FinalizeGeometry(EMeshShadingType shadingType) 
-	{
-		switch(shadingType)
-		{
+	void COBJMesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		switch(shadingType) {
 		case MESH_SHADING_FLAT:
 			FlatShadingNormals();
 			break;
 
 		case MESH_SHADING_SMOOTH:
-			for(unsigned int i = 0 ; i < this->m_internalData->groupSize.size() ; ++i)
+			for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i)
 				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
 			break;
 		}

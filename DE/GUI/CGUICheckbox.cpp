@@ -30,10 +30,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CInputDevice.h"
 #include "../GUI/CGUICheckbox.h"
 
-namespace DE
-{
-	CGUICheckbox::CGUICheckbox()
-	{
+namespace DE {
+	CGUICheckbox::CGUICheckbox() {
 		this->m_enabled = true;
 		this->m_checked = false;
 		this->m_changed = true;
@@ -45,74 +43,55 @@ namespace DE
 		AddSubview(this->m_label);
 	}
 
-	CGUICheckbox::~CGUICheckbox()
-	{
+	CGUICheckbox::~CGUICheckbox() {
 		delete this->m_label;
 	}
 
-	void CGUICheckbox::SetEnabled(const bool enabled)
-	{
+	void CGUICheckbox::SetEnabled(const bool enabled) {
 		this->m_enabled = enabled;
 	}
 
-	void CGUICheckbox::SetChecked(const bool checked)
-	{
+	void CGUICheckbox::SetChecked(const bool checked) {
 		this->m_checked = checked;
 	}
 
-	void CGUICheckbox::SetLabelInset(const CInsetI & inset)
-	{
+	void CGUICheckbox::SetLabelInset(const CInsetI & inset) {
 		this->m_labelInset = inset;
 	}
 
-	void CGUICheckbox::SetUncheckedTexture(const std::string & texture)
-	{
-		if(texture != "")
-		{
+	void CGUICheckbox::SetUncheckedTexture(const std::string & texture) {
+		if(texture != "") {
 			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
-		}
-		else
-		{
+		} else {
 			this->m_uncheckedTexture = CTexture2D();
 		}
 	}
 
-	void CGUICheckbox::SetCheckedTexture(const std::string & texture)
-	{
-		if(texture != "")
-		{
+	void CGUICheckbox::SetCheckedTexture(const std::string & texture) {
+		if(texture != "") {
 			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
-		}
-		else
-		{
+		} else {
 			this->m_checkedTexture = CTexture2D();
 		}
 	}
 
-	void CGUICheckbox::SetClickedTexture(const std::string & texture)
-	{
-		if(texture != "")
-		{
+	void CGUICheckbox::SetClickedTexture(const std::string & texture) {
+		if(texture != "") {
 			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
-		}
-		else
-		{
+		} else {
 			this->m_clickedTexture = CTexture2D();
 		}
 	}
 
-	void CGUICheckbox::Update()
-	{
-		if(this->m_changed)
-		{
+	void CGUICheckbox::Update() {
+		if(this->m_changed) {
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			GenerateGeometry();
 
-			if(this->m_data.size() > 0)
-			{
+			if(this->m_data.size() > 0) {
 				// Create a new buffer if the current one is too small
 				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
 					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
@@ -128,14 +107,11 @@ namespace DE
 		IGUIView::Update();
 	}
 
-	void CGUICheckbox::Render()
-	{
-		if(this->m_data.size() > 0)
-		{
+	void CGUICheckbox::Render() {
+		if(this->m_data.size() > 0) {
 			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
-			if(!this->m_enabled)
-			{
+			if(!this->m_enabled) {
 				color = CColor(0.5f, 0.5f, 0.5f, 1.0f);
 			}
 
@@ -156,28 +132,22 @@ namespace DE
 		IGUIView::Render();
 	}
 
-	const bool CGUICheckbox::HitTest(const CVector2I & point)
-	{
+	const bool CGUICheckbox::HitTest(const CVector2I & point) {
 		this->m_hitTest = IsInside(point);
 
 		// Click canceled by the user
-		if(this->m_clicked && !this->m_hitTest)
-		{
+		if(this->m_clicked && !this->m_hitTest) {
 			this->m_clicked = false;
 		}
 
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
 
 		// Click start test
-		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && this->m_hitTest)
-		{
+		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && this->m_hitTest) {
 			this->m_clicked = true;
-		} 
-		else
-		{
+		} else {
 			// Click end test
-			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest)
-			{
+			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest) {
 				this->m_clicked = false;
 				this->m_checked = !this->m_checked;
 			}
@@ -186,26 +156,22 @@ namespace DE
 		return this->m_hitTest;
 	}
 
-	const bool CGUICheckbox::IsEnabled() const
-	{
+	const bool CGUICheckbox::IsEnabled() const {
 		return this->m_enabled;
 	}
 
-	const bool CGUICheckbox::IsChecked() const
-	{
+	const bool CGUICheckbox::IsChecked() const {
 		return this->m_checked;
 	}
 
-	CGUILabel * CGUICheckbox::GetLabelElement()
-	{
+	CGUILabel * CGUICheckbox::GetLabelElement() {
 		return this->m_label;
 	}
 
-	void CGUICheckbox::GenerateGeometry()
-	{
+	void CGUICheckbox::GenerateGeometry() {
 		this->m_data.clear();
 		CRectangleI positionRectangle = GetPositionRectangle();
-		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0,0,1,1));
+		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1));
 
 		// Update the label position
 		this->m_label->SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), this->m_preferredsize.x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), this->m_preferredsize.y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
@@ -213,42 +179,31 @@ namespace DE
 		this->m_changed = false;
 	}
 
-	CRectangleI CGUICheckbox::GetPositionRectangle()
-	{
+	CRectangleI CGUICheckbox::GetPositionRectangle() {
 		CRectangleI positionRectangle;
 
-		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr)
-		{
+		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
 			positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_clickedTexture.GetSize().y) / 2, this->m_clickedTexture.GetSize().x, this->m_clickedTexture.GetSize().y);
-		}
-		else
-		{
-			if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr)
-			{
+		} else {
+			if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr) {
 				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_checkedTexture.GetSize().y) / 2, this->m_checkedTexture.GetSize().x, this->m_checkedTexture.GetSize().y);
-			}
-			else
-			{
+			} else {
 				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_uncheckedTexture.GetSize().y) / 2, this->m_uncheckedTexture.GetSize().x, this->m_uncheckedTexture.GetSize().y);
 			}
 		}
 		return positionRectangle;
 	}
 
-	ITexture2DBase * CGUICheckbox::GetTextureToRender()
-	{
-		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr)
-		{
+	ITexture2DBase * CGUICheckbox::GetTextureToRender() {
+		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
 			return this->m_clickedTexture.GetTexture();
 		}
 
-		if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr)
-		{
+		if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr) {
 			return this->m_checkedTexture.GetTexture();
 		}
 
-		if(this->m_uncheckedTexture.GetTexture() != nullptr)
-		{
+		if(this->m_uncheckedTexture.GetTexture() != nullptr) {
 			return this->m_uncheckedTexture.GetTexture();
 		}
 

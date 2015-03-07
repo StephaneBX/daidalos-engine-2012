@@ -29,10 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../GUI/CGUILabel.h"
 
-namespace DE
-{
-	CGUILabel::CGUILabel(const std::string & text, const std::string & font)
-	{
+namespace DE {
+	CGUILabel::CGUILabel(const std::string & text, const std::string & font) {
 		SetText(text);
 		SetFont(font);
 		SetColor(CColor(0xFFFFFFFF));
@@ -42,60 +40,51 @@ namespace DE
 		this->m_size = 12;
 	}
 
-	void CGUILabel::SetFont(const std::string & font)
-	{
+	void CGUILabel::SetFont(const std::string & font) {
 		this->m_font.LoadFromFile(font);
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 		this->m_changed = true;
 	}
 
-	void CGUILabel::SetText(const std::string & text)
-	{
+	void CGUILabel::SetText(const std::string & text) {
 		this->m_text = text;
 		this->m_changed = true;
 	}
 
-	void CGUILabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment)
-	{
+	void CGUILabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment) {
 		this->m_horizontalAlignment = alignment;
 		this->m_changed = true;
 	}
 
-	void CGUILabel::SetVerticalAlignment(ETextVerticalAlignment alignment)
-	{
+	void CGUILabel::SetVerticalAlignment(ETextVerticalAlignment alignment) {
 		this->m_verticalAlignment = alignment;
 		this->m_changed = true;
 	}
 
-	void CGUILabel::SetSize(const unsigned int size)
-	{
+	void CGUILabel::SetSize(const unsigned int size) {
 		this->m_size = size;
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 	}
 
-	void CGUILabel::SetColor(const CColor & color)
-	{
+	void CGUILabel::SetColor(const CColor & color) {
 		this->m_color = color;
 		this->m_changed = true;
 	}
 
-	void CGUILabel::Update()
-	{
-		if(this->m_changed)
-		{
+	void CGUILabel::Update() {
+		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			GenerateTextGeometry();
 
-			if(this->m_data.size() > 0)
-			{
+			if(this->m_data.size() > 0) {
 				// Create a new buffer if the current one is too small
 				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
 					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 
 				// Lock and copy the data
 				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
-					memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
+				memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
 				this->m_buffer.Unlock();
 			}
 		}
@@ -104,10 +93,8 @@ namespace DE
 		IGUIView::Update();
 	}
 
-	void CGUILabel::Render()
-	{
-		if(this->m_data.size() > 0)
-		{
+	void CGUILabel::Render() {
+		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
@@ -125,38 +112,31 @@ namespace DE
 		IGUIView::Render();
 	}
 
-	ETextHorizontalAlignment CGUILabel::GetHorizontalAlignment() const
-	{
+	ETextHorizontalAlignment CGUILabel::GetHorizontalAlignment() const {
 		return this->m_horizontalAlignment;
 	}
 
-	ETextVerticalAlignment CGUILabel::GetVerticalAlignment() const
-	{
+	ETextVerticalAlignment CGUILabel::GetVerticalAlignment() const {
 		return this->m_verticalAlignment;
 	}
 
-	const unsigned int CGUILabel::GetSize() const
-	{
+	const unsigned int CGUILabel::GetSize() const {
 		return this->m_size;
 	}
 
-	const std::string & CGUILabel::GetFontName() const
-	{
+	const std::string & CGUILabel::GetFontName() const {
 		return this->m_font.GetFontName();
 	}
 
-	const std::string & CGUILabel::GetText() const
-	{
+	const std::string & CGUILabel::GetText() const {
 		return this->m_text;
 	}
 
-	const CColor & CGUILabel::GetColor() const
-	{
+	const CColor & CGUILabel::GetColor() const {
 		return this->m_color;
 	}
 
-	void CGUILabel::GenerateTextGeometry()
-	{
+	void CGUILabel::GenerateTextGeometry() {
 		this->m_data.clear();
 
 		std::set<unsigned int> lineStart;
@@ -165,22 +145,18 @@ namespace DE
 		unsigned char currentCharacter;
 		unsigned int lastWordStartAt = 0;
 
-		for(unsigned int i = 0 ; i < this->m_text.length() ; ++i)
-		{
-			switch(this->m_text[i])
-			{
+		for(unsigned int i = 0; i < this->m_text.length(); ++i) {
+			switch(this->m_text[i]) {
 			case '\n':
 
 				// End of a word, check its placement
-				if(this->m_data.size() > 0)
-				{
+				if(this->m_data.size() > 0) {
 					if(CheckWordPlacement(lastWordStartAt, cursor, lineStart))
 						break;
 				}
 
 				// If it's not the end of the text
-				if((i + 1) < this->m_text.length())
-				{
+				if((i + 1) < this->m_text.length()) {
 					lastWordStartAt = this->m_data.size();
 					cursor.x = 0;
 					cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
@@ -213,11 +189,9 @@ namespace DE
 			const SCharDescriptor * descriptor = this->m_font.GetCharDescriptor(currentCharacter);
 
 			// Check the character compatibility with the font
-			if(descriptor != nullptr)
-			{
+			if(descriptor != nullptr) {
 				// No need to create geometry for ' '
-				if(currentCharacter != ' ')
-				{
+				if(currentCharacter != ' ') {
 					CRectangleF coord = descriptor->coordinates;
 					CRectangleI pos = CRectangleI((int)(descriptor->position.GetLeft() * this->m_scale), (int)(descriptor->position.GetTop() * this->m_scale), (int)(descriptor->position.GetWidth() * this->m_scale), (int)(descriptor->position.GetHeight() * this->m_scale)) + cursor;
 
@@ -234,24 +208,21 @@ namespace DE
 		CVector2F boundingBoxMin, boundingBoxMax;
 
 		// Final calculation if there is a geometry 
-		if(this->m_data.size() > 0)
-		{
+		if(this->m_data.size() > 0) {
 			// Last word, check its placement
 			CheckWordPlacement(lastWordStartAt, cursor, lineStart);
 
-			if(this->m_data.size() > 0)
-			{
+			if(this->m_data.size() > 0) {
 				// Perform alignment calculation
 				int verticalDecal = 0;
 				int horizontalDecal = 0;
-				switch(this->m_verticalAlignment)
-				{
+				switch(this->m_verticalAlignment) {
 				case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
 					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
 					break;
 
 				case TEXT_VERTICAL_ALIGNMENT_CENTERED:
-					verticalDecal = (int)(this->m_preferredsize.y -  this->m_data[this->m_data.size() - 1].position.y) / 2;
+					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y) / 2;
 					break;
 				}
 
@@ -261,8 +232,7 @@ namespace DE
 				boundingBoxMax.y = this->m_data[this->m_data.size() - 1].position.y;
 
 				// Update each line
-				for(auto it = lineStart.begin() ; it != lineStart.end() ; ++it)
-				{
+				for(auto it = lineStart.begin(); it != lineStart.end(); ++it) {
 					unsigned int lineEnd = this->m_data.size() - 1;
 					auto next = it;
 					++next;
@@ -270,8 +240,7 @@ namespace DE
 					if(next != lineStart.end())
 						lineEnd = (*next - 1);
 
-					switch(this->m_horizontalAlignment)
-					{
+					switch(this->m_horizontalAlignment) {
 					case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
 						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
 						break;
@@ -281,8 +250,7 @@ namespace DE
 						break;
 					}
 
-					for(unsigned int j = *it ; j <= lineEnd ; ++j)
-					{
+					for(unsigned int j = *it; j <= lineEnd; ++j) {
 						// Apply horizontal and vertical alignment
 						this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
 						this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
@@ -301,18 +269,15 @@ namespace DE
 		this->m_changed = false;
 	}
 
-	const bool CGUILabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart)
-	{
+	const bool CGUILabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
 		// If a preferred width has been set and the line is too long for the last word
-		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x)
-		{
+		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x) {
 			float decal = this->m_data[wordStartAt].position.x;
 			cursor.x -= (int)decal;
 			cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
 
 			// If a preferred height has been set and the text is too high, stop here and remove the word
-			if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y)
-			{
+			if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y) {
 				this->m_data.erase(this->m_data.begin() + wordStartAt, this->m_data.end());
 				return true;
 			}
@@ -321,8 +286,7 @@ namespace DE
 			lineStart.insert(wordStartAt);
 
 			// Replace the last word at the beginning of the next line
-			for(unsigned int j = wordStartAt ; j < this->m_data.size() ; ++j)
-			{
+			for(unsigned int j = wordStartAt; j < this->m_data.size(); ++j) {
 				this->m_data[j].position.x -= decal;
 				this->m_data[j].position.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
 			}

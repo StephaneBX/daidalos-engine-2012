@@ -33,42 +33,33 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/DX9Global.h"
 #include "../../Renderers/DX9/CDX9Texture2D.h"
 
-namespace DE
-{
-	CDX9Texture2D::CDX9Texture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap, IDirect3DTexture9 * texture) : ITexture2DBase(size, filter, format, mipmap, autoMipmap)
-	{
+namespace DE {
+	CDX9Texture2D::CDX9Texture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap, IDirect3DTexture9 * texture) : ITexture2DBase(size, filter, format, mipmap, autoMipmap) {
 		this->m_texture = texture;
 	}
 
-	CDX9Texture2D::~CDX9Texture2D()
-	{
+	CDX9Texture2D::~CDX9Texture2D() {
 		SAFE_RELEASE(this->m_texture);
 	}
 
-	IDirect3DTexture9 * CDX9Texture2D::GetTexture() const
-	{
+	IDirect3DTexture9 * CDX9Texture2D::GetTexture() const {
 		return this->m_texture;
 	}
 
-	void CDX9Texture2D::Update(const CRectangleI & rect)
-	{
-		if(this->m_format == this->m_image.GetFormat())
-		{
+	void CDX9Texture2D::Update(const CRectangleI & rect) {
+		if(this->m_format == this->m_image.GetFormat()) {
 			D3DLOCKED_RECT lockedRect;
 			RECT Lock = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
 
 			this->m_texture->LockRect(0, &lockedRect, &Lock, 0);
 			UpdateSurface(lockedRect, rect);
 			this->m_texture->UnlockRect(0);
-		}
-		else
-		{
+		} else {
 			IDirect3DDevice9 * device = nullptr;
 			this->m_texture->GetDevice(&device);
 
 			IDirect3DSurface9 * src = nullptr;
-			if (FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(this->m_image.GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr)))
-			{
+			if(FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(this->m_image.GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr))) {
 				LOG_ERROR("Unable to create an offscreen plain surface");
 				ILogger::Kill();
 
@@ -83,9 +74,8 @@ namespace DE
 			IDirect3DSurface9 * dest = nullptr;
 			this->m_texture->GetSurfaceLevel(0, &dest);
 
-			RECT destRect = {rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom()};
-			if (FAILED(D3DXLoadSurfaceFromSurface(dest, nullptr, &destRect, src, nullptr, nullptr, D3DX_DEFAULT, 0)))
-			{
+			RECT destRect = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
+			if(FAILED(D3DXLoadSurfaceFromSurface(dest, nullptr, &destRect, src, nullptr, nullptr, D3DX_DEFAULT, 0))) {
 				LOG_ERROR("Unable to load an offscreen plain surface");
 				ILogger::Kill();
 
@@ -93,8 +83,7 @@ namespace DE
 			}
 		}
 
-		if(this->m_mipmaps)
-		{
+		if(this->m_mipmaps) {
 			if(this->m_autoMipmap)
 				this->m_texture->GenerateMipSubLevels();
 			else
@@ -102,16 +91,14 @@ namespace DE
 		}
 	}
 
-	void CDX9Texture2D::UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect)
-	{
+	void CDX9Texture2D::UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect) {
 		unsigned char * destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
 		const unsigned char * srcPix = this->m_image.GetData() + (rect.GetLeft() + rect.GetTop() * this->m_size.x) * GetBytesPerPixel(this->m_image.GetFormat());
 		const unsigned int bpp = GetBytesPerPixel(this->m_image.GetFormat());
 
-		for(int i = 0 ; i < rect.GetHeight() ; ++i)
-		{
+		for(int i = 0; i < rect.GetHeight(); ++i) {
 			std::copy(srcPix, srcPix + rect.GetWidth() * bpp, destPix);
-			srcPix  += this->m_size.x * bpp;
+			srcPix += this->m_size.x * bpp;
 			destPix += lockedRect.Pitch;
 		}
 	}

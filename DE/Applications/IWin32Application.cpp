@@ -37,8 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"dinput8.lib")
 
-namespace DE
-{
+namespace DE {
 	IWin32Application * IWin32Application::s_instance = nullptr;
 
 	EInputKey IWin32Application::s_keyCode[] =
@@ -217,8 +216,7 @@ namespace DE
 	* @param nCmdShow The commands
 	* @param title The application title
 	*/
-	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication()
-	{
+	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication() {
 		this->m_name = title;
 		s_instance = this;
 
@@ -228,13 +226,13 @@ namespace DE
 
 		ZeroMemory(&this->m_wc, sizeof(WNDCLASSEX));
 
-		this->m_wc.cbSize			= sizeof(WNDCLASSEX);
-		this->m_wc.style			= CS_HREDRAW | CS_VREDRAW;
-		this->m_wc.lpfnWndProc		= GlobalWindowProc;
-		this->m_wc.hInstance		= this->m_hInstance;
-		this->m_wc.hCursor			= LoadCursor(nullptr, IDC_ARROW);
-		this->m_wc.hbrBackground	= (HBRUSH) COLOR_WINDOW;
-		this->m_wc.lpszClassName	= this->m_name.c_str();
+		this->m_wc.cbSize = sizeof(WNDCLASSEX);
+		this->m_wc.style = CS_HREDRAW | CS_VREDRAW;
+		this->m_wc.lpfnWndProc = GlobalWindowProc;
+		this->m_wc.hInstance = this->m_hInstance;
+		this->m_wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
+		this->m_wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+		this->m_wc.lpszClassName = this->m_name.c_str();
 
 		RegisterClassEx(&this->m_wc);
 
@@ -246,10 +244,8 @@ namespace DE
 	/**
 	* The destructor
 	*/
-	IWin32Application::~IWin32Application()
-	{
-		if(this->m_hWnd)
-		{
+	IWin32Application::~IWin32Application() {
+		if(this->m_hWnd) {
 			DestroyWindow(this->m_hWnd);
 			UnregisterClass(APPLICATION_NAME, this->m_hInstance);
 		}
@@ -257,8 +253,7 @@ namespace DE
 		// Release Direct Input related data
 		SAFE_RELEASE(this->m_directInput);
 
-		for(unsigned int i = 0 ; i < this->m_gamepad.size() ; i++)
-		{
+		for(unsigned int i = 0; i < this->m_gamepad.size(); i++) {
 			SAFE_RELEASE(this->m_gamepad[i]);
 		}
 	}
@@ -266,13 +261,12 @@ namespace DE
 	/**
 	* Initialize the window
 	*/
-	void IWin32Application::InitializeWindow()
-	{
-		if(this->m_fullscreen)
-			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_EX_TOPMOST | WS_POPUP, 0,  0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);	
-		else
+	void IWin32Application::InitializeWindow() {
+		if(this->m_fullscreen) {
+			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
+		} else {
 			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
-
+		}
 		ShowWindow(this->m_hWnd, this->m_nCmdShow);
 
 		RECT rect;
@@ -295,8 +289,7 @@ namespace DE
 	/**
 	* Initialize the gamepads
 	*/
-	void IWin32Application::InitializeGamepad()
-	{
+	void IWin32Application::InitializeGamepad() {
 		// Create the direct input context
 		DirectInput8Create(this->m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&this->m_directInput, NULL);
 
@@ -304,8 +297,7 @@ namespace DE
 		this->m_directInput->EnumDevices(DI8DEVCLASS_GAMECTRL, CreateDeviceCallback, NULL, DIEDFL_ATTACHEDONLY);
 
 		// Change the gamepad data format and acquire them
-		for(unsigned int i = 0 ; i < this->m_gamepad.size() ; i++)
-		{
+		for(unsigned int i = 0; i < this->m_gamepad.size(); i++) {
 			this->m_gamepad[i]->SetDataFormat(&c_dfDIJoystick);
 			this->m_gamepad[i]->Acquire();
 		}
@@ -314,8 +306,7 @@ namespace DE
 	/**
 	* The main loop of the application
 	*/
-	void IWin32Application::MainLoop()
-	{
+	void IWin32Application::MainLoop() {
 		MSG msg;
 		CTimer timer;
 		float time;
@@ -323,14 +314,12 @@ namespace DE
 		double previousTime = timer.Elapsed();
 
 		// Ignore the first messages
-		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
-		{
+		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 
-		while(this->m_alive)
-		{
+		while(this->m_alive) {
 			time = (float)((timer.Elapsed() - previousTime) * 1000);
 			realTime = time;
 			previousTime = timer.Elapsed();
@@ -343,10 +332,8 @@ namespace DE
 			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELUP);
 			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELDOWN);
 
-			while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
-			{
-				switch(msg.message)
-				{
+			while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0) {
+				switch(msg.message) {
 				case WM_KEYDOWN:
 					if(msg.wParam < 167)
 						this->m_input->SetKeyDown(s_keyCode[msg.wParam]);
@@ -362,8 +349,7 @@ namespace DE
 
 					this->m_input->SetMousePosition(DE::CVector2I(point.x, point.y), this->m_hasFocus);
 
-					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1f || point.x > this->m_displayBounds.GetWidth() * 0.9f || point.y < this->m_displayBounds.GetHeight() * 0.1f || point.y > this->m_displayBounds.GetHeight() * 0.9f))
-					{
+					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1f || point.x > this->m_displayBounds.GetWidth() * 0.9f || point.y < this->m_displayBounds.GetHeight() * 0.1f || point.y > this->m_displayBounds.GetHeight() * 0.9f)) {
 						SetCursorPos(this->m_width / 2, this->m_height / 2);
 						this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 					}
@@ -428,27 +414,22 @@ namespace DE
 	/**
 	* Update the gamepad inputs
 	*/
-	void IWin32Application::UpdateGamepads()
-	{
+	void IWin32Application::UpdateGamepads() {
 		// Loop through the active gamepads
-		for(unsigned int gamepadId = 0 ; gamepadId < this->m_gamepad.size() ; gamepadId++)
-		{
+		for(unsigned int gamepadId = 0; gamepadId < this->m_gamepad.size(); gamepadId++) {
 			// Get the gamepad state
 			DIJOYSTATE state;
-			HRESULT res = this->m_gamepad[gamepadId]->GetDeviceState(sizeof(state),(LPVOID)&state);
+			HRESULT res = this->m_gamepad[gamepadId]->GetDeviceState(sizeof(state), (LPVOID)&state);
 
-			if(SUCCEEDED(res))
-			{
+			if(SUCCEEDED(res)) {
 				// If the call succeed, update the gamepad state
 
 				// Update the buttons
-				for(int i = 0 ; i < INPUT_KEY_GAMEPAD_BUTTON_END ; i++)
-				{
+				for(int i = 0; i < INPUT_KEY_GAMEPAD_BUTTON_END; i++) {
 					float buttonState = 0;
 
 					// If the button is down
-					if(state.rgbButtons[i] & 0x80)
-					{
+					if(state.rgbButtons[i] & 0x80) {
 						buttonState = 1;
 					}
 					this->m_input->SetGamepadKey(gamepadId, (EInputKeyGamepad)(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
@@ -460,20 +441,14 @@ namespace DE
 				float axisFactor = 0;
 
 				// X
-				if(state.lX < axisCenter * axisThreshold)
-				{
+				if(state.lX < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lX / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
-				}
-				else
-				{
-					if(state.lX > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lX > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lX - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
@@ -481,20 +456,14 @@ namespace DE
 				}
 
 				// Y
-				if(state.lY < axisCenter * axisThreshold)
-				{
+				if(state.lY < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lY / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
-				}
-				else
-				{
-					if(state.lY > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lY > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lY - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
@@ -502,20 +471,14 @@ namespace DE
 				}
 
 				// Z
-				if(state.lZ < axisCenter * axisThreshold)
-				{
+				if(state.lZ < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lZ / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
-				}
-				else
-				{
-					if(state.lZ > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lZ > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lZ - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
@@ -523,20 +486,14 @@ namespace DE
 				}
 
 				// R
-				if(state.lRx < axisCenter * axisThreshold)
-				{
+				if(state.lRx < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lRx / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
-				}
-				else
-				{
-					if(state.lRx > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lRx > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lRx - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
@@ -544,20 +501,14 @@ namespace DE
 				}
 
 				// U
-				if(state.lRy < axisCenter * axisThreshold)
-				{
+				if(state.lRy < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lRy / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
-				}
-				else
-				{
-					if(state.lRy > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lRy > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lRy - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
@@ -565,28 +516,20 @@ namespace DE
 				}
 
 				// V
-				if(state.lRz < axisCenter * axisThreshold)
-				{
+				if(state.lRz < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lRz / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
-				}
-				else
-				{
-					if(state.lRz > axisCenter + (axisCenter * (1.0f - axisThreshold)))
-					{
+				} else {
+					if(state.lRz > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
 						axisFactor = std::min(1.0f, (state.lRz - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
-					}
-					else
-					{
+					} else {
 						axisFactor = 0;
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				// Try to acquire back the gamepad
 				this->m_gamepad[gamepadId]->Acquire();
 			}
@@ -603,8 +546,7 @@ namespace DE
 	* @param width The new width
 	* @param height The new height
 	*/
-	void IWin32Application::Resize(const int width, const int height) 
-	{
+	void IWin32Application::Resize(const int width, const int height) {
 		RECT rect;
 		GetWindowRect(this->m_hWnd, &rect);
 		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
@@ -613,73 +555,65 @@ namespace DE
 	/**
 	* Get the gamepads vector
 	*/
-	std::vector<LPDIRECTINPUTDEVICEA> & IWin32Application::GetGamepad()
-	{
+	std::vector<LPDIRECTINPUTDEVICEA> & IWin32Application::GetGamepad() {
 		return this->m_gamepad;
 	}
 
 	/**
 	* Get the Direct Input context
 	*/
-	const LPDIRECTINPUT IWin32Application::GetDirectInput() const
-	{
+	const LPDIRECTINPUT IWin32Application::GetDirectInput() const {
 		return this->m_directInput;
 	}
 
 	/**
 	* The global window procedure for messages
 	*/
-	LRESULT CALLBACK IWin32Application::GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam)
-	{
+	LRESULT CALLBACK IWin32Application::GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam) {
 		return s_instance->WindowProc(Hwnd, Message, WParam, LParam);
 	}
 
 	/**
 	* The window procedure for messages
 	*/
-	LRESULT CALLBACK IWin32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-	{
-		switch(message)
-		{
-			case WM_DESTROY:
-				PostQuitMessage(0);
-				return 0;
+	LRESULT CALLBACK IWin32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+		switch(message) {
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			return 0;
 			break;
 
-			case WM_SETCURSOR:
-				SetCursor(nullptr);
-				return TRUE;
-				break;
+		case WM_SETCURSOR:
+			SetCursor(nullptr);
+			return TRUE;
+			break;
 
-			case WM_SETFOCUS:
-				this->m_hasFocus = true;
-				ShowCursor(false);
-				break;
+		case WM_SETFOCUS:
+			this->m_hasFocus = true;
+			ShowCursor(false);
+			break;
 
-			case WM_KILLFOCUS:
-				this->m_hasFocus = false;
-				ShowCursor(true);
-				break;
+		case WM_KILLFOCUS:
+			this->m_hasFocus = false;
+			ShowCursor(true);
+			break;
 		}
-		return DefWindowProc (hWnd, message, wParam, lParam);
+		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
 	/**
 	* Called for each enumerated devices by Direct Input
 	*/
-	BOOL CALLBACK IWin32Application::CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference)
-	{
+	BOOL CALLBACK IWin32Application::CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference) {
 		// Handle a maximum of MAX_GAMEPADS gamepad
-		if(s_instance->GetGamepad().size() < MAX_GAMEPADS)
-		{
+		if(s_instance->GetGamepad().size() < MAX_GAMEPADS) {
 			// Create the device
 			LPDIRECTINPUTDEVICEA device;
-			HRESULT result = s_instance->GetDirectInput()->CreateDevice( instance->guidInstance, &device, NULL);
+			HRESULT result = s_instance->GetDirectInput()->CreateDevice(instance->guidInstance, &device, NULL);
 
 			// If the creation succeeded
-			if(SUCCEEDED(result))
-			{
-				 // Add the gamepad to the vector
+			if(SUCCEEDED(result)) {
+				// Add the gamepad to the vector
 				s_instance->GetGamepad().push_back(device);
 			}
 			return DIENUM_CONTINUE;

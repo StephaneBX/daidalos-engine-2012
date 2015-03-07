@@ -27,78 +27,64 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/CImpact.h"
 
-namespace DE
-{
-	CImpact::CImpact()
-	{
+namespace DE {
+	CImpact::CImpact() {
 		ClearImpact();
 	}
 
-	void CImpact::Initialize(const CVector3F & startPoint, const CVector3F & endPoint)
-	{
+	void CImpact::Initialize(const CVector3F & startPoint, const CVector3F & endPoint) {
 		this->m_startPoint = startPoint;
 		this->m_endPoint = endPoint;
 		this->m_distance = (this->m_endPoint - this->m_startPoint);
 		ClearImpact();
 	}
 
-	void CImpact::ClearImpact()
-	{
+	void CImpact::ClearImpact() {
 		this->m_impactFraction = 1;
 		this->m_realFraction = 1;
 	}
 
-	void CImpact::SetImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction)
-	{
+	void CImpact::SetImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction) {
 		this->m_planeNormal = planeNormal;
 		this->m_impactFraction = impactFraction;
 		this->m_realFraction = realFraction;
 
 		// Boundary test - Avoid slugish vertical collisions
-		if(this->m_impactFraction < 0)
-		{
+		if(this->m_impactFraction < 0) {
 			this->m_impactFraction = 0;
 		}
 	}
 
-	void CImpact::SetNearestImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction)
-	{
+	void CImpact::SetNearestImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction) {
 		if(realFraction < this->m_realFraction)
 			SetImpact(planeNormal, impactFraction, realFraction);
 	}
 
-	const bool CImpact::IsImpact() const
-	{
+	const bool CImpact::IsImpact() const {
 		return this->m_realFraction < 1.0f;
 	}
 
-	const float CImpact::GetImpactFraction() const
-	{
+	const float CImpact::GetImpactFraction() const {
 		return this->m_impactFraction;
 	}
 
-	const float CImpact::GetRealFraction() const
-	{
+	const float CImpact::GetRealFraction() const {
 		return this->m_realFraction;
 	}
 
-	const CVector3F & CImpact::GetDistance() const
-	{
+	const CVector3F & CImpact::GetDistance() const {
 		return this->m_distance;
 	}
 
-	const CVector3F & CImpact::GetPlaneNormal() const
-	{
+	const CVector3F & CImpact::GetPlaneNormal() const {
 		return this->m_planeNormal;
 	}
 
-	const CVector3F & CImpact::GetStartPoint() const
-	{
+	const CVector3F & CImpact::GetStartPoint() const {
 		return this->m_startPoint;
 	}
 
-	const CVector3F & CImpact::GetEndPoint() const
-	{
+	const CVector3F & CImpact::GetEndPoint() const {
 		return this->m_endPoint;
 	}
 }

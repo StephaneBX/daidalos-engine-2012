@@ -27,10 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "CSampleApplication.h"
 
-namespace SAMPLE3
-{
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow)
-	{
+namespace SAMPLE3 {
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow) {
 		this->m_scene->LoadScene("sample3.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
@@ -43,8 +41,7 @@ namespace SAMPLE3
 		// Load the health bonus
 		std::vector<DE::ISceneNode*> health = this->m_scene->GetNodeArray("health_entity");
 
-		for(auto it = health.begin() ; it != health.end() ; it++)
-		{
+		for(auto it = health.begin(); it != health.end(); it++) {
 			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
 			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
 		}
@@ -54,8 +51,7 @@ namespace SAMPLE3
 
 	CSampleApplication::~CSampleApplication() {}
 
-	void CSampleApplication::Update(const float time) 
-	{
+	void CSampleApplication::Update(const float time) {
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 
@@ -64,13 +60,11 @@ namespace SAMPLE3
 		this->m_scene->UpdateAll(time);
 
 		// Update the entities
-		if(this->m_flashlight != nullptr)
-		{
+		if(this->m_flashlight != nullptr) {
 			this->m_flashlight->Update(time);
 		}
 
-		for(auto it = this->m_health.begin() ; it != this->m_health.end() ; it++)
-		{
+		for(auto it = this->m_health.begin(); it != this->m_health.end(); it++) {
 			(*it)->Update(time);
 		}
 	}

@@ -27,26 +27,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Utility/CFPSCounter.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	*/
-	CFPSCounter::CFPSCounter()
-	{
+	CFPSCounter::CFPSCounter() {
 		Initialize();
 	}
 
 	/**
 	* Destructor
 	*/
-	CFPSCounter::~CFPSCounter(){}
+	CFPSCounter::~CFPSCounter() {}
 
 	/**
 	* Initialize the manager
 	*/
-	void CFPSCounter::Initialize()
-	{
+	void CFPSCounter::Initialize() {
 		Reset();
 	}
 
@@ -54,14 +51,13 @@ namespace DE
 	* Update the manager
 	* @param time Elapsed time
 	*/
-	void CFPSCounter::Update(const float time)
-	{
+	void CFPSCounter::Update(const float time) {
 		this->m_frameCount++;
 		this->m_frameCountRate++;
 		this->m_executionTime += time;
 		this->m_fpsUpdateRateTimer += time;
-		if(this->m_fpsUpdateRateTimer >= FPS_UPDATE_RATE)
-		{
+
+		if(this->m_fpsUpdateRateTimer >= FPS_UPDATE_RATE) {
 			this->m_fps = ((int)((this->m_frameCountRate / (this->m_fpsUpdateRateTimer / 1000.0f)) * 100)) / 100.0f;
 			this->m_fpsUpdateRateTimer = 0;
 			this->m_frameCountRate = 0;
@@ -73,8 +69,7 @@ namespace DE
 	/**
 	* Reset the fps counter
 	*/
-	void CFPSCounter::Reset()
-	{
+	void CFPSCounter::Reset() {
 		this->m_frameCount = 0;
 		this->m_frameCountRate = 0;
 		this->m_executionTime = 0;
@@ -86,8 +81,7 @@ namespace DE
 	* Get the current fps
 	* @return The current fps
 	*/
-	const float CFPSCounter::GetFPS() const
-	{
+	const float CFPSCounter::GetFPS() const {
 		return this->m_fps;
 	}
 
@@ -95,8 +89,7 @@ namespace DE
 	* Get the current fps as a string
 	* @return The current fps string
 	*/
-	const std::string CFPSCounter::GetText() const
-	{
+	const std::string CFPSCounter::GetText() const {
 		return this->m_fpsStream.str();
 	}
 }

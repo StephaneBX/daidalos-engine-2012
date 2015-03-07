@@ -30,32 +30,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.h"
 #include "../Medias/CAnimatedMesh.h"
 
-namespace DE
-{
-	CAnimatedMesh::CAnimatedMesh()
-	{
+namespace DE {
+	CAnimatedMesh::CAnimatedMesh() {
 		this->m_mesh = nullptr;
 	}
 
-	CAnimatedMesh::CAnimatedMesh(const std::string & filename)
-	{
+	CAnimatedMesh::CAnimatedMesh(const std::string & filename) {
 		this->m_mesh = nullptr;
 		LoadFromFile(filename);
 	}
 
-	CAnimatedMesh::CAnimatedMesh(const CAnimatedMesh & copy)
-	{
+	CAnimatedMesh::CAnimatedMesh(const CAnimatedMesh & copy) {
 		*this = copy;
 	}
 
-	CAnimatedMesh::~CAnimatedMesh()
-	{
+	CAnimatedMesh::~CAnimatedMesh() {
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 	}
 
-	void CAnimatedMesh::LoadFromFile(const std::string & filename)
-	{
+	void CAnimatedMesh::LoadFromFile(const std::string & filename) {
 		// Release previously used resource
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
@@ -63,44 +57,35 @@ namespace DE
 		// Check the existence of the resource and load it if necessary
 		IAnimatedMeshBase * tmp = CResourceManager::GetInstance()->GetResource<IAnimatedMeshBase>(filename);
 
-		if(tmp == nullptr)
-		{
+		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IAnimatedMeshBase>(filename);
 			CResourceManager::GetInstance()->AddResource(filename, this->m_mesh);
-		}
-		else
+		} else
 			this->m_mesh = tmp;
 	}
 
-	void CAnimatedMesh::Animate(const float frame)
-	{
+	void CAnimatedMesh::Animate(const float frame) {
 		Assert(this->m_mesh != nullptr);
 
 		if(this->m_mesh != nullptr)
 			this->m_mesh->Animate(frame);
 	}
 
-	void CAnimatedMesh::FinalizeGeometry(EMeshShadingType shadingType)
-	{
+	void CAnimatedMesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		Assert(this->m_mesh != nullptr);
 
 		if(this->m_mesh != nullptr)
 			this->m_mesh->FinalizeGeometry(shadingType);
 	}
 
-	const int CAnimatedMesh::GetNumberOfFrames() const
-	{
+	const int CAnimatedMesh::GetNumberOfFrames() const {
 		return this->m_mesh->GetNumberOfFrames();
 	}
 
-	const CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy)
-	{
-		if(copy.GetMesh() != nullptr)
-		{
+	const CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy) {
+		if(copy.GetMesh() != nullptr) {
 			LoadFromFile(CFile(copy.GetMesh()->GetName()).GetFilename());
-		}
-		else
-		{
+		} else {
 			if(this->m_mesh != nullptr)
 				CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 			this->m_mesh = nullptr;
@@ -109,8 +94,7 @@ namespace DE
 		return *this;
 	}
 
-	IAnimatedMeshBase * CAnimatedMesh::GetMesh() const
-	{
+	IAnimatedMeshBase * CAnimatedMesh::GetMesh() const {
 		return this->m_mesh;
 	}
 }

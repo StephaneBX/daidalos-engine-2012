@@ -44,24 +44,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 using namespace std;
 
-namespace DE
-{
-	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering)
-	{
+namespace DE {
+	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering) {
 		this->m_hwnd = hWnd;
 		Initialize();
 		CheckCapabilities();
 	}
 
-	CDX9Renderer::~CDX9Renderer() 
-	{
+	CDX9Renderer::~CDX9Renderer() {
 		CMediaManager::GetInstance()->RemoveLoader<IShaderBase>();
 		SAFE_DELETE(this->m_mainFrameBuffer);
 	}
 
-	const CRectangleI CDX9Renderer::GetLightScissor(const CVector4F & positionRadius) const
-	{
-		int rect[4] = {0, 0, this->m_internalResolution.x, this->m_internalResolution.y};
+	const CRectangleI CDX9Renderer::GetLightScissor(const CVector4F & positionRadius) const {
+		int rect[4] = { 0, 0, this->m_internalResolution.x, this->m_internalResolution.y };
 
 		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
 		CVector3F l2 = l * l;
@@ -71,8 +67,7 @@ namespace DE
 		float a = this->m_internalResolution.x / (float)this->m_internalResolution.y;
 
 		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
-		if(d > 0)
-		{
+		if(d > 0) {
 			float nx1 = ((r * l.x) + sqrtf(d)) / (l2.x + l2.z);
 			float nx2 = ((r * l.x) - sqrtf(d)) / (l2.x + l2.z);
 
@@ -82,25 +77,23 @@ namespace DE
 			float pz1 = (l2.x + l2.z - r2) / (l.z - (nz1 / nx1) * l.x);
 			float pz2 = (l2.x + l2.z - r2) / (l.z - (nz2 / nx2) * l.x);
 
-			if(pz1 > 0)
-			{
+			if(pz1 > 0) {
 				float fx = (-nz1 * e) / nx1;
 				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz1 * nz1 / nx1;
 
-				if (px < l.x)
+				if(px < l.x)
 					rect[0] = max(rect[0], x);
 				else
 					rect[2] = min(rect[2], x);
 			}
 
-			if(pz2 > 0)
-			{
+			if(pz2 > 0) {
 				float fx = (-nz2 * e) / nx2;
 				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz2 * nz2 / nx2;
 
-				if (px < l.x)
+				if(px < l.x)
 					rect[0] = max(rect[0], x);
 				else
 					rect[2] = min(rect[2], x);
@@ -108,36 +101,33 @@ namespace DE
 		}
 
 		d = r2 * l2.y - (l2.y + l2.z) * (r2 - l2.z);
-		if(d > 0)
-		{
+		if(d > 0) {
 			float ny1 = (r * l.y + sqrtf(d)) / (l2.y + l2.z);
 			float ny2 = (r * l.y - sqrtf(d)) / (l2.y + l2.z);
-			
+
 			float nz1 = (r - ny1 * l.y) / l.z;
 			float nz2 = (r - ny2 * l.y) / l.z;
 
 			float pz1 = (l2.y + l2.z - r2) / (l.z - (nz1 / ny1) * l.y);
 			float pz2 = (l2.y + l2.z - r2) / (l.z - (nz2 / ny2) * l.y);
 
-			if(pz1 > 0)
-			{
+			if(pz1 > 0) {
 				float fy = (nz1 * e * a) / ny1;
 				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz1 * nz1 / ny1;
 
-				if (py < l.y)
+				if(py < l.y)
 					rect[3] = min(rect[3], y);
 				else
 					rect[1] = max(rect[1], y);
 			}
 
-			if(pz2 > 0)
-			{
+			if(pz2 > 0) {
 				float fy = (nz2 * e * a) / ny2;
 				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz2 * nz2 / ny2;
 
-				if (py < l.y)
+				if(py < l.y)
 					rect[3] = min(rect[3], y);
 				else
 					rect[1] = max(rect[1], y);
@@ -147,58 +137,48 @@ namespace DE
 		return CRectangleI(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
 	}
 
-	const CRectangleI CDX9Renderer::GetViewport() const 
-	{
+	const CRectangleI CDX9Renderer::GetViewport() const {
 		D3DVIEWPORT9 viewport;
 		this->m_device->GetViewport(&viewport);
 
 		return CRectangleI(viewport.X, viewport.Y, viewport.Width, viewport.Height);
 	}
 
-	IDirect3DDevice9 * CDX9Renderer::GetDevice() const
-	{
+	IDirect3DDevice9 * CDX9Renderer::GetDevice() const {
 		return this->m_device;
 	}
 
-	ITexture2DBase * CDX9Renderer::CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags) const
-	{
+	ITexture2DBase * CDX9Renderer::CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags) const {
 		const bool mipmap = (flags & TEXTURE_FLAG_NOMIPMAP) != 0;
 		const bool frameBufferType = (flags & TEXTURE_FLAG_FRAMEBUFFER_TYPE) != 0;
 		const bool autoMipmap = HasCapability(CAPABILITY_HARDWARE_MIPMAP) && CheckFormat(CDX9Enums::Get(format), D3DRTYPE_TEXTURE, D3DUSAGE_AUTOGENMIPMAP);
 		unsigned long usage;
 		D3DPOOL pool;
 
-		if(frameBufferType)
-		{
+		if(frameBufferType) {
 			usage = D3DUSAGE_RENDERTARGET;
 			pool = D3DPOOL_DEFAULT;
-		}
-		else
-		{
+		} else {
 			usage = autoMipmap ? D3DUSAGE_AUTOGENMIPMAP : 0;
 			pool = D3DPOOL_MANAGED;
 		}
 
 		IDirect3DTexture9 * texture = nullptr;
-		if(FAILED(D3DXCreateTexture(this->m_device, size.x, size.y, frameBufferType ? 1 : 0, usage, CDX9Enums::Get(format), pool, &texture)))
-		{
+		if(FAILED(D3DXCreateTexture(this->m_device, size.x, size.y, frameBufferType ? 1 : 0, usage, CDX9Enums::Get(format), pool, &texture))) {
 			LOG_ERROR("Unable to create a texture");
 			ILogger::Kill();
 
 			throw CDX9Exception("D3DXCreateTexture", "CreateTexture2D");
-		}		
+		}
 
 		return new CDX9Texture2D(size, filter, format, mipmap, autoMipmap, texture);
 	}
 
-	IFrameBufferBase * CDX9Renderer::CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const
-	{
+	IFrameBufferBase * CDX9Renderer::CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const {
 		CDX9FrameBuffer * frameBuffer = new CDX9FrameBuffer();
 
-		if(elements != nullptr)
-		{
-			for(unsigned int i = 0 ; i < size ; ++i)
-			{
+		if(elements != nullptr) {
+			for(unsigned int i = 0; i < size; ++i) {
 				SFrameBufferElement element = { CreateTexture2D(elements[i].size, elements[i].textureFilter, elements[i].format, TEXTURE_FLAG_FRAMEBUFFER_TYPE), CreateRT(elements[i].size, elements[i].format) };
 				static_cast<CDX9RenderTarget*>(element.renderTarget)->LinkWithTexture(static_cast<CDX9Texture2D*>(element.texture));
 
@@ -206,10 +186,8 @@ namespace DE
 			}
 		}
 
-		if(depth != nullptr)
-		{
-			for(unsigned int i = 0 ; i < size2 ; ++i)
-			{
+		if(depth != nullptr) {
+			for(unsigned int i = 0; i < size2; ++i) {
 				frameBuffer->AddDepth(depth[i].name, CreateRT(depth[i].size, depth[i].textureFormat));
 			}
 		}
@@ -217,70 +195,55 @@ namespace DE
 		return frameBuffer;
 	}
 
-	IShaderProgramBase * CDX9Renderer::CreateShaderProgram(const std::string & name)
-	{
+	IShaderProgramBase * CDX9Renderer::CreateShaderProgram(const std::string & name) {
 		return new IShaderProgramBase(name);
 	}
 
-	void CDX9Renderer::SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset, const unsigned long count) 
-	{
+	void CDX9Renderer::SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset, const unsigned long count) {
 		const IBufferBase * base = buffer.GetBuffer();
 
-		if(base != nullptr)
-		{
+		if(base != nullptr) {
 			const CDX9VertexBuffer * vertexBuffer = static_cast<const CDX9VertexBuffer *>(base);
 			this->m_device->SetStreamSource(stream, vertexBuffer ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
-		}
-		else
+		} else
 			this->m_device->SetStreamSource(stream, nullptr, 0, stride);
 	}
 
-	void CDX9Renderer::SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) 
-	{
+	void CDX9Renderer::SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) {
 		const IBufferBase * base = buffer.GetBuffer();
 
-		if(base != nullptr)
-		{
+		if(base != nullptr) {
 			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(base);
 			this->m_device->SetIndices(indexBuffer ? indexBuffer->GetBuffer() : nullptr);
-		}
-		else
+		} else
 			this->m_device->SetIndices(nullptr);
 	}
 
-	void CDX9Renderer::SetShaderProgram(IShaderProgramBase * shaderProgram)
-	{
+	void CDX9Renderer::SetShaderProgram(IShaderProgramBase * shaderProgram) {
 		this->m_currentShaderProgram = shaderProgram;
 
-		if(shaderProgram != nullptr)
-		{
+		if(shaderProgram != nullptr) {
 			const CDX9VertexShader * vertexShader = static_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
 			const CDX9PixelShader * pixelShader = static_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
 
 			this->m_device->SetVertexShader(vertexShader ? vertexShader->GetVertexShader() : nullptr);
 			this->m_device->SetPixelShader(pixelShader ? pixelShader->GetPixelShader() : nullptr);
-		}
-		else
+		} else
 			this->m_device->SetVertexShader(nullptr);
 	}
 
-	void CDX9Renderer::SetVertexDeclaration(const IDeclaration * declaration)
-	{
-		if(declaration != nullptr)
-		{
+	void CDX9Renderer::SetVertexDeclaration(const IDeclaration * declaration) {
+		if(declaration != nullptr) {
 			const CDX9Declaration * vertexDeclaration = static_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration ? vertexDeclaration->GetDeclaration() : nullptr);
-		}
-		else
+		} else
 			this->m_device->SetVertexDeclaration(nullptr);
 	}
 
-	void CDX9Renderer::SetTexture(const int unit, const ITexture2DBase * texture)
-	{
-		if(texture != nullptr)
-		{
+	void CDX9Renderer::SetTexture(const int unit, const ITexture2DBase * texture) {
+		if(texture != nullptr) {
 			const CDX9Texture2D * dx9Texture = static_cast<const CDX9Texture2D*>(texture);
 			this->m_device->SetTexture(unit, dx9Texture->GetTexture());
 
@@ -291,127 +254,105 @@ namespace DE
 			this->m_device->SetSamplerState(unit, D3DSAMP_ADDRESSU, CDX9Enums::Get(dx9Texture->GetTextureFilterPolicy().addressU));
 			this->m_device->SetSamplerState(unit, D3DSAMP_ADDRESSV, CDX9Enums::Get(dx9Texture->GetTextureFilterPolicy().addressV));
 			this->m_device->SetSamplerState(unit, D3DSAMP_MAXANISOTROPY, dx9Texture->GetTextureFilterPolicy().maxAnisotropy);
-		}
-		else
+		} else
 			this->m_device->SetTexture(unit, nullptr);
 	}
 
-	void CDX9Renderer::SetFrameBuffer(IFrameBufferBase * frameBuffer)
-	{
+	void CDX9Renderer::SetFrameBuffer(IFrameBufferBase * frameBuffer) {
 		// Default values for the optional render targets
-		for(int i = 1 ; i < 4 ; ++i)
+		for(int i = 1; i < 4; ++i)
 			this->m_device->SetRenderTarget(i, nullptr);
 
-		if(frameBuffer != nullptr)
-		{
+		if(frameBuffer != nullptr) {
 			// Finalize if necessary
 			if(!frameBuffer->IsReady())
 				frameBuffer->Finalize();
 
 			// Attach the render targets
 			CDX9FrameBuffer * fb = static_cast<CDX9FrameBuffer*>(frameBuffer);
-			for(int i = 0 ;  i < fb->GetAttachmentSize() ; ++i)
-			{
+			for(int i = 0; i < fb->GetAttachmentSize(); ++i) {
 				this->m_device->SetRenderTarget(fb->GetAttachment(i)->attachment, static_cast<CDX9RenderTarget*>(fb->GetRenderTarget(fb->GetAttachment(i)->name))->GetRenderTarget());
 			}
 
 			// Attach the depth stencil
 			this->m_device->SetDepthStencilSurface(static_cast<CDX9RenderTarget*>(fb->GetDepthRenderTarget())->GetRenderTarget());
-		}
-		else
-		{
+		} else {
 			// Default frame buffer
 			this->m_device->SetRenderTarget(0, static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"))->GetRenderTarget());
 			this->m_device->SetDepthStencilSurface(static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"))->GetRenderTarget());
 		}
 	}
 
-	void CDX9Renderer::SetRenderState(ERenderStateType state, const bool value) 
-	{
+	void CDX9Renderer::SetRenderState(ERenderStateType state, const bool value) {
 		this->m_device->SetRenderState(CDX9Enums::Get(state), value);
 	}
 
-	void CDX9Renderer::SetDepthFunction(ECompare depth) 
-	{
+	void CDX9Renderer::SetDepthFunction(ECompare depth) {
 		this->m_device->SetRenderState(D3DRS_ZFUNC, CDX9Enums::Get(depth));
 	}
 
-	void CDX9Renderer::SetBlendFunction(ERenderStateBlendFunction src, ERenderStateBlendFunction dest) 
-	{
+	void CDX9Renderer::SetBlendFunction(ERenderStateBlendFunction src, ERenderStateBlendFunction dest) {
 		this->m_device->SetRenderState(D3DRS_SRCBLEND, CDX9Enums::Get(src));
 		this->m_device->SetRenderState(D3DRS_DESTBLEND, CDX9Enums::Get(dest));
 	}
 
-	void CDX9Renderer::SetBlendOperation(ERenderStateBlendOperation operation) 
-	{
+	void CDX9Renderer::SetBlendOperation(ERenderStateBlendOperation operation) {
 		this->m_device->SetRenderState(D3DRS_BLENDOP, CDX9Enums::Get(operation));
 	}
 
-	void CDX9Renderer::SetBlendColor(const CColor & color) 
-	{
+	void CDX9Renderer::SetBlendColor(const CColor & color) {
 		this->m_device->SetRenderState(D3DRS_BLENDFACTOR, D3DCOLOR(color.ToARGB()));
 	}
 
-	void CDX9Renderer::SetCullType(ERenderStateCullType cullType)
-	{
+	void CDX9Renderer::SetCullType(ERenderStateCullType cullType) {
 		this->m_device->SetRenderState(D3DRS_CULLMODE, CDX9Enums::Get(cullType));
 	}
 
-	void CDX9Renderer::SetScissor(const CRectangleI & rectangle)
-	{
-		RECT rect = {rectangle.GetLeft(), rectangle.GetTop(), rectangle.GetRight(), rectangle.GetBottom()};
+	void CDX9Renderer::SetScissor(const CRectangleI & rectangle) {
+		RECT rect = { rectangle.GetLeft(), rectangle.GetTop(), rectangle.GetRight(), rectangle.GetBottom() };
 		this->m_device->SetScissorRect(&rect);
 	}
 
-	void CDX9Renderer::SetViewport(const CRectangleI & viewport) 
-	{
+	void CDX9Renderer::SetViewport(const CRectangleI & viewport) {
 		D3DVIEWPORT9 vp;
-		vp.X      = viewport.GetLeft();
-		vp.Y      = viewport.GetTop();
-		vp.Width  = viewport.GetWidth();
+		vp.X = viewport.GetLeft();
+		vp.Y = viewport.GetTop();
+		vp.Width = viewport.GetWidth();
 		vp.Height = viewport.GetHeight();
-		vp.MinZ   = 0.0f;
-		vp.MaxZ   = 1.0f;
+		vp.MinZ = 0.0f;
+		vp.MaxZ = 1.0f;
 
 		this->m_device->SetViewport(&vp);
 	}
 
-	void CDX9Renderer::BeginScene()
-	{
+	void CDX9Renderer::BeginScene() {
 		this->m_device->BeginScene();
 	}
 
-	void CDX9Renderer::EndScene()
-	{
-		this->m_device->EndScene(); 
+	void CDX9Renderer::EndScene() {
+		this->m_device->EndScene();
 		this->m_device->Present(nullptr, nullptr, nullptr, nullptr);
 	}
 
-	void CDX9Renderer::Clear(const unsigned int surfaceFlags, const CColor & color) 
-	{
+	void CDX9Renderer::Clear(const unsigned int surfaceFlags, const CColor & color) {
 		this->m_device->Clear(0, nullptr, CDX9Enums::SurfaceFlags(surfaceFlags), color.ToARGB(), 1.0f, 0);
 	}
 
-	void CDX9Renderer::DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const 
-	{
+	void CDX9Renderer::DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const {
 		this->m_device->DrawPrimitive(CDX9Enums::Get(type), offset, count);
 	}
 
-	void CDX9Renderer::DrawIndexedPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const 
-	{
+	void CDX9Renderer::DrawIndexedPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const {
 		this->m_device->DrawIndexedPrimitive(CDX9Enums::Get(type), 0, this->m_minVertexIndex, this->m_numVertices, offset, count);
 	}
 
-	const bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const
-	{
+	const bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const {
 		return SUCCEEDED(this->m_d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_X8R8G8B8, usage, resourceType, format));
 	}
 
-	IBufferBase * CDX9Renderer::CreateVB(const unsigned long stride, const unsigned long count, const unsigned long flags) const
-	{
+	IBufferBase * CDX9Renderer::CreateVB(const unsigned long stride, const unsigned long count, const unsigned long flags) const {
 		LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
-		if (FAILED(this->m_device->CreateVertexBuffer(count * stride, CDX9Enums::BufferFlags(flags), 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr)))
-		{
+		if(FAILED(this->m_device->CreateVertexBuffer(count * stride, CDX9Enums::BufferFlags(flags), 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr))) {
 			LOG_ERROR("Unable to create a vertex buffer");
 			ILogger::Kill();
 
@@ -420,27 +361,23 @@ namespace DE
 		return new CDX9VertexBuffer(count * stride, vertexBuffer);
 	}
 
-	IBufferBase * CDX9Renderer::CreateIB(const unsigned long stride, const unsigned long count, const unsigned long flags) const
-	{
+	IBufferBase * CDX9Renderer::CreateIB(const unsigned long stride, const unsigned long count, const unsigned long flags) const {
 		LPDIRECT3DINDEXBUFFER9 indexBuffer;
-		if (FAILED(this->m_device->CreateIndexBuffer(count * stride, CDX9Enums::BufferFlags(flags), D3DFMT_INDEX32, D3DPOOL_DEFAULT, &indexBuffer, nullptr)))
-		{
+		if(FAILED(this->m_device->CreateIndexBuffer(count * stride, CDX9Enums::BufferFlags(flags), D3DFMT_INDEX32, D3DPOOL_DEFAULT, &indexBuffer, nullptr))) {
 			LOG_ERROR("Unable to create an index buffer");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateIndexBuffer", "CreateIB");
 		}
-			
+
 		return new CDX9IndexBuffer(count * stride, indexBuffer);
 	}
 
-	DeclarationPtr CDX9Renderer::CreateVD(const SDeclarationElement * elements, const std::size_t size) const
-	{
+	DeclarationPtr CDX9Renderer::CreateVD(const SDeclarationElement * elements, const std::size_t size) const {
 		std::vector<D3DVERTEXELEMENT9> dx9Elements;
 		std::vector<int> offset(size, 0);
 
-		for(std::size_t i = 0 ; i < size ; ++i)
-		{
+		for(std::size_t i = 0; i < size; ++i) {
 			D3DVERTEXELEMENT9 currentElement;
 
 			currentElement.Stream = elements[i].stream;
@@ -448,34 +385,32 @@ namespace DE
 			currentElement.Method = D3DDECLMETHOD_DEFAULT;
 
 			// Usage
-			switch (elements[i].usage)
-			{
-				case DECLARATION_USAGE_POSITION0 :  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 0; break;
-				case DECLARATION_USAGE_POSITION1 :  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 1; break;
-				case DECLARATION_USAGE_POSITION2 :  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 2; break;
-				case DECLARATION_USAGE_POSITION3 :  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 3; break;
-				case DECLARATION_USAGE_NORMAL0 :    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 0; break;
-				case DECLARATION_USAGE_NORMAL1 :    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 1; break;
-				case DECLARATION_USAGE_NORMAL2 :    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 2; break;
-				case DECLARATION_USAGE_NORMAL3 :    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 3; break;
-				case DECLARATION_USAGE_TEXCOORD0 :	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 0; break;
-				case DECLARATION_USAGE_TEXCOORD1 :	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 1; break;
-				case DECLARATION_USAGE_TEXCOORD2 :	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 2; break;
-				case DECLARATION_USAGE_TEXCOORD3 :	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 3; break;
-				case DECLARATION_USAGE_COLOR0 :		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 0; break;
-				case DECLARATION_USAGE_COLOR1 :		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 1; break;
-				case DECLARATION_USAGE_COLOR2 :		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 2; break;
-				case DECLARATION_USAGE_COLOR3 :		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 3; break;
+			switch(elements[i].usage) {
+			case DECLARATION_USAGE_POSITION0:  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 0; break;
+			case DECLARATION_USAGE_POSITION1:  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 1; break;
+			case DECLARATION_USAGE_POSITION2:  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 2; break;
+			case DECLARATION_USAGE_POSITION3:  currentElement.Usage = D3DDECLUSAGE_POSITION; currentElement.UsageIndex = 3; break;
+			case DECLARATION_USAGE_NORMAL0:    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 0; break;
+			case DECLARATION_USAGE_NORMAL1:    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 1; break;
+			case DECLARATION_USAGE_NORMAL2:    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 2; break;
+			case DECLARATION_USAGE_NORMAL3:    currentElement.Usage = D3DDECLUSAGE_NORMAL;   currentElement.UsageIndex = 3; break;
+			case DECLARATION_USAGE_TEXCOORD0:	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 0; break;
+			case DECLARATION_USAGE_TEXCOORD1:	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 1; break;
+			case DECLARATION_USAGE_TEXCOORD2:	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 2; break;
+			case DECLARATION_USAGE_TEXCOORD3:	currentElement.Usage = D3DDECLUSAGE_TEXCOORD; currentElement.UsageIndex = 3; break;
+			case DECLARATION_USAGE_COLOR0:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 0; break;
+			case DECLARATION_USAGE_COLOR1:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 1; break;
+			case DECLARATION_USAGE_COLOR2:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 2; break;
+			case DECLARATION_USAGE_COLOR3:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 3; break;
 			}
 
 			// Type
-			switch (elements[i].type)
-			{
-				case DECLARATION_TYPE_FLOAT1 : currentElement.Type = D3DDECLTYPE_FLOAT1;	offset[elements[i].stream] += 4;  break;
-				case DECLARATION_TYPE_FLOAT2 : currentElement.Type = D3DDECLTYPE_FLOAT2;	offset[elements[i].stream] += 8;  break;
-				case DECLARATION_TYPE_FLOAT3 : currentElement.Type = D3DDECLTYPE_FLOAT3;	offset[elements[i].stream] += 12; break;
-				case DECLARATION_TYPE_FLOAT4 : currentElement.Type = D3DDECLTYPE_FLOAT4;	offset[elements[i].stream] += 16; break;
-				case DECLARATION_TYPE_COLOR	 : currentElement.Type = D3DDECLTYPE_FLOAT4;  offset[elements[i].stream] += 16; break;
+			switch(elements[i].type) {
+			case DECLARATION_TYPE_FLOAT1: currentElement.Type = D3DDECLTYPE_FLOAT1;	offset[elements[i].stream] += 4;  break;
+			case DECLARATION_TYPE_FLOAT2: currentElement.Type = D3DDECLTYPE_FLOAT2;	offset[elements[i].stream] += 8;  break;
+			case DECLARATION_TYPE_FLOAT3: currentElement.Type = D3DDECLTYPE_FLOAT3;	offset[elements[i].stream] += 12; break;
+			case DECLARATION_TYPE_FLOAT4: currentElement.Type = D3DDECLTYPE_FLOAT4;	offset[elements[i].stream] += 16; break;
+			case DECLARATION_TYPE_COLOR: currentElement.Type = D3DDECLTYPE_FLOAT4;  offset[elements[i].stream] += 16; break;
 			}
 
 			dx9Elements.push_back(currentElement);
@@ -485,8 +420,7 @@ namespace DE
 		dx9Elements.push_back(EndElement);
 
 		LPDIRECT3DVERTEXDECLARATION9 declaration = nullptr;
-		if (FAILED(this->m_device->CreateVertexDeclaration(&dx9Elements[0], &declaration)))
-		{
+		if(FAILED(this->m_device->CreateVertexDeclaration(&dx9Elements[0], &declaration))) {
 			LOG_ERROR("Unable to create a vertex declaration");
 			ILogger::Kill();
 
@@ -496,13 +430,11 @@ namespace DE
 		return std::shared_ptr<IDeclaration>(new CDX9Declaration(declaration));
 	}
 
-	IRenderTargetBase * CDX9Renderer::CreateRT(const CVector2I & size, EPixelFormat format) const
-	{
+	IRenderTargetBase * CDX9Renderer::CreateRT(const CVector2I & size, EPixelFormat format) const {
 		IDirect3DSurface9 * dss = nullptr;
 		ERenderTargetType type;
 		CDX9RenderTarget * RT;
-		switch(format)
-		{
+		switch(format) {
 		case PIXEL_FORMAT_DEPTH24S8:
 		case PIXEL_FORMAT_DEPTH16:
 		case PIXEL_FORMAT_DEPTH32:
@@ -520,30 +452,28 @@ namespace DE
 		return RT;
 	}
 
-	void CDX9Renderer::CheckCapabilities()
-	{
+	void CDX9Renderer::CheckCapabilities() {
 		D3DCAPS9 capabilities;
 		this->m_device->GetDeviceCaps(&capabilities);
 
 		this->m_capabilities[CAPABILITY_HARDWARE_MIPMAP] = (capabilities.Caps2 & D3DCAPS2_CANAUTOGENMIPMAP) != 0;
-		this->m_capabilities[CAPABILITY_HARDWARE_DXT_COMPRESSION] = CheckFormat(D3DFMT_DXT1, D3DRTYPE_TEXTURE) && 
-																	CheckFormat(D3DFMT_DXT3, D3DRTYPE_TEXTURE) && 
-																	CheckFormat(D3DFMT_DXT5, D3DRTYPE_TEXTURE);
+		this->m_capabilities[CAPABILITY_HARDWARE_DXT_COMPRESSION] = CheckFormat(D3DFMT_DXT1, D3DRTYPE_TEXTURE) &&
+			CheckFormat(D3DFMT_DXT3, D3DRTYPE_TEXTURE) &&
+			CheckFormat(D3DFMT_DXT5, D3DRTYPE_TEXTURE);
 
-		this->m_capabilities[CAPABILITY_HARDWARE_NON_POW2_TEXTURES] =	((capabilities.TextureCaps & D3DPTEXTURECAPS_POW2) == 0) && 
-																		((capabilities.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL) == 0);
+		this->m_capabilities[CAPABILITY_HARDWARE_NON_POW2_TEXTURES] = ((capabilities.TextureCaps & D3DPTEXTURECAPS_POW2) == 0) &&
+			((capabilities.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL) == 0);
 
-		this->m_capabilities[CAPABILITY_HARDWARE_MRT] = (capabilities.NumSimultaneousRTs > 1) && 
-														((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTINDEPENDENTBITDEPTHS) != 0) && 
-														((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTPOSTPIXELSHADERBLENDING) != 0);
+		this->m_capabilities[CAPABILITY_HARDWARE_MRT] = (capabilities.NumSimultaneousRTs > 1) &&
+			((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTINDEPENDENTBITDEPTHS) != 0) &&
+			((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTPOSTPIXELSHADERBLENDING) != 0);
 
 		this->m_capabilities[CAPABILITY_HARDWARE_MULTITEXTURE] = capabilities.MaxSimultaneousTextures > 1;
 
 		this->m_capabilities[CAPABILITY_HARDWARE_ADVANCED_BUFFERS] = true;
 	}
 
-	void CDX9Renderer::Initialize()
-	{
+	void CDX9Renderer::Initialize() {
 		CMediaManager::GetInstance()->AddLoader(new CDX9PixelShadersLoader(), "psh");
 		CMediaManager::GetInstance()->AddLoader(new CDX9VertexShadersLoader(), "vsh");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Shaders/DX9/");
@@ -562,7 +492,7 @@ namespace DE
 		this->m_d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
 		this->m_d3dpp.BackBufferWidth = rect.right - rect.left;
 		this->m_d3dpp.BackBufferHeight = rect.bottom - rect.top;
-		this->m_d3dpp.EnableAutoDepthStencil = true;	
+		this->m_d3dpp.EnableAutoDepthStencil = true;
 		this->m_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 		this->m_d3dpp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
 
@@ -573,14 +503,12 @@ namespace DE
 
 
 #ifdef PERFHUD_VERSION
-		for (UINT Adapter = 0 ; Adapter < this->m_d3d->GetAdapterCount() ; Adapter++)
-		{
+		for(UINT Adapter = 0; Adapter < this->m_d3d->GetAdapterCount(); Adapter++) {
 			D3DADAPTER_IDENTIFIER9  Identifier;
 			HRESULT Res;
 
-			Res = this->m_d3d->GetAdapterIdentifier(Adapter,0,&Identifier);
-			if(strstr(Identifier.Description,"PerfHUD") != 0)
-			{ 
+			Res = this->m_d3d->GetAdapterIdentifier(Adapter, 0, &Identifier);
+			if(strstr(Identifier.Description, "PerfHUD") != 0) {
 				adapterToUse = Adapter;
 				deviceType = D3DDEVTYPE_REF;
 				break;
@@ -590,14 +518,13 @@ namespace DE
 
 		this->m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-		if(FAILED(this->m_d3d->CreateDevice(adapterToUse, deviceType, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device)))
-		{
+		if(FAILED(this->m_d3d->CreateDevice(adapterToUse, deviceType, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device))) {
 			LOG_ERROR("Unable to create the device");
 			ILogger::Kill();
 
 			throw CDX9Exception("CreateDevice", "Initialize");
 		}
-			
+
 		this->m_device->SetRenderState(D3DRS_DITHERENABLE, true);
 		this->m_device->SetRenderState(D3DRS_LIGHTING, false);
 		this->m_device->SetRenderState(D3DRS_ZENABLE, true);
@@ -608,7 +535,7 @@ namespace DE
 
 		this->m_minVertexIndex = 0;
 		this->m_numVertices = 0;
-		
+
 		IDirect3DSurface9 * mainRenderTarget;
 		IDirect3DSurface9 * mainDSS;
 		this->m_device->GetRenderTarget(0, &mainRenderTarget);
@@ -633,15 +560,15 @@ namespace DE
 		// Screen quad information
 		SScreenQuadElement sq[] =
 		{
-			{ CVector3F(  1, -1, 0 ), CVector2F(1,1) },
-			{ CVector3F( -1, -1, 0 ), CVector2F(0,1) },
-			{ CVector3F( -1,  1, 0 ), CVector2F(0,0) },
-			{ CVector3F(  1,  1, 0 ), CVector2F(1,0) }
+			{ CVector3F(1, -1, 0), CVector2F(1, 1) },
+			{ CVector3F(-1, -1, 0), CVector2F(0, 1) },
+			{ CVector3F(-1, 1, 0), CVector2F(0, 0) },
+			{ CVector3F(1, 1, 0), CVector2F(1, 0) }
 		};
 		memcpy(this->m_screenQuadElement, sq, sizeof(SScreenQuadElement) * 4);
 
 		// Quad Index Buffer
-		int indices[] = {0,1,2,2,3,0};
+		int indices[] = { 0, 1, 2, 2, 3, 0 };
 		this->m_quadIB = CreateIndexBuffer(6, 0, indices);
 	}
 }

@@ -31,19 +31,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CTokenizer.h"
 #include "../Loaders/CMaterialsLoader.h"
 
-namespace DE
-{
+namespace DE {
 	CMaterialsLoader::CMaterialsLoader() {}
 
 	CMaterialsLoader::~CMaterialsLoader() {}
 
-	IMaterialBase * CMaterialsLoader::LoadFromFile(const std::string & filename)
-	{
+	IMaterialBase * CMaterialsLoader::LoadFromFile(const std::string & filename) {
 		IMaterialBase * material = new IMaterialBase(filename);
 		SMaterialElement * element = nullptr;
 		std::string elementName;
 		std::istringstream iss;
-		
+
 		CVector3F tmpVector;
 		std::vector<std::string> filterList;
 		filterList.push_back("newmtl ");
@@ -56,22 +54,16 @@ namespace DE
 		CTokenizer tokenizer(filename, filterList);
 		tokenizer.Tokenize(" ");
 
-		if(tokenizer.GetTokens().size() > 0)
-		{
-			for(unsigned int i = 0 ; i < tokenizer.GetTokens().size() ;)
-			{
-				if(tokenizer.GetTokens().at(i) == "newmtl")
-				{
+		if(tokenizer.GetTokens().size() > 0) {
+			for(unsigned int i = 0; i < tokenizer.GetTokens().size();) {
+				if(tokenizer.GetTokens().at(i) == "newmtl") {
 					if(element != nullptr)
 						material->AddElement(elementName, element);
 					elementName = tokenizer.GetTokens().at(i + 1);
 					element = new SMaterialElement();
 					i += 2;
-				}
-				else
-				{
-					if(tokenizer.GetTokens().at(i) == "Kd")
-					{
+				} else {
+					if(tokenizer.GetTokens().at(i) == "Kd") {
 						// Diffuse modification
 						iss.clear();
 						iss.str(tokenizer.GetTokens().at(i + 1));
@@ -86,11 +78,8 @@ namespace DE
 						iss >> element->m_kDiffuse.z;
 
 						i += 4;
-					}
-					else
-					{
-						if(tokenizer.GetTokens().at(i) == "Ka")
-						{
+					} else {
+						if(tokenizer.GetTokens().at(i) == "Ka") {
 							// Ambient modification
 							iss.clear();
 							iss.str(tokenizer.GetTokens().at(i + 1));
@@ -105,11 +94,8 @@ namespace DE
 							iss >> element->m_kAmbient.z;
 
 							i += 4;
-						}
-						else
-						{
-							if(tokenizer.GetTokens().at(i) == "Ks")
-							{
+						} else {
+							if(tokenizer.GetTokens().at(i) == "Ks") {
 								// Specular modification
 								iss.clear();
 								iss.str(tokenizer.GetTokens().at(i + 1));
@@ -124,11 +110,8 @@ namespace DE
 								iss >> element->m_kSpecular.z;
 
 								i += 4;
-							}
-							else
-							{
-								if(tokenizer.GetTokens().at(i) == "Ke")
-								{
+							} else {
+								if(tokenizer.GetTokens().at(i) == "Ke") {
 									// Emission modification
 									iss.clear();
 									iss.str(tokenizer.GetTokens().at(i + 1));
@@ -143,19 +126,15 @@ namespace DE
 									iss >> element->m_kEmission.z;
 
 									i += 4;
-								}
-								else
-								{
-									if(tokenizer.GetTokens().at(i) == "Ns")
-									{
+								} else {
+									if(tokenizer.GetTokens().at(i) == "Ns") {
 										// Specular factor modification
 										iss.clear();
 										iss.str(tokenizer.GetTokens().at(i + 1));
 										iss >> element->m_ns;
 
 										i += 2;
-									}
-									else
+									} else
 										i++;
 								}
 							}

@@ -28,10 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../BSP/CBSPBrushNode.h"
 #include "../BSP/CBSPTreeNode.h"
 
-namespace DE
-{
-	CBSPBrushNode::CBSPBrushNode(CBSPTreeNode * root)
-	{
+namespace DE {
+	CBSPBrushNode::CBSPBrushNode(CBSPTreeNode * root) {
 		this->m_type = root->GetType();
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
@@ -48,14 +46,12 @@ namespace DE
 			this->m_children[BSP_NODE_CHILD_BACK] = new CBSPBrushNode(root->GetChild(BSP_NODE_CHILD_BACK));
 	}
 
-	CBSPBrushNode::~CBSPBrushNode()
-	{
+	CBSPBrushNode::~CBSPBrushNode() {
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_FRONT]);
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_BACK]);
 	}
 
-	void CBSPBrushNode::AddBrush(SBSPBrush * brush, const std::vector<CBSPTriangle*> & triangles)
-	{
+	void CBSPBrushNode::AddBrush(SBSPBrush * brush, const std::vector<CBSPTriangle*> & triangles) {
 		if(this->m_type != BSP_NODE_TYPE_NODE)
 			return;
 
@@ -63,10 +59,8 @@ namespace DE
 		bool back = false;
 		bool coplanar = false;
 
-		for(unsigned int i = 0 ; i < triangles.size() ; ++i)
-		{
-			switch(triangles.at(i)->Classify(this->m_plane))
-			{
+		for(unsigned int i = 0; i < triangles.size(); ++i) {
+			switch(triangles.at(i)->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_FRONT:
 				front = true;
 				break;
@@ -96,8 +90,7 @@ namespace DE
 			this->m_children[BSP_NODE_CHILD_BACK]->AddBrush(brush, triangles);
 	}
 
-	void CBSPBrushNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush)
-	{
+	void CBSPBrushNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
 		if(this->m_type != BSP_NODE_TYPE_NODE)
 			return;
 
@@ -109,8 +102,7 @@ namespace DE
 		float offset = shape.GetInnerDepth(this->m_plane);
 
 		// Front check
-		if(d1 > offset && d2 > offset)
-		{
+		if(d1 > offset && d2 > offset) {
 			// The impact is in front of the plane, we need to visit the front child
 			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
 			return;
@@ -121,31 +113,25 @@ namespace DE
 		this->m_plane.Inverse();
 
 		// Back check
-		if(d1 < -offset2 && d2 < -offset2)
-		{
+		if(d1 < -offset2 && d2 < -offset2) {
 			// The impact is in the back of the plane, we need to visit the back child
 			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
 			return;
 		}
 
 		// Cross check
-		if(d1 > offset && d2 <= offset2)
-		{
-			for(unsigned int i = 0 ; i < this->m_brushes.size() ; ++i)
-			{
+		if(d1 > offset && d2 <= offset2) {
+			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
 				if(this->m_brushes.at(i)->enabled)
 					this->m_brushes.at(i)->root->CollisionDetection(shape, impact, iBrush);
 			}
 		}
 
 		// Visit in the right order
-		if(d1 > d2)
-		{
+		if(d1 > d2) {
 			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
 			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
-		}
-		else
-		{
+		} else {
 			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
 			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
 		}

@@ -3,8 +3,7 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ColorTest);
 
-void ColorTest::TestConstructors()
-{
+void ColorTest::TestConstructors() {
 	// Default constructor
 	DE::CColor color;
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetAlpha());
@@ -34,8 +33,7 @@ void ColorTest::TestConstructors()
 	CPPUNIT_ASSERT_EQUAL(0x44, (int)color.GetBlue());
 }
 
-void ColorTest::TestOperators()
-{
+void ColorTest::TestOperators() {
 	DE::CColor color1 = DE::CColor(1.0f, 0.0f, 0.5f, 0.2f);
 	DE::CColor color2 = DE::CColor(0.22f, 0.35f, 0.6f, 0.4f);
 	DE::CColor color3;
@@ -123,13 +121,12 @@ void ColorTest::TestOperators()
 	// Output stream (<<) operator
 }
 
-void ColorTest::TestGetters()
-{
+void ColorTest::TestGetters() {
 	DE::CColor color = DE::CColor(1.0f, 0.0f, 0.5f, 0.2f);
 
 	// Red
 	CPPUNIT_ASSERT_EQUAL(255, (int)color.GetRed());
-	
+
 	// Green
 	CPPUNIT_ASSERT_EQUAL(0, (int)color.GetGreen());
 
@@ -140,13 +137,12 @@ void ColorTest::TestGetters()
 	CPPUNIT_ASSERT_EQUAL(51, (int)color.GetAlpha());
 }
 
-void ColorTest::TestSetters()
-{
+void ColorTest::TestSetters() {
 	// Red as float
 	DE::CColor color;
 	color.SetRed(0.5f);
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetAlpha());
-	CPPUNIT_ASSERT_EQUAL(127 , (int)color.GetRed());
+	CPPUNIT_ASSERT_EQUAL(127, (int)color.GetRed());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetGreen());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetBlue());
 
@@ -155,7 +151,7 @@ void ColorTest::TestSetters()
 	color.SetGreen(0.2f);
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetAlpha());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetRed());
-	CPPUNIT_ASSERT_EQUAL(51  , (int)color.GetGreen());
+	CPPUNIT_ASSERT_EQUAL(51, (int)color.GetGreen());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetBlue());
 
 	// Blue as float
@@ -164,12 +160,12 @@ void ColorTest::TestSetters()
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetAlpha());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetRed());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetGreen());
-	CPPUNIT_ASSERT_EQUAL(255 , (int)color.GetBlue());
+	CPPUNIT_ASSERT_EQUAL(255, (int)color.GetBlue());
 
 	// Alpha as float
 	color = DE::CColor();
 	color.SetAlpha(0.2f);
-	CPPUNIT_ASSERT_EQUAL(51  , (int)color.GetAlpha());
+	CPPUNIT_ASSERT_EQUAL(51, (int)color.GetAlpha());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetRed());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetGreen());
 	CPPUNIT_ASSERT_EQUAL(0x00, (int)color.GetBlue());
@@ -210,21 +206,20 @@ void ColorTest::TestSetters()
 	color.SetFloat(1.0f, 0.0f, 0.2f, 0.5f);
 	CPPUNIT_ASSERT_EQUAL(127, (int)color.GetAlpha());
 	CPPUNIT_ASSERT_EQUAL(255, (int)color.GetRed());
-	CPPUNIT_ASSERT_EQUAL(0  , (int)color.GetGreen());
-	CPPUNIT_ASSERT_EQUAL(51 , (int)color.GetBlue());
+	CPPUNIT_ASSERT_EQUAL(0, (int)color.GetGreen());
+	CPPUNIT_ASSERT_EQUAL(51, (int)color.GetBlue());
 
 	// RGBA as integer
 	color.SetInt(255, 0, 51, 127);
 	CPPUNIT_ASSERT_EQUAL(127, (int)color.GetAlpha());
 	CPPUNIT_ASSERT_EQUAL(255, (int)color.GetRed());
-	CPPUNIT_ASSERT_EQUAL(0  , (int)color.GetGreen());
-	CPPUNIT_ASSERT_EQUAL(51 , (int)color.GetBlue());
+	CPPUNIT_ASSERT_EQUAL(0, (int)color.GetGreen());
+	CPPUNIT_ASSERT_EQUAL(51, (int)color.GetBlue());
 
 	// RGBA as unsigned char
 }
 
-void ColorTest::TestConverters()
-{
+void ColorTest::TestConverters() {
 	DE::CColor color = DE::CColor(1.0f, 0.4f, 0.5f, 0.2f);
 
 	// To ARGB

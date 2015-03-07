@@ -29,21 +29,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Renderer.h"
 #include "../../Renderers/DX9/CDX9PixelShader.h"
 
-namespace DE
-{
-	CDX9PixelShader::CDX9PixelShader(const std::string & name, IDirect3DPixelShader9 * pixelShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable)
-	{
+namespace DE {
+	CDX9PixelShader::CDX9PixelShader(const std::string & name, IDirect3DPixelShader9 * pixelShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable) {
 		this->m_pixelShader = pixelShader;
 		this->m_constantTable = constantTable;
 	}
 
-	CDX9PixelShader::~CDX9PixelShader()
-	{
+	CDX9PixelShader::~CDX9PixelShader() {
 		SAFE_RELEASE(this->m_pixelShader);
 	}
 
-	IDirect3DPixelShader9 * CDX9PixelShader::GetPixelShader() const
-	{
+	IDirect3DPixelShader9 * CDX9PixelShader::GetPixelShader() const {
 		return this->m_pixelShader;
 	}
 }

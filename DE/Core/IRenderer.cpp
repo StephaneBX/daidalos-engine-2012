@@ -29,8 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.h"
 #include "../Core/IRenderer.h"
 
-namespace DE
-{
+namespace DE {
 	IRenderer * IRenderer::s_instance = nullptr;
 
 	std::string IRenderer::s_shaderProgramParameters[] =
@@ -75,8 +74,7 @@ namespace DE
 
 	IRenderer::~IRenderer() {}
 
-	CBuffer IRenderer::CreateVertexBuffer(const unsigned long stride, const unsigned long count, const unsigned long flags, const void * data) const
-	{
+	CBuffer IRenderer::CreateVertexBuffer(const unsigned long stride, const unsigned long count, const unsigned long flags, const void * data) const {
 		CBuffer buffer(CreateVB(count, stride, flags));
 		if(data)
 			buffer.Fill(data, stride, count);
@@ -84,8 +82,7 @@ namespace DE
 		return buffer;
 	}
 
-	CBuffer IRenderer::CreateIndexBuffer(unsigned long count, unsigned long flags, const int * data) const
-	{
+	CBuffer IRenderer::CreateIndexBuffer(unsigned long count, unsigned long flags, const int * data) const {
 		CBuffer buffer(CreateIB(count, sizeof(int), flags));
 		if(data)
 			buffer.Fill(data, sizeof(int), count);
@@ -93,79 +90,64 @@ namespace DE
 		return buffer;
 	}
 
-	IShaderProgramBase * IRenderer::GetCurrentShaderProgram() const
-	{
+	IShaderProgramBase * IRenderer::GetCurrentShaderProgram() const {
 		return this->m_currentShaderProgram;
 	}
 
-	SScreenQuadElement * IRenderer::GetScreenQuad()
-	{
+	SScreenQuadElement * IRenderer::GetScreenQuad() {
 		return &this->m_screenQuadElement[0];
 	}
 
-	STexture2DFilterPolicy * IRenderer::GetDefaultTextureFilter()
-	{
+	STexture2DFilterPolicy * IRenderer::GetDefaultTextureFilter() {
 		return &this->m_defaultTextureFilter;
 	}
 
-	const CBuffer & IRenderer::GetQuadIB() const
-	{
+	const CBuffer & IRenderer::GetQuadIB() const {
 		return this->m_quadIB;
 	}
 
-	const CVector2I & IRenderer::GetResolution() const
-	{
+	const CVector2I & IRenderer::GetResolution() const {
 		return this->m_resolution;
 	}
 
-	const CVector2I & IRenderer::GetInternalResolution() const
-	{
+	const CVector2I & IRenderer::GetInternalResolution() const {
 		return this->m_internalResolution;
 	}
 
-	const SScreenQuadElement & IRenderer::GetScreenQuadElement(EScreenQuadPoint point) const
-	{
+	const SScreenQuadElement & IRenderer::GetScreenQuadElement(EScreenQuadPoint point) const {
 		return this->m_screenQuadElement[point];
 	}
 
-	
-	void IRenderer::SetDisplayBounds(const CRectangleI & rect)
-	{
+
+	void IRenderer::SetDisplayBounds(const CRectangleI & rect) {
 		this->m_displayBounds = rect;
 	}
 
-	void IRenderer::SetResolution(const CVector2I & resolution)
-	{
+	void IRenderer::SetResolution(const CVector2I & resolution) {
 		this->m_resolution = resolution;
 	}
 
-	const bool IRenderer::HasCapability(ECapability capability) const
-	{
+	const bool IRenderer::HasCapability(ECapability capability) const {
 		return this->m_capabilities.at(capability);
 	}
 
-	void IRenderer::SetRenderer(IRenderer * renderer)
-	{
+	void IRenderer::SetRenderer(IRenderer * renderer) {
 		s_instance = renderer;
 	}
 
-	void IRenderer::Kill() 
-	{
+	void IRenderer::Kill() {
 		SAFE_DELETE(s_instance);
 	}
 
-	IRenderer * IRenderer::GetRenderer()
-	{
+	IRenderer * IRenderer::GetRenderer() {
 		return s_instance;
 	}
 
-	const std::string & IRenderer::GetShaderProgramParameterString(EShaderProgramParameter parameter)
-	{
+	const std::string & IRenderer::GetShaderProgramParameterString(EShaderProgramParameter parameter) {
 		return s_shaderProgramParameters[parameter];
 	}
 
-	IRenderer::IRenderer(const bool verticalSynchro, const int anisotropicFiltering)
-	{
+	IRenderer::IRenderer(const bool verticalSynchro, const int anisotropicFiltering) {
 		this->m_currentShaderProgram = nullptr;
 
 		this->m_verticalSynchro = verticalSynchro;

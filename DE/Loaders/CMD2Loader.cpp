@@ -27,22 +27,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Loaders/CMD2Loader.h"
 
-namespace DE
-{
+namespace DE {
 	CMD2Loader::CMD2Loader() {}
 
 	CMD2Loader::~CMD2Loader() {}
 
-	IAnimatedMeshBase * CMD2Loader::LoadFromFile(const std::string & filename)
-	{
+	IAnimatedMeshBase * CMD2Loader::LoadFromFile(const std::string & filename) {
 		this->m_internalData = new SMD2InternalData;
 
 		FILE * file;
 		fopen_s(&file, filename.c_str(), "rb");
 
 		fread(&this->m_internalData->header, sizeof(SMD2Header), 1, file);
-		if(this->m_internalData->header.id == MD2_ID && this->m_internalData->header.version == MD2_VERSION)
-		{
+		if(this->m_internalData->header.id == MD2_ID && this->m_internalData->header.version == MD2_VERSION) {
 			// Geometry allocation
 			this->m_internalData->skin = new SMD2Skin[this->m_internalData->header.numSkins];
 			this->m_internalData->textureCoordinates = new SMD2TextureCoordinates[this->m_internalData->header.numTextureCoordinates];
@@ -59,17 +56,15 @@ namespace DE
 
 			// Read triangles information
 			fseek(file, this->m_internalData->header.offsetTriangles, SEEK_SET);
-			for(int i = 0 ; i < this->m_internalData->header.numTriangle ; i++)
-			{
+			for(int i = 0; i < this->m_internalData->header.numTriangle; i++) {
 				fread(this->m_internalData->triangle[i].vertex, sizeof(short), 3, file);
 				fread(this->m_internalData->triangle[i].textureCoordinatesIndice, sizeof(short), 3, file);
-				this->m_internalData->triangle[i].faceNormal = CVector3F(0,0,0);
+				this->m_internalData->triangle[i].faceNormal = CVector3F(0, 0, 0);
 			}
 
 			fseek(file, this->m_internalData->header.offsetFrames, SEEK_SET);
 
-			for(int i = 0 ; i < this->m_internalData->header.numFrames ; i++)
-			{
+			for(int i = 0; i < this->m_internalData->header.numFrames; i++) {
 				// Vertex allocation
 				this->m_internalData->frame[i].vertex = new SMD2Vertex[this->m_internalData->header.numVertices];
 
@@ -78,11 +73,10 @@ namespace DE
 				fread(&this->m_internalData->frame[i].translation, sizeof(CVector3F), 1, file);
 				fread(&this->m_internalData->frame[i].name, sizeof(char), MD2_FRAME_NAME_SIZE, file);
 
-				for(int j = 0 ; j < this->m_internalData->header.numVertices ; j++)
-				{
+				for(int j = 0; j < this->m_internalData->header.numVertices; j++) {
 					// Read vertex information
 					fread(&this->m_internalData->frame[i].vertex[j].position, sizeof(unsigned char), 3, file);
-					fread(&this->m_internalData->frame[i].vertex[j].normalIndice, sizeof(unsigned char),1, file);
+					fread(&this->m_internalData->frame[i].vertex[j].normalIndice, sizeof(unsigned char), 1, file);
 				}
 			}
 
@@ -98,13 +92,10 @@ namespace DE
 		return new CMD2Mesh(filename, this->m_internalData);
 	}
 
-	void CMD2Loader::InitializeGeometry()
-	{
+	void CMD2Loader::InitializeGeometry() {
 		// Get the real vertex positions
-		for(int i = 0 ; i < this->m_internalData->header.numFrames ; i++)
-		{
-			for(int j = 0 ; j < this->m_internalData->header.numVertices ; j++)
-			{
+		for(int i = 0; i < this->m_internalData->header.numFrames; i++) {
+			for(int j = 0; j < this->m_internalData->header.numVertices; j++) {
 				this->m_internalData->frame[i].vertex[j].fullPosition.x = this->m_internalData->frame[i].vertex[j].position[0] * this->m_internalData->frame[i].scale.x + this->m_internalData->frame[i].translation.x;
 				this->m_internalData->frame[i].vertex[j].fullPosition.y = this->m_internalData->frame[i].vertex[j].position[1] * this->m_internalData->frame[i].scale.y + this->m_internalData->frame[i].translation.y;
 				this->m_internalData->frame[i].vertex[j].fullPosition.z = this->m_internalData->frame[i].vertex[j].position[2] * this->m_internalData->frame[i].scale.z + this->m_internalData->frame[i].translation.z;
@@ -112,12 +103,11 @@ namespace DE
 		}
 
 		// Average Normals calculation
-		for(int i = 0 ; i < this->m_internalData->header.numFrames ; i++)
+		for(int i = 0; i < this->m_internalData->header.numFrames; i++)
 			ComputeAverageNormals(i);
 	}
 
-	void CMD2Loader::ComputeAverageNormals(const int frameId)
-	{
+	void CMD2Loader::ComputeAverageNormals(const int frameId) {
 		CVector3F tmpNormal;
 		float facesCount;
 
@@ -125,16 +115,13 @@ namespace DE
 		ComputeFaceNormals(frameId);
 
 		// Perform normal calculation for each vertex
-		for(int i = 0 ; i < this->m_internalData->header.numVertices ; ++i)
-		{
-			tmpNormal = CVector3F(0,0,0);
+		for(int i = 0; i < this->m_internalData->header.numVertices; ++i) {
+			tmpNormal = CVector3F(0, 0, 0);
 			facesCount = 0;
 
-			for(int j = 0 ; j < this->m_internalData->header.numTriangle ; ++j)
-			{
+			for(int j = 0; j < this->m_internalData->header.numTriangle; ++j) {
 				// This triangle uses this vertex, so we add the face normal to the list
-				if((int)this->m_internalData->triangle[j].vertex[0] == i || (int)this->m_internalData->triangle[j].vertex[1] == i || (int)this->m_internalData->triangle[j].vertex[2] == i)
-				{
+				if((int)this->m_internalData->triangle[j].vertex[0] == i || (int)this->m_internalData->triangle[j].vertex[1] == i || (int)this->m_internalData->triangle[j].vertex[2] == i) {
 					tmpNormal += this->m_internalData->triangle[j].faceNormal;
 					facesCount++;
 				}
@@ -150,11 +137,9 @@ namespace DE
 		}
 	}
 
-	void CMD2Loader::ComputeFaceNormals(const int frameId)
-	{
+	void CMD2Loader::ComputeFaceNormals(const int frameId) {
 		// Perform face normal calculation for each triangle of the frame
-		for(int i = 0 ; i < this->m_internalData->header.numTriangle ; ++i)
-		{
+		for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 			// Normal calculation
 			CVector3F ab = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[0]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition;
 			CVector3F ac = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[1]].fullPosition;

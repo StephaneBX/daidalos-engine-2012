@@ -29,113 +29,94 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/CShaderProgram.h"
 
-namespace DE
-{
-	CShaderProgram::CShaderProgram()
-	{
+namespace DE {
+	CShaderProgram::CShaderProgram() {
 		this->m_shaderProgram = nullptr;
 	}
 
-	CShaderProgram::CShaderProgram(const std::string & name)
-	{
+	CShaderProgram::CShaderProgram(const std::string & name) {
 		this->m_shaderProgram = nullptr;
 		LoadFromFile(name);
 	}
 
-	CShaderProgram::~CShaderProgram()
-	{
+	CShaderProgram::~CShaderProgram() {
 		if(this->m_shaderProgram != nullptr)
 			delete this->m_shaderProgram;
 	}
-	
-	void CShaderProgram::LoadFromFile(const std::string & name)
-	{
+
+	void CShaderProgram::LoadFromFile(const std::string & name) {
 		if(this->m_shaderProgram != nullptr)
 			delete this->m_shaderProgram;
 
 		this->m_shaderProgram = IRenderer::GetRenderer()->CreateShaderProgram(name);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, color);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, mat);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size)
-	{
+	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, mat, size);
 	}
 
-	IShaderProgramBase * CShaderProgram::GetShaderProgram() const
-	{
+	IShaderProgramBase * CShaderProgram::GetShaderProgram() const {
 		return this->m_shaderProgram;
 	}
 }

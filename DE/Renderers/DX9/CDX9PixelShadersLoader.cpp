@@ -35,15 +35,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9PixelShader.h"
 #include "../../Renderers/DX9/CDX9PixelShadersLoader.h"
 
-namespace DE
-{
+namespace DE {
 	CDX9PixelShadersLoader::CDX9PixelShadersLoader() {}
 
-	
+
 	CDX9PixelShadersLoader::~CDX9PixelShadersLoader() {}
 
-	IShaderBase * CDX9PixelShadersLoader::LoadFromFile(const std::string & filename)
-	{
+	IShaderBase * CDX9PixelShadersLoader::LoadFromFile(const std::string & filename) {
 		if(!CFile(filename).FileExists())
 			throw CExceptionLoad(filename);
 
@@ -55,8 +53,7 @@ namespace DE
 		LPD3DXBUFFER pBufferErrors = nullptr;
 
 		hr = D3DXCompileShaderFromFile(filename.c_str(), nullptr, nullptr, "main", "ps_3_0", dwShaderFlags, &pCode, &pBufferErrors, &constantTable);
-		if(FAILED(hr))
-		{
+		if(FAILED(hr)) {
 			LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
 			LOG_ERROR((const char*)pCompilErrors);
 			ILogger::Kill();

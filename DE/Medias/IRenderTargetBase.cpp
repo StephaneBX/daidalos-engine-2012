@@ -27,17 +27,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IRenderTargetBase.h"
 
-namespace DE
-{
+namespace DE {
 	IRenderTargetBase::~IRenderTargetBase() {}
 
-	ERenderTargetType IRenderTargetBase::GetType() const
-	{
+	ERenderTargetType IRenderTargetBase::GetType() const {
 		return this->m_type;
 	}
 
-	IRenderTargetBase::IRenderTargetBase(ERenderTargetType type) : IResource() 
-	{
+	IRenderTargetBase::IRenderTargetBase(ERenderTargetType type) : IResource() {
 		this->m_type = type;
 	}
 };

@@ -31,16 +31,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CTokenizer.h"
 #include "../Loaders/COBJLoader.h"
 
-namespace DE
-{
-	#define OBJ_LOADER_ELEMENT_PER_LINE 4
+namespace DE {
+#define OBJ_LOADER_ELEMENT_PER_LINE 4
 
 	COBJLoader::COBJLoader() {}
 
 	COBJLoader:: ~COBJLoader() {}
 
-	IMeshBase * COBJLoader::LoadFromFile(const std::string & filename)
-	{
+	IMeshBase * COBJLoader::LoadFromFile(const std::string & filename) {
 		// Temporary data
 		this->m_filename = filename;
 		CVector3F tmpVec3;
@@ -74,7 +72,7 @@ namespace DE
 
 		CTokenizer token(filename, filterList);
 		token.Tokenize(" ");
-		token.Tokenize("/",3);
+		token.Tokenize("/", 3);
 
 		int numberOfGroups = token.Count("g");
 
@@ -89,10 +87,8 @@ namespace DE
 		std::fill(this->m_internalData->texcoord, this->m_internalData->texcoord + numberOfGroups, nullptr);
 
 		// Read the data
-		for(unsigned int i = 0 ; i < token.GetTokens().size() ;)
-		{
-			if(token.GetTokens().at(i) == "v")
-			{
+		for(unsigned int i = 0; i < token.GetTokens().size();) {
+			if(token.GetTokens().at(i) == "v") {
 				// Vertex declaration
 				ss.clear();
 				ss.str(token.GetTokens().at(i + 1));
@@ -106,16 +102,13 @@ namespace DE
 
 				tmpVertex.push_back(tmpVec3);
 				i += OBJ_LOADER_ELEMENT_PER_LINE;
-			}
-			else
-			{
-				if(token.GetTokens().at(i) == "vt")
-				{
+			} else {
+				if(token.GetTokens().at(i) == "vt") {
 					// Texture declaration
 					ss.clear();
 					ss.str(token.GetTokens().at(i + 1));
 					ss >> tmpVec2.x;
-					
+
 					ss.clear();
 					ss.str(token.GetTokens().at(i + 2));
 					ss >> tmpVec2.y;
@@ -126,11 +119,8 @@ namespace DE
 
 					tmpTexture.push_back(tmpVec2);
 					i += OBJ_LOADER_ELEMENT_PER_LINE - 1;
-				}
-				else
-				{
-					if(token.GetTokens().at(i) == "vn")
-					{
+				} else {
+					if(token.GetTokens().at(i) == "vn") {
 						// Normal declaration
 						ss.clear();
 						ss.str(token.GetTokens().at(i + 1));
@@ -144,28 +134,22 @@ namespace DE
 
 						tmpNormal.push_back(tmpVec3);
 						i += OBJ_LOADER_ELEMENT_PER_LINE;
-					}
-					else
-					{
-						if(token.GetTokens().at(i) == "f")
-						{
+					} else {
+						if(token.GetTokens().at(i) == "f") {
 							// Face declaration
 							// Count the number of vertex for this face
 
 							int vertexNumber = 0;
 							int vertexCountIndex = 1;
 
-							while((i + vertexCountIndex) < (int)token.GetTokens().size() && token.GetTokens().at(i + vertexCountIndex) != "f" && token.GetTokens().at(i + vertexCountIndex) != "g")
-							{
+							while((i + vertexCountIndex) < (int)token.GetTokens().size() && token.GetTokens().at(i + vertexCountIndex) != "f" && token.GetTokens().at(i + vertexCountIndex) != "g") {
 								vertexNumber++;
 								vertexCountIndex += 3;
 							}
 
 							// Accept only triangles and quads
-							if(vertexNumber == 3 || vertexNumber == 4)
-							{
-								for(int k = 0 ; k < 3 ; k++)
-								{
+							if(vertexNumber == 3 || vertexNumber == 4) {
+								for(int k = 0; k < 3; k++) {
 									if(token.GetTokens().at(i + k * 3 + 1) != "")
 										vertexOrder.push_back(atoi(token.GetTokens().at(i + k * 3 + 1).c_str()));
 
@@ -177,10 +161,8 @@ namespace DE
 								}
 
 								// Quad detected, need to add a second triangle
-								if(vertexNumber == 4)
-								{
-									for(int k = 2 ; k < 5 ; k++)
-									{
+								if(vertexNumber == 4) {
+									for(int k = 2; k < 5; k++) {
 										if(token.GetTokens().at(i + (k % 4) * 3 + 1) != "")
 											vertexOrder.push_back(atoi(token.GetTokens().at(i + (k % 4) * 3 + 1).c_str()));
 
@@ -191,25 +173,18 @@ namespace DE
 											normalOrder.push_back(atoi(token.GetTokens().at(i + (k % 4) * 3 + 3).c_str()));
 									}
 									i += 13;
-								}
-								else
+								} else
 									i += 10;
 							}
-						}
-						else
-						{
-							if(token.GetTokens().at(i) == "o")
-							{
+						} else {
+							if(token.GetTokens().at(i) == "o") {
 								// New object detected, we add the previus and clear all the temporary buffers
 								if(groupCounter >= 0)
 									FillBuffers(tmpVertex, tmpNormal, tmpTexture, vertexOrder, normalOrder, textureOrder, groupCounter);
 
 								i += 2;
-							}
-							else
-							{
-								if(token.GetTokens().at(i) == "g")
-								{
+							} else {
+								if(token.GetTokens().at(i) == "g") {
 									// Clear the face buffer
 									if(groupCounter >= 0)
 										FillBuffers(tmpVertex, tmpNormal, tmpTexture, vertexOrder, normalOrder, textureOrder, groupCounter);
@@ -217,11 +192,10 @@ namespace DE
 									normalOrder.clear();
 									textureOrder.clear();
 									groupCounter++;
-								
+
 									i += 2;
-								}
-								else
-									i++;	
+								} else
+									i++;
 							}
 						}
 					}
@@ -233,23 +207,17 @@ namespace DE
 		return new COBJMesh(filename, this->m_internalData);
 	}
 
-	void COBJLoader::FillBuffers(const std::vector<CVector3F> & tmpVertex, const std::vector<CVector3F> & tmpNormal, const std::vector<CVector2F> & tmpTexture, const std::vector<int> vertexOrder, const std::vector<int> normalOrder, const std::vector<int> & textureOrder,  const int groupCounter)
-	{
+	void COBJLoader::FillBuffers(const std::vector<CVector3F> & tmpVertex, const std::vector<CVector3F> & tmpNormal, const std::vector<CVector2F> & tmpTexture, const std::vector<int> vertexOrder, const std::vector<int> normalOrder, const std::vector<int> & textureOrder, const int groupCounter) {
 		// The data is read, time to fill the right buffers
-		if(vertexOrder.size() > 3)
-		{
+		if(vertexOrder.size() > 3) {
 			this->m_internalData->groupSize[groupCounter] = vertexOrder.size();
 			this->m_internalData->vertex[groupCounter] = new CVector3F[this->m_internalData->groupSize[groupCounter]];
 
 			// Fill the vertex buffer
-			for(int i = 0 ; i < this->m_internalData->groupSize[groupCounter] ; i++)
-			{
-				if(vertexOrder.at(i) >= 1 && vertexOrder.at(i) <= (int)tmpVertex.size())
-				{
+			for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+				if(vertexOrder.at(i) >= 1 && vertexOrder.at(i) <= (int)tmpVertex.size()) {
 					this->m_internalData->vertex[groupCounter][i] = tmpVertex.at(vertexOrder.at(i) - 1);
-				}
-				else
-				{
+				} else {
 					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id)");
 					ILogger::Kill();
 
@@ -258,31 +226,22 @@ namespace DE
 			}
 
 			// If normal information exists, fill the normal buffer
-			if(normalOrder.size() > 0)
-			{
-				if(normalOrder.size() == this->m_internalData->groupSize[groupCounter])
-				{
+			if(normalOrder.size() > 0) {
+				if(normalOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					// Verify the validity of the normal numbers
 					bool hasNormals = true;
-					for(int i = 0 ; i < this->m_internalData->groupSize[groupCounter] && hasNormals ; i++)
-					{
+					for(int i = 0; i < this->m_internalData->groupSize[groupCounter] && hasNormals; i++) {
 						if(normalOrder.at(i) < 1 || normalOrder.at(i) > (int)tmpNormal.size())
 							hasNormals = false;
 					}
 
-					if(hasNormals)
-					{
+					if(hasNormals) {
 						this->m_internalData->normal[groupCounter] = new CVector3F[this->m_internalData->groupSize[groupCounter]];
-						for(int i = 0 ; i < this->m_internalData->groupSize[groupCounter] ; i++)
-						{
-							if(normalOrder.at(i) >= 1 && normalOrder.at(i) <= (int)tmpNormal.size())
-							{
+						for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+							if(normalOrder.at(i) >= 1 && normalOrder.at(i) <= (int)tmpNormal.size()) {
 								this->m_internalData->normal[groupCounter][i] = tmpNormal.at(normalOrder.at(i) - 1);
-							}
-							else
-							{
-								if(normalOrder.at(i) != 0)
-								{
+							} else {
+								if(normalOrder.at(i) != 0) {
 									LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid normal id)");
 									ILogger::Kill();
 
@@ -291,9 +250,7 @@ namespace DE
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid number of normals)");
 					ILogger::Kill();
 
@@ -302,37 +259,27 @@ namespace DE
 			}
 
 			// If texture information exists, fill the texture coordinate buffer
-			if(textureOrder.size() > 0)
-			{
-				if(textureOrder.size() == this->m_internalData->groupSize[groupCounter])
-				{
+			if(textureOrder.size() > 0) {
+				if(textureOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					this->m_internalData->texcoord[groupCounter] = new CVector2F[this->m_internalData->groupSize[groupCounter]];
-					for(int i = 0 ; i < this->m_internalData->groupSize[groupCounter] ; i++)
-					{
-						if(textureOrder.at(i) >= 1 && textureOrder.at(i) <= (int)tmpTexture.size())
-						{
+					for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+						if(textureOrder.at(i) >= 1 && textureOrder.at(i) <= (int)tmpTexture.size()) {
 							this->m_internalData->texcoord[groupCounter][i] = tmpTexture.at(textureOrder.at(i) - 1);
-						}
-						else
-						{
+						} else {
 							LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id)");
 							ILogger::Kill();
 
 							throw CExceptionLoad(this->m_filename);
 						}
 					}
-				}
-				else
-				{
+				} else {
 					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid number of texcoords)");
 					ILogger::Kill();
 
 					throw CExceptionLoad(this->m_filename);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Less than 3 vertices found)");
 			ILogger::Kill();
 

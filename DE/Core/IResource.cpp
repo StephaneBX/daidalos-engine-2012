@@ -28,34 +28,29 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../Core/IResource.h"
 
-namespace DE
-{
-	IResource::IResource()
-	{
+namespace DE {
+	IResource::IResource() {
 		std::ostringstream stream;
 		stream << s_resourceCounter;
 		this->m_name = stream.str();
-		
+
 		++s_resourceCounter;
 	}
 
-	IResource::IResource(const std::string & name)
-	{
+	IResource::IResource(const std::string & name) {
 		this->m_name = name;
 		this->m_referenceCount = 0;
 
 		++s_resourceCounter;
 	}
 
-	IResource::~IResource(){}
+	IResource::~IResource() {}
 
-	const std::string IResource::GetName() const
-	{
+	const std::string IResource::GetName() const {
 		return this->m_name.GetFilename();
 	}
 
-	const int IResource::Release()
-	{
+	const int IResource::Release() {
 		int tmpRef = --this->m_referenceCount;
 
 		if(tmpRef == 0)
@@ -64,8 +59,7 @@ namespace DE
 		return tmpRef;
 	}
 
-	void IResource::AddReference()
-	{
+	void IResource::AddReference() {
 		++this->m_referenceCount;
 	}
 

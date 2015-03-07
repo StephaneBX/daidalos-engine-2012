@@ -46,10 +46,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define MAXIMUM_FRAME_TIME 50
 
-namespace DE
-{
-	IApplication::IApplication()
-	{
+namespace DE {
+	IApplication::IApplication() {
 		this->m_renderer = nullptr;
 		this->m_input = CInputDevice::GetInstance();
 		this->m_soundContext = CSoundContextManager::GetInstance();
@@ -91,8 +89,7 @@ namespace DE
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Fonts/");
 	}
 
-	IApplication::~IApplication()
-	{
+	IApplication::~IApplication() {
 		IRenderer::Kill();
 		CMediaManager::GetInstance()->RemoveLoader<IMaterialBase>();
 		CMediaManager::GetInstance()->RemoveLoader<CImage>();

@@ -28,38 +28,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../Core/Memory/CExceptionAssert.h"
 #include "../../../Scene/Structure/BSP/CBSPPortal.h"
 
-namespace DE
-{
-	void CBSPPortal::SetTriangle(const CBSPTriangle & triangle, const unsigned int index)
-	{
+namespace DE {
+	void CBSPPortal::SetTriangle(const CBSPTriangle & triangle, const unsigned int index) {
 		Assert(index >= 0 && index < 2);
 		this->m_triangles[index] = triangle;
 	}
 
-	void CBSPPortal::SetNumberOfLeafs(const unsigned int leafs)
-	{
+	void CBSPPortal::SetNumberOfLeafs(const unsigned int leafs) {
 		this->m_numberOfLeafs = leafs;
 	}
 
-	void CBSPPortal::SetLeafIndex(const unsigned int leafMasterIndex, const unsigned int index)
-	{
+	void CBSPPortal::SetLeafIndex(const unsigned int leafMasterIndex, const unsigned int index) {
 		Assert(index >= 0 && index < 2);
 		this->m_leafsIndex[index] = leafMasterIndex;
 	}
 
-	const unsigned int CBSPPortal::GetNumberOfLeafs() const
-	{
+	const unsigned int CBSPPortal::GetNumberOfLeafs() const {
 		return this->m_numberOfLeafs;
 	}
 
-	const unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const
-	{
+	const unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const {
 		Assert(index >= 0 && index < 2);
 		return this->m_leafsIndex[index];
 	}
 
-	const CBSPTriangle & CBSPPortal::GetTriangle(const unsigned int index) const
-	{
+	const CBSPTriangle & CBSPPortal::GetTriangle(const unsigned int index) const {
 		Assert(index >= 0 && index < 2);
 		return this->m_triangles[index];
 	}

@@ -30,196 +30,140 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Renderer.h"
 #include "../../Renderers/DX9/CDX9Shader.h"
 
-namespace DE
-{
-	CDX9Shader::CDX9Shader(const std::string & name, ID3DXConstantTable * constantTable) : IShaderBase(name)
-	{
+namespace DE {
+	CDX9Shader::CDX9Shader(const std::string & name, ID3DXConstantTable * constantTable) : IShaderBase(name) {
 		this->m_constantTable = constantTable;
 	}
 
-	CDX9Shader::~CDX9Shader()
-	{
+	CDX9Shader::~CDX9Shader() {
 		SAFE_RELEASE(this->m_constantTable);
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const bool value)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const bool value) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetBool(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const int value)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const int value) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetInt(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const float value)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const float value) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloat(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const bool * value, const int size) {}
 
-	void CDX9Shader::SetParameter(const std::string & name, const int * value, const int size)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const int * value, const int size) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetIntArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const float * value, const int size)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const float * value, const int size) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloatArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CVector2F & vec) 
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CVector2F & vec) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2(vec.x, vec.y, 0, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CVector2I & vec) 
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CVector2I & vec) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2((float)vec.x, (float)vec.y, 0, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CVector3F & vec) 
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CVector3F & vec) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2(vec.x, vec.y, vec.z, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CVector4F & vec)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CVector4F & vec) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CColor & color)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CColor & color) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			CVector4F vec = color.ToRGBAVector();
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CMatrix & mat)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CMatrix & mat) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrix(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(&mat));
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CVector4F * vec, const int size)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CVector4F * vec, const int size) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVectorArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(vec), size);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const CMatrix * mat, const int size)
-	{
+	void CDX9Shader::SetParameter(const std::string & name, const CMatrix * mat, const int size) {
 		CheckHandle(name);
-		if(this->m_handles[name] != nullptr)
-		{
+		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrixArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(mat), size);
-		}
-		else
-		{
+		} else {
 			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
 		}
 	}
 
-	void CDX9Shader::CheckHandle(const std::string & name)
-	{
+	void CDX9Shader::CheckHandle(const std::string & name) {
 		if(this->m_handles.find(name) == this->m_handles.end())
 			this->m_handles[name] = this->m_constantTable->GetConstantByName(nullptr, name.c_str());
 	}

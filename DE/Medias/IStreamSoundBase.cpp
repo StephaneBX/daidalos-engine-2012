@@ -27,10 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IStreamSoundBase.h"
 
-namespace DE
-{
-	IStreamSoundBase::IStreamSoundBase(SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate)
-	{
+namespace DE {
+	IStreamSoundBase::IStreamSoundBase(SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) {
 		this->m_framesRead = 0;
 		this->m_file = file;
 		this->m_format = format;
@@ -38,26 +36,23 @@ namespace DE
 		this->m_sampleRate = sampleRate;
 
 		alGenBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
-		for(int i = 0 ; i < STREAM_SOUND_BUFFER_SIZE ; ++i)
+		for(int i = 0; i < STREAM_SOUND_BUFFER_SIZE; ++i)
 			ReadChunk(this->m_buffers[i]);
 	}
 
-	IStreamSoundBase::~IStreamSoundBase()
-	{
+	IStreamSoundBase::~IStreamSoundBase() {
 		ALint nbQueued;
 		ALuint buffer;
 		alGetSourcei(this->m_source, AL_BUFFERS_QUEUED, &nbQueued);
-		for(ALint i = 0 ; i < nbQueued ; ++i)
+		for(ALint i = 0; i < nbQueued; ++i)
 			alSourceUnqueueBuffers(this->m_source, 1, &buffer);
 
 		sf_close(this->m_file);
 		alDeleteBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
 	}
 
-	void IStreamSoundBase::SetStatus(ESoundStatus status)
-	{
-		switch(status)
-		{
+	void IStreamSoundBase::SetStatus(ESoundStatus status) {
+		switch(status) {
 		case SOUND_STATUS_STOP:
 		case SOUND_STATUS_INITIAL:
 			if(status == SOUND_STATUS_STOP)
@@ -68,12 +63,12 @@ namespace DE
 			ALint nbQueued;
 			ALuint buffer;
 			alGetSourcei(this->m_source, AL_BUFFERS_QUEUED, &nbQueued);
-			for(ALint i = 0 ; i < nbQueued ; ++i)
+			for(ALint i = 0; i < nbQueued; ++i)
 				alSourceUnqueueBuffers(this->m_source, 1, &buffer);
 
 			sf_seek(this->m_file, 0, SEEK_SET);
 
-			for(int i = 0 ; i < STREAM_SOUND_BUFFER_SIZE ; ++i)
+			for(int i = 0; i < STREAM_SOUND_BUFFER_SIZE; ++i)
 				ReadChunk(this->m_buffers[i]);
 			break;
 
@@ -87,55 +82,45 @@ namespace DE
 		}
 	}
 
-	void IStreamSoundBase::Update()
-	{
-		if(GetStatus() == SOUND_STATUS_PLAY)
-		{
+	void IStreamSoundBase::Update() {
+		if(GetStatus() == SOUND_STATUS_PLAY) {
 			ALint nbProcessed;
 			int read = 0;
 			alGetSourcei(this->m_source, AL_BUFFERS_PROCESSED, &nbProcessed);
 
-			for(ALint i = 0 ; i < nbProcessed ; ++i)
-			{
+			for(ALint i = 0; i < nbProcessed; ++i) {
 				ALuint buffer;
 				alSourceUnqueueBuffers(this->m_source, 1, &buffer);
 
 				read = ReadChunk(buffer);
 			}
-			
+
 			if(read == 0 && nbProcessed > 0)
-				SetStatus(SOUND_STATUS_STOP);	
-		}
-		else
-		{
-			if(IsLooped())
-			{
+				SetStatus(SOUND_STATUS_STOP);
+		} else {
+			if(IsLooped()) {
 				SetStatus(SOUND_STATUS_STOP);
 				SetStatus(SOUND_STATUS_PLAY);
 			}
 		}
 	}
 
-	void IStreamSoundBase::SetLooped(const bool loop)
-	{
+	void IStreamSoundBase::SetLooped(const bool loop) {
 		this->m_looped = loop;
 	}
 
-	const bool IStreamSoundBase::IsLooped() const
-	{
+	const bool IStreamSoundBase::IsLooped() const {
 		return this->m_looped;
 	}
 
-	const int IStreamSoundBase::ReadChunk(ALuint buffer)
-	{
+	const int IStreamSoundBase::ReadChunk(ALuint buffer) {
 		int nbSamples = this->m_sampleRate * GetChannelsCount();
 		int read = 0;
 		std::vector<ALshort> samples(nbSamples);
 
 		read = (int)sf_read_short(this->m_file, &samples[0], nbSamples);
 
-		if(read > 0)
-		{
+		if(read > 0) {
 			alBufferData(buffer, GetALFormat(), &samples[0], read * sizeof(ALushort), this->m_sampleRate);
 			alSourceQueueBuffers(this->m_source, 1, &buffer);
 			this->m_framesRead += read;

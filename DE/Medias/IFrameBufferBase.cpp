@@ -29,24 +29,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/IFrameBufferBase.h"
 
-namespace DE
-{
-	IFrameBufferBase::~IFrameBufferBase() 
-	{
-		for(auto it = this->m_elements.begin() ; it != this->m_elements.end() ; ++it)
-		{
+namespace DE {
+	IFrameBufferBase::~IFrameBufferBase() {
+		for(auto it = this->m_elements.begin(); it != this->m_elements.end(); ++it) {
 			SAFE_DELETE(it->second.renderTarget);
 			SAFE_DELETE(it->second.texture);
 		}
 
-		for(auto it = this->m_depthElements.begin() ; it != this->m_depthElements.end() ; ++it)
-		{
+		for(auto it = this->m_depthElements.begin(); it != this->m_depthElements.end(); ++it) {
 			SAFE_DELETE(it->second);
 		}
 	}
 
-	void IFrameBufferBase::AddElement(const std::string & name, SFrameBufferElement & element) 
-	{
+	void IFrameBufferBase::AddElement(const std::string & name, SFrameBufferElement & element) {
 		auto it = this->m_elements.find(name);
 		Assert(it == this->m_elements.end());
 
@@ -55,31 +50,28 @@ namespace DE
 		this->m_ready = false;
 	}
 
-	void IFrameBufferBase::AddDepth(const std::string & name, IRenderTargetBase * depth)
-	{
+	void IFrameBufferBase::AddDepth(const std::string & name, IRenderTargetBase * depth) {
 		this->m_depthElements[name] = depth;
 	}
 
-	void IFrameBufferBase::AttachElement(const std::string & name, const int attachment) 
-	{
+	void IFrameBufferBase::AttachElement(const std::string & name, const int attachment) {
 		// Check the existence of the element
 		auto it = this->m_elements.find(name);
 		Assert(it != this->m_elements.end());
 
 		// Remove previous attachment to this attachment point
-		for(auto it = this->m_attachments.begin() ; it != this->m_attachments.end() ; ++it)
+		for(auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it)
 			if(it->attachment == attachment)
 				this->m_attachments.erase(it);
 
 		// Attach the element to this point
-		SFrameBufferAttachment tmp = {attachment, name};
+		SFrameBufferAttachment tmp = { attachment, name };
 		this->m_attachments.push_back(tmp);
 
 		this->m_ready = false;
 	}
 
-	void IFrameBufferBase::AttachDepth(const std::string & name)
-	{
+	void IFrameBufferBase::AttachDepth(const std::string & name) {
 		// Check the existence of the buffer
 		auto it = this->m_depthElements.find(name);
 		Assert(it != this->m_depthElements.end());
@@ -87,24 +79,21 @@ namespace DE
 		this->m_depth = it->second;
 	}
 
-	void IFrameBufferBase::DetachElement(const int attachment) 
-	{
+	void IFrameBufferBase::DetachElement(const int attachment) {
 		// Remove the element attached to this attachment point
-		for(auto it = this->m_attachments.begin() ; it != this->m_attachments.end() ; ++it)
+		for(auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it)
 			if(it->attachment == attachment)
 				this->m_attachments.erase(it);
 
 		this->m_ready = false;
 	}
 
-	void IFrameBufferBase::DetachAllElements() 
-	{
+	void IFrameBufferBase::DetachAllElements() {
 		this->m_attachments.clear();
 		this->m_ready = false;
 	}
 
-	ITexture2DBase * IFrameBufferBase::GetTexture(const std::string & name) const
-	{
+	ITexture2DBase * IFrameBufferBase::GetTexture(const std::string & name) const {
 		ITexture2DBase * ret = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())
@@ -113,8 +102,7 @@ namespace DE
 		return ret;
 	}
 
-	IRenderTargetBase * IFrameBufferBase::GetRenderTarget(const std::string & name) const
-	{
+	IRenderTargetBase * IFrameBufferBase::GetRenderTarget(const std::string & name) const {
 		IRenderTargetBase * ret = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())
@@ -123,13 +111,11 @@ namespace DE
 		return ret;
 	}
 
-	SFrameBufferAttachment * IFrameBufferBase::GetAttachment(const int number)
-	{
+	SFrameBufferAttachment * IFrameBufferBase::GetAttachment(const int number) {
 		return &this->m_attachments.at(number);
 	}
 
-	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget(const std::string & name) const
-	{
+	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget(const std::string & name) const {
 		IRenderTargetBase * ret = nullptr;
 		auto it = this->m_depthElements.find(name);
 		if(it != this->m_depthElements.end())
@@ -138,28 +124,23 @@ namespace DE
 		return ret;
 	}
 
-	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget() const
-	{
+	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget() const {
 		return this->m_depth;
 	}
 
-	const bool IFrameBufferBase::IsReady() const
-	{
+	const bool IFrameBufferBase::IsReady() const {
 		return this->m_ready;
 	}
 
-	const int IFrameBufferBase::GetBufferSize() const
-	{
+	const int IFrameBufferBase::GetBufferSize() const {
 		return this->m_elements.size();
 	}
 
-	const int IFrameBufferBase::GetAttachmentSize() const
-	{
+	const int IFrameBufferBase::GetAttachmentSize() const {
 		return this->m_attachments.size();
 	}
 
-	IFrameBufferBase::IFrameBufferBase() 
-	{
+	IFrameBufferBase::IFrameBufferBase() {
 		this->m_depth = nullptr;
 		this->m_ready = false;
 	}

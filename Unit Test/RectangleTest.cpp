@@ -4,15 +4,13 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RectangleTest);
 
-void RectangleTest::setUp() 
-{
-	this->m_origin = DE::CVector2I(4,8);
-	this->m_size = DE::CVector2I(14,8);
+void RectangleTest::setUp() {
+	this->m_origin = DE::CVector2I(4, 8);
+	this->m_size = DE::CVector2I(14, 8);
 	this->m_factor = 2;
 }
 
-void RectangleTest::TestConstructors()
-{
+void RectangleTest::TestConstructors() {
 	DE::CRectangleI rectangle;
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetRight());
@@ -20,7 +18,7 @@ void RectangleTest::TestConstructors()
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetTop());
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetHeight());
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetWidth());
-	
+
 
 	// Value constructor
 	rectangle = DE::CRectangleI(this->m_origin.x, this->m_origin.y, this->m_size.x, this->m_size.y);
@@ -50,8 +48,7 @@ void RectangleTest::TestConstructors()
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetHeight(), rectangle2.GetHeight());
 }
 
-void RectangleTest::TestOperators()
-{
+void RectangleTest::TestOperators() {
 	// + operator
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetLeft() + this->m_origin.x, (rectangle + this->m_origin).GetLeft());
@@ -126,77 +123,69 @@ void RectangleTest::TestOperators()
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetHeight() / this->m_factor, tmp.GetHeight());
 }
 
-void RectangleTest::TestGetTop()
-{
+void RectangleTest::TestGetTop() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y, rectangle.GetTop());
 }
 
-void RectangleTest::TestGetLeft()
-{
+void RectangleTest::TestGetLeft() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x, rectangle.GetLeft());
 }
 
-void RectangleTest::TestGetBottom()
-{
+void RectangleTest::TestGetBottom() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y + this->m_size.y, rectangle.GetBottom());
 }
 
-void RectangleTest::TestGetRight()
-{
+void RectangleTest::TestGetRight() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x + this->m_size.x, rectangle.GetRight());
 }
 
-void RectangleTest::TestGetSize()
-{
+void RectangleTest::TestGetSize() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.x, rectangle.GetSize().x);
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetSize().y);
 }
 
-void RectangleTest::TestGetWidth()
-{
+void RectangleTest::TestGetWidth() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.x, rectangle.GetWidth());
 }
 
-void RectangleTest::TestGetHeight()
-{
+void RectangleTest::TestGetHeight() {
 	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetHeight());
 }
 
-void RectangleTest::TestIntersectRectangle()
-{
+void RectangleTest::TestIntersectRectangle() {
 	// Intersect
-	DE::CRectangleI rectangle1 = DE::CRectangleI(1,2,15,5);
-	DE::CRectangleI rectangle2 = DE::CRectangleI(9,4,8,9);
+	DE::CRectangleI rectangle1 = DE::CRectangleI(1, 2, 15, 5);
+	DE::CRectangleI rectangle2 = DE::CRectangleI(9, 4, 8, 9);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INTERSECT, rectangle1.Intersect(rectangle2));
 
 	// Lower than rectangle 1
-	rectangle2 = DE::CRectangleI(9,8,8,9);
+	rectangle2 = DE::CRectangleI(9, 8, 8, 9);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Left of rectangle 1
-	rectangle2 = DE::CRectangleI(-10,2,10,5);
+	rectangle2 = DE::CRectangleI(-10, 2, 10, 5);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Right of rectangle 1
-	rectangle2 = DE::CRectangleI(17,2,10,5);
+	rectangle2 = DE::CRectangleI(17, 2, 10, 5);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Top of rectangle 1
-	rectangle2 = DE::CRectangleI(3,-8,10,9);
+	rectangle2 = DE::CRectangleI(3, -8, 10, 9);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Intersect - equals
@@ -204,11 +193,10 @@ void RectangleTest::TestIntersectRectangle()
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle1.Intersect(rectangle2));
 }
 
-void RectangleTest::TestIntersectPoint()
-{
+void RectangleTest::TestIntersectPoint() {
 	// Inside
 	DE::CRectangleI rectangle = DE::CRectangleI(1, 2, 15, 5);
-	DE::CVector2I point = DE::CVector2I(7,4);
+	DE::CVector2I point = DE::CVector2I(7, 4);
 	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 
 	// Lower

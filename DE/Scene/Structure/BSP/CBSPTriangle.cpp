@@ -27,72 +27,58 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../BSP/CBSPTriangle.h"
 
-namespace DE
-{
-	CBSPTriangle::CBSPTriangle()
-	{
+namespace DE {
+	CBSPTriangle::CBSPTriangle() {
 		this->m_separationPlane = false;
 		this->m_visible = true;
 		this->m_drawn = false;
 	}
 
-	void CBSPTriangle::SetSeparationPlane(const bool separationPlane)
-	{
+	void CBSPTriangle::SetSeparationPlane(const bool separationPlane) {
 		this->m_separationPlane = separationPlane;
 	}
 
-	void CBSPTriangle::SetVisible(const bool visible)
-	{
+	void CBSPTriangle::SetVisible(const bool visible) {
 		this->m_visible = visible;
 	}
 
-	void CBSPTriangle::SetDrawn(const bool drawn)
-	{
+	void CBSPTriangle::SetDrawn(const bool drawn) {
 		this->m_drawn = drawn;
 	}
 
-	void CBSPTriangle::SetPlane(const CPlane3DF & plane)
-	{
+	void CBSPTriangle::SetPlane(const CPlane3DF & plane) {
 		this->m_plane = plane;
 	}
 
-	void CBSPTriangle::CreatePlane()
-	{
+	void CBSPTriangle::CreatePlane() {
 		this->m_plane = CPlane3DF(this->m_vertices);
 		this->m_flatNormal = this->m_plane.GetNormal();
 	}
 
-	const bool CBSPTriangle::IsSeparationPlane() const
-	{
+	const bool CBSPTriangle::IsSeparationPlane() const {
 		return this->m_separationPlane;
 	}
 
-	const bool CBSPTriangle::IsVisible() const
-	{
+	const bool CBSPTriangle::IsVisible() const {
 		return this->m_visible;
 	}
 
-	const bool CBSPTriangle::IsDrawn() const
-	{
+	const bool CBSPTriangle::IsDrawn() const {
 		return this->m_drawn;
 	}
 
-	const CPlane3DF & CBSPTriangle::GetPlane() const
-	{
+	const CPlane3DF & CBSPTriangle::GetPlane() const {
 		return this->m_plane;
 	}
 
-	EBSPTriangleOrientation CBSPTriangle::Classify(const CPlane3DF & plane)
-	{
+	EBSPTriangleOrientation CBSPTriangle::Classify(const CPlane3DF & plane) {
 		int frontCounter = 0;
 		int backCounter = 0;
 		int onCounter = 0;
 
 		// Test the vertices
-		for(int i = 0 ; i < 3 ; ++i)
-		{
-			switch(plane.ClassifyPoint(GetVertex(i)))
-			{
+		for(int i = 0; i < 3; ++i) {
+			switch(plane.ClassifyPoint(GetVertex(i))) {
 			case POINT_ORIENTATION_POSITIVE_SIDE:
 				++frontCounter;
 				break;
@@ -110,18 +96,12 @@ namespace DE
 		}
 
 		// Get the appropriate result
-		if(onCounter == 3)
-		{
+		if(onCounter == 3) {
 			return BSP_TRIANGLE_ORIENTATION_COPLANAR;
-		}
-		else
-		{
-			if(frontCounter == 3)
-			{
+		} else {
+			if(frontCounter == 3) {
 				return BSP_TRIANGLE_ORIENTATION_FRONT;
-			}
-			else
-			{
+			} else {
 				if(backCounter == 3)
 					return BSP_TRIANGLE_ORIENTATION_BACK;
 				else
@@ -130,8 +110,7 @@ namespace DE
 		}
 	}
 
-	CPlane3DF * CBSPTriangle::GetPlanePointer()
-	{
+	CPlane3DF * CBSPTriangle::GetPlanePointer() {
 		return &this->m_plane;
 	}
 }

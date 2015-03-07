@@ -27,19 +27,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/CMediaManager.h"
 
-namespace DE
-{	
+namespace DE {
 	CMediaManager::CMediaManager() {}
 
-	void CMediaManager::AddSearchPath(const std::string & path)
-	{
+	void CMediaManager::AddSearchPath(const std::string & path) {
 		this->m_paths.insert(path);
 	}
 
-	CFile CMediaManager::FindMedia(const std::string & filename)
-	{
-		for(auto i = this->m_paths.begin() ; i != this->m_paths.end() ; ++i)
-		{
+	CFile CMediaManager::FindMedia(const std::string & filename) {
+		for(auto i = this->m_paths.begin(); i != this->m_paths.end(); ++i) {
 			CFile file = *i + filename;
 			if(file.FileExists())
 				return file;

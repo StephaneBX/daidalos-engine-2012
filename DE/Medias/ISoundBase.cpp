@@ -26,17 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #include "../Medias/ISoundBase.h"
 
-namespace DE
-{
-	ISoundBase::~ISoundBase()
-	{
+namespace DE {
+	ISoundBase::~ISoundBase() {
 		alDeleteSources(1, &this->m_source);
 	}
 
-	void ISoundBase::SetStatus(ESoundStatus status)
-	{
-		switch(status)
-		{
+	void ISoundBase::SetStatus(ESoundStatus status) {
+		switch(status) {
 		case SOUND_STATUS_INITIAL:
 			alSourceRewind(this->m_source);
 			break;
@@ -55,72 +51,59 @@ namespace DE
 		}
 	}
 
-	void ISoundBase::SetGain(const float gain)
-	{
+	void ISoundBase::SetGain(const float gain) {
 		alSourcef(this->m_source, AL_GAIN, gain);
 	}
 
-	void ISoundBase::SetPosition(const CVector3F & position)
-	{
+	void ISoundBase::SetPosition(const CVector3F & position) {
 		CVector3F pos(position.x, position.y, -position.z);
-		alSourcefv(this->m_source, AL_POSITION , pos);
+		alSourcefv(this->m_source, AL_POSITION, pos);
 	}
 
-	void ISoundBase::SetOrientation(float * orientation)
-	{
+	void ISoundBase::SetOrientation(float * orientation) {
 		float orientation2[] = { orientation[0], orientation[1], -orientation[2], orientation[3], orientation[4], -orientation[5] };
 		alSourcefv(this->m_source, AL_DIRECTION, orientation2);
 	}
 
-	void ISoundBase::SetVelocity(const CVector3F & velocity)
-	{
+	void ISoundBase::SetVelocity(const CVector3F & velocity) {
 		alSourcefv(this->m_source, AL_VELOCITY, velocity);
 	}
 
-	void ISoundBase::SetConeInnerAngle(const float angle)
-	{
+	void ISoundBase::SetConeInnerAngle(const float angle) {
 		alSourcef(this->m_source, AL_CONE_INNER_ANGLE, angle);
 	}
 
-	void ISoundBase::SetConeOuterAngle(const float angle)
-	{
+	void ISoundBase::SetConeOuterAngle(const float angle) {
 		alSourcef(this->m_source, AL_CONE_OUTER_ANGLE, angle);
 	}
 
-	void ISoundBase::SetReferenceDistance(const float distance)
-	{
+	void ISoundBase::SetReferenceDistance(const float distance) {
 		alSourcef(this->m_source, AL_REFERENCE_DISTANCE, distance);
 	}
 
-	void ISoundBase::SetMaxDistance(const float distance)
-	{
-		alSourcef(this->m_source, AL_MAX_DISTANCE , distance);
+	void ISoundBase::SetMaxDistance(const float distance) {
+		alSourcef(this->m_source, AL_MAX_DISTANCE, distance);
 	}
 
-	void ISoundBase::SetRelativeToListener(const bool relative)
-	{
+	void ISoundBase::SetRelativeToListener(const bool relative) {
 		alSourcei(this->m_source, AL_SOURCE_RELATIVE, relative ? AL_TRUE : AL_FALSE);
 	}
 
-	void ISoundBase::SetLooped(const bool loop)
-	{
+	void ISoundBase::SetLooped(const bool loop) {
 		alSourcei(this->m_source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
 	}
 
 	void ISoundBase::Update() {}
 
-	ESoundFormat ISoundBase::GetFormat() const
-	{
+	ESoundFormat ISoundBase::GetFormat() const {
 		return this->m_format;
 	}
 
-	ESoundStatus ISoundBase::GetStatus() const
-	{
+	ESoundStatus ISoundBase::GetStatus() const {
 		ALint status;
 		alGetSourcei(this->m_source, AL_SOURCE_STATE, &status);
 
-		switch(status)
-		{
+		switch(status) {
 		case AL_INITIAL:
 			return SOUND_STATUS_INITIAL;
 
@@ -137,28 +120,24 @@ namespace DE
 		return SOUND_STATUS_STOP;
 	}
 
-	const bool ISoundBase::IsRelativeToListener() const
-	{
+	const bool ISoundBase::IsRelativeToListener() const {
 		ALint status;
 		alGetSourcei(this->m_source, AL_SOURCE_RELATIVE, &status);
 
 		return status == AL_TRUE;
 	}
 
-	const bool ISoundBase::IsLooped() const
-	{
+	const bool ISoundBase::IsLooped() const {
 		ALint status;
 		alGetSourcei(this->m_source, AL_LOOPING, &status);
 
 		return status == AL_TRUE;
 	}
 
-	const int ISoundBase::GetChannelsCount() const
-	{
+	const int ISoundBase::GetChannelsCount() const {
 		int channels = 1;
 
-		switch(this->m_format)
-		{
+		switch(this->m_format) {
 		case SOUND_FORMAT_STEREO16:
 			channels = 2;
 			break;
@@ -171,8 +150,7 @@ namespace DE
 		return channels;
 	}
 
-	const float ISoundBase::GetGain() const
-	{
+	const float ISoundBase::GetGain() const {
 		float result;
 
 		alGetSourcef(this->m_source, AL_GAIN, &result);
@@ -180,8 +158,7 @@ namespace DE
 		return result;
 	}
 
-	const float ISoundBase::GetConeInnerAngle() const
-	{
+	const float ISoundBase::GetConeInnerAngle() const {
 		float result;
 
 		alGetSourcef(this->m_source, AL_CONE_INNER_ANGLE, &result);
@@ -189,8 +166,7 @@ namespace DE
 		return result;
 	}
 
-	const float ISoundBase::GetConeOuterAngle() const
-	{
+	const float ISoundBase::GetConeOuterAngle() const {
 		float result;
 
 		alGetSourcef(this->m_source, AL_CONE_OUTER_ANGLE, &result);
@@ -198,8 +174,7 @@ namespace DE
 		return result;
 	}
 
-	const float ISoundBase::GetReferenceDistance() const
-	{
+	const float ISoundBase::GetReferenceDistance() const {
 		float result;
 
 		alGetSourcef(this->m_source, AL_REFERENCE_DISTANCE, &result);
@@ -207,8 +182,7 @@ namespace DE
 		return result;
 	}
 
-	const float ISoundBase::GetMaxDistance() const
-	{
+	const float ISoundBase::GetMaxDistance() const {
 		float result;
 
 		alGetSourcef(this->m_source, AL_MAX_DISTANCE, &result);
@@ -216,20 +190,17 @@ namespace DE
 		return result;
 	}
 
-	ISoundBase::ISoundBase()
-	{
+	ISoundBase::ISoundBase() {
 		this->m_format = SOUND_FORMAT_MONO16;
 		this->m_samplesCount = 0;
 		this->m_sampleRate = 0;
 		alGenSources(1, &this->m_source);
 	}
 
-	ALenum ISoundBase::GetALFormat() const
-	{
+	ALenum ISoundBase::GetALFormat() const {
 		ALenum format;
 
-		switch(this->m_format)
-		{
+		switch(this->m_format) {
 		case SOUND_FORMAT_STEREO16:
 			format = AL_FORMAT_STEREO16;
 			break;

@@ -27,17 +27,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IMaterialBase.h"
 
-namespace DE
-{
+namespace DE {
 	IMaterialBase::IMaterialBase(const std::string & name) : IResource(name) {}
 
-	void IMaterialBase::AddElement(const std::string & name, SMaterialElement * element)
-	{
+	void IMaterialBase::AddElement(const std::string & name, SMaterialElement * element) {
 		this->m_elements[name] = std::unique_ptr<SMaterialElement>(element);
 	}
 
-	SMaterialElement * IMaterialBase::GetElement(const std::string & name) const
-	{
+	SMaterialElement * IMaterialBase::GetElement(const std::string & name) const {
 		SMaterialElement * tmp = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())

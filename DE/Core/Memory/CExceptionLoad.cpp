@@ -28,14 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Memory/CExceptionLoad.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	* @param filename The loading file
 	*/
-	CExceptionLoad::CExceptionLoad(const std::string & filename)
-	{
+	CExceptionLoad::CExceptionLoad(const std::string & filename) {
 		std::ostringstream stream;
 		stream << "Loading error" << std::endl << "File: " << filename << std::endl;
 

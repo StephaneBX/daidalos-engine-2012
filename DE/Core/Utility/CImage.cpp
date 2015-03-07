@@ -30,15 +30,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector2.h"
 #include "../../Core/Utility/CImage.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	* @param size The image size
 	* @param format The image format
 	*/
-	CImage::CImage(const CVector2I & size, EPixelFormat format)
-	{
+	CImage::CImage(const CVector2I & size, EPixelFormat format) {
 		this->m_size = size;
 		this->m_format = format;
 		this->m_data = std::vector<unsigned char>(this->m_size.x * this->m_size.y * GetBytesPerPixel(format), 0x00);
@@ -50,8 +48,7 @@ namespace DE
 	* @param format The image format
 	* @param data The data
 	*/
-	CImage::CImage(const CVector2I & size, EPixelFormat format, const unsigned char * data)
-	{
+	CImage::CImage(const CVector2I & size, EPixelFormat format, const unsigned char * data) {
 		this->m_size = size;
 		this->m_format = format;
 		this->m_data = std::vector<unsigned char>(data, data + this->m_size.x * this->m_size.y * GetBytesPerPixel(format));
@@ -61,8 +58,7 @@ namespace DE
 	* Get the image width
 	* @return The image width
 	*/
-	const int CImage::GetWidth() const
-	{
+	const int CImage::GetWidth() const {
 		return this->m_size.x;
 	}
 
@@ -70,8 +66,7 @@ namespace DE
 	* Get the image height
 	* @return The image height
 	*/
-	const int CImage::GetHeight() const
-	{
+	const int CImage::GetHeight() const {
 		return this->m_size.y;
 	}
 
@@ -79,8 +74,7 @@ namespace DE
 	* Get the image data
 	* @return The image data
 	*/
-	const unsigned char * CImage::GetData() const
-	{
+	const unsigned char * CImage::GetData() const {
 		return &this->m_data[0];
 	}
 
@@ -90,8 +84,7 @@ namespace DE
 	* @param y The y coordinate
 	* @return The color
 	*/
-	const CColor CImage::GetPixel(const int x, const int y) const
-	{
+	const CColor CImage::GetPixel(const int x, const int y) const {
 		unsigned char tmp[4];
 		const unsigned char * pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
 		ConvertPixel(this->m_format, PIXEL_FORMAT_A8R8G8B8, pix, &tmp[0]);
@@ -103,8 +96,7 @@ namespace DE
 	* Get the image size
 	* @return The image size
 	*/
-	const CVector2I & CImage::GetSize() const
-	{
+	const CVector2I & CImage::GetSize() const {
 		return this->m_size;
 	}
 
@@ -112,8 +104,7 @@ namespace DE
 	* Get the image format
 	* @return The image format
 	*/
-	EPixelFormat CImage::GetFormat() const
-	{
+	EPixelFormat CImage::GetFormat() const {
 		return this->m_format;
 	}
 
@@ -122,8 +113,7 @@ namespace DE
 	* @param rect
 	* @return The image
 	*/
-	CImage CImage::SubImage(const CRectangleI & rect) const
-	{
+	CImage CImage::SubImage(const CRectangleI & rect) const {
 		// The sub image
 		CImage sub(CVector2I(rect.GetWidth(), rect.GetHeight()), this->m_format);
 
@@ -134,8 +124,7 @@ namespace DE
 		const unsigned int destPitch = sub.m_size.x * GetBytesPerPixel(this->m_format);
 
 		// Copy the data
-		for(int i = rect.GetTop() ; i < rect.GetBottom() ; ++i)
-		{
+		for(int i = rect.GetTop(); i < rect.GetBottom(); ++i) {
 			std::copy(src, src + srcPitch, dest);
 			src += srcPitch;
 			dest += destPitch;
@@ -150,8 +139,7 @@ namespace DE
 	* @param y The y coordinate
 	* @param pixel The color
 	*/
-	void CImage::GetPixel(const int x, const int y, unsigned char * pixel) const
-	{
+	void CImage::GetPixel(const int x, const int y, unsigned char * pixel) const {
 		memcpy(pixel, GetData() + y * this->m_size.x + x, GetBytesPerPixel(this->m_format));
 	}
 
@@ -161,9 +149,8 @@ namespace DE
 	* @param y Th y coordinate
 	* @param color The color
 	*/
-	void CImage::SetPixel(const int x, const int y, const CColor & color)
-	{
-		unsigned char tmp[4] = {color.GetBlue(), color.GetGreen(), color.GetRed(), color.GetAlpha()};
+	void CImage::SetPixel(const int x, const int y, const CColor & color) {
+		unsigned char tmp[4] = { color.GetBlue(), color.GetGreen(), color.GetRed(), color.GetAlpha() };
 		unsigned char * pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
 
 		ConvertPixel(PIXEL_FORMAT_A8R8G8B8, this->m_format, &tmp[0], pix);
@@ -175,8 +162,7 @@ namespace DE
 	* @param y Th y coordinate
 	* @param pixel The pixel
 	*/
-	void CImage::SetPixel(const int x, const int y, const unsigned char * pixel)
-	{
+	void CImage::SetPixel(const int x, const int y, const unsigned char * pixel) {
 		memcpy(&this->m_data[0] + y * this->m_size.x + x, pixel, GetBytesPerPixel(this->m_format));
 	}
 
@@ -184,14 +170,13 @@ namespace DE
 	* Fill the image with a color
 	* @param color The color
 	*/
-	void CImage::Fill(const CColor & color)
-	{
+	void CImage::Fill(const CColor & color) {
 		SetPixel(0, 0, color);
 
 		const unsigned int bpp = GetBytesPerPixel(this->m_format);
 		auto begin = this->m_data.begin();
 
-		for(auto it = begin + bpp ; it != this->m_data.end() ; it += bpp)
+		for(auto it = begin + bpp; it != this->m_data.end(); it += bpp)
 			std::copy(begin, begin + bpp, it);
 	}
 
@@ -199,56 +184,41 @@ namespace DE
 	* Copy an image
 	* @param image The image to copy
 	*/
-	void CImage::Copy(const CImage & image)
-	{
+	void CImage::Copy(const CImage & image) {
 		// Compare the sizes
-		if(this->m_size.x == image.m_size.x && this->m_size.y == image.m_size.y)
-		{
+		if(this->m_size.x == image.m_size.x && this->m_size.y == image.m_size.y) {
 			// Compare the format
-			if(this->m_format == image.m_format)
-			{
+			if(this->m_format == image.m_format) {
 				this->m_data = image.m_data;
-			}
-			else
-			{
+			} else {
 				const unsigned char * src = &image.m_data[0];
 				unsigned char * dest = &this->m_data[0];
 				const unsigned int srcBpp = GetBytesPerPixel(image.m_format);
 				const unsigned int destBpp = GetBytesPerPixel(this->m_format);
 
-				for(int i = 0 ; i < this->m_size.x * this->m_size.y ; ++i)
-				{
+				for(int i = 0; i < this->m_size.x * this->m_size.y; ++i) {
 					ConvertPixel(image.m_format, this->m_format, src, dest);
 					src += srcBpp;
 					dest += destBpp;
 				}
 			}
-		}
-		else
-		{
+		} else {
 			const CVector2F pitch(image.m_size.x / static_cast<float>(this->m_size.x), image.m_size.y / static_cast<float>(this->m_size.y));
 
 			// Compare the format
-			if(this->m_format == image.m_format)
-			{
+			if(this->m_format == image.m_format) {
 				unsigned char pix[4];
-				for(int i = 0 ; i < this->m_size.y ; ++i)
-				{
-					for(int j = 0 ; j < this->m_size.x ; ++j)
-					{
+				for(int i = 0; i < this->m_size.y; ++i) {
+					for(int j = 0; j < this->m_size.x; ++j) {
 						image.GetPixel(static_cast<int>(j * pitch.x), static_cast<int>(i * pitch.y), &pix[0]);
 						SetPixel(j, i, &pix[0]);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				unsigned char srcPix[4];
 				unsigned char destPix[4];
-				for(int i = 0 ; i < this->m_size.y ; ++i)
-				{
-					for(int j = 0 ; j < this->m_size.x ; ++j)
-					{
+				for(int i = 0; i < this->m_size.y; ++i) {
+					for(int j = 0; j < this->m_size.x; ++j) {
 						image.GetPixel(static_cast<int>(j * pitch.x), static_cast<int>(i * pitch.y), &srcPix[0]);
 						ConvertPixel(image.m_format, this->m_format, &srcPix[0], &destPix[0]);
 						SetPixel(j, i, &destPix[0]);
@@ -261,32 +231,27 @@ namespace DE
 	/**
 	* Flip the image vertically
 	*/
-	void CImage::Flip()
-	{
+	void CImage::Flip() {
 		int bpp = GetBytesPerPixel(this->m_format);
 
-		for(int i = 0; i < this->m_size.y / 2; ++i)
-		{
+		for(int i = 0; i < this->m_size.y / 2; ++i) {
 			std::swap_ranges(&this->m_data[i * this->m_size.x * bpp],
-							 &this->m_data[(i + 1) * this->m_size.x * bpp - 1],
-							 &this->m_data[(this->m_size.y - i - 1) * this->m_size.x * bpp]);
+				&this->m_data[(i + 1) * this->m_size.x * bpp - 1],
+				&this->m_data[(this->m_size.y - i - 1) * this->m_size.x * bpp]);
 		}
 	}
 
 	/**
 	* Flip the image horizontally
 	*/
-	void CImage::Mirror()
-	{
+	void CImage::Mirror() {
 		int bpp = GetBytesPerPixel(this->m_format);
 
-		for (int i = 0; i < this->m_size.x / 2; ++i)
-		{
-			for (int j = 0; j < this->m_size.y; ++j)
-			{
+		for(int i = 0; i < this->m_size.x / 2; ++i) {
+			for(int j = 0; j < this->m_size.y; ++j) {
 				std::swap_ranges(&this->m_data[(i + j * this->m_size.x) * bpp],
-								 &this->m_data[(i + j * this->m_size.x + 1) * bpp],
-								 &this->m_data[(this->m_size.x - i - 1 + j * this->m_size.x) * bpp]);
+					&this->m_data[(i + j * this->m_size.x + 1) * bpp],
+					&this->m_data[(this->m_size.x - i - 1 + j * this->m_size.x) * bpp]);
 			}
 		}
 	}

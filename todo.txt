@@ -18,6 +18,8 @@
 	Cube - Cube collision -> au moins un coin avec distance(plan) < epsilon, pour tout plan
 	Cube - Sphere collision -> centre cercle tel que distance(plan) < epsilon + rayon, pour tout plan du cube
 	Cube - Cube collision -> distance entre centres inférieur à la somme des rayons
+	
+=> Chaque object dynamique est en fait un arbre bsp supplémentaire
 
 - PVS
 - Grosse map pour tester
@@ -25,25 +27,17 @@
 
 
 ===============================================================
-							Skybox
+                                  GUI
 ===============================================================
+- Mettre en place CGUIWindow
 
-[Skybox]
-	- FrameBuffer => stencil REPLACE à 1
-	- Après light pass => Render Skybox avec STENCIL_PASS à 1
-	
-	- Scale à near * 1.05 du frustum centré sur la caméra
-	- z-writing à off
-	- Dessiner en premier
-	
-	- Utiliser w du lightRT comme facteur de lumière pour ignorer la gestion de la lumière sur les pixels de la skybox
-- Modèle
-- Classes
-- Shaders
-
-- Plusieurs textures par modèle
-- Créer un fichier de référence pour les contraintes du moteur (fichiers, OGL, DX9 etc)
-
+===============================================================
+                          CSceneManager
+===============================================================
+- Renommer en CScene
+- Retirer le singleton
+- Permettre la transition entre deux scenes
+- Demande une gestion threadée du chargement + vue loading
 
 ===============================================================
                      Intéractions / Collisions
@@ -96,16 +90,9 @@ Anti-Penumbra
                            Shadows
 ===============================================================
 - Ajouter flags pour CSceneManager::RenderAll
-- Ajouter d'autres sources lumineuses
 
-- Gestion directional light pour DX9 et OGL
 - Gestion globale des ombres dans IDeferredApplication
 - Gestion limitation des shadowCasters max
-
-- Directional lights => Ortographic view + position choisie dynamiquement
-	lightPosition = cameraPosition - (lightDirection * cameraViewDistance)
-- Traité ensuite comme une spot light simplifiée
-
 
 ===============================================================
                            Application

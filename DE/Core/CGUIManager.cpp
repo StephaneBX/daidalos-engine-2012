@@ -29,22 +29,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.h"
 #include "../Core/CGUIManager.h"
 
-namespace DE
-{
-	#define GUI_SHADER_PROGRAM_NAME "gui"
+namespace DE {
+#define GUI_SHADER_PROGRAM_NAME "gui"
 
 	CGUIManager::~CGUIManager() {}
 
-	void CGUIManager::Initialize()
-	{
+	void CGUIManager::Initialize() {
 		this->m_renderer = IRenderer::GetRenderer();
 		this->m_proj.OrthographicView(0, (float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y, 0, 0.0f, 1.0f);
 
 		// Vertex declaration used by every GUI element
 		SDeclarationElement guiDecl[] =
 		{
-			{0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3},
-			{0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2}
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(guiDecl);
 
@@ -56,28 +54,23 @@ namespace DE
 		this->m_mainView->SetBounds(CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
 	}
 
-	void CGUIManager::AddToMainView(IGUIView * element)
-	{
+	void CGUIManager::AddToMainView(IGUIView * element) {
 		this->m_mainView->AddSubview(element);
 	}
 
-	void CGUIManager::RemoveFromMainView(IGUIView * element)
-	{
+	void CGUIManager::RemoveFromMainView(IGUIView * element) {
 		this->m_mainView->RemoveSubview(element);
 	}
 
-	void CGUIManager::SetCursorVisible(const bool visible)
-	{
+	void CGUIManager::SetCursorVisible(const bool visible) {
 		this->m_cursor.SetVisible(visible);
 	}
 
-	void CGUIManager::SetCursorTexture(const std::string & texture)
-	{
+	void CGUIManager::SetCursorTexture(const std::string & texture) {
 		this->m_cursor.SetTexture(texture);
 	}
 
-	void CGUIManager::Render()
-	{
+	void CGUIManager::Render() {
 		// Update the cursor position
 		this->m_cursor.Update();
 
@@ -96,8 +89,7 @@ namespace DE
 		this->m_mainView->Render();
 
 		// Draw the cursor
-		if(this->m_cursor.IsVisible())
-		{
+		if(this->m_cursor.IsVisible()) {
 			this->m_cursor.Render();
 		}
 	}
@@ -105,8 +97,7 @@ namespace DE
 	/**
 	* Constructor
 	*/
-	CGUIManager::CGUIManager()
-	{
+	CGUIManager::CGUIManager() {
 		this->m_renderer = nullptr;
 	}
 }

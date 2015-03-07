@@ -28,19 +28,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <fstream>
 #include "../../Core/Utility/CTokenizer.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor.
 	*/
-	CTokenizer::CTokenizer(){}
+	CTokenizer::CTokenizer() {}
 
 	/**
 	* Constructor.
 	* @param filename The file to be tokenized.
 	*/
-	CTokenizer::CTokenizer(const std::string & filename)
-	{
+	CTokenizer::CTokenizer(const std::string & filename) {
 		OpenFile(filename);
 	}
 
@@ -49,8 +47,7 @@ namespace DE
 	* @param filename The file to be tokenized.
 	* @param filterList The filter list that contains all the accepted keywords.
 	*/
-	CTokenizer::CTokenizer(const std::string & filename, const std::vector<std::string> & filterList)
-	{
+	CTokenizer::CTokenizer(const std::string & filename, const std::vector<std::string> & filterList) {
 		bool valid = false;
 		std::string tmpLine;
 		this->m_tokens.clear();
@@ -58,27 +55,22 @@ namespace DE
 
 		// Open the file.
 		std::fstream file(filename.c_str());
-		if(file.is_open())
-		{
+		if(file.is_open()) {
 			// While there is no errors.
-			while(file.good())
-			{
+			while(file.good()) {
 				// Get a line.
 				std::getline(file, tmpLine);
 
 				// Ignore it if it start with a comment.
-				if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0)
-				{
+				if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0) {
 					// If a filter list is given, verify that the beginning of the line is recognized.
-					for(unsigned int i = 0 ; i < filterList.size() && !valid ; i++)
-					{
+					for(unsigned int i = 0; i < filterList.size() && !valid; i++) {
 						if(tmpLine.substr(0, filterList.at(i).length()) == filterList.at(i))
 							valid = true;
 					}
 
 					// If the line is valid, add it to the tokens.
-					if(valid)
-					{
+					if(valid) {
 						this->m_tokens.push_back(tmpLine);
 						valid = false;
 					}
@@ -91,14 +83,13 @@ namespace DE
 	/**
 	* Destructor.
 	*/
-	CTokenizer::~CTokenizer(){}
+	CTokenizer::~CTokenizer() {}
 
 	/**
 	* Open a file, read its content and put it in the token list.
 	* @param filename The file to open.
 	*/
-	void CTokenizer::OpenFile(const std::string & filename)
-	{
+	void CTokenizer::OpenFile(const std::string & filename) {
 		std::string tmpLine;
 		this->m_tokens.clear();
 		this->m_buffer.clear();
@@ -107,8 +98,7 @@ namespace DE
 		std::fstream file(filename.c_str());
 
 		// While there is no errors.
-		while(file.good())
-		{
+		while(file.good()) {
 			// Get a line.
 			std::getline(file, tmpLine);
 
@@ -123,16 +113,14 @@ namespace DE
 	* Add a line to the line list.
 	* @param line The line to add.
 	*/
-	void CTokenizer::AddLine(const std::string & line)
-	{
+	void CTokenizer::AddLine(const std::string & line) {
 		this->m_tokens.push_back(line);
 	}
 
 	/**
 	* Clear the tokens.
 	*/
-	void CTokenizer::Clear()
-	{
+	void CTokenizer::Clear() {
 		this->m_tokens.clear();
 	}
 
@@ -142,15 +130,13 @@ namespace DE
 	* @param maxSplit The maximum split accepted for each split process.
 	* @return True if the split is valid
 	*/
-	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit)
-	{
+	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit) {
 		bool valid = true;
 		this->m_buffer.clear();
 		int elementCount;
 
 		// Iterate through the tokens.
-		for(unsigned int i = 0 ; i < this->m_tokens.size() && valid ; i++)
-		{
+		for(unsigned int i = 0; i < this->m_tokens.size() && valid; i++) {
 			// Split each token with the given delimiter.
 			elementCount = SplitString(this->m_tokens.at(i), delimiter);
 
@@ -163,7 +149,7 @@ namespace DE
 		this->m_tokens.clear();
 
 		// Put back the tokens in the tokens buffer.
-		for(unsigned int i = 0 ; i < this->m_buffer.size() && valid ; i++)
+		for(unsigned int i = 0; i < this->m_buffer.size() && valid; i++)
 			this->m_tokens.push_back(this->m_buffer.at(i));
 
 		return valid;
@@ -174,12 +160,10 @@ namespace DE
 	* @param token The token to count.
 	* @return The number of 'token' tokens found.
 	*/
-	const int CTokenizer::Count(const std::string & token) const
-	{
+	const int CTokenizer::Count(const std::string & token) const {
 		int count = 0;
 
-		for(unsigned int i = 0 ; i < this->m_tokens.size() ; i++)
-		{
+		for(unsigned int i = 0; i < this->m_tokens.size(); i++) {
 			if(this->m_tokens.at(i) == token)
 				count++;
 		}
@@ -187,12 +171,11 @@ namespace DE
 		return count;
 	}
 
-	/** 
+	/**
 	* Get the tokens.
 	* @return The tokens.
 	*/
-	const TToken & CTokenizer::GetTokens() const
-	{
+	const TToken & CTokenizer::GetTokens() const {
 		return this->m_tokens;
 	}
 
@@ -202,22 +185,19 @@ namespace DE
 	* @param delimiter The delimiter to use.
 	* @return The number of pushed tokens.
 	*/
-	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter)
-	{
+	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter) {
 		int elementCount = 1;
 		unsigned int start = 0;
 		unsigned int end = 0;
 		unsigned int size = 0;
 
 		// While the end of the token is not reached.
-		while(start < token.length())
-		{
+		while(start < token.length()) {
 			// Find the next delimiter position.
 			end = token.find(delimiter, start);
 
 			// If a new split position is found.
-			if(end >= start && end < token.length())
-			{
+			if(end >= start && end < token.length()) {
 				// Push it in the temporary buffer.
 				size = end - start;
 				if(size > 0)
@@ -225,9 +205,7 @@ namespace DE
 
 				start = end + 1;
 				elementCount++;
-			}
-			else
-			{
+			} else {
 				// Push the remaining data in the temporary buffer.
 				this->m_buffer.push_back(token.substr(start, token.length() - start));
 				start = token.length() + 1;

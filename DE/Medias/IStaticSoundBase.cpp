@@ -27,10 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IStaticSoundBase.h"
 
-namespace DE
-{
-	IStaticSoundBase::IStaticSoundBase(const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate)
-	{
+namespace DE {
+	IStaticSoundBase::IStaticSoundBase(const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) {
 		this->m_buffer = buffer;
 		this->m_format = format;
 		this->m_samplesCount = samplesCount;
@@ -38,8 +36,7 @@ namespace DE
 		alSourcei(this->m_source, AL_BUFFER, this->m_buffer);
 	}
 
-	IStaticSoundBase::~IStaticSoundBase()
-	{
+	IStaticSoundBase::~IStaticSoundBase() {
 		alDeleteBuffers(1, &this->m_buffer);
 		alSourcei(this->m_source, AL_BUFFER, 0);
 	}

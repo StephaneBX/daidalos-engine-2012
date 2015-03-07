@@ -28,14 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Memory/CExceptionSave.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	* @param filename The loading file
 	*/
-	CExceptionSave::CExceptionSave(const std::string & filename)
-	{
+	CExceptionSave::CExceptionSave(const std::string & filename) {
 		std::ostringstream stream;
 		stream << "Saving error" << std::endl << "File: " << filename << std::endl;
 

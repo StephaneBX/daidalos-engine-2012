@@ -27,42 +27,34 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/CBuffer.h"
 
-namespace DE
-{
-	CBuffer::CBuffer(IBufferBase * buffer)
-	{
+namespace DE {
+	CBuffer::CBuffer(IBufferBase * buffer) {
 		this->m_buffer = std::shared_ptr<IBufferBase>(buffer);
 	}
 
-	void CBuffer::Unlock()
-	{
+	void CBuffer::Unlock() {
 		this->m_buffer->Unlock();
 	}
-	
-	void CBuffer::Fill(const void * data, const unsigned long stride, const unsigned long count)
-	{
+
+	void CBuffer::Fill(const void * data, const unsigned long stride, const unsigned long count) {
 		void * buf = Lock(stride);
 		memcpy(buf, data, stride * count);
 		Unlock();
 	}
 
-	void CBuffer::Release()
-	{
+	void CBuffer::Release() {
 		this->m_buffer = nullptr;
 	}
-	
-	void * CBuffer::Lock(const unsigned long stride, const unsigned long count, const unsigned long offset, unsigned long flags)
-	{
+
+	void * CBuffer::Lock(const unsigned long stride, const unsigned long count, const unsigned long offset, unsigned long flags) {
 		return reinterpret_cast<void*>(this->m_buffer->Lock(offset * stride, count * stride, flags));
 	}
-	
-	const IBufferBase * CBuffer::GetBuffer() const
-	{
+
+	const IBufferBase * CBuffer::GetBuffer() const {
 		return this->m_buffer.get();
 	}
-	
-	const unsigned long CBuffer::GetSize() const
-	{
+
+	const unsigned long CBuffer::GetSize() const {
 		unsigned long ret = 0;
 
 		if(this->m_buffer != nullptr)

@@ -29,8 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <fstream>
 #include "../../Core/Utility/CFile.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Constructor
 	*/
@@ -40,47 +39,33 @@ namespace DE
 	* Constructor
 	* @param name The full filename
 	*/
-	CFile::CFile(const std::string & name)
-	{
+	CFile::CFile(const std::string & name) {
 		this->m_name = name;
-
-		#ifdef _WIN32
-			std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
-		#else
-			std::replace(this->m_name.begin(), this->m_name.end(), '\\', '/');
-		#endif
+		std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
 	}
 
 	/**
 	* Constructor
 	* @param name The full filename
 	*/
-	CFile::CFile(const char * name)
-	{
+	CFile::CFile(const char * name) {
 		this->m_name = std::string(name);
-		
-		#ifdef _WIN32
-			std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
-		#else
-			std::replace(this->m_name.begin(), this->m_name.end(), '\\', '/');
-		#endif
+		std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
 	}
 
 	/**
 	* Check if a file exists
 	* @return True if the file exists, false otherwise
 	*/
-	const bool CFile::FileExists() const
-	{
+	const bool CFile::FileExists() const {
 		bool result = false;
 		std::ifstream file(this->m_name.c_str());
 
-		if(file.is_open())
-		{
+		if(file.is_open()) {
 			result = true;
 			file.close();
 		}
-		
+
 		return result;
 	}
 
@@ -88,12 +73,10 @@ namespace DE
 	* Get the file size (in Byte)
 	* @return The file size in Byte
 	*/
-	const int CFile::GetFileSize() const
-	{
+	const int CFile::GetFileSize() const {
 		int size = 0;
 		std::ifstream file(this->m_name.c_str());
-		if(file.is_open())
-		{
+		if(file.is_open()) {
 			file.seekg(0, std::ios::end);
 			size = (int)file.tellg() * sizeof(char);
 			file.close();
@@ -105,8 +88,7 @@ namespace DE
 	* Get the full filename
 	* @return The full filename
 	*/
-	const std::string & CFile::GetFullname() const
-	{
+	const std::string & CFile::GetFullname() const {
 		return this->m_name;
 	}
 
@@ -114,11 +96,10 @@ namespace DE
 	* Get the filename
 	* @return The filename
 	*/
-	const std::string CFile::GetFilename() const
-	{
+	const std::string CFile::GetFilename() const {
 		std::string::size_type position = this->m_name.find_last_of("\\/");
 
-		if (position != std::string::npos)
+		if(position != std::string::npos)
 			return this->m_name.substr(position + 1, std::string::npos);
 		else
 			return this->m_name;
@@ -128,8 +109,7 @@ namespace DE
 	* Get the short filename
 	* @return The file full name
 	*/
-	const std::string CFile::GetShortname() const
-	{
+	const std::string CFile::GetShortname() const {
 		return GetFilename().substr(0, GetFilename().find_last_of("."));
 	}
 
@@ -137,8 +117,7 @@ namespace DE
 	* Get the extension
 	* @return The extension
 	*/
-	const std::string CFile::GetExtension() const
-	{
+	const std::string CFile::GetExtension() const {
 		std::string::size_type position = this->m_name.find_last_of(".");
 		if(position != std::string::npos)
 			return this->m_name.substr(position + 1, std::string::npos);
