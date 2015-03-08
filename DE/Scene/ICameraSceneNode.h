@@ -173,6 +173,7 @@ namespace DE
 	protected:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The position
@@ -180,7 +181,7 @@ namespace DE
 		* @param nearDistance The near distance
 		* @param farDistance The far distance
 		*/
-		ICameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance);
+		ICameraSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance);
 
 	private:
 		ICameraSceneNode();

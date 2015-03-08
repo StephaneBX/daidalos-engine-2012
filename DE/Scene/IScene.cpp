@@ -29,46 +29,68 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.h"
 #include "../Core/Utility/CArraySorter.h"
 #include "../Scene/ILevelSceneNode.h"
-#include "../Scene/CSceneManager.h"
+#include "../Scene/IScene.h"
 
 #define LIGHTNING_UPDATE_DELAY 20.0f
 
 namespace DE {
-	CSceneManager::~CSceneManager() {
+
+	IScene::IScene() {
+		this->m_root = nullptr;
+		this->m_activeSpotLights = new SSPotLightsShaderData;
+		this->m_activePointLights = new SPointLightsShaderData;
+		this->m_activeDirectionalLights = new SDirectionalLightsShaderData;
+		this->m_activeCamera = nullptr;
+		this->m_skybox.SetScene(this);
+		this->m_lighteningUpdateTimer = 0;
+
+		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+
+		// Create the debug data
+		IRenderer * renderer = IRenderer::GetRenderer();
+		this->m_debugShader.LoadFromFile("simple");
+
+		// Create the vertex declaration
+		DE::SDeclarationElement declaration[] = {
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 }
+		};
+		this->m_debugVertexDeclaration = renderer->CreateVertexDeclaration(declaration);
+	}
+
+	IScene::~IScene() {
 		SAFE_DELETE(this->m_root);
 		SAFE_DELETE(this->m_activeSpotLights);
 		SAFE_DELETE(this->m_activePointLights);
 		SAFE_DELETE(this->m_activeDirectionalLights);
 	}
 
-	void CSceneManager::LoadScene(const std::string & sceneFile) {
+	void IScene::ClearAll() {
+
+	}
+
+	void IScene::SetRoot(ISceneNode * root) {
 		SAFE_DELETE(this->m_root);
-		this->m_root = CMediaManager::GetInstance()->LoadMediaFromFile<ISceneNode>(sceneFile);
+		this->m_root = root;
 
-		this->m_activeCamera = nullptr;
-		this->m_lighteningUpdateTimer = 0;
-
+		// Update the skybox
 		if(((ILevelSceneNode*)this->m_root)->GetSkyName() != "") {
 			this->m_skybox.SetName(((ILevelSceneNode*)this->m_root)->GetSkyName());
 		}
 	}
 
-	void CSceneManager::ClearAll() {
-
-	}
-
-	void CSceneManager::AddSceneNode(ISceneNode * parent, ISceneNode * node) {
-		if(parent == nullptr)
+	void IScene::AddSceneNode(ISceneNode * parent, ISceneNode * node) {
+		if(parent == nullptr) {
 			this->m_root->AddChild(node);
-		else
+		} else {
 			parent->AddChild(node);
+		}
 	}
 
-	void CSceneManager::SetActiveCamera(ICameraSceneNode * camera) {
+	void IScene::SetActiveCamera(ICameraSceneNode * camera) {
 		this->m_activeCamera = camera;
 	}
 
-	void CSceneManager::UpdateAll(const float time) {
+	void IScene::UpdateAll(const float time) {
 		// Reset the lights buffers
 		this->m_activeSpotLights->numberOfLights = 0;
 		std::fill(this->m_activeSpotLights->enabled, this->m_activeSpotLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
@@ -101,13 +123,13 @@ namespace DE {
 		ActiveLightsCheck();
 	}
 
-	void CSceneManager::RenderSkybox() {
+	void IScene::RenderSkybox() {
 		if(this->m_skybox.IsVisible()) {
 			this->m_skybox.Render();
 		}
 	}
 
-	void CSceneManager::RenderAll() {
+	void IScene::RenderAll() {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
@@ -121,7 +143,7 @@ namespace DE {
 		this->m_root->Render();
 	}
 
-	void CSceneManager::RenderDebugInformation() {
+	void IScene::RenderDebugInformation() {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
@@ -145,12 +167,12 @@ namespace DE {
 		}
 	}
 
-	void CSceneManager::SetMeshFormat(const int format) {
+	void IScene::SetMeshFormat(const int format) {
 		Assert(this->m_root != nullptr);
 		this->m_root->SetMeshFormat(format);
 	}
 
-	void CSceneManager::SendSpotLightDataToShader(const int id) {
+	void IScene::SendSpotLightDataToShader(const int id) {
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -166,7 +188,7 @@ namespace DE {
 		renderer->SetScissor(this->m_activeSpotLights->scissor[id]);
 	}
 
-	void CSceneManager::SendPointLightDataToShader(const int id) {
+	void IScene::SendPointLightDataToShader(const int id) {
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -179,7 +201,7 @@ namespace DE {
 		renderer->SetScissor(this->m_activePointLights->scissor[id]);
 	}
 
-	void CSceneManager::SendDirectionalLightDataToShader(const int id) {
+	void IScene::SendDirectionalLightDataToShader(const int id) {
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -191,59 +213,55 @@ namespace DE {
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_VIEWPROJ), this->m_activeDirectionalLights->node[id]->GetViewProjMatrix());
 	}
 
-	const bool CSceneManager::Slide(IShape3DF & shape, const CVector3F & movement) {
+	const bool IScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		return static_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
 	}
 
-	const bool CSceneManager::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+	const bool IScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(shape, movement, point);
 	}
 
-	const int CSceneManager::GetNumberOfActiveSpotLights() const {
+	const int IScene::GetNumberOfActiveSpotLights() const {
 		return this->m_activeSpotLights->numberOfLights;
 	}
 
-	const int CSceneManager::GetNumberOfActivePointLights() const {
+	const int IScene::GetNumberOfActivePointLights() const {
 		return this->m_activePointLights->numberOfLights;
 	}
 
-	const int CSceneManager::GetNumberOfActiveDirectionalLights() const {
+	const int IScene::GetNumberOfActiveDirectionalLights() const {
 		return this->m_activeDirectionalLights->numberOfLights;
 	}
 
-	const int CSceneManager::GetNumberOfVisibleTriangles() const {
+	const int IScene::GetNumberOfVisibleTriangles() const {
 		Assert(this->m_root != nullptr);
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
 	}
 
-	const CVector4F & CSceneManager::GetAmbientColor() const {
+	const CVector4F & IScene::GetAmbientColor() const {
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
 	}
 
-	/**
-	* Get the sky ambient color of the scene
-	* @return The sky ambient color
-	*/
-	const CVector4F & CSceneManager::GetSkyAmbientColor() const {
+	const CVector4F & IScene::GetSkyAmbientColor() const {
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetSkyAmbientColor();
 	}
 
-	/**
-	* Get the scene bounding box
-	* @return The scene bounding box
-	*/
-	const CAABoundingBoxF CSceneManager::GetSceneBoundingBox() {
+	const CAABoundingBoxF IScene::GetSceneBoundingBox() {
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetBoundingBox();
 	}
 
-	ISceneNode * CSceneManager::GetNode(const std::string & name) const {
+	ISceneNode * IScene::GetRoot() const {
+		return this->m_root;
+	}
+
+	ISceneNode * IScene::GetNode(const std::string & name) const {
 		Assert(this->m_root != nullptr);
 
 		return FindNode(this->m_root, name);
 	}
 
-	std::vector<ISceneNode*> CSceneManager::GetNodeArray(const std::string & name) const {
+	std::vector<ISceneNode*> IScene::GetNodeArray(const std::string & name) const {
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
@@ -252,7 +270,7 @@ namespace DE {
 		return nodes;
 	}
 
-	std::vector<ISceneNode*> CSceneManager::GetNodeArray(ESceneNodeType nodeType) const {
+	std::vector<ISceneNode*> IScene::GetNodeArray(ESceneNodeType nodeType) const {
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
@@ -261,48 +279,27 @@ namespace DE {
 		return nodes;
 	}
 
-	ILevelSceneNode * CSceneManager::GetRootNode() const {
+	ILevelSceneNode * IScene::GetRootNode() const {
 		return static_cast<ILevelSceneNode*>(this->m_root);
 	}
 
-	ICameraSceneNode * CSceneManager::GetActiveCamera() const {
+	ICameraSceneNode * IScene::GetActiveCamera() const {
 		return this->m_activeCamera;
 	}
 
-	SSPotLightsShaderData * CSceneManager::GetActiveSpotLightsBuffer() const {
+	SSPotLightsShaderData * IScene::GetActiveSpotLightsBuffer() const {
 		return this->m_activeSpotLights;
 	}
 
-	SPointLightsShaderData * CSceneManager::GetActivePointLightsBuffer() const {
+	SPointLightsShaderData * IScene::GetActivePointLightsBuffer() const {
 		return this->m_activePointLights;
 	}
 
-	SDirectionalLightsShaderData * CSceneManager::GetActiveDirectionalLightsBuffer() const {
+	SDirectionalLightsShaderData * IScene::GetActiveDirectionalLightsBuffer() const {
 		return this->m_activeDirectionalLights;
 	}
 
-	CSceneManager::CSceneManager() {
-		this->m_root = new ISceneNode(nullptr);
-		this->m_activeSpotLights = new SSPotLightsShaderData;
-		this->m_activePointLights = new SPointLightsShaderData;
-		this->m_activeDirectionalLights = new SDirectionalLightsShaderData;
-		this->m_activeCamera = nullptr;
-
-		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
-
-		// Create the debug data
-		IRenderer * renderer = IRenderer::GetRenderer();
-		this->m_debugShader.LoadFromFile("simple");
-
-		// Create the vertex declaration
-		DE::SDeclarationElement declaration[] =
-		{
-			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 }
-		};
-		this->m_debugVertexDeclaration = renderer->CreateVertexDeclaration(declaration);
-	}
-
-	void CSceneManager::SortLights() {
+	void IScene::SortLights() {
 		CArraySorter<float> sorter;
 
 		// Sort the spot lights
@@ -320,7 +317,7 @@ namespace DE {
 		sorter.QuickSort(this->m_activePointLights->distanceToCamera, this->m_activePointLights->visibilityOrder, 0, this->m_activePointLights->numberOfLights);
 	}
 
-	void CSceneManager::ActiveLightsCheck() {
+	void IScene::ActiveLightsCheck() {
 		// Check the number of active spot light versus the maximum allowed in the options
 		int maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
 		if(maxSpotLight < this->m_activeSpotLights->numberOfLights) {
@@ -340,7 +337,7 @@ namespace DE {
 		}
 	}
 
-	void CSceneManager::FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const {
+	void IScene::FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const {
 		if(currentNode->GetName() == name)
 			vector.push_back(currentNode);
 
@@ -349,7 +346,7 @@ namespace DE {
 		}
 	}
 
-	void CSceneManager::FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const {
+	void IScene::FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const {
 		if(currentNode->GetType() == nodeType)
 			vector.push_back(currentNode);
 
@@ -358,7 +355,7 @@ namespace DE {
 		}
 	}
 
-	ISceneNode * CSceneManager::FindNode(ISceneNode * currentNode, const std::string & name) const {
+	ISceneNode * IScene::FindNode(ISceneNode * currentNode, const std::string & name) const {
 		if(currentNode->GetName() == name)
 			return currentNode;
 

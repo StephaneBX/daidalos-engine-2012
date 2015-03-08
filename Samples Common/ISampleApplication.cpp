@@ -61,7 +61,7 @@ namespace SAMPLES {
 	};
 
 	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
-		this->m_scene = DE::CSceneManager::GetInstance();
+		this->m_scene = new DE::CScene();
 
 		DE::STexture2DFilterPolicy textureFilter2;
 		textureFilter2.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;
@@ -198,7 +198,7 @@ namespace SAMPLES {
 	}
 
 	ISampleApplication::~ISampleApplication() {
-		DE::CSceneManager::Kill();
+		delete this->m_scene;
 	}
 
 	void ISampleApplication::Render() {

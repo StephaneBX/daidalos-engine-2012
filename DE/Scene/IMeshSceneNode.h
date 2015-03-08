@@ -60,20 +60,22 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		*/
-		IMeshSceneNode(ISceneNode * parent = nullptr, const std::string & name = "");
+		IMeshSceneNode(IScene * scene, ISceneNode * parent = nullptr, const std::string & name = "");
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
 		* @param rotation The rotation
 		* @param scale The scale
 		*/
-		IMeshSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
+		IMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
 		* Destructor

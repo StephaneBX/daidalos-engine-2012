@@ -40,6 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	class IScene;
 	/**
 	* Basic class for the scene nodes.
 	*/
@@ -64,25 +65,28 @@ namespace DE
 		CMatrix m_worldMatrix;
 		std::map<std::string, std::string> m_attributes;
 
+		IScene * m_scene;
 		ISceneNode * m_parent;
 		std::list<ISceneNode*> m_children;
 
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		*/
-		ISceneNode(ISceneNode * parent = nullptr, const std::string & name = "");
+		ISceneNode(IScene * scene, ISceneNode * parent = nullptr, const std::string & name = "");
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
 		* @param rotation The rotation
 		*/
-		ISceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation);
+		ISceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation);
 
 		/**
 		* Destructor

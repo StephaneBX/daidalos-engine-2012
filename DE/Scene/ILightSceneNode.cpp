@@ -46,7 +46,7 @@ namespace DE {
 		return this->m_color;
 	}
 
-	ILightSceneNode::ILightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(parent, name, position, rotation) {
+	ILightSceneNode::ILightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(scene, parent, name, position, rotation) {
 		SetEnabled(enabled);
 		SetColor(color);
 		SetShadowCaster(shadowCaster);

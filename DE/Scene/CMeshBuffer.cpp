@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/IRenderer.h"
 #include "../Core/Memory/CExceptionAssert.h"
-#include "../Scene/CSceneManager.h"
+#include "../Scene/IScene.h"
 #include "../Scene/CMeshBuffer.h"
 
 namespace DE {
@@ -37,7 +37,7 @@ namespace DE {
 	}
 
 	void CMeshBuffer::Transform(CVector3F * vertex, CVector2F * texcoord, CVector3F * normal, CVector3F * tangent, CVector3F * binormal, const int numberOfElements) {
-		ICameraSceneNode * camera = CSceneManager::GetInstance()->GetActiveCamera();
+		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
 
 		// Check the vertex buffer size
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * numberOfElements) {
@@ -94,7 +94,7 @@ namespace DE {
 	}
 
 	void CMeshBuffer::Transform(const std::vector<CTriangle3D*> & triangles, EMeshShadingType shadingType) {
-		ICameraSceneNode * camera = CSceneManager::GetInstance()->GetActiveCamera();
+		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
 
 		// Check the vertex buffer size
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * triangles.size() * 3) {
@@ -174,6 +174,10 @@ namespace DE {
 		this->m_vertexBuffer.Unlock();
 
 		this->m_numberOfElements = index;
+	}
+
+	void CMeshBuffer::SetScene(IScene * scene) {
+		this->m_scene = scene;
 	}
 
 	void CMeshBuffer::SetMeshFormat(const int format) {

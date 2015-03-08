@@ -34,7 +34,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CStaticSoundLoader.h"
 #include "../Loaders/CStreamSoundLoader.h"
 #include "../Loaders/CFontLoader.h"
-#include "../Scene/CSceneManager.h"
 #include "../Core/IRenderer.h"
 #include "../Core/Logger/CLoggerFile.h"
 #include "../Core/CMediaManager.h"
@@ -104,7 +103,6 @@ namespace DE {
 		CSoundContextManager::Kill();
 		CGUIManager::Kill();
 		CMediaManager::Kill();
-		CSceneManager::Kill();
 		CResourceManager::Kill();
 		ILogger::Kill();
 	}

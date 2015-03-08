@@ -45,14 +45,16 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
 		*/
-		CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position);
+		CPointLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position);
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
@@ -62,7 +64,7 @@ namespace DE
 		* @param shadowCaster If the light cast shadows
 		* @param enabled If the light is enabled by default
 		*/
-		CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled = true);
+		CPointLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled = true);
 
 		/**
 		* Destructor

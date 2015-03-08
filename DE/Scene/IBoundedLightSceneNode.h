@@ -107,7 +107,7 @@ namespace DE
 		* @param falloff The falloff
 		* @param enabled If the light is enabled
 		*/
-		IBoundedLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled);
+		IBoundedLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled);
 
 	private:
 		IBoundedLightSceneNode();

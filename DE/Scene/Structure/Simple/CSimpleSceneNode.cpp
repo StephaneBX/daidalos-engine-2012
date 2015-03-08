@@ -28,14 +28,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <algorithm>
 #include "../../../Core/Logger/ILogger.h"
 #include "../../../Core/Memory/CExceptionAssert.h"
-#include "../../../Scene/CSceneManager.h"
+#include "../../../Scene/IScene.h"
 #include "../../../Scene/Structure/Simple/CSimpleSceneNode.h"
 
 #define BSP_MIN_MOVE 0.02f
 #define BSP_HEIGHT_EPSILON 0.4f
 
 namespace DE {
-	CSimpleSceneNode::CSimpleSceneNode() {
+	CSimpleSceneNode::CSimpleSceneNode(IScene * scene) : ILevelSceneNode(scene) {
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 	}
@@ -81,7 +81,7 @@ namespace DE {
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		this->m_activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
+		this->m_activeCamera = this->m_scene->GetActiveCamera();
 		RegisterBrushesForRendering();
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0) {
@@ -147,7 +147,6 @@ namespace DE {
 	}
 
 	void CSimpleSceneNode::RegisterBrushesForRendering() {
-		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
 		// Loop through each brush
 		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {

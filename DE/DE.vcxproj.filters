@@ -297,9 +297,6 @@
     <ClInclude Include="Scene\CEllipse.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\CSceneManager.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\IMeshSceneNode.h">
       <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
@@ -489,6 +486,12 @@
     <ClInclude Include="GUI\CGUIPanel.h">
       <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\IScene.h">
+      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CScene.h">
+      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -618,9 +621,6 @@
       <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="Scene\ISceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CSceneManager.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Medias\CBuffer.cpp">
@@ -793,6 +793,12 @@
     </ClCompile>
     <ClCompile Include="GUI\CGUIPanel.cpp">
       <Filter>Fichiers sources\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\IScene.cpp">
+      <Filter>Fichiers sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CScene.cpp">
+      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

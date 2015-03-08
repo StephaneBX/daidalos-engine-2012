@@ -25,16 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Scene/IScene.h"
 #include "../Scene/CAnimatedMeshSceneNode.h"
 
 namespace DE {
-	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(parent, name) {
+	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
 		this->m_numberOfGroups = this->m_mesh.GetMesh()->GetNumberOfGroups();
 
 		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
+		for(int i = 0; i < this->m_numberOfGroups; i++) {
+			this->m_buffer[i].SetScene(scene);
+		}
+
 		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
 		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
 
@@ -48,13 +53,17 @@ namespace DE {
 		this->m_mesh.Animate(0);
 	}
 
-	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(parent, name, position, rotation, scale) {
+	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
 		this->m_numberOfGroups = this->m_mesh.GetMesh()->GetNumberOfGroups();
 
 		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
+		for(int i = 0; i < this->m_numberOfGroups; i++) {
+			this->m_buffer[i].SetScene(scene);
+		}
+
 		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
 		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
 

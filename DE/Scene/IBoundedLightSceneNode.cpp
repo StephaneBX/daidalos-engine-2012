@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Scene/IScene.h"
 #include "../Scene/IBoundedLightSceneNode.h"
-#include "../Scene/CSceneManager.h"
 
 namespace DE {
 	IBoundedLightSceneNode::~IBoundedLightSceneNode() {}
@@ -40,7 +40,6 @@ namespace DE {
 	}
 
 	void IBoundedLightSceneNode::Update(const float time) {
-		CSceneManager * scene = CSceneManager::GetInstance();
 		ISceneNode::Update(time);
 
 		// Update the activation shape
@@ -50,10 +49,10 @@ namespace DE {
 		this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 
 		// Get the light scissor
-		this->m_scissor = IRenderer::GetRenderer()->GetLightScissor(CVector4F(scene->GetActiveCamera()->GetViewMatrix().Transform(this->m_visibilityShape->GetPosition()), this->m_visibilityShape->GetInnerDepth()));
+		this->m_scissor = IRenderer::GetRenderer()->GetLightScissor(CVector4F(this->m_scene->GetActiveCamera()->GetViewMatrix().Transform(this->m_visibilityShape->GetPosition()), this->m_visibilityShape->GetInnerDepth()));
 
 		// Activation check (frustum + scissor test)
-		this->m_active = !scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0);
+		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0);
 	}
 
 	const float IBoundedLightSceneNode::GetRange() const {
@@ -72,7 +71,7 @@ namespace DE {
 		return this->m_visibilityShape.get();
 	}
 
-	IBoundedLightSceneNode::IBoundedLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled) : ILightSceneNode(parent, name, position, rotation, color, shadowCaster, enabled) {
+	IBoundedLightSceneNode::IBoundedLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled) : ILightSceneNode(scene, parent, name, position, rotation, color, shadowCaster, enabled) {
 		SetRange(range);
 		SetFalloff(falloff);
 

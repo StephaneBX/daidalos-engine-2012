@@ -43,7 +43,6 @@ namespace SAMPLES {
 		this->m_node = cameraNode;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
-		this->m_scene = DE::CSceneManager::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
 		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
@@ -90,6 +89,10 @@ namespace SAMPLES {
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
+	}
+
+	void CFPSCamera::SetScene(DE::CScene * scene) {
+		this->m_scene = scene;
 	}
 
 	void CFPSCamera::Update(const float time) {

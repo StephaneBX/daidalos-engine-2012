@@ -43,7 +43,7 @@ namespace DE
 	/**
 	* Loader for daidalos engine scene files (.des)
 	*/
-	class CSceneLoader : public ILoader<ISceneNode>
+	class CSceneLoader : public ILoader<IScene>
 	{
 	private:
 		std::string m_filename;
@@ -68,7 +68,7 @@ namespace DE
 		* @param filename The scene filename
 		* @return The scene
 		*/
-		ISceneNode * LoadFromFile(const std::string & filename);
+		IScene * LoadFromFile(const std::string & filename);
 
 		/**
 		* Save a scene into a file
@@ -83,7 +83,7 @@ namespace DE
 		* @param parent The node parent
 		* @param xmlElement The xml element describing the node
 		*/
-		void LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle);
+		void LoadNode(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
 
 		/**
 		* Load a BSP structure
@@ -91,7 +91,7 @@ namespace DE
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		void LoadBSPStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Load a simple structure
@@ -99,7 +99,7 @@ namespace DE
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		void LoadSimpleStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Add data into the bsp brush definition by reading the handle

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ISAMPLEAPPLICATION_H
 #define __ISAMPLEAPPLICATION_H
 
-#include <Scene/CSceneManager.h>
+#include <Scene/CScene.h>
 #include <Scene/CStaticMeshSceneNode.h>
 #include <Scene/CAnimatedMeshSceneNode.h>
 #include <Scene/CSpotLightSceneNode.h>
@@ -55,7 +55,7 @@ namespace SAMPLES
 	class ISampleApplication : public DE::IWin32Application 
 	{
 	protected:
-		DE::CSceneManager * m_scene;
+		DE::CScene * m_scene;
 		DE::DeclarationPtr m_declaration;
 		DE::ICameraSceneNode * m_activeCamera;
 

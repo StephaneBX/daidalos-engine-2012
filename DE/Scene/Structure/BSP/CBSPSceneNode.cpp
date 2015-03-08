@@ -26,16 +26,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
+#include "../../../Core/IRenderer.h"
 #include "../../../Core/Logger/ILogger.h"
 #include "../../../Core/Memory/CExceptionAssert.h"
-#include "../../../Scene/CSceneManager.h"
+#include "../../../Scene/IScene.h"
 #include "../../../Scene/Structure/BSP/CBSPSceneNode.h"
 
 #define BSP_MIN_MOVE 0.02f
 #define BSP_HEIGHT_EPSILON 0.4f
 
 namespace DE {
-	CBSPSceneNode::CBSPSceneNode() {
+	CBSPSceneNode::CBSPSceneNode(IScene * scene) : ILevelSceneNode(scene) {
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
@@ -125,7 +126,7 @@ namespace DE {
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		this->m_activeCamera = CSceneManager::GetInstance()->GetActiveCamera();
+		this->m_activeCamera = this->m_scene->GetActiveCamera();
 		RegisterNodeForRendering(this->m_bsp.get());
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0) {
@@ -317,7 +318,6 @@ namespace DE {
 	}
 
 	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node) {
-		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {

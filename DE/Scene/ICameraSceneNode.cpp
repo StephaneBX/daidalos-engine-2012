@@ -122,7 +122,7 @@ namespace DE {
 		return this->m_absoluteUp;
 	}
 
-	ICameraSceneNode::ICameraSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance) : ISceneNode(parent, name, position, rotation) {
+	ICameraSceneNode::ICameraSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance) : ISceneNode(scene, parent, name, position, rotation) {
 		this->m_type = SCENE_NODE_CAMERA;
 		this->m_nearDistance = nearDistance;
 		this->m_farDistance = farDistance;

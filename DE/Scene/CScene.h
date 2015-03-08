@@ -25,101 +25,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSCENEMANAGER_H
-#define __CSCENEMANAGER_H
+#ifndef __CSCENE_H
+#define __CSCENE_H
 
-#include "../Core/IRenderer.h"
-#include "../Core/CConfigurationManager.h"
-#include "../Scene/ICameraSceneNode.h"
-#include "../Scene/ILevelSceneNode.h"
-#include "../Scene/CStaticMeshSceneNode.h"
-#include "../Scene/CAnimatedMeshSceneNode.h"
-#include "../Scene/CAABoundingBox.h"
-#include "../Scene/CSkybox.h"
-#include "../Core/CSingletonManager.h"
-
-#define MAX_LIGHTS_IN_SHADERS 200
+#include "../Scene/IScene.h"
 
 namespace DE
 {
 	/**
-	* Spot lights data structure for shaders.
-	* Also used by the point lights
-	*/
-	struct SSPotLightsShaderData
-	{
-		int numberOfLights;
-		int enabled[MAX_LIGHTS_IN_SHADERS];
-		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
-		CVector4F position[MAX_LIGHTS_IN_SHADERS];
-		CVector4F direction[MAX_LIGHTS_IN_SHADERS];
-		CVector4F rangeRadiusFalloffTightness[MAX_LIGHTS_IN_SHADERS];
-		CVector4F color[MAX_LIGHTS_IN_SHADERS];
-		CRectangleI scissor[MAX_LIGHTS_IN_SHADERS];
-		ICameraSceneNode * node[MAX_LIGHTS_IN_SHADERS];
-
-		// Visibility data
-		int visibilityOrder[MAX_LIGHTS_IN_SHADERS];
-		float distanceToCamera[MAX_LIGHTS_IN_SHADERS];
-	};
-
-	/**
-	* Point lights data structure for shaders
-	*/
-	struct SPointLightsShaderData
-	{
-		int numberOfLights;
-		int enabled[MAX_LIGHTS_IN_SHADERS];
-		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
-		CVector4F positionRange[MAX_LIGHTS_IN_SHADERS];
-		CVector4F colorFalloff[MAX_LIGHTS_IN_SHADERS];
-		CRectangleI scissor[MAX_LIGHTS_IN_SHADERS];
-
-		// Visibility data
-		int visibilityOrder[MAX_LIGHTS_IN_SHADERS];
-		float distanceToCamera[MAX_LIGHTS_IN_SHADERS];
-	};
-
-	/**
-	* Directional lights data structure for shaders
-	*/
-	struct SDirectionalLightsShaderData
-	{
-		int numberOfLights;
-		int enabled[MAX_LIGHTS_IN_SHADERS];
-		int shadowCaster[MAX_LIGHTS_IN_SHADERS];
-		CVector4F position[MAX_LIGHTS_IN_SHADERS];
-		CVector4F direction[MAX_LIGHTS_IN_SHADERS];
-		CVector4F color[MAX_LIGHTS_IN_SHADERS];
-		ICameraSceneNode * node[MAX_LIGHTS_IN_SHADERS];
-	};
-
-	/**
 	* Handle the scene
 	*/
-	class CSceneManager : public CSingletonManager<CSceneManager>
+	class CScene
 	{
-		friend class CSingletonManager<CSceneManager>;
-
 	private:
-		float m_lighteningUpdateTimer;
-		SSPotLightsShaderData * m_activeSpotLights;
-		SPointLightsShaderData * m_activePointLights;
-		SDirectionalLightsShaderData * m_activeDirectionalLights;
-
-		CSkybox m_skybox;
-		ISceneNode * m_root;
-		ICameraSceneNode * m_activeCamera;
-		SiniP m_options;
-
-		CShaderProgram m_debugShader;
-		DeclarationPtr m_debugVertexDeclaration;
+		IScene * m_scene;
 
 	public:
 		/**
+		* Constructor
+		*/
+		CScene();
+
+		/**
 		* Destructor
 		*/
-		~CSceneManager();
+		~CScene();
 
 		/**
 		* Load a Daidalos Engine Scene File (.des)
@@ -303,46 +233,10 @@ namespace DE
 
 	private:
 		/**
-		* Order the lights in order the allow the most relevant one to be visible
-		*/
-		void SortLights();
-
-		/**
-		* Make sure that the number of active lights do not exceed the values in the configuration file
-		*/
-		void ActiveLightsCheck();
-
-		/**
-		* Find all the nodes with a given name and store them in a vector
-		* @param currentNode The current node
-		* @param name The node name
-		* @param vector The vector to store the nodes into
-		*/
-		void FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const;
-
-		/**
-		* Find all the nodes with a given name and store them in a vector
-		* @param currentNode The current node
-		* @param nodeType The node type
-		* @param vector The vector to store the nodes into
-		*/
-		void FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const;
-
-		/**
-		* Find a node with the given name
-		* @param currentNode The current node
-		* @param name The node name
-		* @return A node or nullptr if no node is found
-		*/
-		ISceneNode * FindNode(ISceneNode * currentNode, const std::string & name) const;
-
-	private:
-		/**
 		* Constructor
 		*/
-		CSceneManager();
-		CSceneManager(const CSceneManager & copy);
-		const CSceneManager & operator=(const CSceneManager & copy);
+		CScene(const CScene & copy);
+		const CScene & operator=(const CScene & copy);
 	};
 }
 

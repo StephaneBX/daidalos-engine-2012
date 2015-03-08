@@ -28,11 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../Scene/CSkybox.h"
 #include "../Core/IRenderer.h"
-#include "../Scene/CSceneManager.h"
+#include "../Scene/IScene.h"
 
 namespace DE {
-#define SIZE_FACTOR 1.5f
-#define SHADER_NAME "skybox"
+
+	#define SIZE_FACTOR 1.5f
+	#define SHADER_NAME "skybox"
 
 	/**
 	* Skybox element
@@ -46,6 +47,7 @@ namespace DE {
 	* Constructor
 	*/
 	CSkybox::CSkybox() {
+		this->m_scene = nullptr;
 		this->m_visible = false;
 		CreateGeometry();
 	}
@@ -55,9 +57,14 @@ namespace DE {
 	* @param name The start name without the extension and the face
 	*/
 	CSkybox::CSkybox(const std::string & name) {
+		this->m_scene = nullptr;
 		this->m_visible = true;
 		SetName(name);
 		CreateGeometry();
+	}
+
+	void CSkybox::SetScene(IScene * scene) {
+		this->m_scene = scene;
 	}
 
 	/**
@@ -99,7 +106,6 @@ namespace DE {
 	*/
 	void CSkybox::Render() {
 		IRenderer * renderer = IRenderer::GetRenderer();
-		CSceneManager * sceneManager = CSceneManager::GetInstance();
 
 		// Disable writing to the z-buffer
 		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
@@ -110,9 +116,9 @@ namespace DE {
 		renderer->SetIndexBuffer(this->m_indexBuffer, sizeof(int));
 
 		// Shader values to reposition the skybox and change its size
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), sceneManager->GetActiveCamera()->GetAbsolutePosition());
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (sceneManager->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), sceneManager->GetActiveCamera()->GetViewProjMatrix());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (this->m_scene->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
 
 		// Draw each part of the skybox
 		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {

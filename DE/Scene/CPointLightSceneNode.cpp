@@ -26,29 +26,28 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Scene/CSphere.h"
-#include "../Scene/CSceneManager.h"
+#include "../Scene/IScene.h"
 #include "../Scene/CPointLightSceneNode.h"
 
 namespace DE {
-	CPointLightSceneNode::CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(parent, name, position, CVector3F(0, 0, 0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
+	CPointLightSceneNode::CPointLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
 		this->m_type = SCENE_NODE_POINTLIGHT;
 	}
 
-	CPointLightSceneNode::CPointLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(parent, name, position, CVector3F(0, 0, 0), color, shadowCaster, range, falloff, enabled) {
+	CPointLightSceneNode::CPointLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), color, shadowCaster, range, falloff, enabled) {
 		this->m_type = SCENE_NODE_POINTLIGHT;
 	}
 
 	CPointLightSceneNode::~CPointLightSceneNode() {}
 
 	void CPointLightSceneNode::Update(const float time) {
-		CSceneManager * scene = CSceneManager::GetInstance();
 
 		// Update the data
 		IBoundedLightSceneNode::Update(time);
 
 		// If active and enabled, add it to the active lights list
 		if(this->m_active && this->m_enabled) {
-			SPointLightsShaderData * lights = scene->GetActivePointLightsBuffer();
+			SPointLightsShaderData * lights = this->m_scene->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights <= MAX_LIGHTS_IN_SHADERS) {

@@ -30,18 +30,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CConfigurationManager.h"
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Scene/CSphere.h"
-#include "../Scene/CSceneManager.h"
+#include "../Scene/IScene.h"
 #include "../Scene/IMeshSceneNode.h"
 
 namespace DE {
-	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) {
+	IMeshSceneNode::IMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		this->m_visibilityShape = new CSphereF();
 		this->m_needVisibilityShapeUpdate = true;
 		this->m_needGeometryUpdate = true;
 	}
 
-	IMeshSceneNode::IMeshSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(parent, name, position, rotation) {
+	IMeshSceneNode::IMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(scene, parent, name, position, rotation) {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
@@ -135,7 +135,7 @@ namespace DE {
 
 	void IMeshSceneNode::Render() {
 		// Activation check
-		this->m_active = !CSceneManager::GetInstance()->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
+		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
 
 		if(this->m_active && this->m_enabled) {
 			if(this->m_needGeometryUpdate)

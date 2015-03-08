@@ -26,10 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Core/IRenderer.h"
+#include "../Scene/IScene.h"
 #include "../Scene/COrthographicCameraSceneNode.h"
 
 namespace DE {
-	COrthographicCameraSceneNode::COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance) {
+	COrthographicCameraSceneNode::COrthographicCameraSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {
 		SetBounds(bounds);
 	}
 

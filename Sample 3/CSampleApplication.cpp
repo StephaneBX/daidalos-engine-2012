@@ -31,6 +31,7 @@ namespace SAMPLE3 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow) {
 		this->m_scene->LoadScene("sample3.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
+		this->m_camera->SetScene(this->m_scene);
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
 		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 		this->m_activeCamera = this->m_camera->GetCameraNode();

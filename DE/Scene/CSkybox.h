@@ -38,6 +38,8 @@ namespace DE
 {
 	#define SKYBOX_FACES 6
 
+	class IScene;
+
 	/**
 	* Skybox class.
 	*/
@@ -45,6 +47,7 @@ namespace DE
 	{
 	private:
 		bool m_visible;
+		IScene * m_scene;
 		std::array<CTexture2D, SKYBOX_FACE_SIZE> m_textures;
 		std::array<DE::CBuffer, SKYBOX_FACE_SIZE> m_buffers;
 		CBuffer m_indexBuffer;
@@ -54,14 +57,22 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		*/
 		CSkybox();
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param name The start name without the extension and the face
 		*/
 		CSkybox(const std::string & name);
+
+		/**
+		* Set the associated scene
+		* @param scene The associated scene
+		*/
+		void SetScene(IScene * scene);
 
 		/**
 		* Set the skybox texture name

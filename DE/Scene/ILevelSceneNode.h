@@ -56,6 +56,11 @@ namespace DE
 	
 	public:
 		/**
+		* Constructor
+		*/
+		ILevelSceneNode(IScene * scene);
+
+		/**
 		* Set the mesh format
 		* @param format The mesh format
 		*/

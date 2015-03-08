@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Scene/IScene.h"
 #include "../Core/Core.h"
 #include "../Core/Utility/CTokenizer.h"
 #include "../Core/Utility/CVector4.h"
@@ -54,7 +55,10 @@ namespace DE {
 
 	CSceneLoader::~CSceneLoader() {}
 
-	ISceneNode * CSceneLoader::LoadFromFile(const std::string & filename) {
+	IScene * CSceneLoader::LoadFromFile(const std::string & filename) {
+
+		IScene * scene = new IScene();
+
 		if(this->m_renderer == nullptr)
 			this->m_renderer = IRenderer::GetRenderer();
 
@@ -73,7 +77,7 @@ namespace DE {
 
 			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
 			for(element; element; element = element->NextSiblingElement())
-				LoadNode(root, tinyxml2::XMLHandle(element));
+				LoadNode(scene, root, tinyxml2::XMLHandle(element));
 		} else {
 			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
@@ -81,14 +85,16 @@ namespace DE {
 			throw CExceptionLoad(this->m_filename);
 		}
 
-		return root;
+		scene->SetRoot(root);
+
+		return scene;
 	}
 
 	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename) {
 
 	}
 
-	void CSceneLoader::LoadNode(ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
+	void CSceneLoader::LoadNode(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
 		// Global data variables
 		bool visible, flatShading, enabled, shadowCaster;
 		float fov, ratio, near, far, range, radius, falloff, tightness;
@@ -116,7 +122,7 @@ namespace DE {
 			switch(this->m_structure) {
 				// Simple structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE:
-				LoadSimpleStructure(parent, handle, node);
+				LoadSimpleStructure(scene, parent, handle, node);
 				if(parent == nullptr)
 					parent = node;
 
@@ -124,7 +130,7 @@ namespace DE {
 
 				// BSP structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
-				LoadBSPStructure(parent, handle, node);
+				LoadBSPStructure(scene, parent, handle, node);
 				if(parent == nullptr)
 					parent = node;
 
@@ -144,7 +150,7 @@ namespace DE {
 			GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0f));
 
 			// Create the node
-			node = new CProjectionCameraSceneNode(parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
+			node = new CProjectionCameraSceneNode(scene, parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
 			node->SetScale(scale);
 			break;
 
@@ -162,7 +168,7 @@ namespace DE {
 			GetNodeData(handle, "tightness", tightness, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "tightness", 0.6f));
 
 			// Create the node
-			node = new CSpotLightSceneNode(parent, name, position, rotation, color, range, radius, falloff, tightness, shadowCaster, enabled);
+			node = new CSpotLightSceneNode(scene, parent, name, position, rotation, color, range, radius, falloff, tightness, shadowCaster, enabled);
 			break;
 
 		case SCENE_NODE_POINTLIGHT:
@@ -176,7 +182,7 @@ namespace DE {
 			GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "falloff", 0.8f));
 
 			// Create the node
-			node = new CPointLightSceneNode(parent, name, position, color, range, falloff, shadowCaster, enabled);
+			node = new CPointLightSceneNode(scene, parent, name, position, color, range, falloff, shadowCaster, enabled);
 			break;
 
 		case SCENE_NODE_DIRECTIONALLIGHT:
@@ -188,7 +194,7 @@ namespace DE {
 			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 
 			// Create the node
-			node = new CDirectionalLightSceneNode(parent, name, rotation, color, shadowCaster, enabled);
+			node = new CDirectionalLightSceneNode(scene, parent, name, rotation, color, shadowCaster, enabled);
 			break;
 
 		case SCENE_NODE_STATICMESH:
@@ -205,7 +211,7 @@ namespace DE {
 			file = handle.ToElement()->Attribute("file");
 
 			// Create the node
-			node = new CStaticMeshSceneNode(parent, name, file, position, rotation, scale);
+			node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			if(diffuseTexture != "")
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(normalTexture != "")
@@ -230,7 +236,7 @@ namespace DE {
 			file = handle.ToElement()->Attribute("file");
 
 			// Create the node
-			node = new CAnimatedMeshSceneNode(parent, name, file, position, rotation, scale);
+			node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			if(diffuseTexture != "")
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(normalTexture != "")
@@ -265,7 +271,7 @@ namespace DE {
 			GetNodeData(handle, "play_on_startup", playOnStartup, this->m_nodesConf.GetValueBool("ISoundSceneNode", "play_on_startup", false));
 			GetNodeData(handle, "file", file, "");
 
-			node = new CSoundSceneNode(file, static_cast<ESoundType>(soundType), parent, name);
+			node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), parent, name);
 			static_cast<CSoundSceneNode*>(node)->SetPosition(position);
 			static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
 			static_cast<CSoundSceneNode*>(node)->SetSoundGain(gain);
@@ -286,7 +292,7 @@ namespace DE {
 			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 
 			// Create the node
-			node = new CEmptySceneNode(parent, name, position);
+			node = new CEmptySceneNode(scene, parent, name, position);
 			static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 			break;
 
@@ -313,15 +319,15 @@ namespace DE {
 			for(child; child; child = child->NextSiblingElement()) {
 				// Read only nodes
 				if(std::string(child->Name()) == "node")
-					LoadNode(node, tinyxml2::XMLHandle(child));
+					LoadNode(scene, node, tinyxml2::XMLHandle(child));
 			}
 		}
 	}
 
-	void CSceneLoader::LoadBSPStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadBSPStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
-		node = new CBSPSceneNode();
+		node = new CBSPSceneNode(scene);
 		std::string skyName;
 		CVector3F ambientColor, skyAmbientColor;
 
@@ -391,10 +397,10 @@ namespace DE {
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::LoadSimpleStructure(ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadSimpleStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
-		node = new CSimpleSceneNode();
+		node = new CSimpleSceneNode(scene);
 		std::string skyName;
 		CVector3F ambientColor, skyAmbientColor;
 

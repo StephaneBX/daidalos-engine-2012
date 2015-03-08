@@ -32,6 +32,7 @@ namespace SAMPLE1 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : ISampleApplication(hInstance, nCmdShow) {
 		this->m_scene->LoadScene("sample1.des");
 		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
+		this->m_camera->SetScene(this->m_scene);
 		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene->GetNode("directionalLight");
 		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene->GetNode("dwarf");
 		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());

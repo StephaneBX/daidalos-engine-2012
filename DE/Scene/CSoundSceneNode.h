@@ -45,12 +45,13 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param filename The sound filename
 		* @param type The sound type
 		* @param parent The node parent
 		* @param name The node name
 		*/
-		CSoundSceneNode(const std::string & filename, ESoundType type, ISceneNode * parent = nullptr, const std::string & name = "");
+		CSoundSceneNode(IScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent = nullptr, const std::string & name = "");
 
 		/**
 		* Destructor

@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CFPSCAMERA_H
 
 #include <Scene/ICameraSceneNode.h>
-#include <Scene/CSceneManager.h>
+#include <Scene/CScene.h>
 #include <Scene/CEllipse.h>
 #include <Core/Utility/CVector3.h>
 #include <Core/CInputDevice.h>
@@ -67,7 +67,7 @@ namespace SAMPLES
 		DE::ICameraSceneNode * m_node;
 		DE::CInputDevice * m_inputDevice;
 		DE::CEllipseF m_shape;
-		DE::CSceneManager * m_scene;
+		DE::CScene * m_scene;
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
@@ -76,6 +76,12 @@ namespace SAMPLES
 		* @param cameraNode The camera node
 		*/
 		CFPSCamera(DE::ICameraSceneNode * cameraNode);
+
+		/**
+		* Set the associated scene
+		* @param scene The associated scene
+		*/
+		void SetScene(DE::CScene * scene);
 
 		/**
 		* Update the camera

@@ -29,7 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ISceneNode.h"
 
 namespace DE {
-	ISceneNode::ISceneNode(ISceneNode * parent, const std::string & name) {
+	ISceneNode::ISceneNode(IScene * scene, ISceneNode * parent, const std::string & name) {
+		this->m_scene = scene;
 		this->m_parent = nullptr;
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
 			this->m_parent = parent;
@@ -43,7 +44,8 @@ namespace DE {
 		this->m_enabled = true;
 	}
 
-	ISceneNode::ISceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) {
+	ISceneNode::ISceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) {
+		this->m_scene = scene;
 		this->m_parent = nullptr;
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
 			this->m_parent = parent;

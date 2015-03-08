@@ -117,7 +117,7 @@
     <ClInclude Include="Scene\CProjectionCameraSceneNode.h" />
     <ClInclude Include="Scene\CSkybox.h" />
     <ClInclude Include="Scene\CSphere.h" />
-    <ClInclude Include="Scene\CSceneManager.h" />
+    <ClInclude Include="Scene\CScene.h" />
     <ClInclude Include="Scene\CTriangle3D.h" />
     <ClInclude Include="Scene\CAnimatedMeshSceneNode.h" />
     <ClInclude Include="Scene\IBoundedLightSceneNode.h" />
@@ -128,6 +128,7 @@
     <ClInclude Include="Scene\ILightSceneNode.h" />
     <ClInclude Include="Scene\IMeshSceneNode.h" />
     <ClInclude Include="Scene\CPointLightSceneNode.h" />
+    <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\ISceneNode.h" />
     <ClInclude Include="Scene\IShape3D.h" />
     <ClInclude Include="Scene\CSoundSceneNode.h" />
@@ -220,7 +221,7 @@
     <ClCompile Include="Scene\CImpact.cpp" />
     <ClCompile Include="Scene\COrthographicCameraSceneNode.cpp" />
     <ClCompile Include="Scene\CProjectionCameraSceneNode.cpp" />
-    <ClCompile Include="Scene\CSceneManager.cpp" />
+    <ClCompile Include="Scene\CScene.cpp" />
     <ClCompile Include="Scene\CSkybox.cpp" />
     <ClCompile Include="Scene\CTriangle3D.cpp" />
     <ClCompile Include="Scene\CAnimatedMeshSceneNode.cpp" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Scene\ILightSceneNode.cpp" />
     <ClCompile Include="Scene\IMeshSceneNode.cpp" />
     <ClCompile Include="Scene\CPointLightSceneNode.cpp" />
+    <ClCompile Include="Scene\IScene.cpp" />
     <ClCompile Include="Scene\ISceneNode.cpp" />
     <ClCompile Include="Scene\CSoundSceneNode.cpp" />
     <ClCompile Include="Scene\CSpotLightSceneNode.cpp" />

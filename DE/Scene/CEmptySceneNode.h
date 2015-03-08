@@ -41,20 +41,22 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		*/
-		CEmptySceneNode(ISceneNode * parent = nullptr, const std::string & name = "");
+		CEmptySceneNode(IScene * scene, ISceneNode * parent = nullptr, const std::string & name = "");
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
 		* @param rotation The rotation
 		* @param scale The scale
 		*/
-		CEmptySceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position);
+		CEmptySceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position);
 	};
 }
 

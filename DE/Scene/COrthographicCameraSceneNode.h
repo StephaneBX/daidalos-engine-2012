@@ -45,6 +45,7 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The position
@@ -53,7 +54,7 @@ namespace DE
 		* @param nearDistance The near distance
 		* @param farDistance The far distance
 		*/
-		COrthographicCameraSceneNode(ISceneNode * parent, const std::string & name,  const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance);
+		COrthographicCameraSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance);
 
 		/**
 		* Destructor

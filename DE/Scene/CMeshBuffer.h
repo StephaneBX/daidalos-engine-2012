@@ -38,6 +38,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE
 {
+	class IScene;
+
 	/**
 	* The mesh buffer elements
 	*/
@@ -59,6 +61,7 @@ namespace DE
 		int m_numberOfElements;
 		unsigned long m_stride;
 		CBuffer m_vertexBuffer;
+		IScene * m_scene;
 
 	public:
 		/**
@@ -89,6 +92,12 @@ namespace DE
 		* @param format The mesh format
 		*/
 		void SetMeshFormat(const int format);
+
+		/**
+		* Set the associated scene
+		* @param scene The associated scene
+		*/
+		void SetScene(IScene * scene);
 
 		/**
 		* Get the number of elements in the buffer

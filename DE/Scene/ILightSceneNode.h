@@ -85,6 +85,7 @@ namespace DE
 	protected:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The position
@@ -93,7 +94,7 @@ namespace DE
 		* @param shadowCaster If the light cast shadows
 		* @param enabled If the light is enabled
 		*/
-		ILightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled);
+		ILightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled);
 
 	private:
 		ILightSceneNode();

@@ -48,14 +48,16 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param filename The mesh filename
 		*/
-		CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename);
+		CAnimatedMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename);
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param filename The mesh filename
@@ -63,7 +65,7 @@ namespace DE
 		* @param rotation The rotation
 		* @param scale The scale
 		*/
-		CAnimatedMeshSceneNode(ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
+		CAnimatedMeshSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
 		* Start an animation

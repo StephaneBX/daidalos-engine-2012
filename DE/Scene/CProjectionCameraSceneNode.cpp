@@ -26,10 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Core/IRenderer.h"
+#include "../Scene/IScene.h"
 #include "../Scene/CProjectionCameraSceneNode.h"
 
 namespace DE {
-	CProjectionCameraSceneNode::CProjectionCameraSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(parent, name, position, rotation, nearDistance, farDistance) {
+	CProjectionCameraSceneNode::CProjectionCameraSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {
 		SetAngle(angle);
 		SetRatio(ratio);
 	}

@@ -25,10 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Scene/IScene.h"
 #include "../Scene/CSoundSceneNode.h"
 
 namespace DE {
-	CSoundSceneNode::CSoundSceneNode(const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) {
+	CSoundSceneNode::CSoundSceneNode(IScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		this->m_sound.LoadFromFile(filename, type);
 	}
 

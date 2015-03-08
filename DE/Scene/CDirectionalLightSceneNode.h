@@ -47,14 +47,16 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param rotation The rotation
 		*/
-		CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation);
+		CDirectionalLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation);
 
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param rotation The rotation
@@ -62,7 +64,7 @@ namespace DE
 		* @param shadowCaster If the light cast shadows
 		* @param enabled If the light is enabled by default
 		*/
-		CDirectionalLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled = true);
+		CDirectionalLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled = true);
 
 		/**
 		* Destructor

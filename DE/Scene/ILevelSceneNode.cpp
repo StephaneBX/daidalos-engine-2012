@@ -29,6 +29,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 
+	ILevelSceneNode::ILevelSceneNode(IScene * scene) : ISceneNode(scene) {
+		this->m_levelBuffer.SetScene(scene);
+	}
+
 	void ILevelSceneNode::SetMeshFormat(const int format) {
 		this->m_levelBuffer.SetMeshFormat(format);
 		ISceneNode::SetMeshFormat(format);

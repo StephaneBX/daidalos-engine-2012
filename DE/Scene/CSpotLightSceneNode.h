@@ -49,15 +49,17 @@ namespace DE
 	public:
 		/**
 		* Constructor
+		* @param scene The associated scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
 		* @param rotation The rotation
 		*/
-		CSpotLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation);
+		CSpotLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation);
 
 		/**
 		* Constructor
+		* @param scene The associated
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
@@ -70,7 +72,7 @@ namespace DE
 		* @param shadowCaster If the light cast shadows
 		* @param enabled If the light is enabled by default
 		*/
-		CSpotLightSceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const float range, const float radius, const float falloff, const float tightness, const bool shadowCaster, const bool enabled = true);
+		CSpotLightSceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const float range, const float radius, const float falloff, const float tightness, const bool shadowCaster, const bool enabled = true);
 
 		/**
 		* Destructor

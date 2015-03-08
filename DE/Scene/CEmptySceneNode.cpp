@@ -24,15 +24,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 ==============================================================================================================================================================
 */
-
+#include "../Scene/IScene.h"
 #include "../Scene/CEmptySceneNode.h"
 
 namespace DE {
-	CEmptySceneNode::CEmptySceneNode(ISceneNode * parent, const std::string & name) : ISceneNode(parent, name) {
+	CEmptySceneNode::CEmptySceneNode(IScene * scene, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		this->m_type = SCENE_NODE_EMPTY;
 	}
 
-	CEmptySceneNode::CEmptySceneNode(ISceneNode * parent, const std::string & name, const CVector3F & position) : ISceneNode(parent, name, position, CVector3F()) {
+	CEmptySceneNode::CEmptySceneNode(IScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : ISceneNode(scene, parent, name, position, CVector3F()) {
 		this->m_type = SCENE_NODE_EMPTY;
 	}
 }
