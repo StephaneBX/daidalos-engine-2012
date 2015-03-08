@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ISceneNode.h"
 
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for mesh nodes
 	*/
-	class IMeshSceneNode : public ISceneNode
-	{
+	class IMeshSceneNode : public ISceneNode {
 	protected:
 		bool m_needGeometryUpdate;
 		bool m_needVisibilityShapeUpdate;
@@ -56,7 +54,7 @@ namespace DE
 		std::vector<std::string> m_materialElement;
 
 		CSphereF * m_visibilityShape;
-		
+
 	public:
 		/**
 		* Constructor

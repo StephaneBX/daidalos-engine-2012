@@ -31,10 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.h"
 #include "../Scene/CPlane3D.h"
 
-namespace DE
-{
-	enum EShapeType
-	{
+namespace DE {
+	enum EShapeType {
 		SHAPE_SPHERE,
 		SHAPE_ELLIPSE,
 		SHAPE_AABOX
@@ -43,8 +41,7 @@ namespace DE
 	/**
 	* Basic class for 3d shapes.
 	*/
-	template <class T> class IShape3D 
-	{
+	template <class T> class IShape3D {
 	protected:
 		CVector3<T> m_position;
 		EShapeType m_type;
@@ -107,30 +104,26 @@ namespace DE
 
 	template <class T> IShape3D<T>::IShape3D() {}
 
-	template <class T> IShape3D<T>::IShape3D(const CVector3<T> & position)
-	{
+	template <class T> IShape3D<T>::IShape3D(const CVector3<T> & position) {
 		this->m_position = position;
 	}
 
 	template <class T> IShape3D<T>::~IShape3D() {}
 
-	template <class T> void IShape3D<T>::SetPosition(const CVector3<T> & position)
-	{
+	template <class T> void IShape3D<T>::SetPosition(const CVector3<T> & position) {
 		this->m_position = position;
 	}
 
-	template <class T> const bool IShape3D<T>::IsCollision(const CPlane3D<T> & plane) const
-	{
+	template <class T> const bool IShape3D<T>::IsCollision(const CPlane3D<T> & plane) const {
 		return plane.PointDistance(this->m_position) <= GetInnerDepth(plane);
 	}
 
-	template <class T> const bool IShape3D<T>::IsCollision(const IShape3D * shape) const
-	{
+	template <class T> const bool IShape3D<T>::IsCollision(const IShape3D * shape) const {
 		// Get the plane perpendicular to the shapes position in order to get the inner depth
 
 		// Get the z axis vector for the plane
 		CVector3F zAxis = shape->GetPosition() - this->m_position;
-		CVector3F tmpYAxis = CVector3F(0,1,0);
+		CVector3F tmpYAxis = CVector3F(0, 1, 0);
 
 		// Get the x axis vector for the plane
 		CVector3F xAxis = tmpYAxis.CrossProduct(zAxis);
@@ -138,7 +131,7 @@ namespace DE
 		// Get the y axis vector for the plane
 		CVector3F yAxis = zAxis.CrossProduct(xAxis);
 
-		CVector3F vertex[] = {(this->m_position + xAxis), this->m_position, (this->m_position + yAxis)};
+		CVector3F vertex[] = { (this->m_position + xAxis), this->m_position, (this->m_position + yAxis) };
 		CPlane3DF plane(vertex);
 
 		// Get the distance between the two centers
@@ -146,19 +139,16 @@ namespace DE
 
 		return distance <= (GetInnerDepth(plane) + shape->GetInnerDepth(plane));
 	}
-	
-	template <class T> const float IShape3D<T>::GetInnerDepth(const CPlane3D<T> & plane) const
-	{
+
+	template <class T> const float IShape3D<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return 0;
 	}
-	
-	template <class T> const CVector3<T> & IShape3D<T>::GetPosition() const
-	{
+
+	template <class T> const CVector3<T> & IShape3D<T>::GetPosition() const {
 		return this->m_position;
 	}
 
-	template <class T> EShapeType IShape3D<T>::GetType() const
-	{
+	template <class T> EShapeType IShape3D<T>::GetType() const {
 		return this->m_type;
 	}
 

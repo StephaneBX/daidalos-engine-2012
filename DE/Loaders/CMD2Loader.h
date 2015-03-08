@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/CMD2Mesh.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for MD2 files
 	*/
-	class CMD2Loader : public ILoader<IAnimatedMeshBase> 
-	{
+	class CMD2Loader : public ILoader < IAnimatedMeshBase > {
 	private:
 		std::string m_filename;
 		SMD2InternalData * m_internalData;

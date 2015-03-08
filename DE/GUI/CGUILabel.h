@@ -35,13 +35,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Enums.h"
 #include "../GUI/IGUIView.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for gui text
 	*/
-	class CGUILabel : public IGUIView
-	{
+	class CGUILabel : public IGUIView {
 	private:
 		unsigned int m_size;
 		float m_scale;

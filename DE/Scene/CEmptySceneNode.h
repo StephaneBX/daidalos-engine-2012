@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Enums.h"
 #include "../Scene/ISceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Empty node
 	*/
-	class CEmptySceneNode : public ISceneNode
-	{	
+	class CEmptySceneNode : public ISceneNode {
 	public:
 		/**
 		* Constructor

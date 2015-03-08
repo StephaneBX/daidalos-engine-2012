@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IMeshBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for static meshs
 	*/
-	class CStaticMesh
-	{
+	class CStaticMesh {
 	private:
 		IMeshBase * m_mesh;
 

@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define BSP_MAX_IMPACT 5
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The structure used by the bsp brushes
 	*/
-	struct SBSPBrushDefinition
-	{
+	struct SBSPBrushDefinition {
 		bool collision;
 		int id;
 		std::vector<CBSPTriangle*> geometry;
@@ -51,8 +49,7 @@ namespace DE
 	/**
 	* Handle a 3d bsp tree
 	*/
-	class CBSPSceneNode : public ILevelSceneNode
-	{
+	class CBSPSceneNode : public ILevelSceneNode {
 	protected:
 		std::unique_ptr<CBSPTreeNode> m_bsp;
 		std::unique_ptr<CBSPBrushNode> m_collisionBsp;
@@ -61,7 +58,7 @@ namespace DE
 		std::vector<std::unique_ptr<SBSPBrush> > m_brushes;
 
 		CVector3F m_normals[BSP_MAX_IMPACT];
-	
+
 	public:
 		/**
 		* Constructor

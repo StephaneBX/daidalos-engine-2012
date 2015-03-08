@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IResource.h"
 #include "../Core/Enums.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Texture filter policy structure
 	*/
-	struct STexture2DFilterPolicy
-	{
+	struct STexture2DFilterPolicy {
 		ETextureFilterType minFilter;
 		ETextureFilterType magFilter;
 		ETextureFilterType mipFilter;
@@ -52,8 +50,7 @@ namespace DE
 	/**
 	* Basic class used for 2D textures
 	*/
-	class ITexture2DBase : public IResource
-	{
+	class ITexture2DBase : public IResource {
 	protected:
 		friend class CTexture2D;
 

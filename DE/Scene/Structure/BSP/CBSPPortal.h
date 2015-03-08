@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <array>
 #include "../BSP/CBSPTriangle.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The bsp portal class
 	* Used during the pvs calculation to improve performance
 	*/
-	class CBSPPortal
-	{
+	class CBSPPortal {
 	private:
 		std::array<CBSPTriangle, 2> m_triangles;
 		unsigned int m_numberOfLeafs;

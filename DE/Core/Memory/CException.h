@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <exception>
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CException class.
 	* Main class for all exceptions.
 	*/
-	class CException : public std::exception
-	{
+	class CException : public std::exception {
 	protected:
 		std::string m_message;
 

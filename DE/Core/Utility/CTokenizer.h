@@ -33,8 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	typedef std::vector<std::string> TToken;
 
 	/**
@@ -42,8 +41,7 @@ namespace DE
 	* Manages the files parsing implementation.
 	* The goal of this class is to create a token table that will be used to read configuration files.
 	*/
-	class CTokenizer
-	{
+	class CTokenizer {
 	private:
 		std::vector<std::string> m_tokens;
 		std::vector<std::string> m_buffer;
@@ -104,7 +102,7 @@ namespace DE
 		*/
 		const int Count(const std::string & token) const;
 
-		/** 
+		/**
 		* Get the tokens.
 		* @return The tokens.
 		*/

@@ -37,13 +37,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CRectangle.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Kerning between 2 glyphs
 	*/
-	struct SKerningPair
-	{
+	struct SKerningPair {
 		unsigned int first;
 		unsigned int second;
 		int amount;
@@ -52,8 +50,7 @@ namespace DE
 	/**
 	* A character data
 	*/
-	struct SCharData
-	{
+	struct SCharData {
 		unsigned int id;
 		int x;
 		int y;
@@ -68,8 +65,7 @@ namespace DE
 	/**
 	* A character descriptor
 	*/
-	struct SCharDescriptor
-	{
+	struct SCharDescriptor {
 		unsigned int id;
 		int xadvance;
 		CRectangleF coordinates;
@@ -80,8 +76,7 @@ namespace DE
 	/**
 	* The font internal data
 	*/
-	struct SFontInternalData
-	{
+	struct SFontInternalData {
 		bool bold;
 		bool italic;
 		int size;
@@ -97,8 +92,7 @@ namespace DE
 	/**
 	* Basic class for fonts
 	*/
-	class IFontBase : public IResource
-	{
+	class IFontBase : public IResource {
 	private:
 		std::unique_ptr<SFontInternalData> m_internalData;
 		std::map<unsigned int, SCharDescriptor> m_charDescriptor;

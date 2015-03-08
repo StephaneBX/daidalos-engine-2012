@@ -28,14 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CINSET_H
 #define __CINSET_H
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Inset template class
 	* Handle an inset
 	*/
-	template <class T> class CInset
-	{
+	template <class T> class CInset {
 	private:
 		T m_left;
 		T m_right;
@@ -62,8 +60,7 @@ namespace DE
 	* @param right The right inset
 	* @param bottom The bottom inset
 	*/
-	template <class T> inline CInset<T>::CInset(const T left, const T top, const T right, const T bottom)
-	{
+	template <class T> inline CInset<T>::CInset(const T left, const T top, const T right, const T bottom) {
 		this->m_left = left;
 		this->m_top = top;
 		this->m_right = right;
@@ -74,8 +71,7 @@ namespace DE
 	* Get the top inset
 	* @return The top inset
 	*/
-	template <class T> inline const T CInset<T>::GetTop() const
-	{
+	template <class T> inline const T CInset<T>::GetTop() const {
 		return this->m_top;
 	}
 
@@ -83,8 +79,7 @@ namespace DE
 	* Get the left inset
 	* @return The left inset
 	*/
-	template <class T> inline const T CInset<T>::GetLeft() const
-	{
+	template <class T> inline const T CInset<T>::GetLeft() const {
 		return this->m_left;
 	}
 
@@ -92,8 +87,7 @@ namespace DE
 	* Get the bottom inset
 	* @return The bottom inset
 	*/
-	template <class T> inline const T CInset<T>::GetBottom() const
-	{
+	template <class T> inline const T CInset<T>::GetBottom() const {
 		return this->m_bottom;
 	}
 
@@ -101,8 +95,7 @@ namespace DE
 	* Get the right inset
 	* @return The right inset
 	*/
-	template <class T> inline const T CInset<T>::GetRight() const
-	{
+	template <class T> inline const T CInset<T>::GetRight() const {
 		return this->m_right;
 	}
 
@@ -110,8 +103,7 @@ namespace DE
 	* Set the left inset
 	* @param the left inset
 	*/
-	template <class T> inline void CInset<T>::SetLeft(const T left)
-	{
+	template <class T> inline void CInset<T>::SetLeft(const T left) {
 		this->m_left = left;
 	}
 
@@ -119,8 +111,7 @@ namespace DE
 	* Set the top inset
 	* @param the top inset
 	*/
-	template <class T> inline void CInset<T>::SetTop(const T top)
-	{
+	template <class T> inline void CInset<T>::SetTop(const T top) {
 		this->m_top = top;
 	}
 
@@ -128,8 +119,7 @@ namespace DE
 	* Set the right inset
 	* @param the right inset
 	*/
-	template <class T> inline void CInset<T>::SetRight(const T right)
-	{
+	template <class T> inline void CInset<T>::SetRight(const T right) {
 		this->m_right = right;
 	}
 
@@ -137,8 +127,7 @@ namespace DE
 	* Set the bottom inset
 	* @param the bottom inset
 	*/
-	template <class T> inline void CInset<T>::SetBottom(const T bottom)
-	{
+	template <class T> inline void CInset<T>::SetBottom(const T bottom) {
 		this->m_bottom = bottom;
 	}
 
@@ -147,8 +136,7 @@ namespace DE
 	* @param copy A CGUIText element copy
 	* @return The CGUIText
 	*/
-	template <class T> const CInset<T> & CInset<T>::operator=(const CInset<T> & copy)
-	{
+	template <class T> const CInset<T> & CInset<T>::operator=(const CInset<T> & copy) {
 		this->m_left = copy.GetLeft();
 		this->m_top = copy.GetTop();
 		this->m_right = copy.GetRight();

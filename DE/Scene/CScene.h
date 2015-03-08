@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/IScene.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle the scene
 	*/
-	class CScene
-	{
+	class CScene {
 	private:
 		IScene * m_scene;
 

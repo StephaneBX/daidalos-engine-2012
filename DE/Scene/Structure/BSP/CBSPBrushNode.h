@@ -38,15 +38,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../Scene/CImpact.h"
 #include "../../../Scene/Structure/BSP/CBSPTriangle.h"
 
-namespace DE
-{
+namespace DE {
 	class CBSPTreeNode;
 
 	/**
 	* A bsp brush
 	*/
-	struct SBSPBrush
-	{
+	struct SBSPBrush {
 		int id;
 		bool tested;
 		bool enabled;
@@ -57,8 +55,7 @@ namespace DE
 	* The bsp brush node class
 	* Handle the node of a BSP brush
 	*/
-	class CBSPBrushNode
-	{
+	class CBSPBrushNode {
 	private:
 		EBSPNodeType m_type;
 		std::vector<SBSPBrush*> m_brushes;

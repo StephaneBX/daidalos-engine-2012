@@ -30,19 +30,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader class
 	*/
-	template <class T> class ILoader 
-	{
+	template <class T> class ILoader {
 	public:
 		/**
 		* Destructor
 		*/
 		virtual ~ILoader() {}
-		
+
 		/**
 		* Load a file
 		* @param filename The filename

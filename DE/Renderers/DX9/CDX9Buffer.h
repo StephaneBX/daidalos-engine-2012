@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Enums.h"
 #include "../../Medias/IBufferBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for buffers
 	*/
-	template <class T> class CDX9Buffer : public IBufferBase
-	{
+	template <class T> class CDX9Buffer : public IBufferBase {
 	private:
 		T * m_buffer;
 
@@ -82,31 +80,26 @@ namespace DE
 		const CDX9Buffer & operator=(const CDX9Buffer & copy);
 	};
 
-	template <class T> inline CDX9Buffer<T>::CDX9Buffer(const unsigned long size, T * buffer) : IBufferBase(size)
-	{
+	template <class T> inline CDX9Buffer<T>::CDX9Buffer(const unsigned long size, T * buffer) : IBufferBase(size) {
 		this->m_buffer = buffer;
 	}
 
-	template <class T> inline CDX9Buffer<T>::~CDX9Buffer()
-	{
+	template <class T> inline CDX9Buffer<T>::~CDX9Buffer() {
 		SAFE_RELEASE(this->m_buffer);
 	}
 
-	template <class T> inline T * CDX9Buffer<T>::GetBuffer() const
-	{
+	template <class T> inline T * CDX9Buffer<T>::GetBuffer() const {
 		return this->m_buffer;
 	}
 
-	template <class T> inline void * CDX9Buffer<T>::Lock(const unsigned long offset, const unsigned long size, const unsigned long flags)
-	{
+	template <class T> inline void * CDX9Buffer<T>::Lock(const unsigned long offset, const unsigned long size, const unsigned long flags) {
 		void * data = nullptr;
 		this->m_buffer->Lock(offset, size, &data, CDX9Enums::LockFlags(flags));
-		
+
 		return data;
 	}
 
-	template <class T> inline void CDX9Buffer<T>::Unlock()
-	{
+	template <class T> inline void CDX9Buffer<T>::Unlock() {
 		this->m_buffer->Unlock();
 	}
 

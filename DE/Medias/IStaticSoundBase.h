@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/ISoundBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for static sounds
 	*/
-	class IStaticSoundBase : public ISoundBase
-	{
+	class IStaticSoundBase : public ISoundBase {
 	private:
 		ALuint m_buffer;
 

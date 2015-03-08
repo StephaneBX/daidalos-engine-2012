@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Core/Utility/CImage.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for images
 	*/
-	class CImagesLoader : public ILoader<CImage> 
-	{
+	class CImagesLoader : public ILoader < CImage > {
 	public:
 		/**
 		* Constructor

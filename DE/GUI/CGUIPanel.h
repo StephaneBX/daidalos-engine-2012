@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../GUI/IGUIView.h"
 #include "../Medias/CTexture2D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for gui panel
 	*/
-	class CGUIPanel : public IGUIView
-	{
+	class CGUIPanel : public IGUIView {
 	private:
 		CColor m_backgroundColor;
 		CTexture2D m_texture;

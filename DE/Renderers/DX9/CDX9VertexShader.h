@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3dx9.h>
 #include "../../Renderers/DX9/CDX9Shader.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for shaders
 	*/
-	class CDX9VertexShader : public CDX9Shader
-	{
+	class CDX9VertexShader : public CDX9Shader {
 	private:
 		IDirect3DVertexShader9 * m_vertexShader;
 

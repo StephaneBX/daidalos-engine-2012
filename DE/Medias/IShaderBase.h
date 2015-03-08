@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CMatrix.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for shaders
 	*/
-	class IShaderBase : public IResource
-	{
+	class IShaderBase : public IResource {
 	public:
 		/**
 		* Set a shader parameter

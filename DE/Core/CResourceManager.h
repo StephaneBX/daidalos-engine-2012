@@ -32,15 +32,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IResource.h"
 #include "../Core/CSingletonManager.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Resource manager
 	* Handle the resources and delete them when unused
 	*/
-	class CResourceManager : public CSingletonManager<CResourceManager>
-	{
-		friend class CSingletonManager<CResourceManager>;
+	class CResourceManager : public CSingletonManager < CResourceManager > {
+		friend class CSingletonManager < CResourceManager > ;
 
 	private:
 		std::map<std::string, IResource *> m_resources;
@@ -86,15 +84,13 @@ namespace DE
 		const CResourceManager & operator=(const CResourceManager & copy);
 	};
 
-	template <class T> T * CResourceManager::GetResource(const std::string & name) const
-	{
+	template <class T> T * CResourceManager::GetResource(const std::string & name) const {
 		T * ret = nullptr;
 
 		auto it = this->m_resources.find(name);
 
 		// Resource found, we add a reference and return it
-		if(it != m_resources.end())
-		{
+		if(it != m_resources.end()) {
 			it->second->AddReference();
 			ret = static_cast<T *>(it->second);
 		}

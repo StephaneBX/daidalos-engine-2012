@@ -35,18 +35,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #   define Assert(condition) if (!(condition)) \
         throw CExceptionAssert(__FILE__, __LINE__)
 #else
-    inline void DoNothing(bool) {}
+inline void DoNothing(bool) {}
 #   define Assert(condition) DoNothing(!(condition))
 #endif
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CExceptionAssert class.
 	* Assertion exception class.
 	*/
-	class CExceptionAssert : public CException
-	{
+	class CExceptionAssert : public CException {
 	public:
 		/**
 		* Constructor

@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IAnimatedMeshBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for animated meshs
 	*/
-	class CAnimatedMesh
-	{
+	class CAnimatedMesh {
 	private:
 		IAnimatedMeshBase * m_mesh;
 

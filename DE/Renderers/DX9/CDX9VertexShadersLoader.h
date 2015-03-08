@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/ILoader.h"
 #include "../../Medias/IShaderBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for DX9 vertex shaders files (.vsh)
 	*/
-	class CDX9VertexShadersLoader : public ILoader<IShaderBase> 
-	{
+	class CDX9VertexShadersLoader : public ILoader < IShaderBase > {
 	public:
 		/**
 		* Constructor

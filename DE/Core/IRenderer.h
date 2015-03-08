@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IFrameBufferBase.h"
 #include "../Core/IDeclaration.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Screen quad element
 	*/
-	struct SScreenQuadElement
-	{
+	struct SScreenQuadElement {
 		CVector3F vertex;
 		CVector2F texcoord;
 	};
@@ -50,8 +48,7 @@ namespace DE
 	/**
 	* IRenderer class
 	*/
-	class IRenderer
-	{
+	class IRenderer {
 	private:
 		static IRenderer * s_instance;
 
@@ -81,7 +78,7 @@ namespace DE
 		* @param elements The CE declaration elements
 		* @return The declaration
 		*/
-		template <std::size_t N> DeclarationPtr CreateVertexDeclaration(const SDeclarationElement (&elements)[N]) const;
+		template <std::size_t N> DeclarationPtr CreateVertexDeclaration(const SDeclarationElement(&elements)[N]) const;
 
 		/**
 		* Create a vertex buffer
@@ -405,8 +402,7 @@ namespace DE
 		const IRenderer & operator=(const IRenderer & copy);
 	};
 
-	template <std::size_t N> DeclarationPtr IRenderer::CreateVertexDeclaration(const SDeclarationElement (&elements)[N]) const
-	{
+	template <std::size_t N> DeclarationPtr IRenderer::CreateVertexDeclaration(const SDeclarationElement(&elements)[N]) const {
 		return CreateVD(elements, N);
 	}
 }

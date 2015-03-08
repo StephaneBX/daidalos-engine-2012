@@ -37,14 +37,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../GUI/CGUIPanel.h"
 #include "../GUI/CGUICursor.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle the gui elements
 	*/
-	class CGUIManager : public CSingletonManager<CGUIManager>
-	{
-		friend class CSingletonManager<CGUIManager>;
+	class CGUIManager : public CSingletonManager < CGUIManager > {
+		friend class CSingletonManager < CGUIManager > ;
 
 	private:
 		CMatrix m_proj;

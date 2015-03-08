@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../../Medias/ITexture2DBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for 2D textures
 	*/
-	class CDX9Texture2D : public ITexture2DBase
-	{
+	class CDX9Texture2D : public ITexture2DBase {
 	private:
 		IDirect3DTexture9 * m_texture;
 

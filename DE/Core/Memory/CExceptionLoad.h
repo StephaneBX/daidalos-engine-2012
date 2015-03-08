@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Memory/CException.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CExceptionDelete class.
 	* Loading exception class.
 	*/
-	class CExceptionLoad : public CException
-	{
+	class CExceptionLoad : public CException {
 	public:
 		/**
 		* Constructor

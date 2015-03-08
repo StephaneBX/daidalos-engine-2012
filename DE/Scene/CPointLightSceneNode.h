@@ -35,13 +35,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/IBoundedLightSceneNode.h"
 #include "../Scene/CProjectionCameraSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a point light
 	*/
-	class CPointLightSceneNode : public IBoundedLightSceneNode
-	{
+	class CPointLightSceneNode : public IBoundedLightSceneNode {
 	public:
 		/**
 		* Constructor

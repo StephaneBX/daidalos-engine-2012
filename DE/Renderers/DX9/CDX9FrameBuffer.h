@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <map>
 #include "../../Medias/IFrameBufferBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for frame buffers
 	*/
-	class CDX9FrameBuffer : public IFrameBufferBase
-	{
+	class CDX9FrameBuffer : public IFrameBufferBase {
 	public:
 		/**
 		* Constructor

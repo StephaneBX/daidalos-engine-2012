@@ -32,14 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector4.h"
 #include <iostream>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CColor class
 	* Handle colors
 	*/
-	class CColor
-	{
+	class CColor {
 	private:
 		unsigned long m_color; ///< ARGB color
 
@@ -223,7 +221,7 @@ namespace DE
 		* @param stream The stream
 		* @param color The color
 		*/
-        friend std::ostream & operator<<(std::ostream & stream, const CColor & color);
+		friend std::ostream & operator<<(std::ostream & stream, const CColor & color);
 
 		/**
 		* Set the red channel with an integer

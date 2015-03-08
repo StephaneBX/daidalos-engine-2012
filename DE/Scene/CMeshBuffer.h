@@ -36,26 +36,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CTriangle3D.h"
 #include "../Medias/CBuffer.h"
 
-namespace DE
-{
+namespace DE {
 	class IScene;
 
 	/**
 	* The mesh buffer elements
 	*/
-	enum EMeshBufferElement
-	{
+	enum EMeshBufferElement {
 		MESHBUFFER_ELEMENT_POSITION = 1 << 0,
 		MESHBUFFER_ELEMENT_TEXCOORD = 1 << 1,
-		MESHBUFFER_ELEMENT_NORMAL   = 1 << 2,
-		MESHBUFFER_ELEMENT_NTB      = 1 << 3
+		MESHBUFFER_ELEMENT_NORMAL = 1 << 2,
+		MESHBUFFER_ELEMENT_NTB = 1 << 3
 	};
 
 	/**
 	* Mesh buffer class. Tranform the mesh data into the chosen format into a vertex buffer.
 	*/
-	class CMeshBuffer
-	{
+	class CMeshBuffer {
 	private:
 		int m_format;
 		int m_numberOfElements;

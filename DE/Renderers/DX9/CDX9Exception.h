@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Memory/CException.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CDX9Exception class.
 	* DX9 exception class.
 	*/
-	class CDX9Exception : public CException
-	{
+	class CDX9Exception : public CException {
 	public:
 		/**
 		* Constructor

@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IShaderBase.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for shader programs
 	*/
-	class IShaderProgramBase : public IResource
-	{
+	class IShaderProgramBase : public IResource {
 	protected:
 		IShaderBase * m_vertexShader;
 		IShaderBase * m_pixelShader;

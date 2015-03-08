@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Keyboard inputs listener interface.
 	*/
-	class IInputKeyboardListener
-	{
+	class IInputKeyboardListener {
 	public:
 		/**
 		* Called when a keyboard action is started

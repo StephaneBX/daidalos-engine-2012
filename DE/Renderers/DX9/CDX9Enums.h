@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3d9.h>
 #include "../../Core/Enums.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for enums
 	*/
-	class CDX9Enums
-	{
+	class CDX9Enums {
 	private:
 		static D3DPRIMITIVETYPE s_primitiveType[];
 		static D3DFORMAT s_formatType[];
@@ -95,7 +93,7 @@ namespace DE
 		/**
 		* Get the DX9 texture address type
 		* @param type The texture address type
-		* @return The DX9 texture address type 
+		* @return The DX9 texture address type
 		*/
 		static D3DTEXTUREADDRESS Get(ETextureAddress type);
 

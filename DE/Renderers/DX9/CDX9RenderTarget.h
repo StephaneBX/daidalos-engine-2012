@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Texture2D.h"
 #include "../../Medias/IRenderTargetBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for render targets
 	*/
-	class CDX9RenderTarget : public IRenderTargetBase
-	{
+	class CDX9RenderTarget : public IRenderTargetBase {
 	private:
 		IDirect3DSurface9 * m_renderTarget;
 

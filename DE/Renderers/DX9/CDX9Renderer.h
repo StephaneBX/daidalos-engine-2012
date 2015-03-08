@@ -41,13 +41,11 @@ class IDeclaration;
 class CDX9FrameBuffer;
 struct SDeclarationElement;
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 Renderer class
 	*/
-	class CDX9Renderer : public IRenderer
-	{
+	class CDX9Renderer : public IRenderer {
 	private:
 		HWND m_hwnd;
 		IDirect3DDevice9 * m_device;

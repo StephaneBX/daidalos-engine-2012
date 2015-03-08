@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../Medias/IMaterialBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Material enclosing class
 	*/
-	class CMaterial
-	{
+	class CMaterial {
 	private:
 		IMaterialBase * m_material;
 

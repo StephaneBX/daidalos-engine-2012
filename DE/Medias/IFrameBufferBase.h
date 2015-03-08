@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IRenderTargetBase.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Structure for a framebuffer element
 	*/
-	struct SFrameBufferElement
-	{
+	struct SFrameBufferElement {
 		ITexture2DBase * texture;
 		IRenderTargetBase * renderTarget;
 	};
@@ -48,8 +46,7 @@ namespace DE
 	/**
 	* Structure for a framebuffer attachment
 	*/
-	struct SFrameBufferAttachment
-	{
+	struct SFrameBufferAttachment {
 		int attachment;
 		std::string name;
 	};
@@ -57,8 +54,7 @@ namespace DE
 	/**
 	* Structure for a framebuffer declaration
 	*/
-	struct SFrameBufferDeclaration
-	{
+	struct SFrameBufferDeclaration {
 		std::string name;
 		CVector2I size;
 		EPixelFormat format;
@@ -69,8 +65,7 @@ namespace DE
 	/**
 	* Structure for a framebuffer depth declaration
 	*/
-	struct SFrameBufferDepthDeclaration
-	{
+	struct SFrameBufferDepthDeclaration {
 		std::string name;
 		CVector2I size;
 		EPixelFormat textureFormat;
@@ -79,8 +74,7 @@ namespace DE
 	/**
 	* Basic class used for frame buffers
 	*/
-	class IFrameBufferBase : public IResource
-	{
+	class IFrameBufferBase : public IResource {
 	protected:
 		bool m_ready;
 		std::map<std::string, SFrameBufferElement> m_elements;

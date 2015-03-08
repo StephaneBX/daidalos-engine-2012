@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Gamepad inputs listener interface.
 	*/
-	class IInputGamepadListener
-	{
+	class IInputGamepadListener {
 	public:
 		/**
 		* Called when the gamepad state has changed

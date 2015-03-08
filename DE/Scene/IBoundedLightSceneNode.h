@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ILightSceneNode.h"
 #include "../Scene/CSphere.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for all bounded / finite lights.
 	*/
-	class IBoundedLightSceneNode : public ILightSceneNode
-	{
+	class IBoundedLightSceneNode : public ILightSceneNode {
 	protected:
 		float m_range;
 		float m_falloff;

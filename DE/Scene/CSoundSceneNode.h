@@ -32,16 +32,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CSound.h"
 #include "../Scene/ISceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a sound node
 	*/
-	class CSoundSceneNode : public ISceneNode
-	{
+	class CSoundSceneNode : public ISceneNode {
 	protected:
 		CSound m_sound;
-		
+
 	public:
 		/**
 		* Constructor

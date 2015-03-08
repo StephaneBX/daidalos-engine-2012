@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Logger/ILogger.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CLoggerMsgBox class
 	* Log data into a message box
 	*/
-	class CLoggerMsgBox : public ILogger
-	{
+	class CLoggerMsgBox : public ILogger {
 	private:
 		/**
 		* Write a message

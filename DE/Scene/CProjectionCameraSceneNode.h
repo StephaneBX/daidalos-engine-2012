@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.h"
 #include "../Scene/ICameraSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a projection typed camera
 	*/
-	class CProjectionCameraSceneNode : public ICameraSceneNode
-	{
+	class CProjectionCameraSceneNode : public ICameraSceneNode {
 	private:
 		float m_angle;
 		float m_ratio;

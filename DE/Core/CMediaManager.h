@@ -41,15 +41,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CLoaderExtensions.h"
 #include "../Core/CSingletonManager.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Media manager class
 	* Handle the  process of loading and saving medias by using the correct loader
 	*/
-	class CMediaManager : public CSingletonManager<CMediaManager>
-	{
-		friend class CSingletonManager<CMediaManager>;
+	class CMediaManager : public CSingletonManager < CMediaManager > {
+		friend class CSingletonManager < CMediaManager > ;
 
 	private:
 		std::set<std::string> m_paths;
@@ -104,9 +102,8 @@ namespace DE
 		CMediaManager(const CMediaManager & copy);
 		const CMediaManager & operator=(const CMediaManager & copy);
 	};
-	
-	template <class T> void CMediaManager::AddLoader(ILoader<T> * loader, const std::string & extensions)
-	{
+
+	template <class T> void CMediaManager::AddLoader(ILoader<T> * loader, const std::string & extensions) {
 		CTokenizer tokenizer;
 		//std::transform(extensions.begin(), extensions.end(), extensions.begin(), tolower);
 		tokenizer.AddLine(extensions);
@@ -114,20 +111,19 @@ namespace DE
 
 		std::shared_ptr<ILoader<T>> ptr(loader);
 
-		for(unsigned int i = 0 ; i < tokenizer.GetTokens().size() ; ++i)
+		for(unsigned int i = 0; i < tokenizer.GetTokens().size(); ++i)
 			CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens().at(i)] = ptr;
 	}
-	
-	template <class T> void CMediaManager::RemoveLoader()
-	{
+
+	template <class T> void CMediaManager::RemoveLoader() {
 		CLoaderExtensions<T>::s_loaders.clear();
 	}
 
-	template <class T> void CMediaManager::SaveMediaToFile(const T * object, const std::string & filename)
-	{
+	template <class T> void CMediaManager::SaveMediaToFile(const T * object, const std::string & filename) {
 		const std::string extension = CFile(filename).GetExtension();
-		if(CLoaderExtensions<T>::IsExtensionFound(extension))
-			CLoaderExtensions<T>::s_loaders[extension]->SaveToFile(object, filename);
+		if(CLoaderExtensions<T>::IsExtensionFound(extension)) {
+		CLoaderExtensions<T>::s_loaders[extension]->SaveToFile(object, filename);
+		}
 	}
 
 	template <class T> T * CMediaManager::LoadMediaFromFile(const std::string & filename) /* throw(CExceptionLoad) */
@@ -137,12 +133,9 @@ namespace DE
 
 		// Find the loader to use to load the media
 		const std::string extension = CFile(filename).GetExtension();
-		if(CLoaderExtensions<T>::IsExtensionFound(extension))
-		{
+		if(CLoaderExtensions<T>::IsExtensionFound(extension)) {
 			return CLoaderExtensions<T>::s_loaders[extension]->LoadFromFile(MediaPath.GetFullname());
-		}
-		else
-		{
+		} else {
 			LOG_ERROR("Unable to load the file " << filename << "'");
 			ILogger::Kill();
 

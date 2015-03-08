@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../Core/Utility/CFile.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for every resources
 	*/
-	class IResource 
-	{
+	class IResource {
 	private:
 		static int s_resourceCounter;
 
@@ -91,7 +89,7 @@ namespace DE
 
 	private:
 		IResource(const IResource & resource);
-        const IResource & operator=(const IResource & copy);
+		const IResource & operator=(const IResource & copy);
 	};
 }
 

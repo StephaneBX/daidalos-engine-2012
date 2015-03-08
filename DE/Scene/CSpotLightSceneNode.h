@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/IBoundedLightSceneNode.h"
 #include "../Scene/CProjectionCameraSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a spot light
 	*/
-	class CSpotLightSceneNode : public IBoundedLightSceneNode
-	{
+	class CSpotLightSceneNode : public IBoundedLightSceneNode {
 	protected:
 		float m_radius;
 		float m_tightness;

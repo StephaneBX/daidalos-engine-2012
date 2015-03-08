@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/ISoundBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Sound enclosing class
 	*/
-	class CSound
-	{
+	class CSound {
 	private:
 		ESoundType m_type;
 		std::unique_ptr<ISoundBase> m_sound;

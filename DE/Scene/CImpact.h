@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/Utility/CVector3.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle an impact for collision detection
 	*/
-	class CImpact 
-	{
+	class CImpact {
 	private:
 		float m_impactFraction;
 		float m_realFraction;

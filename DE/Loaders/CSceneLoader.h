@@ -38,13 +38,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/Structure/Simple/CSimpleSceneNode.h"
 #include "../Scene/ISceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for daidalos engine scene files (.des)
 	*/
-	class CSceneLoader : public ILoader<IScene>
-	{
+	class CSceneLoader : public ILoader < IScene > {
 	private:
 		std::string m_filename;
 		ESceneNodeRootStructureType m_structure;

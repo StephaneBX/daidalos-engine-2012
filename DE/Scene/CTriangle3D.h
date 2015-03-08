@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CPlane3D.h"
 #include "../Scene/CSphere.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a 3d triangle
 	*/
-	class CTriangle3D 
-	{
+	class CTriangle3D {
 	protected:
 		CVector3F m_vertices[3];
 		CVector3F m_normals[3];
@@ -56,7 +54,7 @@ namespace DE
 		CMaterial m_material;
 		CSphereF m_circumSphere;
 		std::string m_materialElement;
-	
+
 	public:
 		/**
 		* Constructor

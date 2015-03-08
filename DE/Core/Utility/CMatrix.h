@@ -33,14 +33,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector4.h"
 #include "../../Core/Utility/CQuaternion.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CMatrix class
 	* Basic math class for matrixes
 	*/
-	class CMatrix
-	{
+	class CMatrix {
 	public:
 		float _11, _12, _13, _14;
 		float _21, _22, _23, _24;
@@ -52,9 +50,9 @@ namespace DE
 		CMatrix(const CMatrix & matrix);
 		CMatrix(const CVector3F & scale, const CVector3F & rotation, const CVector3F & translation);
 		CMatrix(const float m11, const float m12, const float m13, const float m14,
-				const float m21, const float m22, const float m23, const float m24,
-				const float m31, const float m32, const float m33, const float m34,
-				const float m41, const float m42, const float m43, const float m44);
+			const float m21, const float m22, const float m23, const float m24,
+			const float m31, const float m32, const float m33, const float m34,
+			const float m41, const float m42, const float m43, const float m44);
 		const CMatrix operator+(const CMatrix & matrix) const;
 		const CMatrix operator-(const CMatrix & matrix) const;
 		const CMatrix operator*(const CMatrix & matrix) const;
@@ -86,7 +84,7 @@ namespace DE
 		float & operator() (const unsigned int row, const unsigned int col);
 		operator float * ();
 		operator const float * () const;
-		void LookAt(const CVector3F & eye, const CVector3F & at, const CVector3F & up = CVector3F(0,1,0));
+		void LookAt(const CVector3F & eye, const CVector3F & at, const CVector3F & up = CVector3F(0, 1, 0));
 		void PerspectiveFOV(const float fovy, const float ratio, const float znear, const float zfar);
 		void OrthographicView(const float width, const float height, const float znear, const float zfar);
 		void OrthographicView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar);
@@ -106,8 +104,7 @@ namespace DE
 	/**
 	* Constructor
 	*/
-	inline CMatrix::CMatrix()
-	{
+	inline CMatrix::CMatrix() {
 		*this = Identity();
 	}
 
@@ -115,8 +112,7 @@ namespace DE
 	* Constructor
 	* @param matrix A CMatrix
 	*/
-	inline CMatrix::CMatrix(const CMatrix & matrix)
-	{
+	inline CMatrix::CMatrix(const CMatrix & matrix) {
 		*this = matrix;
 	}
 
@@ -126,8 +122,7 @@ namespace DE
 	* @param rotation The rotation vector in radian
 	* @param translation The translation vector
 	*/
-	inline CMatrix::CMatrix(const CVector3F & scale, const CVector3F & rotation, const CVector3F & translation)
-	{
+	inline CMatrix::CMatrix(const CVector3F & scale, const CVector3F & rotation, const CVector3F & translation) {
 		CMatrix scaleMatrix;
 		CMatrix rotationMatrix;
 		CMatrix translationMatrix;
@@ -161,10 +156,9 @@ namespace DE
 	* @param m44 Matrix element
 	*/
 	inline CMatrix::CMatrix(const float m11, const float m12, const float m13, const float m14,
-							const float m21, const float m22, const float m23, const float m24,
-							const float m31, const float m32, const float m33, const float m34,
-							const float m41, const float m42, const float m43, const float m44)
-	{
+		const float m21, const float m22, const float m23, const float m24,
+		const float m31, const float m32, const float m33, const float m34,
+		const float m41, const float m42, const float m43, const float m44) {
 		this->_11 = m11; this->_12 = m12; this->_13 = m13; this->_14 = m14;
 		this->_21 = m21; this->_22 = m22; this->_23 = m23; this->_24 = m24;
 		this->_31 = m31; this->_32 = m32; this->_33 = m33; this->_34 = m34;
@@ -176,12 +170,11 @@ namespace DE
 	* @param matrix A CMatrix
 	* @return A CMatrix
 	*/
-	inline const CMatrix CMatrix::operator+(const CMatrix & matrix) const
-	{
-		return CMatrix(	this->_11 + matrix._11, this->_12 + matrix._12, this->_13 + matrix._13, this->_14 + matrix._14,
-						this->_21 + matrix._21, this->_22 + matrix._22, this->_23 + matrix._23, this->_24 + matrix._24,
-						this->_31 + matrix._31, this->_32 + matrix._32, this->_33 + matrix._33, this->_34 + matrix._34,
-						this->_41 + matrix._41, this->_42 + matrix._42, this->_43 + matrix._43, this->_44 + matrix._44);
+	inline const CMatrix CMatrix::operator+(const CMatrix & matrix) const {
+		return CMatrix(this->_11 + matrix._11, this->_12 + matrix._12, this->_13 + matrix._13, this->_14 + matrix._14,
+			this->_21 + matrix._21, this->_22 + matrix._22, this->_23 + matrix._23, this->_24 + matrix._24,
+			this->_31 + matrix._31, this->_32 + matrix._32, this->_33 + matrix._33, this->_34 + matrix._34,
+			this->_41 + matrix._41, this->_42 + matrix._42, this->_43 + matrix._43, this->_44 + matrix._44);
 	}
 
 	/**
@@ -189,12 +182,11 @@ namespace DE
 	* @param matrix A CMatrix
 	* @return A CMatrix
 	*/
-	inline const CMatrix CMatrix::operator-(const CMatrix & matrix) const
-	{
-		return CMatrix(	this->_11 - matrix._11, this->_12 - matrix._12, this->_13 - matrix._13, this->_14 - matrix._14,
-						this->_21 - matrix._21, this->_22 - matrix._22, this->_23 - matrix._23, this->_24 - matrix._24,
-						this->_31 - matrix._31, this->_32 - matrix._32, this->_33 - matrix._33, this->_34 - matrix._34,
-						this->_41 - matrix._41, this->_42 - matrix._42, this->_43 - matrix._43, this->_44 - matrix._44);
+	inline const CMatrix CMatrix::operator-(const CMatrix & matrix) const {
+		return CMatrix(this->_11 - matrix._11, this->_12 - matrix._12, this->_13 - matrix._13, this->_14 - matrix._14,
+			this->_21 - matrix._21, this->_22 - matrix._22, this->_23 - matrix._23, this->_24 - matrix._24,
+			this->_31 - matrix._31, this->_32 - matrix._32, this->_33 - matrix._33, this->_34 - matrix._34,
+			this->_41 - matrix._41, this->_42 - matrix._42, this->_43 - matrix._43, this->_44 - matrix._44);
 	}
 
 	/**
@@ -202,48 +194,45 @@ namespace DE
 	* @param matrix A CMatrix
 	* @return A CMatrix
 	*/
-	inline const CMatrix CMatrix::operator*(const CMatrix & matrix) const
-	{
-		return CMatrix(	this->_11 * matrix._11 + this->_12 * matrix._21 + this->_13 * matrix._31 + this->_14 * matrix._41,
-						this->_11 * matrix._12 + this->_12 * matrix._22 + this->_13 * matrix._32 + this->_14 * matrix._42,
-						this->_11 * matrix._13 + this->_12 * matrix._23 + this->_13 * matrix._33 + this->_14 * matrix._43,
-						this->_11 * matrix._14 + this->_12 * matrix._24 + this->_13 * matrix._34 + this->_14 * matrix._44,
-						
-						this->_21 * matrix._11 + this->_22 * matrix._21 + this->_23 * matrix._31 + this->_24 * matrix._41,
-						this->_21 * matrix._12 + this->_22 * matrix._22 + this->_23 * matrix._32 + this->_24 * matrix._42,
-						this->_21 * matrix._13 + this->_22 * matrix._23 + this->_23 * matrix._33 + this->_24 * matrix._43,
-						this->_21 * matrix._14 + this->_22 * matrix._24 + this->_23 * matrix._34 + this->_24 * matrix._44,
-						
-						this->_31 * matrix._11 + this->_32 * matrix._21 + this->_33 * matrix._31 + this->_34 * matrix._41,
-						this->_31 * matrix._12 + this->_32 * matrix._22 + this->_33 * matrix._32 + this->_34 * matrix._42,
-						this->_31 * matrix._13 + this->_32 * matrix._23 + this->_33 * matrix._33 + this->_34 * matrix._43,
-						this->_31 * matrix._14 + this->_32 * matrix._24 + this->_33 * matrix._34 + this->_34 * matrix._44,
-						
-						this->_41 * matrix._11 + this->_42 * matrix._21 + this->_43 * matrix._31 + this->_44 * matrix._41,
-						this->_41 * matrix._12 + this->_42 * matrix._22 + this->_43 * matrix._32 + this->_44 * matrix._42,
-						this->_41 * matrix._13 + this->_42 * matrix._23 + this->_43 * matrix._33 + this->_44 * matrix._43,
-						this->_41 * matrix._14 + this->_42 * matrix._24 + this->_43 * matrix._34 + this->_44 * matrix._44);
-						
+	inline const CMatrix CMatrix::operator*(const CMatrix & matrix) const {
+		return CMatrix(this->_11 * matrix._11 + this->_12 * matrix._21 + this->_13 * matrix._31 + this->_14 * matrix._41,
+			this->_11 * matrix._12 + this->_12 * matrix._22 + this->_13 * matrix._32 + this->_14 * matrix._42,
+			this->_11 * matrix._13 + this->_12 * matrix._23 + this->_13 * matrix._33 + this->_14 * matrix._43,
+			this->_11 * matrix._14 + this->_12 * matrix._24 + this->_13 * matrix._34 + this->_14 * matrix._44,
+
+			this->_21 * matrix._11 + this->_22 * matrix._21 + this->_23 * matrix._31 + this->_24 * matrix._41,
+			this->_21 * matrix._12 + this->_22 * matrix._22 + this->_23 * matrix._32 + this->_24 * matrix._42,
+			this->_21 * matrix._13 + this->_22 * matrix._23 + this->_23 * matrix._33 + this->_24 * matrix._43,
+			this->_21 * matrix._14 + this->_22 * matrix._24 + this->_23 * matrix._34 + this->_24 * matrix._44,
+
+			this->_31 * matrix._11 + this->_32 * matrix._21 + this->_33 * matrix._31 + this->_34 * matrix._41,
+			this->_31 * matrix._12 + this->_32 * matrix._22 + this->_33 * matrix._32 + this->_34 * matrix._42,
+			this->_31 * matrix._13 + this->_32 * matrix._23 + this->_33 * matrix._33 + this->_34 * matrix._43,
+			this->_31 * matrix._14 + this->_32 * matrix._24 + this->_33 * matrix._34 + this->_34 * matrix._44,
+
+			this->_41 * matrix._11 + this->_42 * matrix._21 + this->_43 * matrix._31 + this->_44 * matrix._41,
+			this->_41 * matrix._12 + this->_42 * matrix._22 + this->_43 * matrix._32 + this->_44 * matrix._42,
+			this->_41 * matrix._13 + this->_42 * matrix._23 + this->_43 * matrix._33 + this->_44 * matrix._43,
+			this->_41 * matrix._14 + this->_42 * matrix._24 + this->_43 * matrix._34 + this->_44 * matrix._44);
+
 	}
 
 	/**
 	* - operator override
 	* @return A CMatrix
 	*/
-	inline const CMatrix CMatrix::operator-() const
-	{
-		return CMatrix(	-this->_11, -this->_12, -this->_13, -this->_14,
-						-this->_21, -this->_22, -this->_23, -this->_24, 
-						-this->_31, -this->_32, -this->_33, -this->_34, 
-						-this->_41, -this->_42, -this->_43, -this->_44);
+	inline const CMatrix CMatrix::operator-() const {
+		return CMatrix(-this->_11, -this->_12, -this->_13, -this->_14,
+			-this->_21, -this->_22, -this->_23, -this->_24,
+			-this->_31, -this->_32, -this->_33, -this->_34,
+			-this->_41, -this->_42, -this->_43, -this->_44);
 	}
 
 	/**
 	* Inverse a matrix
 	* @return The inversed matrix
 	*/
-	inline const CMatrix CMatrix::Inverse() const
-	{
+	inline const CMatrix CMatrix::Inverse() const {
 		CMatrix ret;
 
 		float a0 = this->_11 * this->_22 - this->_12 * this->_21;
@@ -261,26 +250,25 @@ namespace DE
 
 		float determinant = a0  *b5 - a1 * b4 + a2 * b3 + a3 * b2 - a4 * b1 + a5 * b0;
 
-		if(std::fabs(determinant) > EPSILON)
-		{
-			ret._11 =  this->_22 * b5 - this->_23 * b4 + this->_24 * b3;
+		if(std::fabs(determinant) > EPSILON) {
+			ret._11 = this->_22 * b5 - this->_23 * b4 + this->_24 * b3;
 			ret._21 = -this->_21 * b5 + this->_23 * b2 - this->_24 * b1;
-			ret._31 =  this->_21 * b4 - this->_22 * b2 + this->_11 * b0;
+			ret._31 = this->_21 * b4 - this->_22 * b2 + this->_11 * b0;
 			ret._41 = -this->_21 * b3 + this->_22 * b1 - this->_23 * b0;
 			ret._12 = -this->_12 * b5 + this->_13 * b4 - this->_14 * b3;
-			ret._22 =  this->_11 * b5 - this->_13 * b2 + this->_14 * b1;
+			ret._22 = this->_11 * b5 - this->_13 * b2 + this->_14 * b1;
 			ret._32 = -this->_11 * b4 + this->_12 * b2 - this->_14 * b0;
-			ret._42 =  this->_11 * b3 - this->_12 * b1 + this->_13 * b0;
-			ret._13 =  this->_42 * a5 - this->_43 * a4 + this->_44 * a3;
+			ret._42 = this->_11 * b3 - this->_12 * b1 + this->_13 * b0;
+			ret._13 = this->_42 * a5 - this->_43 * a4 + this->_44 * a3;
 			ret._23 = -this->_41 * a5 + this->_43 * a2 - this->_44 * a1;
-			ret._33 =  this->_41 * a4 - this->_42 * a2 + this->_44 * a0;
+			ret._33 = this->_41 * a4 - this->_42 * a2 + this->_44 * a0;
 			ret._43 = -this->_41 * a3 + this->_42 * a1 - this->_43 * a0;
 			ret._14 = -this->_32 * a5 + this->_33 * a4 - this->_34 * a3;
-			ret._24 =  this->_31 * a5 - this->_33 * a2 + this->_34 * a1;
+			ret._24 = this->_31 * a5 - this->_33 * a2 + this->_34 * a1;
 			ret._34 = -this->_31 * a4 + this->_32 * a2 - this->_34 * a0;
-			ret._44 =  this->_31 * a3 - this->_32 * a1 + this->_33 * a0;
+			ret._44 = this->_31 * a3 - this->_32 * a1 + this->_33 * a0;
 
-			float invDet = 1/determinant;
+			float invDet = 1 / determinant;
 			ret *= invDet;
 		}
 
@@ -291,87 +279,80 @@ namespace DE
 	* Transpose a matrix
 	* @return The transposed matrix
 	*/
-	inline const CMatrix CMatrix::Transpose() const
-	{
-		return CMatrix(	this->_11, this->_21, this->_31, this->_41,
-						this->_12, this->_22, this->_32, this->_42,
-						this->_13, this->_23, this->_33, this->_43,
-						this->_14, this->_24, this->_34, this->_44);
+	inline const CMatrix CMatrix::Transpose() const {
+		return CMatrix(this->_11, this->_21, this->_31, this->_41,
+			this->_12, this->_22, this->_32, this->_42,
+			this->_13, this->_23, this->_33, this->_43,
+			this->_14, this->_24, this->_34, this->_44);
 	}
 
 	/**
 	* Transform the matrix into an identity matrix
 	*/
-	inline const CMatrix CMatrix::Identity() const
-	{
-		return CMatrix(	1,0,0,0,
-						0,1,0,0,
-						0,0,1,0,
-						0,0,0,1);
+	inline const CMatrix CMatrix::Identity() const {
+		return CMatrix(1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
 	* Transform the matrix into a translation matrix
 	*/
-	inline const CMatrix CMatrix::SetTranslation(const float x, const float y, const float z) const
-	{
-		return CMatrix(	1,0,0,0,
-						0,1,0,0,
-						0,0,1,0,
-						x,y,z,1);
+	inline const CMatrix CMatrix::SetTranslation(const float x, const float y, const float z) const {
+		return CMatrix(1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			x, y, z, 1);
 	}
 
 	/**
 	* Transform the matrix into a scale matrix
 	*/
-	inline const CMatrix CMatrix::SetScale(const float x, const float y, const float z) const
-	{
-		return CMatrix(	x,0,0,0,
-						0,y,0,0,
-						0,0,z,0,
-						0,0,0,1);
+	inline const CMatrix CMatrix::SetScale(const float x, const float y, const float z) const {
+		return CMatrix(x, 0, 0, 0,
+			0, y, 0, 0,
+			0, 0, z, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
 	* Transform the matrix into a x rotation matrix
 	*/
-	inline const CMatrix CMatrix::SetRotationX(const float radian) const
-	{
+	inline const CMatrix CMatrix::SetRotationX(const float radian) const {
 		float cos = std::cos(radian);
 		float sin = std::sin(radian);
 
-		return CMatrix(	1	,0		,0		,0,
-						0	,cos	,sin	,0,
-						0	,-sin	,cos	,0,
-						0	,0		,0		,1);
+		return CMatrix(1, 0, 0, 0,
+			0, cos, sin, 0,
+			0, -sin, cos, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
 	* Transform the matrix into a y rotation matrix
 	*/
-	inline const CMatrix CMatrix::SetRotationY(const float radian) const
-	{
+	inline const CMatrix CMatrix::SetRotationY(const float radian) const {
 		float cos = std::cos(radian);
 		float sin = std::sin(radian);
 
-		return CMatrix(	cos	,0	,-sin	,0,
-						0	,1	,0		,0,
-						sin	,0	,cos	,0,
-						0	,0	,0		,1);
+		return CMatrix(cos, 0, -sin, 0,
+			0, 1, 0, 0,
+			sin, 0, cos, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
 	* Transform the matrix into a y rotation matrix
 	*/
-	inline const CMatrix CMatrix::SetRotationZ(const float radian) const
-	{
+	inline const CMatrix CMatrix::SetRotationZ(const float radian) const {
 		float cos = std::cos(radian);
 		float sin = std::sin(radian);
 
-		return CMatrix(	cos	,sin	,0	,0,
-						-sin	,cos,0	,0,
-						0	,0		,0	,0,
-						0	,0		,0	,1);
+		return CMatrix(cos, sin, 0, 0,
+			-sin, cos, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
@@ -379,47 +360,44 @@ namespace DE
 	* @param quat The CQuaternion
 	* @return A rotation matrix
 	*/
-	inline const CMatrix CMatrix::RotationQuaternion(const CQuaternion & quat) const
-	{
-		return CMatrix(	1.0f - 2.0f * (quat.y * quat.y + quat.z * quat.z),
-						2.0f * (quat.x * quat.y + quat.z * quat.w),
-						2.0f * (quat.x * quat.z - quat.y * quat.w),
-						0,
+	inline const CMatrix CMatrix::RotationQuaternion(const CQuaternion & quat) const {
+		return CMatrix(1.0f - 2.0f * (quat.y * quat.y + quat.z * quat.z),
+			2.0f * (quat.x * quat.y + quat.z * quat.w),
+			2.0f * (quat.x * quat.z - quat.y * quat.w),
+			0,
 
-						2.0f * (quat.x * quat.y - quat.z * quat.w),
-						1.0f - 2.0f * (quat.x * quat.x + quat.z * quat.z),
-						2.0f * (quat.y * quat.z + quat.x * quat.w),
-						0,
+			2.0f * (quat.x * quat.y - quat.z * quat.w),
+			1.0f - 2.0f * (quat.x * quat.x + quat.z * quat.z),
+			2.0f * (quat.y * quat.z + quat.x * quat.w),
+			0,
 
-						2.0f * (quat.x * quat.z + quat.y * quat.w),
-						2.0f * (quat.y * quat.z - quat.x * quat.w),
-						1.0f - 2.0f * (quat.x * quat.x + quat.y * quat.y),
-						0,
-						
-						0,
-						0,
-						0,
-						1);
+			2.0f * (quat.x * quat.z + quat.y * quat.w),
+			2.0f * (quat.y * quat.z - quat.x * quat.w),
+			1.0f - 2.0f * (quat.x * quat.x + quat.y * quat.y),
+			0,
+
+			0,
+			0,
+			0,
+			1);
 	}
 
 	/**
 	* Get a scale matrix
 	* @return A scale matrix
 	*/
-	inline const CMatrix CMatrix::GetScale() const
-	{
-		return CMatrix(	this->_11	,0				,0	,0,
-						0			,this->_22,0	,0,
-						0			,0				,this->_33	,0,
-						0			,0				,0	,1);
+	inline const CMatrix CMatrix::GetScale() const {
+		return CMatrix(this->_11, 0, 0, 0,
+			0, this->_22, 0, 0,
+			0, 0, this->_33, 0,
+			0, 0, 0, 1);
 	}
 
 	/**
 	* Get a rotation matrix
 	* @return A rotation matrix
 	*/
-	inline const CMatrix CMatrix::GetRotation() const
-	{
+	inline const CMatrix CMatrix::GetRotation() const {
 		CMatrix tmp = *this;
 		tmp._41 = 0;
 		tmp._42 = 0;
@@ -434,12 +412,11 @@ namespace DE
 	* @param normalize Normalize the result
 	* @return The transformed vector
 	*/
-	inline const CVector4F CMatrix::Transform(const CVector4F & vec, const bool normalize) const
-	{
-		CVector4F result = CVector4F(	vec.x * this->_11 + vec.y * this->_21 + vec.z * this->_31 + vec.w * this->_41,
-										vec.x * this->_12 + vec.y * this->_22 + vec.z * this->_32 + vec.w * this->_42,
-										vec.x * this->_13 + vec.y * this->_23 + vec.z * this->_33 + vec.w * this->_43,
-										vec.x * this->_14 + vec.y * this->_24 + vec.z * this->_34 + vec.w * this->_44);
+	inline const CVector4F CMatrix::Transform(const CVector4F & vec, const bool normalize) const {
+		CVector4F result = CVector4F(vec.x * this->_11 + vec.y * this->_21 + vec.z * this->_31 + vec.w * this->_41,
+			vec.x * this->_12 + vec.y * this->_22 + vec.z * this->_32 + vec.w * this->_42,
+			vec.x * this->_13 + vec.y * this->_23 + vec.z * this->_33 + vec.w * this->_43,
+			vec.x * this->_14 + vec.y * this->_24 + vec.z * this->_34 + vec.w * this->_44);
 		if(normalize)
 			result = result.Normalize();
 
@@ -452,12 +429,11 @@ namespace DE
 	* @param normalize Normalize the result
 	* @return The transformed vector
 	*/
-	inline const CVector3F CMatrix::Transform(const CVector3F & vec, const bool normalize) const
-	{
-		CVector3F result = CVector3F(	vec.x * this->_11 + vec.y * this->_21 + vec.z * this->_31 + this->_41,
-										vec.x * this->_12 + vec.y * this->_22 + vec.z * this->_32 + this->_42,
-										vec.x * this->_13 + vec.y * this->_23 + vec.z * this->_33 + this->_43);
-		
+	inline const CVector3F CMatrix::Transform(const CVector3F & vec, const bool normalize) const {
+		CVector3F result = CVector3F(vec.x * this->_11 + vec.y * this->_21 + vec.z * this->_31 + this->_41,
+			vec.x * this->_12 + vec.y * this->_22 + vec.z * this->_32 + this->_42,
+			vec.x * this->_13 + vec.y * this->_23 + vec.z * this->_33 + this->_43);
+
 		if(normalize)
 			result = result.Normalize();
 
@@ -468,8 +444,7 @@ namespace DE
 	* Get the translation
 	* @return The translation vector
 	*/
-	inline const CVector3F CMatrix::GetTranslation() const
-	{
+	inline const CVector3F CMatrix::GetTranslation() const {
 		return CVector3F(this->_41, this->_42, this->_43);
 	}
 
@@ -477,41 +452,31 @@ namespace DE
 	* Transform the matrix into a rotation quaternion
 	* @return A rotation quaternion
 	*/
-	inline const CQuaternion CMatrix::TransformRotation() const
-	{
+	inline const CQuaternion CMatrix::TransformRotation() const {
 		CQuaternion tmp;
 		const float trace = this->_11 + this->_22 + this->_33;
-		
-		if(trace > EPSILON)
-		{
+
+		if(trace > EPSILON) {
 			float scale = 0.5f / sqrtf(trace + 1.0f);
 			tmp.w = 0.25f / scale;
 			tmp.x = (this->_23 - this->_32) * scale;
 			tmp.y = (this->_31 - this->_13) * scale;
 			tmp.z = (this->_12 - this->_21) * scale;
-		}
-		else
-		{
-			if(this->_11 > this->_22 && this->_11 > this->_33)
-			{
+		} else {
+			if(this->_11 > this->_22 && this->_11 > this->_33) {
 				const float scale = 2.0f * sqrtf(1.0f + this->_11 - this->_22 - this->_33);
 				tmp.w = (this->_23 - this->_32) / scale;
 				tmp.x = 0.25f * scale;
 				tmp.y = (this->_21 + this->_12) / scale;
 				tmp.z = (this->_31 + this->_13) / scale;
-			}
-			else
-			{
-				if(this->_22 > this->_33)
-				{
+			} else {
+				if(this->_22 > this->_33) {
 					const float scale = 2.0f * sqrtf(1.0f + this->_22 - this->_11 - this->_33);
 					tmp.w = (this->_31 - this->_13) / scale;
 					tmp.x = (this->_21 + this->_12) / scale;
 					tmp.y = 0.25f * scale;
 					tmp.z = (this->_32 + this->_23) / scale;
-				}
-				else
-				{
+				} else {
 					const float scale = 2.0f * sqrtf(1.0f + this->_33 - this->_11 - this->_22);
 					tmp.w = (this->_12 - this->_21) / scale;
 					tmp.x = (this->_31 + this->_13) / scale;
@@ -520,7 +485,7 @@ namespace DE
 				}
 			}
 		}
-		
+
 		return tmp.Normalize();
 	}
 
@@ -529,8 +494,7 @@ namespace DE
 	* @param matrix A matrix
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator=(const CMatrix & matrix)
-	{
+	inline const CMatrix & CMatrix::operator=(const CMatrix & matrix) {
 		this->_11 = matrix._11; this->_12 = matrix._12; this->_13 = matrix._13; this->_14 = matrix._14;
 		this->_21 = matrix._21; this->_22 = matrix._22; this->_23 = matrix._23; this->_24 = matrix._24;
 		this->_31 = matrix._31; this->_32 = matrix._32; this->_33 = matrix._33; this->_34 = matrix._34;
@@ -543,8 +507,7 @@ namespace DE
 	* @param matrix A matrix
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator+=(const CMatrix & matrix)
-	{
+	inline const CMatrix & CMatrix::operator+=(const CMatrix & matrix) {
 		this->_11 += matrix._11; this->_12 += matrix._12; this->_13 += matrix._13; this->_14 += matrix._14;
 		this->_21 += matrix._21; this->_22 += matrix._22; this->_23 += matrix._23; this->_24 += matrix._24;
 		this->_31 += matrix._31; this->_32 += matrix._32; this->_33 += matrix._33; this->_34 += matrix._34;
@@ -557,8 +520,7 @@ namespace DE
 	* @param matrix A matrix
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator-=(const CMatrix & matrix)
-	{
+	inline const CMatrix & CMatrix::operator-=(const CMatrix & matrix) {
 		this->_11 -= matrix._11; this->_12 -= matrix._12; this->_13 -= matrix._13; this->_14 -= matrix._14;
 		this->_21 -= matrix._21; this->_22 -= matrix._22; this->_23 -= matrix._23; this->_24 -= matrix._24;
 		this->_31 -= matrix._31; this->_32 -= matrix._32; this->_33 -= matrix._33; this->_34 -= matrix._34;
@@ -571,8 +533,7 @@ namespace DE
 	* @param matrix A matrix
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator*=(const CMatrix & matrix)
-	{
+	inline const CMatrix & CMatrix::operator*=(const CMatrix & matrix) {
 		*this = *this * matrix;
 		return *this;
 	}
@@ -582,8 +543,7 @@ namespace DE
 	* @param number A float
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator*=(const float number)
-	{
+	inline const CMatrix & CMatrix::operator*=(const float number) {
 		*this = *this * number;
 		return *this;
 	}
@@ -593,12 +553,11 @@ namespace DE
 	* @param matrix A matrix
 	* @return The equal operation result
 	*/
-	inline const bool CMatrix::operator==(const CMatrix & matrix) const
-	{
+	inline const bool CMatrix::operator==(const CMatrix & matrix) const {
 		return (std::abs(this->_11 - matrix._11) < EPSILON && std::abs(this->_12 - matrix._12) < EPSILON && std::abs(this->_13 - matrix._13) < EPSILON && std::abs(this->_14 - matrix._14) < EPSILON &&
-				std::abs(this->_21 - matrix._21) < EPSILON && std::abs(this->_22 - matrix._22) < EPSILON && std::abs(this->_23 - matrix._23) < EPSILON && std::abs(this->_24 - matrix._24) < EPSILON &&
-				std::abs(this->_31 - matrix._31) < EPSILON && std::abs(this->_32 - matrix._32) < EPSILON && std::abs(this->_33 - matrix._33) < EPSILON && std::abs(this->_34 - matrix._34) < EPSILON &&
-				std::abs(this->_41 - matrix._41) < EPSILON && std::abs(this->_42 - matrix._42) < EPSILON && std::abs(this->_43 - matrix._43) < EPSILON && std::abs(this->_44 - matrix._44) < EPSILON);
+			std::abs(this->_21 - matrix._21) < EPSILON && std::abs(this->_22 - matrix._22) < EPSILON && std::abs(this->_23 - matrix._23) < EPSILON && std::abs(this->_24 - matrix._24) < EPSILON &&
+			std::abs(this->_31 - matrix._31) < EPSILON && std::abs(this->_32 - matrix._32) < EPSILON && std::abs(this->_33 - matrix._33) < EPSILON && std::abs(this->_34 - matrix._34) < EPSILON &&
+			std::abs(this->_41 - matrix._41) < EPSILON && std::abs(this->_42 - matrix._42) < EPSILON && std::abs(this->_43 - matrix._43) < EPSILON && std::abs(this->_44 - matrix._44) < EPSILON);
 	}
 
 	/**
@@ -606,8 +565,7 @@ namespace DE
 	* @param matrix A matrix
 	* @return The equal operation result
 	*/
-	inline const bool CMatrix::operator!=(const CMatrix & matrix) const
-	{
+	inline const bool CMatrix::operator!=(const CMatrix & matrix) const {
 		return !(*this == matrix);
 	}
 
@@ -615,8 +573,7 @@ namespace DE
 	* Get the determinant
 	* @return The determinant
 	*/
-	inline const float CMatrix::Determinant() const
-	{
+	inline const float CMatrix::Determinant() const {
 		float a0 = this->_11 * this->_22 - this->_12 * this->_21;
 		float a1 = this->_11 * this->_23 - this->_13 * this->_21;
 		float a2 = this->_11 * this->_24 - this->_14 * this->_21;
@@ -639,8 +596,7 @@ namespace DE
 	* @param col The column
 	* @return The value
 	*/
-	inline const float & CMatrix::operator() (const unsigned int row, const unsigned int col) const
-	{
+	inline const float & CMatrix::operator() (const unsigned int row, const unsigned int col) const {
 		return operator()(row, col);
 	}
 
@@ -650,17 +606,15 @@ namespace DE
 	* @param col The column
 	* @return The value
 	*/
-	inline float & CMatrix::operator() (const unsigned int row, const unsigned int col)
-	{
-		return operator float*()[row, col]; 
+	inline float & CMatrix::operator() (const unsigned int row, const unsigned int col) {
+		return operator float*()[row, col];
 	}
 
 	/**
 	* float * cast operator override
 	* @return A float pointer
 	*/
-	inline CMatrix::operator float * ()
-	{
+	inline CMatrix::operator float * () {
 		return &this->_11;
 	}
 
@@ -668,8 +622,7 @@ namespace DE
 	* float * cast operator override
 	* @return A float pointer
 	*/
-	inline CMatrix::operator const float * () const
-	{
+	inline CMatrix::operator const float * () const {
 		return &this->_11;
 	}
 
@@ -679,8 +632,7 @@ namespace DE
 	* @param at The looking coordinates
 	* @param up The up vector
 	*/
-	inline void CMatrix::LookAt(const CVector3F & eye, const CVector3F & at, const CVector3F & up)
-	{
+	inline void CMatrix::LookAt(const CVector3F & eye, const CVector3F & at, const CVector3F & up) {
 		CVector3F zAxis = (at - eye).Normalize();
 		CVector3F xAxis = up.CrossProduct(zAxis).Normalize();
 		CVector3F yAxis = zAxis.CrossProduct(xAxis).Normalize();
@@ -693,16 +645,15 @@ namespace DE
 
 	/**
 	* Create a perspective matrix
-	* @param fovy 
-	* @param ratio 
-	* @param znear 
-	* @param zfar 
+	* @param fovy
+	* @param ratio
+	* @param znear
+	* @param zfar
 	*/
-	inline void CMatrix::PerspectiveFOV(const float fovy, const float ratio, const float znear, const float zfar)
-	{
+	inline void CMatrix::PerspectiveFOV(const float fovy, const float ratio, const float znear, const float zfar) {
 		float yScale = std::cosf(fovy / 2.0f) / std::sinf(fovy / 2.0f);
 		float xScale = yScale / ratio;
-		float coeff  = zfar / (zfar - znear);
+		float coeff = zfar / (zfar - znear);
 
 		this->_11 = xScale; this->_12 = 0.0f;   this->_13 = 0.0f;			this->_14 = 0.0f;
 		this->_21 = 0.0f;   this->_22 = yScale; this->_23 = 0.0f;			this->_24 = 0.0f;
@@ -717,8 +668,7 @@ namespace DE
 	* @param znear The near plane
 	* @param zfar The far plane
 	*/
-	inline void CMatrix::OrthographicView(const float width, const float height, const float znear, const float zfar)
-	{
+	inline void CMatrix::OrthographicView(const float width, const float height, const float znear, const float zfar) {
 		this->_11 = 2 / width;	this->_12 = 0.0f;		this->_13 = 0.0f;						this->_14 = 0.0f;
 		this->_21 = 0.0f;		this->_22 = 2 / height;	this->_23 = 0.0f;						this->_24 = 0.0f;
 		this->_31 = 0.0f;		this->_32 = 0.0f;		this->_33 = 1 / (zfar - znear);			this->_34 = 0.0f;
@@ -734,8 +684,7 @@ namespace DE
 	* @param znear The near plane
 	* @param zfar The far plane
 	*/
-	inline void CMatrix::OrthographicView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar)
-	{
+	inline void CMatrix::OrthographicView(const float left, const float right, const float bottom, const float top, const float znear, const float zfar) {
 		this->_11 = 2 / (right - left);					this->_12 = 0.0f;								this->_13 = 0.0f;								this->_14 = 0.0f;
 		this->_21 = 0.0f;								this->_22 = 2 / (top - bottom);					this->_23 = 0.0f;								this->_24 = 0.0f;
 		this->_31 = 0.0f;								this->_32 = 0.0f;								this->_33 = 1 / (zfar - znear);					this->_34 = 0.0f;
@@ -750,10 +699,8 @@ namespace DE
 	* @param n The array size
 	* @param normalize If the data needs to be normalized
 	*/
-	inline void CMatrix::TransformArray(CVector3F * out, CVector3F * input, const CMatrix & matrix, const int n, const bool normalize)
-	{
-		for(int i = 0 ; i < n ; ++i)
-		{
+	inline void CMatrix::TransformArray(CVector3F * out, CVector3F * input, const CMatrix & matrix, const int n, const bool normalize) {
+		for(int i = 0; i < n; ++i) {
 			if(normalize)
 				out[i] = matrix.Transform(input[i]).Normalize();
 			else
@@ -766,8 +713,7 @@ namespace DE
 	* @param out The CMatrix
 	* @param quat The CQuaternion
 	*/
-	inline void CMatrix::RotationQuaternion(CMatrix & out, const CQuaternion & quat)
-	{
+	inline void CMatrix::RotationQuaternion(CMatrix & out, const CQuaternion & quat) {
 		out = out.RotationQuaternion(quat);
 	}
 
@@ -778,8 +724,7 @@ namespace DE
 	* @param outTranslation The translation vector
 	* @param matrix The matrix
 	*/
-	inline void CMatrix::Decompose(CVector3F & outScale, CQuaternion & outRotation, CVector3F & outTranslation, const CMatrix & matrix)
-	{
+	inline void CMatrix::Decompose(CVector3F & outScale, CQuaternion & outRotation, CVector3F & outTranslation, const CMatrix & matrix) {
 		// Scale
 		outScale.x = sqrtf(matrix._11 * matrix._11 + matrix._21 * matrix._21 + matrix._31 * matrix._31);
 		outScale.y = sqrtf(matrix._12 * matrix._12 + matrix._22 * matrix._22 + matrix._32 * matrix._32);
@@ -799,8 +744,7 @@ namespace DE
 	* @param translation A translation vector
 	* @return A translation matrix
 	*/
-	inline const CMatrix CMatrix::TranslationMatrix(const CVector3F & translation) 
-	{
+	inline const CMatrix CMatrix::TranslationMatrix(const CVector3F & translation) {
 		CMatrix matrix;
 		return matrix.SetTranslation(translation.x, translation.y, translation.z);
 	}
@@ -810,8 +754,7 @@ namespace DE
 	* @param rotation A rotation vector in radian
 	* @return A rotation matrix
 	*/
-	inline const CMatrix CMatrix::RotationMatrix(const CVector3F & rotation)
-	{
+	inline const CMatrix CMatrix::RotationMatrix(const CVector3F & rotation) {
 		CMatrix matrix;
 		CQuaternion quaternion;
 
@@ -825,8 +768,7 @@ namespace DE
 	* @param scale A scale vector
 	* @return A scale matrix
 	*/
-	inline const CMatrix CMatrix::ScaleMatrix(const CVector3F & scale)
-	{
+	inline const CMatrix CMatrix::ScaleMatrix(const CVector3F & scale) {
 		CMatrix matrix;
 		return matrix.SetScale(scale.x, scale.y, scale.z);
 	}
@@ -837,12 +779,11 @@ namespace DE
 	* @param number A float
 	* @return A CMatrix
 	*/
-	inline const CMatrix operator*(const CMatrix & matrix, const float number)
-	{
-		return CMatrix(	matrix._11 * number, matrix._12 * number, matrix._13 * number, matrix._14 * number,
-						matrix._21 * number, matrix._22 * number, matrix._23 * number, matrix._24 * number, 
-						matrix._31 * number, matrix._32 * number, matrix._33 * number, matrix._34 * number, 
-						matrix._41 * number, matrix._42 * number, matrix._43 * number, matrix._44 * number);
+	inline const CMatrix operator*(const CMatrix & matrix, const float number) {
+		return CMatrix(matrix._11 * number, matrix._12 * number, matrix._13 * number, matrix._14 * number,
+			matrix._21 * number, matrix._22 * number, matrix._23 * number, matrix._24 * number,
+			matrix._31 * number, matrix._32 * number, matrix._33 * number, matrix._34 * number,
+			matrix._41 * number, matrix._42 * number, matrix._43 * number, matrix._44 * number);
 	}
 
 	/**
@@ -851,8 +792,7 @@ namespace DE
 	* @param number A float
 	* @return A CMatrix
 	*/
-	inline const CMatrix operator*(const float number, const CMatrix & matrix)
-	{
+	inline const CMatrix operator*(const float number, const CMatrix & matrix) {
 		return matrix * number;
 	}
 
@@ -862,12 +802,11 @@ namespace DE
 	* @param number A float
 	* @return A CMatrix
 	*/
-	inline const CMatrix operator/(const CMatrix & matrix, const float number)
-	{
-		return CMatrix(	matrix._11 / number, matrix._12 / number, matrix._13 / number, matrix._14 / number,
-						matrix._21 / number, matrix._22 / number, matrix._23 / number, matrix._24 / number, 
-						matrix._31 / number, matrix._32 / number, matrix._33 / number, matrix._34 / number, 
-						matrix._41 / number, matrix._42 / number, matrix._43 / number, matrix._44 / number);
+	inline const CMatrix operator/(const CMatrix & matrix, const float number) {
+		return CMatrix(matrix._11 / number, matrix._12 / number, matrix._13 / number, matrix._14 / number,
+			matrix._21 / number, matrix._22 / number, matrix._23 / number, matrix._24 / number,
+			matrix._31 / number, matrix._32 / number, matrix._33 / number, matrix._34 / number,
+			matrix._41 / number, matrix._42 / number, matrix._43 / number, matrix._44 / number);
 	}
 
 	/**
@@ -876,8 +815,7 @@ namespace DE
 	* @param number A float
 	* @return A CMatrix
 	*/
-	inline const CMatrix operator/(const float number, const CMatrix & matrix)
-	{
+	inline const CMatrix operator/(const float number, const CMatrix & matrix) {
 		return matrix / number;
 	}
 }

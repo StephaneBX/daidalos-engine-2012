@@ -33,16 +33,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ISceneNode.h"
 #include "../Medias/CBuffer.h"
 
-namespace DE
-{
+namespace DE {
 	#define DEBUG_LINES_COUNT 16
 	#define DEBUG_LINES_STRIDE sizeof(CVector3F)
 
 	/**
 	* Structure that hold view frustum information
 	*/
-	struct SViewFrustum
-	{
+	struct SViewFrustum {
 		CVector3F forward;
 		CVector3F absolutePoints[FRUSTUM_POINT_SIZE];
 		CVector3F relativePoints[FRUSTUM_POINT_SIZE];
@@ -52,8 +50,7 @@ namespace DE
 	/**
 	* Handle a camera
 	*/
-	class ICameraSceneNode : public ISceneNode
-	{
+	class ICameraSceneNode : public ISceneNode {
 	protected:
 		float m_nearDistance;
 		float m_farDistance;

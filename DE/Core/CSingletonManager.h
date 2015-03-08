@@ -30,14 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <iostream>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CSingletonManager class.
 	* Manages the singleton classes.
 	*/
-	template <typename T> class CSingletonManager
-	{
+	template <typename T> class CSingletonManager {
 	protected:
 		/**
 		* Constructor
@@ -54,10 +52,10 @@ namespace DE
 		* Return the instance
 		* @return The instance
 		*/
-		static T * GetInstance()
-		{
-			if(s_instance == nullptr)
+		static T * GetInstance() {
+			if(s_instance == nullptr) {
 				s_instance = new T;
+			}
 
 			return ((T *)s_instance);
 		}
@@ -65,10 +63,8 @@ namespace DE
 		/**
 		* Kill the instance
 		*/
-		static void Kill()
-		{
-			if(s_instance != nullptr)
-			{
+		static void Kill() {
+			if(s_instance != nullptr) {
 				delete s_instance;
 				s_instance = nullptr;
 			}

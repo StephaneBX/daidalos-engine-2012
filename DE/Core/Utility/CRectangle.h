@@ -31,10 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <algorithm>
 #include "../../Core/Utility/CVector2.h"
 
-namespace DE
-{
-	enum ERectangleIntersection
-	{
+namespace DE {
+	enum ERectangleIntersection {
 		RECTANGLE_INTERSECTION_OUTSIDE,
 		RECTANGLE_INTERSECTION_INSIDE,
 		RECTANGLE_INTERSECTION_INTERSECT
@@ -44,14 +42,13 @@ namespace DE
 	* Rectangle template class
 	* Handle a rectangle
 	*/
-	template <class T> class CRectangle
-	{
+	template <class T> class CRectangle {
 	private:
 		CVector2<T> m_topLeft;
 		CVector2<T> m_bottomRight;
 
 	public:
-		CRectangle(const CVector2<T> & origin = CVector2<T>(0,0), const CVector2<T> & size = CVector2<T>(0,0));
+		CRectangle(const CVector2<T> & origin = CVector2<T>(0, 0), const CVector2<T> & size = CVector2<T>(0, 0));
 		CRectangle(const T x, const T y, const T width, const T height);
 		const T GetTop() const;
 		const T GetLeft() const;
@@ -86,8 +83,7 @@ namespace DE
 	* @param origin The top-left point
 	* @param size The rectangle size
 	*/
-	template <class T> inline CRectangle<T>::CRectangle(const CVector2<T> & origin, const CVector2<T> & size)
-	{
+	template <class T> inline CRectangle<T>::CRectangle(const CVector2<T> & origin, const CVector2<T> & size) {
 		this->m_topLeft = origin;
 		this->m_bottomRight = origin + size;
 	}
@@ -99,8 +95,7 @@ namespace DE
 	* @param width The width
 	* @param height The height
 	*/
-	template <class T> inline CRectangle<T>::CRectangle(const T x, const T y, const T width, const T height)
-	{
+	template <class T> inline CRectangle<T>::CRectangle(const T x, const T y, const T width, const T height) {
 		this->m_topLeft.x = x;
 		this->m_topLeft.y = y;
 		this->m_bottomRight.x = x + width;
@@ -111,8 +106,7 @@ namespace DE
 	* Get the top coordinate
 	* @return The top coordinate
 	*/
-	template <class T> inline const T CRectangle<T>::GetTop() const
-	{
+	template <class T> inline const T CRectangle<T>::GetTop() const {
 		return this->m_topLeft.y;
 	}
 
@@ -120,8 +114,7 @@ namespace DE
 	* Get the left coordinate
 	* @return The left coordinate
 	*/
-	template <class T> inline const T CRectangle<T>::GetLeft() const
-	{
+	template <class T> inline const T CRectangle<T>::GetLeft() const {
 		return this->m_topLeft.x;
 	}
 
@@ -129,8 +122,7 @@ namespace DE
 	* Get the bottom coordinate
 	* @return The bottom coordinate
 	*/
-	template <class T> inline const T CRectangle<T>::GetBottom() const
-	{
+	template <class T> inline const T CRectangle<T>::GetBottom() const {
 		return this->m_bottomRight.y;
 	}
 
@@ -138,8 +130,7 @@ namespace DE
 	* Get the right coordinate
 	* @return The right coordinate
 	*/
-	template <class T> inline const T CRectangle<T>::GetRight() const
-	{
+	template <class T> inline const T CRectangle<T>::GetRight() const {
 		return this->m_bottomRight.x;
 	}
 
@@ -147,8 +138,7 @@ namespace DE
 	* Get the size
 	* @return The size
 	*/
-	template <class T> inline const CVector2<T> CRectangle<T>::GetSize() const
-	{
+	template <class T> inline const CVector2<T> CRectangle<T>::GetSize() const {
 		return CVector2<T>(GetWidth(), GetHeight());
 	}
 
@@ -156,8 +146,7 @@ namespace DE
 	* Get the width
 	* @return The width
 	*/
-	template <class T> inline const T CRectangle<T>::GetWidth() const
-	{
+	template <class T> inline const T CRectangle<T>::GetWidth() const {
 		return this->m_bottomRight.x - this->m_topLeft.x;
 	}
 
@@ -165,8 +154,7 @@ namespace DE
 	* Get the height
 	* @return The height
 	*/
-	template <class T> inline const T CRectangle<T>::GetHeight() const
-	{
+	template <class T> inline const T CRectangle<T>::GetHeight() const {
 		return this->m_bottomRight.y - this->m_topLeft.y;
 	}
 
@@ -175,8 +163,7 @@ namespace DE
 	* @param value CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> CRectangle<T>::operator+(const CVector2<T> & value) const
-	{
+	template <class T> inline const CRectangle<T> CRectangle<T>::operator+(const CVector2<T> & value) const {
 		CRectangle<T> tmp(*this);
 		tmp.m_bottomRight += value;
 		tmp.m_topLeft += value;
@@ -188,8 +175,7 @@ namespace DE
 	* @param value CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> CRectangle<T>::operator-(const CVector2<T> & value) const
-	{
+	template <class T> inline const CRectangle<T> CRectangle<T>::operator-(const CVector2<T> & value) const {
 		CRectangle<T> tmp(*this);
 		tmp.m_bottomRight -= value;
 		tmp.m_topLeft -= value;
@@ -201,8 +187,7 @@ namespace DE
 	* @param value A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> & CRectangle<T>::operator+=(const CVector2<T> & value)
-	{
+	template <class T> inline const CRectangle<T> & CRectangle<T>::operator+=(const CVector2<T> & value) {
 		this->m_bottomRight += value;
 		this->m_topLeft += value;
 		return *this;
@@ -213,8 +198,7 @@ namespace DE
 	* @param value A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> & CRectangle<T>::operator-=(const CVector2<T> & value)
-	{
+	template <class T> inline const CRectangle<T> & CRectangle<T>::operator-=(const CVector2<T> & value) {
 		this->m_bottomRight -= value;
 		this->m_topLeft -= value;
 		return *this;
@@ -225,8 +209,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> & CRectangle<T>::operator*=(const T number)
-	{
+	template <class T> inline const CRectangle<T> & CRectangle<T>::operator*=(const T number) {
 		this->m_bottomRight *= number;
 		this->m_topLeft *= number;
 		return *this;
@@ -237,8 +220,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> & CRectangle<T>::operator/=(const T number)
-	{
+	template <class T> inline const CRectangle<T> & CRectangle<T>::operator/=(const T number) {
 		this->m_bottomRight /= number;
 		this->m_topLeft /= number;
 		return *this;
@@ -249,8 +231,7 @@ namespace DE
 	* @param rect A CRectangle
 	* @return The equal operation result
 	*/
-	template <class T> inline const bool CRectangle<T>::operator==(const CRectangle<T> & rect) const
-	{
+	template <class T> inline const bool CRectangle<T>::operator==(const CRectangle<T> & rect) const {
 		return this->m_topLeft == rect.m_topLeft && this->m_bottomRight == rect.m_bottomRight;
 	}
 
@@ -259,8 +240,7 @@ namespace DE
 	* @param rect A CRectangle
 	* @return The non equal operation result
 	*/
-	template <class T> inline const bool CRectangle<T>::operator!=(const CRectangle<T> & rect) const
-	{
+	template <class T> inline const bool CRectangle<T>::operator!=(const CRectangle<T> & rect) const {
 		return !(*this == rect);
 	}
 
@@ -269,8 +249,7 @@ namespace DE
 	* @param point The point coordinates
 	* @return The intersection result as a ERectangeIntersection
 	*/
-	template <class T> inline ERectangleIntersection CRectangle<T>::Intersect(const CVector2<T> & point) const
-	{
+	template <class T> inline ERectangleIntersection CRectangle<T>::Intersect(const CVector2<T> & point) const {
 		if(point.x >= this->m_topLeft.x && point.x <= this->m_bottomRight.x && point.y >= this->m_topLeft.y && point.y <= this->m_bottomRight.y)
 			return RECTANGLE_INTERSECTION_INSIDE;
 		else
@@ -282,8 +261,7 @@ namespace DE
 	* @param rect The rectangle
 	* @return The intersection result as a ERectangeIntersection
 	*/
-	template <class T> inline ERectangleIntersection CRectangle<T>::Intersect(const CRectangle<T> & rect) const
-	{
+	template <class T> inline ERectangleIntersection CRectangle<T>::Intersect(const CRectangle<T> & rect) const {
 		CVector2<T> start = CVector2<T>(std::max(this->m_topLeft.x, rect.m_topLeft.x), std::max(this->m_topLeft.y, rect.m_topLeft.y));
 		CVector2<T> end = CVector2<T>(std::min(this->m_bottomRight.x, rect.m_bottomRight.x), std::min(this->m_bottomRight.y, rect.m_bottomRight.y));
 		CRectangle<T> tmp = CRectangle<T>(start, end - start);
@@ -303,8 +281,7 @@ namespace DE
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator+(const CRectangle<T> & rectangle, const CVector2<T> & value)
-	{
+	template <class T> inline const CRectangle<T> operator+(const CRectangle<T> & rectangle, const CVector2<T> & value) {
 		CRectangle<T> tmp(rectangle);
 		tmp += value;
 		return tmp;
@@ -316,8 +293,7 @@ namespace DE
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator+(const CVector2<T> & value, const CRectangle<T> & rectangle)
-	{
+	template <class T> inline const CRectangle<T> operator+(const CVector2<T> & value, const CRectangle<T> & rectangle) {
 		return rectangle + value;
 	}
 
@@ -327,8 +303,7 @@ namespace DE
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator-(const CRectangle<T> & rectangle, const CVector2<T> & value)
-	{
+	template <class T> inline const CRectangle<T> operator-(const CRectangle<T> & rectangle, const CVector2<T> & value) {
 		CRectangle<T> tmp(rectangle);
 		tmp -= value;
 		return tmp;
@@ -340,8 +315,7 @@ namespace DE
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator-(const CVector2<T> & value, const CRectangle<T> & rectangle)
-	{
+	template <class T> inline const CRectangle<T> operator-(const CVector2<T> & value, const CRectangle<T> & rectangle) {
 		return rectangle - value;
 	}
 
@@ -351,8 +325,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator*(const CRectangle<T> & rectangle, const T number)
-	{
+	template <class T> inline const CRectangle<T> operator*(const CRectangle<T> & rectangle, const T number) {
 		CRectangle<T> tmp(rectangle);
 		tmp *= number;
 		return tmp;
@@ -364,8 +337,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator*(const T number, const CRectangle<T> & rectangle)
-	{
+	template <class T> inline const CRectangle<T> operator*(const T number, const CRectangle<T> & rectangle) {
 		return rectangle * number;
 	}
 
@@ -375,8 +347,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator/(const CRectangle<T> & rectangle, const T number)
-	{
+	template <class T> inline const CRectangle<T> operator/(const CRectangle<T> & rectangle, const T number) {
 		CRectangle<T> tmp(rectangle);
 		tmp /= number;
 		return tmp;
@@ -388,8 +359,7 @@ namespace DE
 	* @param number A number
 	* @return The CRectangle
 	*/
-	template <class T> inline const CRectangle<T> operator/(const T number, const CRectangle<T> & rectangle)
-	{
+	template <class T> inline const CRectangle<T> operator/(const T number, const CRectangle<T> & rectangle) {
 		return rectangle / number;
 	}
 

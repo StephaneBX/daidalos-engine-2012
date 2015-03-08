@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for buffers
 	*/
-	class IBufferBase : public IResource
-	{
+	class IBufferBase : public IResource {
 	private:
 		unsigned long m_size;
 

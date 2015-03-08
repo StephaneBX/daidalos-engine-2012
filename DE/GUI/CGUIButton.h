@@ -35,13 +35,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CInset.h"
 #include "../Medias/CTexture2D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for gui button
 	*/
-	class CGUIButton : public IGUIView
-	{
+	class CGUIButton : public IGUIView {
 	private:
 		bool m_enabled;
 		bool m_clicked;

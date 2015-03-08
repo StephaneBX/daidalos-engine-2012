@@ -32,14 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <sstream>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CFPSCounter class.
 	* Manages the fps calculation.
 	*/
-	class CFPSCounter
-	{
+	class CFPSCounter {
 	private:
 		int m_frameCount;
 		int m_frameCountRate;

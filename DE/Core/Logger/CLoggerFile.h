@@ -32,14 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <fstream>
 #include "../../Core/Logger/ILogger.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CLoggerFile class
 	* Log data into a file
 	*/
-	class CLoggerFile : public ILogger
-	{
+	class CLoggerFile : public ILogger {
 	private:
 		std::ofstream m_outputStream;
 

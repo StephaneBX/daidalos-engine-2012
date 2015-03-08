@@ -31,20 +31,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CAnimatedMesh.h"
 #include "../Scene/IMeshSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Mesh scene node for animated meshes
 	*/
-	class CAnimatedMeshSceneNode : public IMeshSceneNode
-	{
+	class CAnimatedMeshSceneNode : public IMeshSceneNode {
 	protected:
 		float m_animationStart;
 		float m_animationEnd;
 		float m_animationSpeed;
 		EMeshAnimationState m_animationState;
 		CAnimatedMesh m_mesh;
-		
+
 	public:
 		/**
 		* Constructor

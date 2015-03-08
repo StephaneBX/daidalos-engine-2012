@@ -30,14 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Windows.h>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CTimer class.
 	* Manages time.
 	*/
-	class CTimer 
-	{
+	class CTimer {
 	protected:
 		double m_start;
 		double m_stop;
@@ -50,14 +48,13 @@ namespace DE
 		/**
 		* Constructor
 		*/
-		CTimer() 
-		{
+		CTimer() {
 			LARGE_INTEGER timer;
 			this->m_corr = 0.0;
-			QueryPerformanceFrequency(&timer); 
-			this->m_freq = double(timer.QuadPart); 
-			this->m_start = Get(); 
-			this->m_stop = Get(); 
+			QueryPerformanceFrequency(&timer);
+			this->m_freq = double(timer.QuadPart);
+			this->m_start = Get();
+			this->m_stop = Get();
 			this->m_corr = this->m_stop - this->m_start;
 			this->m_last = Get();
 		};
@@ -67,12 +64,11 @@ namespace DE
 		* @param pt A point to save the time into
 		* @return The current time
 		*/
-		double Get(double * pt = nullptr) 
-		{
+		double Get(double * pt = nullptr) {
 			LARGE_INTEGER timer;
 			QueryPerformanceCounter(&timer);
 			double t = (double)timer.QuadPart / this->m_freq;
-			if (pt != nullptr) *pt = t;
+			if(pt != nullptr) *pt = t;
 			return t;
 		};
 
@@ -80,8 +76,7 @@ namespace DE
 		* Get the elapsed time
 		* @return The elapsed time
 		*/
-		double Elapsed() 
-		{
+		double Elapsed() {
 			double tcur = Get();
 			return tcur - this->m_last - this->m_corr;
 		};
@@ -90,8 +85,7 @@ namespace DE
 		* Get the delta
 		* @return The delta
 		*/
-		double Delta() 
-		{
+		double Delta() {
 			double tsave = this->m_last;
 			this->m_last = Get();
 			return this->m_last - tsave - this->m_corr;

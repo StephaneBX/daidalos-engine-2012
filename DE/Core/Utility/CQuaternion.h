@@ -32,14 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Core.h"
 #include "../../Core/Utility/CVector3.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CQuaternion class
 	* Basic math class for quaternions
 	*/
-	class CQuaternion
-	{
+	class CQuaternion {
 	public:
 		float x;
 		float y;
@@ -98,8 +96,7 @@ namespace DE
 	/**
 	* Constructor
 	*/
-	inline CQuaternion::CQuaternion()
-	{
+	inline CQuaternion::CQuaternion() {
 		this->x = 0;
 		this->y = 0;
 		this->z = 0;
@@ -110,8 +107,7 @@ namespace DE
 	* Constructor
 	* @param quat A CQuaternion
 	*/
-	inline CQuaternion::CQuaternion(const CQuaternion & quat)
-	{
+	inline CQuaternion::CQuaternion(const CQuaternion & quat) {
 		this->x = quat.x;
 		this->y = quat.y;
 		this->z = quat.z;
@@ -123,8 +119,7 @@ namespace DE
 	* @param vec A CVector3 representing euler equations
 	* @param angle The angle
 	*/
-	inline CQuaternion::CQuaternion(const CVector3F & vec, const float angle)
-	{
+	inline CQuaternion::CQuaternion(const CVector3F & vec, const float angle) {
 		float cos = std::cos(angle / 2);
 		float sin = std::sin(angle / 2);
 
@@ -143,8 +138,7 @@ namespace DE
 	* @param z The z coordinate
 	* @param w The w coordinate
 	*/
-	inline CQuaternion::CQuaternion(const float x, const float y, const float z, const float w)
-	{
+	inline CQuaternion::CQuaternion(const float x, const float y, const float z, const float w) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -155,8 +149,7 @@ namespace DE
 	* Constructor
 	* @param f The coordinate
 	*/
-	inline CQuaternion::CQuaternion(const float * const f)
-	{
+	inline CQuaternion::CQuaternion(const float * const f) {
 		this->x = f[0];
 		this->y = f[1];
 		this->z = f[2];
@@ -168,8 +161,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::operator+(const CQuaternion & quat) const
-	{
+	inline const CQuaternion CQuaternion::operator+(const CQuaternion & quat) const {
 		CQuaternion tmp(*this);
 		tmp.x += quat.x;
 		tmp.y += quat.y;
@@ -183,8 +175,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::operator-(const CQuaternion & quat) const
-	{
+	inline const CQuaternion CQuaternion::operator-(const CQuaternion & quat) const {
 		CQuaternion tmp(*this);
 		tmp.x -= quat.x;
 		tmp.y -= quat.y;
@@ -198,8 +189,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::operator*(const CQuaternion & quat) const
-	{
+	inline const CQuaternion CQuaternion::operator*(const CQuaternion & quat) const {
 		CQuaternion tmp;
 
 		tmp.x = (quat.w * this->x) + (quat.x * this->w) + (quat.y * this->z) - (quat.z * this->y);
@@ -215,8 +205,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::operator/(const CQuaternion & quat) const
-	{
+	inline const CQuaternion CQuaternion::operator/(const CQuaternion & quat) const {
 		return *this * quat.Inverse();
 	}
 
@@ -224,8 +213,7 @@ namespace DE
 	* - operator override
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::operator-() const
-	{
+	inline const CQuaternion CQuaternion::operator-() const {
 		CQuaternion tmp(*this);
 		tmp.x *= -1;
 		tmp.y *= -1;
@@ -237,19 +225,17 @@ namespace DE
 	/**
 	* Inverse the CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::Inverse() const
-	{
+	inline const CQuaternion CQuaternion::Inverse() const {
 		CQuaternion tmp(*this);
 		tmp = tmp.Normalize();
-		
+
 		return CQuaternion(-tmp.x, -tmp.y, -tmp.z, tmp.w);
 	}
 
 	/**
 	* Normalize the CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::Normalize() const
-	{
+	inline const CQuaternion CQuaternion::Normalize() const {
 		const float length = Length();
 		CQuaternion tmp;
 
@@ -264,19 +250,16 @@ namespace DE
 	/**
 	* Logarithm of a CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::Log() const
-	{
+	inline const CQuaternion CQuaternion::Log() const {
 		CQuaternion tmp;
 		const float theta = acos(this->w);
 		const float sinTheta = sin(theta);
 
-		if(fabs(sinTheta) > EPSILON)
-		{
+		if(fabs(sinTheta) > EPSILON) {
 			tmp = (*this * theta) / sinTheta;
 			tmp.w = 0;
-		}
-		else
-			tmp = CQuaternion(0,0,0,0);
+		} else
+			tmp = CQuaternion(0, 0, 0, 0);
 
 		return tmp;
 	}
@@ -284,21 +267,19 @@ namespace DE
 	/**
 	* Exponential of a CQuaternion
 	*/
-	inline const CQuaternion CQuaternion::Exp() const
-	{
+	inline const CQuaternion CQuaternion::Exp() const {
 		CQuaternion tmp;
 		const float theta = sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 		const float sinTheta = sin(theta);
 		const float cosTheta = cos(theta);
 
 		tmp.w = cosTheta;
-		if(theta > EPSILON)
-		{
+		if(theta > EPSILON) {
 			tmp.x = this->x * sinTheta / theta;
 			tmp.y = this->y * sinTheta / theta;
 			tmp.z = this->z * sinTheta / theta;
 		}
-		
+
 		return tmp;
 	}
 
@@ -307,8 +288,7 @@ namespace DE
 	* @param f The power factor
 	* @return The quaternion
 	*/
-	inline const CQuaternion CQuaternion::Power(const float f) const
-	{
+	inline const CQuaternion CQuaternion::Power(const float f) const {
 		return (Log() * f).Exp();
 	}
 
@@ -319,13 +299,12 @@ namespace DE
 	* @param angleZ The Roll
 	* @return The quaternion
 	*/
-	inline const CQuaternion CQuaternion::YawPitchRoll(const float angleX, const float angleY, const float angleZ) const
-	{
+	inline const CQuaternion CQuaternion::YawPitchRoll(const float angleX, const float angleY, const float angleZ) const {
 		CQuaternion qx(CVector3F(1, 0, 0), angleX);
 		CQuaternion qy(CVector3F(0, 1, 0), angleY);
 		CQuaternion qz(CVector3F(0, 0, 1), angleZ);
 
-		return qz * qx * qy;		
+		return qz * qx * qy;
 	}
 
 	/**
@@ -334,8 +313,7 @@ namespace DE
 	* @param t The linear factor
 	* @return The quaternion
 	*/
-	inline const CQuaternion CQuaternion::Lerp(const CQuaternion & quat2, const float t) const
-	{
+	inline const CQuaternion CQuaternion::Lerp(const CQuaternion & quat2, const float t) const {
 		return (*this * (1.0f - t) + quat2 * t).Normalize();
 	}
 
@@ -345,8 +323,7 @@ namespace DE
 	* @param t The linear factor
 	* @return The quaternion
 	*/
-	inline const CQuaternion CQuaternion::Slerp(const CQuaternion & quat2, const float t) const
-	{
+	inline const CQuaternion CQuaternion::Slerp(const CQuaternion & quat2, const float t) const {
 		CQuaternion tmp;
 		if(DotProduct(quat2) >= 0)
 			tmp = *this * (Inverse() * quat2).Power(t);
@@ -361,8 +338,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator=(const CQuaternion & quat)
-	{
+	inline const CQuaternion & CQuaternion::operator=(const CQuaternion & quat) {
 		this->x = quat.x;
 		this->y = quat.y;
 		this->z = quat.z;
@@ -375,8 +351,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator+=(const CQuaternion & quat)
-	{
+	inline const CQuaternion & CQuaternion::operator+=(const CQuaternion & quat) {
 		this->x += quat.x;
 		this->y += quat.y;
 		this->z += quat.z;
@@ -389,8 +364,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator-=(const CQuaternion & quat)
-	{
+	inline const CQuaternion & CQuaternion::operator-=(const CQuaternion & quat) {
 		this->x -= quat.x;
 		this->y -= quat.y;
 		this->z -= quat.z;
@@ -403,8 +377,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator*=(const CQuaternion & quat)
-	{
+	inline const CQuaternion & CQuaternion::operator*=(const CQuaternion & quat) {
 		*this = *this * quat;
 		return *this;
 	}
@@ -414,8 +387,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator*=(const float number)
-	{
+	inline const CQuaternion & CQuaternion::operator*=(const float number) {
 		*this = *this * number;
 		return *this;
 	}
@@ -425,8 +397,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator/=(const CQuaternion & quat)
-	{
+	inline const CQuaternion & CQuaternion::operator/=(const CQuaternion & quat) {
 		*this = *this / quat;
 		return *this;
 	}
@@ -436,8 +407,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator/=(const float number)
-	{
+	inline const CQuaternion & CQuaternion::operator/=(const float number) {
 		*this = *this / number;
 		return *this;
 	}
@@ -447,8 +417,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The equal result
 	*/
-	inline const bool CQuaternion::operator==(const CQuaternion & quat) const
-	{
+	inline const bool CQuaternion::operator==(const CQuaternion & quat) const {
 		return std::abs(this->x - quat.x) < EPSILON && std::abs(this->y - quat.y) < EPSILON && std::abs(this->z - quat.z) < EPSILON && std::abs(this->w - quat.w) < EPSILON;
 	}
 
@@ -457,8 +426,7 @@ namespace DE
 	* @param quat CQuaternion
 	* @return The !equal result
 	*/
-	inline const bool CQuaternion::operator!=(const CQuaternion & quat) const
-	{
+	inline const bool CQuaternion::operator!=(const CQuaternion & quat) const {
 		return !(*this == quat);
 	}
 
@@ -466,8 +434,7 @@ namespace DE
 	* Get the length
 	* @return The length
 	*/
-	inline const float CQuaternion::Length() const
-	{
+	inline const float CQuaternion::Length() const {
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w);
 	}
 
@@ -476,8 +443,7 @@ namespace DE
 	* @param quat The second CQuaternion
 	* @return The dot product
 	*/
-	inline const float CQuaternion::DotProduct(const CQuaternion & quat) const
-	{
+	inline const float CQuaternion::DotProduct(const CQuaternion & quat) const {
 		return (this->x * quat.x) + (this->y * quat.y) + (this->z * quat.z) + (this->w * quat.w);
 	}
 
@@ -485,8 +451,7 @@ namespace DE
 	* float * cast operator override
 	* @return A float pointer
 	*/
-	inline CQuaternion::operator float * ()
-	{
+	inline CQuaternion::operator float * () {
 		return &this->x;
 	}
 
@@ -494,8 +459,7 @@ namespace DE
 	* float * cast operator override
 	* @return A float pointer
 	*/
-	inline CQuaternion::operator const float * () const
-	{
+	inline CQuaternion::operator const float * () const {
 		return &this->x;
 	}
 
@@ -504,8 +468,7 @@ namespace DE
 	* @param quat A CQuaternion
 	* @return The length
 	*/
-	inline const float CQuaternion::Length(const CQuaternion & quat)
-	{
+	inline const float CQuaternion::Length(const CQuaternion & quat) {
 		return quat.Length();
 	}
 
@@ -515,8 +478,7 @@ namespace DE
 	* @param quat2 The second CQuaternion
 	* @return The dot product
 	*/
-	inline const float CQuaternion::DotProduct(const CQuaternion & quat1, const CQuaternion & quat2)
-	{
+	inline const float CQuaternion::DotProduct(const CQuaternion & quat1, const CQuaternion & quat2) {
 		return quat1.DotProduct(quat2);
 	}
 
@@ -524,8 +486,7 @@ namespace DE
 	* Inverse a CQuaternion
 	* @param quat A CQuaternion
 	*/
-	inline void CQuaternion::Inverse(CQuaternion & quat)
-	{
+	inline void CQuaternion::Inverse(CQuaternion & quat) {
 		quat = quat.Inverse();
 	}
 
@@ -533,8 +494,7 @@ namespace DE
 	* Normalize a CQuaternion
 	* @param quat A CQuaternion
 	*/
-	inline void CQuaternion::Normalize(CQuaternion & quat)
-	{
+	inline void CQuaternion::Normalize(CQuaternion & quat) {
 		quat = quat.Normalize();
 	}
 
@@ -542,8 +502,7 @@ namespace DE
 	* Logarithm of a CQuatenion
 	* @param quat The CQuaternion
 	*/
-	inline void CQuaternion::Log(CQuaternion & quat)
-	{
+	inline void CQuaternion::Log(CQuaternion & quat) {
 		quat = quat.Log();
 	}
 
@@ -551,8 +510,7 @@ namespace DE
 	* Exponential of a CQuatenion
 	* @param quat The CQuaternion
 	*/
-	inline void CQuaternion::Exp(CQuaternion & quat)
-	{
+	inline void CQuaternion::Exp(CQuaternion & quat) {
 		quat = quat.Exp();
 	}
 
@@ -561,8 +519,7 @@ namespace DE
 	* @param quat The CQuaternion
 	* @param f The power factor
 	*/
-	inline void CQuaternion::Power(CQuaternion & quat, const float f)
-	{
+	inline void CQuaternion::Power(CQuaternion & quat, const float f) {
 		quat = quat.Power(f);
 	}
 
@@ -573,8 +530,7 @@ namespace DE
 	* @param angleY The Pitch
 	* @param angleZ The Roll
 	*/
-	inline void CQuaternion::YawPitchRoll(CQuaternion & out, const float angleX, const float angleY, const float angleZ)
-	{
+	inline void CQuaternion::YawPitchRoll(CQuaternion & out, const float angleX, const float angleY, const float angleZ) {
 		out = out.YawPitchRoll(angleX, angleY, angleZ).Normalize();
 	}
 
@@ -585,8 +541,7 @@ namespace DE
 	* @param quat2 The second CQuaternion
 	* @param t The linear factor
 	*/
-	inline void CQuaternion::Lerp(CQuaternion & out, const CQuaternion & quat1, const CQuaternion & quat2, const float t)
-	{
+	inline void CQuaternion::Lerp(CQuaternion & out, const CQuaternion & quat1, const CQuaternion & quat2, const float t) {
 		out = quat1.Lerp(quat2, t);
 	}
 
@@ -597,8 +552,7 @@ namespace DE
 	* @param quat2 The second CQuaternion
 	* @param t The linear factor
 	*/
-	inline void CQuaternion::Slerp(CQuaternion & out, const CQuaternion & quat1, const CQuaternion & quat2, const float t)
-	{
+	inline void CQuaternion::Slerp(CQuaternion & out, const CQuaternion & quat1, const CQuaternion & quat2, const float t) {
 		out = quat1.Slerp(quat2, t);
 	}
 
@@ -608,8 +562,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion operator*(const CQuaternion & quat, const float number)
-	{
+	inline const CQuaternion operator*(const CQuaternion & quat, const float number) {
 		CQuaternion tmp(quat);
 		tmp.x *= number;
 		tmp.y *= number;
@@ -624,8 +577,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion operator*(const float number, const CQuaternion & quat)
-	{
+	inline const CQuaternion operator*(const float number, const CQuaternion & quat) {
 		return quat * number;
 	}
 
@@ -635,8 +587,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion operator/(const CQuaternion & quat, const float number)
-	{
+	inline const CQuaternion operator/(const CQuaternion & quat, const float number) {
 		CQuaternion tmp(quat);
 		tmp.x /= number;
 		tmp.y /= number;
@@ -651,8 +602,7 @@ namespace DE
 	* @param number A number
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion operator/(const float number, const CQuaternion & quat)
-	{
+	inline const CQuaternion operator/(const float number, const CQuaternion & quat) {
 		return number / quat;
 	}
 }

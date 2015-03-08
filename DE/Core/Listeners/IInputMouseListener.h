@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Utility/CVector2.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Mouse inputs listener interface.
 	*/
-	class IInputMouseListener
-	{
+	class IInputMouseListener {
 	public:
 		/**
 		* Called when the mouse has moved

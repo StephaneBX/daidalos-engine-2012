@@ -30,15 +30,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 
-namespace DE
-{
+namespace DE {
 	class CGUIButton;
 
 	/**
 	* GUI button listener interface.
 	*/
-	class IGUIButtonListener
-	{
+	class IGUIButtonListener {
 	public:
 		/**
 		* Called when the button is clicked

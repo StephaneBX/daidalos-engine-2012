@@ -36,15 +36,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CTexture2D.h"
 #include "../Medias/CBuffer.h"
 
-namespace DE
-{
-	#define GUI_VIEW_LEFT_CLICK 1 << 30
+namespace DE {
+#define GUI_VIEW_LEFT_CLICK 1 << 30
 
 	/**
 	* The GUI data structure for the shaders
 	*/
-	struct SGUIData
-	{
+	struct SGUIData {
 		CVector3F position;
 		CVector2F texcoords;
 	};
@@ -52,8 +50,7 @@ namespace DE
 	/**
 	* Basic class for views
 	*/
-	class IGUIView
-	{
+	class IGUIView {
 	protected:
 		bool m_changed;
 		bool m_visible;
@@ -90,7 +87,7 @@ namespace DE
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
 		virtual const bool HitTest(const CVector2I & point);
-		
+
 		/**
 		* Set the changed value
 		* @param changed The changed value

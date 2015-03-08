@@ -31,10 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.h"
 #include "../Core/Utility/CVector3.h"
 
-namespace DE
-{
-	enum EPointOrientation
-	{
+namespace DE {
+	enum EPointOrientation {
 		POINT_ORIENTATION_POSITIVE_SIDE,
 		POINT_ORIENTATION_NEGATIVE_SIDE,
 		POINT_ORIENTATION_ON_PLANE
@@ -43,8 +41,7 @@ namespace DE
 	/**
 	* Class that handle 3D planes.
 	*/
-	template <class T> class CPlane3D 
-	{
+	template <class T> class CPlane3D {
 	private:
 		CVector3<T> m_normal;
 		float m_constant;
@@ -137,43 +134,36 @@ namespace DE
 
 	template <class T> CPlane3D<T>::CPlane3D() {}
 
-	template <class T> CPlane3D<T>::CPlane3D(const CPlane3D<T> & plane) 
-	{
+	template <class T> CPlane3D<T>::CPlane3D(const CPlane3D<T> & plane) {
 		this->m_normal = plane.m_normal;
 		this->m_constant = plane.m_constant;
 	}
 
-	template <class T> CPlane3D<T>::CPlane3D(const CVector3<T> * vertex) 
-	{
+	template <class T> CPlane3D<T>::CPlane3D(const CVector3<T> * vertex) {
 		Build(vertex);
 	}
 
 	template <class T> CPlane3D<T>::~CPlane3D() {}
-	
-	template <class T> CPlane3D<T> & CPlane3D<T>::operator=(const CPlane3D<T> & plane)
-	{
+
+	template <class T> CPlane3D<T> & CPlane3D<T>::operator=(const CPlane3D<T> & plane) {
 		this->m_normal = plane.m_normal;
 		this->m_constant = plane.m_constant;
 		return *this;
 	}
 
-	template <class T> const bool CPlane3D<T>::operator==(const CPlane3D<T> & plane) const
-	{
+	template <class T> const bool CPlane3D<T>::operator==(const CPlane3D<T> & plane) const {
 		return this->m_normal == plane.m_normal && std::abs(this->m_constant - plane.m_constant) < EPSILON;
 	}
 
-	template <class T> const bool CPlane3D<T>::operator!=(const CPlane3D<T> & plane) const
-	{
+	template <class T> const bool CPlane3D<T>::operator!=(const CPlane3D<T> & plane) const {
 		return !(*this == plane);
 	}
 
-	template <class T> void CPlane3D<T>::Inverse()
-	{
+	template <class T> void CPlane3D<T>::Inverse() {
 		this->m_normal *= -1.0f;
 	}
 
-	template <class T> void CPlane3D<T>::Build(const CVector3<T> * vertex)
-	{
+	template <class T> void CPlane3D<T>::Build(const CVector3<T> * vertex) {
 		// Normal calculation
 		CVector3F ab = vertex[1] - vertex[0];
 		CVector3F ac = vertex[2] - vertex[0];
@@ -183,21 +173,16 @@ namespace DE
 		this->m_constant = -(vertex[1].x * this->m_normal.x + vertex[1].y * this->m_normal.y + vertex[1].z * this->m_normal.z);
 	}
 
-	template <class T> const float CPlane3D<T>::PointDistance(const CVector3<T> & point) const
-	{
+	template <class T> const float CPlane3D<T>::PointDistance(const CVector3<T> & point) const {
 		return this->m_constant + this->m_normal.DotProduct(point);
 	}
 
-	template <class T> EPointOrientation CPlane3D<T>::ClassifyPoint(const CVector3<T> & point) const
-	{
+	template <class T> EPointOrientation CPlane3D<T>::ClassifyPoint(const CVector3<T> & point) const {
 		float result = PointDistance(point);
 		EPointOrientation orientation = POINT_ORIENTATION_ON_PLANE;
-		if(result > EPSILON)
-		{
+		if(result > EPSILON) {
 			orientation = POINT_ORIENTATION_POSITIVE_SIDE;
-		}
-		else
-		{
+		} else {
 			if(result < -EPSILON)
 				orientation = POINT_ORIENTATION_NEGATIVE_SIDE;
 		}
@@ -205,8 +190,7 @@ namespace DE
 		return orientation;
 	}
 
-	template <class T> CVector3<T> CPlane3D<T>::IntersectSegment(const CVector3<T> & p1, const CVector3<T> & p2, float & k) const
-	{
+	template <class T> CVector3<T> CPlane3D<T>::IntersectSegment(const CVector3<T> & p1, const CVector3<T> & p2, float & k) const {
 		CVector3F u, result;
 		u = p1 - p2;
 
@@ -219,8 +203,7 @@ namespace DE
 		return result;
 	}
 
-	template <class T> const CVector3<T> & CPlane3D<T>::GetNormal() const
-	{
+	template <class T> const CVector3<T> & CPlane3D<T>::GetNormal() const {
 		return this->m_normal;
 	}
 

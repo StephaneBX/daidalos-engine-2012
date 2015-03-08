@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IFrameBufferBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Frame buffer enclosing class
 	*/
-	class CFrameBuffer
-	{
+	class CFrameBuffer {
 	private:
 		IFrameBufferBase * m_frameBuffer;
 
@@ -68,7 +66,7 @@ namespace DE
 		* @param elements The declaration structure
 		* @param depth The depth declaration
 		*/
-		template <std::size_t N, std::size_t M> void CreateFromDeclaration(const SFrameBufferDeclaration (&elements)[N], const SFrameBufferDepthDeclaration (&depth)[M]);
+		template <std::size_t N, std::size_t M> void CreateFromDeclaration(const SFrameBufferDeclaration(&elements)[N], const SFrameBufferDepthDeclaration(&depth)[M]);
 
 		/**
 		* Create an empty frame buffer
@@ -107,8 +105,7 @@ namespace DE
 		void DetachAllElements();
 	};
 
-	template <std::size_t N, std::size_t M> void CFrameBuffer::CreateFromDeclaration(const SFrameBufferDeclaration (&elements)[N], const SFrameBufferDepthDeclaration (&depth)[M])
-	{
+	template <std::size_t N, std::size_t M> void CFrameBuffer::CreateFromDeclaration(const SFrameBufferDeclaration(&elements)[N], const SFrameBufferDepthDeclaration(&depth)[M]) {
 		SAFE_DELETE(this->m_frameBuffer);
 
 		this->m_frameBuffer = IRenderer::GetRenderer()->CreateFrameBuffer(elements, N, depth, M);

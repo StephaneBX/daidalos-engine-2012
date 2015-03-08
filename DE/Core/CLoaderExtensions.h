@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Core/ILoader.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle all the medias loaders and check their extensions compatibilities
 	*/
-	template <class T> class CLoaderExtensions
-	{
+	template <class T> class CLoaderExtensions {
 	public:
 		static std::map<std::string, std::shared_ptr<ILoader<T>>> s_loaders;
 
@@ -47,13 +45,12 @@ namespace DE
 		* @param extension The extension
 		* @return True if the extension is found
 		*/
-		static const bool IsExtensionFound(const std::string & extension)
-		{
+		static const bool IsExtensionFound(const std::string & extension) {
 			bool ret = false;
-			for(auto it = s_loaders.begin() ; it != s_loaders.end() && !ret ; ++it)
-			{
-				if(it->first == extension)
+			for(auto it = s_loaders.begin(); it != s_loaders.end() && !ret; ++it) {
+				if(it->first == extension) {
 					ret = true;
+				}
 			}
 			return ret;
 		}

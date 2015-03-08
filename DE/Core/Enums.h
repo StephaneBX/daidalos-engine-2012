@@ -28,33 +28,28 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ENUMS_H
 #define __ENUMS_H
 
-namespace DE
-{
-	enum EBuffersType
-    {
-        BUFFER_STATIC  = 1,
-        BUFFER_DYNAMIC = 2,
+namespace DE {
+	enum EBuffersType {
+		BUFFER_STATIC = 1,
+		BUFFER_DYNAMIC = 2,
 		BUFFER_WRITEONLY = 4
-    };
+	};
 
-    enum EBuffersLock
-    {
-        LOCK_READONLY  = 1,
-        LOCK_WRITEONLY = 2
-    };
+	enum EBuffersLock {
+		LOCK_READONLY = 1,
+		LOCK_WRITEONLY = 2
+	};
 
-	enum EMatrixType
-    {
-        MATRIX_MODELVIEW,
-        MATRIX_PROJECTION,
-        MATRIX_TEXTURE_0,
-        MATRIX_TEXTURE_1,
-        MATRIX_TEXTURE_2,
-        MATRIX_TEXTURE_3
-    };
+	enum EMatrixType {
+		MATRIX_MODELVIEW,
+		MATRIX_PROJECTION,
+		MATRIX_TEXTURE_0,
+		MATRIX_TEXTURE_1,
+		MATRIX_TEXTURE_2,
+		MATRIX_TEXTURE_3
+	};
 
-	enum EVertexDeclarationUsage
-	{
+	enum EVertexDeclarationUsage {
 		DECLARATION_USAGE_POSITION0,
 		DECLARATION_USAGE_POSITION1,
 		DECLARATION_USAGE_POSITION2,
@@ -73,8 +68,7 @@ namespace DE
 		DECLARATION_USAGE_COLOR3
 	};
 
-	enum EVertexDeclarationTYPE
-	{
+	enum EVertexDeclarationTYPE {
 		DECLARATION_TYPE_FLOAT1,
 		DECLARATION_TYPE_FLOAT2,
 		DECLARATION_TYPE_FLOAT3,
@@ -82,8 +76,7 @@ namespace DE
 		DECLARATION_TYPE_COLOR
 	};
 
-	enum EPrimitiveType
-	{
+	enum EPrimitiveType {
 		PRIMITIVE_TYPE_TRIANGLE_LIST,
 		PRIMITIVE_TYPE_TRIANGLE_STRIP,
 		PRIMITIVE_TYPE_TRIANGLE_FAN,
@@ -92,8 +85,7 @@ namespace DE
 		PRIMITIVE_TYPE_POINT_LIST
 	};
 
-	enum EPixelFormat
-	{
+	enum EPixelFormat {
 		PIXEL_FORMAT_L8,
 		PIXEL_FORMAT_A8L8,
 		PIXEL_FORMAT_A1R5G5B5,
@@ -110,8 +102,7 @@ namespace DE
 		PIXEL_FORMAT_DEPTH24S8
 	};
 
-	enum ECapability
-	{
+	enum ECapability {
 		CAPABILITY_HARDWARE_SHADERS,
 		CAPABILITY_HARDWARE_MIPMAP,
 		CAPABILITY_HARDWARE_NON_POW2_TEXTURES,
@@ -121,14 +112,12 @@ namespace DE
 		CAPABILITY_HARDWARE_ADVANCED_BUFFERS
 	};
 
-	enum ETextureFlag
-	{
+	enum ETextureFlag {
 		TEXTURE_FLAG_NOMIPMAP = 1 << 0,
 		TEXTURE_FLAG_FRAMEBUFFER_TYPE = 1 << 1
 	};
 
-	enum ETextureFilterType
-	{
+	enum ETextureFilterType {
 		TEXTURE_FILTER_TYPE_NONE,
 		TEXTURE_FILTER_TYPE_POINT,
 		TEXTURE_FILTER_TYPE_LINEAR,
@@ -138,8 +127,7 @@ namespace DE
 		TEXTURE_FILTER_TYPE_CONVOLUTIONMONO
 	};
 
-	enum ETextureAddress
-	{
+	enum ETextureAddress {
 		TEXTURE_ADDRESS_WRAP,
 		TEXTURE_ADDRESS_MIRROR,
 		TEXTURE_ADDRESS_CLAMP,
@@ -147,8 +135,7 @@ namespace DE
 		TEXTURE_ADDRESS_MIRRORONCE
 	};
 
-	enum ERenderStateType
-	{
+	enum ERenderStateType {
 		RENDER_STATE_TYPE_DEPTHTEST,
 		RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE,
 		RENDER_STATE_TYPE_ALPHATEST,
@@ -156,8 +143,7 @@ namespace DE
 		RENDER_STATE_TYPE_SCISSORTEST
 	};
 
-	enum ECompare
-	{
+	enum ECompare {
 		COMPARE_NEVER,
 		COMPARE_LESS,
 		COMPARE_EQUAL,
@@ -168,29 +154,25 @@ namespace DE
 		COMPARE_ALWAYS
 	};
 
-	enum ERenderStateFillType
-	{
+	enum ERenderStateFillType {
 		RENDER_STATE_FILL_TYPE_POINT,
 		RENDER_STATE_FILL_TYPE_WIREFRAME,
 		RENDER_STATE_FILL_TYPE_SOLID
 	};
 
-	enum ERenderStateShadeType
-	{
+	enum ERenderStateShadeType {
 		RENDER_STATE_SHADE_TYPE_FLAT,
 		RENDER_STATE_SHADE_TYPE_GOURAUD,
 		RENDER_STATE_SHADE_TYPE_PHONG
 	};
 
-	enum ERenderStateCullType
-	{
+	enum ERenderStateCullType {
 		RENDER_STATE_CULL_TYPE_NONE,
 		RENDER_STATE_CULL_TYPE_CW,
 		RENDER_STATE_CULL_TYPE_CCW
 	};
 
-	enum ERenderStateBlendFunction
-	{
+	enum ERenderStateBlendFunction {
 		RENDER_STATE_BLEND_FUNCTION_ZERO,
 		RENDER_STATE_BLEND_FUNCTION_ONE,
 		RENDER_STATE_BLEND_FUNCTION_SRCCOLOR,
@@ -210,8 +192,7 @@ namespace DE
 		RENDER_STATE_BLEND_FUNCTION_INVSRCCOLOR2
 	};
 
-	enum ERenderStateBlendOperation
-	{
+	enum ERenderStateBlendOperation {
 		RENDER_STATE_BLEND_OPERATION_ADD,
 		RENDER_STATE_BLEND_OPERATION_SUBSTRACT,
 		RENDER_STATE_BLEND_OPERATION_REVSUBSTRACT,
@@ -219,35 +200,30 @@ namespace DE
 		RENDER_STATE_BLEND_OPERATION_MAX
 	};
 
-	enum ETextureType
-	{
+	enum ETextureType {
 		TEXTURE_TYPE_DIFFUSE,
 		TEXTURE_TYPE_NORMAL,
 		TEXTURE_TYPE_SPECULAR,
 		TEXTURE_TYPE_LIGHTMAP
 	};
 
-	enum EMeshShadingType
-	{
+	enum EMeshShadingType {
 		MESH_SHADING_FLAT,
 		MESH_SHADING_SMOOTH
 	};
 
-	enum EMeshAnimationState
-	{
+	enum EMeshAnimationState {
 		MESH_ANIMATION_STATE_STOPPED,
 		MESH_ANIMATION_STATE_PLAYING,
 		MESH_ANIMATION_STATE_PAUSED
 	};
 
-	enum EFrameBufferAttachmentType
-	{
+	enum EFrameBufferAttachmentType {
 		FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE,
 		FRAMEBUFFER_ATTACHMENT_TYPE_BUFFER
 	};
 
-	enum EScreenQuadPoint
-	{
+	enum EScreenQuadPoint {
 		SCREEN_QUAD_POINT_BOTTOM_RIGHT,
 		SCREEN_QUAD_POINT_BOTTOM_LEFT,
 		SCREEN_QUAD_POINT_TOP_LEFT,
@@ -255,8 +231,7 @@ namespace DE
 		SCREEN_QUAD_POINT_SIZE
 	};
 
-	enum ESceneNodeType
-	{
+	enum ESceneNodeType {
 		SCENE_NODE_ROOT,
 		SCENE_NODE_CAMERA,
 		SCENE_NODE_SPOTLIGHT,
@@ -268,8 +243,7 @@ namespace DE
 		SCENE_NODE_EMPTY
 	};
 
-	enum EFrustumPoint
-	{
+	enum EFrustumPoint {
 		FRUSTUM_POINT_NEAR_TOP_LEFT,
 		FRUSTUM_POINT_NEAR_TOP_RIGHT,
 		FRUSTUM_POINT_NEAR_BOTTOM_LEFT,
@@ -281,8 +255,7 @@ namespace DE
 		FRUSTUM_POINT_SIZE
 	};
 
-	enum EFrustumPlane
-	{
+	enum EFrustumPlane {
 		FRUSTUM_PLANE_LEFT,
 		FRUSTUM_PLANE_RIGHT,
 		FRUSTUM_PLANE_TOP,
@@ -292,82 +265,70 @@ namespace DE
 		FRUSTUM_PLANE_SIZE
 	};
 
-	enum ESceneNodeRootStructureType
-	{
+	enum ESceneNodeRootStructureType {
 		SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE,
 		SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP
 	};
 
-	enum EBSPNodeType
-	{
+	enum EBSPNodeType {
 		BSP_NODE_TYPE_NODE,
 		BSP_NODE_TYPE_EMPTY_LEAF,
 		BSP_NODE_TYPE_SOLID_LEAF
 	};
 
-	enum EBSPNodeChild
-	{
+	enum EBSPNodeChild {
 		BSP_NODE_CHILD_FRONT,
 		BSP_NODE_CHILD_BACK
 	};
 
-	enum EBSPTriangleOrientation
-	{
+	enum EBSPTriangleOrientation {
 		BSP_TRIANGLE_ORIENTATION_FRONT,
 		BSP_TRIANGLE_ORIENTATION_BACK,
 		BSP_TRIANGLE_ORIENTATION_COPLANAR,
 		BSP_TRIANGLE_ORIENTATION_SPANNING
 	};
 
-	enum ESoundFormat
-	{
+	enum ESoundFormat {
 		SOUND_FORMAT_MONO16,
 		SOUND_FORMAT_STEREO16
 	};
 
-	enum ESoundType
-	{
+	enum ESoundType {
 		SOUND_TYPE_STATIC,
 		SOUND_TYPE_STREAM
 	};
 
-	enum ESoundStatus
-	{
+	enum ESoundStatus {
 		SOUND_STATUS_INITIAL,
 		SOUND_STATUS_STOP,
 		SOUND_STATUS_PAUSE,
 		SOUND_STATUS_PLAY
 	};
 
-	enum ETextHorizontalAlignment
-	{
+	enum ETextHorizontalAlignment {
 		TEXT_HORIZONTAL_ALIGNMENT_LEFT,
 		TEXT_HORIZONTAL_ALIGNMENT_RIGHT,
 		TEXT_HORIZONTAL_ALIGNMENT_CENTERED
 	};
 
-	enum ETextVerticalAlignment
-	{
+	enum ETextVerticalAlignment {
 		TEXT_VERTICAL_ALIGNMENT_TOP,
 		TEXT_VERTICAL_ALIGNMENT_BOTTOM,
 		TEXT_VERTICAL_ALIGNMENT_CENTERED
 	};
 
-	enum ESurfaceType
-	{
+	enum ESurfaceType {
 		SURFACE_TYPE_TARGET = 1 << 0,
 		SURFACE_TYPE_DEPTH = 1 << 1,
 		SURFACE_TYPE_STENCIL = 1 << 2
 	};
 
-	enum EShaderProgramFlag
-	{
+	enum EShaderProgramFlag {
 		SHADERPROGRAM_FLAG_VERTEX = 1 << 0,
 		SHADERPROGRAM_FLAG_PIXEL = 1 << 1
 	};
 
-	enum EShaderProgramParameter
-	{
+	enum EShaderProgramParameter {
 		SHADERPROGRAM_PARAMETER_WORLD_MATRIX,
 		SHADERPROGRAM_PARAMETER_ROTATION_MATRIX,
 		SHADERPROGRAM_PARAMETER_PROJ_MATRIX,
@@ -399,8 +360,7 @@ namespace DE
 		SHADERPROGRAM_PARAMETER_SKYBOX_AMBIENT_COLOR
 	};
 
-	enum ESkyboxFace
-	{
+	enum ESkyboxFace {
 		SKYBOX_FACE_FRONT,
 		SKYBOX_FACE_BACK,
 		SKYBOX_FACE_LEFT,

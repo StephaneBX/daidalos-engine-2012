@@ -28,21 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CMD2MESH_H
 #define __CMD2MESH_H
 
-#define MD2_ID (('2' << 24) + ('P' << 16) + ('D' << 8) + 'I')
-#define MD2_VERSION 8
-#define MD2_SKIN_NAME_SIZE 68
-#define MD2_FRAME_NAME_SIZE 16
-#define MD2_NUMVERTEX_NORMALS 162
-
 #include "../Medias/IAnimatedMeshBase.h"
 
-namespace DE
-{
+namespace DE {
+	#define MD2_ID (('2' << 24) + ('P' << 16) + ('D' << 8) + 'I')
+	#define MD2_VERSION 8
+	#define MD2_SKIN_NAME_SIZE 68
+	#define MD2_FRAME_NAME_SIZE 16
+	#define MD2_NUMVERTEX_NORMALS 162
+
 	/**
 	* MD2 header information structure
 	*/
-	struct SMD2Header
-	{
+	struct SMD2Header {
 		int id;
 		int version;
 		int skinWidth;
@@ -66,8 +64,7 @@ namespace DE
 	/**
 	* MD2 veretx information structure
 	*/
-	struct SMD2Vertex
-	{
+	struct SMD2Vertex {
 		unsigned char position[3];
 		unsigned char normalIndice;
 		CVector3F fullPosition;
@@ -77,8 +74,7 @@ namespace DE
 	/**
 	* MD2 triangle information structure
 	*/
-	struct SMD2Triangle
-	{
+	struct SMD2Triangle {
 		short vertex[3];
 		short textureCoordinatesIndice[3];
 		CVector3F faceNormal;
@@ -87,8 +83,7 @@ namespace DE
 	/**
 	* MD2 texture coordinates information structure
 	*/
-	struct SMD2TextureCoordinates
-	{
+	struct SMD2TextureCoordinates {
 		short u;
 		short v;
 	};
@@ -96,8 +91,7 @@ namespace DE
 	/**
 	* MD2 frame information structure
 	*/
-	struct SMD2Frame
-	{
+	struct SMD2Frame {
 		CVector3F scale;
 		CVector3F translation;
 		char name[MD2_FRAME_NAME_SIZE];
@@ -107,16 +101,14 @@ namespace DE
 	/**
 	* MD2 skin information structure
 	*/
-	struct SMD2Skin
-	{
+	struct SMD2Skin {
 		char name[MD2_SKIN_NAME_SIZE];
 	};
 
 	/**
 	* MD2 face information structure
 	*/
-	struct SMD2Face
-	{
+	struct SMD2Face {
 		CVector3F position[3];
 		CVector3F normal[3];
 		CVector2F textureCoordinates[3];
@@ -125,8 +117,7 @@ namespace DE
 	/**
 	* MD2 internal data structure
 	*/
-	struct SMD2InternalData
-	{
+	struct SMD2InternalData {
 		SMD2Header header;
 		SMD2Skin * skin;
 		SMD2TextureCoordinates * textureCoordinates;
@@ -139,8 +130,7 @@ namespace DE
 	/**
 	* MD2 mesh
 	*/
-	class CMD2Mesh : public IAnimatedMeshBase
-	{
+	class CMD2Mesh : public IAnimatedMeshBase {
 	private:
 		SMD2InternalData * m_internalData;
 

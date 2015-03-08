@@ -31,15 +31,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <libsndfile/sndfile.h>
 #include "../Medias/ISoundBase.h"
 
-namespace DE
-{
+namespace DE {
 	#define STREAM_SOUND_BUFFER_SIZE 4
 
 	/**
 	* Basic class for stream sounds
 	*/
-	class IStreamSoundBase : public ISoundBase
-	{
+	class IStreamSoundBase : public ISoundBase {
 	private:
 		bool m_looped;
 		int m_framesRead;

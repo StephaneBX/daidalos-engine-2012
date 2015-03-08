@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CGUIManager.h"
 
 #ifdef _WIN32
-	#include <Windows.h>
+#include <Windows.h>
 #endif
 
 #pragma comment(lib, "SiniP.lib")
@@ -45,16 +45,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #pragma comment(lib, "DevIL.lib")
 #pragma comment(lib, "libsndfile-1.lib")
 
-namespace DE
-{
+namespace DE {
 	#define APPLICATION_NAME "Daidalos Engine"
 	#define MAXIMUM_FRAME_TIME 50
 
 	/**
 	* Basic class for the application
 	*/
-	class IApplication 
-	{
+	class IApplication {
 	protected:
 		bool m_alive;
 		bool m_fullscreen;
@@ -72,9 +70,9 @@ namespace DE
 		CGUIManager * m_gui;
 
 		// Need for Windows / DirectX
-		#ifdef _WIN32
-				HWND m_hWnd;
-		#endif
+#ifdef _WIN32
+		HWND m_hWnd;
+#endif
 
 	public:
 		/**

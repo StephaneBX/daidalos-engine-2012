@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.h"
 #include "../Core/CSingletonManager.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle the sound context and the listener
 	*/
-	class CSoundContextManager : public CSingletonManager<CSoundContextManager>
-	{
-		friend class CSingletonManager<CSoundContextManager>;
+	class CSoundContextManager : public CSingletonManager < CSoundContextManager > {
+		friend class CSingletonManager < CSoundContextManager > ;
 
 	public:
 		/**

@@ -30,19 +30,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../../Scene/CTriangle3D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a 3d triangle for the bsp
 	*/
-	class CBSPTriangle : public CTriangle3D
-	{
+	class CBSPTriangle : public CTriangle3D {
 	protected:
 		bool m_separationPlane;
 		bool m_visible;
 		bool m_drawn;
 		CPlane3DF m_plane;
-	
+
 	public:
 		/**
 		* Constructor

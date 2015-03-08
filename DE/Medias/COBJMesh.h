@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IMeshBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* OBJ internal data structure
 	*/
-	struct SOBJInternalData
-	{
+	struct SOBJInternalData {
 		std::vector<int> groupSize;
 		CVector3F ** vertex;
 		CVector3F ** normal;
@@ -46,8 +44,7 @@ namespace DE
 	/**
 	* OBJ mesh
 	*/
-	class COBJMesh : public IMeshBase
-	{
+	class COBJMesh : public IMeshBase {
 	private:
 		SOBJInternalData * m_internalData;
 

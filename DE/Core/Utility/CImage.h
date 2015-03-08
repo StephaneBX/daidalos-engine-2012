@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CRectangle.h"
 #include "../../Core/Enums.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CImage class
 	*/
-	class CImage
-	{
+	class CImage {
 	private:
 		CVector2I m_size;
 		EPixelFormat m_format;
@@ -52,7 +50,7 @@ namespace DE
 		* @param size The image size
 		* @param format The image format
 		*/
-		CImage(const CVector2I & size = CVector2I(1,1), EPixelFormat format = PIXEL_FORMAT_A8R8G8B8);
+		CImage(const CVector2I & size = CVector2I(1, 1), EPixelFormat format = PIXEL_FORMAT_A8R8G8B8);
 
 		/**
 		* Constructor

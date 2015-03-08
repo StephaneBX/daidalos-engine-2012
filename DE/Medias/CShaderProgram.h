@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IShaderProgramBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Shader Program enclosing class
 	*/
-	class CShaderProgram
-	{
+	class CShaderProgram {
 	private:
 		IShaderProgramBase * m_shaderProgram;
 

@@ -28,19 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CMS3DMESH_H
 #define __CMS3DMESH_H
 
-#define MS3D_ROOT_JOINT -1
-#define MS3D_VERTEX_NO_BONES -1
+
 
 #include "../Core/Utility/CMatrix.h"
 #include "../Medias/IAnimatedMeshBase.h"
 
-namespace DE
-{
+namespace DE {
+	#define MS3D_ROOT_JOINT -1
+	#define MS3D_VERTEX_NO_BONES -1
+
 	/**
 	* MS3D internal data structure for meshes
 	*/
-	struct SMS3DInternalDataMesh
-	{
+	struct SMS3DInternalDataMesh {
 		int numberOfFaces;
 		CVector3F ** vertex;
 		CVector3F ** normal;
@@ -50,8 +50,7 @@ namespace DE
 	/**
 	* MS3D internal data structure
 	*/
-	struct SMS3DInternalData
-	{
+	struct SMS3DInternalData {
 		int numberOfFrames;
 		int numberOfMeshes;
 		SMS3DInternalDataMesh * mesh;
@@ -60,8 +59,7 @@ namespace DE
 	/**
 	* MS3D (Milkshape 3D) mesh
 	*/
-	class CMS3DMesh : public IAnimatedMeshBase
-	{
+	class CMS3DMesh : public IAnimatedMeshBase {
 	private:
 		SMS3DInternalData * m_internalData;
 

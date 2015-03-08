@@ -33,14 +33,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 struct IDirect3DVertexDeclaration9;
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CDX9Declaration class.
 	* DX9 vertex declaration class.
 	*/
-	class CDX9Declaration : public IDeclaration
-	{
+	class CDX9Declaration : public IDeclaration {
 	private:
 		IDirect3DVertexDeclaration9 * m_declaration;
 

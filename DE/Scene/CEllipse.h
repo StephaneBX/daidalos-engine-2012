@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector2.h"
 #include "../Scene/IShape3D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The IShape3D implementation of an ellipse.
 	*/
-	template <class T> class CEllipse : public IShape3D<T> 
-	{
+	template <class T> class CEllipse : public IShape3D < T > {
 	private:
 		CVector2<T> m_radius;
 
@@ -52,7 +50,7 @@ namespace DE
 		* @param position The position
 		* @param offset The offset
 		*/
-		CEllipse(const CVector3<T> & position,const CVector2<T> & offset);
+		CEllipse(const CVector3<T> & position, const CVector2<T> & offset);
 
 		/**
 		* Destructor
@@ -73,28 +71,24 @@ namespace DE
 		const float GetInnerDepth(const CPlane3D<T> & plane) const;
 	};
 
-	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>() 
-	{
+	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>() {
 		this->m_type = SHAPE_ELLIPSE;
 	}
-	
-	template <class T> CEllipse<T>::CEllipse(const CVector3<T> & position, const CVector2<T> & radius) : IShape3D<T>(position)
-	{
+
+	template <class T> CEllipse<T>::CEllipse(const CVector3<T> & position, const CVector2<T> & radius) : IShape3D<T>(position) {
 		this->m_position = position;
 		this->m_radius = radius;
 		this->m_type = SHAPE_ELLIPSE;
 	}
 
-	
+
 	template <class T> CEllipse<T>::~CEllipse() {}
 
-	template <class T> void CEllipse<T>::SetRadius(const CVector2<T> & radius)
-	{
+	template <class T> void CEllipse<T>::SetRadius(const CVector2<T> & radius) {
 		this->m_radius = radius;
 	}
 
-	template <class T> const float CEllipse<T>::GetInnerDepth(const CPlane3D<T> & plane) const
-	{
+	template <class T> const float CEllipse<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return this->m_radius.x * plane.GetNormal().x * plane.GetNormal().x + this->m_radius.y * plane.GetNormal().y * plane.GetNormal().y + this->m_radius.x * plane.GetNormal().z * plane.GetNormal().z;
 	}
 

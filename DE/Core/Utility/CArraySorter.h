@@ -30,14 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CArraySorter template class.
 	* Manages array sorting algorithms.
 	*/
-	template <typename T> class CArraySorter
-	{
+	template <typename T> class CArraySorter {
 	private:
 		int m_temp;
 		int * m_order;
@@ -49,16 +47,15 @@ namespace DE
 		/**
 		* Constructor
 		*/
-		CArraySorter()
-		{
+		CArraySorter() {
 			this->m_order = nullptr;
 			this->m_arrayList = nullptr;
 		}
-	
+
 		/**
 		* Destructor
 		*/
-		~CArraySorter(){}
+		~CArraySorter() {}
 
 		/**
 		* BubbleSort algorithm
@@ -66,8 +63,7 @@ namespace DE
 		* @param order The order array
 		* @param arraySize The data array size
 		*/
-		void BubbleSort(T * const arrayList, int * const order, const int arraySize)
-		{
+		void BubbleSort(T * const arrayList, int * const order, const int arraySize) {
 			this->m_arrayList = arrayList;
 			this->m_order = order;
 			BubbleSortPerform(arraySize);
@@ -80,8 +76,7 @@ namespace DE
 		* @param first The starting index
 		* @param last The last index
 		*/
-		void QuickSort(T * const arrayList, int * const order, const int first, const int last)
-		{
+		void QuickSort(T * const arrayList, int * const order, const int first, const int last) {
 			this->m_arrayList = arrayList;
 			this->m_order = order;
 			QuickSortPerform(first, last);
@@ -93,17 +88,13 @@ namespace DE
 		* Perform the bubble sort
 		* @param arraySize The data size
 		*/
-		void BubbleSortPerform(const int arraySize)
-		{
+		void BubbleSortPerform(const int arraySize) {
 			bool toDo = true;
 
-			for(int i = 0 ; i < arraySize && toDo ; i++)
-			{
+			for(int i = 0; i < arraySize && toDo; i++) {
 				toDo = false;
-				for(int j = 0 ; j < arraySize - 1 - i ; j++)
-				{
-					if(this->m_arrayList[j] > this->m_arrayList[j + 1])
-					{
+				for(int j = 0; j < arraySize - 1 - i; j++) {
+					if(this->m_arrayList[j] > this->m_arrayList[j + 1]) {
 						Swap(j, j + 1);
 						toDo = true;
 					}
@@ -116,11 +107,9 @@ namespace DE
 		* @param first The first index
 		* @param last The last index
 		*/
-		void QuickSortPerform(const int first, const int last)
-		{
+		void QuickSortPerform(const int first, const int last) {
 			int pivot;
-			if(first < last)
-			{
+			if(first < last) {
 				pivot = QuickSortPivotSelection(first, last);
 				pivot = QuickSortPartition(first, last, pivot);
 				QuickSortPerform(first, pivot - 1);
@@ -133,12 +122,12 @@ namespace DE
 		* @param a the first value
 		* @param b The second value
 		*/
-		void Swap(const int a, const int b)
-		{
+		void Swap(const int a, const int b) {
 			std::swap(this->m_arrayList[a], this->m_arrayList[b]);
 
-			if(this->m_order != nullptr)
+			if(this->m_order != nullptr) {
 				std::swap(this->m_order[a], this->m_order[b]);
+			}
 		}
 
 		/**
@@ -147,15 +136,12 @@ namespace DE
 		* @param last The last index
 		* @param pivot The pivot
 		*/
-		const int QuickSortPartition(const int first, const int last, const int pivot)
-		{
+		const int QuickSortPartition(const int first, const int last, const int pivot) {
 			int j;
 			Swap(pivot, last);
 			j = first;
-			for(int i = first ; i < last ; i++)
-			{
-				if(this->m_arrayList[i] < this->m_arrayList[last])
-				{
+			for(int i = first; i < last; i++) {
+				if(this->m_arrayList[i] < this->m_arrayList[last]) {
 					Swap(i, j);
 					j++;
 				}
@@ -169,8 +155,7 @@ namespace DE
 		* @param first The first value
 		* @param last The last value
 		*/
-		const int QuickSortPivotSelection(const int first, const int last)
-		{
+		const int QuickSortPivotSelection(const int first, const int last) {
 			return first;
 		}
 	};

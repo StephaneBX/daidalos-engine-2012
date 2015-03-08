@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../GUI/IGUIView.h"
 #include "../Medias/CTexture2D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for gui cursor
 	*/
-	class CGUICursor : public IGUIView
-	{
+	class CGUICursor : public IGUIView {
 	private:
 		CTexture2D m_texture;
 

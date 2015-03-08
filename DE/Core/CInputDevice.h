@@ -37,14 +37,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Listeners/IInputMouseListener.h"
 #include "../Core/Listeners/IInputGamepadListener.h"
 
-namespace DE
-{
-	#define INPUT_NO_LINKED_ACTION -1
-	#define MAX_GAMEPADS 4
-	#define GAMEPAD_AXIS_THRESHOLD 0.2f
+namespace DE {
+#define INPUT_NO_LINKED_ACTION -1
+#define MAX_GAMEPADS 4
+#define GAMEPAD_AXIS_THRESHOLD 0.2f
 
-	enum EInputKey
-	{
+	enum EInputKey {
 		INPUT_KEY_UNDEFINED,
 		INPUT_KEY_KEYBOARD_BEGINNING,
 		INPUT_KEY_KEYBOARD_BACKSPACE,
@@ -186,8 +184,7 @@ namespace DE
 		INPUT_KEY_MOUSE_ENDING
 	};
 
-	enum EInputKeyGamepad
-	{
+	enum EInputKeyGamepad {
 		INPUT_KEY_GAMEPAD_BUTTON0,
 		INPUT_KEY_GAMEPAD_BUTTON1,
 		INPUT_KEY_GAMEPAD_BUTTON2,
@@ -235,15 +232,13 @@ namespace DE
 		INPUT_KEY_GAMEPAD_AXIS_RZN
 	};
 
-	enum EInputKeyType
-	{
+	enum EInputKeyType {
 		INPUT_TYPE_KEYBOARD,
 		INPUT_TYPE_MOUSE,
 		INPUT_TYPE_GAMEPAD
 	};
 
-	enum EInputKeyState
-	{
+	enum EInputKeyState {
 		INPUT_KEY_STATE_UP,
 		INPUT_KEY_STATE_DOWN,
 		INPUT_KEY_STATE_FROZEN,
@@ -253,8 +248,7 @@ namespace DE
 	/**
 	* Input key structure
 	*/
-	struct SInputKey
-	{
+	struct SInputKey {
 		EInputKeyType type;
 		unsigned int key;
 	};
@@ -262,12 +256,11 @@ namespace DE
 	/**
 	* Input action structure
 	*/
-	struct SInputAction
-	{
+	struct SInputAction {
 		int actionId;
 		int linkedActionId;
 		float actionFactor;
-	
+
 		std::vector<SInputKey> keys;
 		EInputKeyState state;
 	};
@@ -275,8 +268,7 @@ namespace DE
 	/**
 	* Input action declaration structure
 	*/
-	struct SInputActionDeclaration
-	{
+	struct SInputActionDeclaration {
 		int actionId;
 		int linkedActionId;
 	};
@@ -285,9 +277,8 @@ namespace DE
 	* The inputs device class.
 	* Handle the input events and call the registered listeners when necessary.
 	*/
-	class CInputDevice : public CSingletonManager<CInputDevice>
-	{
-		friend class CSingletonManager<CInputDevice>;
+	class CInputDevice : public CSingletonManager < CInputDevice > {
+		friend class CSingletonManager < CInputDevice > ;
 
 	private:
 		std::map<unsigned int, SInputAction> m_actions;
@@ -305,7 +296,7 @@ namespace DE
 		* Add a list of actions to the input device.
 		* @param declaration The action list.
 		*/
-		template <std::size_t N> void AddActions(const SInputActionDeclaration (&declaration)[N]);
+		template <std::size_t N> void AddActions(const SInputActionDeclaration(&declaration)[N]);
 
 		/**
 		* Add an action to the input device
@@ -467,10 +458,9 @@ namespace DE
 		const CInputDevice & operator=(const CInputDevice & copy);
 	};
 
-	
-	template <std::size_t N> void CInputDevice::AddActions(const SInputActionDeclaration (&declaration)[N])
-	{
-		for(unsigned int i = 0 ; i < N ; ++i)
+
+	template <std::size_t N> void CInputDevice::AddActions(const SInputActionDeclaration(&declaration)[N]) {
+		for(unsigned int i = 0; i < N; ++i)
 			AddAction(declaration[i]);
 	}
 }

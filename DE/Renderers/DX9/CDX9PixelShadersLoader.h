@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/ILoader.h"
 #include "../../Medias/IShaderBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for DX9 pixel shaders files (.psh)
 	*/
-	class CDX9PixelShadersLoader : public ILoader<IShaderBase> 
-	{
+	class CDX9PixelShadersLoader : public ILoader < IShaderBase > {
 	public:
 		/**
 		* Constructor

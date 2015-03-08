@@ -36,13 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CMaterial.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for meshs
 	*/
-	class IMeshBase : public IResource
-	{
+	class IMeshBase : public IResource {
 	protected:
 		std::vector<int> m_groupSize;
 		CVector3F ** m_vertex;

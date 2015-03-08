@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/COBJMesh.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for wavefront files (.obj)
 	*/
-	class COBJLoader : public ILoader<IMeshBase> 
-	{
+	class COBJLoader : public ILoader < IMeshBase > {
 	private:
 		std::string m_filename;
 		SOBJInternalData * m_internalData;
@@ -73,7 +71,7 @@ namespace DE
 		* @param textureOrder A vector containing the order of the texture to use
 		* @param groupCounter The group number for this data
 		*/
-		void FillBuffers(const std::vector<CVector3F> & tmpVertex, const std::vector<CVector3F> & tmpNormal, const std::vector<CVector2F> & tmpTexture, const std::vector<int> vertexOrder, const std::vector<int> normalOrder, const std::vector<int> & textureOrder,  const int groupCounter);
+		void FillBuffers(const std::vector<CVector3F> & tmpVertex, const std::vector<CVector3F> & tmpNormal, const std::vector<CVector2F> & tmpTexture, const std::vector<int> vertexOrder, const std::vector<int> normalOrder, const std::vector<int> & textureOrder, const int groupCounter);
 	};
 }
 

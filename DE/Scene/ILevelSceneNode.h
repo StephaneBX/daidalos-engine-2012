@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ISceneNode.h"
 #include "../Scene/CAABoundingBox.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Base class for level nodes
 	*/
-	class ILevelSceneNode : public ISceneNode
-	{
+	class ILevelSceneNode : public ISceneNode {
 	protected:
 		EMeshShadingType m_shadingType;
 		int m_numberOfVisibleTriangles;
@@ -53,7 +51,7 @@ namespace DE
 
 		std::string m_skyName;
 		CVector4F m_skyAmbientColor;
-	
+
 	public:
 		/**
 		* Constructor

@@ -34,8 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IDeclaration.h"
 #include "../Medias/CShaderProgram.h"
 
-namespace DE
-{
+namespace DE {
 	#define SKYBOX_FACES 6
 
 	class IScene;
@@ -43,8 +42,7 @@ namespace DE
 	/**
 	* Skybox class.
 	*/
-	class CSkybox
-	{
+	class CSkybox {
 	private:
 		bool m_visible;
 		IScene * m_scene;

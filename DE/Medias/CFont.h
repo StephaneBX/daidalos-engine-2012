@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CTexture2D.h"
 #include "../Medias/IFontBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Font enclosing class
 	*/
-	class CFont
-	{
+	class CFont {
 	private:
 		IFontBase * m_font;
 

@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IResource.h"
 #include "../Core/Utility/CVector3.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Material element structure
 	*/
-	struct SMaterialElement
-	{
+	struct SMaterialElement {
 		CVector3F m_kDiffuse;
 		CVector3F m_kAmbient;
 		CVector3F m_kSpecular;
@@ -51,8 +49,7 @@ namespace DE
 	/**
 	* Basic class used for materials
 	*/
-	class IMaterialBase : public IResource
-	{
+	class IMaterialBase : public IResource {
 	public:
 		std::map<std::string, std::unique_ptr<SMaterialElement>> m_elements;
 

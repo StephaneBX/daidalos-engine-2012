@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IBufferBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Buffer enclosing class
 	*/
-	class CBuffer
-	{
+	class CBuffer {
 	private:
 		std::shared_ptr<IBufferBase> m_buffer;
 

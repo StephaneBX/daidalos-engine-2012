@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/IStreamSoundBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for static sounds
 	*/
-	class CStreamSoundLoader : public ILoader<IStreamSoundBase> 
-	{
+	class CStreamSoundLoader : public ILoader < IStreamSoundBase > {
 	public:
 		/**
 		* Constructor

@@ -31,10 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../Core/IResource.h"
 
-namespace DE
-{
-	enum ERenderTargetType
-	{
+namespace DE {
+	enum ERenderTargetType {
 		RENDER_TARGET_TYPE_COLOR,
 		RENDER_TARGET_TYPE_DEPTH
 	};
@@ -42,8 +40,7 @@ namespace DE
 	/**
 	* Basic class used for render targets
 	*/
-	class IRenderTargetBase : public IResource
-	{
+	class IRenderTargetBase : public IResource {
 	private:
 		ERenderTargetType m_type;
 

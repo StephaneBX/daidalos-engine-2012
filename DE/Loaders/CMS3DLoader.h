@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/CMS3DMesh.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* MS3D header structure
 	*/
-	struct SMS3DHeader
-	{
+	struct SMS3DHeader {
 		char id[10];
 		int version;
 	};
@@ -46,8 +44,7 @@ namespace DE
 	/**
 	* MS3D veretx information structure
 	*/
-	struct SMS3DVertex
-	{
+	struct SMS3DVertex {
 		unsigned char flag;
 		CVector3F position;
 		char boneId;
@@ -62,8 +59,7 @@ namespace DE
 	/**
 	* MS3D face information structure
 	*/
-	struct SMS3DFace
-	{
+	struct SMS3DFace {
 		unsigned short flags;
 		unsigned short vertexIndices[3];
 		CVector3F normals[3];
@@ -75,8 +71,7 @@ namespace DE
 	/**
 	* MS3D mesh information structure
 	*/
-	struct SMS3DMesh
-	{
+	struct SMS3DMesh {
 		unsigned char flags;
 		char name[32];
 		unsigned short numFaces;
@@ -88,8 +83,7 @@ namespace DE
 	/**
 	* MS3D material information structure
 	*/
-	struct SMS3DMaterial
-	{
+	struct SMS3DMaterial {
 		char name[32];
 		float ambient[4];
 		float diffuse[4];
@@ -106,8 +100,7 @@ namespace DE
 	/**
 	* MS3D key frame information structure
 	*/
-	struct SMS3DKeyFrame
-	{
+	struct SMS3DKeyFrame {
 		float time;
 		CVector3F param;
 	};
@@ -115,8 +108,7 @@ namespace DE
 	/**
 	* MS3D joint information structure
 	*/
-	struct SMS3DJoint
-	{
+	struct SMS3DJoint {
 		// Data from file
 		unsigned char flags;
 		char name[32];
@@ -142,8 +134,7 @@ namespace DE
 	/**
 	* MS3D data information structure
 	*/
-	struct SMS3DData
-	{
+	struct SMS3DData {
 		int numberOfFrames;
 		unsigned short numberOfVertices;
 		unsigned short numberOfFaces;
@@ -166,8 +157,7 @@ namespace DE
 	/**
 	* Loader for MS3D files
 	*/
-	class CMS3DLoader : public ILoader<IAnimatedMeshBase> 
-	{
+	class CMS3DLoader : public ILoader < IAnimatedMeshBase > {
 	private:
 		std::string m_filename;
 		SMS3DData * m_data;

@@ -43,14 +43,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_BSP_SCORE 10000000.0f
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The bsp tree node class
 	* Handle the node of a BSP tree
 	*/
-	class CBSPTreeNode
-	{
+	class CBSPTreeNode {
 	private:
 		EBSPNodeType m_type;
 		std::vector<std::unique_ptr<CBSPTriangle> > m_triangles;

@@ -31,14 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Memory/CException.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CExceptionSave class.
 	* Saving exception class.
 	*/
-	class CExceptionSave : public CException
-	{
+	class CExceptionSave : public CException {
 	public:
 		/**
 		* Constructor

@@ -34,41 +34,39 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define LOG_LEVEL_ERROR 3
 
 #if LOG_LEVEL <= LOG_LEVEL_ERROR
-	#define LOG_ERROR(stream) ILogger::Log() << __DATE__ << " - ERROR - " << __FUNCTION__ << " : " << stream << "\n";
+#define LOG_ERROR(stream) ILogger::Log() << __DATE__ << " - ERROR - " << __FUNCTION__ << " : " << stream << "\n";
 #else
-	#define LOG_ERROR(stream) {}
+#define LOG_ERROR(stream) {}
 #endif
 
 #if LOG_LEVEL <= LOG_LEVEL_WARNING
-	#define LOG_WARNING(stream) ILogger::Log() << __DATE__ << " - WARNING - " << __FUNCTION__ << " : " << stream << "\n";
+#define LOG_WARNING(stream) ILogger::Log() << __DATE__ << " - WARNING - " << __FUNCTION__ << " : " << stream << "\n";
 #else
-	#define LOG_WARNING(stream) {}
+#define LOG_WARNING(stream) {}
 #endif
 
 #if LOG_LEVEL <= LOG_LEVEL_INFO
-	#define LOG_INFO(stream) ILogger::Log() << __DATE__ << " - INFO - " << __FUNCTION__ << " : " << stream << "\n";
+#define LOG_INFO(stream) ILogger::Log() << __DATE__ << " - INFO - " << __FUNCTION__ << " : " << stream << "\n";
 #else
-	#define LOG_INFO(stream) {}
+#define LOG_INFO(stream) {}
 #endif
 
 #if LOG_LEVEL <= LOG_LEVEL_DEBUG
-	#define LOG_DEBUG(stream) ILogger::Log() << __DATE__ << " - DEBUG - " << __FUNCTION__ << " : " << stream << "\n";
+#define LOG_DEBUG(stream) ILogger::Log() << __DATE__ << " - DEBUG - " << __FUNCTION__ << " : " << stream << "\n";
 #else
-	#define LOG_DEBUG(stream) {}
+#define LOG_DEBUG(stream) {}
 #endif
 
 #include <string>
 #include <sstream>
 #include <memory>
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CLogger class
 	* Basic class for handling data logging
 	*/
-	class ILogger
-	{
+	class ILogger {
 	private:
 		static ILogger * s_logger;
 
@@ -109,9 +107,8 @@ namespace DE
 		*/
 		virtual void Write(const std::string & message);
 	};
-	
-	template <class T> ILogger & ILogger::operator<<(const T & log)
-	{
+
+	template <class T> ILogger & ILogger::operator<<(const T & log) {
 		std::ostringstream stream;
 		stream << log;
 		Write(stream.str());

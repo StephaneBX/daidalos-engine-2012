@@ -32,8 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 #include "../Core/CSingletonManager.h"
 
-namespace DE
-{
+namespace DE {
 	#define APPLICATION_OPTION_SECTION_GENERAL "general"
 	#define APPLICATION_OPTION_SECTION_LIGHTENING "lightening"
 	#define APPLICATION_OPTION_SECTION_GAMEPAD "gamepad"
@@ -63,9 +62,8 @@ namespace DE
 	/**
 	* Handle the ini configuration files of the engine
 	*/
-	class CConfigurationManager : public CSingletonManager<CConfigurationManager>
-	{
-		friend class CSingletonManager<CConfigurationManager>;
+	class CConfigurationManager : public CSingletonManager < CConfigurationManager > {
+		friend class CSingletonManager < CConfigurationManager > ;
 
 	private:
 		std::map<std::string, SiniP> m_files;

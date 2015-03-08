@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Core/Enums.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Structure used for a declaration element
 	*/
-	struct SDeclarationElement
-	{
+	struct SDeclarationElement {
 		int stream;
 		EVertexDeclarationUsage usage;
 		EVertexDeclarationTYPE type;
@@ -46,8 +44,7 @@ namespace DE
 	/**
 	* Basic abstract class used for every vertex declaration
 	*/
-	class IDeclaration 
-	{
+	class IDeclaration {
 	public:
 		/**
 		* Destructor

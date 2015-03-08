@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3dx9.h>
 #include "../../Medias/IShaderBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* DX9 class used for shaders
 	*/
-	class CDX9Shader : public IShaderBase
-	{
+	class CDX9Shader : public IShaderBase {
 	protected:
 		std::map<std::string, D3DXHANDLE> m_handles;
 		ID3DXConstantTable * m_constantTable;

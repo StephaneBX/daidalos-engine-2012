@@ -32,14 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CTokenizer.h"
 #include "../../Core/Core.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* CVector3 class
 	* Basic math class for vectors of size 3
 	*/
-	template <class T> class CVector3
-	{
+	template <class T> class CVector3 {
 	public:
 		T x;
 		T y;
@@ -94,8 +92,7 @@ namespace DE
 	/**
 	* Constructor
 	*/
-	template <class T> inline CVector3<T>::CVector3()
-	{
+	template <class T> inline CVector3<T>::CVector3() {
 		this->x = 0;
 		this->y = 0;
 		this->z = 0;
@@ -105,8 +102,7 @@ namespace DE
 	* Constructor
 	* @param vec a CVector3
 	*/
-	template <class T> inline CVector3<T>::CVector3(const CVector3<T> & vec)
-	{
+	template <class T> inline CVector3<T>::CVector3(const CVector3<T> & vec) {
 		this->x = vec.x;
 		this->y = vec.y;
 		this->z = vec.z;
@@ -118,8 +114,7 @@ namespace DE
 	* @param y The y coordinate
 	* @param z The z coordinate
 	*/
-	template <class T> inline CVector3<T>::CVector3(const T x, const T y, const T z)
-	{
+	template <class T> inline CVector3<T>::CVector3(const T x, const T y, const T z) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -129,8 +124,7 @@ namespace DE
 	* Constructor
 	* @param f The coordinate
 	*/
-	template <class T> inline CVector3<T>::CVector3(const T * const f)
-	{
+	template <class T> inline CVector3<T>::CVector3(const T * const f) {
 		this->x = f[0];
 		this->y = f[1];
 		this->z = f[2];
@@ -141,8 +135,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::operator+(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::operator+(const CVector3<T> & vec) const {
 		CVector3<T> tmp(*this);
 		tmp.x += vec.x;
 		tmp.y += vec.y;
@@ -155,8 +148,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::operator-(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::operator-(const CVector3<T> & vec) const {
 		CVector3<T> tmp(*this);
 		tmp.x -= vec.x;
 		tmp.y -= vec.y;
@@ -169,8 +161,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::operator*(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::operator*(const CVector3<T> & vec) const {
 		CVector3<T> tmp(*this);
 		tmp.x *= vec.x;
 		tmp.y *= vec.y;
@@ -183,8 +174,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::operator/(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::operator/(const CVector3<T> & vec) const {
 		CVector3<T> tmp(*this);
 		tmp.x /= vec.x;
 		tmp.y /= vec.y;
@@ -196,8 +186,7 @@ namespace DE
 	* - operator override
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::operator-() const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::operator-() const {
 		CVector3<T> tmp(*this);
 		tmp.x *= -1;
 		tmp.y *= -1;
@@ -208,14 +197,14 @@ namespace DE
 	/**
 	* Normalize the vector CVector3
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::Normalize() const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::Normalize() const {
 		CVector3<T> tmp = *this;
 		T length = Length();
 
-		if(length > 0)
+		if(length > 0) {
 			tmp = CVector3(this->x / length, this->y / length, this->z / length);
-		
+		}
+
 		return tmp;
 	}
 
@@ -224,8 +213,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator=(const CVector3<T> & vec)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator=(const CVector3<T> & vec) {
 		this->x = vec.x;
 		this->y = vec.y;
 		this->z = vec.z;
@@ -237,8 +225,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator+=(const CVector3<T> & vec)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator+=(const CVector3<T> & vec) {
 		this->x += vec.x;
 		this->y += vec.y;
 		this->z += vec.z;
@@ -250,8 +237,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator-=(const CVector3<T> & vec)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator-=(const CVector3<T> & vec) {
 		this->x -= vec.x;
 		this->y -= vec.y;
 		this->z -= vec.z;
@@ -263,8 +249,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator*=(const CVector3<T> & vec)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator*=(const CVector3<T> & vec) {
 		this->x *= vec.x;
 		this->y *= vec.y;
 		this->z *= vec.z;
@@ -276,8 +261,7 @@ namespace DE
 	* @param number A number
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator*=(const T number)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator*=(const T number) {
 		this->x *= number;
 		this->y *= number;
 		this->z *= number;
@@ -289,8 +273,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator/=(const CVector3<T> & vec)
-	{
+	template <class T> inline const CVector3<T> & CVector3<T>::operator/=(const CVector3<T> & vec) {
 		this->x /= vec.x;
 		this->y /= vec.y;
 		this->z /= vec.z;
@@ -302,8 +285,7 @@ namespace DE
 	* @param vec A CVector3
 	* @return The cross product
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::CrossProduct(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::CrossProduct(const CVector3<T> & vec) const {
 		return CVector3<T>(this->y * vec.z - this->z * vec.y, this->z * vec.x - this->x * vec.z, this->x * vec.y - this->y * vec.x);
 	}
 
@@ -313,8 +295,7 @@ namespace DE
 	* @param interpolation The interpolation value
 	* @return The result vector
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::LinearInterpolation(const CVector3<T> & vec, const float interpolation) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::LinearInterpolation(const CVector3<T> & vec, const float interpolation) const {
 		return *this + interpolation * (vec - *this);
 	}
 
@@ -324,8 +305,7 @@ namespace DE
 	* @param interpolation The interpolation value
 	* @return The result vector
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::CosineInterpolation(const CVector3<T> & vec, const float interpolation) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::CosineInterpolation(const CVector3<T> & vec, const float interpolation) const {
 		CVector3<T> ret;
 
 		float interpolation2 = (1 - std::cosf(interpolation * PI)) / 2.0f;
@@ -342,8 +322,7 @@ namespace DE
 	* @param vec The second vector
 	* @return A vector containing the minimum values
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec) const {
 		CVector3<T> ret;
 		ret.x = std::min(this->x, vec.x);
 		ret.y = std::min(this->y, vec.y);
@@ -357,8 +336,7 @@ namespace DE
 	* @param vec The second vector
 	* @return A vector containing the maximum values
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec) const
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec) const {
 		CVector3<T> ret;
 		ret.x = std::max(this->x, vec.x);
 		ret.y = std::max(this->y, vec.y);
@@ -372,8 +350,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The equal result
 	*/
-	template <class T> inline const bool CVector3<T>::operator==(const CVector3<T> & vec) const
-	{
+	template <class T> inline const bool CVector3<T>::operator==(const CVector3<T> & vec) const {
 		return std::abs(this->x - vec.x) < EPSILON && std::abs(this->y - vec.y) < EPSILON && std::abs(this->z - vec.z) < EPSILON;
 	}
 
@@ -382,8 +359,7 @@ namespace DE
 	* @param vec CVector3
 	* @return The !equal result
 	*/
-	template <class T> inline const bool CVector3<T>::operator!=(const CVector3<T> & vec) const
-	{
+	template <class T> inline const bool CVector3<T>::operator!=(const CVector3<T> & vec) const {
 		return !(*this == vec);
 	}
 
@@ -391,8 +367,7 @@ namespace DE
 	* Get the length
 	* @return The length
 	*/
-	template <class T> inline const T CVector3<T>::Length() const
-	{
+	template <class T> inline const T CVector3<T>::Length() const {
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
 	}
 
@@ -401,8 +376,7 @@ namespace DE
 	* @param vec A CVector3
 	* @return The dot product
 	*/
-	template <class T> inline const T CVector3<T>::DotProduct(const CVector3<T> & vec) const
-	{
+	template <class T> inline const T CVector3<T>::DotProduct(const CVector3<T> & vec) const {
 		return this->x * vec.x + this->y * vec.y + this->z * vec.z;
 	}
 
@@ -411,8 +385,7 @@ namespace DE
 	* @param vec A CVector3
 	* @return The distance
 	*/
-	template <class T> inline const T CVector3<T>::Distance(const CVector3<T> & vec) const
-	{
+	template <class T> inline const T CVector3<T>::Distance(const CVector3<T> & vec) const {
 		return CVector3<T>(vec.x - this->x, vec.y - this->y, vec.z - this->z).Length();
 	}
 
@@ -420,8 +393,7 @@ namespace DE
 	* T * cast operator override
 	* @return A T pointer
 	*/
-	template <class T> inline CVector3<T>::operator T * ()
-	{
+	template <class T> inline CVector3<T>::operator T * () {
 		return &this->x;
 	}
 
@@ -429,8 +401,7 @@ namespace DE
 	* T * cast operator override
 	* @return A T pointer
 	*/
-	template <class T> inline CVector3<T>::operator const T * () const
-	{
+	template <class T> inline CVector3<T>::operator const T * () const {
 		return &this->x;
 	}
 
@@ -440,8 +411,7 @@ namespace DE
 	* @param vec2 A CVector3
 	* @return The cross product
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::CrossProduct(const CVector3<T> & vec1, const CVector3<T> & vec2)
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::CrossProduct(const CVector3<T> & vec1, const CVector3<T> & vec2) {
 		return vec1.CrossProduct(vec2);
 	}
 
@@ -452,8 +422,7 @@ namespace DE
 	* @param interpolation The interpolation value
 	* @return The vector
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::LinearInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation)
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::LinearInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation) {
 		return vec1.LinearInterpolation(vec2, interpolation);
 	}
 
@@ -464,8 +433,7 @@ namespace DE
 	* @param interpolation The interpolation value
 	* @return The vector
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::CosineInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation)
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::CosineInterpolation(const CVector3<T> & vec1, const CVector3<T> & vec2, const float interpolation) {
 		return vec1.CosineInterpolation(vec2, interpolation);
 	}
 
@@ -475,8 +443,7 @@ namespace DE
 	* @param vec2 The second vector
 	* @return A vector containing the minimum values
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec1, const CVector3<T> & vec2) 
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::Min(const CVector3<T> & vec1, const CVector3<T> & vec2) {
 		return vec1.Min(vec2);
 	}
 
@@ -486,8 +453,7 @@ namespace DE
 	* @param vec2 The second vector
 	* @return A vector containing the maximum values
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec1, const CVector3<T> & vec2)
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::Max(const CVector3<T> & vec1, const CVector3<T> & vec2) {
 		return vec1.Max(vec2);
 	}
 
@@ -498,15 +464,13 @@ namespace DE
 	* @param separator The separator
 	* @return The vector
 	*/
-	template <class T> inline const CVector3<T> CVector3<T>::GetFrom(const std::string text, const CVector3<T> & defaultValue, const std::string separator)
-	{
+	template <class T> inline const CVector3<T> CVector3<T>::GetFrom(const std::string text, const CVector3<T> & defaultValue, const std::string separator) {
 		CVector3<T> result;
 		CTokenizer token;
 
 		token.AddLine(text);
 
-		if(text.length() > 0 && token.Tokenize(separator, 3) && token.GetTokens().size() == 3)
-		{
+		if(text.length() > 0 && token.Tokenize(separator, 3) && token.GetTokens().size() == 3) {
 			std::istringstream ss;
 
 			ss.clear();
@@ -520,9 +484,9 @@ namespace DE
 			ss.clear();
 			ss.str(token.GetTokens().at(2));
 			ss >> result.z;
-		}
-		else
+		} else {
 			result = defaultValue;
+		}
 
 		return result;
 	}
@@ -532,8 +496,7 @@ namespace DE
 	* @param vec A CVector3
 	* @return The length
 	*/
-	template <class T> inline const T CVector3<T>::Length(const CVector3<T> & vec)
-	{
+	template <class T> inline const T CVector3<T>::Length(const CVector3<T> & vec) {
 		return vec.Length();
 	}
 
@@ -543,8 +506,7 @@ namespace DE
 	* @param vec2 A CVector3
 	* @return The dot product
 	*/
-	template <class T> inline const T CVector3<T>::DotProduct(const CVector3<T> & vec1, const CVector3<T> & vec2)
-	{
+	template <class T> inline const T CVector3<T>::DotProduct(const CVector3<T> & vec1, const CVector3<T> & vec2) {
 		return vec1.DotProduct(vec2);
 	}
 
@@ -554,8 +516,7 @@ namespace DE
 	* @param vec2 A CVector3
 	* @return The distance
 	*/
-	template <class T> inline const T CVector3<T>::Distance(const CVector3<T> & vec1, const CVector3<T> & vec2)
-	{
+	template <class T> inline const T CVector3<T>::Distance(const CVector3<T> & vec1, const CVector3<T> & vec2) {
 		return vec1.Distance(vec2);
 	}
 
@@ -563,8 +524,7 @@ namespace DE
 	* Normalize a CVector3
 	* @param vec A CVector3
 	*/
-	template <class T> inline void CVector3<T>::Normalize(CVector3<T> & vec)
-	{
+	template <class T> inline void CVector3<T>::Normalize(CVector3<T> & vec) {
 		return vec.Normalize();
 	}
 
@@ -574,8 +534,7 @@ namespace DE
 	* @param number A number
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> operator*(const CVector3<T> & vector, const T number)
-	{
+	template <class T> inline const CVector3<T> operator*(const CVector3<T> & vector, const T number) {
 		CVector3<T> tmp(vector);
 		tmp.x *= number;
 		tmp.y *= number;
@@ -589,8 +548,7 @@ namespace DE
 	* @param vector A CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> operator*(const T number, const CVector3<T> & vector)
-	{
+	template <class T> inline const CVector3<T> operator*(const T number, const CVector3<T> & vector) {
 		return vector * number;
 	}
 
@@ -600,8 +558,7 @@ namespace DE
 	* @param number A number
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> operator/(const CVector3<T> & vector, const T number)
-	{
+	template <class T> inline const CVector3<T> operator/(const CVector3<T> & vector, const T number) {
 		CVector3<T> tmp(vector);
 		tmp.x /= number;
 		tmp.y /= number;
@@ -615,8 +572,7 @@ namespace DE
 	* @param vector A CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> operator/(const T number, const CVector3<T> & vector)
-	{
+	template <class T> inline const CVector3<T> operator/(const T number, const CVector3<T> & vector) {
 		return CVector3<T>(number / vector.x, number / vector.y, number / vector.z);
 	}
 

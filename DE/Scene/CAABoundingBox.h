@@ -33,10 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/CPlane3D.h"
 #include "../Scene/IShape3D.h"
 
-namespace DE
-{
-	enum EAABoundingBoxPlane
-	{
+namespace DE {
+	enum EAABoundingBoxPlane {
 		AABOUNDINGBOX_PLANE_LEFT,
 		AABOUNDINGBOX_PLANE_RIGHT,
 		AABOUNDINGBOX_PLANE_UP,
@@ -48,8 +46,7 @@ namespace DE
 	/**
 	* The IShape3D implementation of an axis-aligned bounding box.
 	*/
-	template <class T> class CAABoundingBox : public IShape3D<T> 
-	{
+	template <class T> class CAABoundingBox : public IShape3D < T > {
 	private:
 		CVector3<T> m_size;
 		CVector3<T> m_min;
@@ -118,13 +115,11 @@ namespace DE
 		const CVector3<T> & GetMax() const;
 	};
 
-	template <class T> CAABoundingBox<T>::CAABoundingBox() : IShape3D<T>() 
-	{
+	template <class T> CAABoundingBox<T>::CAABoundingBox() : IShape3D<T>() {
 		this->m_type = SHAPE_AABOX;
 	}
-	
-	template <class T> CAABoundingBox<T>::CAABoundingBox(const CVector3<T> & position, const CVector3<T> & size) : IShape3D<T>(position)
-	{
+
+	template <class T> CAABoundingBox<T>::CAABoundingBox(const CVector3<T> & position, const CVector3<T> & size) : IShape3D<T>(position) {
 		this->m_position = position;
 		this->m_type = SHAPE_AABOX;
 
@@ -133,14 +128,12 @@ namespace DE
 
 	template <class T> CAABoundingBox<T>::~CAABoundingBox() {}
 
-	template <class T> void CAABoundingBox<T>::SetPosition(const CVector3<T> & position)
-	{
+	template <class T> void CAABoundingBox<T>::SetPosition(const CVector3<T> & position) {
 		IShape3D::SetPosition(position);
 		SetSize(this->m_size);
 	}
 
-	template <class T> void CAABoundingBox<T>::SetSize(const CVector3<T> & size)
-	{
+	template <class T> void CAABoundingBox<T>::SetSize(const CVector3<T> & size) {
 		this->m_size = size;
 		this->m_min = this->m_position - (this->m_size / 2.0f);
 		this->m_max = this->m_position + (this->m_size / 2.0f);
@@ -148,8 +141,7 @@ namespace DE
 		BuildPlanes();
 	}
 
-	template <class T> void CAABoundingBox<T>::SetMinMax(const CVector3<T> & minPosition, const CVector3<T> & maxPosition)
-	{
+	template <class T> void CAABoundingBox<T>::SetMinMax(const CVector3<T> & minPosition, const CVector3<T> & maxPosition) {
 		this->m_min = minPosition;
 		this->m_max = maxPosition;
 		this->m_size = maxPosition - minPosition;
@@ -158,51 +150,47 @@ namespace DE
 		BuildPlanes();
 	}
 
-	template <class T> void CAABoundingBox<T>::BuildPlanes()
-	{
-		CVector3<T> left[3] = {CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_min.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z)};
+	template <class T> void CAABoundingBox<T>::BuildPlanes() {
+		CVector3<T> left[3] = { CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_min.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_LEFT].Build(left);
 
-		CVector3<T> right[3] = {CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z)};
+		CVector3<T> right[3] = { CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_RIGHT].Build(right);
 
-		CVector3<T> up[3] = {CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z)};
+		CVector3<T> up[3] = { CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_min.y, this->m_max.z), CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_UP].Build(up);
 
-		CVector3<T> down[3] = {CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z)};
+		CVector3<T> down[3] = { CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_DOWN].Build(down);
 
-		CVector3<T> top[3] = {CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z)};
+		CVector3<T> top[3] = { CVector3<T>(this->m_min.x, this->m_max.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_max.z), CVector3<T>(this->m_max.x, this->m_max.y, this->m_min.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_TOP].Build(top);
 
-		CVector3<T> bottom[3] = {CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z)};
+		CVector3<T> bottom[3] = { CVector3<T>(this->m_min.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_min.z), CVector3<T>(this->m_max.x, this->m_min.y, this->m_max.z) };
 		this->m_planes[AABOUNDINGBOX_PLANE_BOTTOM].Build(bottom);
 	}
 
-	template <class T> const float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const
-	{
+	template <class T> const float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		CVector3<T> endSegment = this->m_position - (plane.GetNormal() * this->m_size.x * this->m_size.y * this->m_size.z);
 		float factor = 1.0f;
 		CVector3<T> intersection;
 
 		// Check the intersection between each plane and the segment (plane - position)
-		for(auto it = this->m_planes.begin() ; it != this->m_planes.end() ; ++it)
-		{
+		for(auto it = this->m_planes.begin(); it != this->m_planes.end(); ++it) {
 			intersection = (*it).IntersectSegment(this->m_position, endSegment, factor);
-			if(factor < 1.0f)
+			if(factor < 1.0f) {
 				break;
+			}
 		}
 
 		return (intersection - this->m_position).Length();
 	}
 
-	template <class T> const CVector3<T> & CAABoundingBox<T>::GetMin() const
-	{
+	template <class T> const CVector3<T> & CAABoundingBox<T>::GetMin() const {
 		return this->m_min;
 	}
 
-	template <class T> const CVector3<T> & CAABoundingBox<T>::GetMax() const
-	{
+	template <class T> const CVector3<T> & CAABoundingBox<T>::GetMax() const {
 		return this->m_max;
 	}
 

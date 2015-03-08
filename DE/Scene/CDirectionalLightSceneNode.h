@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/ILightSceneNode.h"
 #include "../Scene/COrthographicCameraSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle a directional light
 	*/
-	class CDirectionalLightSceneNode : public ILightSceneNode
-	{
+	class CDirectionalLightSceneNode : public ILightSceneNode {
 	protected:
 		COrthographicCameraSceneNode * m_camera;
 

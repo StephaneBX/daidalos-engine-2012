@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Scene/IShape3D.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The IShape3D implementation of a sphere.
 	*/
-	template <class T> class CSphere : public IShape3D<T> 
-	{
+	template <class T> class CSphere : public IShape3D < T > {
 	private:
 		float m_radius;
 
@@ -85,13 +83,11 @@ namespace DE
 		CSphere GetUnion(const CSphere & sphere) const;
 	};
 
-	template <class T> CSphere<T>::CSphere() : IShape3D<T>() 
-	{
+	template <class T> CSphere<T>::CSphere() : IShape3D<T>() {
 		this->m_type = SHAPE_SPHERE;
 	}
-	
-	template <class T> CSphere<T>::CSphere(const CVector3<T> & position, const float radius) : IShape3D<T>(position)
-	{
+
+	template <class T> CSphere<T>::CSphere(const CVector3<T> & position, const float radius) : IShape3D<T>(position) {
 		this->m_type = SHAPE_SPHERE;
 		this->m_position = position;
 		this->m_radius = radius;
@@ -99,23 +95,19 @@ namespace DE
 
 	template <class T> CSphere<T>::~CSphere() {}
 
-	template <class T> void CSphere<T>::SetRadius(const float radius)
-	{
+	template <class T> void CSphere<T>::SetRadius(const float radius) {
 		this->m_radius = radius;
 	}
 
-	template <class T> const float CSphere<T>::GetInnerDepth(const CPlane3D<T> & plane) const
-	{
+	template <class T> const float CSphere<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return this->m_radius;
 	}
 
-	template <class T> const float CSphere<T>::GetInnerDepth() const
-	{
+	template <class T> const float CSphere<T>::GetInnerDepth() const {
 		return this->m_radius;
 	}
 
-	template <class T> CSphere<T> CSphere<T>::GetUnion(const CSphere<T> & sphere) const
-	{
+	template <class T> CSphere<T> CSphere<T>::GetUnion(const CSphere<T> & sphere) const {
 		// Get the minimum and maximum values
 		CVector3<T> direction = (sphere.GetPosition() - this->m_position).Normalize();
 		CVector3<T> start = this->m_position - (direction * this->m_radius);

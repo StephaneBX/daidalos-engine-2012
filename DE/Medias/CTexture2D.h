@@ -31,13 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/ITexture2DBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for textures
 	*/
-	class CTexture2D
-	{
+	class CTexture2D {
 	private:
 		ITexture2DBase * m_texture;
 
@@ -126,7 +124,7 @@ namespace DE
 		* @param filter The filter policy
 		* @param flags The flags
 		*/
-        void CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter = nullptr, const unsigned long flags = 0);
+		void CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter = nullptr, const unsigned long flags = 0);
 
 		/**
 		* Create a texture from an image
@@ -136,13 +134,13 @@ namespace DE
 		* @param flags The flags
 		* @param name The texture name
 		*/
-        void CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter = nullptr, const unsigned long flags = 0, const std::string & name = "");
+		void CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter = nullptr, const unsigned long flags = 0, const std::string & name = "");
 
 		/**
 		* Save the texture to a file
 		* @param filename The filename
 		*/
-        void SaveToFile(const std::string & filename) const;
+		void SaveToFile(const std::string & filename) const;
 
 		/**
 		* Update the texture

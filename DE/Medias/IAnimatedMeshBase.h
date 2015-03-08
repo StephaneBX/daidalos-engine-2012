@@ -30,13 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IMeshBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class used for animated meshs
 	*/
-	class IAnimatedMeshBase : public IMeshBase
-	{
+	class IAnimatedMeshBase : public IMeshBase {
 	protected:
 		float m_frame;
 

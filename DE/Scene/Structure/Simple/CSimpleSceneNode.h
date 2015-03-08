@@ -33,13 +33,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../Scene/ILevelSceneNode.h"
 #include "../../../Scene/CSphere.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* The structure used by the node
 	*/
-	struct SSimpleBrush
-	{
+	struct SSimpleBrush {
 		CSphereF * visibilityShape;
 		std::vector<CTriangle3D*> geometry;
 	};
@@ -47,12 +45,11 @@ namespace DE
 	/**
 	* Handle a 3d simple node
 	*/
-	class CSimpleSceneNode : public ILevelSceneNode
-	{
+	class CSimpleSceneNode : public ILevelSceneNode {
 	protected:
 		std::vector<CTriangle3D*> m_visibleTriangles;
 		std::vector<SSimpleBrush> m_brushes;
-	
+
 	public:
 		/**
 		* Constructor

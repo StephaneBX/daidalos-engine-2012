@@ -38,14 +38,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define MESHSCENE_ALL_GROUPS -1
 
-namespace DE
-{
+namespace DE {
 	class IScene;
 	/**
 	* Basic class for the scene nodes.
 	*/
-	class ISceneNode 
-	{
+	class ISceneNode {
 	protected:
 		bool m_enabled;
 		bool m_active;

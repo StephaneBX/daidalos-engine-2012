@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.h"
 #include "../Core/IResource.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Basic class for sounds
 	*/
-	class ISoundBase : public IResource
-	{
+	class ISoundBase : public IResource {
 	protected:
 		ALuint m_source;
 		ESoundFormat m_format;

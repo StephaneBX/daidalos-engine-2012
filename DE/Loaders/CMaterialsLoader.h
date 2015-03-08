@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/IMaterialBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for materials files (.mtl)
 	*/
-	class CMaterialsLoader : public ILoader<IMaterialBase> 
-	{
+	class CMaterialsLoader : public ILoader < IMaterialBase > {
 	public:
 		/**
 		* Constructor

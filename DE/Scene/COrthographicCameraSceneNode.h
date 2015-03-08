@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.h"
 #include "../Scene/ICameraSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Handle an orthographic typed camera
 	*/
-	class COrthographicCameraSceneNode : public ICameraSceneNode
-	{
+	class COrthographicCameraSceneNode : public ICameraSceneNode {
 	private:
 		CRectangleF m_bounds;
 

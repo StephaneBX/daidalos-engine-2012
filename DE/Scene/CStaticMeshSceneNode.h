@@ -31,16 +31,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CStaticMesh.h"
 #include "../Scene/IMeshSceneNode.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Mesh scene node for static meshes
 	*/
-	class CStaticMeshSceneNode : public IMeshSceneNode
-	{
+	class CStaticMeshSceneNode : public IMeshSceneNode {
 	protected:
 		CStaticMesh m_mesh;
-		
+
 	public:
 		/**
 		* Constructor

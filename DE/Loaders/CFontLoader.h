@@ -32,13 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Medias/IFontBase.h"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Loader for fonts
 	*/
-	class CFontLoader : public ILoader<IFontBase> 
-	{
+	class CFontLoader : public ILoader < IFontBase > {
 	public:
 		/**
 		* Constructor
