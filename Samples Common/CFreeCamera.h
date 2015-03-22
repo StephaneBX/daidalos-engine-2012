@@ -28,9 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CFREECAMERA_H
 #define __CFREECAMERA_H
 
-#include <Scene/ICameraSceneNode.h>
-#include <Scene/CScene.h>
-#include <Scene/CEllipse.h>
+#include <Scene/3D/ICameraSceneNode.h>
+#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/CEllipse.h>
 #include <Core/Utility/CVector3.h>
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
@@ -63,7 +63,7 @@ namespace SAMPLES
 		DE::ICameraSceneNode * m_node;
 		DE::CInputDevice * m_inputDevice;
 		DE::CEllipseF m_shape;
-		DE::CScene * m_scene;
+		DE::C3DScene * m_scene;
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
@@ -78,7 +78,7 @@ namespace SAMPLES
 		* Set the associated scene
 		* @param scene The associated scene
 		*/
-		void SetScene(DE::CScene * scene);
+		void SetScene(DE::C3DScene * scene);
 
 		/**
 		* Update the camera

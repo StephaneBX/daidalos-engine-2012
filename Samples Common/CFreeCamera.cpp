@@ -86,7 +86,7 @@ namespace SAMPLES {
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
-	void CFreeCamera::SetScene(DE::CScene * scene) {
+	void CFreeCamera::SetScene(DE::C3DScene * scene) {
 		this->m_scene = scene;
 	}
 

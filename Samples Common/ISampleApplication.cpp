@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <vector>
-#include <Scene/ICameraSceneNode.h>
-#include <Scene/CSpotLightSceneNode.h>
-#include <Scene/IMeshSceneNode.h>
+#include <Scene/3D/ICameraSceneNode.h>
+#include <Scene/3D/CSpotLightSceneNode.h>
+#include <Scene/3D/IMeshSceneNode.h>
 #include <Core/Core.h>
 #include <Core/Logger/CLoggerFile.h>
 #include <Core/Utility/CMatrix.h>
@@ -61,7 +61,7 @@ namespace SAMPLES {
 	};
 
 	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
-		this->m_scene = new DE::CScene();
+		this->m_scene = new DE::C3DScene();
 
 		DE::STexture2DFilterPolicy textureFilter2;
 		textureFilter2.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;

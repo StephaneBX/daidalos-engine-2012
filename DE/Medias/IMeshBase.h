@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Enums.h"
 #include "../Core/Utility/CVector3.h"
 #include "../Core/Utility/CVector2.h"
-#include "../Scene/CSphere.h"
+#include "../Scene/3D/CSphere.h"
 #include "../Medias/CMaterial.h"
 #include "../Core/IResource.h"
 

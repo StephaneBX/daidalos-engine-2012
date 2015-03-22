@@ -76,32 +76,38 @@
     <Filter Include="Fichiers d%27en-tête\Core\Listeners">
       <UniqueIdentifier>{6cd44f12-2ee3-47c1-ac2c-f2c5d009f3d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\GUI">
-      <UniqueIdentifier>{8cd5ae09-3c6a-459a-882b-f3f2ec7893e0}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Scene\2D">
+      <UniqueIdentifier>{2457eb2a-8ad3-4c66-9167-0b7a76c391ad}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\GUI">
-      <UniqueIdentifier>{792e9085-39d4-41a9-ab10-cc2a84d6c489}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Scene\3D">
+      <UniqueIdentifier>{e6af8793-d348-4842-ac08-e00782958f7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Scene\Structure">
-      <UniqueIdentifier>{4d943e41-dd7a-45aa-8403-a35497ca6f6b}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Scene\3D\Structure">
+      <UniqueIdentifier>{d0195273-81ae-451e-8f83-d9fc09c1b989}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Scene\Structure\BSP">
-      <UniqueIdentifier>{c5f93afe-a0d9-4178-96ec-f77efed58dec}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scene\2D">
+      <UniqueIdentifier>{3f96895d-f2e9-43ab-8b88-9694708a4fbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Scene\Structure">
-      <UniqueIdentifier>{996c6bd0-a551-4219-bec0-3acca12dd695}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scene\3D">
+      <UniqueIdentifier>{32d71429-e1ac-4f90-b801-1e41018f8698}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Scene\Structure\BSP">
-      <UniqueIdentifier>{b8fa752e-01d4-4e5a-b795-7c1274f73ef5}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scene\3D\Structure">
+      <UniqueIdentifier>{18634b23-4b08-41b9-9aa9-cf757ac3d03e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Scene\Structure\Simple">
-      <UniqueIdentifier>{8f3c8527-d58b-4867-b323-eb0b16b55a67}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scene\3D\Structure\BSP">
+      <UniqueIdentifier>{729bd73e-cfe1-4099-a51e-e9a4db772a6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Scene\Structure\Simple">
-      <UniqueIdentifier>{266faead-b152-45f3-a921-f4b911d6a261}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Scene\3D\Structure\Simple">
+      <UniqueIdentifier>{c08862c8-3a1e-4b0d-8d7f-1212a153548b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\GUI\Listeners">
-      <UniqueIdentifier>{8fb2039f-2811-4d99-a0b5-837cf9c9248a}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\Scene\3D\Structure\BSP">
+      <UniqueIdentifier>{60569330-c2e1-49a1-90dd-2a8ffadd1825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\3D\Structure\Simple">
+      <UniqueIdentifier>{15eed712-8d76-48e3-8400-e2f53dc02310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\2D\Listeners">
+      <UniqueIdentifier>{49026f16-8a89-41ad-9e82-569c0918976b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -282,24 +288,6 @@
     <ClInclude Include="Loaders\COBJLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\ISceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CPlane3D.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\IShape3D.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CSphere.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CEllipse.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\IMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Medias\CMD2Mesh.h">
       <Filter>Fichiers d%27en-tête\Medias</Filter>
     </ClInclude>
@@ -327,20 +315,11 @@
     <ClInclude Include="Core\CInputDevice.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\CTriangle3D.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Loaders\CSceneLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
     </ClInclude>
     <ClInclude Include="Core\CConfigurationManager.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CImpact.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\ILevelSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Medias\CSound.h">
       <Filter>Fichiers d%27en-tête\Medias</Filter>
@@ -396,101 +375,131 @@
     <ClInclude Include="Core\Logger\ILogger.h">
       <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\CAnimatedMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CStaticMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CMeshBuffer.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CSoundSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\COrthographicCameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CProjectionCameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\ILightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\IBoundedLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\ICameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CSpotLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CDirectionalLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CPointLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CAABoundingBox.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CEmptySceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Memory\CExceptionSave.h">
       <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\BSP\CBSPBrushNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\BSP\CBSPPortal.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\BSP\CBSPSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\BSP\CBSPTreeNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\BSP\CBSPTriangle.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Structure\Simple\CSimpleSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\Structure\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\CSkybox.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui\IGUIView.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Core\Utility\CInset.h">
       <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\Listeners\IGUIButtonListener.h">
-      <Filter>Fichiers d%27en-tête\GUI\Listeners</Filter>
+    <ClInclude Include="Scene\3D\C3DScene.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\CGUIButton.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Scene\3D\CAABoundingBox.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\CGUICursor.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Scene\3D\CAnimatedMeshSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Gui\CGUILabel.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Scene\3D\CDirectionalLightSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\CGUICheckbox.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Scene\3D\CEllipse.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="GUI\CGUIPanel.h">
-      <Filter>Fichiers d%27en-tête\GUI</Filter>
+    <ClInclude Include="Scene\3D\CEmptySceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\IScene.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    <ClInclude Include="Scene\3D\CFrustum.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\CScene.h">
-      <Filter>Fichiers d%27en-tête\Scene</Filter>
+    <ClInclude Include="Scene\3D\CImpact.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CMeshBuffer.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\COrthographicCameraSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CPlane3D.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CPointLightSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CProjectionCameraSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSkybox.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSoundSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSphere.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSpotLightSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CStaticMeshSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CTriangle3D.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\I3DScene.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IBoundedLightSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ICameraSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ILevelSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ILightSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IMeshSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ISceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IShape3D.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPBrushNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPPortal.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTreeNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTriangle.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\Simple\CSimpleSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CButton.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CCheckbox.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CCursor.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CLabel.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CSprite.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\IView.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\Listeners\IButtonListener.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -620,14 +629,8 @@
     <ClCompile Include="Loaders\COBJLoader.cpp">
       <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\ISceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Medias\CBuffer.cpp">
       <Filter>Fichiers sources\Medias</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\IMeshSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Medias\CMD2Mesh.cpp">
       <Filter>Fichiers sources\Medias</Filter>
@@ -656,20 +659,11 @@
     <ClCompile Include="Core\CInputDevice.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\CTriangle3D.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Loaders\CSceneLoader.cpp">
       <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
     <ClCompile Include="Core\CConfigurationManager.cpp">
       <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CImpact.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\ILevelSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Medias\CSound.cpp">
       <Filter>Fichiers sources\Medias</Filter>
@@ -713,92 +707,110 @@
     <ClCompile Include="Medias\IShaderProgramBase.cpp">
       <Filter>Fichiers sources\Medias</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\CAnimatedMeshSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CStaticMeshSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CMeshBuffer.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CSoundSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\COrthographicCameraSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CProjectionCameraSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\ILightSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\IBoundedLightSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\ICameraSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CSpotLightSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CDirectionalLightSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CPointLightSceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\CEmptySceneNode.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Memory\CExceptionSave.cpp">
       <Filter>Fichiers sources\Core\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\BSP\CBSPBrushNode.cpp">
-      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    <ClCompile Include="Scene\3D\C3DScene.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\BSP\CBSPPortal.cpp">
-      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    <ClCompile Include="Scene\3D\CAnimatedMeshSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\BSP\CBSPSceneNode.cpp">
-      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    <ClCompile Include="Scene\3D\CDirectionalLightSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\BSP\CBSPTreeNode.cpp">
-      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    <ClCompile Include="Scene\3D\CEmptySceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\BSP\CBSPTriangle.cpp">
-      <Filter>Fichiers sources\Scene\Structure\BSP</Filter>
+    <ClCompile Include="Scene\3D\CFrustum.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Structure\Simple\CSimpleSceneNode.cpp">
-      <Filter>Fichiers sources\Scene\Structure\Simple</Filter>
+    <ClCompile Include="Scene\3D\CImpact.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\CSkybox.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
+    <ClCompile Include="Scene\3D\CMeshBuffer.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Gui\IGUIView.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\COrthographicCameraSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\CGUIButton.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\CPointLightSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\CGUICursor.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\CProjectionCameraSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Gui\CGUILabel.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\CSkybox.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\CGUICheckbox.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\CSoundSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\CGUIPanel.cpp">
-      <Filter>Fichiers sources\GUI</Filter>
+    <ClCompile Include="Scene\3D\CSpotLightSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\IScene.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
+    <ClCompile Include="Scene\3D\CStaticMeshSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\CScene.cpp">
-      <Filter>Fichiers sources\Scene</Filter>
+    <ClCompile Include="Scene\3D\CTriangle3D.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\I3DScene.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\IBoundedLightSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\ICameraSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\ILevelSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\ILightSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\IMeshSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\ISceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\BSP\CBSPBrushNode.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\BSP\CBSPPortal.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\BSP\CBSPSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\BSP\CBSPTreeNode.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\BSP\CBSPTriangle.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\Structure\Simple\CSimpleSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D\Structure\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CButton.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CCheckbox.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CCursor.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CLabel.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CSprite.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\IView.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

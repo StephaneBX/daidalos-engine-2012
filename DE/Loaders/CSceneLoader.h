@@ -34,15 +34,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CConfigurationManager.h"
-#include "../Scene/Structure/BSP/CBSPSceneNode.h"
-#include "../Scene/Structure/Simple/CSimpleSceneNode.h"
-#include "../Scene/ISceneNode.h"
+#include "../Scene/3D/Structure/BSP/CBSPSceneNode.h"
+#include "../Scene/3D/Structure/Simple/CSimpleSceneNode.h"
+#include "../Scene/3D/ISceneNode.h"
 
 namespace DE {
 	/**
 	* Loader for daidalos engine scene files (.des)
 	*/
-	class CSceneLoader : public ILoader < IScene > {
+	class CSceneLoader : public ILoader < I3DScene > {
 	private:
 		std::string m_filename;
 		ESceneNodeRootStructureType m_structure;
@@ -66,7 +66,7 @@ namespace DE {
 		* @param filename The scene filename
 		* @return The scene
 		*/
-		IScene * LoadFromFile(const std::string & filename);
+		I3DScene * LoadFromFile(const std::string & filename);
 
 		/**
 		* Save a scene into a file
@@ -81,7 +81,7 @@ namespace DE {
 		* @param parent The node parent
 		* @param xmlElement The xml element describing the node
 		*/
-		void LoadNode(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
+		void LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
 
 		/**
 		* Load a BSP structure
@@ -89,7 +89,7 @@ namespace DE {
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadBSPStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		void LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Load a simple structure
@@ -97,7 +97,7 @@ namespace DE {
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadSimpleStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Add data into the bsp brush definition by reading the handle

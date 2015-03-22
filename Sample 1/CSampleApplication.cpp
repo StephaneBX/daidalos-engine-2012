@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "CSampleApplication.h"
-#include "Scene/CDirectionalLightSceneNode.h"
+#include <Scene/3D/CDirectionalLightSceneNode.h>
 
 namespace SAMPLE1 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : ISampleApplication(hInstance, nCmdShow) {

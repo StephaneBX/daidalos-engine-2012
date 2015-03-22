@@ -34,23 +34,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IDeclaration.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CSingletonManager.h"
-#include "../GUI/CGUIPanel.h"
-#include "../GUI/CGUICursor.h"
+#include "../Scene/2D/CSprite.h"
+#include "../Scene/2D/CCursor.h"
 
 namespace DE {
 	/**
 	* Handle the gui elements
 	*/
-	class CGUIManager : public CSingletonManager < CGUIManager > {
-		friend class CSingletonManager < CGUIManager > ;
+	class CGUIManager : public CSingletonManager <CGUIManager> {
+		friend class CSingletonManager <CGUIManager> ;
 
 	private:
 		CMatrix m_proj;
 		IRenderer * m_renderer;
 		DeclarationPtr m_declaration;
 		CShaderProgram m_shaderProgram;
-		std::unique_ptr<CGUIPanel> m_mainView;
-		CGUICursor m_cursor;
+		std::unique_ptr<CSprite> m_mainView;
+		CCursor m_cursor;
 
 	public:
 		/**
@@ -67,13 +67,13 @@ namespace DE {
 		* Add the element in the main view
 		* @param element The gui element
 		*/
-		void AddToMainView(IGUIView * element);
+		void AddToMainView(IView * element);
 
 		/**
 		* Remove the element from the main view
 		* @param element The gui element
 		*/
-		void RemoveFromMainView(IGUIView * element);
+		void RemoveFromMainView(IView * element);
 
 		/**
 		* Set the cursor visibility

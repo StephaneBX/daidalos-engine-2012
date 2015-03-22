@@ -1,0 +1,212 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#include "../../Core/IRenderer.h"
+#include "../../Core/Memory/CExceptionAssert.h"
+#include "../../Core/CInputDevice.h"
+#include "../../Scene/2D/CCheckbox.h"
+
+namespace DE {
+	CCheckbox::CCheckbox() {
+		this->m_enabled = true;
+		this->m_checked = false;
+		this->m_changed = true;
+		this->m_clicked = false;
+
+		this->m_label = new CLabel();
+		this->m_label->SetVerticalAlignment(TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_label->SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		AddSubview(this->m_label);
+	}
+
+	CCheckbox::~CCheckbox() {
+		delete this->m_label;
+	}
+
+	void CCheckbox::SetEnabled(const bool enabled) {
+		this->m_enabled = enabled;
+	}
+
+	void CCheckbox::SetChecked(const bool checked) {
+		this->m_checked = checked;
+	}
+
+	void CCheckbox::SetLabelInset(const CInsetI & inset) {
+		this->m_labelInset = inset;
+	}
+
+	void CCheckbox::SetUncheckedTexture(const std::string & texture) {
+		if(texture != "") {
+			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+		} else {
+			this->m_uncheckedTexture = CTexture2D();
+		}
+	}
+
+	void CCheckbox::SetCheckedTexture(const std::string & texture) {
+		if(texture != "") {
+			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+		} else {
+			this->m_checkedTexture = CTexture2D();
+		}
+	}
+
+	void CCheckbox::SetClickedTexture(const std::string & texture) {
+		if(texture != "") {
+			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+		} else {
+			this->m_clickedTexture = CTexture2D();
+		}
+	}
+
+	void CCheckbox::Update() {
+		if(this->m_changed) {
+			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
+
+			IRenderer * renderer = IRenderer::GetRenderer();
+
+			GenerateGeometry();
+
+			if(this->m_data.size() > 0) {
+				// Create a new buffer if the current one is too small
+				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
+					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+
+				// Lock and copy the data
+				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
+				memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
+				this->m_buffer.Unlock();
+			}
+		}
+
+		// Update the subviews
+		IView::Update();
+	}
+
+	void CCheckbox::Render() {
+		if(this->m_data.size() > 0) {
+			// Handle the disabled gray color
+			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
+			if(!this->m_enabled) {
+				color = CColor(0.5f, 0.5f, 0.5f, 1.0f);
+			}
+
+			IRenderer * renderer = IRenderer::GetRenderer();
+			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			Assert(shaderProgram != nullptr);
+
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
+
+			renderer->SetTexture(0, GetTextureToRender());
+			renderer->SetTexture(1, nullptr);
+			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));
+			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+		}
+
+		// Render the subviews
+		IView::Render();
+	}
+
+	const bool CCheckbox::HitTest(const CVector2I & point) {
+		this->m_hitTest = IsInside(point);
+
+		// Click canceled by the user
+		if(this->m_clicked && !this->m_hitTest) {
+			this->m_clicked = false;
+		}
+
+		CInputDevice * inputDevice = CInputDevice::GetInstance();
+
+		// Click start test
+		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && this->m_hitTest) {
+			this->m_clicked = true;
+		} else {
+			// Click end test
+			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest) {
+				this->m_clicked = false;
+				this->m_checked = !this->m_checked;
+			}
+		}
+
+		return this->m_hitTest;
+	}
+
+	const bool CCheckbox::IsEnabled() const {
+		return this->m_enabled;
+	}
+
+	const bool CCheckbox::IsChecked() const {
+		return this->m_checked;
+	}
+
+	CLabel * CCheckbox::GetLabelElement() {
+		return this->m_label;
+	}
+
+	void CCheckbox::GenerateGeometry() {
+		this->m_data.clear();
+		CRectangleI positionRectangle = GetPositionRectangle();
+		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1));
+
+		// Update the label position
+		this->m_label->SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), this->m_preferredsize.x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), this->m_preferredsize.y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
+
+		this->m_changed = false;
+	}
+
+	CRectangleI CCheckbox::GetPositionRectangle() {
+		CRectangleI positionRectangle;
+
+		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
+			positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_clickedTexture.GetSize().y) / 2, this->m_clickedTexture.GetSize().x, this->m_clickedTexture.GetSize().y);
+		} else {
+			if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr) {
+				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_checkedTexture.GetSize().y) / 2, this->m_checkedTexture.GetSize().x, this->m_checkedTexture.GetSize().y);
+			} else {
+				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_uncheckedTexture.GetSize().y) / 2, this->m_uncheckedTexture.GetSize().x, this->m_uncheckedTexture.GetSize().y);
+			}
+		}
+		return positionRectangle;
+	}
+
+	ITexture2DBase * CCheckbox::GetTextureToRender() {
+		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
+			return this->m_clickedTexture.GetTexture();
+		}
+
+		if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr) {
+			return this->m_checkedTexture.GetTexture();
+		}
+
+		if(this->m_uncheckedTexture.GetTexture() != nullptr) {
+			return this->m_uncheckedTexture.GetTexture();
+		}
+
+		return nullptr;
+	}
+}

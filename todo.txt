@@ -29,15 +29,17 @@
 ===============================================================
                                   GUI
 ===============================================================
-- Mettre en place CGUIWindow
+- Mettre en place CWindow
+- Retirer le singleton de CGUIManager, le renommer en C2DScene
+- Mettre en place une classe CLoadingView qui hérite de CSprite
 
 ===============================================================
-                          CSceneManager
+                          C3DScene
 ===============================================================
-- Renommer en CScene
-- Retirer le singleton
 - Permettre la transition entre deux scenes
 - Demande une gestion threadée du chargement + vue loading
+
+
 
 ===============================================================
                      Intéractions / Collisions

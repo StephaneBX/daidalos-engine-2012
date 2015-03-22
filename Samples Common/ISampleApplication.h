@@ -28,19 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ISAMPLEAPPLICATION_H
 #define __ISAMPLEAPPLICATION_H
 
-#include <Scene/CScene.h>
-#include <Scene/CStaticMeshSceneNode.h>
-#include <Scene/CAnimatedMeshSceneNode.h>
-#include <Scene/CSpotLightSceneNode.h>
-#include <Scene/CPointLightSceneNode.h>
-#include <Scene/CDirectionalLightSceneNode.h>
+#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/CStaticMeshSceneNode.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/CSpotLightSceneNode.h>
+#include <Scene/3D/CPointLightSceneNode.h>
+#include <Scene/3D/CDirectionalLightSceneNode.h>
 #include <Medias/CBuffer.h>
 #include <Medias/CShaderProgram.h>
 #include <Medias/CTexture2D.h>
 #include <Medias/CFrameBuffer.h>
-#include <GUI/CGUILabel.h>
-#include <GUI/CGUIButton.h>
-#include <GUI/CGUICheckbox.h>
+#include <Scene/2D/CLabel.h>
+#include <Scene/2D/CButton.h>
+#include <Scene/2D/CCheckbox.h>
 #include <Core/Utility/CColor.h>
 #include <Core/Utility/CFPSCounter.h>
 #include <Core/IRenderer.h>
@@ -55,7 +55,7 @@ namespace SAMPLES
 	class ISampleApplication : public DE::IWin32Application 
 	{
 	protected:
-		DE::CScene * m_scene;
+		DE::C3DScene * m_scene;
 		DE::DeclarationPtr m_declaration;
 		DE::ICameraSceneNode * m_activeCamera;
 
@@ -74,11 +74,10 @@ namespace SAMPLES
 		DE::CShaderProgram m_DSDirectionalLight;
 		DE::CShaderProgram m_DSFinal;
 
-		DE::CGUILabel m_fpsText;
-		DE::CGUILabel m_positionText;
-		DE::CGUIButton m_button;
-		DE::CGUICheckbox m_checkbox;
-
+		DE::CLabel m_fpsText;
+		DE::CLabel m_positionText;
+		DE::CButton m_button;
+		DE::CCheckbox m_checkbox;
 
 		DE::CFPSCounter m_fpsCounter;
 

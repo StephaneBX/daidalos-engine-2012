@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CHEALTHENTITY_H
 #define __CHEALTHENTITY_H
 
-#include <Scene/ISceneNode.h>
+#include <Scene/3D/ISceneNode.h>
 #include <Medias/CSound.h>
 #include "CFPSCamera.h"
 

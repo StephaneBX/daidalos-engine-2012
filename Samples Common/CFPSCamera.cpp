@@ -91,7 +91,7 @@ namespace SAMPLES {
 		this->m_visiblePosition = this->m_node->GetPosition();
 	}
 
-	void CFPSCamera::SetScene(DE::CScene * scene) {
+	void CFPSCamera::SetScene(DE::C3DScene * scene) {
 		this->m_scene = scene;
 	}
 

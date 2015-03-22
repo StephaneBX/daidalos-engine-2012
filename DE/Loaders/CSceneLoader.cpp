@@ -25,21 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Scene/IScene.h"
+#include "../Scene/3D/I3DScene.h"
 #include "../Core/Core.h"
 #include "../Core/Utility/CTokenizer.h"
 #include "../Core/Utility/CVector4.h"
 #include "../Core/Memory/CExceptionLoad.h"
 #include "../Core/Logger/ILogger.h"
-#include "../Scene/CProjectionCameraSceneNode.h"
-#include "../Scene/CSpotLightSceneNode.h"
-#include "../Scene/CPointLightSceneNode.h"
-#include "../Scene/CDirectionalLightSceneNode.h"
-#include "../Scene/CStaticMeshSceneNode.h"
-#include "../Scene/CAnimatedMeshSceneNode.h"
-#include "../Scene/CSoundSceneNode.h"
-#include "../Scene/CEmptySceneNode.h"
-#include "../Scene/CPlane3D.h"
+#include "../Scene/3D/CProjectionCameraSceneNode.h"
+#include "../Scene/3D/CSpotLightSceneNode.h"
+#include "../Scene/3D/CPointLightSceneNode.h"
+#include "../Scene/3D/CDirectionalLightSceneNode.h"
+#include "../Scene/3D/CStaticMeshSceneNode.h"
+#include "../Scene/3D/CAnimatedMeshSceneNode.h"
+#include "../Scene/3D/CSoundSceneNode.h"
+#include "../Scene/3D/CEmptySceneNode.h"
+#include "../Scene/3D/CPlane3D.h"
 #include "../Medias/CTexture2D.h"
 #include "../Medias/CMaterial.h"
 #include "../Loaders/CSceneLoader.h"
@@ -55,9 +55,9 @@ namespace DE {
 
 	CSceneLoader::~CSceneLoader() {}
 
-	IScene * CSceneLoader::LoadFromFile(const std::string & filename) {
+	I3DScene * CSceneLoader::LoadFromFile(const std::string & filename) {
 
-		IScene * scene = new IScene();
+		I3DScene * scene = new I3DScene();
 
 		if(this->m_renderer == nullptr)
 			this->m_renderer = IRenderer::GetRenderer();
@@ -94,7 +94,7 @@ namespace DE {
 
 	}
 
-	void CSceneLoader::LoadNode(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
+	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
 		// Global data variables
 		bool visible, flatShading, enabled, shadowCaster;
 		float fov, ratio, near, far, range, radius, falloff, tightness;
@@ -324,7 +324,7 @@ namespace DE {
 		}
 	}
 
-	void CSceneLoader::LoadBSPStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode(scene);
@@ -397,7 +397,7 @@ namespace DE {
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::LoadSimpleStructure(IScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode(scene);

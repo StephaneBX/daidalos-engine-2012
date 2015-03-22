@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../GUI/IGUIView.h"
+#include "../Scene/2D/IView.h"
 #include "../Core/IRenderer.h"
 #include "../Core/CGUIManager.h"
 
@@ -50,15 +50,15 @@ namespace DE {
 		this->m_shaderProgram.LoadFromFile(GUI_SHADER_PROGRAM_NAME);
 
 		// Create the main view
-		this->m_mainView = std::unique_ptr<CGUIPanel>(new CGUIPanel());
+		this->m_mainView = std::unique_ptr<CSprite>(new CSprite());
 		this->m_mainView->SetBounds(CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
 	}
 
-	void CGUIManager::AddToMainView(IGUIView * element) {
+	void CGUIManager::AddToMainView(IView * element) {
 		this->m_mainView->AddSubview(element);
 	}
 
-	void CGUIManager::RemoveFromMainView(IGUIView * element) {
+	void CGUIManager::RemoveFromMainView(IView * element) {
 		this->m_mainView->RemoveSubview(element);
 	}
 
