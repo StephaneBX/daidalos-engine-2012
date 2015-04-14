@@ -32,7 +32,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Core.h>
 #include <Core/Logger/CLoggerFile.h>
 #include <Core/Utility/CMatrix.h>
-#include <Core/CGUIManager.h>
 #include <Medias/CMaterial.h>
 #include <Medias/CStaticMesh.h>
 #include <Medias/CFont.h>
@@ -62,6 +61,11 @@ namespace SAMPLES {
 
 	ISampleApplication::ISampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 		this->m_scene = new DE::C3DScene();
+		this->m_menu = new DE::C2DScene();
+
+		this->m_cursor.SetTexture("cursor.png");
+		this->m_cursor.SetVisible(true);
+		this->m_menu->SetCursor(&this->m_cursor);
 
 		DE::STexture2DFilterPolicy textureFilter2;
 		textureFilter2.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;
@@ -70,6 +74,22 @@ namespace SAMPLES {
 		textureFilter2.addressU = DE::TEXTURE_ADDRESS_CLAMP;
 		textureFilter2.addressV = DE::TEXTURE_ADDRESS_CLAMP;
 		textureFilter2.maxAnisotropy = 0;
+
+
+		// --------------------------------------------------------------------------------------------------
+		// 2D Rendering 
+		// --------------------------------------------------------------------------------------------------
+		// Vertex declaration used by every 2d elements
+		DE::SDeclarationElement decl2D[] =
+		{
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
+		};
+		this->m_declaration2D = this->m_renderer->CreateVertexDeclaration(decl2D);
+
+		// Shader program used for 2d rendering
+		this->m_shaderProgram2D.LoadFromFile("2d");
+
 
 		// --------------------------------------------------------------------------------------------------
 		// Deferred Shading
@@ -151,16 +171,13 @@ namespace SAMPLES {
 		// ------------------------------------------------------------------------------------------------
 		// The texts
 		// --------------------------------------------------------------------------------------------------
-		DE::CGUIManager::GetInstance()->SetCursorTexture("cursor.png");
-		DE::CGUIManager::GetInstance()->SetCursorVisible(true);
-
 		this->m_positionText.SetBounds(DE::CRectangleI(5, 0, 200, 30));
 		this->m_positionText.SetSize(26);
 		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
 		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_positionText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_positionText.SetText("Position");
-		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_positionText);
+		this->m_menu->AddToMainView(&this->m_positionText);
 
 		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150), 0, 150, 30));
 		this->m_fpsText.SetSize(30);
@@ -168,7 +185,7 @@ namespace SAMPLES {
 		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_fpsText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_fpsText.SetText("FPS");
-		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_fpsText);
+		this->m_menu->AddToMainView(&this->m_fpsText);
 
 
 		// Button test
@@ -183,7 +200,7 @@ namespace SAMPLES {
 		this->m_button.SetFocusedTitleColor(DE::CColor(1.0f, 0.5f, 0.5f, 1.0f));
 		this->m_button.GetTitleElement()->SetSize(40);
 		this->m_button.GetTitleElement()->SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
-		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_button);
+		this->m_menu->AddToMainView(&this->m_button);
 
 		// Checkbox test
 		this->m_checkbox.SetUncheckedTexture("checkbox_off.png");
@@ -194,7 +211,7 @@ namespace SAMPLES {
 		this->m_checkbox.GetLabelElement()->SetText("TEST CHECKBOX");
 		this->m_checkbox.GetLabelElement()->SetSize(16);
 		this->m_checkbox.GetLabelElement()->SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
-		DE::CGUIManager::GetInstance()->AddToMainView(&this->m_checkbox);
+		this->m_menu->AddToMainView(&this->m_checkbox);
 	}
 
 	ISampleApplication::~ISampleApplication() {
@@ -306,11 +323,18 @@ namespace SAMPLES {
 
 
 		// ------------------------------
-		// GUI: Prepare the renderer and draw
+		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
-		this->m_gui->Render();
+		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderProgram2D.GetShaderProgram());
+		this->m_shaderProgram2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_menu->GetProjMatrix());
+		this->m_cursor.Update();
+		this->m_menu->Render();
+		if(this->m_cursor.IsVisible()) {
+			this->m_cursor.Render();
+		}
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 
 		// ------------------------------

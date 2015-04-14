@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include <Scene/3D/CPointLightSceneNode.h>
 #include <Scene/3D/CDirectionalLightSceneNode.h>
+#include <Scene/2D/C2DScene.h>
 #include <Medias/CBuffer.h>
 #include <Medias/CShaderProgram.h>
 #include <Medias/CTexture2D.h>
@@ -56,10 +57,16 @@ namespace SAMPLES
 	{
 	protected:
 		DE::C3DScene * m_scene;
-		DE::DeclarationPtr m_declaration;
+		DE::C2DScene * m_menu;
 		DE::ICameraSceneNode * m_activeCamera;
+		DE::CCursor m_cursor;
+
+		// 2D Rendering 
+		DE::DeclarationPtr m_declaration2D;
+		DE::CShaderProgram m_shaderProgram2D;
 
 		// Deferred Shading
+		DE::DeclarationPtr m_declaration;
 		DE::CFrameBuffer m_DSFB;
 		DE::CBuffer m_screenQuadLightVB;
 		DE::CBuffer m_screenQuadFinalVB;

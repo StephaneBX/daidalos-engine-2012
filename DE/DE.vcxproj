@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClInclude Include="Applications\IWin32Application.h" />
     <ClInclude Include="Core\CConfigurationManager.h" />
-    <ClInclude Include="Core\CGUIManager.h" />
     <ClInclude Include="Core\CSoundContextManager.h" />
     <ClInclude Include="Core\Enums.h" />
     <ClInclude Include="Core\IApplication.h" />
@@ -101,6 +100,7 @@
     <ClInclude Include="Renderers\DX9\CDX9VertexShader.h" />
     <ClInclude Include="Renderers\DX9\CDX9VertexShadersLoader.h" />
     <ClInclude Include="Renderers\DX9\DX9Global.h" />
+    <ClInclude Include="Scene\2D\C2DScene.h" />
     <ClInclude Include="Scene\2D\CButton.h" />
     <ClInclude Include="Scene\2D\CCheckbox.h" />
     <ClInclude Include="Scene\2D\CCursor.h" />
@@ -145,7 +145,6 @@
   <ItemGroup>
     <ClCompile Include="Applications\IWin32Application.cpp" />
     <ClCompile Include="Core\CConfigurationManager.cpp" />
-    <ClCompile Include="Core\CGUIManager.cpp" />
     <ClCompile Include="Core\CMediaManager.cpp" />
     <ClCompile Include="Core\CSoundContextManager.cpp" />
     <ClCompile Include="Core\IApplication.cpp" />
@@ -212,6 +211,7 @@
     <ClCompile Include="Renderers\DX9\CDX9Texture2D.cpp" />
     <ClCompile Include="Renderers\DX9\CDX9VertexShader.cpp" />
     <ClCompile Include="Renderers\DX9\CDX9VertexShadersLoader.cpp" />
+    <ClCompile Include="Scene\2D\C2DScene.cpp" />
     <ClCompile Include="Scene\2D\CButton.cpp" />
     <ClCompile Include="Scene\2D\CCheckbox.cpp" />
     <ClCompile Include="Scene\2D\CCursor.cpp" />

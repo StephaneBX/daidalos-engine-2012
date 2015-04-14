@@ -351,9 +351,6 @@
     <ClInclude Include="Loaders\CFontLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Core\CGUIManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Renderers\DX9\CDX9Shader.h">
       <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
     </ClInclude>
@@ -500,6 +497,9 @@
     </ClInclude>
     <ClInclude Include="Scene\2D\Listeners\IButtonListener.h">
       <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\C2DScene.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -692,9 +692,6 @@
     <ClCompile Include="Medias\IFontBase.cpp">
       <Filter>Fichiers sources\Medias</Filter>
     </ClCompile>
-    <ClCompile Include="Core\CGUIManager.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Loaders\CFontLoader.cpp">
       <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
@@ -810,6 +807,9 @@
       <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
     <ClCompile Include="Scene\2D\IView.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\C2DScene.cpp">
       <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
   </ItemGroup>

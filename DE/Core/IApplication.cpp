@@ -39,7 +39,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.h"
 #include "../Core/CResourceManager.h"
 #include "../Core/CSoundContextManager.h"
-#include "../Core/CGUIManager.h"
 #include "../Core/Utility/CTimer.h"
 #include "../Core/IApplication.h"
 
@@ -51,7 +50,6 @@ namespace DE {
 		this->m_input = CInputDevice::GetInstance();
 		this->m_soundContext = CSoundContextManager::GetInstance();
 		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
-		this->m_gui = CGUIManager::GetInstance();
 
 		this->m_alive = true;
 		this->m_width = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_RESOLUTION_X, 800);
@@ -101,7 +99,6 @@ namespace DE {
 		CConfigurationManager::Kill();
 		CInputDevice::Kill();
 		CSoundContextManager::Kill();
-		CGUIManager::Kill();
 		CMediaManager::Kill();
 		CResourceManager::Kill();
 		ILogger::Kill();

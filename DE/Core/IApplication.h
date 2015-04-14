@@ -33,7 +33,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CInputDevice.h"
 #include "../Core/CConfigurationManager.h"
 #include "../Core/CSoundContextManager.h"
-#include "../Core/CGUIManager.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -67,7 +66,6 @@ namespace DE {
 		IRenderer * m_renderer;
 		CInputDevice * m_input;
 		CSoundContextManager * m_soundContext;
-		CGUIManager * m_gui;
 
 		// Need for Windows / DirectX
 #ifdef _WIN32

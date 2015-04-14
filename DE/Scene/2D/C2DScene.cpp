@@ -25,76 +25,53 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CGUIMANAGER_H
-#define __CGUIMANAGER_H
-
-#include <set>
-#include "../Medias/CShaderProgram.h"
-#include "../Core/Utility/CMatrix.h"
-#include "../Core/IDeclaration.h"
-#include "../Core/IRenderer.h"
-#include "../Core/CSingletonManager.h"
-#include "../Scene/2D/CSprite.h"
-#include "../Scene/2D/CCursor.h"
+#include "../../Scene/2D/IView.h"
+#include "../../Core/IRenderer.h"
+#include "../../Scene/2D/C2DScene.h"
 
 namespace DE {
 	/**
-	* Handle the gui elements
+	* Constructor
 	*/
-	class CGUIManager : public CSingletonManager <CGUIManager> {
-		friend class CSingletonManager <CGUIManager> ;
+	C2DScene::C2DScene() {
+		this->m_cursor = nullptr;
 
-	private:
-		CMatrix m_proj;
-		IRenderer * m_renderer;
-		DeclarationPtr m_declaration;
-		CShaderProgram m_shaderProgram;
-		std::unique_ptr<CSprite> m_mainView;
-		CCursor m_cursor;
+		const IRenderer * renderer = IRenderer::GetRenderer();
+		this->m_proj.OrthographicView(0, (float)renderer->GetResolution().x, (float)renderer->GetResolution().y, 0, 0.0f, 1.0f);
 
-	public:
-		/**
-		* Destructor
-		*/
-		virtual ~CGUIManager();
+		// Create the main view
+		this->m_mainView = std::unique_ptr<CSprite>(new CSprite());
+		this->m_mainView->SetBounds(CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
+	}
 
-		/**
-		* Initialize the manager
-		*/
-		void Initialize();
+	C2DScene::~C2DScene() {}
 
-		/**
-		* Add the element in the main view
-		* @param element The gui element
-		*/
-		void AddToMainView(IView * element);
+	void C2DScene::AddToMainView(IView * element) {
+		this->m_mainView->AddSubview(element);
+	}
 
-		/**
-		* Remove the element from the main view
-		* @param element The gui element
-		*/
-		void RemoveFromMainView(IView * element);
+	void C2DScene::RemoveFromMainView(IView * element) {
+		this->m_mainView->RemoveSubview(element);
+	}
 
-		/**
-		* Set the cursor visibility
-		* @param visible If the cursor is visible
-		*/
-		void SetCursorVisible(const bool visible);
+	void C2DScene::SetCursor(CCursor * cursor) {
+		this->m_cursor = cursor;
+	}
 
-		/**
-		* Set the cursor texture
-		* @param texture The cursor texture
-		*/
-		void SetCursorTexture(const std::string & texture);
+	void C2DScene::Render() {
+		// Update the elements
+		this->m_mainView->Update();
 
-		/**
-		* Render the gui
-		*/
-		void Render();
+		// Hit test
+		if(this->m_cursor != nullptr && this->m_cursor->IsVisible()) {
+			this->m_mainView->HitTest(this->m_cursor->GetPosition());
+		}
 
-	private:
-		CGUIManager();
-	};
+		// Draw all the elements
+		this->m_mainView->Render();
+	}
+
+	const CMatrix & C2DScene::GetProjMatrix() const {
+		return this->m_proj;
+	}
 }
-
-#endif
