@@ -25,36 +25,51 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/CBuffer.h"
 
 namespace DE {
 	CBuffer::CBuffer(IBufferBase * buffer) {
+		LOG_TRACE();
+
 		this->m_buffer = std::shared_ptr<IBufferBase>(buffer);
 	}
 
 	void CBuffer::Unlock() {
+		LOG_TRACE();
+
 		this->m_buffer->Unlock();
 	}
 
 	void CBuffer::Fill(const void * data, const unsigned long stride, const unsigned long count) {
+		LOG_TRACE();
+
 		void * buf = Lock(stride);
 		memcpy(buf, data, stride * count);
 		Unlock();
 	}
 
 	void CBuffer::Release() {
+		LOG_TRACE();
+
 		this->m_buffer = nullptr;
 	}
 
 	void * CBuffer::Lock(const unsigned long stride, const unsigned long count, const unsigned long offset, unsigned long flags) {
+		LOG_TRACE();
+
 		return reinterpret_cast<void*>(this->m_buffer->Lock(offset * stride, count * stride, flags));
 	}
 
 	const IBufferBase * CBuffer::GetBuffer() const {
+		LOG_TRACE();
+
 		return this->m_buffer.get();
 	}
 
 	const unsigned long CBuffer::GetSize() const {
+		LOG_TRACE();
+
 		unsigned long ret = 0;
 
 		if(this->m_buffer != nullptr)

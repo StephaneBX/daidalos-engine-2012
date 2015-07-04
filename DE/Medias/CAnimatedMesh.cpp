@@ -28,28 +28,39 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Core/CResourceManager.h"
 #include "../Core/CMediaManager.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/CAnimatedMesh.h"
 
 namespace DE {
 	CAnimatedMesh::CAnimatedMesh() {
+		LOG_TRACE();
+
 		this->m_mesh = nullptr;
 	}
 
 	CAnimatedMesh::CAnimatedMesh(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_mesh = nullptr;
 		LoadFromFile(filename);
 	}
 
 	CAnimatedMesh::CAnimatedMesh(const CAnimatedMesh & copy) {
+		LOG_TRACE();
+
 		*this = copy;
 	}
 
 	CAnimatedMesh::~CAnimatedMesh() {
+		LOG_TRACE();
+
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 	}
 
 	void CAnimatedMesh::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		// Release previously used resource
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
@@ -65,6 +76,8 @@ namespace DE {
 	}
 
 	void CAnimatedMesh::Animate(const float frame) {
+		LOG_TRACE();
+
 		Assert(this->m_mesh != nullptr);
 
 		if(this->m_mesh != nullptr)
@@ -72,6 +85,8 @@ namespace DE {
 	}
 
 	void CAnimatedMesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		Assert(this->m_mesh != nullptr);
 
 		if(this->m_mesh != nullptr)
@@ -79,10 +94,14 @@ namespace DE {
 	}
 
 	const int CAnimatedMesh::GetNumberOfFrames() const {
+		LOG_TRACE();
+
 		return this->m_mesh->GetNumberOfFrames();
 	}
 
 	const CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy) {
+		LOG_TRACE();
+
 		if(copy.GetMesh() != nullptr) {
 			LoadFromFile(CFile(copy.GetMesh()->GetName()).GetFilename());
 		} else {
@@ -95,6 +114,8 @@ namespace DE {
 	}
 
 	IAnimatedMeshBase * CAnimatedMesh::GetMesh() const {
+		LOG_TRACE();
+
 		return this->m_mesh;
 	}
 }

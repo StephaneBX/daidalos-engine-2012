@@ -27,11 +27,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/CResourceManager.h"
 #include "../Core/CMediaManager.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/IShaderProgramBase.h"
 
 namespace DE {
 	IShaderProgramBase::IShaderProgramBase(const std::string & name) : IResource(name) {
+		LOG_TRACE();
+
 		this->m_vertexShader = nullptr;
 		this->m_pixelShader = nullptr;
 
@@ -39,6 +42,8 @@ namespace DE {
 	}
 
 	IShaderProgramBase::~IShaderProgramBase() {
+		LOG_TRACE();
+
 		if(this->m_vertexShader != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_vertexShader->GetName());
 
@@ -47,6 +52,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetShader(const std::string & name) {
+		LOG_TRACE();
+
 		this->m_vertexShader = nullptr;
 		this->m_pixelShader = nullptr;
 
@@ -55,6 +62,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value) {
+
+		LOG_TRACE();
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
@@ -67,6 +76,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
@@ -79,6 +90,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value);
@@ -91,6 +104,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
@@ -103,6 +118,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
@@ -115,6 +132,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, value, size);
@@ -127,6 +146,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
@@ -139,6 +160,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
@@ -151,6 +174,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
@@ -163,6 +188,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec);
@@ -175,6 +202,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, color);
@@ -187,6 +216,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, mat);
@@ -199,6 +230,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, vec, size);
@@ -211,6 +244,8 @@ namespace DE {
 	}
 
 	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
+		LOG_TRACE();
+
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
 			Assert(this->m_vertexShader);
 			this->m_vertexShader->SetParameter(name, mat, size);
@@ -223,14 +258,20 @@ namespace DE {
 	}
 
 	IShaderBase * IShaderProgramBase::GetVertexShader() const {
+		LOG_TRACE();
+
 		return this->m_vertexShader;
 	}
 
 	IShaderBase * IShaderProgramBase::GetPixelShader() const {
+		LOG_TRACE();
+
 		return this->m_pixelShader;
 	}
 
 	void IShaderProgramBase::Load(IShaderBase *& shader, const std::string & name) {
+		LOG_TRACE();
+
 		// Release previously used resource
 		if(shader != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(shader->GetName());

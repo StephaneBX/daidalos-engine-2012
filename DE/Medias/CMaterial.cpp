@@ -33,24 +33,34 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CMaterial::CMaterial() {
+		LOG_TRACE();
+
 		this->m_material = nullptr;
 	}
 
 	CMaterial::CMaterial(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_material = nullptr;
 		LoadFromFile(filename);
 	}
 
 	CMaterial::CMaterial(const CMaterial & copy) {
+		LOG_TRACE();
+
 		*this = copy;
 	}
 
 	CMaterial::~CMaterial() {
+		LOG_TRACE();
+
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
 	}
 
 	void CMaterial::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		// Release previously used resource
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
@@ -66,6 +76,8 @@ namespace DE {
 	}
 
 	const CMaterial & CMaterial::operator=(const CMaterial & copy) {
+		LOG_TRACE();
+
 		if(this->m_material != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
 
@@ -78,6 +90,8 @@ namespace DE {
 	}
 
 	IMaterialBase * CMaterial::GetMaterial() const {
+		LOG_TRACE();
+
 		return this->m_material;
 	}
 }

@@ -37,15 +37,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CBSPSceneNode::CBSPSceneNode(I3DScene * scene) : ILevelSceneNode(scene) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 	}
 
-	CBSPSceneNode::~CBSPSceneNode() {}
+	CBSPSceneNode::~CBSPSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CBSPSceneNode::LoadGeometry(const std::vector<SBSPBrushDefinition> & brushDefinition) {
+		LOG_TRACE();
+
 		// Reset triangles count
 		this->m_geometryLeafs.clear();
 
@@ -117,6 +123,8 @@ namespace DE {
 	}
 
 	void CBSPSceneNode::Render() {
+		LOG_TRACE();
+
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
@@ -183,6 +191,8 @@ namespace DE {
 	}
 
 	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+		LOG_TRACE();
+
 		CVector3F endPoint, edge, distance;
 		bool isCollision = false;
 		float dot;
@@ -305,6 +315,8 @@ namespace DE {
 	}
 
 	const bool CBSPSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
 		CImpact impact;
 		CImpact iBrush;
 
@@ -318,6 +330,7 @@ namespace DE {
 	}
 
 	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node) {
+		LOG_TRACE();
 
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
@@ -332,6 +345,8 @@ namespace DE {
 	}
 
 	void CBSPSceneNode::RegisterLeafs(CBSPTreeNode * node) {
+		LOG_TRACE();
+
 		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF)
 			this->m_geometryLeafs.push_back(node);
 

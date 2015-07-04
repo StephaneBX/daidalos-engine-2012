@@ -30,11 +30,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CMS3DLoader.h"
 
 namespace DE {
-	CMS3DLoader::CMS3DLoader() {}
+	CMS3DLoader::CMS3DLoader() {
+		LOG_TRACE();
+	}
 
-	CMS3DLoader::~CMS3DLoader() {}
+	CMS3DLoader::~CMS3DLoader() {
+		LOG_TRACE();
+	}
 
 	IAnimatedMeshBase * CMS3DLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_data = new SMS3DData;
 
 		FILE * file;
@@ -267,6 +273,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::InitializeParents() {
+		LOG_TRACE();
+
 		bool parentFound;
 
 		// Search for the parent
@@ -286,6 +294,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::InitializeSkeletonsMatrixes() {
+		LOG_TRACE();
+
 		// Local Skeleton Matrix initialization
 		SMS3DJoint * currentJoint;
 		SMS3DJoint * parentJoint;
@@ -311,6 +321,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::InitializeInternalData() {
+		LOG_TRACE();
+
 		// Data initialization
 		this->m_internalData = new SMS3DInternalData;
 		this->m_internalData->numberOfFrames = this->m_data->numberOfFrames;
@@ -355,6 +367,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::Animate(const float frame) {
+		LOG_TRACE();
+
 		if(frame < 0.0f) {
 			for(int i = 0; i < this->m_data->numberOfJoints; i++) {
 				this->m_data->joint[i].matrixLocal = this->m_data->joint[i].matrixLocalSkeleton;
@@ -463,6 +477,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::BuildGlobalMatrix() {
+		LOG_TRACE();
+
 		SMS3DJoint * currentJoint;
 		SMS3DJoint * parentJoint;
 
@@ -480,6 +496,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::TransformedVerticesCalculation() {
+		LOG_TRACE();
+
 		int currentBone;
 
 		// Apply modifications to vertices
@@ -494,6 +512,8 @@ namespace DE {
 	}
 
 	void CMS3DLoader::TransformedNormalsCalculation() {
+		LOG_TRACE();
+
 		int currentBone;
 		SMS3DFace * currentFace;
 

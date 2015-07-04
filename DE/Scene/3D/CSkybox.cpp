@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Scene/3D/CSkybox.h"
 #include "../../Core/IRenderer.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 
 namespace DE {
@@ -47,6 +48,8 @@ namespace DE {
 	* Constructor
 	*/
 	CSkybox::CSkybox() {
+		LOG_TRACE();
+
 		this->m_scene = nullptr;
 		this->m_visible = false;
 		CreateGeometry();
@@ -57,6 +60,8 @@ namespace DE {
 	* @param name The start name without the extension and the face
 	*/
 	CSkybox::CSkybox(const std::string & name) {
+		LOG_TRACE();
+
 		this->m_scene = nullptr;
 		this->m_visible = true;
 		SetName(name);
@@ -64,6 +69,8 @@ namespace DE {
 	}
 
 	void CSkybox::SetScene(I3DScene * scene) {
+		LOG_TRACE();
+
 		this->m_scene = scene;
 	}
 
@@ -72,6 +79,7 @@ namespace DE {
 	* @param name The start name without the extension and the face
 	*/
 	void CSkybox::SetName(const std::string & name) {
+		LOG_TRACE();
 
 		std::ostringstream ss;
 
@@ -105,6 +113,8 @@ namespace DE {
 	* Render the skybox
 	*/
 	void CSkybox::Render() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Disable writing to the z-buffer
@@ -136,6 +146,8 @@ namespace DE {
 	* @return True is the skybox is visible and can be rendered
 	*/
 	const bool CSkybox::IsVisible() const {
+		LOG_TRACE();
+
 		return this->m_visible;
 	}
 
@@ -143,6 +155,8 @@ namespace DE {
 	* Create the necessary geometry
 	*/
 	void CSkybox::CreateGeometry() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Create the buffers

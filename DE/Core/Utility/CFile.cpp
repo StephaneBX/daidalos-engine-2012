@@ -27,19 +27,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include <fstream>
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CFile.h"
 
 namespace DE {
 	/**
 	* Constructor
 	*/
-	CFile::CFile() {}
+	CFile::CFile() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Constructor
 	* @param name The full filename
 	*/
 	CFile::CFile(const std::string & name) {
+
+		LOG_TRACE();
 		this->m_name = name;
 		std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
 	}
@@ -49,6 +54,8 @@ namespace DE {
 	* @param name The full filename
 	*/
 	CFile::CFile(const char * name) {
+		LOG_TRACE();
+
 		this->m_name = std::string(name);
 		std::replace(this->m_name.begin(), this->m_name.end(), '/', '\\');
 	}
@@ -58,6 +65,8 @@ namespace DE {
 	* @return True if the file exists, false otherwise
 	*/
 	const bool CFile::FileExists() const {
+		LOG_TRACE();
+
 		bool result = false;
 		std::ifstream file(this->m_name.c_str());
 
@@ -74,6 +83,8 @@ namespace DE {
 	* @return The file size in Byte
 	*/
 	const int CFile::GetFileSize() const {
+		LOG_TRACE();
+
 		int size = 0;
 		std::ifstream file(this->m_name.c_str());
 		if(file.is_open()) {
@@ -89,6 +100,7 @@ namespace DE {
 	* @return The full filename
 	*/
 	const std::string & CFile::GetFullname() const {
+		LOG_TRACE();
 		return this->m_name;
 	}
 
@@ -97,6 +109,8 @@ namespace DE {
 	* @return The filename
 	*/
 	const std::string CFile::GetFilename() const {
+		LOG_TRACE();
+
 		std::string::size_type position = this->m_name.find_last_of("\\/");
 
 		if(position != std::string::npos)
@@ -110,6 +124,7 @@ namespace DE {
 	* @return The file full name
 	*/
 	const std::string CFile::GetShortname() const {
+		LOG_TRACE();
 		return GetFilename().substr(0, GetFilename().find_last_of("."));
 	}
 
@@ -118,6 +133,8 @@ namespace DE {
 	* @return The extension
 	*/
 	const std::string CFile::GetExtension() const {
+		LOG_TRACE();
+
 		std::string::size_type position = this->m_name.find_last_of(".");
 		if(position != std::string::npos)
 			return this->m_name.substr(position + 1, std::string::npos);

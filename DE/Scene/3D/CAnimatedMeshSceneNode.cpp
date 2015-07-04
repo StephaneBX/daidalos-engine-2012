@@ -25,11 +25,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CAnimatedMeshSceneNode.h"
 
 namespace DE {
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -54,6 +57,8 @@ namespace DE {
 	}
 
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -78,6 +83,8 @@ namespace DE {
 	}
 
 	void CAnimatedMeshSceneNode::StartAnimation(const float startFrame, const float endFrame, const float speed) {
+		LOG_TRACE();
+
 		this->m_animationStart = startFrame;
 		this->m_animationEnd = endFrame;
 		this->m_animationSpeed = speed;
@@ -85,14 +92,20 @@ namespace DE {
 	}
 
 	void CAnimatedMeshSceneNode::PauseAnimation() {
+		LOG_TRACE();
+
 		this->m_animationState = MESH_ANIMATION_STATE_PAUSED;
 	}
 
 	void CAnimatedMeshSceneNode::StopAnimation() {
+		LOG_TRACE();
+
 		this->m_animationState = MESH_ANIMATION_STATE_STOPPED;
 	}
 
 	void CAnimatedMeshSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		IMeshSceneNode::Update(time);
 
 		// Animation update
@@ -116,14 +129,20 @@ namespace DE {
 	}
 
 	const int CAnimatedMeshSceneNode::GetNumberOfFrames() const {
+		LOG_TRACE();
+
 		return this->m_mesh.GetNumberOfFrames();
 	}
 
 	EMeshAnimationState CAnimatedMeshSceneNode::GetAnimationState() const {
+		LOG_TRACE();
+
 		return this->m_animationState;
 	}
 
 	void CAnimatedMeshSceneNode::FinalizeGeometry() {
+		LOG_TRACE();
+
 		this->m_mesh.FinalizeGeometry(this->m_shadingType);
 		for(int i = 0; i < this->m_numberOfGroups; ++i)
 			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));

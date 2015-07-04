@@ -25,21 +25,28 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/DX9Global.h"
 #include "../../Renderers/DX9/CDX9Renderer.h"
 #include "../../Renderers/DX9/CDX9PixelShader.h"
 
 namespace DE {
 	CDX9PixelShader::CDX9PixelShader(const std::string & name, IDirect3DPixelShader9 * pixelShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable) {
+		LOG_TRACE();
+
 		this->m_pixelShader = pixelShader;
 		this->m_constantTable = constantTable;
 	}
 
 	CDX9PixelShader::~CDX9PixelShader() {
+		LOG_TRACE();
+
 		SAFE_RELEASE(this->m_pixelShader);
 	}
 
 	IDirect3DPixelShader9 * CDX9PixelShader::GetPixelShader() const {
+		LOG_TRACE();
+
 		return this->m_pixelShader;
 	}
 }

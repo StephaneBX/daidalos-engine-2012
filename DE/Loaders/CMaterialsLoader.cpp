@@ -26,17 +26,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Utility/CFile.h"
 #include "../Core/Utility/CVector3.h"
 #include "../Core/Utility/CTokenizer.h"
 #include "../Loaders/CMaterialsLoader.h"
 
 namespace DE {
-	CMaterialsLoader::CMaterialsLoader() {}
+	CMaterialsLoader::CMaterialsLoader() {
+		LOG_TRACE();
+	}
 
-	CMaterialsLoader::~CMaterialsLoader() {}
+	CMaterialsLoader::~CMaterialsLoader() {
+		LOG_TRACE();
+	}
 
 	IMaterialBase * CMaterialsLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		IMaterialBase * material = new IMaterialBase(filename);
 		SMaterialElement * element = nullptr;
 		std::string elementName;

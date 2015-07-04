@@ -27,10 +27,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include "../Core/Core.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/COBJMesh.h"
 
 namespace DE {
 	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name) {
+		LOG_TRACE();
+
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[this->m_internalData->groupSize.size()];
@@ -89,6 +92,8 @@ namespace DE {
 	}
 
 	COBJMesh::~COBJMesh() {
+		LOG_TRACE();
+
 		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 			if(this->m_internalData->vertex != nullptr)
 				SAFE_DELETE_ARRAY(this->m_internalData->vertex[i]);
@@ -107,6 +112,8 @@ namespace DE {
 	}
 
 	void COBJMesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		switch(shadingType) {
 		case MESH_SHADING_FLAT:
 			FlatShadingNormals();

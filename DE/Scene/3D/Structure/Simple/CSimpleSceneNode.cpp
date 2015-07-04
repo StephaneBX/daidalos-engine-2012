@@ -36,13 +36,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CSimpleSceneNode::CSimpleSceneNode(I3DScene * scene) : ILevelSceneNode(scene) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 	}
 
-	CSimpleSceneNode::~CSimpleSceneNode() {}
+	CSimpleSceneNode::~CSimpleSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CSimpleSceneNode::LoadGeometry(const std::vector<SSimpleBrush> & brushes) {
+		LOG_TRACE();
+
 		// Bounding box variables
 		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
@@ -73,6 +79,8 @@ namespace DE {
 	}
 
 	void CSimpleSceneNode::Render() {
+		LOG_TRACE();
+
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
@@ -138,15 +146,20 @@ namespace DE {
 	}
 
 	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+		LOG_TRACE();
+
 		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
 	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
 		return false;
 	}
 
 	void CSimpleSceneNode::RegisterBrushesForRendering() {
+		LOG_TRACE();
 
 		// Loop through each brush
 		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {

@@ -25,12 +25,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/CSphere.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CSpotLightSceneNode.h"
 
 namespace DE {
 	CSpotLightSceneNode::CSpotLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) : IBoundedLightSceneNode(scene, parent, name, position, rotation, CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
+		LOG_TRACE();
+
 		this->m_radius = DegreeToRadian(30);
 		this->m_tightness = 0.7f;
 		this->m_type = SCENE_NODE_SPOTLIGHT;
@@ -41,6 +44,8 @@ namespace DE {
 	}
 
 	CSpotLightSceneNode::CSpotLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const float range, const float radius, const float falloff, const float tightness, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(scene, parent, name, position, rotation, color, shadowCaster, range, falloff, enabled) {
+		LOG_TRACE();
+
 		this->m_radius = DegreeToRadian(radius);
 		this->m_tightness = tightness;
 		this->m_type = SCENE_NODE_SPOTLIGHT;
@@ -53,15 +58,20 @@ namespace DE {
 	CSpotLightSceneNode::~CSpotLightSceneNode() {}
 
 	void CSpotLightSceneNode::SetRadius(const float radius) {
+		LOG_TRACE();
+
 		this->m_radius = DegreeToRadian(radius);
 		this->m_camera->SetAngle(DegreeToRadian(radius));
 	}
 
 	void CSpotLightSceneNode::SetTightness(const float tightness) {
+		LOG_TRACE();
+
 		this->m_tightness = tightness;
 	}
 
 	void CSpotLightSceneNode::Update(const float time) {
+		LOG_TRACE();
 
 		// Update the absolute position
 		IBoundedLightSceneNode::Update(time);
@@ -92,14 +102,20 @@ namespace DE {
 	}
 
 	const float CSpotLightSceneNode::GetRadius() const {
+		LOG_TRACE();
+
 		return this->m_radius;
 	}
 
 	const float CSpotLightSceneNode::GetTightness() const {
+		LOG_TRACE();
+
 		return this->m_tightness;
 	}
 
 	ICameraSceneNode * CSpotLightSceneNode::GetCameraNode(const unsigned int id) const {
+		LOG_TRACE();
+
 		return this->m_camera;
 	}
 }

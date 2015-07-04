@@ -25,34 +25,47 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../../../Core/Logger/ILogger.h"
 #include "../../../../Core/Memory/CExceptionAssert.h"
 #include "../../../../Scene/3D/Structure/BSP/CBSPPortal.h"
 
 namespace DE {
 	void CBSPPortal::SetTriangle(const CBSPTriangle & triangle, const unsigned int index) {
+		LOG_TRACE();
+
 		Assert(index >= 0 && index < 2);
 		this->m_triangles[index] = triangle;
 	}
 
 	void CBSPPortal::SetNumberOfLeafs(const unsigned int leafs) {
+		LOG_TRACE();
+
 		this->m_numberOfLeafs = leafs;
 	}
 
 	void CBSPPortal::SetLeafIndex(const unsigned int leafMasterIndex, const unsigned int index) {
+		LOG_TRACE();
+
 		Assert(index >= 0 && index < 2);
 		this->m_leafsIndex[index] = leafMasterIndex;
 	}
 
 	const unsigned int CBSPPortal::GetNumberOfLeafs() const {
+		LOG_TRACE();
+
 		return this->m_numberOfLeafs;
 	}
 
 	const unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const {
+		LOG_TRACE();
+
 		Assert(index >= 0 && index < 2);
 		return this->m_leafsIndex[index];
 	}
 
 	const CBSPTriangle & CBSPPortal::GetTriangle(const unsigned int index) const {
+		LOG_TRACE();
+
 		Assert(index >= 0 && index < 2);
 		return this->m_triangles[index];
 	}

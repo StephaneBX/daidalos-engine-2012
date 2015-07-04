@@ -32,14 +32,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CDX9Shader::CDX9Shader(const std::string & name, ID3DXConstantTable * constantTable) : IShaderBase(name) {
+		LOG_TRACE();
+
 		this->m_constantTable = constantTable;
 	}
 
 	CDX9Shader::~CDX9Shader() {
+		LOG_TRACE();
+
 		SAFE_RELEASE(this->m_constantTable);
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const bool value) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetBool(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
@@ -50,6 +56,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const int value) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetInt(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
@@ -59,6 +67,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const float value) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloat(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
@@ -67,9 +77,13 @@ namespace DE {
 		}
 	}
 
-	void CDX9Shader::SetParameter(const std::string & name, const bool * value, const int size) {}
+	void CDX9Shader::SetParameter(const std::string & name, const bool * value, const int size) {
+		LOG_TRACE();
+	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const int * value, const int size) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetIntArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
@@ -79,6 +93,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const float * value, const int size) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloatArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
@@ -88,6 +104,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CVector2F & vec) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2(vec.x, vec.y, 0, 0);
@@ -98,6 +116,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CVector2I & vec) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2((float)vec.x, (float)vec.y, 0, 0);
@@ -108,6 +128,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CVector3F & vec) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			CVector4F vec2(vec.x, vec.y, vec.z, 0);
@@ -118,6 +140,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CVector4F & vec) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
@@ -127,6 +151,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CColor & color) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			CVector4F vec = color.ToRGBAVector();
@@ -137,6 +163,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CMatrix & mat) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrix(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(&mat));
@@ -146,6 +174,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CVector4F * vec, const int size) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVectorArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(vec), size);
@@ -155,6 +185,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::SetParameter(const std::string & name, const CMatrix * mat, const int size) {
+		LOG_TRACE();
+
 		CheckHandle(name);
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrixArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(mat), size);
@@ -164,6 +196,8 @@ namespace DE {
 	}
 
 	void CDX9Shader::CheckHandle(const std::string & name) {
+		LOG_TRACE();
+
 		if(this->m_handles.find(name) == this->m_handles.end())
 			this->m_handles[name] = this->m_constantTable->GetConstantByName(nullptr, name.c_str());
 	}

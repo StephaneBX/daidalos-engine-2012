@@ -26,21 +26,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/IRenderer.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Scene/3D/ICameraSceneNode.h"
 
 namespace DE {
-	ICameraSceneNode::~ICameraSceneNode() {}
+	ICameraSceneNode::~ICameraSceneNode() {
+		LOG_TRACE();
+	}
 
 	void ICameraSceneNode::SetNearDistance(const float nearDistance) {
+		LOG_TRACE();
+
 		this->m_nearDistance = nearDistance;
 	}
 
 	void ICameraSceneNode::SetFarDistance(const float farDistance) {
+		LOG_TRACE();
+
 		this->m_farDistance = farDistance;
 	}
 
 	void ICameraSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		// Update the absolute position
 		ISceneNode::Update(time);
 
@@ -60,12 +69,16 @@ namespace DE {
 	}
 
 	void ICameraSceneNode::Render() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_debugBuffer, DEBUG_LINES_STRIDE);
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 	}
 
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
+		LOG_TRACE();
+
 		bool result = false;
 
 		for(int i = 0; i < FRUSTUM_PLANE_SIZE && !result; i++) {
@@ -78,51 +91,68 @@ namespace DE {
 	}
 
 	const float ICameraSceneNode::GetNearDistance() const {
+		LOG_TRACE();
+
 		return this->m_nearDistance;
 	}
 
 	const float ICameraSceneNode::GetFarDistance() const {
+
+		LOG_TRACE();
 		return this->m_farDistance;
 	}
 
 	const CMatrix & ICameraSceneNode::GetViewMatrix() const {
+		LOG_TRACE();
+
 		return this->m_viewMatrix;
 	}
 
 	const CMatrix & ICameraSceneNode::GetProjMatrix() const {
+		LOG_TRACE();
+
 		return this->m_projMatrix;
 	}
 
 	const CMatrix & ICameraSceneNode::GetViewProjMatrix() const {
+		LOG_TRACE();
+
 		return this->m_viewProjMatrix;
 	}
 
 	const CVector3F & ICameraSceneNode::GetViewFrustumRelativePoint(EFrustumPoint point) const {
+		LOG_TRACE();
+
 		return this->m_frustum.relativePoints[point];
 	}
 
-	/**
-	* Get a view frustum absolute point
-	* @param point The point to get
-	* @return A view frustum absolute point
-	*/
 	const CVector3F & ICameraSceneNode::GetViewFrustumAbsolutePoint(EFrustumPoint point) const {
+		LOG_TRACE();
+
 		return this->m_frustum.absolutePoints[point];
 	}
 
 	const CPlane3DF & ICameraSceneNode::GetViewFrustumPlane(EFrustumPlane plane) const {
+		LOG_TRACE();
+
 		return this->m_frustum.planes[plane];
 	}
 
 	const CVector3F & ICameraSceneNode::GetForwardVector() const {
+		LOG_TRACE();
+
 		return this->m_frustum.forward;
 	}
 
 	const CVector3F & ICameraSceneNode::GetUpVector() const {
+		LOG_TRACE();
+
 		return this->m_absoluteUp;
 	}
 
 	ICameraSceneNode::ICameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance) : ISceneNode(scene, parent, name, position, rotation) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_CAMERA;
 		this->m_nearDistance = nearDistance;
 		this->m_farDistance = farDistance;

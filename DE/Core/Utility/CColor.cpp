@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CColor.h"
 
 namespace DE {
@@ -32,6 +33,7 @@ namespace DE {
 	* Constructor
 	*/
 	CColor::CColor() {
+		LOG_TRACE();
 		SetInt(0, 0, 0, 0);
 	}
 
@@ -43,6 +45,7 @@ namespace DE {
 	* @param a Alpha
 	*/
 	CColor::CColor(const int r, const int g, const int b, const int a) {
+		LOG_TRACE();
 		SetInt(r, g, b, a);
 	}
 
@@ -54,6 +57,7 @@ namespace DE {
 	* @param a Alpha
 	*/
 	CColor::CColor(const float r, const float g, const float b, const float a) {
+		LOG_TRACE();
 		SetInt(static_cast<int>(r * 255.0f), static_cast<int>(g * 255.0f), static_cast<int>(b * 255.0f), static_cast<int>(a * 255.0f));
 	}
 
@@ -62,6 +66,7 @@ namespace DE {
 	* @param argb The color (ARGB)
 	*/
 	CColor::CColor(const unsigned long argb) {
+		LOG_TRACE();
 		this->m_color = argb;
 	}
 
@@ -70,6 +75,7 @@ namespace DE {
 	* @return The alpha channel
 	*/
 	const unsigned char CColor::GetAlpha() const {
+		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0xFF000000) >> 24);
 	}
 
@@ -78,6 +84,7 @@ namespace DE {
 	* @return The red channel
 	*/
 	const unsigned char CColor::GetRed() const {
+		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0x00FF0000) >> 16);
 	}
 
@@ -86,6 +93,7 @@ namespace DE {
 	* @return The green channel
 	*/
 	const unsigned char CColor::GetGreen() const {
+		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0x0000FF00) >> 8);
 	}
 
@@ -94,6 +102,7 @@ namespace DE {
 	* @return The blue channel
 	*/
 	const unsigned char CColor::GetBlue() const {
+		LOG_TRACE();
 		return static_cast<unsigned char>(this->m_color & 0x0000FF);
 	}
 
@@ -102,6 +111,7 @@ namespace DE {
 	* @return The ARGB color
 	*/
 	const unsigned long CColor::ToARGB() const {
+		LOG_TRACE();
 		return this->m_color;
 	}
 
@@ -110,6 +120,7 @@ namespace DE {
 	* @return The RGBA color
 	*/
 	const unsigned long CColor::ToRGBA() const {
+		LOG_TRACE();
 		return static_cast<unsigned long>((GetRed() << 24) | (GetGreen() << 16) | (GetBlue() << 8) | GetAlpha());
 	}
 
@@ -118,6 +129,7 @@ namespace DE {
 	* @return The ABGR color
 	*/
 	const unsigned long CColor::ToABGR() const {
+		LOG_TRACE();
 		return static_cast<unsigned long>((GetAlpha() << 24) | (GetBlue() << 16) | (GetGreen() << 8) | GetRed());
 	}
 
@@ -126,6 +138,7 @@ namespace DE {
 	* @return a RGB color vector
 	*/
 	const CVector3F CColor::ToRGBVector() const {
+		LOG_TRACE();
 		return CVector3F(GetRed() / 255.0f, GetGreen() / 255.0f, GetBlue() / 255.0f);
 	}
 
@@ -134,6 +147,7 @@ namespace DE {
 	* @return a RGBA color vector
 	*/
 	const CVector4F CColor::ToRGBAVector() const {
+		LOG_TRACE();
 		return CVector4F(GetRed() / 255.0f, GetGreen() / 255.0f, GetBlue() / 255.0f, GetAlpha() / 255.0f);
 	}
 
@@ -143,6 +157,7 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CColor::operator+(const CColor & color) const {
+		LOG_TRACE();
 		return CColor((int)GetRed() + (int)color.GetRed(), static_cast<int>(GetGreen() + color.GetGreen()), static_cast<int>(GetBlue() + color.GetBlue()), static_cast<int>(GetAlpha() + color.GetAlpha()));
 	}
 
@@ -152,6 +167,7 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CColor::operator-(const CColor & color) const {
+		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() - color.GetRed()), static_cast<int>(GetGreen() - color.GetGreen()), static_cast<int>(GetBlue() - color.GetBlue()), static_cast<int>(GetAlpha() - color.GetAlpha()));
 	}
 
@@ -161,6 +177,7 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CColor::operator*(const CColor & color) const {
+		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() * color.GetRed()), static_cast<int>(GetGreen() * color.GetGreen()), static_cast<int>(GetBlue() * color.GetBlue()), static_cast<int>(GetAlpha() * color.GetAlpha()));
 	}
 
@@ -170,6 +187,7 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CColor::operator*(const float number) const {
+		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() * number), static_cast<int>(GetGreen() * number), static_cast<int>(GetBlue() * number), static_cast<int>(GetAlpha() * number));
 	}
 
@@ -179,6 +197,7 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CColor::operator/(const float number) const {
+		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() / number), static_cast<int>(GetGreen() / number), static_cast<int>(GetBlue() / number), static_cast<int>(GetAlpha() / number));
 	}
 
@@ -188,6 +207,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor & CColor::operator+=(const CColor & color) {
+		LOG_TRACE();
+
 		*this = *this + color;
 		return *this;
 	}
@@ -198,6 +219,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor & CColor::operator-=(const CColor & color) {
+		LOG_TRACE();
+
 		*this = *this - color;
 		return *this;
 	}
@@ -208,6 +231,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor & CColor::operator*=(const CColor & color) {
+		LOG_TRACE();
+
 		*this = *this * color;
 		return *this;
 	}
@@ -218,6 +243,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor & CColor::operator*=(const float number) {
+		LOG_TRACE();
+
 		*this = *this * number;
 		return *this;
 	}
@@ -228,6 +255,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor & CColor::operator/=(const float number) {
+		LOG_TRACE();
+
 		*this = *this / number;
 		return *this;
 	}
@@ -238,6 +267,7 @@ namespace DE {
 	* @return True if equal, false otherwise
 	*/
 	const bool CColor::operator==(const CColor & color) const {
+		LOG_TRACE();
 		return this->m_color == color.m_color;
 	}
 
@@ -247,6 +277,7 @@ namespace DE {
 	* @return True if equal, false otherwise
 	*/
 	const bool CColor::operator!=(const CColor & color) const {
+		LOG_TRACE();
 		return !(*this == color);
 	}
 
@@ -255,6 +286,8 @@ namespace DE {
 	* @param red The red channel value
 	*/
 	void CColor::SetRed(const int red) {
+		LOG_TRACE();
+
 		int r = (red >= 0) ? (red <= 255 ? red : 255) : 0;
 		this->m_color |= r << 16;
 	}
@@ -264,6 +297,8 @@ namespace DE {
 	* @param green The green channel value
 	*/
 	void CColor::SetGreen(const int green) {
+		LOG_TRACE();
+
 		int g = (green >= 0) ? (green <= 255 ? green : 255) : 0;
 		this->m_color |= green << 8;
 	}
@@ -273,6 +308,8 @@ namespace DE {
 	* @param blue The blue channel value
 	*/
 	void CColor::SetBlue(const int blue) {
+		LOG_TRACE();
+
 		int b = (blue >= 0) ? (blue <= 255 ? blue : 255) : 0;
 		this->m_color |= blue;
 	}
@@ -282,6 +319,8 @@ namespace DE {
 	* @param alpha The alpha channel value
 	*/
 	void CColor::SetAlpha(const int alpha) {
+		LOG_TRACE();
+
 		int a = (alpha >= 0) ? (alpha <= 255 ? alpha : 255) : 0;
 		this->m_color |= alpha << 24;
 	}
@@ -291,6 +330,8 @@ namespace DE {
 	* @param red The red channel value
 	*/
 	void CColor::SetRed(const float red) {
+		LOG_TRACE();
+
 		int r = static_cast<int>((red >= 0) ? (red <= 1.0f ? (red * 255) : 255) : 0);
 		this->m_color |= r << 16;
 	}
@@ -300,6 +341,8 @@ namespace DE {
 	* @param green The green channel value
 	*/
 	void CColor::SetGreen(const float green) {
+		LOG_TRACE();
+
 		int g = static_cast<int>((green >= 0) ? (green <= 1.0f ? (green * 255) : 255) : 0);
 		this->m_color |= g << 8;
 	}
@@ -309,6 +352,8 @@ namespace DE {
 	* @param blue The blue channel value
 	*/
 	void CColor::SetBlue(const float blue) {
+		LOG_TRACE();
+
 		int b = static_cast<int>((blue >= 0) ? (blue <= 1.0f ? (blue * 255) : 255) : 0);
 		this->m_color |= b;
 	}
@@ -318,6 +363,8 @@ namespace DE {
 	* @param alpha The alpha channel value
 	*/
 	void CColor::SetAlpha(const float alpha) {
+		LOG_TRACE();
+
 		int a = static_cast<int>((alpha >= 0) ? (alpha <= 1.0f ? (alpha * 255) : 255) : 0);
 		this->m_color |= a << 24;
 	}
@@ -330,6 +377,8 @@ namespace DE {
 	* @param a Alpha
 	*/
 	void CColor::SetFloat(const float r, const float g, const float b, const float a) {
+		LOG_TRACE();
+
 		this->m_color = 0;
 		SetRed(r);
 		SetGreen(g);
@@ -345,6 +394,7 @@ namespace DE {
 	* @param a Alpha
 	*/
 	void CColor::SetUnsignedChar(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a) {
+		LOG_TRACE();
 		this->m_color = (a << 24) | (r << 16) | (g << 8) | b;
 	}
 
@@ -356,6 +406,8 @@ namespace DE {
 	* @param a Alpha
 	*/
 	void CColor::SetInt(const int r, const int g, const int b, const int a) {
+		LOG_TRACE();
+
 		unsigned char red = (r >= 0) ? (r <= 255 ? r : 255) : 0;
 		unsigned char green = (g >= 0) ? (g <= 255 ? g : 255) : 0;
 		unsigned char blue = (b >= 0) ? (b <= 255 ? b : 255) : 0;
@@ -370,6 +422,8 @@ namespace DE {
 	* @param color The color
 	*/
 	std::istream & operator>>(std::istream & stream, CColor & color) {
+		LOG_TRACE();
+
 		int r, g, b, a;
 		stream >> r >> g >> b >> a;
 		color.SetInt(r, g, b, a);
@@ -383,6 +437,8 @@ namespace DE {
 	* @param color The color
 	*/
 	std::ostream & operator<<(std::ostream & stream, const CColor & color) {
+		LOG_TRACE();
+
 		return stream << static_cast<int>(color.GetRed()) << " "
 			<< static_cast<int>(color.GetGreen()) << " "
 			<< static_cast<int>(color.GetBlue()) << " "

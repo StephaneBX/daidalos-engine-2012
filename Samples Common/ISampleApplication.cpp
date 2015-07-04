@@ -325,6 +325,8 @@ namespace SAMPLES {
 		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
+		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
+
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());

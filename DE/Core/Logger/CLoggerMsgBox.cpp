@@ -35,6 +35,6 @@ namespace DE {
 	* @param message The message
 	*/
 	void CLoggerMsgBox::Write(const std::string & message) {
-		MessageBox(nullptr, message.c_str(), "Closed Engine Error", MB_OK);
+		MessageBox(nullptr, message.c_str(), "Daidalos Engine Error", MB_OK);
 	}
 }

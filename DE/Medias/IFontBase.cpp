@@ -25,10 +25,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IFontBase.h"
 
 namespace DE {
 	IFontBase::IFontBase(const std::string & name, SFontInternalData * data) : IResource(name) {
+		LOG_TRACE();
+
 		this->m_internalData = std::unique_ptr<SFontInternalData>(data);
 
 		// Create the char descriptors
@@ -45,34 +48,49 @@ namespace DE {
 	}
 
 	const bool IFontBase::IsBold() const {
+		LOG_TRACE();
+
 		return this->m_internalData->bold;
 	}
 
 	const bool IFontBase::IsItalic() const {
+		LOG_TRACE();
+
 		return this->m_internalData->italic;
 	}
 
 	const int IFontBase::GetSize() const {
+		LOG_TRACE();
+
 		return this->m_internalData->size;
 	}
 
 	const int IFontBase::GetLineHeight() const {
+		LOG_TRACE();
+
 		return this->m_internalData->lineHeight;
 	}
 
 	const int IFontBase::GetBase() const {
+		LOG_TRACE();
+
 		return this->m_internalData->base;
 	}
 
 	const std::string & IFontBase::GetFontName() const {
+		LOG_TRACE();
+
 		return this->m_internalData->fontName;
 	}
 
 	const CTexture2D & IFontBase::GetTexture() const {
+		LOG_TRACE();
 		return this->m_internalData->texture;
 	}
 
 	const SCharDescriptor * IFontBase::GetCharDescriptor(const unsigned int id) const {
+		LOG_TRACE();
+
 		auto it = this->m_charDescriptor.find(id);
 		if(it != this->m_charDescriptor.end())
 			return &it->second;

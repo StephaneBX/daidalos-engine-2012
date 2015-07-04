@@ -25,14 +25,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/CImpact.h"
 
 namespace DE {
 	CImpact::CImpact() {
+		LOG_TRACE();
+
 		ClearImpact();
 	}
 
 	void CImpact::Initialize(const CVector3F & startPoint, const CVector3F & endPoint) {
+		LOG_TRACE();
+
 		this->m_startPoint = startPoint;
 		this->m_endPoint = endPoint;
 		this->m_distance = (this->m_endPoint - this->m_startPoint);
@@ -40,11 +45,15 @@ namespace DE {
 	}
 
 	void CImpact::ClearImpact() {
+		LOG_TRACE();
+
 		this->m_impactFraction = 1;
 		this->m_realFraction = 1;
 	}
 
 	void CImpact::SetImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction) {
+		LOG_TRACE();
+
 		this->m_planeNormal = planeNormal;
 		this->m_impactFraction = impactFraction;
 		this->m_realFraction = realFraction;
@@ -56,35 +65,52 @@ namespace DE {
 	}
 
 	void CImpact::SetNearestImpact(const CVector3F & planeNormal, const float impactFraction, const float realFraction) {
-		if(realFraction < this->m_realFraction)
+		LOG_TRACE();
+
+		if(realFraction < this->m_realFraction) {
 			SetImpact(planeNormal, impactFraction, realFraction);
+		}
 	}
 
 	const bool CImpact::IsImpact() const {
+		LOG_TRACE();
+
 		return this->m_realFraction < 1.0f;
 	}
 
 	const float CImpact::GetImpactFraction() const {
+		LOG_TRACE();
+
 		return this->m_impactFraction;
 	}
 
 	const float CImpact::GetRealFraction() const {
+		LOG_TRACE();
+
 		return this->m_realFraction;
 	}
 
 	const CVector3F & CImpact::GetDistance() const {
+		LOG_TRACE();
+
 		return this->m_distance;
 	}
 
 	const CVector3F & CImpact::GetPlaneNormal() const {
+		LOG_TRACE();
+
 		return this->m_planeNormal;
 	}
 
 	const CVector3F & CImpact::GetStartPoint() const {
+		LOG_TRACE();
+
 		return this->m_startPoint;
 	}
 
 	const CVector3F & CImpact::GetEndPoint() const {
+		LOG_TRACE();
+
 		return this->m_endPoint;
 	}
 }

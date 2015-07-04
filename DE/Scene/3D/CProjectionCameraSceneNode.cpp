@@ -25,27 +25,38 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CProjectionCameraSceneNode.h"
 
 namespace DE {
 	CProjectionCameraSceneNode::CProjectionCameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {
+		LOG_TRACE();
+
 		SetAngle(angle);
 		SetRatio(ratio);
 	}
 
-	CProjectionCameraSceneNode::~CProjectionCameraSceneNode() {}
+	CProjectionCameraSceneNode::~CProjectionCameraSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CProjectionCameraSceneNode::SetAngle(const float angle) {
+		LOG_TRACE();
+
 		this->m_angle = angle;
 	}
 
 	void CProjectionCameraSceneNode::SetRatio(const float ratio) {
+		LOG_TRACE();
+
 		this->m_ratio = ratio;
 	}
 
 	void CProjectionCameraSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		// Update the camera information
 		ICameraSceneNode::Update();
 
@@ -163,10 +174,14 @@ namespace DE {
 	}
 
 	const float CProjectionCameraSceneNode::GetAngle() const {
+		LOG_TRACE();
+
 		return this->m_angle;
 	}
 
 	const float CProjectionCameraSceneNode::GetRatio() const {
+		LOG_TRACE();
+
 		return this->m_ratio;
 	}
 }

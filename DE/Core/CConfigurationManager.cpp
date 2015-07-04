@@ -25,15 +25,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Core/CConfigurationManager.h"
 
 namespace DE {
 	/**
-		* Destructor
-		*/
-	CConfigurationManager::~CConfigurationManager() {}
+	* Destructor
+	*/
+	CConfigurationManager::~CConfigurationManager() {
+		LOG_TRACE();
+	}
 
 	SiniP & CConfigurationManager::GetConfiguration(const std::string & filename) {
+		LOG_TRACE();
+
 		auto it = this->m_files.find(filename);
 
 		// Load the file if it has not been loaded yet

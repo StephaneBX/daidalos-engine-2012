@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/CSphere.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CDirectionalLightSceneNode.h"
@@ -34,6 +35,8 @@ namespace DE {
 #define DISTANCE_FACTOR 2.0f
 
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
@@ -42,6 +45,8 @@ namespace DE {
 	}
 
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, color, shadowCaster, enabled) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
@@ -49,9 +54,13 @@ namespace DE {
 		AddChild(this->m_camera);
 	}
 
-	CDirectionalLightSceneNode::~CDirectionalLightSceneNode() {}
+	CDirectionalLightSceneNode::~CDirectionalLightSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CDirectionalLightSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		// Get the light direction
 		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0, 0, 1)).Normalize();
 
@@ -125,6 +134,8 @@ namespace DE {
 	}
 
 	ICameraSceneNode * CDirectionalLightSceneNode::GetCameraNode(const unsigned int id) const {
+		LOG_TRACE();
+
 		return this->m_camera;
 	}
 }

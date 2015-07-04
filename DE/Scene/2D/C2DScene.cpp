@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/2D/IView.h"
 #include "../../Core/IRenderer.h"
 #include "../../Scene/2D/C2DScene.h"
@@ -34,6 +35,8 @@ namespace DE {
 	* Constructor
 	*/
 	C2DScene::C2DScene() {
+		LOG_TRACE();
+
 		this->m_cursor = nullptr;
 
 		const IRenderer * renderer = IRenderer::GetRenderer();
@@ -44,21 +47,31 @@ namespace DE {
 		this->m_mainView->SetBounds(CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 	}
 
-	C2DScene::~C2DScene() {}
+	C2DScene::~C2DScene() {
+		LOG_TRACE();
+	}
 
 	void C2DScene::AddToMainView(IView * element) {
+		LOG_TRACE();
+
 		this->m_mainView->AddSubview(element);
 	}
 
 	void C2DScene::RemoveFromMainView(IView * element) {
+		LOG_TRACE();
+
 		this->m_mainView->RemoveSubview(element);
 	}
 
 	void C2DScene::SetCursor(CCursor * cursor) {
+		LOG_TRACE();
+
 		this->m_cursor = cursor;
 	}
 
 	void C2DScene::Render() {
+		LOG_TRACE();
+
 		// Update the elements
 		this->m_mainView->Update();
 
@@ -72,6 +85,8 @@ namespace DE {
 	}
 
 	const CMatrix & C2DScene::GetProjMatrix() const {
+		LOG_TRACE();
+
 		return this->m_proj;
 	}
 }

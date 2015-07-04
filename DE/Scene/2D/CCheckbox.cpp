@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Core/CInputDevice.h"
@@ -32,6 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CCheckbox::CCheckbox() {
+		LOG_TRACE();
+
 		this->m_enabled = true;
 		this->m_checked = false;
 		this->m_changed = true;
@@ -44,22 +47,32 @@ namespace DE {
 	}
 
 	CCheckbox::~CCheckbox() {
+		LOG_TRACE();
+
 		delete this->m_label;
 	}
 
 	void CCheckbox::SetEnabled(const bool enabled) {
+		LOG_TRACE();
+
 		this->m_enabled = enabled;
 	}
 
 	void CCheckbox::SetChecked(const bool checked) {
+		LOG_TRACE();
+
 		this->m_checked = checked;
 	}
 
 	void CCheckbox::SetLabelInset(const CInsetI & inset) {
+		LOG_TRACE();
+
 		this->m_labelInset = inset;
 	}
 
 	void CCheckbox::SetUncheckedTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -68,6 +81,8 @@ namespace DE {
 	}
 
 	void CCheckbox::SetCheckedTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -76,6 +91,8 @@ namespace DE {
 	}
 
 	void CCheckbox::SetClickedTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -84,6 +101,8 @@ namespace DE {
 	}
 
 	void CCheckbox::Update() {
+		LOG_TRACE();
+
 		if(this->m_changed) {
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 
@@ -108,6 +127,8 @@ namespace DE {
 	}
 
 	void CCheckbox::Render() {
+		LOG_TRACE();
+
 		if(this->m_data.size() > 0) {
 			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -133,6 +154,8 @@ namespace DE {
 	}
 
 	const bool CCheckbox::HitTest(const CVector2I & point) {
+		LOG_TRACE();
+
 		this->m_hitTest = IsInside(point);
 
 		// Click canceled by the user
@@ -157,18 +180,26 @@ namespace DE {
 	}
 
 	const bool CCheckbox::IsEnabled() const {
+		LOG_TRACE();
+
 		return this->m_enabled;
 	}
 
 	const bool CCheckbox::IsChecked() const {
+		LOG_TRACE();
+
 		return this->m_checked;
 	}
 
 	CLabel * CCheckbox::GetLabelElement() {
+		LOG_TRACE();
+
 		return this->m_label;
 	}
 
 	void CCheckbox::GenerateGeometry() {
+		LOG_TRACE();
+
 		this->m_data.clear();
 		CRectangleI positionRectangle = GetPositionRectangle();
 		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1));
@@ -180,6 +211,8 @@ namespace DE {
 	}
 
 	CRectangleI CCheckbox::GetPositionRectangle() {
+		LOG_TRACE();
+
 		CRectangleI positionRectangle;
 
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
@@ -195,6 +228,8 @@ namespace DE {
 	}
 
 	ITexture2DBase * CCheckbox::GetTextureToRender() {
+		LOG_TRACE();
+
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
 			return this->m_clickedTexture.GetTexture();
 		}

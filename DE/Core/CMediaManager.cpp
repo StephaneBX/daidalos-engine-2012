@@ -25,16 +25,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Core/CMediaManager.h"
 
 namespace DE {
 	CMediaManager::CMediaManager() {}
 
 	void CMediaManager::AddSearchPath(const std::string & path) {
+		LOG_TRACE();
 		this->m_paths.insert(path);
 	}
 
 	CFile CMediaManager::FindMedia(const std::string & filename) {
+		LOG_TRACE();
+
 		for(auto i = this->m_paths.begin(); i != this->m_paths.end(); ++i) {
 			CFile file = *i + filename;
 			if(file.FileExists())

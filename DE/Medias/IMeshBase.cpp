@@ -26,10 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Core/Core.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IMeshBase.h"
 
 namespace DE {
 	IMeshBase::~IMeshBase() {
+		LOG_TRACE();
+
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			if(this->m_vertex != nullptr)
 				SAFE_DELETE_ARRAY(this->m_vertex[i]);
@@ -56,38 +59,56 @@ namespace DE {
 	}
 
 	const int IMeshBase::GetNumberOfGroups() const {
+
+		LOG_TRACE();
 		return this->m_groupSize.size();
 	}
 
 	const int IMeshBase::GetGroupSize(const int group) const {
+		LOG_TRACE();
+
 		return this->m_groupSize[group];
 	}
 
 	CVector3F * IMeshBase::GetVertices(const int group) const {
+		LOG_TRACE();
+
 		return this->m_vertex[group];
 	}
 
 	CVector3F * IMeshBase::GetNormals(const int group) const {
+		LOG_TRACE();
+
 		return this->m_normal[group];
 	}
 
 	CVector3F * IMeshBase::GetTangents(const int group) const {
+		LOG_TRACE();
+
 		return this->m_tangent[group];
 	}
 
 	CVector3F * IMeshBase::GetBinormals(const int group) const {
+		LOG_TRACE();
+
 		return this->m_binormal[group];
 	}
 
 	CVector2F * IMeshBase::GetTexcoords(const int group) const {
+		LOG_TRACE();
+
 		return this->m_texcoord[group];
 	}
 
 	CSphereF * IMeshBase::GetVisibilityShape() const {
+		LOG_TRACE();
+
 		return this->m_visibilityShape;
 	}
 
 	IMeshBase::IMeshBase(const std::string & name) : IResource(name) {
+		LOG_TRACE();
+
 		this->m_vertex = nullptr;
 		this->m_normal = nullptr;
 		this->m_texcoord = nullptr;
@@ -95,6 +116,8 @@ namespace DE {
 	}
 
 	void IMeshBase::FlatShadingNormals() {
+		LOG_TRACE();
+
 		// Loop through the groups
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			// Loop through the vertices
@@ -111,6 +134,8 @@ namespace DE {
 	}
 
 	void IMeshBase::TangentAndBinormalCalculation() {
+		LOG_TRACE();
+
 		CVector3F ab, ac;
 		CVector2F abuv, acuv;
 

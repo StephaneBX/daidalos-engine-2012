@@ -36,12 +36,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9PixelShadersLoader.h"
 
 namespace DE {
-	CDX9PixelShadersLoader::CDX9PixelShadersLoader() {}
+	CDX9PixelShadersLoader::CDX9PixelShadersLoader() {
+		LOG_TRACE();
+	}
 
-
-	CDX9PixelShadersLoader::~CDX9PixelShadersLoader() {}
+	CDX9PixelShadersLoader::~CDX9PixelShadersLoader() {
+		LOG_TRACE();
+	}
 
 	IShaderBase * CDX9PixelShadersLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		if(!CFile(filename).FileExists())
 			throw CExceptionLoad(filename);
 

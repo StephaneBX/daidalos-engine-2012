@@ -27,48 +27,69 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/Core.h"
 #include "../Core/IRenderer.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/CFrameBuffer.h"
 
 namespace DE {
 	CFrameBuffer::CFrameBuffer() {
+		LOG_TRACE();
+
 		this->m_frameBuffer = nullptr;
 	}
 
 	CFrameBuffer::~CFrameBuffer() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_frameBuffer);
 	}
 
 	IFrameBufferBase * CFrameBuffer::GetFrameBuffer() const {
+		LOG_TRACE();
+
 		return this->m_frameBuffer;
 	}
 
 	const int CFrameBuffer::GetBufferSize() const {
+		LOG_TRACE();
+
 		return this->m_frameBuffer->GetBufferSize();
 	}
 
 	void CFrameBuffer::CreateEmpty() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_frameBuffer);
 
 		this->m_frameBuffer = IRenderer::GetRenderer()->CreateFrameBuffer(nullptr, 0, nullptr, 0);
 	}
 
 	void CFrameBuffer::AddElement(const std::string & name, SFrameBufferElement & element) {
+		LOG_TRACE();
+
 		this->m_frameBuffer->AddElement(name, element);
 	}
 
 	void CFrameBuffer::AttachElement(const std::string & name, const int attachment) {
+		LOG_TRACE();
+
 		this->m_frameBuffer->AttachElement(name, attachment);
 	}
 
 	void CFrameBuffer::AttachDepth(const std::string & name) {
+		LOG_TRACE();
+
 		this->m_frameBuffer->AttachDepth(name);
 	}
 
 	void CFrameBuffer::DetachElement(const int attachment) {
+		LOG_TRACE();
+
 		this->m_frameBuffer->DetachElement(attachment);
 	}
 
 	void CFrameBuffer::DetachAllElements() {
+		LOG_TRACE();
+
 		this->m_frameBuffer->DetachAllElements();
 	}
 }

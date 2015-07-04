@@ -27,28 +27,39 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Core/CResourceManager.h"
 #include "../Core/CMediaManager.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/CStaticMesh.h"
 
 namespace DE {
 	CStaticMesh::CStaticMesh() {
+		LOG_TRACE();
+
 		this->m_mesh = nullptr;
 	}
 
 	CStaticMesh::CStaticMesh(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_mesh = nullptr;
 		LoadFromFile(filename);
 	}
 
 	CStaticMesh::CStaticMesh(const CStaticMesh & copy) {
+		LOG_TRACE();
+
 		*this = copy;
 	}
 
 	CStaticMesh::~CStaticMesh() {
+		LOG_TRACE();
+
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 	}
 
 	void CStaticMesh::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		// Release previously used resource
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
@@ -64,10 +75,14 @@ namespace DE {
 	}
 
 	void CStaticMesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		this->m_mesh->FinalizeGeometry(shadingType);
 	}
 
 	const CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy) {
+		LOG_TRACE();
+
 		if(this->m_mesh != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 

@@ -25,53 +25,76 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../../../Core/Logger/ILogger.h"
 #include "../../../../Scene/3D/Structure/BSP/CBSPTriangle.h"
 
 namespace DE {
 	CBSPTriangle::CBSPTriangle() {
+		LOG_TRACE();
+
 		this->m_separationPlane = false;
 		this->m_visible = true;
 		this->m_drawn = false;
 	}
 
 	void CBSPTriangle::SetSeparationPlane(const bool separationPlane) {
+		LOG_TRACE();
+
 		this->m_separationPlane = separationPlane;
 	}
 
 	void CBSPTriangle::SetVisible(const bool visible) {
+		LOG_TRACE();
+
 		this->m_visible = visible;
 	}
 
 	void CBSPTriangle::SetDrawn(const bool drawn) {
+		LOG_TRACE();
+
 		this->m_drawn = drawn;
 	}
 
 	void CBSPTriangle::SetPlane(const CPlane3DF & plane) {
+		LOG_TRACE();
+
 		this->m_plane = plane;
 	}
 
 	void CBSPTriangle::CreatePlane() {
+		LOG_TRACE();
+
 		this->m_plane = CPlane3DF(this->m_vertices);
 		this->m_flatNormal = this->m_plane.GetNormal();
 	}
 
 	const bool CBSPTriangle::IsSeparationPlane() const {
+		LOG_TRACE();
+
 		return this->m_separationPlane;
 	}
 
 	const bool CBSPTriangle::IsVisible() const {
+		LOG_TRACE();
+
 		return this->m_visible;
 	}
 
 	const bool CBSPTriangle::IsDrawn() const {
+
+		LOG_TRACE();
 		return this->m_drawn;
 	}
 
 	const CPlane3DF & CBSPTriangle::GetPlane() const {
+		LOG_TRACE();
+
 		return this->m_plane;
 	}
 
 	EBSPTriangleOrientation CBSPTriangle::Classify(const CPlane3DF & plane) {
+		LOG_TRACE();
+
 		int frontCounter = 0;
 		int backCounter = 0;
 		int onCounter = 0;
@@ -111,6 +134,8 @@ namespace DE {
 	}
 
 	CPlane3DF * CBSPTriangle::GetPlanePointer() {
+		LOG_TRACE();
+
 		return &this->m_plane;
 	}
 }

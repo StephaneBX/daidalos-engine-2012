@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <stdio.h>
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Core.h"
 #include "../Core/IRenderer.h"
 
@@ -72,9 +73,13 @@ namespace DE {
 		"skyAmbientColor"
 	};
 
-	IRenderer::~IRenderer() {}
+	IRenderer::~IRenderer() {
+		LOG_TRACE();
+	}
 
 	CBuffer IRenderer::CreateVertexBuffer(const unsigned long stride, const unsigned long count, const unsigned long flags, const void * data) const {
+		LOG_TRACE();
+
 		CBuffer buffer(CreateVB(count, stride, flags));
 		if(data)
 			buffer.Fill(data, stride, count);
@@ -83,6 +88,8 @@ namespace DE {
 	}
 
 	CBuffer IRenderer::CreateIndexBuffer(unsigned long count, unsigned long flags, const int * data) const {
+		LOG_TRACE();
+
 		CBuffer buffer(CreateIB(count, sizeof(int), flags));
 		if(data)
 			buffer.Fill(data, sizeof(int), count);
@@ -91,63 +98,93 @@ namespace DE {
 	}
 
 	IShaderProgramBase * IRenderer::GetCurrentShaderProgram() const {
+		LOG_TRACE();
+
 		return this->m_currentShaderProgram;
 	}
 
 	SScreenQuadElement * IRenderer::GetScreenQuad() {
+		LOG_TRACE();
+
 		return &this->m_screenQuadElement[0];
 	}
 
 	STexture2DFilterPolicy * IRenderer::GetDefaultTextureFilter() {
+		LOG_TRACE();
+
 		return &this->m_defaultTextureFilter;
 	}
 
 	const CBuffer & IRenderer::GetQuadIB() const {
+		LOG_TRACE();
+
 		return this->m_quadIB;
 	}
 
 	const CVector2I & IRenderer::GetResolution() const {
+		LOG_TRACE();
+
 		return this->m_resolution;
 	}
 
 	const CVector2I & IRenderer::GetInternalResolution() const {
+		LOG_TRACE();
+
 		return this->m_internalResolution;
 	}
 
 	const SScreenQuadElement & IRenderer::GetScreenQuadElement(EScreenQuadPoint point) const {
+		LOG_TRACE();
+
 		return this->m_screenQuadElement[point];
 	}
 
 
 	void IRenderer::SetDisplayBounds(const CRectangleI & rect) {
+		LOG_TRACE();
+
 		this->m_displayBounds = rect;
 	}
 
 	void IRenderer::SetResolution(const CVector2I & resolution) {
+		LOG_TRACE();
+
 		this->m_resolution = resolution;
 	}
 
 	const bool IRenderer::HasCapability(ECapability capability) const {
+		LOG_TRACE();
+
 		return this->m_capabilities.at(capability);
 	}
 
 	void IRenderer::SetRenderer(IRenderer * renderer) {
+		LOG_TRACE();
+
 		s_instance = renderer;
 	}
 
 	void IRenderer::Kill() {
+		LOG_TRACE();
+
 		SAFE_DELETE(s_instance);
 	}
 
 	IRenderer * IRenderer::GetRenderer() {
+		LOG_TRACE();
+
 		return s_instance;
 	}
 
 	const std::string & IRenderer::GetShaderProgramParameterString(EShaderProgramParameter parameter) {
+		LOG_TRACE();
+
 		return s_shaderProgramParameters[parameter];
 	}
 
 	IRenderer::IRenderer(const bool verticalSynchro, const int anisotropicFiltering) {
+		LOG_TRACE();
+
 		this->m_currentShaderProgram = nullptr;
 
 		this->m_verticalSynchro = verticalSynchro;

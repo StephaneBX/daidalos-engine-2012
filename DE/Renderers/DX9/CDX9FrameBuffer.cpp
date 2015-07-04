@@ -25,12 +25,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/CDX9FrameBuffer.h"
 
 namespace DE {
-	CDX9FrameBuffer::CDX9FrameBuffer() : IFrameBufferBase() {}
+	CDX9FrameBuffer::CDX9FrameBuffer() : IFrameBufferBase() {
+		LOG_TRACE();
+	}
 
-	CDX9FrameBuffer::~CDX9FrameBuffer() {}
+	CDX9FrameBuffer::~CDX9FrameBuffer() {
+		LOG_TRACE();
+	}
 
-	void CDX9FrameBuffer::Finalize() {}
+	void CDX9FrameBuffer::Finalize() {
+		LOG_TRACE();
+	}
 }

@@ -34,6 +34,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CBSPTreeNode::CBSPTreeNode() {
+		LOG_TRACE();
+
 		this->m_type = BSP_NODE_TYPE_NODE;
 		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
@@ -41,6 +43,8 @@ namespace DE {
 	}
 
 	CBSPTreeNode::CBSPTreeNode(EBSPNodeType type) {
+		LOG_TRACE();
+
 		this->m_type = type;
 		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
@@ -48,11 +52,15 @@ namespace DE {
 	}
 
 	CBSPTreeNode::~CBSPTreeNode() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_FRONT]);
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_BACK]);
 	}
 
 	void CBSPTreeNode::LoadTriangleList(const std::vector<CBSPTriangle*> & triangles) {
+		LOG_TRACE();
+
 		// Get the bounding box
 		CalculateBoundingBox(triangles);
 
@@ -140,6 +148,8 @@ namespace DE {
 	}
 
 	void CBSPTreeNode::ResetDraw() {
+		LOG_TRACE();
+
 		for(auto it = this->m_triangles.begin(); it != this->m_triangles.end(); ++it)
 			(*it)->SetDrawn(false);
 
@@ -151,6 +161,8 @@ namespace DE {
 	}
 
 	void CBSPTreeNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
+		LOG_TRACE();
+
 		float impactFraction, realFraction;
 		CVector3F normalTemp;
 
@@ -226,6 +238,8 @@ namespace DE {
 	}
 
 	void CBSPTreeNode::ClearTriangles() {
+		LOG_TRACE();
+
 		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF) {
 			this->m_triangles.clear();
 			return;
@@ -239,27 +253,39 @@ namespace DE {
 	}
 
 	EBSPNodeType CBSPTreeNode::GetType() const {
+		LOG_TRACE();
+
 		return this->m_type;
 	}
 
 	const CPlane3DF & CBSPTreeNode::GetPlane() const {
+		LOG_TRACE();
+
 		return this->m_plane;
 	}
 
 	const std::vector<std::unique_ptr<CBSPTriangle>> & CBSPTreeNode::GetTriangles() const {
+		LOG_TRACE();
+
 		return this->m_triangles;
 	}
 
 	CBSPTreeNode * CBSPTreeNode::GetChild(EBSPNodeChild child) {
+		LOG_TRACE();
+
 		return this->m_children[child];
 	}
 
 	void CBSPTreeNode::AddTriangles(const std::vector<CBSPTriangle*> & triangles) {
+		LOG_TRACE();
+
 		for(auto it = triangles.begin(); it < triangles.end(); ++it)
 			this->m_triangles.push_back(std::unique_ptr<CBSPTriangle>((*it)));
 	}
 
 	void CBSPTreeNode::SplitTriangle(CBSPTriangle * triangle, std::vector<CBSPTriangle*> & front, std::vector<CBSPTriangle*> & back) {
+		LOG_TRACE();
+
 		CVector3F pivot, positive1, positive2, negative1, negative2, intersection1, intersection2;
 		bool split = true;
 		EPointOrientation orientation[3];
@@ -653,6 +679,8 @@ namespace DE {
 	}
 
 	void CBSPTreeNode::CalculateBoundingBox(const std::vector<CBSPTriangle*> triangles) {
+		LOG_TRACE();
+
 		// Initial values
 		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
@@ -674,6 +702,8 @@ namespace DE {
 	}
 
 	void CBSPTreeNode::BuildInitialPortal() {
+		LOG_TRACE();
+
 		float distanceBoundingBoxToPlane = this->m_plane.PointDistance(this->m_boundingBox->GetPosition());
 		CVector3F portalCenter = this->m_boundingBox->GetPosition() + (this->m_plane.GetNormal() * distanceBoundingBoxToPlane);
 
@@ -712,6 +742,8 @@ namespace DE {
 	}
 
 	CBSPTriangle * CBSPTreeNode::FindBestSplitter(const std::vector<CBSPTriangle*> & triangles) {
+		LOG_TRACE();
+
 		float score;
 		float bspScore = DEFAULT_BSP_SCORE;
 		CBSPTriangle * chosenSplitter = nullptr;

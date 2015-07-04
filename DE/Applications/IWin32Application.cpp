@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define NOMINMAX
 
 #include "../Renderers/DX9/CDX9Renderer.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/IRenderer.h"
 #include "../Core/Utility/CTimer.h"
 #include "../Applications/IWin32Application.h"
@@ -217,6 +218,8 @@ namespace DE {
 	* @param title The application title
 	*/
 	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication() {
+		LOG_TRACE();
+
 		this->m_name = title;
 		s_instance = this;
 
@@ -245,6 +248,8 @@ namespace DE {
 	* The destructor
 	*/
 	IWin32Application::~IWin32Application() {
+		LOG_TRACE();
+
 		if(this->m_hWnd) {
 			DestroyWindow(this->m_hWnd);
 			UnregisterClass(APPLICATION_NAME, this->m_hInstance);
@@ -262,6 +267,8 @@ namespace DE {
 	* Initialize the window
 	*/
 	void IWin32Application::InitializeWindow() {
+		LOG_TRACE();
+
 		if(this->m_fullscreen) {
 			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
 		} else {
@@ -288,6 +295,8 @@ namespace DE {
 	* Initialize the gamepads
 	*/
 	void IWin32Application::InitializeGamepad() {
+		LOG_TRACE();
+
 		// Create the direct input context
 		DirectInput8Create(this->m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&this->m_directInput, NULL);
 
@@ -305,6 +314,8 @@ namespace DE {
 	* The main loop of the application
 	*/
 	void IWin32Application::MainLoop() {
+		LOG_TRACE();
+
 		MSG msg;
 		CTimer timer;
 		float time;
@@ -407,12 +418,16 @@ namespace DE {
 	* The update method
 	* @param time Elapsed time
 	*/
-	void IWin32Application::Update(const float time) {}
+	void IWin32Application::Update(const float time) {
+		LOG_TRACE();
+	}
 
 	/**
 	* Update the gamepad inputs
 	*/
 	void IWin32Application::UpdateGamepads() {
+		LOG_TRACE();
+
 		// Loop through the active gamepads
 		for(unsigned int gamepadId = 0; gamepadId < this->m_gamepad.size(); gamepadId++) {
 			// Get the gamepad state
@@ -537,7 +552,9 @@ namespace DE {
 	/**
 	* The render method
 	*/
-	void IWin32Application::Render() {}
+	void IWin32Application::Render() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Resize the window
@@ -545,6 +562,8 @@ namespace DE {
 	* @param height The new height
 	*/
 	void IWin32Application::Resize(const int width, const int height) {
+		LOG_TRACE();
+
 		RECT rect;
 		GetWindowRect(this->m_hWnd, &rect);
 		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
@@ -554,6 +573,7 @@ namespace DE {
 	* Get the gamepads vector
 	*/
 	std::vector<LPDIRECTINPUTDEVICEA> & IWin32Application::GetGamepad() {
+		LOG_TRACE();
 		return this->m_gamepad;
 	}
 
@@ -561,6 +581,7 @@ namespace DE {
 	* Get the Direct Input context
 	*/
 	const LPDIRECTINPUT IWin32Application::GetDirectInput() const {
+		LOG_TRACE();
 		return this->m_directInput;
 	}
 
@@ -568,6 +589,7 @@ namespace DE {
 	* The global window procedure for messages
 	*/
 	LRESULT CALLBACK IWin32Application::GlobalWindowProc(HWND Hwnd, UINT Message, WPARAM WParam, LPARAM LParam) {
+		LOG_TRACE();
 		return s_instance->WindowProc(Hwnd, Message, WParam, LParam);
 	}
 
@@ -575,6 +597,8 @@ namespace DE {
 	* The window procedure for messages
 	*/
 	LRESULT CALLBACK IWin32Application::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+		LOG_TRACE();
+
 		switch(message) {
 		case WM_DESTROY:
 			PostQuitMessage(0);
@@ -603,6 +627,8 @@ namespace DE {
 	* Called for each enumerated devices by Direct Input
 	*/
 	BOOL CALLBACK IWin32Application::CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference) {
+		LOG_TRACE();
+
 		// Handle a maximum of MAX_GAMEPADS gamepad
 		if(s_instance->GetGamepad().size() < MAX_GAMEPADS) {
 			// Create the device

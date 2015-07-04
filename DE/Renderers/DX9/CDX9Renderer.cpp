@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <algorithm>
 #include "../../Core/CMediaManager.h"
 #include "../../Core/CConfigurationManager.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/DX9Global.h"
 #include "../../Renderers/DX9/CDX9Exception.h"
 #include "../../Renderers/DX9/CDX9Enums.h"
@@ -46,17 +47,23 @@ using namespace std;
 
 namespace DE {
 	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering) {
+		LOG_TRACE();
+
 		this->m_hwnd = hWnd;
 		Initialize();
 		CheckCapabilities();
 	}
 
 	CDX9Renderer::~CDX9Renderer() {
+		LOG_TRACE();
+
 		CMediaManager::GetInstance()->RemoveLoader<IShaderBase>();
 		SAFE_DELETE(this->m_mainFrameBuffer);
 	}
 
 	const CRectangleI CDX9Renderer::GetLightScissor(const CVector4F & positionRadius) const {
+		LOG_TRACE();
+
 		int rect[4] = { 0, 0, this->m_internalResolution.x, this->m_internalResolution.y };
 
 		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
@@ -138,6 +145,8 @@ namespace DE {
 	}
 
 	const CRectangleI CDX9Renderer::GetViewport() const {
+		LOG_TRACE();
+
 		D3DVIEWPORT9 viewport;
 		this->m_device->GetViewport(&viewport);
 
@@ -145,10 +154,14 @@ namespace DE {
 	}
 
 	IDirect3DDevice9 * CDX9Renderer::GetDevice() const {
+		LOG_TRACE();
+
 		return this->m_device;
 	}
 
 	ITexture2DBase * CDX9Renderer::CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags) const {
+		LOG_TRACE();
+
 		const bool mipmap = (flags & TEXTURE_FLAG_NOMIPMAP) != 0;
 		const bool frameBufferType = (flags & TEXTURE_FLAG_FRAMEBUFFER_TYPE) != 0;
 		const bool autoMipmap = HasCapability(CAPABILITY_HARDWARE_MIPMAP) && CheckFormat(CDX9Enums::Get(format), D3DRTYPE_TEXTURE, D3DUSAGE_AUTOGENMIPMAP);
@@ -175,6 +188,8 @@ namespace DE {
 	}
 
 	IFrameBufferBase * CDX9Renderer::CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const {
+		LOG_TRACE();
+
 		CDX9FrameBuffer * frameBuffer = new CDX9FrameBuffer();
 
 		if(elements != nullptr) {
@@ -196,10 +211,14 @@ namespace DE {
 	}
 
 	IShaderProgramBase * CDX9Renderer::CreateShaderProgram(const std::string & name) {
+		LOG_TRACE();
+
 		return new IShaderProgramBase(name);
 	}
 
 	void CDX9Renderer::SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset, const unsigned long count) {
+		LOG_TRACE();
+
 		const IBufferBase * base = buffer.GetBuffer();
 
 		if(base != nullptr) {
@@ -212,6 +231,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) {
+		LOG_TRACE();
+
 		const IBufferBase * base = buffer.GetBuffer();
 
 		if(base != nullptr) {
@@ -222,6 +243,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetShaderProgram(IShaderProgramBase * shaderProgram) {
+		LOG_TRACE();
+
 		this->m_currentShaderProgram = shaderProgram;
 
 		if(shaderProgram != nullptr) {
@@ -235,6 +258,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetVertexDeclaration(const IDeclaration * declaration) {
+		LOG_TRACE();
+
 		if(declaration != nullptr) {
 			const CDX9Declaration * vertexDeclaration = static_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration ? vertexDeclaration->GetDeclaration() : nullptr);
@@ -243,6 +268,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetTexture(const int unit, const ITexture2DBase * texture) {
+		LOG_TRACE();
+
 		if(texture != nullptr) {
 			const CDX9Texture2D * dx9Texture = static_cast<const CDX9Texture2D*>(texture);
 			this->m_device->SetTexture(unit, dx9Texture->GetTexture());
@@ -259,6 +286,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetFrameBuffer(IFrameBufferBase * frameBuffer) {
+		LOG_TRACE();
+
 		// Default values for the optional render targets
 		for(int i = 1; i < 4; ++i)
 			this->m_device->SetRenderTarget(i, nullptr);
@@ -284,36 +313,52 @@ namespace DE {
 	}
 
 	void CDX9Renderer::SetRenderState(ERenderStateType state, const bool value) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(CDX9Enums::Get(state), value);
 	}
 
 	void CDX9Renderer::SetDepthFunction(ECompare depth) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(D3DRS_ZFUNC, CDX9Enums::Get(depth));
 	}
 
 	void CDX9Renderer::SetBlendFunction(ERenderStateBlendFunction src, ERenderStateBlendFunction dest) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(D3DRS_SRCBLEND, CDX9Enums::Get(src));
 		this->m_device->SetRenderState(D3DRS_DESTBLEND, CDX9Enums::Get(dest));
 	}
 
 	void CDX9Renderer::SetBlendOperation(ERenderStateBlendOperation operation) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(D3DRS_BLENDOP, CDX9Enums::Get(operation));
 	}
 
 	void CDX9Renderer::SetBlendColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(D3DRS_BLENDFACTOR, D3DCOLOR(color.ToARGB()));
 	}
 
 	void CDX9Renderer::SetCullType(ERenderStateCullType cullType) {
+		LOG_TRACE();
+
 		this->m_device->SetRenderState(D3DRS_CULLMODE, CDX9Enums::Get(cullType));
 	}
 
 	void CDX9Renderer::SetScissor(const CRectangleI & rectangle) {
+		LOG_TRACE();
+
 		RECT rect = { rectangle.GetLeft(), rectangle.GetTop(), rectangle.GetRight(), rectangle.GetBottom() };
 		this->m_device->SetScissorRect(&rect);
 	}
 
 	void CDX9Renderer::SetViewport(const CRectangleI & viewport) {
+		LOG_TRACE();
+
 		D3DVIEWPORT9 vp;
 		vp.X = viewport.GetLeft();
 		vp.Y = viewport.GetTop();
@@ -326,31 +371,45 @@ namespace DE {
 	}
 
 	void CDX9Renderer::BeginScene() {
+		LOG_TRACE();
+
 		this->m_device->BeginScene();
 	}
 
 	void CDX9Renderer::EndScene() {
+		LOG_TRACE();
+
 		this->m_device->EndScene();
 		this->m_device->Present(nullptr, nullptr, nullptr, nullptr);
 	}
 
 	void CDX9Renderer::Clear(const unsigned int surfaceFlags, const CColor & color) {
+		LOG_TRACE();
+
 		this->m_device->Clear(0, nullptr, CDX9Enums::SurfaceFlags(surfaceFlags), color.ToARGB(), 1.0f, 0);
 	}
 
 	void CDX9Renderer::DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const {
+		LOG_TRACE();
+
 		this->m_device->DrawPrimitive(CDX9Enums::Get(type), offset, count);
 	}
 
 	void CDX9Renderer::DrawIndexedPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const {
+		LOG_TRACE();
+
 		this->m_device->DrawIndexedPrimitive(CDX9Enums::Get(type), 0, this->m_minVertexIndex, this->m_numVertices, offset, count);
 	}
 
 	const bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const {
+		LOG_TRACE();
+
 		return SUCCEEDED(this->m_d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_X8R8G8B8, usage, resourceType, format));
 	}
 
 	IBufferBase * CDX9Renderer::CreateVB(const unsigned long stride, const unsigned long count, const unsigned long flags) const {
+		LOG_TRACE();
+
 		LPDIRECT3DVERTEXBUFFER9 vertexBuffer;
 		if(FAILED(this->m_device->CreateVertexBuffer(count * stride, CDX9Enums::BufferFlags(flags), 0, D3DPOOL_DEFAULT, &vertexBuffer, nullptr))) {
 			LOG_ERROR("Unable to create a vertex buffer");
@@ -362,6 +421,8 @@ namespace DE {
 	}
 
 	IBufferBase * CDX9Renderer::CreateIB(const unsigned long stride, const unsigned long count, const unsigned long flags) const {
+		LOG_TRACE();
+
 		LPDIRECT3DINDEXBUFFER9 indexBuffer;
 		if(FAILED(this->m_device->CreateIndexBuffer(count * stride, CDX9Enums::BufferFlags(flags), D3DFMT_INDEX32, D3DPOOL_DEFAULT, &indexBuffer, nullptr))) {
 			LOG_ERROR("Unable to create an index buffer");
@@ -374,6 +435,8 @@ namespace DE {
 	}
 
 	DeclarationPtr CDX9Renderer::CreateVD(const SDeclarationElement * elements, const std::size_t size) const {
+		LOG_TRACE();
+
 		std::vector<D3DVERTEXELEMENT9> dx9Elements;
 		std::vector<int> offset(size, 0);
 
@@ -431,6 +494,8 @@ namespace DE {
 	}
 
 	IRenderTargetBase * CDX9Renderer::CreateRT(const CVector2I & size, EPixelFormat format) const {
+		LOG_TRACE();
+
 		IDirect3DSurface9 * dss = nullptr;
 		ERenderTargetType type;
 		CDX9RenderTarget * RT;
@@ -453,6 +518,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::CheckCapabilities() {
+		LOG_TRACE();
+
 		D3DCAPS9 capabilities;
 		this->m_device->GetDeviceCaps(&capabilities);
 
@@ -474,6 +541,8 @@ namespace DE {
 	}
 
 	void CDX9Renderer::Initialize() {
+		LOG_TRACE();
+
 		CMediaManager::GetInstance()->AddLoader(new CDX9PixelShadersLoader(), "psh");
 		CMediaManager::GetInstance()->AddLoader(new CDX9VertexShadersLoader(), "vsh");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Shaders/DX9/");

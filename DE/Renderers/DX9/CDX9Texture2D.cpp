@@ -35,18 +35,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CDX9Texture2D::CDX9Texture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap, IDirect3DTexture9 * texture) : ITexture2DBase(size, filter, format, mipmap, autoMipmap) {
+		LOG_TRACE();
+
 		this->m_texture = texture;
 	}
 
 	CDX9Texture2D::~CDX9Texture2D() {
+		LOG_TRACE();
+
 		SAFE_RELEASE(this->m_texture);
 	}
 
 	IDirect3DTexture9 * CDX9Texture2D::GetTexture() const {
+		LOG_TRACE();
+
 		return this->m_texture;
 	}
 
 	void CDX9Texture2D::Update(const CRectangleI & rect) {
+		LOG_TRACE();
+
 		if(this->m_format == this->m_image.GetFormat()) {
 			D3DLOCKED_RECT lockedRect;
 			RECT Lock = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
@@ -92,6 +100,8 @@ namespace DE {
 	}
 
 	void CDX9Texture2D::UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect) {
+		LOG_TRACE();
+
 		unsigned char * destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
 		const unsigned char * srcPix = this->m_image.GetData() + (rect.GetLeft() + rect.GetTop() * this->m_size.x) * GetBytesPerPixel(this->m_image.GetFormat());
 		const unsigned int bpp = GetBytesPerPixel(this->m_image.GetFormat());

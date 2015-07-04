@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Core/CMediaManager.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/IStaticSoundBase.h"
 #include "../Medias/IStreamSoundBase.h"
@@ -35,12 +36,18 @@ namespace DE {
 	CSound::CSound() {}
 
 	CSound::CSound(const std::string & filename, ESoundType type) {
+		LOG_TRACE();
+
 		LoadFromFile(filename, type);
 	}
 
-	CSound::~CSound() {}
+	CSound::~CSound() {
+		LOG_TRACE();
+	}
 
 	void CSound::LoadFromFile(const std::string & filename, ESoundType type) {
+		LOG_TRACE();
+
 		this->m_type = type;
 		switch(type) {
 		case SOUND_TYPE_STATIC:
@@ -54,121 +61,169 @@ namespace DE {
 	}
 
 	void CSound::SetStatus(ESoundStatus status) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetStatus(status);
 	}
 
 	void CSound::SetGain(const float gain) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetGain(gain);
 	}
 
 	void CSound::SetPosition(const CVector3F & position) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetPosition(position);
 	}
 
 	void CSound::SetOrientation(float * orientation) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetOrientation(orientation);
 	}
 
 	void CSound::SetVelocity(const CVector3F & velocity) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetVelocity(velocity);
 	}
 
 	void CSound::SetConeInnerAngle(const float angle) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetConeInnerAngle(angle);
 	}
 
 	void CSound::SetConeOuterAngle(const float angle) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetConeOuterAngle(angle);
 	}
 
 	void CSound::SetReferenceDistance(const float distance) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetReferenceDistance(distance);
 	}
 
 	void CSound::SetMaxDistance(const float distance) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetMaxDistance(distance);
 	}
 
 	void CSound::SetRelativeToListener(const bool relative) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetRelativeToListener(relative);
 	}
 
 	void CSound::SetLooped(const bool loop) {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->SetLooped(loop);
 	}
 
 	void CSound::Update() {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		this->m_sound->Update();
 	}
 
 	ESoundFormat CSound::GetFormat() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetFormat();
 	}
 
 	ESoundStatus CSound::GetStatus() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetStatus();
 	}
 
 	ESoundType CSound::GetType() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_type;
 	}
 
 	const bool CSound::IsRelativeToListener() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsRelativeToListener();
 	}
 
 	const bool CSound::IsLooped() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsLooped();
 	}
 
 	const int CSound::GetChannelsCount() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetChannelsCount();
 	}
 
 	const float CSound::GetGain() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetGain();
 	}
 
 	const float CSound::GetConeInnerAngle() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeInnerAngle();
 	}
 
 	const float CSound::GetConeOuterAngle() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeOuterAngle();
 	}
 
 	const float CSound::GetReferenceDistance() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetReferenceDistance();
 	}
 
 	const float CSound::GetMaxDistance() const {
+		LOG_TRACE();
+
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetMaxDistance();
 	}
 
 	ISoundBase * CSound::GetSound() const {
+		LOG_TRACE();
+
 		return this->m_sound.get();
 	}
 }

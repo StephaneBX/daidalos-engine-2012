@@ -46,6 +46,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CSceneLoader::CSceneLoader() {
+		LOG_TRACE();
+
 		// Nodes default configuration file
 		this->m_nodesConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_NODES_CONFIGURATION);
 		this->m_materialsConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
@@ -53,9 +55,12 @@ namespace DE {
 		this->m_renderer = nullptr;
 	}
 
-	CSceneLoader::~CSceneLoader() {}
+	CSceneLoader::~CSceneLoader() {
+		LOG_TRACE();
+	}
 
 	I3DScene * CSceneLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
 
 		I3DScene * scene = new I3DScene();
 
@@ -91,10 +96,12 @@ namespace DE {
 	}
 
 	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename) {
-
+		LOG_TRACE();
 	}
 
 	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
+		LOG_TRACE();
+
 		// Global data variables
 		bool visible, flatShading, enabled, shadowCaster;
 		float fov, ratio, near, far, range, radius, falloff, tightness;
@@ -325,6 +332,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+		LOG_TRACE();
+
 		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode(scene);
@@ -398,6 +407,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+		LOG_TRACE();
+
 		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode(scene);
@@ -455,6 +466,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
+		LOG_TRACE();
+
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
@@ -514,6 +527,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush) {
+		LOG_TRACE();
+
 		bool visible, flatShading;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
@@ -590,6 +605,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
+		LOG_TRACE();
+
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::string tmpText = TrimString(text->Value());
@@ -604,6 +621,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
+		LOG_TRACE();
+
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
@@ -613,6 +632,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
+		LOG_TRACE();
+
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
@@ -621,6 +642,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
+		LOG_TRACE();
+
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
@@ -629,6 +652,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) {
+		LOG_TRACE();
+
 		CTokenizer tokenizer;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr)
@@ -656,6 +681,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
+		LOG_TRACE();
+
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
@@ -665,6 +692,8 @@ namespace DE {
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
+		LOG_TRACE();
+
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = text->Value();
@@ -673,6 +702,8 @@ namespace DE {
 	}
 
 	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle) {
+		LOG_TRACE();
+
 		std::map<std::string, std::string> attributes;
 		tinyxml2::XMLElement * child;
 		std::string attributeName;

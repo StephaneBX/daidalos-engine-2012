@@ -25,16 +25,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IAnimatedMeshBase.h"
 
 namespace DE {
-	IAnimatedMeshBase::~IAnimatedMeshBase() {}
+	IAnimatedMeshBase::~IAnimatedMeshBase() {
+		LOG_TRACE();
+	}
 
 	void IAnimatedMeshBase::Animate(const float frame) {
+		LOG_TRACE();
+
 		this->m_frame = frame;
 	}
 
 	IAnimatedMeshBase::IAnimatedMeshBase(const std::string & name) : IMeshBase(name) {
+		LOG_TRACE();
+
 		this->m_frame = 0;
 	}
 

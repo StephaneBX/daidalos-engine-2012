@@ -25,22 +25,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/CSphere.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CPointLightSceneNode.h"
 
 namespace DE {
 	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_POINTLIGHT;
 	}
 
 	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), color, shadowCaster, range, falloff, enabled) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_POINTLIGHT;
 	}
 
-	CPointLightSceneNode::~CPointLightSceneNode() {}
+	CPointLightSceneNode::~CPointLightSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CPointLightSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 
 		// Update the data
 		IBoundedLightSceneNode::Update(time);
@@ -62,6 +71,8 @@ namespace DE {
 	}
 
 	ICameraSceneNode * CPointLightSceneNode::GetCameraNode(const unsigned int id) const {
+		LOG_TRACE();
+
 		return nullptr;
 	}
 }

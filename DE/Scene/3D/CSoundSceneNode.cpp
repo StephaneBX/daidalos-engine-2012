@@ -25,17 +25,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CSoundSceneNode.h"
 
 namespace DE {
 	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
+		LOG_TRACE();
+
 		this->m_sound.LoadFromFile(filename, type);
 	}
 
-	CSoundSceneNode::~CSoundSceneNode() {}
+	CSoundSceneNode::~CSoundSceneNode() {
+		LOG_TRACE();
+	}
 
 	void CSoundSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		ISceneNode::Update(time);
 
 		// Update the sound position and orientation
@@ -53,58 +60,86 @@ namespace DE {
 	}
 
 	void CSoundSceneNode::SetSoundStatus(ESoundStatus status) {
+		LOG_TRACE();
+
 		this->m_sound.SetStatus(status);
 	}
 
 	void CSoundSceneNode::SetSoundGain(const float gain) {
+		LOG_TRACE();
+
 		this->m_sound.SetGain(gain);
 	}
 
 	void CSoundSceneNode::SetSoundVelocity(const CVector3F & velocity) {
+		LOG_TRACE();
+
 		this->m_sound.SetVelocity(velocity);
 	}
 
 	void CSoundSceneNode::SetSoundConeInnerAngle(const float angle) {
+		LOG_TRACE();
+
 		this->m_sound.SetConeInnerAngle(angle);
 	}
 
 	void CSoundSceneNode::SetSoundConeOuterAngle(const float angle) {
+		LOG_TRACE();
+
 		this->m_sound.SetConeOuterAngle(angle);
 	}
 
 	void CSoundSceneNode::SetSoundReferenceDistance(const float distance) {
+		LOG_TRACE();
+
 		this->m_sound.SetReferenceDistance(distance);
 	}
 
 	void CSoundSceneNode::SetSoundMaxDistance(const float distance) {
+		LOG_TRACE();
+
 		this->m_sound.SetMaxDistance(distance);
 	}
 
 	void CSoundSceneNode::SetSoundRelativeToListener(const bool relative) {
+		LOG_TRACE();
+
 		this->m_sound.SetRelativeToListener(relative);
 	}
 
 	void CSoundSceneNode::SetSoundLooped(const bool loop) {
+		LOG_TRACE();
+
 		this->m_sound.SetLooped(loop);
 	}
 
 	ESoundFormat CSoundSceneNode::GetSoundFormat() const {
+		LOG_TRACE();
+
 		return this->m_sound.GetFormat();
 	}
 
 	ESoundStatus CSoundSceneNode::GetSoundStatus() const {
+		LOG_TRACE();
+
 		return this->m_sound.GetStatus();
 	}
 
 	ESoundType CSoundSceneNode::GetSoundType() const {
+		LOG_TRACE();
+
 		return this->m_sound.GetType();
 	}
 
 	const bool CSoundSceneNode::IsSoundLooped() const {
+		LOG_TRACE();
+
 		return this->m_sound.IsLooped();
 	}
 
 	const int CSoundSceneNode::GetSoundChannelsCount() const {
+		LOG_TRACE();
+
 		return this->m_sound.GetChannelsCount();
 	}
 }

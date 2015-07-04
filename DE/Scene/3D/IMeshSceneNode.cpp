@@ -29,12 +29,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/IRenderer.h"
 #include "../../Core/CConfigurationManager.h"
 #include "../../Core/Memory/CExceptionAssert.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/CSphere.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/IMeshSceneNode.h"
 
 namespace DE {
 	IMeshSceneNode::IMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
+		LOG_TRACE();
+
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		this->m_visibilityShape = new CSphereF();
 		this->m_needVisibilityShapeUpdate = true;
@@ -42,6 +45,8 @@ namespace DE {
 	}
 
 	IMeshSceneNode::IMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(scene, parent, name, position, rotation) {
+		LOG_TRACE();
+
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
@@ -50,6 +55,8 @@ namespace DE {
 	}
 
 	IMeshSceneNode::~IMeshSceneNode() {
+		LOG_TRACE();
+
 		SAFE_DELETE_ARRAY(this->m_buffer);
 		SAFE_DELETE_ARRAY(this->m_diffuseTexture);
 		SAFE_DELETE_ARRAY(this->m_normalTexture);
@@ -58,6 +65,8 @@ namespace DE {
 	}
 
 	void IMeshSceneNode::SetMeshMaterial(const std::string & filename) {
+		LOG_TRACE();
+
 		std::ostringstream ss;
 		this->m_material.LoadFromFile(filename);
 		this->m_materialElement.clear();
@@ -69,23 +78,28 @@ namespace DE {
 			this->m_materialElement.push_back(materialConf.GetValueString(this->m_filename, ss.str(), "default"));
 
 			// If the element is not found, choose the default one
-			if(this->m_material.GetMaterial()->GetElement(this->m_materialElement[i]) == nullptr)
+			if(this->m_material.GetMaterial()->GetElement(this->m_materialElement[i]) == nullptr) {
 				this->m_materialElement[i] = "default";
+			}
 		}
 	}
 
 	void IMeshSceneNode::SetMeshTexture(ETextureType textureType, const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const int group) {
+		LOG_TRACE();
+
 		if(group == MESHSCENE_ALL_GROUPS) {
 			// Set the texture in all the groups
 			switch(textureType) {
 			case TEXTURE_TYPE_DIFFUSE:
-				for(int i = 0; i < this->m_numberOfGroups; ++i)
+				for(int i = 0; i < this->m_numberOfGroups; ++i) {
 					this->m_diffuseTexture[i].CreateFromFile(filename, format, filter);
+				}
 				break;
 
 			case TEXTURE_TYPE_NORMAL:
-				for(int i = 0; i < this->m_numberOfGroups; ++i)
+				for(int i = 0; i < this->m_numberOfGroups; ++i) {
 					this->m_normalTexture[i].CreateFromFile(filename, format, filter);
+				}
 				break;
 			}
 		} else {
@@ -105,22 +119,31 @@ namespace DE {
 	}
 
 	void IMeshSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		ISceneNode::Update(time);
 	}
 
 	void IMeshSceneNode::SetPosition(const CVector3F & position) {
+		LOG_TRACE();
+
 		ISceneNode::SetPosition(position);
 		this->m_needVisibilityShapeUpdate = true;
 	}
 
 	void IMeshSceneNode::SetScale(const CVector3F & scale) {
+		LOG_TRACE();
+
 		ISceneNode::SetScale(scale);
 		this->m_needVisibilityShapeUpdate = true;
 	}
 
 	void IMeshSceneNode::SetMeshFormat(const int format) {
-		for(int i = 0; i < this->m_numberOfGroups; ++i)
+		LOG_TRACE();
+
+		for(int i = 0; i < this->m_numberOfGroups; ++i) {
 			this->m_buffer[i].SetMeshFormat(format);
+		}
 
 		this->m_needGeometryUpdate = true;
 
@@ -128,12 +151,16 @@ namespace DE {
 	}
 
 	void IMeshSceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		this->m_shadingType = shadingType;
 
 		ISceneNode::SetMeshShadingType(shadingType);
 	}
 
 	void IMeshSceneNode::Render() {
+		LOG_TRACE();
+
 		// Activation check
 		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
 
@@ -173,5 +200,7 @@ namespace DE {
 		ISceneNode::Render();
 	}
 
-	void IMeshSceneNode::FinalizeGeometry() {}
+	void IMeshSceneNode::FinalizeGeometry() {
+		LOG_TRACE();
+	}
 }

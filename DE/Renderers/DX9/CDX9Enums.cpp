@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <d3d9.h>
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/CDX9Enums.h"
 
 namespace DE {
@@ -137,6 +138,8 @@ namespace DE {
 	};
 
 	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
+		LOG_TRACE();
+
 		unsigned long lockFlags = 0;
 
 		if((flags & BUFFER_DYNAMIC) != 0)
@@ -149,6 +152,8 @@ namespace DE {
 	}
 
 	const unsigned long CDX9Enums::LockFlags(const unsigned long flags) {
+		LOG_TRACE();
+
 		unsigned long lockFlags = 0;
 
 		if((flags & LOCK_READONLY) != 0)
@@ -161,6 +166,8 @@ namespace DE {
 	}
 
 	const unsigned long CDX9Enums::SurfaceFlags(const unsigned long flags) {
+		LOG_TRACE();
+
 		unsigned long surfaceFlags = 0;
 
 		if((flags & SURFACE_TYPE_TARGET) != 0)
@@ -176,38 +183,56 @@ namespace DE {
 	}
 
 	D3DPRIMITIVETYPE CDX9Enums::Get(EPrimitiveType type) {
+		LOG_TRACE();
+
 		return s_primitiveType[type];
 	}
 
 	D3DFORMAT CDX9Enums::Get(EPixelFormat type) {
+		LOG_TRACE();
+
 		return s_formatType[type];
 	}
 
 	D3DTEXTUREFILTERTYPE CDX9Enums::Get(ETextureFilterType type) {
+		LOG_TRACE();
+
 		return s_textureFilterType[type];
 	}
 
 	D3DTEXTUREADDRESS CDX9Enums::Get(ETextureAddress type) {
+		LOG_TRACE();
+
 		return s_textureAddressType[type];
 	}
 
 	D3DRENDERSTATETYPE CDX9Enums::Get(ERenderStateType type) {
+		LOG_TRACE();
+
 		return s_renderStateType[type];
 	}
 
 	D3DCMPFUNC CDX9Enums::Get(ECompare compare) {
+		LOG_TRACE();
+
 		return s_compare[compare];
 	}
 
 	D3DBLEND CDX9Enums::Get(ERenderStateBlendFunction type) {
+		LOG_TRACE();
+
 		return s_renderStateBlendFunction[type];
 	}
 
 	D3DBLENDOP CDX9Enums::Get(ERenderStateBlendOperation type) {
+		LOG_TRACE();
+
 		return s_renderStateBlendOperation[type];
 	}
 
 	D3DCULL CDX9Enums::Get(ERenderStateCullType type) {
+		LOG_TRACE();
+
 		return s_renderStateCullType[type];
 	}
 }

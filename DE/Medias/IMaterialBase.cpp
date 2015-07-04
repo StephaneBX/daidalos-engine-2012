@@ -25,16 +25,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IMaterialBase.h"
 
 namespace DE {
-	IMaterialBase::IMaterialBase(const std::string & name) : IResource(name) {}
+	IMaterialBase::IMaterialBase(const std::string & name) : IResource(name) {
+		LOG_TRACE();
+	}
 
 	void IMaterialBase::AddElement(const std::string & name, SMaterialElement * element) {
+		LOG_TRACE();
+
 		this->m_elements[name] = std::unique_ptr<SMaterialElement>(element);
 	}
 
 	SMaterialElement * IMaterialBase::GetElement(const std::string & name) const {
+		LOG_TRACE();
+
 		SMaterialElement * tmp = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())

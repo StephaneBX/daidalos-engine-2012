@@ -26,10 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/CMS3DMesh.h"
 
 namespace DE {
 	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name) {
+		LOG_TRACE();
+
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[this->m_internalData->numberOfMeshes];
@@ -81,6 +84,8 @@ namespace DE {
 	}
 
 	CMS3DMesh::~CMS3DMesh() {
+		LOG_TRACE();
+
 		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 			for(int j = 0; j < this->m_internalData->numberOfFrames; ++j) {
 				SAFE_DELETE_ARRAY(this->m_internalData->mesh[i].vertex[j]);
@@ -97,6 +102,8 @@ namespace DE {
 	}
 
 	void CMS3DMesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		int frameA = (int)floor(this->m_frame);
 		int frameB = (int)floor(this->m_frame + 1);
 
@@ -130,6 +137,8 @@ namespace DE {
 	}
 
 	const int CMS3DMesh::GetNumberOfFrames() const {
+		LOG_TRACE();
+
 		return this->m_internalData->numberOfFrames;
 	}
 }

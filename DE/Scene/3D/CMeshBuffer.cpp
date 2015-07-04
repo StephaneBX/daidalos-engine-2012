@@ -26,17 +26,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/IRenderer.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CMeshBuffer.h"
 
 namespace DE {
 	CMeshBuffer::CMeshBuffer() {
+		LOG_TRACE();
+
 		this->m_numberOfElements = 0;
 		SetMeshFormat(MESHBUFFER_ELEMENT_POSITION);
 	}
 
 	void CMeshBuffer::Transform(CVector3F * vertex, CVector2F * texcoord, CVector3F * normal, CVector3F * tangent, CVector3F * binormal, const int numberOfElements) {
+		LOG_TRACE();
+
 		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
 
 		// Check the vertex buffer size
@@ -51,36 +56,42 @@ namespace DE {
 
 		for(int i = 0; i < numberOfElements; i += 3) {
 			// Vertex transformation
-			for(int j = 0; j < 3; ++j)
+			for(int j = 0; j < 3; ++j) {
 				memcpy(lock + (this->m_stride * (index + j)) + pitch, vertex[i + j], sizeof(CVector3F));
+			}
 			pitch += sizeof(CVector3F);
 
 			// Texcoord transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, texcoord[i + j], sizeof(CVector2F));
+				}
 				pitch += sizeof(CVector2F);
 			}
 
 			// Normal transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_NORMAL) != 0) {
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, normal[i + j], sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 			}
 
 			// Normal Tangent and Binormal transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_NTB) != 0) {
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, normal[i + j], sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, tangent[i + j], sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, binormal[i + j], sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 			}
 
@@ -94,6 +105,8 @@ namespace DE {
 	}
 
 	void CMeshBuffer::Transform(const std::vector<CTriangle3D*> & triangles, EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
 
 		// Check the vertex buffer size
@@ -111,14 +124,16 @@ namespace DE {
 
 		for(int i = 0; i < (int)triangles.size(); ++i) {
 			// Vertex transformation
-			for(int j = 0; j < 3; ++j)
+			for(int j = 0; j < 3; ++j) {
 				memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetVertex(j), sizeof(CVector3F));
+			}
 			pitch += sizeof(CVector3F);
 
 			// Texcoord transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetTexcoord(j), sizeof(CVector2F));
+				}
 				pitch += sizeof(CVector2F);
 			}
 
@@ -126,13 +141,15 @@ namespace DE {
 			if((this->m_format & MESHBUFFER_ELEMENT_NORMAL) != 0) {
 				switch(shadingType) {
 				case MESH_SHADING_FLAT:
-					for(int j = 0; j < 3; ++j)
+					for(int j = 0; j < 3; ++j) {
 						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetFlatNormal(), sizeof(CVector3F));
+					}
 					break;
 
 				default:
-					for(int j = 0; j < 3; ++j)
+					for(int j = 0; j < 3; ++j) {
 						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetNormal(j), sizeof(CVector3F));
+					}
 					break;
 				}
 
@@ -144,26 +161,31 @@ namespace DE {
 				CVector3F tmpNormal[3];
 				switch(shadingType) {
 				case MESH_SHADING_FLAT:
-					for(int j = 0; j < 3; ++j)
+					for(int j = 0; j < 3; ++j) {
 						tmpNormal[j] = triangles[i]->GetFlatNormal();
+					}
 					break;
 
 				default:
-					for(int j = 0; j < 3; ++j)
+					for(int j = 0; j < 3; ++j) {
 						triangles[i]->GetNormal(j);
+					}
 					break;
 				}
 
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, tmpNormal[j], sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetTangent(j), sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j)
+				for(int j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetBinormal(j), sizeof(CVector3F));
+				}
 				pitch += sizeof(CVector3F);
 			}
 
@@ -177,10 +199,14 @@ namespace DE {
 	}
 
 	void CMeshBuffer::SetScene(I3DScene * scene) {
+		LOG_TRACE();
+
 		this->m_scene = scene;
 	}
 
 	void CMeshBuffer::SetMeshFormat(const int format) {
+		LOG_TRACE();
+
 		// Format verification
 		// The position must be selected
 		Assert((format & MESHBUFFER_ELEMENT_POSITION) != 0);
@@ -194,33 +220,43 @@ namespace DE {
 
 		this->m_format = format;
 
-
 		// Stride calculation
 		this->m_stride = sizeof(CVector3F);
 
-		if((format & MESHBUFFER_ELEMENT_TEXCOORD) != 0)
+		if((format & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 			this->m_stride += sizeof(CVector2F);
+		}
 
-		if((format & MESHBUFFER_ELEMENT_NORMAL) != 0)
+		if((format & MESHBUFFER_ELEMENT_NORMAL) != 0) {
 			this->m_stride += sizeof(CVector3F);
+		}
 
-		if((format & MESHBUFFER_ELEMENT_NTB) != 0)
+		if((format & MESHBUFFER_ELEMENT_NTB) != 0) {
 			this->m_stride += sizeof(CVector3F) * 3;
+		}
 	}
 
 	const int CMeshBuffer::GetNumberOfElements() const {
+		LOG_TRACE();
+
 		return this->m_numberOfElements;
 	}
 
 	const int CMeshBuffer::GetMeshFormat() const {
+		LOG_TRACE();
+
 		return this->m_format;
 	}
 
 	const unsigned long CMeshBuffer::GetStride() const {
+		LOG_TRACE();
+
 		return this->m_stride;
 	}
 
 	const CBuffer & CMeshBuffer::GetVertexBuffer() const {
+		LOG_TRACE();
+
 		return this->m_vertexBuffer;
 	}
 }

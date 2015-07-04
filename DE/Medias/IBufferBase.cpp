@@ -24,17 +24,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 ==============================================================================================================================================================
 */
+
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IBufferBase.h"
 
 namespace DE {
 	IBufferBase::IBufferBase(const unsigned long size) : IResource() {
+		LOG_TRACE();
+
 		this->m_size = size;
 	}
 
-	IBufferBase::~IBufferBase() {}
+	IBufferBase::~IBufferBase() {
+		LOG_TRACE();
+	}
 
 
 	const unsigned long IBufferBase::GetSize() const {
+		LOG_TRACE();
+
 		return this->m_size;
 	}
 }

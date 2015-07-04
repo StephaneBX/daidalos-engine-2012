@@ -27,13 +27,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include "../Core/Memory/CExceptionAssert.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Core.h"
 #include "../Core/CInputDevice.h"
 
 namespace DE {
-	CInputDevice::CInputDevice() {}
+	CInputDevice::CInputDevice() {
+		LOG_TRACE();
+	}
 
 	void CInputDevice::AddAction(const SInputActionDeclaration & declaration) {
+		LOG_TRACE();
+
 		SInputAction action;
 		action.state = INPUT_KEY_STATE_DISABLED;
 
@@ -50,6 +55,7 @@ namespace DE {
 	}
 
 	void CInputDevice::SetActionKey(const unsigned int action, EInputKey key) {
+		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
 		SInputKey tmp;
@@ -64,6 +70,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetGamepadActionKey(const unsigned int action, const unsigned int gamepadId, EInputKeyGamepad key) {
+		LOG_TRACE();
+
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 
 		SInputKey tmp;
@@ -75,18 +83,22 @@ namespace DE {
 	}
 
 	void CInputDevice::AddKeyboardListener(IInputKeyboardListener * listener) {
+		LOG_TRACE();
 		this->m_keyboardListeners.push_back(listener);
 	}
 
 	void CInputDevice::AddMouseListener(IInputMouseListener * listener) {
+		LOG_TRACE();
 		this->m_mouseListeners.push_back(listener);
 	}
 
 	void CInputDevice::AddGamepadListener(const unsigned int gamepadId, IInputGamepadListener * listener) {
+		LOG_TRACE();
 		this->m_gamepadListeners[gamepadId].push_back(listener);
 	}
 
 	void CInputDevice::ClearActionKeys(const unsigned int action, EInputKeyType type, const int index) {
+		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
 		for(auto it = this->m_actions[action].keys.begin(); it != this->m_actions[action].keys.end(); ++it) {
@@ -95,6 +107,8 @@ namespace DE {
 	}
 
 	void CInputDevice::MoveMouse(const CVector2I & position, const CVector2I movement) {
+		LOG_TRACE();
+
 		this->m_mousePosition = position;
 		this->m_mouseMovement += movement;
 
@@ -104,6 +118,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetMousePosition(const CVector2I & position, const bool triggerEvent) {
+		LOG_TRACE();
+
 		if(triggerEvent) {
 			this->m_mouseMovement += position - this->m_mousePosition;
 			this->m_mousePosition = position;
@@ -116,6 +132,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetMouseMotion(const CVector2I & movement) {
+		LOG_TRACE();
+
 		this->m_mouseMovement = movement;
 		this->m_mousePosition += movement;
 
@@ -125,6 +143,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetKeyUp(EInputKey key) {
+		LOG_TRACE();
+
 		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING)
 			SetKeyUp(this->m_actions, INPUT_TYPE_KEYBOARD, key);
 		else
@@ -132,6 +152,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetKeyDown(EInputKey key) {
+		LOG_TRACE();
+
 		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING)
 			SetKeyDown(this->m_actions, INPUT_TYPE_KEYBOARD, key);
 		else
@@ -139,6 +161,7 @@ namespace DE {
 	}
 
 	void CInputDevice::SetGamepadKey(const unsigned int gamepadId, EInputKeyGamepad key, const float factor) {
+		LOG_TRACE();
 		Assert(gamepadId >= 0 && gamepadId < this->m_gamepadActions.size());
 
 		if(factor == 0) {
@@ -149,36 +172,44 @@ namespace DE {
 	}
 
 	void CInputDevice::ResetMouseMovement() {
+		LOG_TRACE();
 		this->m_mouseMovement = CVector2I(0, 0);
 	}
 
 	const bool CInputDevice::IsActionActive(const unsigned int action) const {
+		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
 		return this->m_actions.at(action).state == INPUT_KEY_STATE_DOWN;
 	}
 
 	const bool CInputDevice::IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const {
+		LOG_TRACE();
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 
 		return this->m_gamepadActions[gamepadId].at(action).state == INPUT_KEY_STATE_DOWN;
 	}
 
 	const float CInputDevice::GetGamepadActionFactor(const unsigned int gamepadId, const unsigned int action) const {
+		LOG_TRACE();
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 
 		return this->m_gamepadActions[gamepadId].at(action).actionFactor;
 	}
 
 	const CVector2I & CInputDevice::GetMousePosition() const {
+		LOG_TRACE();
 		return this->m_mousePosition;
 	}
 
 	const CVector2I & CInputDevice::GetMouseMovement() const {
+		LOG_TRACE();
 		return this->m_mouseMovement;
 	}
 
 	void CInputDevice::SetKeyUp(std::map<unsigned int, SInputAction> & action, EInputKeyType type, const unsigned int key) {
+		LOG_TRACE();
+
 		// Loop through the actions
 		for(auto it = action.begin(); it != action.end(); ++it) {
 			bool found = false;
@@ -226,6 +257,8 @@ namespace DE {
 	}
 
 	void CInputDevice::SetKeyDown(std::map<unsigned int, SInputAction> & action, EInputKeyType type, const unsigned int key, const float factor) {
+		LOG_TRACE();
+
 		// Loop through the actions
 		for(auto it = action.begin(); it != action.end(); ++it) {
 			bool found = false;

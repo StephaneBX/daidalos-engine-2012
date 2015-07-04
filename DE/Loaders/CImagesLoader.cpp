@@ -34,6 +34,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CImagesLoader::CImagesLoader() {
+		LOG_TRACE();
+
 		ilInit();
 
 		ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
@@ -46,10 +48,14 @@ namespace DE {
 	}
 
 	CImagesLoader::~CImagesLoader() {
+		LOG_TRACE();
+
 		ilShutDown();
 	}
 
 	CImage * CImagesLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		ILuint texture;
 		ilGenImages(1, &texture);
 		ilBindImage(texture);
@@ -75,6 +81,8 @@ namespace DE {
 	}
 
 	void CImagesLoader::SaveToFile(const CImage * object, const std::string & filename) {
+		LOG_TRACE();
+
 		CImage image(object->GetSize(), PIXEL_FORMAT_A8R8G8B8);
 		image.Copy(*object);
 

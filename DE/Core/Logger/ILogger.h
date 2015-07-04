@@ -28,33 +28,42 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILOGGER_H
 #define __ILOGGER_H
 
-#define LOG_LEVEL_DEBUG 0
-#define LOG_LEVEL_INFO 1
-#define LOG_LEVEL_WARNING 2
-#define LOG_LEVEL_ERROR 3
+#include "../Core.h"
 
-#if LOG_LEVEL <= LOG_LEVEL_ERROR
-#define LOG_ERROR(stream) ILogger::Log() << __DATE__ << " - ERROR - " << __FUNCTION__ << " : " << stream << "\n";
+#define LOG_LEVEL_ERROR 4
+#define LOG_LEVEL_WARNING 3
+#define LOG_LEVEL_INFO 2
+#define LOG_LEVEL_DEBUG 1
+#define LOG_LEVEL_TRACE 0
+
+#if LOG_LEVEL_ERROR >= LOG_LEVEL
+#define LOG_ERROR(stream) ILogger::Log() << GetCurrentTimeAsString() << " [ERROR] " << __FUNCTION__ << " : " << stream << "\n";
 #else
 #define LOG_ERROR(stream) {}
 #endif
 
-#if LOG_LEVEL <= LOG_LEVEL_WARNING
-#define LOG_WARNING(stream) ILogger::Log() << __DATE__ << " - WARNING - " << __FUNCTION__ << " : " << stream << "\n";
+#if LOG_LEVEL_WARNING >= LOG_LEVEL
+#define LOG_WARNING(stream) ILogger::Log() << GetCurrentTimeAsString() << " [WARNING] - " << __FUNCTION__ << " : " << stream << "\n";
 #else
 #define LOG_WARNING(stream) {}
 #endif
 
-#if LOG_LEVEL <= LOG_LEVEL_INFO
-#define LOG_INFO(stream) ILogger::Log() << __DATE__ << " - INFO - " << __FUNCTION__ << " : " << stream << "\n";
+#if LOG_LEVEL_INFO >= LOG_LEVEL
+#define LOG_INFO(stream) ILogger::Log() << GetCurrentTimeAsString() << " [INFO] " << __FUNCTION__ << " : " << stream << "\n";
 #else
 #define LOG_INFO(stream) {}
 #endif
 
-#if LOG_LEVEL <= LOG_LEVEL_DEBUG
-#define LOG_DEBUG(stream) ILogger::Log() << __DATE__ << " - DEBUG - " << __FUNCTION__ << " : " << stream << "\n";
+#if LOG_LEVEL_DEBUG >= LOG_LEVEL
+#define LOG_DEBUG(stream) ILogger::Log() << GetCurrentTimeAsString() << " [DEBUG] " << __FUNCTION__ << " : " << stream << "\n";
 #else
 #define LOG_DEBUG(stream) {}
+#endif
+
+#if LOG_LEVEL_TRACE >= LOG_LEVEL
+#define LOG_TRACE() ILogger::Log() << GetCurrentTimeAsString() << " [TRACE] " << __FUNCTION__ << "\n";
+#else
+#define LOG_TRACE() {}
 #endif
 
 #include <string>

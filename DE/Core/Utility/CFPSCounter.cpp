@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CFPSCounter.h"
 
 namespace DE {
@@ -32,18 +33,22 @@ namespace DE {
 	* Constructor
 	*/
 	CFPSCounter::CFPSCounter() {
+		LOG_TRACE();
 		Initialize();
 	}
 
 	/**
 	* Destructor
 	*/
-	CFPSCounter::~CFPSCounter() {}
+	CFPSCounter::~CFPSCounter() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Initialize the manager
 	*/
 	void CFPSCounter::Initialize() {
+		LOG_TRACE();
 		Reset();
 	}
 
@@ -52,6 +57,8 @@ namespace DE {
 	* @param time Elapsed time
 	*/
 	void CFPSCounter::Update(const float time) {
+		LOG_TRACE();
+
 		this->m_frameCount++;
 		this->m_frameCountRate++;
 		this->m_executionTime += time;
@@ -70,6 +77,8 @@ namespace DE {
 	* Reset the fps counter
 	*/
 	void CFPSCounter::Reset() {
+		LOG_TRACE();
+
 		this->m_frameCount = 0;
 		this->m_frameCountRate = 0;
 		this->m_executionTime = 0;
@@ -82,6 +91,7 @@ namespace DE {
 	* @return The current fps
 	*/
 	const float CFPSCounter::GetFPS() const {
+		LOG_TRACE();
 		return this->m_fps;
 	}
 
@@ -90,6 +100,7 @@ namespace DE {
 	* @return The current fps string
 	*/
 	const std::string CFPSCounter::GetText() const {
+		LOG_TRACE();
 		return this->m_fpsStream.str();
 	}
 }

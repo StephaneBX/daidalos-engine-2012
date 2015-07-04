@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include "../../Core/Core.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CVector2.h"
 #include "../../Core/Utility/CImage.h"
 
@@ -37,6 +38,8 @@ namespace DE {
 	* @param format The image format
 	*/
 	CImage::CImage(const CVector2I & size, EPixelFormat format) {
+		LOG_TRACE();
+
 		this->m_size = size;
 		this->m_format = format;
 		this->m_data = std::vector<unsigned char>(this->m_size.x * this->m_size.y * GetBytesPerPixel(format), 0x00);
@@ -49,6 +52,8 @@ namespace DE {
 	* @param data The data
 	*/
 	CImage::CImage(const CVector2I & size, EPixelFormat format, const unsigned char * data) {
+		LOG_TRACE();
+
 		this->m_size = size;
 		this->m_format = format;
 		this->m_data = std::vector<unsigned char>(data, data + this->m_size.x * this->m_size.y * GetBytesPerPixel(format));
@@ -59,6 +64,7 @@ namespace DE {
 	* @return The image width
 	*/
 	const int CImage::GetWidth() const {
+		LOG_TRACE();
 		return this->m_size.x;
 	}
 
@@ -67,6 +73,7 @@ namespace DE {
 	* @return The image height
 	*/
 	const int CImage::GetHeight() const {
+		LOG_TRACE();
 		return this->m_size.y;
 	}
 
@@ -75,6 +82,7 @@ namespace DE {
 	* @return The image data
 	*/
 	const unsigned char * CImage::GetData() const {
+		LOG_TRACE();
 		return &this->m_data[0];
 	}
 
@@ -85,6 +93,8 @@ namespace DE {
 	* @return The color
 	*/
 	const CColor CImage::GetPixel(const int x, const int y) const {
+		LOG_TRACE();
+
 		unsigned char tmp[4];
 		const unsigned char * pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
 		ConvertPixel(this->m_format, PIXEL_FORMAT_A8R8G8B8, pix, &tmp[0]);
@@ -97,6 +107,7 @@ namespace DE {
 	* @return The image size
 	*/
 	const CVector2I & CImage::GetSize() const {
+		LOG_TRACE();
 		return this->m_size;
 	}
 
@@ -105,6 +116,7 @@ namespace DE {
 	* @return The image format
 	*/
 	EPixelFormat CImage::GetFormat() const {
+		LOG_TRACE();
 		return this->m_format;
 	}
 
@@ -114,6 +126,8 @@ namespace DE {
 	* @return The image
 	*/
 	CImage CImage::SubImage(const CRectangleI & rect) const {
+		LOG_TRACE();
+
 		// The sub image
 		CImage sub(CVector2I(rect.GetWidth(), rect.GetHeight()), this->m_format);
 
@@ -140,6 +154,7 @@ namespace DE {
 	* @param pixel The color
 	*/
 	void CImage::GetPixel(const int x, const int y, unsigned char * pixel) const {
+		LOG_TRACE();
 		memcpy(pixel, GetData() + y * this->m_size.x + x, GetBytesPerPixel(this->m_format));
 	}
 
@@ -150,6 +165,8 @@ namespace DE {
 	* @param color The color
 	*/
 	void CImage::SetPixel(const int x, const int y, const CColor & color) {
+		LOG_TRACE();
+
 		unsigned char tmp[4] = { color.GetBlue(), color.GetGreen(), color.GetRed(), color.GetAlpha() };
 		unsigned char * pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
 
@@ -163,6 +180,7 @@ namespace DE {
 	* @param pixel The pixel
 	*/
 	void CImage::SetPixel(const int x, const int y, const unsigned char * pixel) {
+		LOG_TRACE();
 		memcpy(&this->m_data[0] + y * this->m_size.x + x, pixel, GetBytesPerPixel(this->m_format));
 	}
 
@@ -171,6 +189,8 @@ namespace DE {
 	* @param color The color
 	*/
 	void CImage::Fill(const CColor & color) {
+		LOG_TRACE();
+
 		SetPixel(0, 0, color);
 
 		const unsigned int bpp = GetBytesPerPixel(this->m_format);
@@ -185,6 +205,8 @@ namespace DE {
 	* @param image The image to copy
 	*/
 	void CImage::Copy(const CImage & image) {
+		LOG_TRACE();
+
 		// Compare the sizes
 		if(this->m_size.x == image.m_size.x && this->m_size.y == image.m_size.y) {
 			// Compare the format
@@ -232,6 +254,8 @@ namespace DE {
 	* Flip the image vertically
 	*/
 	void CImage::Flip() {
+		LOG_TRACE();
+
 		int bpp = GetBytesPerPixel(this->m_format);
 
 		for(int i = 0; i < this->m_size.y / 2; ++i) {
@@ -245,6 +269,8 @@ namespace DE {
 	* Flip the image horizontally
 	*/
 	void CImage::Mirror() {
+		LOG_TRACE();
+
 		int bpp = GetBytesPerPixel(this->m_format);
 
 		for(int i = 0; i < this->m_size.x / 2; ++i) {

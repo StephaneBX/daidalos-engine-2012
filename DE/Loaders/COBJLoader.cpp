@@ -34,11 +34,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 #define OBJ_LOADER_ELEMENT_PER_LINE 4
 
-	COBJLoader::COBJLoader() {}
+	COBJLoader::COBJLoader() {
+		LOG_TRACE();
+	}
 
-	COBJLoader:: ~COBJLoader() {}
+	COBJLoader:: ~COBJLoader() {
+		LOG_TRACE();
+	}
 
 	IMeshBase * COBJLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		// Temporary data
 		this->m_filename = filename;
 		CVector3F tmpVec3;
@@ -208,6 +214,8 @@ namespace DE {
 	}
 
 	void COBJLoader::FillBuffers(const std::vector<CVector3F> & tmpVertex, const std::vector<CVector3F> & tmpNormal, const std::vector<CVector2F> & tmpTexture, const std::vector<int> vertexOrder, const std::vector<int> normalOrder, const std::vector<int> & textureOrder, const int groupCounter) {
+		LOG_TRACE();
+
 		// The data is read, time to fill the right buffers
 		if(vertexOrder.size() > 3) {
 			this->m_internalData->groupSize[groupCounter] = vertexOrder.size();

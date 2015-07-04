@@ -53,8 +53,7 @@ namespace SAMPLES
 	/**
 	* Test application implementation
 	*/
-	class ISampleApplication : public DE::IWin32Application 
-	{
+	class ISampleApplication : public DE::IWin32Application  {
 	protected:
 		DE::C3DScene * m_scene;
 		DE::C2DScene * m_menu;

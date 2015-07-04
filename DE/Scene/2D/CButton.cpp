@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Core/CInputDevice.h"
@@ -32,6 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CButton::CButton(const std::string & texture) {
+		LOG_TRACE();
+
 		this->m_enabled = true;
 		this->m_clicked = false;
 		this->m_imageInset = CInsetF(0, 0, 0, 0);
@@ -42,26 +45,38 @@ namespace DE {
 	}
 
 	CButton::~CButton() {
+		LOG_TRACE();
+
 		delete this->m_title;
 	}
 
 	void CButton::AddButtonListener(IButtonListener * listener) {
+		LOG_TRACE();
+
 		this->m_buttonListeners.insert(listener);
 	}
 
 	void CButton::RemoveButtonListener(IButtonListener * listener) {
+		LOG_TRACE();
+
 		this->m_buttonListeners.erase(listener);
 	}
 
 	void CButton::RemoveAllButtonListeners() {
+		LOG_TRACE();
+
 		this->m_buttonListeners.clear();
 	}
 
 	void CButton::SetEnabled(const bool enabled) {
+		LOG_TRACE();
+
 		this->m_enabled = enabled;
 	}
 
 	void CButton::SetImageInset(const CInsetF & inset) {
+		LOG_TRACE();
+
 		if(inset.GetLeft() >= 0.0f && inset.GetTop() >= 0.0f && inset.GetRight() >= 0.0f && inset.GetBottom() >= 0.0f) {
 			this->m_imageInset = inset;
 			this->m_changed = true;
@@ -69,6 +84,8 @@ namespace DE {
 	}
 
 	void CButton::SetDefaultTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_defaultTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -77,6 +94,8 @@ namespace DE {
 	}
 
 	void CButton::SetClickedTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -85,6 +104,8 @@ namespace DE {
 	}
 
 	void CButton::SetFocusedTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_focusedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
 		} else {
@@ -93,18 +114,26 @@ namespace DE {
 	}
 
 	void CButton::SetDefaultTitleColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_defaultTitleColor = color;
 	}
 
 	void CButton::SetClickedTitleColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_clickedTitleColor = color;
 	}
 
 	void CButton::SetFocusedTitleColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_focusedTitleColor = color;
 	}
 
 	void CButton::Update() {
+		LOG_TRACE();
+
 		if(this->m_changed) {
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 			this->m_title->SetPreferredSize(this->m_preferredsize);
@@ -130,6 +159,8 @@ namespace DE {
 	}
 
 	void CButton::Render() {
+		LOG_TRACE();
+
 		if(this->m_data.size() > 0) {
 			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -158,6 +189,8 @@ namespace DE {
 	}
 
 	const bool CButton::HitTest(const CVector2I & point) {
+		LOG_TRACE();
+
 		this->m_hitTest = IsInside(point);
 
 		// Click canceled by the user
@@ -185,14 +218,20 @@ namespace DE {
 	}
 
 	const bool CButton::IsEnabled() const {
+		LOG_TRACE();
+
 		return this->m_enabled;
 	}
 
 	CLabel * CButton::GetTitleElement() {
+		LOG_TRACE();
+
 		return this->m_title;
 	}
 
 	void CButton::GenerateGeometry() {
+		LOG_TRACE();
+
 		this->m_data.clear();
 
 		// Create the simple button if the inset is 0 or if no texture is given
@@ -260,6 +299,8 @@ namespace DE {
 	}
 
 	void CButton::SetTitleColor() {
+		LOG_TRACE();
+
 		if(this->m_clicked) {
 			this->m_title->SetColor(this->m_clickedTitleColor);
 		} else {
@@ -272,6 +313,8 @@ namespace DE {
 	}
 
 	ITexture2DBase * CButton::GetTextureToRender() {
+		LOG_TRACE();
+
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
 			return this->m_clickedTexture.GetTexture();
 		} else {

@@ -45,6 +45,8 @@ namespace SAMPLE1 {
 	CSampleApplication::~CSampleApplication() {}
 
 	void CSampleApplication::Update(const float time) {
+		this->m_fpsCounter.Update(time);
+
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 

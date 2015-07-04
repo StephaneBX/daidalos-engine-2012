@@ -35,8 +35,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <set>
 #include "../Core/Utility/CTokenizer.h"
 #include "../Core/Utility/CFile.h"
-#include "../Core/Memory/CExceptionLoad.h"
 #include "../Core/Logger/ILogger.h"
+#include "../Core/Memory/CExceptionLoad.h"
 #include "../Core/ILoader.h"
 #include "../Core/CLoaderExtensions.h"
 #include "../Core/CSingletonManager.h"
@@ -126,8 +126,7 @@ namespace DE {
 		}
 	}
 
-	template <class T> T * CMediaManager::LoadMediaFromFile(const std::string & filename) /* throw(CExceptionLoad) */
-	{
+	template <class T> T * CMediaManager::LoadMediaFromFile(const std::string & filename) /* throw(CExceptionLoad) */ {
 		// Search the full path for the media
 		CFile MediaPath = FindMedia(filename);
 

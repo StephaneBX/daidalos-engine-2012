@@ -25,14 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Loaders/CMD2Loader.h"
 
 namespace DE {
-	CMD2Loader::CMD2Loader() {}
+	CMD2Loader::CMD2Loader() {
+		LOG_TRACE();
+	}
 
-	CMD2Loader::~CMD2Loader() {}
+	CMD2Loader::~CMD2Loader() {
+		LOG_TRACE();
+	}
 
 	IAnimatedMeshBase * CMD2Loader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_internalData = new SMD2InternalData;
 
 		FILE * file;
@@ -93,6 +100,8 @@ namespace DE {
 	}
 
 	void CMD2Loader::InitializeGeometry() {
+		LOG_TRACE();
+
 		// Get the real vertex positions
 		for(int i = 0; i < this->m_internalData->header.numFrames; i++) {
 			for(int j = 0; j < this->m_internalData->header.numVertices; j++) {
@@ -108,6 +117,8 @@ namespace DE {
 	}
 
 	void CMD2Loader::ComputeAverageNormals(const int frameId) {
+		LOG_TRACE();
+
 		CVector3F tmpNormal;
 		float facesCount;
 
@@ -138,6 +149,8 @@ namespace DE {
 	}
 
 	void CMD2Loader::ComputeFaceNormals(const int frameId) {
+		LOG_TRACE();
+
 		// Perform face normal calculation for each triangle of the frame
 		for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 			// Normal calculation

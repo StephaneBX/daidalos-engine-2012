@@ -46,6 +46,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	IApplication::IApplication() {
+		// Log file
+		ILogger::SetLogger(new CLoggerFile("log.txt"));
+		LOG_TRACE();
+
 		this->m_renderer = nullptr;
 		this->m_input = CInputDevice::GetInstance();
 		this->m_soundContext = CSoundContextManager::GetInstance();
@@ -58,9 +62,6 @@ namespace DE {
 		this->m_fullscreen = this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_FULLSCREEN, false);
 		this->m_verticalSynchro = this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_SYNCHRO, false);
 		this->m_rendererName = this->m_options.GetValueString(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_RENDERER, "dx9");
-
-		// Log file
-		ILogger::SetLogger(new CLoggerFile("log.txt"));
 
 		// General loaders
 		CMediaManager::GetInstance()->AddLoader(new CMaterialsLoader(), "mtl");
@@ -87,6 +88,8 @@ namespace DE {
 	}
 
 	IApplication::~IApplication() {
+		LOG_TRACE();
+
 		IRenderer::Kill();
 		CMediaManager::GetInstance()->RemoveLoader<IMaterialBase>();
 		CMediaManager::GetInstance()->RemoveLoader<CImage>();

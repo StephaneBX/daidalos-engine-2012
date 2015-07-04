@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Core/CMediaManager.h"
 #include "../../Core/Utility/CArraySorter.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/ILevelSceneNode.h"
 #include "../../Scene/3D/C3DScene.h"
 
@@ -36,153 +37,213 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 
 	C3DScene::C3DScene() {
+		LOG_TRACE();
+
 		this->m_scene = nullptr;
 	}
 
 	C3DScene::~C3DScene() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_scene);
 	}
 
 	void C3DScene::LoadScene(const std::string & sceneFile) {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_scene);
 		this->m_scene = CMediaManager::GetInstance()->LoadMediaFromFile<I3DScene>(sceneFile);
 	}
 
 	void C3DScene::ClearAll() {
-
+		LOG_TRACE();
 	}
 
 	void C3DScene::AddSceneNode(ISceneNode * parent, ISceneNode * node) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->AddSceneNode(parent, node);
 	}
 
 	void C3DScene::SetActiveCamera(ICameraSceneNode * camera) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->SetActiveCamera(camera);
 	}
 
 	void C3DScene::UpdateAll(const float time) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->UpdateAll(time);
 	}
 
 	void C3DScene::RenderSkybox() {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->RenderSkybox();
 	}
 
 	void C3DScene::RenderAll() {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->RenderAll();
 	}
 
 	void C3DScene::RenderDebugInformation() {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->RenderDebugInformation();
 	}
 
 	void C3DScene::SetMeshFormat(const int format) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->SetMeshFormat(format);
 	}
 
 	void C3DScene::SendSpotLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->SendSpotLightDataToShader(id);
 	}
 
 	void C3DScene::SendPointLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->SendPointLightDataToShader(id);
 	}
 
 	void C3DScene::SendDirectionalLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		this->m_scene->SendDirectionalLightDataToShader(id);
 	}
 
 	const bool C3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->Slide(shape, movement);
 	}
 
 	const bool C3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetCollisionPoint(shape, movement, point);
 	}
 
 	const int C3DScene::GetNumberOfActiveSpotLights() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActiveSpotLights();
 	}
 
 	const int C3DScene::GetNumberOfActivePointLights() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActivePointLights();
 	}
 
 	const int C3DScene::GetNumberOfActiveDirectionalLights() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActiveDirectionalLights();
 	}
 
 	const int C3DScene::GetNumberOfVisibleTriangles() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfVisibleTriangles();
 	}
 
 	const CVector4F & C3DScene::GetAmbientColor() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetAmbientColor();
 	}
 
 	const CVector4F & C3DScene::GetSkyAmbientColor() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetSkyAmbientColor();
 	}
 
 	const CAABoundingBoxF C3DScene::GetSceneBoundingBox() {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetSceneBoundingBox();
 	}
 
 	ISceneNode * C3DScene::GetNode(const std::string & name) const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNode(name);
 	}
 
 	std::vector<ISceneNode*> C3DScene::GetNodeArray(const std::string & name) const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNodeArray(name);
 	}
 
 	std::vector<ISceneNode*> C3DScene::GetNodeArray(ESceneNodeType nodeType) const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNodeArray(nodeType);
 	}
 
 	ILevelSceneNode * C3DScene::GetRootNode() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetRootNode();
 	}
 
 	ICameraSceneNode * C3DScene::GetActiveCamera() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetActiveCamera();
 	}
 
 	SSPotLightsShaderData * C3DScene::GetActiveSpotLightsBuffer() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetActiveSpotLightsBuffer();
 	}
 
 	SPointLightsShaderData * C3DScene::GetActivePointLightsBuffer() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetActivePointLightsBuffer();
 	}
 
 	SDirectionalLightsShaderData * C3DScene::GetActiveDirectionalLightsBuffer() const {
+		LOG_TRACE();
+
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetActiveDirectionalLightsBuffer();
 	}

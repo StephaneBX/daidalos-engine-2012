@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define	__CORE_H
 
 #include <string>
+#include <time.h>
 #include "../Core/Enums.h"
 
 namespace DE {
@@ -51,6 +52,16 @@ namespace DE {
 	#define APPLICATION_OPTIONS "Resources/Engine/engine.ini"
 	#define APPLICATION_MATERIALS_CONFIGURATION "Resources/Engine/materials.ini"
 	#define APPLICATION_NODES_CONFIGURATION "Resources/Engine/nodes.ini"
+
+	inline const std::string GetCurrentTimeAsString() {
+		time_t     now = time(0);
+		struct tm  tstruct;
+		char       buf[80];
+		localtime_s(&tstruct, &now);
+		strftime(buf, sizeof(buf), "%Y-%m-%d:%X", &tstruct);
+
+		return buf;
+	}
 
 	/**
 	* Transform a radian angle into a degree angle

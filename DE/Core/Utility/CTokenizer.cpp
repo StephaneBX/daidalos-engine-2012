@@ -26,19 +26,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <fstream>
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CTokenizer.h"
 
 namespace DE {
 	/**
 	* Constructor.
 	*/
-	CTokenizer::CTokenizer() {}
+	CTokenizer::CTokenizer() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Constructor.
 	* @param filename The file to be tokenized.
 	*/
 	CTokenizer::CTokenizer(const std::string & filename) {
+		LOG_TRACE();
 		OpenFile(filename);
 	}
 
@@ -48,6 +52,8 @@ namespace DE {
 	* @param filterList The filter list that contains all the accepted keywords.
 	*/
 	CTokenizer::CTokenizer(const std::string & filename, const std::vector<std::string> & filterList) {
+		LOG_TRACE();
+
 		bool valid = false;
 		std::string tmpLine;
 		this->m_tokens.clear();
@@ -83,13 +89,17 @@ namespace DE {
 	/**
 	* Destructor.
 	*/
-	CTokenizer::~CTokenizer() {}
+	CTokenizer::~CTokenizer() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Open a file, read its content and put it in the token list.
 	* @param filename The file to open.
 	*/
 	void CTokenizer::OpenFile(const std::string & filename) {
+		LOG_TRACE();
+
 		std::string tmpLine;
 		this->m_tokens.clear();
 		this->m_buffer.clear();
@@ -114,6 +124,7 @@ namespace DE {
 	* @param line The line to add.
 	*/
 	void CTokenizer::AddLine(const std::string & line) {
+		LOG_TRACE();
 		this->m_tokens.push_back(line);
 	}
 
@@ -121,6 +132,7 @@ namespace DE {
 	* Clear the tokens.
 	*/
 	void CTokenizer::Clear() {
+		LOG_TRACE();
 		this->m_tokens.clear();
 	}
 
@@ -131,6 +143,8 @@ namespace DE {
 	* @return True if the split is valid
 	*/
 	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit) {
+		LOG_TRACE();
+
 		bool valid = true;
 		this->m_buffer.clear();
 		int elementCount;
@@ -161,6 +175,8 @@ namespace DE {
 	* @return The number of 'token' tokens found.
 	*/
 	const int CTokenizer::Count(const std::string & token) const {
+		LOG_TRACE();
+
 		int count = 0;
 
 		for(unsigned int i = 0; i < this->m_tokens.size(); i++) {
@@ -176,6 +192,8 @@ namespace DE {
 	* @return The tokens.
 	*/
 	const TToken & CTokenizer::GetTokens() const {
+		LOG_TRACE();
+
 		return this->m_tokens;
 	}
 
@@ -186,6 +204,8 @@ namespace DE {
 	* @return The number of pushed tokens.
 	*/
 	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter) {
+		LOG_TRACE();
+
 		int elementCount = 1;
 		unsigned int start = 0;
 		unsigned int end = 0;

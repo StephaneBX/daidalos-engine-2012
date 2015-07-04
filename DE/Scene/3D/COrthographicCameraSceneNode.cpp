@@ -26,21 +26,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/IRenderer.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/COrthographicCameraSceneNode.h"
 
 namespace DE {
 	COrthographicCameraSceneNode::COrthographicCameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {
+		LOG_TRACE();
+
 		SetBounds(bounds);
 	}
 
-	COrthographicCameraSceneNode::~COrthographicCameraSceneNode() {}
+	COrthographicCameraSceneNode::~COrthographicCameraSceneNode() {
+		LOG_TRACE();
+	}
 
 	void COrthographicCameraSceneNode::SetBounds(const CRectangleF & bounds) {
+		LOG_TRACE();
+
 		this->m_bounds = bounds;
 	}
 
 	void COrthographicCameraSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		// Update the camera information
 		ICameraSceneNode::Update();
 
@@ -52,6 +61,8 @@ namespace DE {
 	* Update The projection by giving custom bounds and distances
 	*/
 	void COrthographicCameraSceneNode::UpdateProjection() {
+		LOG_TRACE();
+
 		// Update the orthographic information
 		this->m_projMatrix.OrthographicView(this->m_bounds.GetWidth(), this->m_bounds.GetHeight(), this->m_nearDistance, this->m_farDistance);
 		//this->m_projMatrix.OrthographicView(this->m_bounds.GetLeft(), this->m_bounds.GetRight(), this->m_bounds.GetBottom(), this->m_bounds.GetTop(), this->m_nearDistance, this->m_farDistance);
@@ -144,10 +155,14 @@ namespace DE {
 	}
 
 	const bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const {
+		LOG_TRACE();
+
 		return false;
 	}
 
 	const CRectangleF & COrthographicCameraSceneNode::GetBounds() const {
+		LOG_TRACE();
+
 		return this->m_bounds;
 	}
 }

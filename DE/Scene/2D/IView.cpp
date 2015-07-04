@@ -25,16 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/2D/IView.h"
 
 namespace DE {
 	IView::~IView() {
+		LOG_TRACE();
+
 		if(this->m_parent != nullptr) {
 			RemoveFromParentView();
 		}
 	}
 
 	void IView::Update() {
+		LOG_TRACE();
+
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it)->IsVisible()) {
 				(*it)->Update();
@@ -43,6 +48,8 @@ namespace DE {
 	}
 
 	void IView::Render() {
+		LOG_TRACE();
+
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it)->IsVisible()) {
 				(*it)->Render();
@@ -51,6 +58,8 @@ namespace DE {
 	}
 
 	const bool IView::HitTest(const CVector2I & point) {
+		LOG_TRACE();
+
 		this->m_hitTest = false;
 
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
@@ -64,37 +73,53 @@ namespace DE {
 	}
 
 	void IView::SetChanged(const bool changed) {
+		LOG_TRACE();
+
 		this->m_changed = changed;
 	}
 
 	void IView::SetVisible(const bool visible) {
+		LOG_TRACE();
+
 		this->m_visible = visible;
 	}
 
 	void IView::SetPosition(const CVector2I & position) {
+		LOG_TRACE();
+
 		this->m_position = position;
 	}
 
 	void IView::SetPreferredSize(const CVector2I & size) {
+		LOG_TRACE();
+
 		this->m_preferredsize = size;
 	}
 
 	void IView::SetBounds(const CRectangleI & bounds) {
+		LOG_TRACE();
+
 		SetPosition(CVector2I(bounds.GetLeft(), bounds.GetTop()));
 		SetPreferredSize(CVector2I(bounds.GetWidth(), bounds.GetHeight()));
 		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
 	void IView::SetParent(IView * parent) {
+		LOG_TRACE();
+
 		this->m_parent = parent;
 	}
 
 	void IView::AddSubview(IView * view) {
+		LOG_TRACE();
+
 		this->m_subviews.push_back(view);
 		view->SetParent(this);
 	}
 
 	void IView::RemoveSubview(IView * view) {
+		LOG_TRACE();
+
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it) == view) {
 				this->m_subviews.erase(it);
@@ -106,36 +131,52 @@ namespace DE {
 	}
 
 	void IView::RemoveFromParentView() {
+		LOG_TRACE();
+
 		if(this->m_parent != nullptr) {
 			this->m_parent->RemoveSubview(this);
 		}
 	}
 
 	void IView::RemoveAllSubviews() {
+		LOG_TRACE();
+
 		this->m_subviews.clear();
 	}
 
 	const bool IView::IsChanged() const {
+		LOG_TRACE();
+
 		return this->m_changed;
 	}
 
 	const bool IView::IsVisible() const {
+		LOG_TRACE();
+
 		return this->m_visible;
 	}
 
 	const bool IView::isHit() const {
+		LOG_TRACE();
+
 		return this->m_hitTest;
 	}
 
 	const bool IView::IsInside(const CVector2I & point) const {
+		LOG_TRACE();
+
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
 	}
 
 	const CVector2I & IView::GetPosition() const {
+		LOG_TRACE();
+
 		return this->m_position;
 	}
 
 	const CVector2I IView::GetAbsolutePosition() const {
+		LOG_TRACE();
+
 		if(this->m_parent != nullptr) {
 			return this->m_parent->GetAbsolutePosition() + this->m_position;
 		}
@@ -143,14 +184,20 @@ namespace DE {
 	}
 
 	const CVector2I & IView::GetPreferredSize() const {
+		LOG_TRACE();
+
 		return this->m_preferredsize;
 	}
 
 	const CRectangleI & IView::GetBoundingRectangle() const {
+		LOG_TRACE();
+
 		return this->m_boundingRectangle;
 	}
 
 	const CRectangleI IView::GetAbsoluteBoundingRectangle() const {
+		LOG_TRACE();
+
 		if(this->m_parent != nullptr) {
 			return this->m_boundingRectangle + this->m_parent->GetAbsolutePosition();
 		}
@@ -158,6 +205,8 @@ namespace DE {
 	}
 
 	IView::IView() {
+		LOG_TRACE();
+
 		this->m_changed = false;
 		this->m_visible = true;
 		this->m_hitTest = false;
@@ -173,10 +222,14 @@ namespace DE {
 	}
 
 	IView::IView(const IView & copy) {
+		LOG_TRACE();
+
 		*this = copy;
 	}
 
 	const IView & IView::operator=(const IView & copy) {
+		LOG_TRACE();
+
 		this->m_changed = copy.m_changed;
 		this->m_visible = copy.m_visible;
 		this->m_position = copy.m_position;
@@ -187,6 +240,8 @@ namespace DE {
 	}
 
 	const std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates) {
+		LOG_TRACE();
+
 		std::vector<SGUIData> dataSet;
 		SGUIData data;
 

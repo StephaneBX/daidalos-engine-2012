@@ -25,12 +25,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Scene/2D/CLabel.h"
 
 namespace DE {
 	CLabel::CLabel(const std::string & text, const std::string & font) {
+		LOG_TRACE();
+
 		SetText(text);
 		SetFont(font);
 		SetColor(CColor(0xFFFFFFFF));
@@ -41,37 +44,51 @@ namespace DE {
 	}
 
 	void CLabel::SetFont(const std::string & font) {
+		LOG_TRACE();
+
 		this->m_font.LoadFromFile(font);
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 		this->m_changed = true;
 	}
 
 	void CLabel::SetText(const std::string & text) {
+		LOG_TRACE();
+
 		this->m_text = text;
 		this->m_changed = true;
 	}
 
 	void CLabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment) {
+		LOG_TRACE();
+
 		this->m_horizontalAlignment = alignment;
 		this->m_changed = true;
 	}
 
 	void CLabel::SetVerticalAlignment(ETextVerticalAlignment alignment) {
+		LOG_TRACE();
+
 		this->m_verticalAlignment = alignment;
 		this->m_changed = true;
 	}
 
 	void CLabel::SetSize(const unsigned int size) {
+		LOG_TRACE();
+
 		this->m_size = size;
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
 	}
 
 	void CLabel::SetColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_color = color;
 		this->m_changed = true;
 	}
 
 	void CLabel::Update() {
+		LOG_TRACE();
+
 		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
@@ -94,6 +111,8 @@ namespace DE {
 	}
 
 	void CLabel::Render() {
+		LOG_TRACE();
+
 		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
@@ -113,30 +132,44 @@ namespace DE {
 	}
 
 	ETextHorizontalAlignment CLabel::GetHorizontalAlignment() const {
+		LOG_TRACE();
+
 		return this->m_horizontalAlignment;
 	}
 
 	ETextVerticalAlignment CLabel::GetVerticalAlignment() const {
+		LOG_TRACE();
+
 		return this->m_verticalAlignment;
 	}
 
 	const unsigned int CLabel::GetSize() const {
+		LOG_TRACE();
+
 		return this->m_size;
 	}
 
 	const std::string & CLabel::GetFontName() const {
+		LOG_TRACE();
+
 		return this->m_font.GetFontName();
 	}
 
 	const std::string & CLabel::GetText() const {
+		LOG_TRACE();
+
 		return this->m_text;
 	}
 
 	const CColor & CLabel::GetColor() const {
+		LOG_TRACE();
+
 		return this->m_color;
 	}
 
 	void CLabel::GenerateTextGeometry() {
+		LOG_TRACE();
+
 		this->m_data.clear();
 
 		std::set<unsigned int> lineStart;
@@ -270,6 +303,8 @@ namespace DE {
 	}
 
 	const bool CLabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
+		LOG_TRACE();
+
 		// If a preferred width has been set and the line is too long for the last word
 		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x) {
 			float decal = this->m_data[wordStartAt].position.x;

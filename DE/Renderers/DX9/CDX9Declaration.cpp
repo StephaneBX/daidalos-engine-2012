@@ -27,18 +27,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <d3d9.h>
 #include "../../Core/Core.h"
+#include "../../Core/Logger/ILogger.h"
 #include "../../Renderers/DX9/CDX9Declaration.h"
 
 namespace DE {
 	CDX9Declaration::CDX9Declaration(IDirect3DVertexDeclaration9 * declaration) {
+		LOG_TRACE();
+
 		this->m_declaration = declaration;
 	}
 
 	CDX9Declaration::~CDX9Declaration() {
+		LOG_TRACE();
+
 		SAFE_RELEASE(this->m_declaration);
 	}
 
 	IDirect3DVertexDeclaration9 * CDX9Declaration::GetDeclaration() const {
+		LOG_TRACE();
+
 		return this->m_declaration;
 	}
 }

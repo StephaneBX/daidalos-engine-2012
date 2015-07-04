@@ -34,11 +34,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CFontLoader.h"
 
 namespace DE {
-	CFontLoader::CFontLoader() {}
+	CFontLoader::CFontLoader() {
+		LOG_TRACE();
+	}
 
-	CFontLoader::~CFontLoader() {}
+	CFontLoader::~CFontLoader() {
+		LOG_TRACE();
+	}
 
 	IFontBase * CFontLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		SFontInternalData * data = nullptr;
 		tinyxml2::XMLDocument doc;
 		int loadOk = doc.LoadFile(filename.c_str());
@@ -111,6 +117,6 @@ namespace DE {
 	}
 
 	void CFontLoader::SaveToFile(const IFontBase * object, const std::string & filename) {
-
+		LOG_TRACE();
 	}
 }

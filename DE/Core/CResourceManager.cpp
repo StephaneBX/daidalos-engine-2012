@@ -29,11 +29,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CResourceManager.h"
 
 namespace DE {
-	CResourceManager::CResourceManager() {}
+	CResourceManager::CResourceManager() {
+		LOG_TRACE();
+	}
 
-	CResourceManager::~CResourceManager() {}
+	CResourceManager::~CResourceManager() {
+		LOG_TRACE();
+	}
 
 	void CResourceManager::AddResource(const std::string & name, IResource * resource) {
+		LOG_TRACE();
+
 		auto it = this->m_resources.find(name);
 
 		if(it != this->m_resources.end()) {
@@ -48,6 +54,8 @@ namespace DE {
 	}
 
 	void CResourceManager::ReleaseResource(const std::string & name) {
+		LOG_TRACE();
+
 		auto it = this->m_resources.find(name);
 
 		if(it != this->m_resources.end()) {
@@ -59,6 +67,8 @@ namespace DE {
 	}
 
 	void CResourceManager::ReleaseResource(IResource * resource) {
+		LOG_TRACE();
+
 		bool found = false;
 		for(auto it = this->m_resources.begin(); it != this->m_resources.end() && !found; ++it) {
 			if(it->second == resource) {

@@ -25,28 +25,41 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/ILightSceneNode.h"
 
 namespace DE {
-	ILightSceneNode::~ILightSceneNode() {}
+	ILightSceneNode::~ILightSceneNode() {
+		LOG_TRACE();
+	}
 
 	void ILightSceneNode::SetShadowCaster(const bool shadowCaster) {
+		LOG_TRACE();
+
 		this->m_shadowCaster = shadowCaster;
 	}
 
 	void ILightSceneNode::SetColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_color = color;
 	}
 
 	const bool ILightSceneNode::IsShadowCaster() const {
+		LOG_TRACE();
+
 		return this->m_shadowCaster;
 	}
 
 	const CColor & ILightSceneNode::GetColor() const {
+		LOG_TRACE();
+
 		return this->m_color;
 	}
 
 	ILightSceneNode::ILightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ISceneNode(scene, parent, name, position, rotation) {
+		LOG_TRACE();
+
 		SetEnabled(enabled);
 		SetColor(color);
 		SetShadowCaster(shadowCaster);

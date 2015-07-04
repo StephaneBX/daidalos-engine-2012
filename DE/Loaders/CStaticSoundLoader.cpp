@@ -34,11 +34,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CStaticSoundLoader.h"
 
 namespace DE {
-	CStaticSoundLoader::CStaticSoundLoader() {}
+	CStaticSoundLoader::CStaticSoundLoader() {
+		LOG_TRACE();
+	}
 
-	CStaticSoundLoader::~CStaticSoundLoader() {}
+	CStaticSoundLoader::~CStaticSoundLoader() {
+		LOG_TRACE();
+	}
 
 	IStaticSoundBase * CStaticSoundLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		SF_INFO fileInfos;
 		SNDFILE* file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
 

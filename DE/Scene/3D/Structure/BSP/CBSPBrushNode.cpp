@@ -25,11 +25,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../../../Core/Logger/ILogger.h"
 #include "../../../../Scene/3D/Structure/BSP/CBSPBrushNode.h"
 #include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.h"
 
 namespace DE {
 	CBSPBrushNode::CBSPBrushNode(CBSPTreeNode * root) {
+		LOG_TRACE();
+
 		this->m_type = root->GetType();
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
@@ -47,11 +50,15 @@ namespace DE {
 	}
 
 	CBSPBrushNode::~CBSPBrushNode() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_FRONT]);
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_BACK]);
 	}
 
 	void CBSPBrushNode::AddBrush(SBSPBrush * brush, const std::vector<CBSPTriangle*> & triangles) {
+		LOG_TRACE();
+
 		if(this->m_type != BSP_NODE_TYPE_NODE)
 			return;
 
@@ -91,6 +98,8 @@ namespace DE {
 	}
 
 	void CBSPBrushNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
+		LOG_TRACE();
+
 		if(this->m_type != BSP_NODE_TYPE_NODE)
 			return;
 

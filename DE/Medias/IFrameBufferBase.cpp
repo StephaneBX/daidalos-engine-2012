@@ -26,11 +26,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../Core/Core.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Memory/CExceptionAssert.h"
 #include "../Medias/IFrameBufferBase.h"
 
 namespace DE {
 	IFrameBufferBase::~IFrameBufferBase() {
+		LOG_TRACE();
+
 		for(auto it = this->m_elements.begin(); it != this->m_elements.end(); ++it) {
 			SAFE_DELETE(it->second.renderTarget);
 			SAFE_DELETE(it->second.texture);
@@ -42,6 +45,8 @@ namespace DE {
 	}
 
 	void IFrameBufferBase::AddElement(const std::string & name, SFrameBufferElement & element) {
+		LOG_TRACE();
+
 		auto it = this->m_elements.find(name);
 		Assert(it == this->m_elements.end());
 
@@ -51,10 +56,14 @@ namespace DE {
 	}
 
 	void IFrameBufferBase::AddDepth(const std::string & name, IRenderTargetBase * depth) {
+		LOG_TRACE();
+
 		this->m_depthElements[name] = depth;
 	}
 
 	void IFrameBufferBase::AttachElement(const std::string & name, const int attachment) {
+		LOG_TRACE();
+
 		// Check the existence of the element
 		auto it = this->m_elements.find(name);
 		Assert(it != this->m_elements.end());
@@ -72,6 +81,8 @@ namespace DE {
 	}
 
 	void IFrameBufferBase::AttachDepth(const std::string & name) {
+		LOG_TRACE();
+
 		// Check the existence of the buffer
 		auto it = this->m_depthElements.find(name);
 		Assert(it != this->m_depthElements.end());
@@ -80,6 +91,8 @@ namespace DE {
 	}
 
 	void IFrameBufferBase::DetachElement(const int attachment) {
+		LOG_TRACE();
+
 		// Remove the element attached to this attachment point
 		for(auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it)
 			if(it->attachment == attachment)
@@ -89,11 +102,15 @@ namespace DE {
 	}
 
 	void IFrameBufferBase::DetachAllElements() {
+		LOG_TRACE();
+
 		this->m_attachments.clear();
 		this->m_ready = false;
 	}
 
 	ITexture2DBase * IFrameBufferBase::GetTexture(const std::string & name) const {
+		LOG_TRACE();
+
 		ITexture2DBase * ret = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())
@@ -103,6 +120,8 @@ namespace DE {
 	}
 
 	IRenderTargetBase * IFrameBufferBase::GetRenderTarget(const std::string & name) const {
+		LOG_TRACE();
+
 		IRenderTargetBase * ret = nullptr;
 		auto it = this->m_elements.find(name);
 		if(it != this->m_elements.end())
@@ -112,10 +131,14 @@ namespace DE {
 	}
 
 	SFrameBufferAttachment * IFrameBufferBase::GetAttachment(const int number) {
+		LOG_TRACE();
+
 		return &this->m_attachments.at(number);
 	}
 
 	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget(const std::string & name) const {
+		LOG_TRACE();
+
 		IRenderTargetBase * ret = nullptr;
 		auto it = this->m_depthElements.find(name);
 		if(it != this->m_depthElements.end())
@@ -125,22 +148,32 @@ namespace DE {
 	}
 
 	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget() const {
+		LOG_TRACE();
+
 		return this->m_depth;
 	}
 
 	const bool IFrameBufferBase::IsReady() const {
+		LOG_TRACE();
+
 		return this->m_ready;
 	}
 
 	const int IFrameBufferBase::GetBufferSize() const {
+		LOG_TRACE();
+
 		return this->m_elements.size();
 	}
 
 	const int IFrameBufferBase::GetAttachmentSize() const {
+		LOG_TRACE();
+
 		return this->m_attachments.size();
 	}
 
 	IFrameBufferBase::IFrameBufferBase() {
+		LOG_TRACE();
+
 		this->m_depth = nullptr;
 		this->m_ready = false;
 	}

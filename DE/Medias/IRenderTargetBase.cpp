@@ -25,16 +25,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IRenderTargetBase.h"
 
 namespace DE {
-	IRenderTargetBase::~IRenderTargetBase() {}
+	IRenderTargetBase::~IRenderTargetBase() {
+		LOG_TRACE();
+	}
 
 	ERenderTargetType IRenderTargetBase::GetType() const {
+		LOG_TRACE();
+
 		return this->m_type;
 	}
 
 	IRenderTargetBase::IRenderTargetBase(ERenderTargetType type) : IResource() {
+		LOG_TRACE();
+
 		this->m_type = type;
 	}
 };

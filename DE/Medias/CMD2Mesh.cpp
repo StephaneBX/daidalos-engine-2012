@@ -27,12 +27,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 #include "../Core/Core.h"
+#include "../Core/Logger/ILogger.h"
 #include "../Core/Utility/CMatrix.h"
 #include "../Core/Utility/CVector3.h"
 #include "../Medias/CMD2Mesh.h"
 
 namespace DE {
 	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name) {
+		LOG_TRACE();
+
 		this->m_internalData = data;
 
 		this->m_vertex = new CVector3F*[1];
@@ -84,6 +87,8 @@ namespace DE {
 	}
 
 	CMD2Mesh::~CMD2Mesh() {
+		LOG_TRACE();
+
 		SAFE_DELETE_ARRAY(this->m_internalData->skin);
 		SAFE_DELETE_ARRAY(this->m_internalData->textureCoordinates);
 		SAFE_DELETE_ARRAY(this->m_internalData->triangle);
@@ -97,6 +102,8 @@ namespace DE {
 	}
 
 	void CMD2Mesh::FinalizeGeometry(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		int frameA = (int)floor(this->m_frame);
 		int frameB = (int)floor(this->m_frame + 1);
 
@@ -165,6 +172,8 @@ namespace DE {
 	}
 
 	const int CMD2Mesh::GetNumberOfFrames() const {
+		LOG_TRACE();
+
 		return this->m_internalData->header.numFrames;
 	}
 }

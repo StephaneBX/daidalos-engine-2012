@@ -56,6 +56,8 @@ namespace SAMPLE3 {
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 
+		this->m_fpsCounter.Update(time);
+
 		this->m_camera->Update(time);
 
 		this->m_scene->UpdateAll(time);

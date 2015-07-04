@@ -25,10 +25,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/IStreamSoundBase.h"
 
 namespace DE {
 	IStreamSoundBase::IStreamSoundBase(SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) {
+		LOG_TRACE();
+
 		this->m_framesRead = 0;
 		this->m_file = file;
 		this->m_format = format;
@@ -41,6 +44,8 @@ namespace DE {
 	}
 
 	IStreamSoundBase::~IStreamSoundBase() {
+		LOG_TRACE();
+
 		ALint nbQueued;
 		ALuint buffer;
 		alGetSourcei(this->m_source, AL_BUFFERS_QUEUED, &nbQueued);
@@ -52,6 +57,8 @@ namespace DE {
 	}
 
 	void IStreamSoundBase::SetStatus(ESoundStatus status) {
+		LOG_TRACE();
+
 		switch(status) {
 		case SOUND_STATUS_STOP:
 		case SOUND_STATUS_INITIAL:
@@ -83,6 +90,8 @@ namespace DE {
 	}
 
 	void IStreamSoundBase::Update() {
+		LOG_TRACE();
+
 		if(GetStatus() == SOUND_STATUS_PLAY) {
 			ALint nbProcessed;
 			int read = 0;
@@ -106,14 +115,20 @@ namespace DE {
 	}
 
 	void IStreamSoundBase::SetLooped(const bool loop) {
+		LOG_TRACE();
+
 		this->m_looped = loop;
 	}
 
 	const bool IStreamSoundBase::IsLooped() const {
+		LOG_TRACE();
+
 		return this->m_looped;
 	}
 
 	const int IStreamSoundBase::ReadChunk(ALuint buffer) {
+		LOG_TRACE();
+
 		int nbSamples = this->m_sampleRate * GetChannelsCount();
 		int read = 0;
 		std::vector<ALshort> samples(nbSamples);

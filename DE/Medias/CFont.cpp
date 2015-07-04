@@ -33,24 +33,34 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CFont::CFont() {
+		LOG_TRACE();
+
 		this->m_font = nullptr;
 	}
 
 	CFont::CFont(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_font = nullptr;
 		LoadFromFile(filename);
 	}
 
 	CFont::CFont(const CFont & copy) {
+		LOG_TRACE();
+
 		*this = copy;
 	}
 
 	CFont::~CFont() {
+		LOG_TRACE();
+
 		if(this->m_font != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
 	}
 
 	void CFont::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		// Release previously used resource
 		if(this->m_font != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
@@ -66,46 +76,64 @@ namespace DE {
 	}
 
 	const bool CFont::IsBold() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->IsBold();
 	}
 
 	const bool CFont::IsItalic() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->IsItalic();
 	}
 
 	const int CFont::GetSize() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetSize();
 	}
 
 	const int CFont::GetLineHeight() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetLineHeight();
 	}
 
 	const int CFont::GetBase() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetBase();
 	}
 
 	const std::string & CFont::GetFontName() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetFontName();
 	}
 
 	const CTexture2D & CFont::GetTexture() const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetTexture();
 	}
 
 	const SCharDescriptor * CFont::GetCharDescriptor(const unsigned int id) const {
+		LOG_TRACE();
+
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetCharDescriptor(id);
 	}
 
 	const CFont & CFont::operator=(const CFont & copy) {
+		LOG_TRACE();
+
 		if(this->m_font != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
 
@@ -118,6 +146,8 @@ namespace DE {
 	}
 
 	IFontBase * CFont::GetFont() const {
+		LOG_TRACE();
+
 		return this->m_font;
 	}
 }

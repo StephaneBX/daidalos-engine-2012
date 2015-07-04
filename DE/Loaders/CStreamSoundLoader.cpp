@@ -34,11 +34,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CStreamSoundLoader.h"
 
 namespace DE {
-	CStreamSoundLoader::CStreamSoundLoader() {}
+	CStreamSoundLoader::CStreamSoundLoader() {
+		LOG_TRACE();
+	}
 
-	CStreamSoundLoader::~CStreamSoundLoader() {}
+	CStreamSoundLoader::~CStreamSoundLoader() {
+		LOG_TRACE();
+	}
 
 	IStreamSoundBase * CStreamSoundLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		SF_INFO fileInfos;
 		SNDFILE* file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
 

@@ -26,11 +26,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/CStaticMeshSceneNode.h"
 
 namespace DE {
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_STATICMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -48,6 +51,8 @@ namespace DE {
 	}
 
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
+		LOG_TRACE();
+
 		this->m_type = SCENE_NODE_STATICMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -65,6 +70,8 @@ namespace DE {
 	}
 
 	void CStaticMeshSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		IMeshSceneNode::Update(time);
 
 		// Update the activation shape
@@ -78,9 +85,12 @@ namespace DE {
 	}
 
 	void CStaticMeshSceneNode::FinalizeGeometry() {
+		LOG_TRACE();
+
 		this->m_mesh.FinalizeGeometry(this->m_shadingType);
-		for(int i = 0; i < this->m_numberOfGroups; ++i)
+		for(int i = 0; i < this->m_numberOfGroups; ++i) {
 			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));
+		}
 		this->m_needGeometryUpdate = false;
 	}
 }

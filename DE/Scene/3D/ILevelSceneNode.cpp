@@ -25,54 +25,77 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/ILevelSceneNode.h"
 
 namespace DE {
 
 	ILevelSceneNode::ILevelSceneNode(I3DScene * scene) : ISceneNode(scene) {
+		LOG_TRACE();
+
 		this->m_levelBuffer.SetScene(scene);
 	}
 
 	void ILevelSceneNode::SetMeshFormat(const int format) {
+		LOG_TRACE();
+
 		this->m_levelBuffer.SetMeshFormat(format);
 		ISceneNode::SetMeshFormat(format);
 	}
 
 	void ILevelSceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		this->m_shadingType = shadingType;
 
 		ISceneNode::SetMeshShadingType(shadingType);
 	}
 
 	void ILevelSceneNode::SetAmbientColor(const CVector4F & ambientColor) {
+		LOG_TRACE();
+
 		this->m_ambientColor = ambientColor;
 	}
 
 	void ILevelSceneNode::SetSkyName(const std::string & name) {
+		LOG_TRACE();
+
 		this->m_skyName = name;
 	}
 
 	void ILevelSceneNode::SetSkyAmbientColor(const CVector4F & ambientColor) {
+		LOG_TRACE();
+
 		this->m_skyAmbientColor = ambientColor;
 	}
 
 	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const {
+		LOG_TRACE();
+
 		return this->m_numberOfVisibleTriangles;
 	}
 
 	const CVector4F & ILevelSceneNode::GetAmbientColor() const {
+		LOG_TRACE();
+
 		return this->m_ambientColor;
 	}
 
 	const std::string & ILevelSceneNode::GetSkyName() const {
+		LOG_TRACE();
+
 		return this->m_skyName;
 	}
 
 	const CVector4F & ILevelSceneNode::GetSkyAmbientColor() const {
+		LOG_TRACE();
+
 		return this->m_skyAmbientColor;
 	}
 
 	const CAABoundingBoxF ILevelSceneNode::GetBoundingBox() {
+		LOG_TRACE();
+
 		return this->m_boundingBox;
 	}
 }

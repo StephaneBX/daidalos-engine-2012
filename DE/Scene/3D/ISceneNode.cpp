@@ -25,11 +25,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Core.h"
 #include "../../Scene/3D/ISceneNode.h"
 
 namespace DE {
 	ISceneNode::ISceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name) {
+		LOG_TRACE();
+
 		this->m_scene = scene;
 		this->m_parent = nullptr;
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
@@ -45,6 +48,8 @@ namespace DE {
 	}
 
 	ISceneNode::ISceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) {
+		LOG_TRACE();
+
 		this->m_scene = scene;
 		this->m_parent = nullptr;
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
@@ -59,41 +64,59 @@ namespace DE {
 		this->m_enabled = true;
 	}
 
-
 	ISceneNode::~ISceneNode() {
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it)
+		LOG_TRACE();
+
+		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
 			SAFE_DELETE(*it);
+		}
 	}
 
 	void ISceneNode::AddChild(ISceneNode * child) {
+		LOG_TRACE();
+
 		this->m_children.push_back(child);
 	}
 
 	void ISceneNode::SetAttributes(const std::map<std::string, std::string> & attributes) {
+		LOG_TRACE();
+
 		this->m_attributes = attributes;
 	}
 
 	void ISceneNode::AddAttribute(const std::string & attributeName, const std::string attributeValue) {
+		LOG_TRACE();
+
 		this->m_attributes[attributeName] = attributeValue;
 	}
 
 	void ISceneNode::SetEnabled(const bool enabled) {
+		LOG_TRACE();
+
 		this->m_enabled = enabled;
 	}
 
 	void ISceneNode::SetPosition(const CVector3F & position) {
+		LOG_TRACE();
+
 		this->m_localPosition = position;
 	}
 
 	void ISceneNode::SetRotation(const CVector3F & rotation) {
+		LOG_TRACE();
+
 		this->m_localRotation = rotation;
 	}
 
 	void ISceneNode::SetScale(const CVector3F & scale) {
+		LOG_TRACE();
+
 		this->m_localScale = scale;
 	}
 
 	void ISceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		CVector3F rot = CVector3F(DegreeToRadian(this->m_localRotation.x), DegreeToRadian(this->m_localRotation.y), DegreeToRadian(this->m_localRotation.z));
 		this->m_localPositionMatrix = this->m_localPositionMatrix.SetTranslation(this->m_localPosition.x, this->m_localPosition.y, this->m_localPosition.z);
 		this->m_localRotationMatrix = CMatrix(CVector3F(1, 1, 1), rot, CVector3F(0, 0, 0));
@@ -122,23 +145,32 @@ namespace DE {
 		}
 
 		// Update the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it)
+		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
 			(*it)->Update(time);
+		}
 	}
 
 	void ISceneNode::SetMeshFormat(const int format) {
+		LOG_TRACE();
+
 		// Set the mesh format for the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it)
+		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
 			(*it)->SetMeshFormat(format);
+		}
 	}
 
 	void ISceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
+		LOG_TRACE();
+
 		// Set the mesh shading type for the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it)
+		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
 			(*it)->SetMeshShadingType(shadingType);
+		}
 	}
 
 	void ISceneNode::Render() {
+		LOG_TRACE();
+
 		// Render the children
 		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
 			if((*it)->GetType() == SCENE_NODE_ROOT || (*it)->GetType() == SCENE_NODE_STATICMESH || (*it)->GetType() == SCENE_NODE_ANIMATEDMESH) {
@@ -148,70 +180,104 @@ namespace DE {
 	}
 
 	ESceneNodeType ISceneNode::GetType() const {
+		LOG_TRACE();
+
 		return this->m_type;
 	}
 
 	const bool ISceneNode::IsCollidable() const {
+		LOG_TRACE();
+
 		return false;
 	}
 
 	const bool ISceneNode::IsEnabled() const {
+		LOG_TRACE();
+
 		return this->m_enabled;
 	}
 
 	const bool ISceneNode::IsActive() const {
+		LOG_TRACE();
+
 		return this->m_active;
 	}
 
 	const bool ISceneNode::RemoveChild(ISceneNode * child) {
+		LOG_TRACE();
+
 		return true;
 	}
 
 	const std::string & ISceneNode::GetName() const {
+		LOG_TRACE();
+
 		return this->m_name;
 	}
 
 	const CVector3F & ISceneNode::GetPosition() const {
+		LOG_TRACE();
+
 		return this->m_localPosition;
 	}
 
 	const std::string & ISceneNode::GetAttribute(const std::string & attributeName) {
+		LOG_TRACE();
+
 		return this->m_attributes[attributeName];
 	}
 
 	const CVector3F & ISceneNode::GetRotation() const {
+		LOG_TRACE();
+
 		return this->m_localRotation;
 	}
 
 	const CVector3F & ISceneNode::GetScale() const {
+		LOG_TRACE();
+
 		return this->m_localScale;
 	}
 
 	const CVector3F & ISceneNode::GetAbsolutePosition() const {
+		LOG_TRACE();
+
 		return this->m_absolutePosition;
 	}
 
 	const CMatrix & ISceneNode::GetTransformationMatrix() const {
+		LOG_TRACE();
+
 		return this->m_localMatrix;
 	}
 
 	const CMatrix & ISceneNode::GetAbsoluteTransformationMatrix() const {
+		LOG_TRACE();
+
 		return this->m_worldMatrix;
 	}
 
 	const CMatrix & ISceneNode::GetAbsoluteRotationMatrix() const {
+		LOG_TRACE();
+
 		return this->m_absoluteRotationMatrix;
 	}
 
 	const CMatrix & ISceneNode::GetAbsoluteScaleMatrix() const {
+		LOG_TRACE();
+
 		return this->m_absoluteScaleMatrix;
 	}
 
 	const CMatrix & ISceneNode::GetAbsoluteTranslationMatrix() const {
+		LOG_TRACE();
+
 		return this->m_absolutePositionMatrix;
 	}
 
 	const std::list<ISceneNode*> & ISceneNode::GetChildren() const {
+		LOG_TRACE();
+
 		return this->m_children;
 	}
 }

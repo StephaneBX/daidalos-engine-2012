@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Core/CInputDevice.h"
@@ -32,6 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CCursor::CCursor(const std::string & texture) {
+		LOG_TRACE();
+
 		this->m_changed = true;
 
 		// Add the left click action
@@ -42,6 +45,8 @@ namespace DE {
 	}
 
 	void CCursor::SetTexture(const std::string & texture) {
+		LOG_TRACE();
+
 		if(texture != "") {
 			this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 			this->m_preferredsize = this->m_texture.GetSize();
@@ -52,6 +57,8 @@ namespace DE {
 	}
 
 	void CCursor::Update() {
+		LOG_TRACE();
+
 		UpdatePosition();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -74,6 +81,8 @@ namespace DE {
 	}
 
 	void CCursor::Render() {
+		LOG_TRACE();
+
 		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
@@ -93,6 +102,8 @@ namespace DE {
 	}
 
 	void CCursor::UpdatePosition() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Update the cursor position

@@ -36,11 +36,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9VertexShadersLoader.h"
 
 namespace DE {
-	CDX9VertexShadersLoader::CDX9VertexShadersLoader() {}
+	CDX9VertexShadersLoader::CDX9VertexShadersLoader() {
+		LOG_TRACE();
+	}
 
-	CDX9VertexShadersLoader::~CDX9VertexShadersLoader() {}
+	CDX9VertexShadersLoader::~CDX9VertexShadersLoader() {
+		LOG_TRACE();
+	}
 
 	IShaderBase * CDX9VertexShadersLoader::LoadFromFile(const std::string & filename) {
+		LOG_TRACE();
+
 		if(!CFile(filename).FileExists())
 			throw CExceptionLoad(filename);
 

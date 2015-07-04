@@ -32,6 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CSoundContextManager::CSoundContextManager() {
+		LOG_TRACE();
+
 		ALCdevice * device = alcOpenDevice(nullptr);
 		if(!device) {
 			LOG_ERROR("Unable to open the default sound device");
@@ -53,6 +55,8 @@ namespace DE {
 	}
 
 	CSoundContextManager::~CSoundContextManager() {
+		LOG_TRACE();
+
 		ALCcontext * context = alcGetCurrentContext();
 		ALCdevice *  device = alcGetContextsDevice(context);
 
@@ -62,20 +66,28 @@ namespace DE {
 	}
 
 	void CSoundContextManager::SetListenerGain(const float gain) {
+		LOG_TRACE();
+
 		alListenerf(AL_GAIN, gain);
 	}
 
 	void CSoundContextManager::SetListenerPosition(const CVector3F & position) {
+		LOG_TRACE();
+
 		CVector3F pos(position.x, position.y, -position.z);
 		alListenerfv(AL_POSITION, pos);
 	}
 
 	void CSoundContextManager::SetListenerOrientation(float * orientation) {
+		LOG_TRACE();
+
 		float orientation2[] = { orientation[0], orientation[1], -orientation[2], orientation[3], orientation[4], -orientation[5] };
 		alListenerfv(AL_ORIENTATION, orientation2);
 	}
 
 	void CSoundContextManager::SetListenerVelocity(const CVector3F & velocity) {
+		LOG_TRACE();
+
 		alListenerfv(AL_VELOCITY, velocity);
 	}
 }

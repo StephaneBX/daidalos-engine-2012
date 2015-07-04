@@ -25,22 +25,29 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Core.h"
 #include "../../Scene/3D/CFrustum.h"
 
 namespace DE
 {
-	CFrustum::CFrustum() {}
+	CFrustum::CFrustum() {
+		LOG_TRACE();
+	}
 
-	CFrustum::CFrustum(const float angle, const float ratio, const float nearDistance, const float farDistance)
-	{
+	CFrustum::CFrustum(const float angle, const float ratio, const float nearDistance, const float farDistance) {
+		LOG_TRACE();
+
 		Set(angle, ratio, nearDistance, farDistance);
 	}
 
-	CFrustum::~CFrustum() {}
+	CFrustum::~CFrustum() {
+		LOG_TRACE();
+	}
 
-	void CFrustum::Set(const float angle, const float ratio, const float nearDistance, const float farDistance)
-	{
+	void CFrustum::Set(const float angle, const float ratio, const float nearDistance, const float farDistance) {
+		LOG_TRACE();
+
 		this->m_angle = angle;
 		this->m_ratio = ratio;
 		this->m_nearDistance = nearDistance;
@@ -53,8 +60,9 @@ namespace DE
 		this->m_farSize.x = this->m_farSize.y * this->m_ratio;
 	}
 
-	void CFrustum::Update(const CVector3F & position, const CVector3F & lookAt)
-	{
+	void CFrustum::Update(const CVector3F & position, const CVector3F & lookAt) {
+		LOG_TRACE();
+
 		this->m_lookAt = lookAt;
 		CVector3F up = CVector3F(0,1,0);
 		CVector3F nearCenter;
@@ -131,62 +139,72 @@ namespace DE
 		this->m_frustum[FRUSTUM_PLANE_FAR].Build(farFrustrum);
 	}
 
-	const bool CFrustum::BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const
-	{
+	const bool CFrustum::BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const {
+		LOG_TRACE();
+
 		return (this->m_position - vertex).Normalize().DotProduct(faceNormal) <= 0;
 	}
 
-	const bool CFrustum::FrustumCull(IShape3DF * shape) const
-	{
+	const bool CFrustum::FrustumCull(IShape3DF * shape) const {
+		LOG_TRACE();
+
 		bool result = false;
 
-		for(int i = 0 ; i < FRUSTUM_PLANE_SIZE && !result ; i++)
-		{
+		for(int i = 0; i < FRUSTUM_PLANE_SIZE && !result; i++) {
 			float dist = this->m_frustum[i].PointDistance(shape->GetPosition());
-			if(dist < -shape->GetInnerDepth(this->m_frustum[FRUSTUM_PLANE_NEAR]))
+			if(dist < -shape->GetInnerDepth(this->m_frustum[FRUSTUM_PLANE_NEAR])) {
 				result = true;
+			}
 		}
 
 		return result;
 	}
 
-	const float CFrustum::GetFov() const
-	{
+	const float CFrustum::GetFov() const {
+		LOG_TRACE();
+
 		return this->m_angle;
 	}
 
-	const float CFrustum::GetNearDistance() const
-	{
+	const float CFrustum::GetNearDistance() const {
+		LOG_TRACE();
+
 		return this->m_nearDistance;
 	}
 
-	const float CFrustum::GetFarDistance() const
-	{
+	const float CFrustum::GetFarDistance() const {
+		LOG_TRACE();
+
 		return this->m_farDistance;
 	}
 
-	const CVector3F & CFrustum::GetPosition() const
-	{
+	const CVector3F & CFrustum::GetPosition() const {
+		LOG_TRACE();
+
 		return this->m_position;
 	}
 
-	const CVector3F & CFrustum::GetForward() const
-	{
+	const CVector3F & CFrustum::GetForward() const {
+		LOG_TRACE();
+
 		return this->m_forward;
 	}
 
-	const CVector3F & CFrustum::GetLookAt() const
-	{
+	const CVector3F & CFrustum::GetLookAt() const {
+		LOG_TRACE();
+
 		return this->m_lookAt;
 	}
 
-	const CVector3F & CFrustum::GetUp() const
-	{
+	const CVector3F & CFrustum::GetUp() const {
+		LOG_TRACE();
+
 		return this->m_up;
 	}
 
-	const CVector3F * CFrustum::GetLocalSpacePoints() const
-	{
+	const CVector3F * CFrustum::GetLocalSpacePoints() const {
+		LOG_TRACE();
+
 		return this->m_localSpacePoints;
 	}
 }

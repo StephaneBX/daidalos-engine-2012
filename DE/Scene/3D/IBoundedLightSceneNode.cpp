@@ -25,21 +25,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Scene/3D/I3DScene.h"
 #include "../../Scene/3D/IBoundedLightSceneNode.h"
 
 namespace DE {
-	IBoundedLightSceneNode::~IBoundedLightSceneNode() {}
+	IBoundedLightSceneNode::~IBoundedLightSceneNode() {
+		LOG_TRACE();
+	}
 
 	void IBoundedLightSceneNode::SetRange(const float range) {
+		LOG_TRACE();
+
 		this->m_range = range;
 	}
 
 	void IBoundedLightSceneNode::SetFalloff(const float falloff) {
+		LOG_TRACE();
+
 		this->m_falloff = falloff;
 	}
 
 	void IBoundedLightSceneNode::Update(const float time) {
+		LOG_TRACE();
+
 		ISceneNode::Update(time);
 
 		// Update the activation shape
@@ -56,22 +65,32 @@ namespace DE {
 	}
 
 	const float IBoundedLightSceneNode::GetRange() const {
+		LOG_TRACE();
+
 		return this->m_range;
 	}
 
 	const float IBoundedLightSceneNode::GetFalloff() const {
+		LOG_TRACE();
+
 		return this->m_falloff;
 	}
 
 	const CRectangleI & IBoundedLightSceneNode::GetScissor() const {
+		LOG_TRACE();
+
 		return this->m_scissor;
 	}
 
 	CSphereF * IBoundedLightSceneNode::GetVisibilitySphere() const {
+		LOG_TRACE();
+
 		return this->m_visibilityShape.get();
 	}
 
 	IBoundedLightSceneNode::IBoundedLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled) : ILightSceneNode(scene, parent, name, position, rotation, color, shadowCaster, enabled) {
+		LOG_TRACE();
+
 		SetRange(range);
 		SetFalloff(falloff);
 

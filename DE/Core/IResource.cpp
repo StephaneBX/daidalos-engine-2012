@@ -26,10 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
+#include "../Core/Logger/ILogger.h"
 #include "../Core/IResource.h"
 
 namespace DE {
 	IResource::IResource() {
+		LOG_TRACE();
+
 		std::ostringstream stream;
 		stream << s_resourceCounter;
 		this->m_name = stream.str();
@@ -38,19 +41,27 @@ namespace DE {
 	}
 
 	IResource::IResource(const std::string & name) {
+		LOG_TRACE();
+
 		this->m_name = name;
 		this->m_referenceCount = 0;
 
 		++s_resourceCounter;
 	}
 
-	IResource::~IResource() {}
+	IResource::~IResource() {
+		LOG_TRACE();
+	}
 
 	const std::string IResource::GetName() const {
+		LOG_TRACE();
+
 		return this->m_name.GetFilename();
 	}
 
 	const int IResource::Release() {
+		LOG_TRACE();
+
 		int tmpRef = --this->m_referenceCount;
 
 		if(tmpRef == 0)
@@ -60,12 +71,18 @@ namespace DE {
 	}
 
 	void IResource::AddReference() {
+		LOG_TRACE();
+
 		++this->m_referenceCount;
 	}
 
-	void IResource::OnDeviceLost() {}
+	void IResource::OnDeviceLost() {
+		LOG_TRACE();
+	}
 
-	void IResource::OnDeviceReset() {}
+	void IResource::OnDeviceReset() {
+		LOG_TRACE();
+	}
 
 	/**
 	* Resource counter

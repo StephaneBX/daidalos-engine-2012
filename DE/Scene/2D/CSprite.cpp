@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/IRenderer.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Scene/2D//CSprite.h"
@@ -33,20 +34,28 @@ namespace DE {
 #define PANEL_TEXTURE_NAME "white.png"
 
 	CSprite::CSprite() : IView() {
+		LOG_TRACE();
+
 		this->m_changed = true;
 		this->m_backgroundColor = CColor(0, 0, 0, 0);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 	}
 
 	void CSprite::SetTexture(const std::string texture) {
+		LOG_TRACE();
+
 		this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 	}
 
 	void CSprite::SetBackgroundColor(const CColor & color) {
+		LOG_TRACE();
+
 		this->m_backgroundColor = color;
 	}
 
 	void CSprite::Update() {
+		LOG_TRACE();
+
 		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
@@ -69,6 +78,8 @@ namespace DE {
 	}
 
 	void CSprite::Render() {
+		LOG_TRACE();
+
 		if(this->m_data.size() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();

@@ -24,14 +24,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 ==============================================================================================================================================================
 */
+
+#include "../Core/Logger/ILogger.h"
 #include "../Medias/ISoundBase.h"
 
 namespace DE {
 	ISoundBase::~ISoundBase() {
+		LOG_TRACE();
+
 		alDeleteSources(1, &this->m_source);
 	}
 
 	void ISoundBase::SetStatus(ESoundStatus status) {
+		LOG_TRACE();
+
 		switch(status) {
 		case SOUND_STATUS_INITIAL:
 			alSourceRewind(this->m_source);
@@ -52,54 +58,80 @@ namespace DE {
 	}
 
 	void ISoundBase::SetGain(const float gain) {
+		LOG_TRACE();
+
 		alSourcef(this->m_source, AL_GAIN, gain);
 	}
 
 	void ISoundBase::SetPosition(const CVector3F & position) {
+		LOG_TRACE();
+
 		CVector3F pos(position.x, position.y, -position.z);
 		alSourcefv(this->m_source, AL_POSITION, pos);
 	}
 
 	void ISoundBase::SetOrientation(float * orientation) {
+		LOG_TRACE();
+
 		float orientation2[] = { orientation[0], orientation[1], -orientation[2], orientation[3], orientation[4], -orientation[5] };
 		alSourcefv(this->m_source, AL_DIRECTION, orientation2);
 	}
 
 	void ISoundBase::SetVelocity(const CVector3F & velocity) {
+		LOG_TRACE();
+
 		alSourcefv(this->m_source, AL_VELOCITY, velocity);
 	}
 
 	void ISoundBase::SetConeInnerAngle(const float angle) {
+		LOG_TRACE();
+
 		alSourcef(this->m_source, AL_CONE_INNER_ANGLE, angle);
 	}
 
 	void ISoundBase::SetConeOuterAngle(const float angle) {
+		LOG_TRACE();
+
 		alSourcef(this->m_source, AL_CONE_OUTER_ANGLE, angle);
 	}
 
 	void ISoundBase::SetReferenceDistance(const float distance) {
+		LOG_TRACE();
+
 		alSourcef(this->m_source, AL_REFERENCE_DISTANCE, distance);
 	}
 
 	void ISoundBase::SetMaxDistance(const float distance) {
+		LOG_TRACE();
+
 		alSourcef(this->m_source, AL_MAX_DISTANCE, distance);
 	}
 
 	void ISoundBase::SetRelativeToListener(const bool relative) {
+		LOG_TRACE();
+
 		alSourcei(this->m_source, AL_SOURCE_RELATIVE, relative ? AL_TRUE : AL_FALSE);
 	}
 
 	void ISoundBase::SetLooped(const bool loop) {
+		LOG_TRACE();
+
 		alSourcei(this->m_source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
 	}
 
-	void ISoundBase::Update() {}
+	void ISoundBase::Update() {
+		LOG_TRACE();
+	}
 
 	ESoundFormat ISoundBase::GetFormat() const {
+		LOG_TRACE();
+
 		return this->m_format;
 	}
 
 	ESoundStatus ISoundBase::GetStatus() const {
+		LOG_TRACE();
+
 		ALint status;
 		alGetSourcei(this->m_source, AL_SOURCE_STATE, &status);
 
@@ -121,6 +153,8 @@ namespace DE {
 	}
 
 	const bool ISoundBase::IsRelativeToListener() const {
+		LOG_TRACE();
+
 		ALint status;
 		alGetSourcei(this->m_source, AL_SOURCE_RELATIVE, &status);
 
@@ -128,6 +162,8 @@ namespace DE {
 	}
 
 	const bool ISoundBase::IsLooped() const {
+		LOG_TRACE();
+
 		ALint status;
 		alGetSourcei(this->m_source, AL_LOOPING, &status);
 
@@ -135,6 +171,8 @@ namespace DE {
 	}
 
 	const int ISoundBase::GetChannelsCount() const {
+		LOG_TRACE();
+
 		int channels = 1;
 
 		switch(this->m_format) {
@@ -151,6 +189,8 @@ namespace DE {
 	}
 
 	const float ISoundBase::GetGain() const {
+		LOG_TRACE();
+
 		float result;
 
 		alGetSourcef(this->m_source, AL_GAIN, &result);
@@ -159,6 +199,8 @@ namespace DE {
 	}
 
 	const float ISoundBase::GetConeInnerAngle() const {
+		LOG_TRACE();
+
 		float result;
 
 		alGetSourcef(this->m_source, AL_CONE_INNER_ANGLE, &result);
@@ -167,6 +209,8 @@ namespace DE {
 	}
 
 	const float ISoundBase::GetConeOuterAngle() const {
+		LOG_TRACE();
+
 		float result;
 
 		alGetSourcef(this->m_source, AL_CONE_OUTER_ANGLE, &result);
@@ -175,6 +219,8 @@ namespace DE {
 	}
 
 	const float ISoundBase::GetReferenceDistance() const {
+		LOG_TRACE();
+
 		float result;
 
 		alGetSourcef(this->m_source, AL_REFERENCE_DISTANCE, &result);
@@ -183,6 +229,8 @@ namespace DE {
 	}
 
 	const float ISoundBase::GetMaxDistance() const {
+		LOG_TRACE();
+
 		float result;
 
 		alGetSourcef(this->m_source, AL_MAX_DISTANCE, &result);
@@ -191,6 +239,8 @@ namespace DE {
 	}
 
 	ISoundBase::ISoundBase() {
+		LOG_TRACE();
+
 		this->m_format = SOUND_FORMAT_MONO16;
 		this->m_samplesCount = 0;
 		this->m_sampleRate = 0;
@@ -198,6 +248,8 @@ namespace DE {
 	}
 
 	ALenum ISoundBase::GetALFormat() const {
+		LOG_TRACE();
+
 		ALenum format;
 
 		switch(this->m_format) {

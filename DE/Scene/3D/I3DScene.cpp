@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Memory/CExceptionAssert.h"
 #include "../../Core/CMediaManager.h"
 #include "../../Core/Utility/CArraySorter.h"
@@ -36,6 +37,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 
 	I3DScene::I3DScene() {
+		LOG_TRACE();
+
 		this->m_root = nullptr;
 		this->m_activeSpotLights = new SSPotLightsShaderData;
 		this->m_activePointLights = new SPointLightsShaderData;
@@ -58,6 +61,8 @@ namespace DE {
 	}
 
 	I3DScene::~I3DScene() {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_root);
 		SAFE_DELETE(this->m_activeSpotLights);
 		SAFE_DELETE(this->m_activePointLights);
@@ -65,10 +70,12 @@ namespace DE {
 	}
 
 	void I3DScene::ClearAll() {
-
+		LOG_TRACE();
 	}
 
 	void I3DScene::SetRoot(ISceneNode * root) {
+		LOG_TRACE();
+
 		SAFE_DELETE(this->m_root);
 		this->m_root = root;
 
@@ -79,6 +86,8 @@ namespace DE {
 	}
 
 	void I3DScene::AddSceneNode(ISceneNode * parent, ISceneNode * node) {
+		LOG_TRACE();
+
 		if(parent == nullptr) {
 			this->m_root->AddChild(node);
 		} else {
@@ -87,10 +96,14 @@ namespace DE {
 	}
 
 	void I3DScene::SetActiveCamera(ICameraSceneNode * camera) {
+		LOG_TRACE();
+
 		this->m_activeCamera = camera;
 	}
 
 	void I3DScene::UpdateAll(const float time) {
+		LOG_TRACE();
+
 		// Reset the lights buffers
 		this->m_activeSpotLights->numberOfLights = 0;
 		std::fill(this->m_activeSpotLights->enabled, this->m_activeSpotLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
@@ -124,12 +137,16 @@ namespace DE {
 	}
 
 	void I3DScene::RenderSkybox() {
+		LOG_TRACE();
+
 		if(this->m_skybox.IsVisible()) {
 			this->m_skybox.Render();
 		}
 	}
 
 	void I3DScene::RenderAll() {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
@@ -144,6 +161,8 @@ namespace DE {
 	}
 
 	void I3DScene::RenderDebugInformation() {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
@@ -168,11 +187,15 @@ namespace DE {
 	}
 
 	void I3DScene::SetMeshFormat(const int format) {
+
+		LOG_TRACE();
 		Assert(this->m_root != nullptr);
 		this->m_root->SetMeshFormat(format);
 	}
 
 	void I3DScene::SendSpotLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -189,6 +212,8 @@ namespace DE {
 	}
 
 	void I3DScene::SendPointLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -202,6 +227,8 @@ namespace DE {
 	}
 
 	void I3DScene::SendDirectionalLightDataToShader(const int id) {
+		LOG_TRACE();
+
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
 		IRenderer * renderer = IRenderer::GetRenderer();
@@ -214,54 +241,78 @@ namespace DE {
 	}
 
 	const bool I3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
 	}
 
 	const bool I3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(shape, movement, point);
 	}
 
 	const int I3DScene::GetNumberOfActiveSpotLights() const {
+		LOG_TRACE();
+
 		return this->m_activeSpotLights->numberOfLights;
 	}
 
 	const int I3DScene::GetNumberOfActivePointLights() const {
+		LOG_TRACE();
+
 		return this->m_activePointLights->numberOfLights;
 	}
 
 	const int I3DScene::GetNumberOfActiveDirectionalLights() const {
+		LOG_TRACE();
+
 		return this->m_activeDirectionalLights->numberOfLights;
 	}
 
 	const int I3DScene::GetNumberOfVisibleTriangles() const {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
 	}
 
 	const CVector4F & I3DScene::GetAmbientColor() const {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
 	}
 
 	const CVector4F & I3DScene::GetSkyAmbientColor() const {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetSkyAmbientColor();
 	}
 
 	const CAABoundingBoxF I3DScene::GetSceneBoundingBox() {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetBoundingBox();
 	}
 
 	ISceneNode * I3DScene::GetRoot() const {
+		LOG_TRACE();
+
 		return this->m_root;
 	}
 
 	ISceneNode * I3DScene::GetNode(const std::string & name) const {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 
 		return FindNode(this->m_root, name);
 	}
 
 	std::vector<ISceneNode*> I3DScene::GetNodeArray(const std::string & name) const {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
@@ -271,6 +322,8 @@ namespace DE {
 	}
 
 	std::vector<ISceneNode*> I3DScene::GetNodeArray(ESceneNodeType nodeType) const {
+		LOG_TRACE();
+
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
@@ -280,26 +333,38 @@ namespace DE {
 	}
 
 	ILevelSceneNode * I3DScene::GetRootNode() const {
+		LOG_TRACE();
+
 		return static_cast<ILevelSceneNode*>(this->m_root);
 	}
 
 	ICameraSceneNode * I3DScene::GetActiveCamera() const {
+		LOG_TRACE();
+
 		return this->m_activeCamera;
 	}
 
 	SSPotLightsShaderData * I3DScene::GetActiveSpotLightsBuffer() const {
+		LOG_TRACE();
+
 		return this->m_activeSpotLights;
 	}
 
 	SPointLightsShaderData * I3DScene::GetActivePointLightsBuffer() const {
+		LOG_TRACE();
+
 		return this->m_activePointLights;
 	}
 
 	SDirectionalLightsShaderData * I3DScene::GetActiveDirectionalLightsBuffer() const {
+		LOG_TRACE();
+
 		return this->m_activeDirectionalLights;
 	}
 
 	void I3DScene::SortLights() {
+		LOG_TRACE();
+
 		CArraySorter<float> sorter;
 
 		// Sort the spot lights
@@ -318,6 +383,8 @@ namespace DE {
 	}
 
 	void I3DScene::ActiveLightsCheck() {
+		LOG_TRACE();
+
 		// Check the number of active spot light versus the maximum allowed in the options
 		int maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
 		if(maxSpotLight < this->m_activeSpotLights->numberOfLights) {
@@ -338,8 +405,11 @@ namespace DE {
 	}
 
 	void I3DScene::FindAllNodes(ISceneNode * currentNode, const std::string & name, std::vector<ISceneNode*> & vector) const {
-		if(currentNode->GetName() == name)
+		LOG_TRACE();
+
+		if(currentNode->GetName() == name) {
 			vector.push_back(currentNode);
+		}
 
 		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
 			FindAllNodes(*it, name, vector);
@@ -347,8 +417,11 @@ namespace DE {
 	}
 
 	void I3DScene::FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const {
-		if(currentNode->GetType() == nodeType)
+		LOG_TRACE();
+
+		if(currentNode->GetType() == nodeType) {
 			vector.push_back(currentNode);
+		}
 
 		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
 			FindAllNodes(*it, nodeType, vector);
@@ -356,8 +429,11 @@ namespace DE {
 	}
 
 	ISceneNode * I3DScene::FindNode(ISceneNode * currentNode, const std::string & name) const {
-		if(currentNode->GetName() == name)
+		LOG_TRACE();
+
+		if(currentNode->GetName() == name) {
 			return currentNode;
+		}
 
 		ISceneNode * result;
 		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {

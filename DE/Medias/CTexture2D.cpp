@@ -37,19 +37,27 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	CTexture2D::CTexture2D() {
+		LOG_TRACE();
+
 		this->m_texture = nullptr;
 	}
 
 	CTexture2D::CTexture2D(const CTexture2D & texture) {
+		LOG_TRACE();
+
 		*this = texture;
 	}
 
 	CTexture2D::~CTexture2D() {
+		LOG_TRACE();
+
 		if(this->m_texture != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 	}
 
 	const CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
+		LOG_TRACE();
+
 		if(this->m_texture != nullptr)
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 
@@ -62,34 +70,50 @@ namespace DE {
 	}
 
 	const CVector2I & CTexture2D::GetSize() const {
+		LOG_TRACE();
+
 		return this->m_texture->m_size;
 	}
 
 	const CImage & CTexture2D::GetImage() const {
+		LOG_TRACE();
+
 		return this->m_texture->m_image;
 	}
 
 	const STexture2DFilterPolicy & CTexture2D::GetTextureFilterPolicy() const {
+		LOG_TRACE();
+
 		return this->m_texture->m_filter;
 	}
 
 	EPixelFormat CTexture2D::GetFormat() const {
+		LOG_TRACE();
+
 		return this->m_texture->m_format;
 	}
 
 	ITexture2DBase * CTexture2D::GetTexture() const {
+		LOG_TRACE();
+
 		return this->m_texture;
 	}
 
 	bool CTexture2D::operator==(const CTexture2D & texture) const {
+		LOG_TRACE();
+
 		return this->m_texture == texture.m_texture;
 	}
 
 	bool CTexture2D::operator!=(const CTexture2D & texture) const {
+		LOG_TRACE();
+
 		return !(*this == texture);
 	}
 
 	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
+		LOG_TRACE();
+
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
@@ -109,6 +133,8 @@ namespace DE {
 	}
 
 	void CTexture2D::CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
+		LOG_TRACE();
+
 		// If no filter policy is given, use the default one
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
@@ -137,6 +163,8 @@ namespace DE {
 	}
 
 	void CTexture2D::CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name) {
+		LOG_TRACE();
+
 		// If no filter policy is given, use the default one
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
@@ -162,10 +190,14 @@ namespace DE {
 	}
 
 	void CTexture2D::SaveToFile(const std::string & filename) const {
+		LOG_TRACE();
+
 		CMediaManager::GetInstance()->SaveMediaToFile<ITexture2DBase>(this->m_texture, this->m_texture->GetName());
 	}
 
 	void CTexture2D::Update(const CRectangleI & rect) {
+		LOG_TRACE();
+
 		if(rect.GetSize().x == -1)
 			this->m_texture->Update(CRectangleI(CVector2I(0, 0), this->m_texture->m_size));
 		else
@@ -173,6 +205,8 @@ namespace DE {
 	}
 
 	void CTexture2D::Load(const CImage & image, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags, const std::string name) {
+		LOG_TRACE();
+
 		// Check the compression compatibility
 		if(IsFormatCompressed(format) && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_DXT_COMPRESSION)) {
 			LOG_WARNING("Using a compressed format with a non compatible hardware. Switching to PIXEL_FORMAT_A8R8G8B8 format");
