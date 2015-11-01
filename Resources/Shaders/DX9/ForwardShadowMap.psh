@@ -1,0 +1,19 @@
+struct PS_INPUT
+{
+	float4 position 	: POSITION;
+	float2 depth		: TEXCOORD0;
+};
+
+struct PS_OUTPUT
+{
+	float4 depth 	: COLOR;
+};
+
+PS_OUTPUT main(PS_INPUT IN)
+{
+	PS_OUTPUT OUT;
+	
+	OUT.depth = IN.depth.x / IN.depth.y;
+	
+	return OUT;
+}

@@ -60,9 +60,10 @@ namespace DE {
 		* Constructor
 		* @param verticalSynchro The vertical synchronization
 		* @param anisotropicFiltering The anisotropic filtering value
+		* @param antialiasing The antialiasing value
 		* @param hWnd Handler
 		*/
-		CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const HWND hWnd);
+		CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const int antialiasing, const HWND hWnd);
 
 		/**
 		* Destructor

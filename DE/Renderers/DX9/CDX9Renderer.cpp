@@ -46,7 +46,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 using namespace std;
 
 namespace DE {
-	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering) {
+	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const int antialiasing, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering, antialiasing) {
 		LOG_TRACE();
 
 		this->m_hwnd = hWnd;
@@ -564,6 +564,8 @@ namespace DE {
 		this->m_d3dpp.EnableAutoDepthStencil = true;
 		this->m_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
 		this->m_d3dpp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
+
+		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
 
 		if(this->m_verticalSynchro)
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;

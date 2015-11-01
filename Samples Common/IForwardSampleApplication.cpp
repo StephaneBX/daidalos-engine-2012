@@ -85,7 +85,7 @@ namespace SAMPLES {
 		this->m_declarationLight = this->m_renderer->CreateVertexDeclaration(declarationLight);
 
 		this->m_shaderDiffuse.LoadFromFile("ForwardDiffuse");
-		//this->m_shaderShadowMap.LoadFromFile("ForwardShadowMap");
+		this->m_shaderShadowMap.LoadFromFile("ForwardShadowMap");
 		this->m_shaderSpotLight.LoadFromFile("ForwardSpotLight");
 
 		DE::SFrameBufferDeclaration fbd[] =
@@ -159,8 +159,10 @@ namespace SAMPLES {
 		// ------------------------------
 		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
 
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_DESTALPHA);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration2D.get());
 		this->m_renderer->SetShaderProgram(this->m_shader2D.GetShaderProgram());
 		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_scene2D->GetProjMatrix());
@@ -186,7 +188,7 @@ namespace SAMPLES {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
 		for(int i = 0; i < this->m_scene3D->GetNumberOfActiveSpotLights(); ++i) {
-			/*if(this->m_scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
+			if(this->m_scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
@@ -204,7 +206,7 @@ namespace SAMPLES {
 				this->m_renderer->SetFrameBuffer(this->m_frameBufferShadowMap.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
 				this->m_scene3D->RenderAll();
-			}*/
+			}
 
 			// Add the light effect to the backbuffer
 			this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);

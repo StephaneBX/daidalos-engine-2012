@@ -285,7 +285,7 @@ namespace DE {
 		this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 
 		// Renderer creation
-		IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_hWnd));
+		IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_antialiasing, this->m_hWnd));
 
 		this->m_renderer = IRenderer::GetRenderer();
 		this->m_renderer->SetDisplayBounds(this->m_displayBounds);

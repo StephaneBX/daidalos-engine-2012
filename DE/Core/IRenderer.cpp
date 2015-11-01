@@ -182,13 +182,14 @@ namespace DE {
 		return s_shaderProgramParameters[parameter];
 	}
 
-	IRenderer::IRenderer(const bool verticalSynchro, const int anisotropicFiltering) {
+	IRenderer::IRenderer(const bool verticalSynchro, const int anisotropicFiltering, const int antialiasing) {
 		LOG_TRACE();
 
 		this->m_currentShaderProgram = nullptr;
 
 		this->m_verticalSynchro = verticalSynchro;
 		this->m_anisotropicFiltering = anisotropicFiltering;
+		this->m_antialiasing = antialiasing;
 
 		this->m_defaultTextureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_ANISOTROPIC;
 		this->m_defaultTextureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_LINEAR;

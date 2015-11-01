@@ -57,6 +57,7 @@ namespace DE {
 	protected:
 		bool m_verticalSynchro;
 		int m_anisotropicFiltering;
+		int m_antialiasing;
 		std::map<ECapability, bool> m_capabilities;
 		IShaderProgramBase * m_currentShaderProgram;
 		SScreenQuadElement m_screenQuadElement[SCREEN_QUAD_POINT_SIZE];
@@ -353,8 +354,9 @@ namespace DE {
 		* Constructor
 		* @param verticalSynchro The vertical synchronization
 		* @param anisotropicFiltering The anisotropic filtering value
+		* @param antialiasing The antialiasing value
 		*/
-		IRenderer(const bool verticalSynchro, const int anisotropicFiltering);
+		IRenderer(const bool verticalSynchro, const int anisotropicFiltering, const int antialiasing);
 
 		/**
 		* Create a veretx buffer
