@@ -28,20 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSAMPLEAPPLICATION_H
 #define __CSAMPLEAPPLICATION_H
 
-#include <ISampleApplication.h>
+#include <IForwardSampleApplication.h>
+#include <Scene/3D/CSpotLightSceneNode.h>
 #include "CFPSCamera.h"
-//#include "CFreeCamera.h"
 
 namespace SAMPLE2
 {
 	/**
 	* Test application implementation
 	*/
-	class CSampleApplication : public SAMPLES::ISampleApplication
+	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
 		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
-		//std::unique_ptr<SAMPLES::CFreeCamera> m_camera;
 		DE::CSpotLightSceneNode * m_spotLight;
 
 	public:

@@ -29,16 +29,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow) {
-		this->m_scene->LoadScene("sample2.des");
-		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_camera->SetScene(this->m_scene);
-		//this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene->GetNode("spotLight1");
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
+		this->m_scene3D->LoadScene("sample2.des");
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
+		this->m_camera->SetScene(this->m_scene3D);
+		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
+		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
 		this->m_activeCamera = this->m_camera->GetCameraNode();
 
-		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
 		MainLoop();
 	}
@@ -59,12 +58,12 @@ namespace SAMPLE2 {
 			this->m_spotLight->SetRotation(lightRotation);
 		}
 
-		this->m_scene->SetActiveCamera(this->m_activeCamera);
-		this->m_scene->UpdateAll(time);
+		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+		this->m_scene3D->UpdateAll(time);
 
 		// Update the position
 		std::stringstream ss;
-		ss << "P: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z << " - G:" << this->m_scene->GetNumberOfVisibleTriangles();
+		ss << "P: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z << " - G:" << this->m_scene3D->GetNumberOfVisibleTriangles();
 		this->m_positionText.SetText(ss.str());
 
 		// Update the fps

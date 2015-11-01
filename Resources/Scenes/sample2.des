@@ -7900,7 +7900,7 @@
 			<node type="2" name="flashlight">
 				<position>0.5:-0.8:0</position>
 				<rotation>0:0:0</rotation>
-				<color>0.6:0.6:0.6:1</color>
+				<color>0.4:0.4:0.4:1</color>
 				<range>60</range>
 				<radius>17</radius>
 				<falloff>0.5</falloff>

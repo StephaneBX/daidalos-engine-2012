@@ -32,11 +32,24 @@
 - Grosse mis à jour des logs dans le moteur
 
 ===============================================================
+                          Menu
+===============================================================
+- Mise en place de menus
+- CMenu : CSprite
+- IMenuListener
+	OnMenuReturnAndSave
+	OnMenuReturnAndCancel
+	OnMenuSelect
+	
+- ViewLoader -> IView*
+
+===============================================================
                                   GUI
 ===============================================================
 - Mettre en place CWindow
 - Mettre en place une classe CLoadingView qui hérite de CSprite
 - Optimisation du scale des éléments
+- ICheckboxListener
 
 ===============================================================
                           C3DScene
