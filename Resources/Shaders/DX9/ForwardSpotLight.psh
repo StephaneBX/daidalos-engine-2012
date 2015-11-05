@@ -62,6 +62,38 @@ float spotTightnessFactor(float angle) {
 	return result;
 }
 
+float getShadowTerm(float3 world) {
+	float shadowTerm = 0.0f;
+	if(shadowCaster) {
+		float fTexelSize = 1.0f / shadowMapSize;
+	
+		float4 camToLight = mul(float4(world, 1.0f), spotLightViewProj);
+		float2 shadowTexC = (camToLight.xy / camToLight.w) * float2(0.5f, -0.5f) + float2(0.5f + fTexelSize / 2.0f, 0.5f + fTexelSize / 2.0f);
+		
+		if(saturate(shadowTexC.x) == shadowTexC.x && saturate(shadowTexC.y) == shadowTexC.y) {
+			// Soft-edged shadows
+			float2 vTexCoords[9];
+			vTexCoords[0] = shadowTexC;
+			vTexCoords[1] = shadowTexC + float2(-fTexelSize, 0.0f);
+			vTexCoords[2] = shadowTexC + float2(fTexelSize, 0.0f);
+			vTexCoords[3] = shadowTexC + float2(0.0f, -fTexelSize);
+			vTexCoords[6] = shadowTexC + float2(0.0f,  fTexelSize);
+			vTexCoords[4] = shadowTexC + float2(-fTexelSize, -fTexelSize);
+			vTexCoords[5] = shadowTexC + float2(fTexelSize, -fTexelSize);
+			vTexCoords[7] = shadowTexC + float2(-fTexelSize,  fTexelSize);
+			vTexCoords[8] = shadowTexC + float2(fTexelSize,  fTexelSize);
+			
+			float depth = (camToLight.z / camToLight.w) - EPSILON;
+			for(int i = 0; i < 9; i++)
+				  shadowTerm += tex2D(lightDepthSampler, vTexCoords[i]).r < depth ? 0.0f : 1.0f;
+			shadowTerm /= 9.0f;
+		}	
+	} else {
+		shadowTerm = 1.0f;
+	}
+	return shadowTerm;
+}
+
 PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	OUT.color = float4(0,0,0,1);
@@ -76,34 +108,7 @@ PS_OUTPUT main(PS_INPUT IN) {
 		float3x3 TBN = transpose(float3x3(IN.tangent, IN.binormal, IN.normal));
 		float3 normal = normalize(mul(TBN, normalMap));
 		
-		float shadowTerm = 0.0f;
-		if(shadowCaster) {
-			float fTexelSize = 1.0f / shadowMapSize;
-		
-			float4 camToLight = mul(float4(IN.world.xyz, 1.0f), spotLightViewProj);
-			float2 shadowTexC = (camToLight.xy / camToLight.w) * float2(0.5f, -0.5f) + float2(0.5f + fTexelSize / 2.0f, 0.5f + fTexelSize / 2.0f);
-			
-			if(saturate(shadowTexC.x) == shadowTexC.x && saturate(shadowTexC.y) == shadowTexC.y) {
-				// Soft-edged shadows
-				float2 vTexCoords[9];
-				vTexCoords[0] = shadowTexC;
-				vTexCoords[1] = shadowTexC + float2(-fTexelSize, 0.0f);
-				vTexCoords[2] = shadowTexC + float2(fTexelSize, 0.0f);
-				vTexCoords[3] = shadowTexC + float2(0.0f, -fTexelSize);
-				vTexCoords[6] = shadowTexC + float2(0.0f,  fTexelSize);
-				vTexCoords[4] = shadowTexC + float2(-fTexelSize, -fTexelSize);
-				vTexCoords[5] = shadowTexC + float2(fTexelSize, -fTexelSize);
-				vTexCoords[7] = shadowTexC + float2(-fTexelSize,  fTexelSize);
-				vTexCoords[8] = shadowTexC + float2(fTexelSize,  fTexelSize);
-				
-				float depth = (camToLight.z / camToLight.w) - EPSILON;
-				for(int i = 0; i < 9; i++)
-					  shadowTerm += tex2D(lightDepthSampler, vTexCoords[i]).r < depth ? 0.0f : 1.0f;
-				shadowTerm /= 9.0f;
-			}	
-		} else {
-			shadowTerm = 1.0f;
-		}
+		float shadowTerm = getShadowTerm(IN.world.xyz);
 		
 		if(shadowTerm > 0.0f) {
 			float3 L = normalize(IN.world.xyz - spotLightPosition.xyz);

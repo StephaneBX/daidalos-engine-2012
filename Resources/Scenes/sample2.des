@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene structure="1">
 	<!-- Level node with a bsp structure -->
-	<node type="0" name="level" ambientColor="0.5:0.5:0.5" >
+	<node type="0" name="level" ambientColor="0.5:0.5:0.5">
 		<!-- Level node geometry -->
 		
 		<multi_brush>
@@ -7906,6 +7906,11 @@
 				<falloff>0.5</falloff>
 				<tightness>0.5</tightness>
 				<shadow_caster>true</shadow_caster>
+			</node>
+			
+			<node type="4" name="directionalLight">
+				<rotation>40:180:0</rotation>
+				<color>0.1:0.1:0.1:1</color>
 			</node>
 		</node>
 	</node>

@@ -26,18 +26,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "CSampleApplication.h"
-#include <Scene/3D/CDirectionalLightSceneNode.h>
 
 namespace SAMPLE1 {
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : ISampleApplication(hInstance, nCmdShow) {
-		this->m_scene->LoadScene("sample1.des");
-		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_camera->SetScene(this->m_scene);
-		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene->GetNode("directionalLight");
-		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene->GetNode("dwarf");
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
+		this->m_scene3D->LoadScene("sample1.des");
+		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
+		this->m_camera->SetScene(this->m_scene3D);
+		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene3D->GetNode("directionalLight");
+		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene3D->GetNode("dwarf");
+		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
 		this->m_activeCamera = this->m_camera->GetCameraNode();
-		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
 		MainLoop();
 	}
@@ -50,7 +49,7 @@ namespace SAMPLE1 {
 		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
 			this->m_alive = false;
 
-		this->m_scene->SetActiveCamera(this->m_activeCamera);
+		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_camera->Update(time);
 
 		if(this->m_directionalLight != nullptr) {
@@ -63,6 +62,6 @@ namespace SAMPLE1 {
 			this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
 		}
 
-		this->m_scene->UpdateAll(time);
+		this->m_scene3D->UpdateAll(time);
 	}
 }

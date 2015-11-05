@@ -28,7 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSAMPLEAPPLICATION_H
 #define __CSAMPLEAPPLICATION_H
 
-#include <ISampleApplication.h>
+#include <IForwardSampleApplication.h>
+#include <Scene/3D/CDirectionalLightSceneNode.h>
 #include "CFreeCamera.h"
 
 namespace SAMPLE1
@@ -36,7 +37,7 @@ namespace SAMPLE1
 	/**
 	* Test application implementation
 	*/
-	class CSampleApplication : public SAMPLES::ISampleApplication
+	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
 		DE::CDirectionalLightSceneNode * m_directionalLight;

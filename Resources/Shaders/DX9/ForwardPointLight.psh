@@ -27,7 +27,6 @@ struct PS_OUTPUT {
 
 sampler2D diffuseSampler;
 sampler2D normalSampler;
-sampler2D lightDepthSampler;
 
 float pointDistanceFactor(float distance) {
 	float result;

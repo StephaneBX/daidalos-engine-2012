@@ -89,10 +89,11 @@ namespace DE {
 				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz1 * nz1 / nx1;
 
-				if(px < l.x)
+				if(px < l.x) {
 					rect[0] = max(rect[0], x);
-				else
+				} else {
 					rect[2] = min(rect[2], x);
+				}
 			}
 
 			if(pz2 > 0) {
@@ -100,10 +101,11 @@ namespace DE {
 				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
 				float px = -pz2 * nz2 / nx2;
 
-				if(px < l.x)
+				if(px < l.x) {
 					rect[0] = max(rect[0], x);
-				else
+				} else {
 					rect[2] = min(rect[2], x);
+				}
 			}
 		}
 
@@ -123,10 +125,11 @@ namespace DE {
 				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz1 * nz1 / ny1;
 
-				if(py < l.y)
+				if(py < l.y) {
 					rect[3] = min(rect[3], y);
-				else
+				} else {
 					rect[1] = max(rect[1], y);
+				}
 			}
 
 			if(pz2 > 0) {
@@ -134,14 +137,22 @@ namespace DE {
 				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
 				float py = -pz2 * nz2 / ny2;
 
-				if(py < l.y)
+				if(py < l.y) {
 					rect[3] = min(rect[3], y);
-				else
+				} else {
 					rect[1] = max(rect[1], y);
+				}
 			}
 		}
 
-		return CRectangleI(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
+		CRectangleI finalRect = CRectangleI(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
+
+		// Boundary check
+		if(finalRect.GetWidth() <= 0 || finalRect.GetHeight() <= 0) {
+			finalRect = CRectangleI(0, 0, this->m_internalResolution.x, this->m_internalResolution.y);
+		}
+
+		return finalRect;
 	}
 
 	const CRectangleI CDX9Renderer::GetViewport() const {

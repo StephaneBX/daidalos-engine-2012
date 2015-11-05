@@ -61,6 +61,7 @@ namespace SAMPLES {
 		DE::CShaderProgram m_shaderShadowMap;
 		DE::CShaderProgram m_shaderSpotLight;
 		DE::CShaderProgram m_shaderPointLight;
+		DE::CShaderProgram m_shaderDirectionalLight;
 		DE::CFrameBuffer m_frameBufferShadowMap;
 
 		// Debug
@@ -102,6 +103,11 @@ namespace SAMPLES {
 		* Render the point lights in the backbuffer
 		*/
 		void PointLightsRendering();
+
+		/**
+		* Render the directional lights in the backbuffer
+		*/
+		void DirectionalLightsRendering();
 	};
 }
 

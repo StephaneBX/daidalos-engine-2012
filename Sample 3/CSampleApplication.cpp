@@ -28,19 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSampleApplication.h"
 
 namespace SAMPLE3 {
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::ISampleApplication(hInstance, nCmdShow) {
-		this->m_scene->LoadScene("sample3.des");
-		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene->GetNode("player")));
-		this->m_camera->SetScene(this->m_scene);
-		this->m_scene->SetActiveCamera(this->m_camera->GetCameraNode());
-		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
+		this->m_scene3D->LoadScene("sample3.des");
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
+		this->m_camera->SetScene(this->m_scene3D);
+		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 		this->m_activeCamera = this->m_camera->GetCameraNode();
 
 		// Load the flashlight
-		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene->GetNode("flashlight_entity"), this->m_scene->GetNode("flashlight_spot"), this->m_camera.get()));
+		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_scene3D->GetNode("flashlight_spot"), this->m_camera.get()));
 
 		// Load the health bonus
-		std::vector<DE::ISceneNode*> health = this->m_scene->GetNodeArray("health_entity");
+		std::vector<DE::ISceneNode*> health = this->m_scene3D->GetNodeArray("health_entity");
 
 		for(auto it = health.begin(); it != health.end(); it++) {
 			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
@@ -60,7 +60,7 @@ namespace SAMPLE3 {
 
 		this->m_camera->Update(time);
 
-		this->m_scene->UpdateAll(time);
+		this->m_scene3D->UpdateAll(time);
 
 		// Update the entities
 		if(this->m_flashlight != nullptr) {
