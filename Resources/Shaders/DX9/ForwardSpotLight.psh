@@ -75,7 +75,6 @@ PS_OUTPUT main(PS_INPUT IN) {
 		float3 normalMap = normalize((tex2D(normalSampler, IN.texcoord).xyz * 2.0f) - 1.0f);
 		float3x3 TBN = transpose(float3x3(IN.tangent, IN.binormal, IN.normal));
 		float3 normal = normalize(mul(TBN, normalMap));
-		float3 lightDir = normalize(IN.world.xyz - spotLightPosition.xyz);
 		
 		float shadowTerm = 0.0f;
 		if(shadowCaster) {
@@ -107,11 +106,13 @@ PS_OUTPUT main(PS_INPUT IN) {
 		}
 		
 		if(shadowTerm > 0.0f) {
-			float3 L = -lightDir;
-			float3 H = normalize(normalize(cameraPositionDistance.xyz - IN.world.xyz) - lightDir);
+			float3 L = normalize(IN.world.xyz - spotLightPosition.xyz);
+			float3 R = reflect(-L, normal);
+			float3 E = normalize(cameraPositionDistance.xyz - IN.world.xyz);
+			float3 V = normalize(-E);
 			
-			float3 diffuse = diffuseMap.xyz * materialDiffuse.xyz * spotLightColor.xyz * saturate(dot(normal, L)) * spotDistanceFactor(distance(IN.world.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
-			float3 specular = materialSpecular.xyz * spotLightColor.xyz * pow(saturate(dot(H, normal)), materialNs) * spotDistanceFactor(distance(IN.world.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			float3 diffuse = diffuseMap.xyz * materialDiffuse.xyz * spotLightColor.xyz * saturate(dot(normal, -L)) * spotDistanceFactor(distance(IN.world.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			float3 specular = materialSpecular.xyz * spotLightColor.xyz * pow(saturate(dot(R, V)), materialNs) * spotDistanceFactor(distance(IN.world.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
 			
 			OUT.color.xyz = saturate(diffuse + specular) * shadowTerm * fogFactor;
 		}

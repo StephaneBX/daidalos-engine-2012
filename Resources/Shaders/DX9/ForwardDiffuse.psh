@@ -7,22 +7,19 @@ uniform float3 materialAmbient;
 uniform float3 materialSpecular;
 uniform float3 materialEmission;
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position 	: POSITION;
 	float2 texcoord		: TEXCOORD0;
 	float  depth		: TEXCOORD1;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color 	: COLOR;
 };
 
 sampler2D diffuseSampler;
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	
 	float fogFactor = IN.depth >= (viewDistance * fogFalloff) ? saturate(1.0f - (((IN.depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff))) : 1.0f;

@@ -60,6 +60,7 @@ namespace SAMPLES {
 		DE::CShaderProgram m_shaderDiffuse;
 		DE::CShaderProgram m_shaderShadowMap;
 		DE::CShaderProgram m_shaderSpotLight;
+		DE::CShaderProgram m_shaderPointLight;
 		DE::CFrameBuffer m_frameBufferShadowMap;
 
 		// Debug
@@ -96,6 +97,11 @@ namespace SAMPLES {
 		* Render the spot lights in the backbuffer
 		*/
 		void SpotLightsRendering();
+
+		/**
+		* Render the point lights in the backbuffer
+		*/
+		void PointLightsRendering();
 	};
 }
 

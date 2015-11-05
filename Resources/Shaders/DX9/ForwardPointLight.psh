@@ -1,0 +1,70 @@
+uniform float viewDistance;
+uniform float fogFalloff;
+
+uniform float materialNs;
+uniform float3 materialDiffuse;
+uniform float3 materialAmbient;
+uniform float3 materialSpecular;
+uniform float3 materialEmission;
+
+uniform float4 cameraPositionDistance;
+uniform float4 pointLightPositionRange;
+uniform float4 pointLightColorFalloff;
+
+struct PS_INPUT {
+	float4 position 	: POSITION;
+	float4 world 		: TEXCOORD0;
+	float2 texcoord		: TEXCOORD1;
+	float3 normal 		: TEXCOORD2;
+	float3 tangent 		: TEXCOORD3;
+	float3 binormal		: TEXCOORD4;
+	float  depth		: TEXCOORD5;
+};
+
+struct PS_OUTPUT {
+	float4 color : COLOR;
+};
+
+sampler2D diffuseSampler;
+sampler2D normalSampler;
+sampler2D lightDepthSampler;
+
+float pointDistanceFactor(float distance) {
+	float result;
+	
+	if(distance >= pointLightPositionRange.w) {
+		result = 0;
+	} else {
+		if(distance > pointLightPositionRange.w * pointLightColorFalloff.w) {
+			result = 1 - ((distance - (pointLightPositionRange.w * pointLightColorFalloff.w)) / ((1 - pointLightColorFalloff.w) * pointLightPositionRange.w));
+		} else {
+			result = 1;
+		}
+	}
+		
+	return result;
+}
+
+PS_OUTPUT main(PS_INPUT IN) {
+	PS_OUTPUT OUT;
+	OUT.color = float4(0,0,0,1);
+	
+	float fogFactor = IN.depth >= (viewDistance * fogFalloff) ? saturate(1.0f - (((IN.depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff))) : 1.0f;
+	
+	float3 diffuseMap = tex2D(diffuseSampler, IN.texcoord).xyz;
+	float3 normalMap = normalize((tex2D(normalSampler, IN.texcoord).xyz * 2.0f) - 1.0f);
+	float3x3 TBN = transpose(float3x3(IN.tangent, IN.binormal, IN.normal));
+	
+	float3 normal = normalize(mul(TBN, normalMap));
+	float3 L = normalize(IN.world.xyz - pointLightPositionRange.xyz);
+	float3 R = reflect(-L, normal);
+	float3 E = normalize(cameraPositionDistance.xyz - IN.world.xyz);
+	float3 V = normalize(-E);
+	
+	float3 diffuse = diffuseMap.xyz * materialDiffuse.xyz * pointLightColorFalloff.xyz * saturate(dot(normal, -L)) * pointDistanceFactor(distance(IN.world.xyz, pointLightPositionRange.xyz));
+	float3 specular = materialSpecular.xyz * pointLightColorFalloff.xyz * pow(saturate(dot(R, V)), materialNs) * pointDistanceFactor(distance(IN.world.xyz, pointLightPositionRange.xyz));
+	
+	OUT.color.xyz = saturate(diffuse + specular) * fogFactor;
+	
+	return OUT;
+}
