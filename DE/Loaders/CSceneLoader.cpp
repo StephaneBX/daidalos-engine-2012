@@ -365,7 +365,7 @@ namespace DE {
 				SBSPBrushDefinition brush;
 
 				// Default values
-				brush.id = -1;
+				brush.id = SCENE_DEFAULT_ID;
 				brush.collision = true;
 
 				// Get the brush options
@@ -390,7 +390,7 @@ namespace DE {
 				SBSPBrushDefinition brush;
 
 				// Default values
-				brush.id = -1;
+				brush.id = SCENE_DEFAULT_ID;
 				brush.collision = true;
 
 				// Get the brush options
@@ -474,6 +474,9 @@ namespace DE {
 		std::ostringstream ss;
 
 		std::string name = handle.ToElement()->Attribute("file");
+		int id = SCENE_DEFAULT_ID;
+		handle.ToElement()->QueryIntAttribute("id", &id);
+
 		GetNodeData(handle, "visible", visible, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
@@ -503,6 +506,7 @@ namespace DE {
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CBSPTriangle * triangle = new CBSPTriangle();
+				triangle->SetId(id);
 
 				ss.str("");
 				ss << "group_" << (i + 1);

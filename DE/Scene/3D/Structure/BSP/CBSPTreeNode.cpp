@@ -379,6 +379,7 @@ namespace DE {
 
 			// Fill the front triangle
 			tmp = new CBSPTriangle(*triangle);
+			tmp->SetId(triangle->GetId());
 			tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
 			tmp->SetVertex(intersection1, secondOrderIndex);
 			tmp->SetVertex(triangle->GetVertex(pivotIndex), thirdOrderIndex);
@@ -408,6 +409,7 @@ namespace DE {
 
 			// Fill the back triangle
 			tmp = new CBSPTriangle(*triangle);
+			tmp->SetId(triangle->GetId());
 			tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
 			tmp->SetVertex(triangle->GetVertex(pivotIndex), secondOrderIndex);
 			tmp->SetVertex(intersection1, thirdOrderIndex);
@@ -473,6 +475,7 @@ namespace DE {
 
 				// Fill the front triangles
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
 				tmp->SetVertex(intersection2, secondOrderIndex);
 				tmp->SetVertex(intersection1, thirdOrderIndex);
@@ -501,6 +504,7 @@ namespace DE {
 				}
 
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
 				tmp->SetVertex(triangle->GetVertex(positiveIndex2), secondOrderIndex);
 				tmp->SetVertex(intersection2, thirdOrderIndex);
@@ -530,6 +534,7 @@ namespace DE {
 
 				// Fill the back triangle
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
 				tmp->SetVertex(intersection1, secondOrderIndex);
 				tmp->SetVertex(intersection2, thirdOrderIndex);
@@ -597,6 +602,7 @@ namespace DE {
 
 				// Fill the front triangle
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(positiveIndex1), firstOrderIndex);
 				tmp->SetVertex(intersection1, secondOrderIndex);
 				tmp->SetVertex(intersection2, thirdOrderIndex);
@@ -626,6 +632,7 @@ namespace DE {
 
 				// Fill the back triangles
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(negativeIndex1), firstOrderIndex);
 				tmp->SetVertex(intersection2, secondOrderIndex);
 				tmp->SetVertex(intersection1, thirdOrderIndex);
@@ -654,6 +661,7 @@ namespace DE {
 				}
 
 				tmp = new CBSPTriangle(*triangle);
+				tmp->SetId(triangle->GetId());
 				tmp->SetVertex(triangle->GetVertex(negativeIndex2), firstOrderIndex);
 				tmp->SetVertex(intersection2, secondOrderIndex);
 				tmp->SetVertex(triangle->GetVertex(negativeIndex1), thirdOrderIndex);

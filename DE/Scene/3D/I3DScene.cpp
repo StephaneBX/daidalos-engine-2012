@@ -136,6 +136,22 @@ namespace DE {
 		ActiveLightsCheck();
 	}
 
+	void I3DScene::RenderSkyboxMask() {
+		LOG_TRACE();
+
+		Assert(this->m_root != nullptr);
+		Assert(this->m_activeCamera != nullptr);
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		Assert(shaderProgram != nullptr);
+
+		// Global parameters of the scene
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+
+		this->m_root->RenderSkyboxMask();
+	}
+
 	void I3DScene::RenderSkybox() {
 		LOG_TRACE();
 

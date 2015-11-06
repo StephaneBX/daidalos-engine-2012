@@ -30,8 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Enums.h"
 
 namespace DE {
-	D3DPRIMITIVETYPE CDX9Enums::s_primitiveType[] =
-	{
+	D3DPRIMITIVETYPE CDX9Enums::s_primitiveType[] = {
 		D3DPT_TRIANGLELIST,
 		D3DPT_TRIANGLESTRIP,
 		D3DPT_TRIANGLEFAN,
@@ -40,8 +39,7 @@ namespace DE {
 		D3DPT_POINTLIST
 	};
 
-	D3DFORMAT CDX9Enums::s_formatType[] =
-	{
+	D3DFORMAT CDX9Enums::s_formatType[] = {
 		D3DFMT_L8,
 		D3DFMT_A8L8,
 		D3DFMT_A1R5G5B5,
@@ -58,8 +56,7 @@ namespace DE {
 		D3DFMT_D24S8
 	};
 
-	D3DTEXTUREFILTERTYPE CDX9Enums::s_textureFilterType[] =
-	{
+	D3DTEXTUREFILTERTYPE CDX9Enums::s_textureFilterType[] = {
 		D3DTEXF_NONE,
 		D3DTEXF_POINT,
 		D3DTEXF_LINEAR,
@@ -69,8 +66,7 @@ namespace DE {
 		D3DTEXF_CONVOLUTIONMONO
 	};
 
-	D3DTEXTUREADDRESS CDX9Enums::s_textureAddressType[] =
-	{
+	D3DTEXTUREADDRESS CDX9Enums::s_textureAddressType[] = {
 		D3DTADDRESS_WRAP,
 		D3DTADDRESS_MIRROR,
 		D3DTADDRESS_CLAMP,
@@ -78,17 +74,16 @@ namespace DE {
 		D3DTADDRESS_MIRRORONCE
 	};
 
-	D3DRENDERSTATETYPE CDX9Enums::s_renderStateType[] =
-	{
+	D3DRENDERSTATETYPE CDX9Enums::s_renderStateType[] = {
 		D3DRS_ZENABLE,
 		D3DRS_ZWRITEENABLE,
 		D3DRS_ALPHATESTENABLE,
 		D3DRS_ALPHABLENDENABLE,
-		D3DRS_SCISSORTESTENABLE
+		D3DRS_SCISSORTESTENABLE,
+		D3DRS_STENCILENABLE
 	};
 
-	D3DCMPFUNC CDX9Enums::s_compare[] =
-	{
+	D3DCMPFUNC CDX9Enums::s_compare[] = {
 		D3DCMP_NEVER,
 		D3DCMP_LESS,
 		D3DCMP_EQUAL,
@@ -100,8 +95,7 @@ namespace DE {
 	};
 
 
-	D3DBLEND CDX9Enums::s_renderStateBlendFunction[] =
-	{
+	D3DBLEND CDX9Enums::s_renderStateBlendFunction[] = {
 		D3DBLEND_ZERO,
 		D3DBLEND_ONE,
 		D3DBLEND_SRCCOLOR,
@@ -121,8 +115,7 @@ namespace DE {
 		D3DBLEND_INVSRCCOLOR2
 	};
 
-	D3DBLENDOP CDX9Enums::s_renderStateBlendOperation[] =
-	{
+	D3DBLENDOP CDX9Enums::s_renderStateBlendOperation[] = {
 		D3DBLENDOP_ADD,
 		D3DBLENDOP_SUBTRACT,
 		D3DBLENDOP_REVSUBTRACT,
@@ -130,11 +123,21 @@ namespace DE {
 		D3DBLENDOP_MAX
 	};
 
-	D3DCULL CDX9Enums::s_renderStateCullType[] =
-	{
+	D3DCULL CDX9Enums::s_renderStateCullType[] = {
 		D3DCULL_NONE,
 		D3DCULL_CW,
 		D3DCULL_CCW
+	};
+
+	D3DSTENCILOP CDX9Enums::s_stencilOperation[] {
+		D3DSTENCILOP_KEEP,
+		D3DSTENCILOP_ZERO,
+		D3DSTENCILOP_REPLACE,
+		D3DSTENCILOP_INCRSAT,
+		D3DSTENCILOP_DECRSAT,
+		D3DSTENCILOP_INVERT,
+		D3DSTENCILOP_INCR,
+		D3DSTENCILOP_DECR
 	};
 
 	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
@@ -234,5 +237,12 @@ namespace DE {
 		LOG_TRACE();
 
 		return s_renderStateCullType[type];
+	}
+
+
+	D3DSTENCILOP CDX9Enums::Get(EStencilOperation operation) {
+		LOG_TRACE();
+
+		return s_stencilOperation[operation];
 	}
 }

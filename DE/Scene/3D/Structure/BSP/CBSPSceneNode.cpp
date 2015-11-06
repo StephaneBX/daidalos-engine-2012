@@ -125,69 +125,13 @@ namespace DE {
 	void CBSPSceneNode::Render() {
 		LOG_TRACE();
 
-		// Reset the data
-		this->m_visibleTriangles.clear();
-		this->m_batchSize.clear();
-		this->m_bsp->ResetDraw();
+		RenderWithOptions(SCENE_DEFAULT_ID);
+	}
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
-		Assert(shaderProgram != nullptr);
+	void CBSPSceneNode::RenderSkyboxMask() {
+		LOG_TRACE();
 
-		this->m_activeCamera = this->m_scene->GetActiveCamera();
-		RegisterNodeForRendering(this->m_bsp.get());
-		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
-		if(this->m_visibleTriangles.size() > 0) {
-			// World matrixes
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
-
-			// Sort the triangles
-			std::vector<CTriangle3D*> batchTriangles;
-			ITexture2DBase * batchDiffuseTexture;
-			ITexture2DBase * batchNormalTexture;
-			SMaterialElement * batchMaterialElement;
-
-			// Sort with the diffuse texture and the material
-			while(this->m_visibleTriangles.size() > 0) {
-				batchTriangles.clear();
-				batchTriangles.push_back(this->m_visibleTriangles[0]);
-				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
-				batchNormalTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_NORMAL);
-				batchMaterialElement = batchTriangles.at(0)->GetMaterialElement();
-
-				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
-
-				// Check for compatible triangles
-				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
-					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
-						batchTriangles.push_back(*it);
-						it = this->m_visibleTriangles.erase(it);
-					} else
-						++it;
-				}
-
-				// Transform
-				this->m_levelBuffer.Transform(batchTriangles, this->m_shadingType);
-
-				// Material
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), batchMaterialElement->m_kDiffuse);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), batchMaterialElement->m_kAmbient);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), batchMaterialElement->m_kSpecular);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), batchMaterialElement->m_kEmission);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
-
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
-					renderer->SetTexture(0, batchDiffuseTexture);
-					renderer->SetTexture(1, batchNormalTexture);
-				}
-
-				renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer(), this->m_levelBuffer.GetStride());
-				renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
-			}
-		}
-
-		ISceneNode::Render();
+		RenderWithOptions(SCENE_SKYBOX_ID);
 	}
 
 	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
@@ -329,14 +273,86 @@ namespace DE {
 		return impact.IsImpact();
 	}
 
-	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node) {
+	void CBSPSceneNode::RenderWithOptions(const int filterId) {
 		LOG_TRACE();
+
+		// Reset the data
+		this->m_visibleTriangles.clear();
+		this->m_batchSize.clear();
+		this->m_bsp->ResetDraw();
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		Assert(shaderProgram != nullptr);
+
+		this->m_activeCamera = this->m_scene->GetActiveCamera();
+		RegisterNodeForRendering(filterId);
+		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
+		if(this->m_visibleTriangles.size() > 0) {
+			// World matrixes
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
+
+			// Sort the triangles
+			std::vector<CTriangle3D*> batchTriangles;
+			ITexture2DBase * batchDiffuseTexture;
+			ITexture2DBase * batchNormalTexture;
+			SMaterialElement * batchMaterialElement;
+
+			// Sort with the diffuse texture and the material
+			while(this->m_visibleTriangles.size() > 0) {
+				batchTriangles.clear();
+				batchTriangles.push_back(this->m_visibleTriangles[0]);
+				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
+				batchNormalTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_NORMAL);
+				batchMaterialElement = batchTriangles.at(0)->GetMaterialElement();
+
+				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
+
+				// Check for compatible triangles
+				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
+						batchTriangles.push_back(*it);
+						it = this->m_visibleTriangles.erase(it);
+					} else
+						++it;
+				}
+
+				// Transform
+				this->m_levelBuffer.Transform(batchTriangles, this->m_shadingType);
+
+				// Material
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), batchMaterialElement->m_kDiffuse);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), batchMaterialElement->m_kAmbient);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), batchMaterialElement->m_kSpecular);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), batchMaterialElement->m_kEmission);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
+
+				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
+					renderer->SetTexture(0, batchDiffuseTexture);
+					renderer->SetTexture(1, batchNormalTexture);
+				}
+
+				renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer(), this->m_levelBuffer.GetStride());
+				renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
+			}
+		}
+
+		if(filterId == SCENE_DEFAULT_ID) {
+			ISceneNode::Render();
+		}
+	}
+
+	void CBSPSceneNode::RegisterNodeForRendering(const int filterId) {
+		LOG_TRACE();
+
+		bool isFiltered = filterId != SCENE_DEFAULT_ID;
 
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
 			// Loop through each triangle
 			for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
-				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere())) {
+				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
 					this->m_visibleTriangles.push_back((*it2).get());
 					(*it2)->SetDrawn(true);
 				}

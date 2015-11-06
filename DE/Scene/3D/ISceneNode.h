@@ -158,6 +158,11 @@ namespace DE {
 		virtual void Render();
 
 		/**
+		* Render the geometry that will let the skybox pass through
+		*/
+		virtual void RenderSkyboxMask();
+
+		/**
 		* Get the type
 		* @return The node type
 		*/

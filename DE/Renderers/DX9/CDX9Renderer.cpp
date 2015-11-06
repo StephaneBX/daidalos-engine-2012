@@ -360,6 +360,42 @@ namespace DE {
 		this->m_device->SetRenderState(D3DRS_CULLMODE, CDX9Enums::Get(cullType));
 	}
 
+	void CDX9Renderer::SetStencilFunction(ECompare function) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILFUNC, CDX9Enums::Get(function));
+	}
+
+	void CDX9Renderer::SetStencilRef(const int ref) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILREF, ref);
+	}
+
+	void CDX9Renderer::SetStencilMask(const int mask) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILMASK, mask);
+	}
+
+	void CDX9Renderer::SetStencilFail(EStencilOperation operation) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILFAIL, CDX9Enums::Get(operation));
+	}
+
+	void CDX9Renderer::SetStencilZFail(EStencilOperation operation) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILZFAIL, CDX9Enums::Get(operation));
+	}
+
+	void CDX9Renderer::SetStencilPass(EStencilOperation operation) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_STENCILPASS, CDX9Enums::Get(operation));
+	}
+
 	void CDX9Renderer::SetScissor(const CRectangleI & rectangle) {
 		LOG_TRACE();
 
@@ -573,8 +609,7 @@ namespace DE {
 		this->m_d3dpp.BackBufferWidth = rect.right - rect.left;
 		this->m_d3dpp.BackBufferHeight = rect.bottom - rect.top;
 		this->m_d3dpp.EnableAutoDepthStencil = true;
-		this->m_d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
-		this->m_d3dpp.Flags = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
+		this->m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 
 		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
 
@@ -614,6 +649,7 @@ namespace DE {
 		this->m_device->SetRenderState(D3DRS_ALPHATESTENABLE, false);
 		this->m_device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 		this->m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+		this->m_device->SetRenderState(D3DRS_STENCILENABLE, false);
 
 		this->m_minVertexIndex = 0;
 		this->m_numVertices = 0;

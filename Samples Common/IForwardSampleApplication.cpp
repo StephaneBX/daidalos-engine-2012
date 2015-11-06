@@ -131,18 +131,42 @@ namespace SAMPLES {
 		this->m_renderer->BeginScene();
 
 		// ------------------------------
-		// Sky box
+		// Sky box mask
 		// ------------------------------
-		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, true);
+		this->m_renderer->SetStencilFunction(DE::COMPARE_ALWAYS);
+		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
 		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_scene3D->RenderSkyboxMask();
+
+		// ------------------------------
+		// Sky box
+		// ------------------------------
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+		this->m_renderer->SetStencilFunction(DE::COMPARE_LESS);
+		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilRef(0);
 		this->m_scene3D->RenderSkybox();
 
 		// ------------------------------
 		// Forward rendering: diffuse
 		// ------------------------------
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());

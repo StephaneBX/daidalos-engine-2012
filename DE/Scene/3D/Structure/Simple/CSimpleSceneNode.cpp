@@ -145,6 +145,10 @@ namespace DE {
 		ISceneNode::Render();
 	}
 
+	void CSimpleSceneNode::RenderSkyboxMask() {
+
+	}
+
 	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 

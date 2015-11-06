@@ -28,6 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILEVELSCENENODE_H
 #define __ILEVELSCENENODE_H
 
+#define SCENE_DEFAULT_ID 0
+#define SCENE_SKYBOX_ID -100
+
 #include "../../Scene/3D/CMeshBuffer.h"
 #include "../../Scene/3D/ICameraSceneNode.h"
 #include "../../Scene/3D/ISceneNode.h"
@@ -122,6 +125,11 @@ namespace DE {
 		* Render the level
 		*/
 		virtual void Render() = 0;
+
+		/**
+		* Render the geometry that will let the skybox pass through
+		*/
+		virtual void RenderSkyboxMask() = 0;
 
 		/**
 		* Slide a shape in the level

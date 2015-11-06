@@ -197,6 +197,42 @@ namespace DE {
 		void SetCullType(ERenderStateCullType cullType);
 
 		/**
+		* Set the stencil buffer function
+		* @param function The function
+		*/
+		void SetStencilFunction(ECompare function);
+
+		/**
+		* Set the stencil buffer reference value
+		* @param ref The reference value
+		*/
+		void SetStencilRef(const int ref);
+
+		/**
+		* Set the stencil buffer mask value
+		* @param mask The mask value
+		*/
+		void SetStencilMask(const int mask);
+
+		/**
+		* The stencil operation to perform when the stencil test fail
+		* @param operation The operation
+		*/
+		void SetStencilFail(EStencilOperation operation);
+
+		/**
+		* The stencil operation to perform when the stencil test succeed but the z-test failed
+		* @param operation The operation
+		*/
+		void SetStencilZFail(EStencilOperation operation);
+
+		/**
+		* The stencil operation to perform when the stencil test succeed
+		* @param operation The operation
+		*/
+		void SetStencilPass(EStencilOperation operation);
+
+		/**
 		* Set the scissor
 		* @param rectangle The rectangle
 		*/

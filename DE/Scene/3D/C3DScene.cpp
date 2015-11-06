@@ -80,6 +80,13 @@ namespace DE {
 		this->m_scene->UpdateAll(time);
 	}
 
+	void C3DScene::RenderSkyboxMask() {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		this->m_scene->RenderSkyboxMask();
+	}
+
 	void C3DScene::RenderSkybox() {
 		LOG_TRACE();
 

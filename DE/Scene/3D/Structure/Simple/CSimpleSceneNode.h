@@ -73,6 +73,11 @@ namespace DE {
 		void Render();
 
 		/**
+		* Render the geometry that will let the skybox pass through
+		*/
+		void RenderSkyboxMask();
+
+		/**
 		* Slide a shape on the bsp
 		* @param shape The shape to slide
 		* @param movement A CVector3F describing the shape movement

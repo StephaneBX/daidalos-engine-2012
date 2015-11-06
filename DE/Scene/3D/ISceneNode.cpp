@@ -179,6 +179,8 @@ namespace DE {
 		}
 	}
 
+	void ISceneNode::RenderSkyboxMask() {}
+
 	ESceneNodeType ISceneNode::GetType() const {
 		LOG_TRACE();
 

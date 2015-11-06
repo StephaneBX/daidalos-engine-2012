@@ -82,6 +82,11 @@ namespace DE {
 		void Render();
 
 		/**
+		* Render the geometry that will let the skybox pass through
+		*/
+		void RenderSkyboxMask();
+
+		/**
 		* Slide a shape on the bsp
 		* @param shape The shape to slide
 		* @param movement A CVector3F describing the shape movement
@@ -100,13 +105,19 @@ namespace DE {
 
 	protected:
 		/**
-		* Test the node and register its geometry for rendering if the node is visible
-		* @param node A geometry node
+		* Render the node with an optional filterId
+		* @param filterId The filter id or -1 to render all
 		*/
-		void RegisterNodeForRendering(CBSPTreeNode * node);
+		void RenderWithOptions(const int filterId);
 
 		/**
-		* Register the geometry leafs for faster acces
+		* Test the node and register its geometry for rendering if the node is visible
+		* @param filterId Limit the geometry to the id filterId or -1 to render all
+		*/
+		void RegisterNodeForRendering(const int filterId);
+
+		/**
+		* Register the geometry leafs for faster access
 		* @param node A geometry node
 		*/
 		void RegisterLeafs(CBSPTreeNode * node);

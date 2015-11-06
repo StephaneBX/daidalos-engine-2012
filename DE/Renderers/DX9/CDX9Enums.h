@@ -46,6 +46,7 @@ namespace DE {
 		static D3DBLEND s_renderStateBlendFunction[];
 		static D3DBLENDOP s_renderStateBlendOperation[];
 		static D3DCULL s_renderStateCullType[];
+		static D3DSTENCILOP s_stencilOperation[];
 
 	public:
 		/**
@@ -130,6 +131,13 @@ namespace DE {
 		* @param type The render state cull type
 		*/
 		static D3DCULL Get(ERenderStateCullType type);
+
+		/**
+		* Get the DX9 stencil operation
+		* @param operation The render stencil operation
+		* @return The DX9 stencil operation
+		*/
+		static D3DSTENCILOP Get(EStencilOperation operation);
 	};
 }
 

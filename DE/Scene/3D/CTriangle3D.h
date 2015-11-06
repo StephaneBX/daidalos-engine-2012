@@ -42,6 +42,7 @@ namespace DE {
 	*/
 	class CTriangle3D {
 	protected:
+		int m_id;
 		CVector3F m_vertices[3];
 		CVector3F m_normals[3];
 		CVector3F m_tangents[3];
@@ -68,32 +69,37 @@ namespace DE {
 		CTriangle3D(const CTriangle3D & triangle);
 
 		/**
+		* Set the id 
+		*/
+		void SetId(const int id);
+
+		/**
 		* Set a vertex
 		* @param vertex A vertex
-		* @param id The id
+		* @param index The index
 		*/
-		void SetVertex(const CVector3F & vertex, const int id);
+		void SetVertex(const CVector3F & vertex, const int index);
 
 		/**
 		* Set a normal
 		* @param normal A normal
-		* @param id The id
+		* @param index The index
 		*/
-		void SetNormal(const CVector3F & normal, const int id);
+		void SetNormal(const CVector3F & normal, const int index);
 
 		/**
 		* Set a texcoord
 		* @param texcoord A texcoord
-		* @param id The id
+		* @param index The index
 		*/
-		void SetTexcoord(const CVector2F & texcoord, const int id);
+		void SetTexcoord(const CVector2F & texcoord, const int index);
 
 		/**
 		* Set a color
 		* @param color A color
-		* @param id The id
+		* @param index The index
 		*/
-		void SetColor(const CVector4F & color, const int id);
+		void SetColor(const CVector4F & color, const int index);
 
 		/**
 		* Set a texture
@@ -121,32 +127,37 @@ namespace DE {
 		void Update();
 
 		/**
+		* Get the id
+		*/
+		const int GetId() const;
+
+		/**
 		* Get a vertex
-		* @param id The id
+		* @param index The index
 		* @return A vertex
 		*/
-		const CVector3F & GetVertex(const int id) const;
+		const CVector3F & GetVertex(const int index) const;
 
 		/**
 		* Get a normal
-		* @param id The id
+		* @param index The index
 		* @return A normal
 		*/
-		const CVector3F & GetNormal(const int id) const;
+		const CVector3F & GetNormal(const int index) const;
 
 		/**
 		* Get a tangent
-		* @param id The id
+		* @param index The index
 		* @return A tangent
 		*/
-		const CVector3F & GetTangent(const int id) const;
+		const CVector3F & GetTangent(const int index) const;
 
 		/**
 		* Get a binormal
-		* @param id The id
+		* @param index The index
 		* @return A binormal
 		*/
-		const CVector3F & GetBinormal(const int id) const;
+		const CVector3F & GetBinormal(const int index) const;
 
 		/**
 		* Get the flat normal
@@ -156,17 +167,17 @@ namespace DE {
 
 		/**
 		* Get a texcoord
-		* @param id The id
+		* @param index The index
 		* @return A texcoord
 		*/
-		const CVector2F & GetTexcoord(const int id) const;
+		const CVector2F & GetTexcoord(const int index) const;
 
 		/**
 		* Get a color
 		* @param id The id
 		* @return A color
 		*/
-		const CVector4F & GetColor(const int id) const;
+		const CVector4F & GetColor(const int index) const;
 
 		/**
 		* Get the incenter (center of gravity) of the triangle

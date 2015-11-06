@@ -81,6 +81,11 @@ namespace DE {
 		void UpdateAll(const float time = 0);
 
 		/**
+		* Render the geometry that will let the skybox pass through
+		*/
+		void RenderSkyboxMask();
+
+		/**
 		* Render the skybox
 		*/
 		void RenderSkybox();

@@ -32,6 +32,8 @@ namespace DE {
 	CTriangle3D::CTriangle3D() {
 		LOG_TRACE();
 
+		this->m_id = 0;
+
 		for(int i = 0; i < 3; ++i) {
 			this->m_colors[i] = CVector4F(1, 1, 1, 1);
 		}
@@ -46,28 +48,34 @@ namespace DE {
 		*this = triangle;
 	}
 
-	void CTriangle3D::SetVertex(const CVector3F & vertex, const int id) {
+	void CTriangle3D::SetId(const int id) {
 		LOG_TRACE();
 
-		this->m_vertices[id] = vertex;
+		this->m_id = id;
 	}
 
-	void CTriangle3D::SetNormal(const CVector3F & normal, const int id) {
+	void CTriangle3D::SetVertex(const CVector3F & vertex, const int index) {
 		LOG_TRACE();
 
-		this->m_normals[id] = normal;
+		this->m_vertices[index] = vertex;
 	}
 
-	void CTriangle3D::SetTexcoord(const CVector2F & texcoord, const int id) {
+	void CTriangle3D::SetNormal(const CVector3F & normal, const int index) {
 		LOG_TRACE();
 
-		this->m_texcoords[id] = texcoord;
+		this->m_normals[index] = normal;
 	}
 
-	void CTriangle3D::SetColor(const CVector4F & color, const int id) {
+	void CTriangle3D::SetTexcoord(const CVector2F & texcoord, const int index) {
 		LOG_TRACE();
 
-		this->m_colors[id] = color;
+		this->m_texcoords[index] = texcoord;
+	}
+
+	void CTriangle3D::SetColor(const CVector4F & color, const int index) {
+		LOG_TRACE();
+
+		this->m_colors[index] = color;
 	}
 
 	void CTriangle3D::SetTexture(const CTexture2D & texture, ETextureType type) {
@@ -138,28 +146,34 @@ namespace DE {
 		}
 	}
 
-	const CVector3F & CTriangle3D::GetVertex(const int id) const {
+	const int CTriangle3D::GetId() const {
 		LOG_TRACE();
 
-		return this->m_vertices[id];
+		return this->m_id;
 	}
 
-	const CVector3F & CTriangle3D::GetNormal(const int id) const {
+	const CVector3F & CTriangle3D::GetVertex(const int index) const {
 		LOG_TRACE();
-		LOG_TRACE();
-		return this->m_normals[id];
+
+		return this->m_vertices[index];
 	}
 
-	const CVector3F & CTriangle3D::GetTangent(const int id) const {
+	const CVector3F & CTriangle3D::GetNormal(const int index) const {
 		LOG_TRACE();
-
-		return this->m_tangents[id];
+		LOG_TRACE();
+		return this->m_normals[index];
 	}
 
-	const CVector3F & CTriangle3D::GetBinormal(const int id) const {
+	const CVector3F & CTriangle3D::GetTangent(const int index) const {
 		LOG_TRACE();
 
-		return this->m_binormals[id];
+		return this->m_tangents[index];
+	}
+
+	const CVector3F & CTriangle3D::GetBinormal(const int index) const {
+		LOG_TRACE();
+
+		return this->m_binormals[index];
 	}
 
 	const CVector3F & CTriangle3D::GetFlatNormal() const {
@@ -168,16 +182,16 @@ namespace DE {
 		return this->m_flatNormal;
 	}
 
-	const CVector2F & CTriangle3D::GetTexcoord(const int id) const {
+	const CVector2F & CTriangle3D::GetTexcoord(const int index) const {
 		LOG_TRACE();
 
-		return this->m_texcoords[id];
+		return this->m_texcoords[index];
 	}
 
-	const CVector4F & CTriangle3D::GetColor(const int id) const {
+	const CVector4F & CTriangle3D::GetColor(const int index) const {
 		LOG_TRACE();
 
-		return this->m_colors[id];
+		return this->m_colors[index];
 	}
 
 	const CVector3F CTriangle3D::GetIncenter() const {
