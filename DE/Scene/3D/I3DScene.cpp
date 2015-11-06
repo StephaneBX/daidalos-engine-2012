@@ -108,13 +108,13 @@ namespace DE {
 		this->m_activeSpotLights->numberOfLights = 0;
 		std::fill(this->m_activeSpotLights->enabled, this->m_activeSpotLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
 		std::fill(this->m_activeSpotLights->visibilityOrder, this->m_activeSpotLights->visibilityOrder + MAX_LIGHTS_IN_SHADERS, -1);
-		std::fill(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->distanceToCamera + MAX_LIGHTS_IN_SHADERS, this->m_activeCamera->GetFarDistance() * 2);
+		std::fill(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->distanceToCamera + MAX_LIGHTS_IN_SHADERS, this->m_activeCamera->GetFarDistance() * 200);
 		std::fill(this->m_activeSpotLights->node, this->m_activeSpotLights->node + MAX_LIGHTS_IN_SHADERS, nullptr);
 
 		this->m_activePointLights->numberOfLights = 0;
 		std::fill(this->m_activePointLights->enabled, this->m_activePointLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
 		std::fill(this->m_activePointLights->visibilityOrder, this->m_activePointLights->visibilityOrder + MAX_LIGHTS_IN_SHADERS, -1);
-		std::fill(this->m_activePointLights->distanceToCamera, this->m_activePointLights->distanceToCamera + MAX_LIGHTS_IN_SHADERS, this->m_activeCamera->GetFarDistance() * 2);
+		std::fill(this->m_activePointLights->distanceToCamera, this->m_activePointLights->distanceToCamera + MAX_LIGHTS_IN_SHADERS, this->m_activeCamera->GetFarDistance() * 200);
 
 		this->m_activeDirectionalLights->numberOfLights = 0;
 		std::fill(this->m_activeDirectionalLights->enabled, this->m_activeDirectionalLights->enabled + MAX_LIGHTS_IN_SHADERS, 0);
@@ -132,7 +132,6 @@ namespace DE {
 
 		// Sort the lights
 		SortLights();
-
 		ActiveLightsCheck();
 	}
 
