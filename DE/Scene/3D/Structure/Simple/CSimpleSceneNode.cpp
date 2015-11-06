@@ -81,6 +81,31 @@ namespace DE {
 	void CSimpleSceneNode::Render() {
 		LOG_TRACE();
 
+		RenderWithOptions(SCENE_DEFAULT_ID);
+	}
+
+	void CSimpleSceneNode::RenderSkyboxMask() {
+		LOG_TRACE();
+
+		RenderWithOptions(SCENE_SKYBOX_ID);
+	}
+
+	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+		LOG_TRACE();
+
+		shape.SetPosition(shape.GetPosition() + movement);
+		return false;
+	}
+
+	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
+		return false;
+	}
+
+	void CSimpleSceneNode::RenderWithOptions(const int filterId) {
+		LOG_TRACE();
+
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
@@ -90,7 +115,7 @@ namespace DE {
 		Assert(shaderProgram != nullptr);
 
 		this->m_activeCamera = this->m_scene->GetActiveCamera();
-		RegisterBrushesForRendering();
+		RegisterBrushesForRendering(filterId);
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0) {
 			// World matrixes
@@ -145,38 +170,19 @@ namespace DE {
 		ISceneNode::Render();
 	}
 
-	void CSimpleSceneNode::RenderSkyboxMask() {
-
-	}
-
-	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+	void CSimpleSceneNode::RegisterBrushesForRendering(const int filterId) {
 		LOG_TRACE();
 
-		shape.SetPosition(shape.GetPosition() + movement);
-		return false;
-	}
-
-	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
-		LOG_TRACE();
-
-		return false;
-	}
-
-	void CSimpleSceneNode::RegisterBrushesForRendering() {
-		LOG_TRACE();
+		bool isFiltered = filterId != SCENE_DEFAULT_ID;
 
 		// Loop through each brush
 		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {
-			// Check if the brush is visible
-			//if(!this->m_activeCamera->FrustumCull((*it).visibilityShape))
-			//{
 			// Loop through each triangle
 			for(auto it2 = (*it).geometry.begin(); it2 != (*it).geometry.end(); ++it2) {
-				if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere())) {
+				if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
 					this->m_visibleTriangles.push_back((*it2));
 				}
 			}
-			//}
 		}
 	}
 }

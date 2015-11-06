@@ -539,6 +539,9 @@ namespace DE {
 		std::ostringstream ss;
 
 		std::string name = handle.ToElement()->Attribute("file");
+		int id = SCENE_DEFAULT_ID;
+		handle.ToElement()->QueryIntAttribute("id", &id);
+
 		GetNodeData(handle, "visible", visible, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
@@ -570,6 +573,7 @@ namespace DE {
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CTriangle3D * triangle = new CTriangle3D();
+				triangle->SetId(id);
 
 				ss.str("");
 				ss << "group_" << (i + 1);

@@ -96,10 +96,16 @@ namespace DE {
 
 	protected:
 		/**
-		* Test the brushes and register their geometry for rendering if the brush is visible
-		* @param node A brush
+		* Render the node with an optional filterId
+		* @param filterId The filter id or -1 to render all
 		*/
-		void RegisterBrushesForRendering();
+		void RenderWithOptions(const int filterId);
+
+		/**
+		* Test the brushes and register their geometry for rendering if the brush is visible
+		* @param filterId Limit the geometry to the id filterId or -1 to render all
+		*/
+		void RegisterBrushesForRendering(const int filterId);
 
 	private:
 		CSimpleSceneNode(const CSimpleSceneNode & copy);

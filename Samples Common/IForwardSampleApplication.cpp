@@ -35,7 +35,7 @@ namespace SAMPLES {
 		this->m_scene2D = new DE::C2DScene();
 
 		this->m_cursor.SetTexture("cursor.png");
-		this->m_cursor.SetVisible(true);
+		this->m_cursor.SetVisible(false);
 		this->m_scene2D->SetCursor(&this->m_cursor);
 
 		DE::STexture2DFilterPolicy textureFilter2;
