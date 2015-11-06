@@ -46,8 +46,9 @@ namespace SAMPLE1 {
 	void CSampleApplication::Update(const float time) {
 		this->m_fpsCounter.Update(time);
 
-		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT))
+		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
 			this->m_alive = false;
+		}
 
 		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_camera->Update(time);

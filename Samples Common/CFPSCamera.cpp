@@ -26,10 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #define FPS_CAMERA_MOVEMENT_SPEED 10.0f
-#define FPS_CAMERA_ROTATION_SPEED 60.0f
+#define FPS_CAMERA_ROTATION_SPEED 90.0f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 #define FPS_CAMERA_COLLISION_UPDATE 16
+#define FPS_CAMERA_RUN_FACTOR 1.7f
 
 #include <limits>
 #include <Core/CInputDevice.h>
@@ -58,6 +59,7 @@ namespace SAMPLES {
 			{ FPS_CAMERA_LOOKDOWN, FPS_CAMERA_LOOKUP },
 			{ FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT },
 			{ FPS_CAMERA_LOOKRIGHT, FPS_CAMERA_LOOKLEFT },
+			{ FPS_CAMERA_RUN, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -73,8 +75,10 @@ namespace SAMPLES {
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, DE::INPUT_KEY_KEYBOARD_DOWN);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
 
 		// Gamepad mapping
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON6);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FORWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYN);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_BACKWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYP);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFELEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LXN);
@@ -84,6 +88,7 @@ namespace SAMPLES {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXN);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RUN, 0, DE::INPUT_KEY_GAMEPAD_BUTTON4);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
@@ -146,6 +151,9 @@ namespace SAMPLES {
 			this->m_state |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN))
+			this->m_state |= FPS_CAMERA_RUN;
 	}
 
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
@@ -199,7 +207,8 @@ namespace SAMPLES {
 		this->m_gravity.y += FPS_CAMERA_GRAVITY * timeSecond;
 
 		// Visibility position update
-		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
+		const float speedFactor = ((this->m_state & FPS_CAMERA_RUN) != 0) ? FPS_CAMERA_RUN_FACTOR : 1.0f;
+		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond * speedFactor;
 
 		// If a collision test is required 
 		if(this->m_lastCollisionUpdateTimer >= FPS_CAMERA_COLLISION_UPDATE) {
