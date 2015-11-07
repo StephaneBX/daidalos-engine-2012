@@ -40,6 +40,12 @@ namespace SAMPLES {
 
 		this->m_state = DOOR_STATE_CLOSED;
 		this->m_timer = 0;
+
+		this->m_startSound.LoadFromFile("door_start.wav", DE::SOUND_TYPE_STATIC);
+		this->m_startSound.SetRelativeToListener(true);
+
+		this->m_stopSound.LoadFromFile("door_stop.wav", DE::SOUND_TYPE_STATIC);
+		this->m_stopSound.SetRelativeToListener(true);
 	}
 
 	void CDoorEntity::Update(float const time) {
@@ -48,10 +54,12 @@ namespace SAMPLES {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
 			this->m_scene3D->SetBrushCollision(this->m_node->GetId(), false);
+			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
 		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_CLOSED;
+			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
 		// Trigger action
@@ -61,6 +69,7 @@ namespace SAMPLES {
 			case DOOR_STATE_CLOSED:
 				this->m_state = DOOR_STATE_OPENING;
 				this->m_node->StartAnimation(1, 2, ANIMATION_SPEED);
+				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 				break;
 
 			case DOOR_STATE_OPENED:
@@ -81,6 +90,7 @@ namespace SAMPLES {
 					this->m_state = DOOR_STATE_CLOSING;
 					this->m_node->StartAnimation(2, 3, ANIMATION_SPEED);
 					this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
+					this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 				}
 			}
 		}
