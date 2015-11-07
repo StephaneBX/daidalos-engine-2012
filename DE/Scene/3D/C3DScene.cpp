@@ -136,6 +136,13 @@ namespace DE {
 		this->m_scene->SendDirectionalLightDataToShader(id);
 	}
 
+	void C3DScene::SetBrushCollision(const int brushId, const bool collision) {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		this->m_scene->SetBrushCollision(brushId, collision);
+	}
+
 	const bool C3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 

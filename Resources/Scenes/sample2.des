@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene structure="1">
 	<!-- Level node with a bsp structure -->
-	<node type="0" name="level" ambientColor="0.5:0.5:0.5" skyName="sky1" skyAmbientColor="0.5:0.5:0.5">
+	<node type="0" name="level" ambientColor="0.4:0.4:0.4" skyName="sky1" skyAmbientColor="0.5:0.5:0.5">
 		<!-- Level node geometry -->
 		
 		<multi_brush>
@@ -4161,73 +4161,73 @@
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>10.00:16.00:30.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>0.00:16.00:30.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>-10.00:16.00:30.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>10.00:16.00:40.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>0.00:16.00:40.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>-10.00:16.00:40.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>10.00:16.00:50.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>0.00:16.00:50.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>-10.00:16.00:50.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>10.00:16.00:60.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>0.00:16.00:60.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>-10.00:16.00:60.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
@@ -4428,157 +4428,157 @@
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:80.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>140.00:24.00:150.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>150.00:24.00:150.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>160.00:24.00:150.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:150.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>180.00:24.00:150.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>140.00:24.00:160.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>150.00:24.00:160.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>160.00:24.00:160.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:160.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>180.00:24.00:160.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>140.00:24.00:170.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>150.00:24.00:170.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>160.00:24.00:170.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:170.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>180.00:24.00:170.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>140.00:24.00:180.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>150.00:24.00:180.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>160.00:24.00:180.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:180.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>180.00:24.00:180.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>140.00:24.00:190.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>150.00:24.00:190.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>160.00:24.00:190.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>170.00:24.00:190.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
 
-			<brush file="ceiling_1.obj" id="-100">
+			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
 				<position>180.00:24.00:190.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
@@ -7862,6 +7862,19 @@
 			<diffuse_texture>health_bonus_d.png</diffuse_texture>
 			<normal_texture>health_bonus_n.png</normal_texture>
 		</node>
+		
+		<!-- Door entity with brush collision -->
+		<node id="-5" type="6" name="door_entity" file="door.ms3d">
+			<position>106:8:80</position>
+			<rotation>0:0:0</rotation>
+			<diffuse_texture>door_up_d.png</diffuse_texture>
+			<normal_texture>door_up_n.png</normal_texture>
+		</node>
+		<brush file="cube.obj" id="-5">
+			<position>106:11:80.00</position>
+			<rotation>0.0:0.0:0.0</rotation>
+			<scale>1.00:3.00:4.00</scale>
+		</brush>
 		
 		<!-- Player camera -->
 		<node type="1" name="player">

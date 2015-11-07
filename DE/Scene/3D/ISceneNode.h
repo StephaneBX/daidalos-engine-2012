@@ -47,6 +47,7 @@ namespace DE {
 	protected:
 		bool m_enabled;
 		bool m_active;
+		int m_id;
 		std::string m_name;
 		ESceneNodeType m_type;
 		CVector3F m_localPosition;
@@ -115,6 +116,12 @@ namespace DE {
 		* @param enabled The enabled status
 		*/
 		void SetEnabled(const bool enabled);
+
+		/**
+		* Set the node id
+		* @param id The id
+		*/
+		void SetId(const int id);
 
 		/**
 		* Set the local position
@@ -192,6 +199,11 @@ namespace DE {
 		*/
 		const bool RemoveChild(ISceneNode * child);
 
+		/**
+		* Get the node id
+		* return The id
+		*/
+		const int GetId() const;
 
 		/**
 		* Get the node name

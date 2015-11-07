@@ -134,6 +134,16 @@ namespace DE {
 		RenderWithOptions(SCENE_SKYBOX_ID);
 	}
 
+	void CBSPSceneNode::SetBrushCollision(const int brushId, const bool collision) {
+		LOG_TRACE();
+
+		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {
+			if((*it)->id == brushId) {
+				(*it)->enabled = collision;
+			}
+		}
+	}
+
 	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 

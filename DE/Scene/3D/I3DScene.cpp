@@ -254,6 +254,12 @@ namespace DE {
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_COLOR), this->m_activeDirectionalLights->color[id]);
 	}
 
+	void I3DScene::SetBrushCollision(const int brushId, const bool collision) {
+		LOG_TRACE();
+
+		return static_cast<ILevelSceneNode*>(this->m_root)->SetBrushCollision(brushId, collision);
+	}
+
 	const bool I3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 

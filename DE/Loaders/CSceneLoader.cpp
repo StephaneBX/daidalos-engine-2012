@@ -120,6 +120,9 @@ namespace DE {
 			name = handle.ToElement()->Attribute("name");
 		}
 
+		int id = 0;
+		handle.ToElement()->QueryIntAttribute("id", &id);
+
 		CVector4F nodeDefaultColor;
 		CVector3F nodeDefaultScale;
 
@@ -159,6 +162,7 @@ namespace DE {
 			// Create the node
 			node = new CProjectionCameraSceneNode(scene, parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
 			node->SetScale(scale);
+			node->SetId(id);
 			break;
 
 		case SCENE_NODE_SPOTLIGHT:
@@ -176,6 +180,7 @@ namespace DE {
 
 			// Create the node
 			node = new CSpotLightSceneNode(scene, parent, name, position, rotation, color, range, radius, falloff, tightness, shadowCaster, enabled);
+			node->SetId(id);
 			break;
 
 		case SCENE_NODE_POINTLIGHT:
@@ -190,6 +195,7 @@ namespace DE {
 
 			// Create the node
 			node = new CPointLightSceneNode(scene, parent, name, position, color, range, falloff, shadowCaster, enabled);
+			node->SetId(id);
 			break;
 
 		case SCENE_NODE_DIRECTIONALLIGHT:
@@ -202,6 +208,7 @@ namespace DE {
 
 			// Create the node
 			node = new CDirectionalLightSceneNode(scene, parent, name, rotation, color, shadowCaster, enabled);
+			node->SetId(id);
 			break;
 
 		case SCENE_NODE_STATICMESH:
@@ -219,6 +226,7 @@ namespace DE {
 
 			// Create the node
 			node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+			node->SetId(id);
 			if(diffuseTexture != "")
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(normalTexture != "")
@@ -244,6 +252,7 @@ namespace DE {
 
 			// Create the node
 			node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+			node->SetId(id);
 			if(diffuseTexture != "")
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(normalTexture != "")
@@ -279,6 +288,7 @@ namespace DE {
 			GetNodeData(handle, "file", file, "");
 
 			node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), parent, name);
+			node->SetId(id);
 			static_cast<CSoundSceneNode*>(node)->SetPosition(position);
 			static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
 			static_cast<CSoundSceneNode*>(node)->SetSoundGain(gain);
@@ -300,6 +310,7 @@ namespace DE {
 
 			// Create the node
 			node = new CEmptySceneNode(scene, parent, name, position);
+			node->SetId(id);
 			static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 			break;
 

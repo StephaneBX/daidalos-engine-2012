@@ -125,6 +125,11 @@ namespace DE {
 		void SendDirectionalLightDataToShader(const int id);
 
 		/**
+		* Set the collision state of a brush id
+		*/
+		void SetBrushCollision(const int brushId, const bool collision);
+
+		/**
 		* Slide a shape on the scene
 		* @param shape The shape to slide
 		* @param movement A CVector3F describing the shape movement

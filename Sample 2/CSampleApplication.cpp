@@ -39,6 +39,13 @@ namespace SAMPLE2 {
 
 		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
+		// Load the doors
+		std::vector<DE::ISceneNode*> doorNode = this->m_scene3D->GetNodeArray("door_entity");
+		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
+			SAMPLES::CDoorEntity * doorEntity = new SAMPLES::CDoorEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
+			this->m_doors.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
+		}
+
 		MainLoop();
 	}
 
@@ -61,6 +68,11 @@ namespace SAMPLE2 {
 
 		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_scene3D->UpdateAll(time);
+
+		// Update the doors
+		for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
+			(*it)->Update(time);
+		}
 
 		// Update the position
 		std::stringstream ss;

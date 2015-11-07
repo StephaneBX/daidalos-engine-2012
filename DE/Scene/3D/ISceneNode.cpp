@@ -38,6 +38,7 @@ namespace DE {
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
 			this->m_parent = parent;
 
+		this->m_id = 0;
 		this->m_name = name;
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_localPosition = CVector3F(0, 0, 0);
@@ -55,6 +56,7 @@ namespace DE {
 		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
 			this->m_parent = parent;
 
+		this->m_id = 0;
 		this->m_name = name;
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_localPosition = position;
@@ -94,6 +96,12 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_enabled = enabled;
+	}
+
+	void ISceneNode::SetId(const int id) {
+		LOG_TRACE();
+
+		this->m_id = id;
 	}
 
 	void ISceneNode::SetPosition(const CVector3F & position) {
@@ -209,6 +217,12 @@ namespace DE {
 		LOG_TRACE();
 
 		return true;
+	}
+
+	const int ISceneNode::GetId() const {
+		LOG_TRACE();
+
+		return this->m_id;
 	}
 
 	const std::string & ISceneNode::GetName() const {

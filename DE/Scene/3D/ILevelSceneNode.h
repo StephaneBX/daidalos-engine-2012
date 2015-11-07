@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __ILEVELSCENENODE_H
 
 #define SCENE_DEFAULT_ID 0
-#define SCENE_SKYBOX_ID -100
+#define SCENE_SKYBOX_ID -9999
 
 #include "../../Scene/3D/CMeshBuffer.h"
 #include "../../Scene/3D/ICameraSceneNode.h"
@@ -130,6 +130,11 @@ namespace DE {
 		* Render the geometry that will let the skybox pass through
 		*/
 		virtual void RenderSkyboxMask() = 0;
+
+		/**
+		* Set the collision state of a brush id
+		*/
+		virtual void SetBrushCollision(const int brushId, const bool collision) = 0;
 
 		/**
 		* Slide a shape in the level

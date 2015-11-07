@@ -90,6 +90,10 @@ namespace DE {
 		RenderWithOptions(SCENE_SKYBOX_ID);
 	}
 
+	void CSimpleSceneNode::SetBrushCollision(const int brushId, const bool collision) {
+
+	}
+
 	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 

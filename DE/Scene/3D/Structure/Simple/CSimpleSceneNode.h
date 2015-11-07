@@ -78,6 +78,11 @@ namespace DE {
 		void RenderSkyboxMask();
 
 		/**
+		* Set the collision state of a brush id
+		*/
+		void SetBrushCollision(const int brushId, const bool collision);
+
+		/**
 		* Slide a shape on the bsp
 		* @param shape The shape to slide
 		* @param movement A CVector3F describing the shape movement

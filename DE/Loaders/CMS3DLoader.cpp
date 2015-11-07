@@ -109,6 +109,7 @@ namespace DE {
 
 		// Load the materials
 		fread(&this->m_data->numberOfMaterials, sizeof(unsigned short), 1, file);
+		this->m_data->material = nullptr;
 		if(this->m_data->numberOfMaterials > 0) {
 			this->m_data->material = new SMS3DMaterial[this->m_data->numberOfMaterials];
 			for(int i = 0; i < this->m_data->numberOfMaterials; i++) {
