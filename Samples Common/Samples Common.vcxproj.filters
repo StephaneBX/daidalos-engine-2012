@@ -30,6 +30,12 @@
     <ClInclude Include="CDoorEntity.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="CFanEntity.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -45,6 +51,12 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CDoorEntity.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CFanEntity.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="IEntity.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

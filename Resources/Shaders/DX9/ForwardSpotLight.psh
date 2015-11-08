@@ -1,4 +1,4 @@
-#define EPSILON 0.0005f
+#define EPSILON 0.0001f
 
 uniform float viewDistance;
 uniform float fogFalloff;

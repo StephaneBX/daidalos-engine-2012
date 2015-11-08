@@ -37,9 +37,11 @@ namespace DE {
 	*/
 	class CAnimatedMeshSceneNode : public IMeshSceneNode {
 	protected:
+		bool m_looped;
 		float m_animationStart;
 		float m_animationEnd;
 		float m_animationSpeed;
+		float m_animationCurrent;
 		EMeshAnimationState m_animationState;
 		CAnimatedMesh m_mesh;
 
@@ -66,6 +68,36 @@ namespace DE {
 		CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
+		* Set the looped state
+		* @param looped If the animation is looped
+		*/
+		void SetLooped(const bool looped);
+
+		/**
+		* Set the start frame
+		* @param startFrame The start frame
+		*/
+		void SetStartFrame(const float startFrame);
+
+		/**
+		* Set the end frame
+		* @param endFrame The end frame
+		*/
+		void SetEndFrame(const float endFrame);
+
+		/**
+		* Set the current frame
+		* @param currentFrame The current frame
+		*/
+		void SetCurrentFrame(const float currentFrame);
+
+		/**
+		* Set the animation speed
+		* @param speed The animation
+		*/
+		void SetAnimationSpeed(const float speed);
+
+		/**
 		* Start an animation
 		* @param startFrame The starting frame
 		* @param endFrame The ending frame
@@ -82,6 +114,11 @@ namespace DE {
 		* Stop the animation
 		*/
 		void StopAnimation();
+
+		/**
+		* Resume the animation
+		*/
+		void ResumeAnimation();
 
 		/**
 		* Update the absolute position

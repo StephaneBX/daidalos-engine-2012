@@ -67,15 +67,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CDoorEntity.h" />
+    <ClInclude Include="CFanEntity.h" />
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
+    <ClInclude Include="IEntity.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
     <ClInclude Include="ISampleApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDoorEntity.cpp" />
+    <ClCompile Include="CFanEntity.cpp" />
     <ClCompile Include="CFPSCamera.cpp" />
     <ClCompile Include="CFreeCamera.cpp" />
+    <ClCompile Include="IEntity.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="ISampleApplication.cpp" />
   </ItemGroup>

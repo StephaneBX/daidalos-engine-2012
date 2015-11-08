@@ -33,6 +33,7 @@ namespace DE {
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
 		LOG_TRACE();
 
+		this->m_looped = false;
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -51,6 +52,7 @@ namespace DE {
 		this->m_animationStart = 0;
 		this->m_animationEnd = 0;
 		this->m_animationSpeed = 0;
+		this->m_animationCurrent = 0;
 		this->m_animationState = MESH_ANIMATION_STATE_STOPPED;
 
 		this->m_mesh.Animate(0);
@@ -59,6 +61,7 @@ namespace DE {
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
 		LOG_TRACE();
 
+		this->m_looped = false;
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
@@ -77,9 +80,40 @@ namespace DE {
 		this->m_animationStart = 0;
 		this->m_animationEnd = 0;
 		this->m_animationSpeed = 0;
+		this->m_animationCurrent = 0;
 		this->m_animationState = MESH_ANIMATION_STATE_STOPPED;
 
 		this->m_mesh.Animate(0);
+	}
+
+	void CAnimatedMeshSceneNode::SetLooped(const bool looped) {
+		LOG_TRACE();
+
+		this->m_looped = looped;
+	}
+
+	void CAnimatedMeshSceneNode::SetStartFrame(const float startFrame) {
+		LOG_TRACE();
+
+		this->m_animationStart = startFrame;
+	}
+
+	void CAnimatedMeshSceneNode::SetEndFrame(const float endFrame) {
+		LOG_TRACE();
+
+		this->m_animationEnd = endFrame;
+	}
+
+	void CAnimatedMeshSceneNode::SetCurrentFrame(const float currentFrame) {
+		LOG_TRACE();
+
+		this->m_animationCurrent = currentFrame;
+	}
+
+	void CAnimatedMeshSceneNode::SetAnimationSpeed(const float speed) {
+		LOG_TRACE();
+
+		this->m_animationSpeed = speed;
 	}
 
 	void CAnimatedMeshSceneNode::StartAnimation(const float startFrame, const float endFrame, const float speed) {
@@ -88,6 +122,7 @@ namespace DE {
 		this->m_animationStart = startFrame;
 		this->m_animationEnd = endFrame;
 		this->m_animationSpeed = speed;
+		this->m_animationCurrent = startFrame;
 		this->m_animationState = MESH_ANIMATION_STATE_PLAYING;
 	}
 
@@ -103,6 +138,12 @@ namespace DE {
 		this->m_animationState = MESH_ANIMATION_STATE_STOPPED;
 	}
 
+	void CAnimatedMeshSceneNode::ResumeAnimation() {
+		LOG_TRACE();
+
+		this->m_animationState = MESH_ANIMATION_STATE_PLAYING;
+	}
+
 	void CAnimatedMeshSceneNode::Update(const float time) {
 		LOG_TRACE();
 
@@ -110,11 +151,16 @@ namespace DE {
 
 		// Animation update
 		if(this->m_animationState == MESH_ANIMATION_STATE_PLAYING && time > 0) {
-			this->m_animationStart += (this->m_animationSpeed * time) / 1000.0f;
-			if(this->m_animationStart >= this->m_animationEnd)
-				StopAnimation();
+			this->m_animationCurrent += (this->m_animationSpeed * time) / 1000.0f;
+			if(this->m_animationCurrent >= this->m_animationEnd) {
+				if(this->m_looped) {
+					this->m_animationCurrent = (this->m_animationCurrent - this->m_animationEnd) + this->m_animationStart;
+				} else {
+					StopAnimation();
+				}
+			}
 
-			this->m_mesh.Animate(this->m_animationStart);
+			this->m_mesh.Animate(this->m_animationCurrent);
 			this->m_needGeometryUpdate = true;
 		}
 

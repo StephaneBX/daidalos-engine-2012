@@ -191,6 +191,14 @@ namespace SAMPLES {
 		DirectionalLightsRendering();
 
 		// ------------------------------
+		// Debug
+		// ------------------------------
+		if(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
+			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+			this->m_scene3D->RenderDebugInformation();
+		}
+
+		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
 		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
@@ -223,6 +231,7 @@ namespace SAMPLES {
 
 	void IForwardSampleApplication::SpotLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
 
 		for(int i = 0; i < this->m_scene3D->GetNumberOfActiveSpotLights(); ++i) {
 			if(this->m_scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
@@ -274,6 +283,7 @@ namespace SAMPLES {
 	void IForwardSampleApplication::PointLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -301,6 +311,7 @@ namespace SAMPLES {
 	void IForwardSampleApplication::DirectionalLightsRendering() {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);

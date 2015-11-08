@@ -46,6 +46,14 @@ namespace SAMPLE2 {
 			this->m_doors.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
 		}
 
+		// Load the fans
+		std::vector<DE::ISceneNode*> fanNode = this->m_scene3D->GetNodeArray("fan_entity");
+		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
+			SAMPLES::CFanEntity * fanEntity = new SAMPLES::CFanEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get());
+			fanEntity->DoAction();
+			this->m_fans.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
+		}
+
 		MainLoop();
 	}
 
@@ -71,6 +79,11 @@ namespace SAMPLE2 {
 
 		// Update the doors
 		for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
+			(*it)->Update(time);
+		}
+
+		// Update the fans
+		for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
 			(*it)->Update(time);
 		}
 
