@@ -7888,14 +7888,14 @@
 		</brush>
 		
 		<!-- Lever with Fan -->
-		<node id="-10" type="6" name="lever_entity" file="lever.ms3d">
+		<node type="6" name="switch_entity" file="lever.ms3d">
 			<position>159:11:70</position>
 			<rotation>0:-90:0</rotation>
 			<scale>5:5:5</scale>
 			<diffuse_texture>lever_d.png</diffuse_texture>
 			<normal_texture>lever_n.png</normal_texture>
 		</node>
-		<node id="-10" type="6" name="fan_entity" file="fan.ms3d">
+		<node type="6" name="fan_entity" file="fan.ms3d">
 			<position>170:32:80</position>
 			<scale>2:2:2</scale>
 			<diffuse_texture>black.png</diffuse_texture>

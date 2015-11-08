@@ -33,6 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CFPSCamera.h"
 #include "CDoorEntity.h"
 #include "CFanEntity.h"
+#include "CSwitchEntity.h"
 
 namespace SAMPLE2
 {
@@ -46,6 +47,7 @@ namespace SAMPLE2
 		DE::CSpotLightSceneNode * m_spotLight;
 		std::vector<std::unique_ptr<SAMPLES::CDoorEntity> > m_doors;
 		std::vector<std::unique_ptr<SAMPLES::CFanEntity> > m_fans;
+		std::vector<std::unique_ptr<SAMPLES::CSwitchEntity> > m_switchs;
 
 	public:
 		/**

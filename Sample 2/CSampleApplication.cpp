@@ -54,6 +54,15 @@ namespace SAMPLE2 {
 			this->m_fans.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
 		}
 
+		// Load the switchs
+		std::vector<DE::ISceneNode*> switchNode = this->m_scene3D->GetNodeArray("switch_entity");
+		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
+			SAMPLES::CSwitchEntity * switchEntity = new SAMPLES::CSwitchEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
+			this->m_switchs.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
+		}
+		this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
+
+
 		MainLoop();
 	}
 
@@ -79,6 +88,11 @@ namespace SAMPLE2 {
 
 		// Update the doors
 		for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
+			(*it)->Update(time);
+		}
+
+		// Update the switch
+		for(auto it = this->m_switchs.begin(); it != this->m_switchs.end(); it++) {
 			(*it)->Update(time);
 		}
 

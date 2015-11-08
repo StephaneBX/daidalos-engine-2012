@@ -131,6 +131,11 @@ namespace DE {
 		*/
 		virtual void Render();
 
+		/**
+		* Get the visibility shape 
+		*/
+		CSphereF * GetVisibilityShape() const;
+
 	protected:
 		/**
 		* Finalize the geometry before rendering the mesh

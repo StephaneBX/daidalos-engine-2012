@@ -200,6 +200,12 @@ namespace DE {
 		ISceneNode::Render();
 	}
 
+	CSphereF * IMeshSceneNode::GetVisibilityShape() const {
+		LOG_TRACE();
+
+		return this->m_visibilityShape;
+	}
+
 	void IMeshSceneNode::FinalizeGeometry() {
 		LOG_TRACE();
 	}

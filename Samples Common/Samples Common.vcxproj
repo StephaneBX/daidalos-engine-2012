@@ -70,6 +70,7 @@
     <ClInclude Include="CFanEntity.h" />
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
+    <ClInclude Include="CSwitchEntity.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
     <ClInclude Include="ISampleApplication.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="CFanEntity.cpp" />
     <ClCompile Include="CFPSCamera.cpp" />
     <ClCompile Include="CFreeCamera.cpp" />
+    <ClCompile Include="CSwitchEntity.cpp" />
     <ClCompile Include="IEntity.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="ISampleApplication.cpp" />

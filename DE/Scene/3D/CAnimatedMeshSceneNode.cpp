@@ -156,6 +156,7 @@ namespace DE {
 				if(this->m_looped) {
 					this->m_animationCurrent = (this->m_animationCurrent - this->m_animationEnd) + this->m_animationStart;
 				} else {
+					this->m_animationCurrent = this->m_animationEnd;
 					StopAnimation();
 				}
 			}

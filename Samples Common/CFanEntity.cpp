@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define ANIMATION_SPEED 15.0f
-#define ANIMATION_FACTOR 3.0f
+#define ANIMATION_SPEED 80.0f
+#define ANIMATION_FACTOR 30.0f
 
 #include "CFanEntity.h"
 
@@ -45,24 +45,26 @@ namespace SAMPLES {
 	}
 
 	void CFanEntity::Update(float const time) {
+		const float timePerSecond = time / 1000.0f;
+
 		switch(this->m_state) {
 		case FAN_STATE_STARTING:
-			this->m_speed += (ANIMATION_FACTOR * time);
-			this->m_node->SetAnimationSpeed(this->m_speed);
+			this->m_speed += (ANIMATION_FACTOR * timePerSecond);
 			if(this->m_speed > ANIMATION_SPEED) {
 				this->m_speed = ANIMATION_SPEED;
 				this->m_state = FAN_STATE_STARTED;
 			}
+			this->m_node->SetAnimationSpeed(this->m_speed);
 			break;
 
 		case FAN_STATE_STOPPING:
-			this->m_speed -= ANIMATION_FACTOR * time;
-			this->m_node->SetAnimationSpeed(this->m_speed);
+			this->m_speed -= (ANIMATION_FACTOR * timePerSecond);
 			if(this->m_speed < 0) {
 				this->m_speed = 0;
 				this->m_state = FAN_STATE_STOPPED;
 				this->m_node->StopAnimation();
 			}
+			this->m_node->SetAnimationSpeed(this->m_speed);
 			break;
 
 		default:
@@ -92,6 +94,7 @@ namespace SAMPLES {
 	void CFanEntity::Start() {
 		this->m_speed = 0;
 		this->m_state = FAN_STATE_STARTING;
+		this->m_node->SetAnimationSpeed(this->m_speed);
 		this->m_node->ResumeAnimation();
 	}
 

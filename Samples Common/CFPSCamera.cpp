@@ -59,7 +59,8 @@ namespace SAMPLES {
 			{ FPS_CAMERA_LOOKDOWN, FPS_CAMERA_LOOKUP },
 			{ FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT },
 			{ FPS_CAMERA_LOOKRIGHT, FPS_CAMERA_LOOKLEFT },
-			{ FPS_CAMERA_RUN, -1 }
+			{ FPS_CAMERA_RUN, -1 },
+			{ FPS_CAMERA_INTERACT, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -76,6 +77,7 @@ namespace SAMPLES {
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, DE::INPUT_KEY_KEYBOARD_E);
 
 		// Gamepad mapping
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON6);

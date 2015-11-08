@@ -75,7 +75,7 @@ namespace SAMPLES {
 
 		/**
 		* Check if the action can be triggered
-		* return True if the action can be triggered, false otherwise
+		* @return True if the action can be triggered, false otherwise
 		*/
 		const bool CanDoAction() const;
 
