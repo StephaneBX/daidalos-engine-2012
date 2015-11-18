@@ -33,7 +33,7 @@ namespace SAMPLES {
 		this->m_targetsEntity.insert(entity);
 	}
 
-	void IEntity::RemoveEntity(IEntity * entity) {
+	void IEntity::RemoveTarget(IEntity * entity) {
 		this->m_targetsEntity.erase(entity);
 	}
 }

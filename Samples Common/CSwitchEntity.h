@@ -47,6 +47,7 @@ namespace SAMPLES {
 	*/
 	class CSwitchEntity : public IEntity {
 	private:
+		bool m_highlighted;
 		DE::CInputDevice * m_inputDevice;
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;

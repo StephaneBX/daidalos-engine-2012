@@ -69,18 +69,43 @@ namespace DE {
 
 		std::ostringstream ss;
 		this->m_material.LoadFromFile(filename);
-		this->m_materialElement.clear();
+		this->m_defaultMaterialElement.clear();
+		this->m_activeMaterialElement.clear();
 
 		SiniP materialConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
 		for(int i = 0; i < this->m_numberOfGroups; ++i) {
 			ss.str("");
 			ss << "group_" << (i + 1);
-			this->m_materialElement.push_back(materialConf.GetValueString(this->m_filename, ss.str(), "default"));
+
+			std::string name = materialConf.GetValueString(this->m_filename, ss.str(), "default");
+			SMaterialElement * element = this->m_material.GetMaterial()->GetElement(name);
 
 			// If the element is not found, choose the default one
-			if(this->m_material.GetMaterial()->GetElement(this->m_materialElement[i]) == nullptr) {
-				this->m_materialElement[i] = "default";
+			if(element == nullptr) {
+				this->m_defaultMaterialElement.push_back(this->m_material.GetMaterial()->GetElement("default"));
+			} else {
+				this->m_defaultMaterialElement.push_back(element);
 			}
+			this->m_activeMaterialElement.push_back(this->m_defaultMaterialElement[i]);
+		}
+	}
+
+	void IMeshSceneNode::SetActiveMeshMaterialElement(const std::string & name) {
+		LOG_TRACE();
+
+		SMaterialElement * element = this->m_material.GetMaterial()->GetElement(name);
+		if(element != nullptr) {
+			for(int i = 0; i < this->m_numberOfGroups; ++i) {
+				this->m_activeMaterialElement[i] = element;
+			}
+		}
+	}
+
+	void IMeshSceneNode::RestoreDefaultMeshMaterialElement() {
+		LOG_TRACE();
+
+		for(int i = 0; i < this->m_numberOfGroups; ++i) {
+			this->m_activeMaterialElement[i] = this->m_defaultMaterialElement[i];
 		}
 	}
 
@@ -180,11 +205,11 @@ namespace DE {
 			// Group paramaters
 			for(int i = 0; i < this->m_numberOfGroups; ++i) {
 				// Material
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kDiffuse);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kAmbient);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kSpecular);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_kEmission);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), this->m_material.GetMaterial()->GetElement(this->m_materialElement[i])->m_ns);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), this->m_activeMaterialElement[i]->m_kDiffuse);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_activeMaterialElement[i]->m_kAmbient);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), this->m_activeMaterialElement[i]->m_kSpecular);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), this->m_activeMaterialElement[i]->m_kEmission);
+				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), this->m_activeMaterialElement[i]->m_ns);
 
 				if((this->m_buffer[i].GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 					renderer->SetTexture(0, this->m_diffuseTexture[i].GetTexture());

@@ -51,7 +51,8 @@ namespace DE {
 		CTexture2D * m_diffuseTexture;
 		CTexture2D * m_normalTexture;
 		CMaterial m_material;
-		std::vector<std::string> m_materialElement;
+		std::vector<SMaterialElement*> m_defaultMaterialElement;
+		std::vector<SMaterialElement*> m_activeMaterialElement;
 
 		CSphereF * m_visibilityShape;
 
@@ -85,6 +86,17 @@ namespace DE {
 		* @param filename The material filename
 		*/
 		virtual void SetMeshMaterial(const std::string & filename);
+
+		/**
+		* Set the active mesh material element
+		* @param name The name
+		*/
+		virtual void SetActiveMeshMaterialElement(const std::string & name);
+
+		/**
+		* Restore the default mesh mateial element
+		*/
+		virtual void RestoreDefaultMeshMaterialElement();
 
 		/**
 		* Set a texture

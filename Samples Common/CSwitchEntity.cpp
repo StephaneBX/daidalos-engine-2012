@@ -38,13 +38,25 @@ namespace SAMPLES {
 		this->m_player = camera;
 		this->m_player = camera;
 
+		this->m_highlighted = false;
 		this->m_state = SWITCH_STATE_OFF;
 	}
 
 	void CSwitchEntity::Update(float const time) {
 
 		if(CanDoAction()) {
-			DoAction();
+
+			if(!this->m_highlighted) {
+				this->m_node->SetActiveMeshMaterialElement("highlighted");
+				this->m_highlighted = true;
+			}
+
+			if(this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT)) {
+				DoAction();
+			}
+		} else if(this->m_highlighted) {
+			this->m_node->RestoreDefaultMeshMaterialElement();
+			this->m_highlighted = false;
 		}
 
 		switch(this->m_state) {
@@ -93,16 +105,20 @@ namespace SAMPLES {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS && !this->m_player->GetCameraNode()->FrustumCull(this->m_node->GetVisibilityShape()) && this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT);
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS && !this->m_player->GetCameraNode()->FrustumCull(this->m_node->GetVisibilityShape());
 	}
 
 	void CSwitchEntity::SetOn() {
 		this->m_state = SWITCH_STATE_ACTIVATING;
 		this->m_node->StartAnimation(1, 10, ANIMATION_SPEED);
+		this->m_node->RestoreDefaultMeshMaterialElement();
+		this->m_highlighted = false;
 	}
 
 	void CSwitchEntity::SetOff() {
 		this->m_state = SWITCH_STATE_DEACTIVATING;
 		this->m_node->StartAnimation(10, 20, ANIMATION_SPEED);
+		this->m_node->RestoreDefaultMeshMaterialElement();
+		this->m_highlighted = false;
 	}
 }

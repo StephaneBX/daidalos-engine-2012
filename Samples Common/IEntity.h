@@ -50,7 +50,7 @@ namespace SAMPLES {
 		* Remove a target entity
 		* @param entity The target entity
 		*/
-		void RemoveEntity(IEntity * entity);
+		void RemoveTarget(IEntity * entity);
 
 		/**
 		* Trigger the entity action
