@@ -74,8 +74,7 @@ namespace SAMPLES {
 		};
 		this->m_declarationShadowMap = this->m_renderer->CreateVertexDeclaration(declarationShadowMap);
 
-		DE::SDeclarationElement declarationLight[] =
-		{
+		DE::SDeclarationElement declarationLight[] = {
 			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
 			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 },
 			{ 0, DE::DECLARATION_USAGE_NORMAL0, DE::DECLARATION_TYPE_FLOAT3 },
@@ -90,12 +89,10 @@ namespace SAMPLES {
 		this->m_shaderPointLight.LoadFromFile("ForwardPointLight");
 		this->m_shaderDirectionalLight.LoadFromFile("ForwardDirectionalLight");
 
-		DE::SFrameBufferDeclaration fbd[] =
-		{
+		DE::SFrameBufferDeclaration fbd[] = {
 			{ "lightDepthRT", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_R32F, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE }
 		};
-		DE::SFrameBufferDepthDeclaration fbdd[] =
-		{
+		DE::SFrameBufferDepthDeclaration fbdd[] = {
 			{ "lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8 }
 		};
 		this->m_frameBufferShadowMap.CreateFromDeclaration(fbd, fbdd);

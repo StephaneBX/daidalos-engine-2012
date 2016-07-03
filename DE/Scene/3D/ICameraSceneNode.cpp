@@ -79,15 +79,16 @@ namespace DE {
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
-		bool result = false;
+		int count = 0;
 
-		for(int i = 0; i < FRUSTUM_PLANE_SIZE && !result; i++) {
+		for(int i = 0; i < FRUSTUM_PLANE_SIZE; i++) {
 			float dist = GetViewFrustumPlane((EFrustumPlane)i).PointDistance(shape->GetPosition());
-			if(dist < -shape->GetInnerDepth(GetViewFrustumPlane(FRUSTUM_PLANE_NEAR)))
-				result = true;
+			if(dist < -shape->GetInnerDepth(GetViewFrustumPlane(FRUSTUM_PLANE_NEAR))) {
+				count++;
+			}
 		}
 
-		return result;
+		return count >= 1 && count < FRUSTUM_PLANE_SIZE;
 	}
 
 	const float ICameraSceneNode::GetNearDistance() const {

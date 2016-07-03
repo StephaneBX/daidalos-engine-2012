@@ -122,6 +122,13 @@ namespace DE {
 		void RegisterNodeForRendering(const int filterId);
 
 		/**
+		* Test the node and register its geometry for rendering if the node is visible
+		* @param node The node
+		* @param filterId Limit the geometry to the id filterId or -1 to render all
+		*/
+		void RegisterNodeForRendering(CBSPTreeNode * node, const int filterId);
+
+		/**
 		* Register the geometry leafs for faster access
 		* @param node A geometry node
 		*/

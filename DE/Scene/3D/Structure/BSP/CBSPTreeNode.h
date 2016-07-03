@@ -113,6 +113,11 @@ namespace DE {
 		const CPlane3DF & GetPlane() const;
 
 		/**
+		* Get the bounding box
+		*/
+		CAABoundingBoxF * GetBoundingBox() const;
+
+		/**
 		* Get the triangles
 		* @return The triangles
 		*/

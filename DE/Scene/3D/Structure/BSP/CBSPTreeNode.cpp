@@ -264,6 +264,12 @@ namespace DE {
 		return this->m_plane;
 	}
 
+	CAABoundingBoxF * CBSPTreeNode::GetBoundingBox() const {
+		LOG_TRACE();
+
+		return this->m_boundingBox.get();
+	}
+
 	const std::vector<std::unique_ptr<CBSPTriangle>> & CBSPTreeNode::GetTriangles() const {
 		LOG_TRACE();
 

@@ -360,12 +360,40 @@ namespace DE {
 
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
-			// Loop through each triangle
-			for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
-				if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
-					this->m_visibleTriangles.push_back((*it2).get());
-					(*it2)->SetDrawn(true);
+
+				// Loop through each triangle
+				for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
+					if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
+						this->m_visibleTriangles.push_back((*it2).get());
+						(*it2)->SetDrawn(true);
+					}
 				}
+		}
+	}
+
+	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node, const int filterId) {
+		LOG_TRACE();
+
+		if(this->m_activeCamera->FrustumCull(node->GetBoundingBox())) {
+			return;
+		}
+
+		bool isFiltered = filterId != SCENE_DEFAULT_ID;
+
+		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF) {
+			for(auto it = node->GetTriangles().begin(); it != node->GetTriangles().end(); ++it) {
+				if((*it)->IsVisible() && !(*it)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
+					this->m_visibleTriangles.push_back((*it).get());
+					(*it)->SetDrawn(true);
+				}
+			}
+		} else {
+			if(node->GetChild(BSP_NODE_CHILD_FRONT) != nullptr) {
+				RegisterNodeForRendering(node->GetChild(BSP_NODE_CHILD_FRONT), filterId);
+			}
+
+			if(node->GetChild(BSP_NODE_CHILD_BACK) != nullptr) {
+				RegisterNodeForRendering(node->GetChild(BSP_NODE_CHILD_BACK), filterId);
 			}
 		}
 	}
