@@ -109,6 +109,12 @@
     <Filter Include="Fichiers d%27en-tête\Scene\2D\Listeners">
       <UniqueIdentifier>{49026f16-8a89-41ad-9e82-569c0918976b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Scene\Particles">
+      <UniqueIdentifier>{fb16500e-908e-4f77-a7b5-89df5073f7ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Particles">
+      <UniqueIdentifier>{cb5c2e24-dee0-44e6-a7a3-7df042bb954e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Memory\CException.h">
@@ -501,6 +507,21 @@
     <ClInclude Include="Scene\2D\C2DScene.h">
       <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEmitter.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEntity.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleSystem.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -811,6 +832,15 @@
     </ClCompile>
     <ClCompile Include="Scene\2D\C2DScene.cpp">
       <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\CParticleEmitter.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\CParticleEntity.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\CParticleSystem.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

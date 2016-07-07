@@ -141,6 +141,11 @@
     <ClInclude Include="Scene\3D\Structure\BSP\CBSPTreeNode.h" />
     <ClInclude Include="Scene\3D\Structure\BSP\CBSPTriangle.h" />
     <ClInclude Include="Scene\3D\Structure\Simple\CSimpleSceneNode.h" />
+    <ClInclude Include="Scene\Particles\CParticleEmitter.h" />
+    <ClInclude Include="Scene\Particles\CParticleEntity.h" />
+    <ClInclude Include="Scene\Particles\CParticleSystem.h" />
+    <ClInclude Include="Scene\Particles\IParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\IParticleUpdater.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Applications\IWin32Application.cpp" />
@@ -246,6 +251,9 @@
     <ClCompile Include="Scene\3D\Structure\BSP\CBSPTreeNode.cpp" />
     <ClCompile Include="Scene\3D\Structure\BSP\CBSPTriangle.cpp" />
     <ClCompile Include="Scene\3D\Structure\Simple\CSimpleSceneNode.cpp" />
+    <ClCompile Include="Scene\Particles\CParticleEmitter.cpp" />
+    <ClCompile Include="Scene\Particles\CParticleEntity.cpp" />
+    <ClCompile Include="Scene\Particles\CParticleSystem.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>
