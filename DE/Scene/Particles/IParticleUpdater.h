@@ -38,7 +38,12 @@ namespace DE {
 	class IParticleUpdater {
 
 	public:
-		virtual void update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+		/**
+		* Update the particles
+		* @param buffer The particle buffer
+		* @param particles The particles id to initialize
+		*/
+		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
 	};
 }
 

@@ -26,3 +26,73 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Scene/Particles/CParticleSystem.h"
+
+namespace DE {
+
+	/**
+	* The constructor
+	*/
+	CParticleSystem::CParticleSystem(const unsigned int maxSize) {
+		this->m_particleBuffer.Allocate(maxSize);
+		this->m_renderer = IRenderer::GetRenderer();
+	}
+
+	/**
+	* Set the atlas texture
+	* @param filename The filename
+	* @param size The number of columns and rows
+	*/
+	void CParticleSystem::SetAtlasTexture(const std::string & filename, const CVector2I & size) {
+		this->m_atlasTexture.CreateFromFile(filename, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_atlasSize = size;
+	}
+
+	/**
+	* Destroy and remove an emitter
+	*/
+	void CParticleSystem::RemoveEmitter(CParticleEmitter * emitter) {
+
+		bool found = false;
+		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end() && !found; it++) {
+			if (emitter == (*it).get()) {
+				this->m_emitters.erase(it);
+				found = true;
+			}
+		}
+	}
+
+	/**
+	* Update the particle system
+	* @param time The elapsed time
+	*/
+	void CParticleSystem::Update(const float time) {
+
+		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end();) {
+			(*it)->Update(time, this->m_particleBuffer);
+
+			// Remove dead emitters
+			if ((*it)->GetLife() >= (*it)->GetLifeMax()) {
+				it = this->m_emitters.erase(it);
+			} else {
+				it++;
+			}
+		}
+	}
+
+	/**
+	* Render the particle system
+	*/
+	void CParticleSystem::RenderAll() {
+
+	}
+
+	/**
+	* Create a particle emitter and return it
+	* @return The emitter
+	*/
+	CParticleEmitter * CParticleSystem::InstanciateEmitter() {
+		CParticleEmitter * emitter = new CParticleEmitter();
+		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
+		return emitter;
+	}
+}

@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/CParticleEmitter.h"
 
 namespace DE {
+
 	/**
 	* The constructor
 	*/
@@ -79,16 +80,16 @@ namespace DE {
 	* Add a generator to the emitter
 	* @param generator The generator to add
 	*/
-	void CParticleEmitter::AddInitializer(const std::shared_ptr<IParticleInitializer> initializer) {
-		this->m_initializers.push_back(initializer);
+	void CParticleEmitter::AddInitializer(IParticleInitializer * initializer) {
+		this->m_initializers.push_back(std::unique_ptr<IParticleInitializer>(initializer));
 	}
 
 	/**
 	* Add an updater to the emitter
 	* @param updater The updater to add
 	*/
-	void CParticleEmitter::AddUpdater(const std::shared_ptr<IParticleUpdater> updater) {
-		this->m_updaters.push_back(updater);
+	void CParticleEmitter::AddUpdater(IParticleUpdater * updater) {
+		this->m_updaters.push_back(std::unique_ptr<IParticleUpdater>(updater));
 	}
 
 	/**
@@ -125,13 +126,13 @@ namespace DE {
 
 			// Call the initializers for each new particle
 			for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); it++) {
-				(*it)->initialize(buffer, newParticlesIndex);
+				(*it)->Initialize(buffer, newParticlesIndex);
 			}
 		}
 
 		// Update the particles
 		for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); it++) {
-			(*it)->update(time, buffer, this->m_particleIndex);
+			(*it)->Update(time, buffer, this->m_particleIndex);
 		}
 
 		// Update the visibility shape

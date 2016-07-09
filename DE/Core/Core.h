@@ -122,6 +122,15 @@ namespace DE {
 	}
 
 	/**
+	* Get a random value
+	* @param minValue The minimum value
+	* @param maxValue The maximum value
+	*/
+	template<typename T> inline T RandomNumber(const T minValue, const T maxValue) {
+		return minValue + static_cast <T> (rand()) / (static_cast <T> (RAND_MAX / (maxValue - minValue)));
+	}
+
+	/**
 	* Get the size (in Bytes) of the given pixel format
 	* @param format The pixel format
 	* @return The size in Bytes

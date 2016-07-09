@@ -38,7 +38,12 @@ namespace DE {
 	class IParticleInitializer {
 
 	public:
-		virtual void initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+		/**
+		* Initialize the particles
+		* @param buffer The particle buffer
+		* @param particles The particles id to initialize
+		*/
+		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
 	};
 }
 

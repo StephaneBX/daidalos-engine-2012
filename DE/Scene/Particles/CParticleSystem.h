@@ -35,6 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Memory/CMemoryAllocator.h"
 #include "../../Scene/Particles/CParticleEntity.h"
 #include "../../Scene/Particles/CParticleEmitter.h"
+#include "../../Core/IRenderer.h"
 
 namespace DE {
 	/**
@@ -45,7 +46,9 @@ namespace DE {
 		CTexture2D m_atlasTexture;
 		CVector2I m_atlasSize;
 		CMemoryAllocator<CParticleEntity> m_particleBuffer;
-		std::vector<CParticleEmitter> m_emitters;
+		std::vector<std::unique_ptr<CParticleEmitter> > m_emitters;
+
+		IRenderer * m_renderer;
 
 	public:
 		/**
@@ -63,7 +66,7 @@ namespace DE {
 		/**
 		* Destroy and remove an emitter
 		*/
-		void RemoveEmitter(CParticleEmitter & emitter);
+		void RemoveEmitter(CParticleEmitter * emitter);
 
 		/**
 		* Update the particle system
@@ -80,7 +83,7 @@ namespace DE {
 		* Create a particle emitter and return it
 		* @return The emitter
 		*/
-		CParticleEmitter & InstanciateEmitter();
+		CParticleEmitter * InstanciateEmitter();
 	};
 }
 

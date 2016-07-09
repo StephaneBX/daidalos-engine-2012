@@ -49,8 +49,8 @@ namespace DE {
 		CVector3F m_position;
 		CSphereF m_visibilityShape;
 		std::vector<int> m_particleIndex;
-		std::vector<std::shared_ptr<IParticleInitializer> > m_initializers;
-		std::vector<std::shared_ptr<IParticleUpdater> > m_updaters;
+		std::vector<std::unique_ptr<IParticleInitializer> > m_initializers;
+		std::vector<std::unique_ptr<IParticleUpdater> > m_updaters;
 
 	public:
 		/**
@@ -92,13 +92,13 @@ namespace DE {
 		* Add an initializer to the emitter
 		* @param initializer The initializer to add
 		*/
-		void AddInitializer(const std::shared_ptr<IParticleInitializer> initializer);
+		void AddInitializer(IParticleInitializer * initializer);
 
 		/**
 		* Add an updater to the emitter
 		* @param updater The updater to add
 		*/
-		void AddUpdater(const std::shared_ptr<IParticleUpdater> updater);
+		void AddUpdater(IParticleUpdater * updater);
 
 		/**
 		* Update the emitter

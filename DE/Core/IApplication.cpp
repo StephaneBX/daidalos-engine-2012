@@ -50,6 +50,8 @@ namespace DE {
 		ILogger::SetLogger(new CLoggerFile("log.txt"));
 		LOG_TRACE();
 
+		srand((unsigned int)time(nullptr));
+
 		this->m_renderer = nullptr;
 		this->m_input = CInputDevice::GetInstance();
 		this->m_soundContext = CSoundContextManager::GetInstance();
