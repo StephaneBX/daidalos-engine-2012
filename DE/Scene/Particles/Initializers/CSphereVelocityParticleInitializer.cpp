@@ -35,7 +35,7 @@ namespace DE {
 	* @param velocityMax The velocity max
 	*/
 	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(float velocityMin, float velocityMax) {
-		this->m_velocityMin = m_velocityMin;
+		this->m_velocityMin = velocityMin;
 		this->m_velocityMax = velocityMax;
 	}
 

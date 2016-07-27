@@ -144,8 +144,20 @@
     <ClInclude Include="Scene\Particles\CParticleEmitter.h" />
     <ClInclude Include="Scene\Particles\CParticleEntity.h" />
     <ClInclude Include="Scene\Particles\CParticleSystem.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\IParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\IParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CGravityParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CLifeParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CRotationParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CVelocityParticleUpdater.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Applications\IWin32Application.cpp" />
@@ -254,6 +266,18 @@
     <ClCompile Include="Scene\Particles\CParticleEmitter.cpp" />
     <ClCompile Include="Scene\Particles\CParticleEntity.cpp" />
     <ClCompile Include="Scene\Particles\CParticleSystem.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CColorParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CCompositeParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CLifeParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CColorParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CGravityParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CLifeParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CRotationParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CSizeParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CVelocityParticleUpdater.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>

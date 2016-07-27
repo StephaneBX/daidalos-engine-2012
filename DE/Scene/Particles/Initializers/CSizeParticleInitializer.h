@@ -34,7 +34,7 @@ namespace DE {
 	/**
 	* The particle size initializer class
 	*/
-	class CSizeParticleInitializer {
+	class CSizeParticleInitializer : public IParticleInitializer {
 
 	private:
 		float m_sizeMin;

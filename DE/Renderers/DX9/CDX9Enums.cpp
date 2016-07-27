@@ -140,6 +140,12 @@ namespace DE {
 		D3DSTENCILOP_DECR
 	};
 
+	unsigned int CDX9Enums::s_streamSourceType[] {
+		0,
+		D3DSTREAMSOURCE_INDEXEDDATA,
+		D3DSTREAMSOURCE_INSTANCEDATA
+	};
+
 	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
 		LOG_TRACE();
 
@@ -244,5 +250,11 @@ namespace DE {
 		LOG_TRACE();
 
 		return s_stencilOperation[operation];
+	}
+
+	unsigned int CDX9Enums::Get(EStreamSourceType streamSourceType) {
+		LOG_TRACE();
+
+		return s_streamSourceType[streamSourceType];
 	}
 }

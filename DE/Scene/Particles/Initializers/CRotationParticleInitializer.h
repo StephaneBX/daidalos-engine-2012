@@ -34,7 +34,7 @@ namespace DE {
 	/**
 	* The particle rotation initializer class
 	*/
-	class CRotationParticleInitializer {
+	class CRotationParticleInitializer : public IParticleInitializer {
 
 	private:
 		float m_rotationMin;

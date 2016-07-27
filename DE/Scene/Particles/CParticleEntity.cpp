@@ -33,7 +33,15 @@ namespace DE {
 	* The constructor
 	*/
 	CParticleEntity::CParticleEntity() {
-
+		this->m_life = 0;
+		this->m_lifeMax = 0;
+		this->m_color = CColor(0, 0, 0, 0);
+		this->m_colorMin = CColor(0, 0, 0, 0);
+		this->m_colorMax = CColor(0, 0, 0, 0);
+		this->m_sizeMin = 1;
+		this->m_sizeMax = 1;
+		this->m_rotationSpeed = 0;
+		this->m_textureId = 0;
 	}
 
 	/**
@@ -114,7 +122,7 @@ namespace DE {
 	*/
 	void CParticleEntity::SetPosition(const CVector3F & position) {
 		this->m_position = position;
-		this->m_data.positionRotation = CVector4F(position, this->m_data.positionRotation.x);
+		this->m_data.positionRotation = CVector4F(position, this->m_data.positionRotation.w);
 	}
 
 	/**
@@ -122,7 +130,8 @@ namespace DE {
 	* @param color The color
 	*/
 	void CParticleEntity::SetColor(const CColor & color) {
-		this->m_data.m_color = color;
+		this->m_color = color;
+		this->m_data.m_color = color.ToRGBAVector();
 	}
 
 	/**
@@ -173,6 +182,18 @@ namespace DE {
 	}
 
 	/**
+	* Get the life as a normalized value
+	* @return The normalized life value
+	*/
+	const float CParticleEntity::GetLifeNormalized() const {
+		float value = GetLife() / GetLifeMax();
+		if(value > 1.0f) {
+			value = 1.0f;
+		}
+		return value;
+	}
+
+	/**
 	* Get the size
 	*/
 	const float CParticleEntity::GetSize() const {
@@ -218,7 +239,7 @@ namespace DE {
 	* Get the color
 	*/
 	const CColor & CParticleEntity::GetColor() const {
-		return this->m_data.m_color;
+		return this->m_color;
 	}
 
 	/**
@@ -245,7 +266,7 @@ namespace DE {
 	/**
 	* Get the data used for rendering
 	*/
-	const SParticleData & CParticleEntity::GetData() {
-		return this->m_data;
+	SParticleData * CParticleEntity::GetData() {
+		return &this->m_data;
 	}
 }

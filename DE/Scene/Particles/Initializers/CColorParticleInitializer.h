@@ -34,7 +34,7 @@ namespace DE {
 	/**
 	* The particle color initializer class
 	*/
-	class CColorParticleInitializer {
+	class CColorParticleInitializer : public IParticleInitializer {
 
 	private:
 		CColor m_colorMin;

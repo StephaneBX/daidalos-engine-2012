@@ -47,6 +47,7 @@ namespace DE {
 		static D3DBLENDOP s_renderStateBlendOperation[];
 		static D3DCULL s_renderStateCullType[];
 		static D3DSTENCILOP s_stencilOperation[];
+		static unsigned int s_streamSourceType[];
 
 	public:
 		/**
@@ -138,6 +139,13 @@ namespace DE {
 		* @return The DX9 stencil operation
 		*/
 		static D3DSTENCILOP Get(EStencilOperation operation);
+
+		/**
+		* Get the DX9 stream source type
+		* @param streamSourceType The stream source type
+		* @return The DX9 stream source type
+		*/
+		static unsigned int Get(EStreamSourceType streamSourceType);
 	};
 }
 

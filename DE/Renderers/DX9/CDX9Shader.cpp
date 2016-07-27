@@ -50,7 +50,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetBool(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 
 	}
@@ -62,7 +62,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetInt(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -73,7 +73,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloat(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -88,7 +88,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetIntArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -99,7 +99,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetFloatArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], value, size);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -111,7 +111,7 @@ namespace DE {
 			CVector4F vec2(vec.x, vec.y, 0, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -123,7 +123,7 @@ namespace DE {
 			CVector4F vec2((float)vec.x, (float)vec.y, 0, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -135,7 +135,7 @@ namespace DE {
 			CVector4F vec2(vec.x, vec.y, vec.z, 0);
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec2));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -146,7 +146,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -158,7 +158,7 @@ namespace DE {
 			CVector4F vec = color.ToRGBAVector();
 			this->m_constantTable->SetVector(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(&vec));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -169,7 +169,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrix(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(&mat));
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -180,7 +180,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetVectorArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXVECTOR4*>(vec), size);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 
@@ -191,7 +191,7 @@ namespace DE {
 		if(this->m_handles[name] != nullptr) {
 			this->m_constantTable->SetMatrixArray(static_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice(), this->m_handles[name], reinterpret_cast<const D3DXMATRIX*>(mat), size);
 		} else {
-			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name << "'");
+			LOG_WARNING("Shader attribute '" << name << "' not found in '" << this->m_name.GetFilename() << "'");
 		}
 	}
 

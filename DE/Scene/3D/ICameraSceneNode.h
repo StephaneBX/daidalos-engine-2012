@@ -95,10 +95,10 @@ namespace DE {
 		virtual void Render();
 
 		/**
-		* Perform a frustum culling test with the face to determine if it need to be discarded for the rendering process
-		* The goal here is to verify the following restriction in order to be considered as visible:
-		* - The face is within the view range
-		* - The face is is the frustum represented by six planes
+		* Perform a frustum culling test with the shape to determine if it need to be discarded for the rendering process
+		* The goal here is to verify the following restrictions in order to be considered visible:
+		* - The shape is within the view range
+		* - The shape is is the frustum represented by six planes
 		* @param shape The shape that need to be tested
 		* @return True if the shape can be culled or false otherwise
 		*/

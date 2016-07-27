@@ -194,6 +194,14 @@ namespace DE {
 		virtual void SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset = 0, const unsigned long count = 0) = 0;
 
 		/**
+		* Define a stream frequency
+		* @param stream The stream number
+		* @param streamType the stream type
+		* @param frequency The frequency
+		*/
+		virtual void SetStreamSourceFrequency(const int stream, EStreamSourceType streamType, const unsigned int frequency) = 0;
+
+		/**
 		* Set the current index buffer
 		* @param buffer The index buffer
 		* @param stride The size of an element

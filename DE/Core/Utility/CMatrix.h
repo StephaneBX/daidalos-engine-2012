@@ -68,6 +68,7 @@ namespace DE {
 		const CMatrix RotationQuaternion(const CQuaternion & quat) const;
 		const CMatrix GetScale() const;
 		const CMatrix GetRotation() const;
+		const CMatrix GetBillboard() const;
 		const CVector4F Transform(const CVector4F & vec, const bool normalize = false) const;
 		const CVector3F Transform(const CVector3F & vec, const bool normalize = false) const;
 		const CVector3F GetTranslation() const;
@@ -404,6 +405,23 @@ namespace DE {
 		tmp._43 = 0;
 
 		return tmp;
+	}
+
+	inline const CMatrix CMatrix::GetBillboard() const {
+		CMatrix billboard = Identity();
+		CMatrix transpose = Transpose();
+
+		billboard._11 = transpose._11;
+		billboard._12 = transpose._12;
+		billboard._13 = transpose._13;
+		billboard._21 = transpose._21;
+		billboard._22 = transpose._22;
+		billboard._23 = transpose._23;
+		billboard._31 = transpose._31;
+		billboard._32 = transpose._32;
+		billboard._33 = transpose._33;
+
+		return billboard;
 	}
 
 	/**

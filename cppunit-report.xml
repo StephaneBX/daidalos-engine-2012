@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding='ISO-8859-1' standalone='yes' ?>
 <TestRun>
   <FailedTests>
+    <FailedTest id="8">
+      <Name>FileTest::TestGetFileSize</Name>
+      <FailureType>Assertion</FailureType>
+      <Location>
+        <File>FileTest.cpp</File>
+        <Line>26</Line>
+      </Location>
+      <Message>assertion failed
+- Expression: file.GetFileSize() == 659456
+</Message>
+    </FailedTest>
     <FailedTest id="15">
       <Name>MatrixTest::TestInverse</Name>
       <FailureType>Assertion</FailureType>
       <Location>
-        <File>c:\installation\documents\scripts\c++\daidalos engine\unit test\matrixtest.cpp</File>
-        <Line>285</Line>
+        <File>MatrixTest.cpp</File>
+        <Line>281</Line>
       </Location>
       <Message>forced failure
 - Not implemented
@@ -16,8 +27,8 @@
       <Name>MatrixTest::TestSetRotation</Name>
       <FailureType>Assertion</FailureType>
       <Location>
-        <File>c:\installation\documents\scripts\c++\daidalos engine\unit test\matrixtest.cpp</File>
-        <Line>343</Line>
+        <File>MatrixTest.cpp</File>
+        <Line>335</Line>
       </Location>
       <Message>forced failure
 - Not implemented
@@ -27,8 +38,8 @@
       <Name>MatrixTest::TestRotationQuaternion</Name>
       <FailureType>Assertion</FailureType>
       <Location>
-        <File>c:\installation\documents\scripts\c++\daidalos engine\unit test\matrixtest.cpp</File>
-        <Line>450</Line>
+        <File>MatrixTest.cpp</File>
+        <Line>430</Line>
       </Location>
       <Message>forced failure
 - Not implemented
@@ -38,11 +49,23 @@
       <Name>MatrixTest::TestDecompose</Name>
       <FailureType>Assertion</FailureType>
       <Location>
-        <File>c:\installation\documents\scripts\c++\daidalos engine\unit test\matrixtest.cpp</File>
-        <Line>455</Line>
+        <File>MatrixTest.cpp</File>
+        <Line>434</Line>
       </Location>
       <Message>forced failure
 - Not implemented
+</Message>
+    </FailedTest>
+    <FailedTest id="32">
+      <Name>MemoryAllocatorTest::TestNewDelete</Name>
+      <FailureType>Assertion</FailureType>
+      <Location>
+        <File>MemoryAllocatorTest.cpp</File>
+        <Line>45</Line>
+      </Location>
+      <Message>equality assertion failed
+- Expected: 3
+- Actual  : 2
 </Message>
     </FailedTest>
   </FailedTests>
@@ -67,9 +90,6 @@
     </Test>
     <Test id="7">
       <Name>FileTest::TestFileExists</Name>
-    </Test>
-    <Test id="8">
-      <Name>FileTest::TestGetFileSize</Name>
     </Test>
     <Test id="9">
       <Name>FileTest::TestGetFullname</Name>
@@ -123,145 +143,151 @@
       <Name>MatrixTest::TestTransformArray</Name>
     </Test>
     <Test id="30">
-      <Name>QuaternionTest::TestConstructors</Name>
+      <Name>MemoryAllocatorTest::TestConstructors</Name>
     </Test>
     <Test id="31">
-      <Name>QuaternionTest::TestOperators</Name>
-    </Test>
-    <Test id="32">
-      <Name>QuaternionTest::TestInverse</Name>
+      <Name>MemoryAllocatorTest::TestAllocate</Name>
     </Test>
     <Test id="33">
-      <Name>QuaternionTest::TestNormalize</Name>
+      <Name>QuaternionTest::TestConstructors</Name>
     </Test>
     <Test id="34">
-      <Name>QuaternionTest::TestLog</Name>
+      <Name>QuaternionTest::TestOperators</Name>
     </Test>
     <Test id="35">
-      <Name>QuaternionTest::TestExp</Name>
+      <Name>QuaternionTest::TestInverse</Name>
     </Test>
     <Test id="36">
-      <Name>QuaternionTest::TestPower</Name>
+      <Name>QuaternionTest::TestNormalize</Name>
     </Test>
     <Test id="37">
-      <Name>QuaternionTest::TestYawPitchRoll</Name>
+      <Name>QuaternionTest::TestLog</Name>
     </Test>
     <Test id="38">
-      <Name>QuaternionTest::TestLerp</Name>
+      <Name>QuaternionTest::TestExp</Name>
     </Test>
     <Test id="39">
-      <Name>QuaternionTest::TestSlerp</Name>
+      <Name>QuaternionTest::TestPower</Name>
     </Test>
     <Test id="40">
-      <Name>QuaternionTest::TestLength</Name>
+      <Name>QuaternionTest::TestYawPitchRoll</Name>
     </Test>
     <Test id="41">
-      <Name>QuaternionTest::TestDotProduct</Name>
+      <Name>QuaternionTest::TestLerp</Name>
     </Test>
     <Test id="42">
-      <Name>RectangleTest::TestConstructors</Name>
+      <Name>QuaternionTest::TestSlerp</Name>
     </Test>
     <Test id="43">
-      <Name>RectangleTest::TestOperators</Name>
+      <Name>QuaternionTest::TestLength</Name>
     </Test>
     <Test id="44">
-      <Name>RectangleTest::TestGetTop</Name>
+      <Name>QuaternionTest::TestDotProduct</Name>
     </Test>
     <Test id="45">
-      <Name>RectangleTest::TestGetLeft</Name>
+      <Name>RectangleTest::TestConstructors</Name>
     </Test>
     <Test id="46">
-      <Name>RectangleTest::TestGetBottom</Name>
+      <Name>RectangleTest::TestOperators</Name>
     </Test>
     <Test id="47">
-      <Name>RectangleTest::TestGetRight</Name>
+      <Name>RectangleTest::TestGetTop</Name>
     </Test>
     <Test id="48">
-      <Name>RectangleTest::TestGetSize</Name>
+      <Name>RectangleTest::TestGetLeft</Name>
     </Test>
     <Test id="49">
-      <Name>RectangleTest::TestGetWidth</Name>
+      <Name>RectangleTest::TestGetBottom</Name>
     </Test>
     <Test id="50">
-      <Name>RectangleTest::TestGetHeight</Name>
+      <Name>RectangleTest::TestGetRight</Name>
     </Test>
     <Test id="51">
-      <Name>RectangleTest::TestIntersectRectangle</Name>
+      <Name>RectangleTest::TestGetSize</Name>
     </Test>
     <Test id="52">
-      <Name>RectangleTest::TestIntersectPoint</Name>
+      <Name>RectangleTest::TestGetWidth</Name>
     </Test>
     <Test id="53">
-      <Name>Vector2Test::TestConstructors</Name>
+      <Name>RectangleTest::TestGetHeight</Name>
     </Test>
     <Test id="54">
-      <Name>Vector2Test::TestOperators</Name>
+      <Name>RectangleTest::TestIntersectRectangle</Name>
     </Test>
     <Test id="55">
-      <Name>Vector2Test::TestLength</Name>
+      <Name>RectangleTest::TestIntersectPoint</Name>
     </Test>
     <Test id="56">
-      <Name>Vector2Test::TestDotProduct</Name>
+      <Name>Vector2Test::TestConstructors</Name>
     </Test>
     <Test id="57">
-      <Name>Vector2Test::TestDistance</Name>
+      <Name>Vector2Test::TestOperators</Name>
     </Test>
     <Test id="58">
-      <Name>Vector2Test::TestNormalize</Name>
+      <Name>Vector2Test::TestLength</Name>
     </Test>
     <Test id="59">
-      <Name>Vector2Test::TestGetFrom</Name>
+      <Name>Vector2Test::TestDotProduct</Name>
     </Test>
     <Test id="60">
-      <Name>Vector3Test::TestConstructors</Name>
+      <Name>Vector2Test::TestDistance</Name>
     </Test>
     <Test id="61">
-      <Name>Vector3Test::TestOperators</Name>
+      <Name>Vector2Test::TestNormalize</Name>
     </Test>
     <Test id="62">
-      <Name>Vector3Test::TestLength</Name>
+      <Name>Vector2Test::TestGetFrom</Name>
     </Test>
     <Test id="63">
-      <Name>Vector3Test::TestDotProduct</Name>
+      <Name>Vector3Test::TestConstructors</Name>
     </Test>
     <Test id="64">
-      <Name>Vector3Test::TestCrossProduct</Name>
+      <Name>Vector3Test::TestOperators</Name>
     </Test>
     <Test id="65">
-      <Name>Vector3Test::TestDistance</Name>
+      <Name>Vector3Test::TestLength</Name>
     </Test>
     <Test id="66">
-      <Name>Vector3Test::TestNormalize</Name>
+      <Name>Vector3Test::TestDotProduct</Name>
     </Test>
     <Test id="67">
-      <Name>Vector3Test::TestGetFrom</Name>
+      <Name>Vector3Test::TestCrossProduct</Name>
     </Test>
     <Test id="68">
-      <Name>Vector3Test::TestLinearInterpolation</Name>
+      <Name>Vector3Test::TestDistance</Name>
     </Test>
     <Test id="69">
-      <Name>Vector3Test::TestCosineInterpolation</Name>
+      <Name>Vector3Test::TestNormalize</Name>
     </Test>
     <Test id="70">
-      <Name>Vector4Test::TestConstructors</Name>
+      <Name>Vector3Test::TestGetFrom</Name>
     </Test>
     <Test id="71">
-      <Name>Vector4Test::TestOperators</Name>
+      <Name>Vector3Test::TestLinearInterpolation</Name>
     </Test>
     <Test id="72">
-      <Name>Vector4Test::TestLength</Name>
+      <Name>Vector3Test::TestCosineInterpolation</Name>
     </Test>
     <Test id="73">
-      <Name>Vector4Test::TestNormalize</Name>
+      <Name>Vector4Test::TestConstructors</Name>
     </Test>
     <Test id="74">
+      <Name>Vector4Test::TestOperators</Name>
+    </Test>
+    <Test id="75">
+      <Name>Vector4Test::TestLength</Name>
+    </Test>
+    <Test id="76">
+      <Name>Vector4Test::TestNormalize</Name>
+    </Test>
+    <Test id="77">
       <Name>Vector4Test::TestGetFrom</Name>
     </Test>
   </SuccessfulTests>
   <Statistics>
-    <Tests>74</Tests>
-    <FailuresTotal>4</FailuresTotal>
+    <Tests>77</Tests>
+    <FailuresTotal>6</FailuresTotal>
     <Errors>0</Errors>
-    <Failures>4</Failures>
+    <Failures>6</Failures>
   </Statistics>
 </TestRun>

@@ -34,7 +34,7 @@ namespace DE {
 	/**
 	* The particle sphere velocity initializer class
 	*/
-	class CSphereVelocityParticleInitializer {
+	class CSphereVelocityParticleInitializer : public IParticleInitializer {
 
 	private:
 		float m_velocityMin;

@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.h>
 #include <Scene/2D/C2DScene.h>
 #include <Scene/2D/CLabel.h>
+#include <Scene/Particles/CParticleSystem.h>
 #include <Medias/CShaderProgram.h>
 #include <Medias/CFrameBuffer.h>
 #include <Core/Utility/CFPSCounter.h>
@@ -48,6 +49,7 @@ namespace SAMPLES {
 		DE::C2DScene * m_scene2D;
 		DE::ICameraSceneNode * m_activeCamera;
 		DE::CCursor m_cursor;
+		DE::CParticleSystem m_particleSystem;
 
 		// 2D Rendering 
 		DE::DeclarationPtr m_declaration2D;

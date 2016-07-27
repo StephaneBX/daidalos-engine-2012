@@ -26,6 +26,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
+#include "Scene\Particles\Initializers\CColorParticleInitializer.h"
+#include "Scene\Particles\Initializers\CLifeParticleInitializer.h"
+#include "Scene\Particles\Initializers\CRotationParticleInitializer.h"
+#include "Scene\Particles\Initializers\CSizeParticleInitializer.h"
+#include "Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h"
+#include "Scene\Particles\Updaters\CColorParticleUpdater.h"
+#include "Scene\Particles\Updaters\CGravityParticleUpdater.h"
+#include "Scene\Particles\Updaters\CLifeParticleUpdater.h"
+#include "Scene\Particles\Updaters\CRotationParticleUpdater.h"
+#include "Scene\Particles\Updaters\CSizeParticleUpdater.h"
+#include "Scene\Particles\Updaters\CVelocityParticleUpdater.h"
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
@@ -62,6 +73,25 @@ namespace SAMPLE2 {
 		}
 		this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
 
+		DE::CParticleEmitter * emitter = this->m_particleSystem.InstanciateEmitter();
+		emitter->SetLife(0);
+		emitter->SetLifeMax(99999999.0f);
+		emitter->SetPosition(DE::CVector3F(0, 0.5f, 20));
+		emitter->SetTextureId(0);
+		emitter->SetEmissionRate(60);
+
+		emitter->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.5f, 0.5f, 0.5f, 0.3f), DE::CColor(0.5f, 0.5f, 0.5f, 0.0f)));
+		emitter->AddInitializer(new DE::CLifeParticleInitializer(0,10000));
+		emitter->AddInitializer(new DE::CRotationParticleInitializer(-45,45));
+		emitter->AddInitializer(new DE::CSizeParticleInitializer(1,6));
+		emitter->AddInitializer(new DE::CSphereVelocityParticleInitializer(0.5f,1));
+
+		emitter->AddUpdater(new DE::CColorParticleUpdater());
+		emitter->AddUpdater(new DE::CGravityParticleUpdater(DE::CVector3F(0,0.5f,0)));
+		emitter->AddUpdater(new DE::CLifeParticleUpdater());
+		emitter->AddUpdater(new DE::CRotationParticleUpdater());
+		emitter->AddUpdater(new DE::CSizeParticleUpdater());
+		emitter->AddUpdater(new DE::CVelocityParticleUpdater(0.05f));
 
 		MainLoop();
 	}
@@ -100,6 +130,10 @@ namespace SAMPLE2 {
 		for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
 			(*it)->Update(time);
 		}
+
+		// Update the particle system
+		this->m_particleSystem.SetActiveCamera(this->m_camera->GetCameraNode());
+		this->m_particleSystem.Update(time);
 
 		// Update the position
 		std::stringstream ss;

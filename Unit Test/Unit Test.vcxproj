@@ -57,6 +57,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>..\Dependencies\Includes;..\DE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -69,6 +70,7 @@
     <ClInclude Include="ColorTest.h" />
     <ClInclude Include="FileTest.h" />
     <ClInclude Include="MatrixTest.h" />
+    <ClInclude Include="MemoryAllocatorTest.h" />
     <ClInclude Include="QuaternionTest.h" />
     <ClInclude Include="RectangleTest.h" />
     <ClInclude Include="TokenizerTest.h" />
@@ -81,6 +83,7 @@
     <ClCompile Include="FileTest.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="MemoryAllocatorTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="RectangleTest.cpp" />
     <ClCompile Include="TokenizerTest.cpp" />

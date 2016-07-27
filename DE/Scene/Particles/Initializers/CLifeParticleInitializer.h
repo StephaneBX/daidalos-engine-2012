@@ -34,7 +34,7 @@ namespace DE {
 	/**
 	* The particle life initializer class
 	*/
-	class CLifeParticleInitializer {
+	class CLifeParticleInitializer : public IParticleInitializer {
 
 	private:
 		float m_lifeMin;

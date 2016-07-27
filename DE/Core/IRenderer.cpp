@@ -39,6 +39,7 @@ namespace DE {
 		"rotationMatrix",
 		"projMatrix",
 		"viewProjMatrix",
+		"billboardMatrix",
 
 		"cameraPositionDistance",
 		"viewDistance",
@@ -70,7 +71,9 @@ namespace DE {
 
 		"skyboxSize",
 		"skyboxPosition",
-		"skyAmbientColor"
+		"skyAmbientColor",
+
+		"textureAtlasSize"
 	};
 
 	IRenderer::~IRenderer() {

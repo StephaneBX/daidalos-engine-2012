@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Utility/CArraySorter.h"
 #include "../../Scene/Particles/CParticleSystem.h"
 
 namespace DE {
@@ -32,9 +33,49 @@ namespace DE {
 	/**
 	* The constructor
 	*/
-	CParticleSystem::CParticleSystem(const unsigned int maxSize) {
-		this->m_particleBuffer.Allocate(maxSize);
+	CParticleSystem::CParticleSystem() {
 		this->m_renderer = IRenderer::GetRenderer();
+		
+		// Create the particle vertex declaration used by both particle vertex buffers
+		DE::SDeclarationElement particleDecl[] = {
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 },
+			{ 1, DE::DECLARATION_USAGE_POSITION1, DE::DECLARATION_TYPE_FLOAT4 },
+			{ 1, DE::DECLARATION_USAGE_COLOR0, DE::DECLARATION_TYPE_FLOAT4 },
+			{ 1, DE::DECLARATION_USAGE_POSITION2, DE::DECLARATION_TYPE_FLOAT2 }
+		};
+		this->m_particleVD = this->m_renderer->CreateVertexDeclaration(particleDecl);
+
+		// Create the particle vertex buffer
+		SParticleElement pe[] = {
+			{ CVector3F(0.5f, -0.5f, 0), CVector2F(1, 1) },
+			{ CVector3F(-0.5f, -0.5f, 0), CVector2F(0, 1) },
+			{ CVector3F(-0.5f, 0.5f, 0), CVector2F(0, 0) },
+			{ CVector3F(0.5f, 0.5f, 0), CVector2F(1, 0) }
+		};
+		this->m_particleVB = this->m_renderer->CreateVertexBuffer(sizeof(SParticleElement), 4, BUFFER_DYNAMIC | BUFFER_WRITEONLY, pe);
+
+		// Create the particle index buffer
+		int indices[] = { 0, 1, 2, 2, 3, 0 };
+		this->m_particleIB = this->m_renderer->CreateIndexBuffer(6, 0, indices);
+
+		// Load the shader
+		this->m_shader.LoadFromFile("ForwardParticle");
+	}
+
+	/**
+	* Set the system size
+	* @param maxSize The maximum particle system size
+	*/
+	void CParticleSystem::InitializeSystem(const int maxSize) {
+		this->m_particleBuffer.Allocate(maxSize);
+
+		// Create the sorting data
+		this->m_particleIndex = std::unique_ptr<int>(new int[maxSize]);
+		this->m_particleDistance = std::unique_ptr<float>(new float[maxSize]);
+
+		// Create the particle instance vertex buffer
+		this->m_particleInstanceVB = this->m_renderer->CreateVertexBuffer(sizeof(SParticleData), maxSize, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 	}
 
 	/**
@@ -45,6 +86,14 @@ namespace DE {
 	void CParticleSystem::SetAtlasTexture(const std::string & filename, const CVector2I & size) {
 		this->m_atlasTexture.CreateFromFile(filename, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		this->m_atlasSize = size;
+	}
+
+	/**
+	* Set the active camera
+	* @param camera The active camera
+	*/
+	void CParticleSystem::SetActiveCamera(ICameraSceneNode * camera) {
+		this->m_activeCamera = camera;
 	}
 
 	/**
@@ -70,7 +119,7 @@ namespace DE {
 		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end();) {
 			(*it)->Update(time, this->m_particleBuffer);
 
-			// Remove dead emitters
+			// Remove the dead emitters
 			if ((*it)->GetLife() >= (*it)->GetLifeMax()) {
 				it = this->m_emitters.erase(it);
 			} else {
@@ -84,6 +133,52 @@ namespace DE {
 	*/
 	void CParticleSystem::RenderAll() {
 
+		// Set the render states
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, true);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
+		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
+
+		// Fill the instance buffer
+		FillParticlesData();
+
+		// Prepare the billboard matrix
+		CMatrix billboardMatrix = this->m_activeCamera->GetViewMatrix().GetBillboard();
+
+		// Set the shader attributes
+		this->m_renderer->SetShaderProgram(this->m_shader.GetShaderProgram());
+		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_BILLBOARD_MATRIX), billboardMatrix);
+		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F((float)this->m_atlasSize.x, (float)this->m_atlasSize.y));
+
+		// Steam states
+		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());
+		this->m_renderer->SetIndexBuffer(this->m_particleIB, 0);
+		this->m_renderer->SetVertexBuffer(0, this->m_particleVB, sizeof(SParticleElement), 0, 4);
+		this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB, sizeof(SParticleData), 0, this->m_particleSize);
+		this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
+		this->m_renderer->SetStreamSourceFrequency(1, STREAM_SOURCE_TYPE_INSTANCE, 4);
+
+		// Call
+		this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		// Cancel the render states
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, false);
+		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, true);
+		this->m_renderer->SetTexture(0, nullptr);
+
+		// Cancel the stream states
+		this->m_renderer->SetTexture(0, nullptr);
+		this->m_renderer->SetVertexDeclaration(nullptr);
+		this->m_renderer->SetIndexBuffer(nullptr, 0);
+		this->m_renderer->SetVertexBuffer(0, nullptr, 0, 0, 0);
+		this->m_renderer->SetVertexBuffer(1, nullptr, 0, 0);
+		this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_DEFAULT, 1);
+		this->m_renderer->SetStreamSourceFrequency(1, STREAM_SOURCE_TYPE_DEFAULT, 1);
+
+		this->m_renderer->SetShaderProgram(nullptr);
 	}
 
 	/**
@@ -94,5 +189,37 @@ namespace DE {
 		CParticleEmitter * emitter = new CParticleEmitter();
 		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
 		return emitter;
+	}
+
+	/**
+	* Get all the live and visible particles and store them sorted into the buffer
+	*/
+	void CParticleSystem::FillParticlesData() {
+
+		// Get the live particles for each visible emitter
+		this->m_particleSize = 0;
+		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); it++) {
+			// If the particle is not culled
+			//if(!this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
+				// Get the particle index and the distance to camera
+				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
+					this->m_particleIndex.get()[this->m_particleSize] = (*it2);
+					this->m_particleDistance.get()[this->m_particleSize] = (this->m_particleBuffer.GetAt((*it2))->GetPosition() - this->m_activeCamera->GetPosition()).Length();
+					this->m_particleSize++;
+				}
+			//}
+		}
+
+		// Sort depending on the distance to the active camera
+		CArraySorter<float> distanceSorter;
+		distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1);
+
+		// Fill the instance vertex buffer
+		char * buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
+		for(unsigned int i = 0; i < this->m_particleSize; i++) {
+			auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
+			memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
+		}
+		this->m_particleInstanceVB.Unlock();
 	}
 }

@@ -115,6 +115,18 @@
     <Filter Include="Fichiers d%27en-tête\Scene\Particles">
       <UniqueIdentifier>{cb5c2e24-dee0-44e6-a7a3-7df042bb954e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Particles\Initializers">
+      <UniqueIdentifier>{e7e12665-94f0-45c4-9417-7179b361cd77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\Particles\Initializers">
+      <UniqueIdentifier>{b91c9e39-2b9d-4e3a-85de-7c399b9b7a3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Scene\Particles\Updaters">
+      <UniqueIdentifier>{1ff3dcbf-e9ee-4919-8310-3f0c44fc350a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Scene\Particles\Updaters">
+      <UniqueIdentifier>{41ffa39f-2bb2-4189-8520-a63008a0b963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Memory\CException.h">
@@ -522,6 +534,42 @@
     <ClInclude Include="Scene\Particles\IParticleUpdater.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CGravityParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CLifeParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CRotationParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CVelocityParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -841,6 +889,42 @@
     </ClCompile>
     <ClCompile Include="Scene\Particles\CParticleSystem.cpp">
       <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CColorParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CCompositeParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CLifeParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CColorParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CGravityParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CLifeParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CRotationParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CSizeParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CVelocityParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

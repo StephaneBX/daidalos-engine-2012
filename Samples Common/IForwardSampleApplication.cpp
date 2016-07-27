@@ -34,6 +34,10 @@ namespace SAMPLES {
 		this->m_scene3D = new DE::C3DScene();
 		this->m_scene2D = new DE::C2DScene();
 
+		// Initialize the particle system
+		this->m_particleSystem.InitializeSystem(500);
+		this->m_particleSystem.SetAtlasTexture("particleAtlas.tga", DE::CVector2I(4, 4));
+
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
 		this->m_scene2D->SetCursor(&this->m_cursor);
@@ -96,7 +100,7 @@ namespace SAMPLES {
 			{ "lightDepth", DE::CVector2I(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)), DE::PIXEL_FORMAT_DEPTH24S8 }
 		};
 		this->m_frameBufferShadowMap.CreateFromDeclaration(fbd, fbdd);
-		this->m_frameBufferShadowMap.AttachDepth("depth");
+		this->m_frameBufferShadowMap.AttachDepth("lightDepth");
 
 
 		// ------------------------------------------------------------------------------------------------
@@ -186,6 +190,12 @@ namespace SAMPLES {
 		// Forward rendering: directional lights
 		// ------------------------------
 		DirectionalLightsRendering();
+
+		// ------------------------------
+		// Particle System
+		// ------------------------------
+		this->m_particleSystem.SetActiveCamera(this->m_activeCamera);
+		this->m_particleSystem.RenderAll();
 
 		// ------------------------------
 		// Debug

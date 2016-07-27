@@ -40,6 +40,7 @@ namespace DE {
 	public:
 		/**
 		* Update the particles
+		* @param time The elapsed time
 		* @param buffer The particle buffer
 		* @param particles The particles id to initialize
 		*/

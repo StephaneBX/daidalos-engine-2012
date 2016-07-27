@@ -237,8 +237,15 @@ namespace DE {
 			this->m_device->SetStreamSource(stream, vertexBuffer ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
-		} else
+		} else {
 			this->m_device->SetStreamSource(stream, nullptr, 0, stride);
+		}
+	}
+
+	void CDX9Renderer::SetStreamSourceFrequency(const int stream, EStreamSourceType streamType, const unsigned int frequency) {
+		LOG_TRACE();
+
+		this->m_device->SetStreamSourceFreq(stream, CDX9Enums::Get(streamType) | frequency);
 	}
 
 	void CDX9Renderer::SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) {
@@ -249,8 +256,9 @@ namespace DE {
 		if(base != nullptr) {
 			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(base);
 			this->m_device->SetIndices(indexBuffer ? indexBuffer->GetBuffer() : nullptr);
-		} else
+		} else {
 			this->m_device->SetIndices(nullptr);
+		}
 	}
 
 	void CDX9Renderer::SetShaderProgram(IShaderProgramBase * shaderProgram) {
@@ -264,8 +272,9 @@ namespace DE {
 
 			this->m_device->SetVertexShader(vertexShader ? vertexShader->GetVertexShader() : nullptr);
 			this->m_device->SetPixelShader(pixelShader ? pixelShader->GetPixelShader() : nullptr);
-		} else
+		} else {
 			this->m_device->SetVertexShader(nullptr);
+		}
 	}
 
 	void CDX9Renderer::SetVertexDeclaration(const IDeclaration * declaration) {
@@ -274,8 +283,9 @@ namespace DE {
 		if(declaration != nullptr) {
 			const CDX9Declaration * vertexDeclaration = static_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration ? vertexDeclaration->GetDeclaration() : nullptr);
-		} else
+		} else {
 			this->m_device->SetVertexDeclaration(nullptr);
+		}
 	}
 
 	void CDX9Renderer::SetTexture(const int unit, const ITexture2DBase * texture) {
@@ -292,8 +302,9 @@ namespace DE {
 			this->m_device->SetSamplerState(unit, D3DSAMP_ADDRESSU, CDX9Enums::Get(dx9Texture->GetTextureFilterPolicy().addressU));
 			this->m_device->SetSamplerState(unit, D3DSAMP_ADDRESSV, CDX9Enums::Get(dx9Texture->GetTextureFilterPolicy().addressV));
 			this->m_device->SetSamplerState(unit, D3DSAMP_MAXANISOTROPY, dx9Texture->GetTextureFilterPolicy().maxAnisotropy);
-		} else
+		} else {
 			this->m_device->SetTexture(unit, nullptr);
+		}
 	}
 
 	void CDX9Renderer::SetFrameBuffer(IFrameBufferBase * frameBuffer) {

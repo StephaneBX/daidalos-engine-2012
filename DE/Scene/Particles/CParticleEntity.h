@@ -38,7 +38,7 @@ namespace DE {
 	*/
 	struct SParticleData {
 		CVector4F positionRotation;
-		CColor m_color;
+		CVector4F m_color;
 		CVector2F sizeTextureId;
 	};
 
@@ -54,6 +54,7 @@ namespace DE {
 		float m_sizeMax;
 		float m_rotationSpeed;
 		float m_textureId;
+		CColor m_color;
 		CColor m_colorMin;
 		CColor m_colorMax;
 		CVector3F m_position;
@@ -169,6 +170,12 @@ namespace DE {
 		const float GetLifeMax() const;
 
 		/**
+		* Get the life as a normalized value
+		* @return The normalized life value
+		*/
+		const float GetLifeNormalized() const;
+
+		/**
 		* Get the size
 		*/
 		const float GetSize() const;
@@ -221,7 +228,7 @@ namespace DE {
 		/**
 		* Get the data used for rendering
 		*/
-		const SParticleData & GetData();
+		SParticleData * GetData();
 	};
 }
 

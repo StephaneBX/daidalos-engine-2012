@@ -130,6 +130,18 @@ namespace DE {
 		* @return The emission rate
 		*/
 		const float GetEmissionRate() const;
+
+		/**
+		* Get the emitter visibility sphere
+		* @return the visibility sphere
+		*/
+		CSphereF * GetVisibilitySphere();
+
+		/**
+		* Get the index of all active particles
+		* @return the index vector
+		*/
+		const std::vector<int> & GetParticleIndex() const;
 	};
 }
 

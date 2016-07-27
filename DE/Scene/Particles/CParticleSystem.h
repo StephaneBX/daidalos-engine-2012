@@ -31,30 +31,59 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 #include <memory>
 #include "../../Medias/CTexture2D.h"
+#include "../../Medias/CShaderProgram.h"
 #include "../../Core/Utility/CVector2.h"
 #include "../../Core/Memory/CMemoryAllocator.h"
 #include "../../Scene/Particles/CParticleEntity.h"
 #include "../../Scene/Particles/CParticleEmitter.h"
+#include "../../Scene/3D/ICameraSceneNode.h"
 #include "../../Core/IRenderer.h"
 
 namespace DE {
+	/**
+	* Particle quad element
+	*/
+	struct SParticleElement {
+		CVector3F vertex;
+		CVector2F texcoord;
+	};
+
 	/**
 	* The particle system class that handle the creation and the management of particles and emitters
 	*/
 	class CParticleSystem {
 	protected:
+		// Particle system data
 		CTexture2D m_atlasTexture;
 		CVector2I m_atlasSize;
 		CMemoryAllocator<CParticleEntity> m_particleBuffer;
 		std::vector<std::unique_ptr<CParticleEmitter> > m_emitters;
 
+		// Data used to sort the particles
+		std::unique_ptr<float> m_particleDistance;
+		std::unique_ptr<int> m_particleIndex;
+		unsigned int m_particleSize;
+
+		// Rendering data
 		IRenderer * m_renderer;
+		DeclarationPtr m_particleVD;
+		CBuffer m_particleVB;
+		CBuffer m_particleIB;
+		CBuffer m_particleInstanceVB;
+		CShaderProgram m_shader;
+		ICameraSceneNode * m_activeCamera;
 
 	public:
 		/**
-		* The constructor 
+		* The constructor
 		*/
-		CParticleSystem(const unsigned int maxSize);
+		CParticleSystem();
+
+		/**
+		* Set the system size
+		* @param maxSize The maximum particle system size
+		*/
+		void InitializeSystem(const int maxSize);
 
 		/**
 		* Set the atlas texture
@@ -62,6 +91,12 @@ namespace DE {
 		* @param size The number of columns and rows
 		*/
 		void SetAtlasTexture(const std::string & filename, const CVector2I & size);
+
+		/**
+		* Set the active camera
+		* @param camera The active camera
+		*/
+		void SetActiveCamera(ICameraSceneNode * camera);
 
 		/**
 		* Destroy and remove an emitter
@@ -84,6 +119,12 @@ namespace DE {
 		* @return The emitter
 		*/
 		CParticleEmitter * InstanciateEmitter();
+
+	private:
+		/**
+		* Get all the live and visible particles and store them sorted into the buffer
+		*/
+		void FillParticlesData();
 	};
 }
 

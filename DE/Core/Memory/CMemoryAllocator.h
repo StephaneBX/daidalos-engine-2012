@@ -115,7 +115,7 @@ namespace DE {
 		* @return The pointer the element
 		*/
 		T * GetAt(const int index) {
-			if(index >= 0 && index < this->m_count) {
+			if(index >= 0 && index < this->m_size) {
 				return &this->m_data[index];
 			} else {
 				return nullptr;
@@ -128,7 +128,7 @@ namespace DE {
 		* @return A copy of the element
 		*/
 		T GetElementAt(const int index) {
-			if(index >= 0 && index < this->m_count) {
+			if(index >= 0 && index < this->m_size) {
 				return this->m_data[index];
 			} else {
 				return this->m_empty;
@@ -141,7 +141,7 @@ namespace DE {
 		* @return A reference to the element
 		*/
 		T & GetReferenceAt(const int index) {
-			if(index >= 0 && index < this->m_count) {
+			if(index >= 0 && index < this->m_size) {
 				return this->m_data[index];
 			} else {
 				return this->m_empty;
@@ -180,8 +180,15 @@ namespace DE {
 		void Delete(const int index) {
 
 			if(index >= 0 && index < this->m_count) {
-				Swap(this->m_available[index], this->m_count - 1);
-				this->m_count--;
+
+				bool found = false;
+				for(int i = 0; i < this->m_count && !found; i++) {
+					if(this->m_available[i] == index) {
+						Swap(i, this->m_count - 1);
+						this->m_count--;
+						found = true;
+					}
+				}
 			}
 		}
 

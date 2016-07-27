@@ -115,6 +115,11 @@ namespace DE {
 				if(newParticleId > -1) {
 					this->m_particleIndex.push_back(newParticleId);
 					newParticlesIndex.push_back(newParticleId);
+
+					// Set the initial position and the texture id
+					CParticleEntity * entity = buffer.GetAt(newParticleId);
+					entity->SetPosition(this->m_position);
+					entity->SetTextureId((float)this->m_textureId);
 				}
 			}
 
@@ -131,8 +136,23 @@ namespace DE {
 		}
 
 		// Update the particles
-		for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); it++) {
-			(*it)->Update(time, buffer, this->m_particleIndex);
+		if(this->m_particleIndex.size() > 0) {
+			for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); it++) {
+				(*it)->Update(time, buffer, this->m_particleIndex);
+			}
+		}
+
+		// Remove dead particles
+		for(auto it = this->m_particleIndex.begin(); it != this->m_particleIndex.end();) {
+			CParticleEntity & entity = buffer.GetReferenceAt((*it));
+
+			// If its life is expired, remove it
+			if(entity.GetLifeNormalized() >= 1.0f) {
+				buffer.Delete((*it));
+				it = this->m_particleIndex.erase(it);
+			} else {
+				it++;
+			}
 		}
 
 		// Update the visibility shape
@@ -175,5 +195,21 @@ namespace DE {
 	*/
 	const float CParticleEmitter::GetEmissionRate() const {
 		return this->m_emissionRate;
+	}
+
+	/**
+	* Get the emitter visibility sphere
+	* @return the visibility sphere
+	*/
+	CSphereF * CParticleEmitter::GetVisibilitySphere() {
+		return &this->m_visibilityShape;
+	}
+
+	/**
+	* Get the index of all active particles
+	* @return the index vector
+	*/
+	const std::vector<int> & CParticleEmitter::GetParticleIndex() const {
+		return this->m_particleIndex;
 	}
 }

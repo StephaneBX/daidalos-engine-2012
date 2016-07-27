@@ -1,0 +1,24 @@
+struct VS_OUTPUT
+{
+	float4 position 		: POSITION;
+	float2 texcoord 		: TEXCOORD0;
+	float4 color	  		: COLOR0;
+};
+
+struct PS_OUTPUT
+{
+	float4 color : COLOR;
+};
+
+sampler2D albedo;
+
+PS_OUTPUT main(VS_OUTPUT IN)
+{
+	PS_OUTPUT OUT;
+
+	float4 currentDiffuse = tex2D(albedo, IN.texcoord.xy) * IN.color;
+
+	OUT.color = currentDiffuse;
+	
+	return OUT;
+}
