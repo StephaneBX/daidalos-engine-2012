@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Scene\Particles\Initializers\CLifeParticleInitializer.h"
 #include "Scene\Particles\Initializers\CRotationParticleInitializer.h"
 #include "Scene\Particles\Initializers\CSizeParticleInitializer.h"
+#include "Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h"
 #include "Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h"
 #include "Scene\Particles\Updaters\CColorParticleUpdater.h"
 #include "Scene\Particles\Updaters\CGravityParticleUpdater.h"
@@ -73,6 +74,7 @@ namespace SAMPLE2 {
 		}
 		this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
 
+		// Smoke test
 		DE::CParticleEmitter * emitter = this->m_particleSystem.InstanciateEmitter();
 		emitter->SetLife(0);
 		emitter->SetLifeMax(99999999.0f);
@@ -92,6 +94,25 @@ namespace SAMPLE2 {
 		emitter->AddUpdater(new DE::CRotationParticleUpdater());
 		emitter->AddUpdater(new DE::CSizeParticleUpdater());
 		emitter->AddUpdater(new DE::CVelocityParticleUpdater(0.05f));
+
+		// 
+		DE::CParticleEmitter * emitter2 = this->m_particleSystem.InstanciateEmitter();
+		emitter2->SetLife(0);
+		emitter2->SetLifeMax(99999999.0f);
+		emitter2->SetPosition(DE::CVector3F(0, 0.1f, 30));
+		emitter2->SetTextureId(1);
+		emitter2->SetEmissionRate(200);
+
+		emitter2->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.7f, 0.25f, 0.25f, 0.5f), DE::CColor(0.7f, 0.25f, 0.25f, 0.0f)));
+		emitter2->AddInitializer(new DE::CLifeParticleInitializer(500, 2000));
+		emitter2->AddInitializer(new DE::CSizeParticleInitializer(0.2f, 0.5f));
+		emitter2->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0.3f, 1.0f, 0.0f), 0.2f, 12.0f, 15.0f));
+
+		emitter2->AddUpdater(new DE::CColorParticleUpdater());
+		emitter2->AddUpdater(new DE::CGravityParticleUpdater(DE::CVector3F(0, -5.0f, 0)));
+		emitter2->AddUpdater(new DE::CLifeParticleUpdater());
+		emitter2->AddUpdater(new DE::CSizeParticleUpdater());
+		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0.5f));
 
 		MainLoop();
 	}

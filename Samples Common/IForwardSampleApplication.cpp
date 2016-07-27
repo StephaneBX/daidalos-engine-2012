@@ -35,7 +35,7 @@ namespace SAMPLES {
 		this->m_scene2D = new DE::C2DScene();
 
 		// Initialize the particle system
-		this->m_particleSystem.InitializeSystem(500);
+		this->m_particleSystem.InitializeSystem(5000);
 		this->m_particleSystem.SetAtlasTexture("particleAtlas.tga", DE::CVector2I(4, 4));
 
 		this->m_cursor.SetTexture("cursor.png");

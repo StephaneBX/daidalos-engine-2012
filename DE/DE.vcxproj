@@ -147,6 +147,7 @@
     <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Scene\Particles\Initializers\CColorParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CCompositeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CLifeParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp" />

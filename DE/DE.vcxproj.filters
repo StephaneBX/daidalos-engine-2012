@@ -570,6 +570,9 @@
     <ClInclude Include="Scene\Particles\Updaters\CVelocityParticleUpdater.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -925,6 +928,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Particles\Updaters\CVelocityParticleUpdater.cpp">
       <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

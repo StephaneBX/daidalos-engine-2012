@@ -136,6 +136,7 @@ namespace DE {
 		// Set the render states
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
 		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
@@ -210,16 +211,18 @@ namespace DE {
 			//}
 		}
 
-		// Sort depending on the distance to the active camera
-		CArraySorter<float> distanceSorter;
-		distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1);
+		if(this->m_particleSize > 0) {
+			// Sort depending on the distance to the active camera
+			CArraySorter<float> distanceSorter;
+			distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1);
 
-		// Fill the instance vertex buffer
-		char * buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
-		for(unsigned int i = 0; i < this->m_particleSize; i++) {
-			auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
-			memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
+			// Fill the instance vertex buffer
+			char * buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
+			for(unsigned int i = 0; i < this->m_particleSize; i++) {
+				auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[this->m_particleSize - (i + 1)])->GetData();
+				memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
+			}
+			this->m_particleInstanceVB.Unlock();
 		}
-		this->m_particleInstanceVB.Unlock();
 	}
 }
