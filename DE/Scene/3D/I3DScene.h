@@ -36,6 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CAnimatedMeshSceneNode.h"
 #include "../../Scene/3D/CAABoundingBox.h"
 #include "../../Scene/3D/CSkybox.h"
+#include "../../Scene/Particles/CParticleSystem.h"
 #include "../../Core/CSingletonManager.h"
 
 #define MAX_LIGHTS_IN_SHADERS 200
@@ -100,6 +101,7 @@ namespace DE {
 		SPointLightsShaderData * m_activePointLights;
 		SDirectionalLightsShaderData * m_activeDirectionalLights;
 
+		CParticleSystem m_particleSystem;
 		CSkybox m_skybox;
 		ISceneNode * m_root;
 		ICameraSceneNode * m_activeCamera;
@@ -143,6 +145,18 @@ namespace DE {
 		void SetActiveCamera(ICameraSceneNode * camera);
 
 		/**
+		* Set the particle system atlas texture
+		* @param filename The filename
+		*/
+		void SetParticleSystemAtlasTexture(const std::string & filename, const CVector2I & size);
+
+		/**
+		* Set the particle system particle buffer size
+		* @param size The size
+		*/
+		void SetParticleSystemSize(const int size);
+
+		/**
 		* Update all the nodes
 		* /!\ Also perform view test based on the currently active camera
 		* @param time The elapsed time
@@ -163,6 +177,11 @@ namespace DE {
 		* Render all the nodes
 		*/
 		void RenderAll();
+
+		/**
+		* Render the particle system
+		*/
+		void RenderParticleSystem();
 
 		/**
 		* Render the debug information
@@ -250,6 +269,12 @@ namespace DE {
 		* @return The sky ambient color
 		*/
 		const CVector4F & GetSkyAmbientColor() const;
+
+		/**
+		* Get the particle system
+		* @return The particle system
+		*/
+		CParticleSystem & GetParticleSystem();
 
 		/**
 		* Get the scene bounding box

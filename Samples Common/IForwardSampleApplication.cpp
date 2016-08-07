@@ -34,10 +34,6 @@ namespace SAMPLES {
 		this->m_scene3D = new DE::C3DScene();
 		this->m_scene2D = new DE::C2DScene();
 
-		// Initialize the particle system
-		this->m_particleSystem.InitializeSystem(5000);
-		this->m_particleSystem.SetAtlasTexture("particleAtlas.tga", DE::CVector2I(4, 4));
-
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
 		this->m_scene2D->SetCursor(&this->m_cursor);
@@ -194,8 +190,8 @@ namespace SAMPLES {
 		// ------------------------------
 		// Particle System
 		// ------------------------------
-		this->m_particleSystem.SetActiveCamera(this->m_activeCamera);
-		this->m_particleSystem.RenderAll();
+		this->m_scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
+		this->m_scene3D->GetParticleSystem().RenderAll();
 
 		// ------------------------------
 		// Debug

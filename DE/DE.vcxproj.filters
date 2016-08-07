@@ -573,6 +573,9 @@
     <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\3D\CParticleEmitterSceneNode.h">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -931,6 +934,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp">
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\3D\CParticleEmitterSceneNode.cpp">
+      <Filter>Fichiers sources\Scene\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

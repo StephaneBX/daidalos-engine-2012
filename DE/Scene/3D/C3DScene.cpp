@@ -206,6 +206,13 @@ namespace DE {
 		return this->m_scene->GetSceneBoundingBox();
 	}
 
+	CParticleSystem & C3DScene::GetParticleSystem() {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		return this->m_scene->GetParticleSystem();
+	}
+
 	ISceneNode * C3DScene::GetNode(const std::string & name) const {
 		LOG_TRACE();
 

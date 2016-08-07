@@ -74,29 +74,8 @@ namespace SAMPLE2 {
 		}
 		this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
 
-		// Smoke test
-		DE::CParticleEmitter * emitter = this->m_particleSystem.InstanciateEmitter();
-		emitter->SetLife(0);
-		emitter->SetLifeMax(99999999.0f);
-		emitter->SetPosition(DE::CVector3F(0, 0.5f, 20));
-		emitter->SetTextureId(0);
-		emitter->SetEmissionRate(60);
-
-		emitter->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.5f, 0.5f, 0.5f, 0.3f), DE::CColor(0.5f, 0.5f, 0.5f, 0.0f)));
-		emitter->AddInitializer(new DE::CLifeParticleInitializer(0,10000));
-		emitter->AddInitializer(new DE::CRotationParticleInitializer(-45,45));
-		emitter->AddInitializer(new DE::CSizeParticleInitializer(1,6));
-		emitter->AddInitializer(new DE::CSphereVelocityParticleInitializer(0.5f,1));
-
-		emitter->AddUpdater(new DE::CColorParticleUpdater());
-		emitter->AddUpdater(new DE::CGravityParticleUpdater(DE::CVector3F(0,0.5f,0)));
-		emitter->AddUpdater(new DE::CLifeParticleUpdater());
-		emitter->AddUpdater(new DE::CRotationParticleUpdater());
-		emitter->AddUpdater(new DE::CSizeParticleUpdater());
-		emitter->AddUpdater(new DE::CVelocityParticleUpdater(0.05f));
-
-		// 
-		DE::CParticleEmitter * emitter2 = this->m_particleSystem.InstanciateEmitter();
+		/*
+		DE::CParticleEmitter * emitter2 = this->m_scene3D->GetParticleSystem().InstanciateEmitter();
 		emitter2->SetLife(0);
 		emitter2->SetLifeMax(99999999.0f);
 		emitter2->SetPosition(DE::CVector3F(0, 0.1f, 30));
@@ -112,7 +91,7 @@ namespace SAMPLE2 {
 		emitter2->AddUpdater(new DE::CGravityParticleUpdater(DE::CVector3F(0, -5.0f, 0)));
 		emitter2->AddUpdater(new DE::CLifeParticleUpdater());
 		emitter2->AddUpdater(new DE::CSizeParticleUpdater());
-		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0.5f));
+		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0.5f));*/
 
 		MainLoop();
 	}
@@ -151,10 +130,6 @@ namespace SAMPLE2 {
 		for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
 			(*it)->Update(time);
 		}
-
-		// Update the particle system
-		this->m_particleSystem.SetActiveCamera(this->m_camera->GetCameraNode());
-		this->m_particleSystem.Update(time);
 
 		// Update the position
 		std::stringstream ss;

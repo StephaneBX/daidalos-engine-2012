@@ -118,6 +118,7 @@
     <ClInclude Include="Scene\3D\CImpact.h" />
     <ClInclude Include="Scene\3D\CMeshBuffer.h" />
     <ClInclude Include="Scene\3D\COrthographicCameraSceneNode.h" />
+    <ClInclude Include="Scene\3D\CParticleEmitterSceneNode.h" />
     <ClInclude Include="Scene\3D\CPlane3D.h" />
     <ClInclude Include="Scene\3D\CPointLightSceneNode.h" />
     <ClInclude Include="Scene\3D\CProjectionCameraSceneNode.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Scene\3D\CImpact.cpp" />
     <ClCompile Include="Scene\3D\CMeshBuffer.cpp" />
     <ClCompile Include="Scene\3D\COrthographicCameraSceneNode.cpp" />
+    <ClCompile Include="Scene\3D\CParticleEmitterSceneNode.cpp" />
     <ClCompile Include="Scene\3D\CPointLightSceneNode.cpp" />
     <ClCompile Include="Scene\3D\CProjectionCameraSceneNode.cpp" />
     <ClCompile Include="Scene\3D\CSkybox.cpp" />

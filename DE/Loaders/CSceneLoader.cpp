@@ -39,7 +39,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/3D/CAnimatedMeshSceneNode.h"
 #include "../Scene/3D/CSoundSceneNode.h"
 #include "../Scene/3D/CEmptySceneNode.h"
+#include "../Scene/3D/CParticleEmitterSceneNode.h"
 #include "../Scene/3D/CPlane3D.h"
+#include "../Scene/Particles/Initializers/CColorParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CLifeParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CLinearVelocityParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CRotationParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CSizeParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CSphereVelocityParticleInitializer.h"
+#include "../Scene/Particles/Updaters/CColorParticleUpdater.h"
+#include "../Scene/Particles/Updaters/CGravityParticleUpdater.h"
+#include "../Scene/Particles/Updaters/CLifeParticleUpdater.h"
+#include "../Scene/Particles/Updaters/CRotationParticleUpdater.h"
+#include "../Scene/Particles/Updaters/CSizeParticleUpdater.h"
+#include "../Scene/Particles/Updaters/CVelocityParticleUpdater.h"
 #include "../Medias/CTexture2D.h"
 #include "../Medias/CMaterial.h"
 #include "../Loaders/CSceneLoader.h"
@@ -80,9 +93,18 @@ namespace DE {
 			hDoc.FirstChildElement("scene").ToElement()->QueryIntAttribute("structure", &tmpInt);
 			this->m_structure = (ESceneNodeRootStructureType)tmpInt;
 
+			// Read the particle system declaration
+			element = hDoc.FirstChildElement("scene").FirstChildElement("particleSystem").ToElement();
+			if(element != nullptr) {
+				tinyxml2::XMLHandle & handle = tinyxml2::XMLHandle(element);
+				LoadParticleSystem(scene, handle);
+			}
+
+			// Read the structure nodes
 			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
-			for(element; element; element = element->NextSiblingElement())
+			for(element; element; element = element->NextSiblingElement()) {
 				LoadNode(scene, root, tinyxml2::XMLHandle(element));
+			}
 		} else {
 			LOG_ERROR("Unable to load the scene file '" << this->m_filename << "' (" << doc.GetErrorStr1() << ")");
 			ILogger::Kill();
@@ -298,8 +320,9 @@ namespace DE {
 			static_cast<CSoundSceneNode*>(node)->SetSoundMaxDistance(maxDistance);
 			static_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
 			static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
-			if(playOnStartup)
+			if(playOnStartup) {
 				static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
+			}
 
 			break;
 
@@ -313,6 +336,113 @@ namespace DE {
 			node->SetId(id);
 			static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 			break;
+
+		case SCENE_NODE_PARTICLE_EMITTER: {
+			bool emitterActive;
+			int emitterTextureId;
+			float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation;
+			CColor emitterParticleColorMin, emitterParticleColorMax;
+			CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection;
+
+			// Basic values
+			GetNodeData(handle, "active", emitterActive, true);
+			GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
+			GetNodeData(handle, "textureId", emitterTextureId, 0);
+			GetNodeData(handle, "life", emitterLife, -1);
+			GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
+			GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
+
+			// Create the emitter
+			CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter();
+			emitter->SetActive(emitterActive);
+			emitter->SetTextureId(emitterTextureId);
+			emitter->SetLife(emitterLife);
+			emitter->SetLifeMax(emitterLifeMax);
+			emitter->SetEmissionRate(emitterEmissionRate);
+
+			// Look for initializers
+			tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
+			for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				std::string childName = std::string(child->Name());
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+
+				if(childName.compare("minMaxColor") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
+					emitter->AddInitializer(initializer);
+
+				} else if(childName.compare("minMaxSize") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
+					GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
+					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
+					emitter->AddInitializer(initializer);
+
+				} else if(childName.compare("minMaxLife") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
+					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
+					emitter->AddInitializer(initializer);
+
+				} else if(childName.compare("minMaxRotation") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
+					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
+					emitter->AddInitializer(initializer);
+
+				} else if(childName.compare("minMaxSphereVelocity") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
+					emitter->AddInitializer(initializer);
+				} else if(childName.compare("linearVelocity") == 0) {
+					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
+					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
+					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
+					emitter->AddInitializer(initializer);
+				}
+			}
+
+			// Look for updaters
+			tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
+			for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				std::string childName = std::string(child->Name());
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+
+				if(childName.compare("color") == 0) {
+					CColorParticleUpdater * updater = new CColorParticleUpdater();
+					emitter->AddUpdater(updater);
+
+				} else if(childName.compare("gravity") == 0) {
+					GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
+					CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
+					emitter->AddUpdater(updater);
+
+				} else if(childName.compare("life") == 0) {
+					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
+					emitter->AddUpdater(updater);
+
+				} else if(childName.compare("rotation") == 0) {
+					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
+					emitter->AddUpdater(updater);
+
+				} else if(childName.compare("size") == 0) {
+					CSizeParticleUpdater * updater = new CSizeParticleUpdater();
+					emitter->AddUpdater(updater);
+
+				} else if(childName.compare("velocity") == 0) {
+					GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
+					CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
+					emitter->AddUpdater(updater);
+				}
+			}
+			node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
+			node->SetId(id);
+			static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
+		}
+		break;
 
 		default:
 			// Invalid or missing type
@@ -329,15 +459,17 @@ namespace DE {
 			node->SetAttributes(attributes);
 
 			// Add the node to the parent
-			if(parent != node)
+			if(parent != node) {
 				parent->AddChild(node);
+			}
 
 			// Check for attached nodes
 			child = handle.FirstChildElement("node").ToElement();
 			for(child; child; child = child->NextSiblingElement()) {
 				// Read only nodes
-				if(std::string(child->Name()) == "node")
+				if(std::string(child->Name()) == "node") {
 					LoadNode(scene, node, tinyxml2::XMLHandle(child));
+				}
 			}
 		}
 	}
@@ -388,8 +520,9 @@ namespace DE {
 						AddBSPBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
 
-				if(brush.geometry.size() > 0)
+				if(brush.geometry.size() > 0) {
 					brushDefinition.push_back(brush);
+				}
 			}
 		}
 
@@ -455,8 +588,9 @@ namespace DE {
 						AddSimpleBrushData(tinyxml2::XMLHandle(child2), brush);
 				}
 
-				if(brush.geometry.size() > 0)
+				if(brush.geometry.size() > 0) {
 					brushes.push_back(brush);
+				}
 			}
 		}
 
@@ -474,6 +608,24 @@ namespace DE {
 
 		// Add all the geometry in the bsp scene node
 		static_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
+	}
+
+	void CSceneLoader::LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle) {
+		LOG_TRACE();
+
+		int particleSystemSize;
+		std::string atlasTexture;
+		CVector2I atlasSize;
+
+		// Read the system size
+		GetNodeData(handle, "systemSize", particleSystemSize, 0);
+
+		// Read the atlas texture
+		GetNodeData(handle, "atlasTextureFile", atlasTexture, "particleAtlas.tga");
+		GetNodeData(handle, "atlasTextureSize", atlasSize, CVector2I(1, 1));
+
+		scene->GetParticleSystem().InitializeSystem(particleSystemSize);
+		scene->GetParticleSystem().SetAtlasTexture(atlasTexture, atlasSize);
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
@@ -509,11 +661,13 @@ namespace DE {
 			CTexture2D diffuse;
 			CTexture2D normal;
 
-			if(diffuseTexture != "")
+			if(diffuseTexture != "") {
 				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			}
 
-			if(normalTexture != "")
+			if(normalTexture != "") {
 				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			}
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CBSPTriangle * triangle = new CBSPTriangle();
@@ -576,11 +730,13 @@ namespace DE {
 			CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 			CVector3F maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
-			if(diffuseTexture != "")
+			if(diffuseTexture != "") {
 				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			} 
 
-			if(normalTexture != "")
+			if(normalTexture != "") {
 				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			}
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
 				CTriangle3D * triangle = new CTriangle3D();
@@ -635,8 +791,9 @@ namespace DE {
 				data = true;
 			if(tmpText == "false" || tmpText == "0")
 				data = false;
-		} else
+		} else {
 			data = defaultValue;
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
@@ -646,8 +803,20 @@ namespace DE {
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
-		} else
+		} else {
 			data = defaultValue;
+		}
+	}
+
+	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
+		LOG_TRACE();
+
+		CTokenizer tokenizer;
+		data = defaultValue;
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		if(text != nullptr) {
+			data = CVector2I::GetFrom(std::string(text->Value()), defaultValue);
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
@@ -656,8 +825,9 @@ namespace DE {
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
+		if(text != nullptr) {
 			data = CVector3F::GetFrom(std::string(text->Value()), defaultValue);
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
@@ -666,8 +836,9 @@ namespace DE {
 		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
+		if(text != nullptr) {
 			data = CVector4F::GetFrom(std::string(text->Value()), defaultValue);
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) {
@@ -695,8 +866,9 @@ namespace DE {
 			ss >> a;
 
 			data = CColor(r, g, b, a);
-		} else
+		} else {
 			data = defaultValue;
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
@@ -706,8 +878,9 @@ namespace DE {
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
-		} else
+		} else {
 			data = defaultValue;
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
@@ -716,8 +889,9 @@ namespace DE {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = text->Value();
-		} else
+		} else {
 			data = defaultValue;
+		}
 	}
 
 	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle) {

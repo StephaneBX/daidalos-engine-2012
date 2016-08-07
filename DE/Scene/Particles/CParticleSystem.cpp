@@ -117,13 +117,16 @@ namespace DE {
 	void CParticleSystem::Update(const float time) {
 
 		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end();) {
-			(*it)->Update(time, this->m_particleBuffer);
 
-			// Remove the dead emitters
-			if ((*it)->GetLife() >= (*it)->GetLifeMax()) {
-				it = this->m_emitters.erase(it);
-			} else {
-				it++;
+			if((*it)->IsActive()) {
+				(*it)->Update(time, this->m_particleBuffer);
+
+				// Remove the dead emitters
+				if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax()) {
+					it = this->m_emitters.erase(it);
+				} else {
+					it++;
+				}
 			}
 		}
 	}
@@ -152,6 +155,8 @@ namespace DE {
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_BILLBOARD_MATRIX), billboardMatrix);
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F((float)this->m_atlasSize.x, (float)this->m_atlasSize.y));
+		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 
 		// Steam states
 		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());
@@ -201,25 +206,25 @@ namespace DE {
 		this->m_particleSize = 0;
 		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); it++) {
 			// If the particle is not culled
-			//if(!this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
+			if((*it)->IsActive() && !this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
 				// Get the particle index and the distance to camera
 				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
 					this->m_particleIndex.get()[this->m_particleSize] = (*it2);
 					this->m_particleDistance.get()[this->m_particleSize] = (this->m_particleBuffer.GetAt((*it2))->GetPosition() - this->m_activeCamera->GetPosition()).Length();
 					this->m_particleSize++;
 				}
-			//}
+			}
 		}
 
 		if(this->m_particleSize > 0) {
 			// Sort depending on the distance to the active camera
 			CArraySorter<float> distanceSorter;
-			distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1);
+			distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1, ARRAY_SORTER_ORDER_DESC);
 
 			// Fill the instance vertex buffer
 			char * buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
 			for(unsigned int i = 0; i < this->m_particleSize; i++) {
-				auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[this->m_particleSize - (i + 1)])->GetData();
+				auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
 				memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
 			}
 			this->m_particleInstanceVB.Unlock();

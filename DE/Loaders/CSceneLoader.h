@@ -100,6 +100,13 @@ namespace DE {
 		void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
+		* Load the particle system declaration
+		* @param scene The scene
+		* @param handle The xml handle
+		*/
+		void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle);
+
+		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
@@ -130,6 +137,15 @@ namespace DE {
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
 		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue);
+
+		/**
+		* Get a node data
+		* @param handle The handle for the node
+		* @param name The data name
+		* @param data The data type
+		* @param defaultValue The default value to use if no data is found in the node
+		*/
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue);
 
 		/**
 		* Get a node data

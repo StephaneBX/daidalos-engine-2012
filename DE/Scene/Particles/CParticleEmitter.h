@@ -41,6 +41,7 @@ namespace DE {
 	*/
 	class CParticleEmitter {
 	protected:
+		bool m_active;
 		int m_textureId;
 		float m_life;
 		float m_lifeMax;
@@ -57,6 +58,12 @@ namespace DE {
 		* The constructor
 		*/
 		CParticleEmitter();
+
+		/**
+		* Set the active state
+		* @param active If the emitter is active
+		*/
+		void SetActive(const bool active);
 
 		/**
 		* Set the texture id
@@ -106,6 +113,12 @@ namespace DE {
 		* @param buffer the particle buffer
 		*/
 		void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer);
+
+		/**
+		* Get the active state
+		* @return The active state
+		*/
+		const bool IsActive() const;
 
 		/**
 		* Get the texture id

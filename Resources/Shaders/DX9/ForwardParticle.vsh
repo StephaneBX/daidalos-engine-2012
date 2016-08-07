@@ -15,6 +15,7 @@ struct VS_INPUT {
 struct VS_OUTPUT {
 	float4 position 		: POSITION; // Screen space coordinate
 	float2 texcoord 		: TEXCOORD0; // Texture coordinate
+	float  depth			: TEXCOORD1; // Geometry depth
 	float4 color	  		: COLOR0; // Color
 };
 
@@ -51,6 +52,8 @@ VS_OUTPUT main(VS_INPUT IN) {
 	float2 step = 1.0f / textureAtlasSize.xy;
 	OUT.texcoord.x = (IN.texcoord.x * step.x) + (step.x * (IN.instSizeId.y % (int)textureAtlasSize.x));
 	OUT.texcoord.y = (IN.texcoord.y * step.y) + (step.y * (IN.instSizeId.y / textureAtlasSize.x));
+	
+	OUT.depth = OUT.position.z;
 
 	OUT.color = IN.instColor;
 	

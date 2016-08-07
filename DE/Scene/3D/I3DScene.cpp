@@ -99,6 +99,23 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_activeCamera = camera;
+		this->m_particleSystem.SetActiveCamera(camera);
+	}
+
+	/**
+	* Set the particle system atlas texture
+	* @param filename The filename
+	*/
+	void I3DScene::SetParticleSystemAtlasTexture(const std::string & filename, const CVector2I & size) {
+		this->m_particleSystem.SetAtlasTexture(filename, size);
+	}
+
+	/**
+	* Set the particle system particle buffer size
+	* @param size The size
+	*/
+	void I3DScene::SetParticleSystemSize(const int size) {
+		this->m_particleSystem.InitializeSystem(size);
 	}
 
 	void I3DScene::UpdateAll(const float time) {
@@ -133,6 +150,9 @@ namespace DE {
 		// Sort the lights
 		SortLights();
 		ActiveLightsCheck();
+
+		// Update the particle system
+		this->m_particleSystem.Update(time);
 	}
 
 	void I3DScene::RenderSkyboxMask() {
@@ -173,6 +193,15 @@ namespace DE {
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
 		this->m_root->Render();
+	}
+
+	/**
+	* Render the particle system
+	*/
+	void I3DScene::RenderParticleSystem() {
+		LOG_TRACE();
+
+		this->m_particleSystem.RenderAll();
 	}
 
 	void I3DScene::RenderDebugInformation() {
@@ -316,6 +345,12 @@ namespace DE {
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetBoundingBox();
 	}
 
+	CParticleSystem & I3DScene::GetParticleSystem() {
+		LOG_TRACE();
+
+		return this->m_particleSystem;
+	}
+
 	ISceneNode * I3DScene::GetRoot() const {
 		LOG_TRACE();
 
@@ -392,14 +427,14 @@ namespace DE {
 			this->m_activeSpotLights->visibilityOrder[i] = i;
 			this->m_activeSpotLights->distanceToCamera[i] = CVector3F(this->m_activeSpotLights->position[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
-		sorter.QuickSort(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->visibilityOrder, 0, this->m_activeSpotLights->numberOfLights);
+		sorter.QuickSort(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->visibilityOrder, 0, this->m_activeSpotLights->numberOfLights, ARRAY_SORTER_ORDER_ASC);
 
 		// Sort the point lights
 		for(int i = 0; i < this->m_activePointLights->numberOfLights; i++) {
 			this->m_activePointLights->visibilityOrder[i] = i;
 			this->m_activePointLights->distanceToCamera[i] = CVector3F(this->m_activePointLights->positionRange[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
-		sorter.QuickSort(this->m_activePointLights->distanceToCamera, this->m_activePointLights->visibilityOrder, 0, this->m_activePointLights->numberOfLights);
+		sorter.QuickSort(this->m_activePointLights->distanceToCamera, this->m_activePointLights->visibilityOrder, 0, this->m_activePointLights->numberOfLights, ARRAY_SORTER_ORDER_ASC);
 	}
 
 	void I3DScene::ActiveLightsCheck() {

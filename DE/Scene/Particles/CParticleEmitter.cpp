@@ -37,6 +37,14 @@ namespace DE {
 	}
 
 	/**
+	* Set the active state
+	* @param active If the emitter is active
+	*/
+	void CParticleEmitter::SetActive(const bool active) {
+		this->m_active = active;
+	}
+
+	/**
 	* Set the texture id
 	* @param textureId The texture id
 	*/
@@ -98,6 +106,11 @@ namespace DE {
 	* @param buffer the particle buffer
 	*/
 	void CParticleEmitter::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer) {
+
+		// Update the emitter's life
+		if(this->m_lifeMax > 0) {
+			this->m_life += time;
+		}
 
 		// New particle emission
 		this->m_pendingTime += time;
@@ -163,6 +176,14 @@ namespace DE {
 			maxRadius = std::max(maxRadius, (entity.GetPosition() - this->m_position).Length());
 		}
 		this->m_visibilityShape.SetRadius(maxRadius);
+	}
+
+	/**
+	* Get the active state
+	* @return The active state
+	*/
+	const bool CParticleEmitter::IsActive() const {
+		return this->m_active;
 	}
 
 	/**

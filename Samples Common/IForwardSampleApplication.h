@@ -49,7 +49,6 @@ namespace SAMPLES {
 		DE::C2DScene * m_scene2D;
 		DE::ICameraSceneNode * m_activeCamera;
 		DE::CCursor m_cursor;
-		DE::CParticleSystem m_particleSystem;
 
 		// 2D Rendering 
 		DE::DeclarationPtr m_declaration2D;

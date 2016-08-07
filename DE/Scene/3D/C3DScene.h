@@ -189,6 +189,12 @@ namespace DE {
 		const CAABoundingBoxF GetSceneBoundingBox();
 
 		/**
+		* Get the particle system
+		* @return The particle system
+		*/
+		CParticleSystem & GetParticleSystem();
+
+		/**
 		* Get the first node found with the given name
 		* @param name The node name
 		* @return A node or nullptr if no node is found
