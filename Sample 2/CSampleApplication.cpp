@@ -131,13 +131,10 @@ namespace SAMPLE2 {
 			(*it)->Update(time);
 		}
 
-		// Update the position
-		std::stringstream ss;
-		ss << "P: " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().x << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().y << " : " << (int)this->m_camera->GetCameraNode()->GetAbsolutePosition().z << " - G:" << this->m_scene3D->GetNumberOfVisibleTriangles();
-		this->m_positionText.SetText(ss.str());
-
-		// Update the fps
-		this->m_fpsCounter.Update(time);
-		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
+		// Update the hud
+		this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+		this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
+		this->m_hud->SetGravity(this->m_camera->GetGravity());
+		this->m_hud->SetHealth(this->m_camera->GetHealth());
 	}
 }

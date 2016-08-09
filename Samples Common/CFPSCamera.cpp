@@ -42,6 +42,7 @@ namespace SAMPLES {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
+		this->m_health = 100;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
@@ -91,6 +92,7 @@ namespace SAMPLES {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RUN, 0, DE::INPUT_KEY_GAMEPAD_BUTTON4);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_INTERACT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON2);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
@@ -116,6 +118,14 @@ namespace SAMPLES {
 		this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
 		float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
 		this->m_soundContext->SetListenerOrientation(orientation);
+	}
+
+	const int CFPSCamera::GetHealth() const {
+		return this->m_health;
+	}
+
+	const float CFPSCamera::GetGravity() const {
+		return this->m_gravity.y;
 	}
 
 	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
@@ -225,6 +235,9 @@ namespace SAMPLES {
 
 			// Reset gravity and state if the player has touched the ground
 			if(this->m_shape.GetPosition().y > finalPosition.y) {
+
+				// Gravity damage
+
 				this->m_gravity.y = 0;
 				this->m_state &= ~FPS_CAMERA_JUMP;
 			}

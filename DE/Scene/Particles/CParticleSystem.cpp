@@ -118,15 +118,13 @@ namespace DE {
 
 		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end();) {
 
-			if((*it)->IsActive()) {
-				(*it)->Update(time, this->m_particleBuffer);
+			(*it)->Update(time, this->m_particleBuffer);
 
-				// Remove the dead emitters
-				if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax()) {
-					it = this->m_emitters.erase(it);
-				} else {
-					it++;
-				}
+			// Remove the dead emitters
+			if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax()) {
+				it = this->m_emitters.erase(it);
+			} else {
+				it++;
 			}
 		}
 	}
@@ -206,7 +204,7 @@ namespace DE {
 		this->m_particleSize = 0;
 		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); it++) {
 			// If the particle is not culled
-			if((*it)->IsActive() && !this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
+			if(!this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
 				// Get the particle index and the distance to camera
 				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
 					this->m_particleIndex.get()[this->m_particleSize] = (*it2);

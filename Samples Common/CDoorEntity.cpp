@@ -56,11 +56,13 @@ namespace SAMPLES {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
 			this->m_scene3D->SetBrushCollision(this->m_node->GetId(), false);
+			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
 		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_CLOSED;
+			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
@@ -71,6 +73,7 @@ namespace SAMPLES {
 			case DOOR_STATE_CLOSED:
 				this->m_state = DOOR_STATE_OPENING;
 				this->m_node->StartAnimation(1, 2, ANIMATION_SPEED);
+				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 				break;
 
@@ -92,6 +95,7 @@ namespace SAMPLES {
 					this->m_state = DOOR_STATE_CLOSING;
 					this->m_node->StartAnimation(2, 3, ANIMATION_SPEED);
 					this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
+					this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 					this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 				}
 			}

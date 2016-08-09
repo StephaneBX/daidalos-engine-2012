@@ -100,28 +100,16 @@ namespace SAMPLES {
 
 
 		// ------------------------------------------------------------------------------------------------
-		// The texts
+		// The Hud
 		// --------------------------------------------------------------------------------------------------
-		this->m_fpsText.SetBounds(DE::CRectangleI((int)(this->m_renderer->GetResolution().x - 150), 0, 150, 30));
-		this->m_fpsText.SetSize(30);
-		this->m_fpsText.SetColor(DE::CColor(255, 255, 102, 255));
-		this->m_fpsText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_fpsText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
-		this->m_fpsText.SetText("FPS");
-		this->m_scene2D->AddToMainView(&this->m_fpsText);
-
-		this->m_positionText.SetBounds(DE::CRectangleI(5, 0, 200, 30));
-		this->m_positionText.SetSize(26);
-		this->m_positionText.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
-		this->m_positionText.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_positionText.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
-		this->m_positionText.SetText("Position");
-		this->m_scene2D->AddToMainView(&this->m_positionText);
+		this->m_hud = new CHudView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
+		this->m_scene2D->AddToMainView(this->m_hud);
 	}
 
 	IForwardSampleApplication::~IForwardSampleApplication() {
 		delete this->m_scene3D;
 		delete this->m_scene2D;
+		delete this->m_hud;
 	}
 
 	void IForwardSampleApplication::Render() {
@@ -204,8 +192,6 @@ namespace SAMPLES {
 		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
-		this->m_fpsText.SetText(this->m_fpsCounter.GetText());
-
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);

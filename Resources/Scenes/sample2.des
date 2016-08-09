@@ -6495,6 +6495,13 @@
 			<position>-30.0:0.0:64.0</position>
 			<rotation>0.0:0.0:0.0</rotation>
 		</brush>
+		
+		<brush file="crate.obj">
+			<diffuse_texture>crate_1d.png</diffuse_texture>
+			<normal_texture>crate_1n.png</normal_texture>
+			<position>-26.0:0.0:86.0</position>
+			<rotation>0.0:0.0:0.0</rotation>
+		</brush>
 
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_1d.png</diffuse_texture>
@@ -7908,17 +7915,17 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<normal_texture>white.png</normal_texture>
 			
-			<!-- Smoke comming from the fan -->
+			<!-- Smoke coming from the fan -->
 			<node type="9" name="smokeFanEmitter">
 				<active>true</active>
 				<position>0:0:0</position>
 				<textureId>0</textureId>
 				<life>-1</life>
 				<lifeMax>-1</lifeMax>
-				<emissionRate>100</emissionRate>
+				<emissionRate>120</emissionRate>
 				<initializers>
 					<minMaxColor>
-						<min>0.7:0.5:0.5:0.3</min>
+						<min>0.7:0.5:0.5:0.2</min>
 						<max>0.7:0.5:0.5:0</max>
 					</minMaxColor>
 					<minMaxSize>
@@ -7927,7 +7934,7 @@
 					</minMaxSize>
 					<minMaxLife>
 						<min>0</min>
-						<max>10000</max>
+						<max>13000</max>
 					</minMaxLife>
 					<minMaxRotation>
 						<min>-45</min>

@@ -107,44 +107,47 @@ namespace DE {
 	*/
 	void CParticleEmitter::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer) {
 
-		// Update the emitter's life
-		if(this->m_lifeMax > 0) {
-			this->m_life += time;
-		}
+		// Create new particle only when active
+		if(this->m_active) {
+			// Update the emitter's life
+			if(this->m_lifeMax > 0) {
+				this->m_life += time;
+			}
 
-		// New particle emission
-		this->m_pendingTime += time;
-		float msPerParticle = 1000.0f / this->m_emissionRate;
-		int numberOfNewParticles = (int)(this->m_pendingTime / msPerParticle);
+			// New particle emission
+			this->m_pendingTime += time;
+			float msPerParticle = 1000.0f / this->m_emissionRate;
+			int numberOfNewParticles = (int)(this->m_pendingTime / msPerParticle);
 
-		// We have new particles to create
-		if(numberOfNewParticles > 0) {
+			// We have new particles to create
+			if(numberOfNewParticles > 0) {
 
-			std::vector<int> newParticlesIndex;
+				std::vector<int> newParticlesIndex;
 
-			for(int i = 0;  i < numberOfNewParticles; i++) {
-				// Get a free particle element from the buffer, if possible
-				int newParticleId = buffer.New();
-				if(newParticleId > -1) {
-					this->m_particleIndex.push_back(newParticleId);
-					newParticlesIndex.push_back(newParticleId);
+				for(int i = 0; i < numberOfNewParticles; i++) {
+					// Get a free particle element from the buffer, if possible
+					int newParticleId = buffer.New();
+					if(newParticleId > -1) {
+						this->m_particleIndex.push_back(newParticleId);
+						newParticlesIndex.push_back(newParticleId);
 
-					// Set the initial position and the texture id
-					CParticleEntity * entity = buffer.GetAt(newParticleId);
-					entity->SetPosition(this->m_position);
-					entity->SetTextureId((float)this->m_textureId);
+						// Set the initial position and the texture id
+						CParticleEntity * entity = buffer.GetAt(newParticleId);
+						entity->SetPosition(this->m_position);
+						entity->SetTextureId((float)this->m_textureId);
+					}
 				}
-			}
 
-			// Reduce the pending time
-			this->m_pendingTime -= numberOfNewParticles * msPerParticle;
-			if(this->m_pendingTime < 0) {
-				this->m_pendingTime = 0;
-			}
+				// Reduce the pending time
+				this->m_pendingTime -= numberOfNewParticles * msPerParticle;
+				if(this->m_pendingTime < 0) {
+					this->m_pendingTime = 0;
+				}
 
-			// Call the initializers for each new particle
-			for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); it++) {
-				(*it)->Initialize(buffer, newParticlesIndex);
+				// Call the initializers for each new particle
+				for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); it++) {
+					(*it)->Initialize(buffer, newParticlesIndex);
+				}
 			}
 		}
 

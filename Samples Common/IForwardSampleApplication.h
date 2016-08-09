@@ -38,6 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/IRenderer.h>
 #include <Core/IDeclaration.h>
 #include <Applications/IWin32Application.h>
+#include "CHudView.h"
 
 namespace SAMPLES {
 	/**
@@ -65,10 +66,9 @@ namespace SAMPLES {
 		DE::CShaderProgram m_shaderDirectionalLight;
 		DE::CFrameBuffer m_frameBufferShadowMap;
 
-		// Debug
-		DE::CLabel m_fpsText;
+		// Hud
 		DE::CFPSCounter m_fpsCounter;
-		DE::CLabel m_positionText;
+		CHudView * m_hud;
 
 	public:
 		/**

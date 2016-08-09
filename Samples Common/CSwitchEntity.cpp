@@ -51,7 +51,7 @@ namespace SAMPLES {
 				this->m_highlighted = true;
 			}
 
-			if(this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT)) {
+			if(this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT)) {
 				DoAction();
 			}
 		} else if(this->m_highlighted) {

@@ -61,6 +61,7 @@ namespace SAMPLES
 	{
 	private:
 		unsigned int m_state;
+		int m_health;
 		float m_lastCollisionUpdateTimer;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
@@ -90,6 +91,18 @@ namespace SAMPLES
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
+
+		/**
+		* Get the health
+		* @return The health
+		*/
+		const int GetHealth() const;
+
+		/**
+		* Get the player's gravity
+		* @return The gravity
+		*/
+		const float GetGravity() const;
 
 		/**
 		* Get the camera node
