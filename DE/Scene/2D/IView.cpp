@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/Logger/ILogger.h"
+#include "../../Core/Utility/CMatrix.h"
 #include "../../Scene/2D/IView.h"
 
 namespace DE {
@@ -239,37 +240,44 @@ namespace DE {
 		return *this;
 	}
 
-	const std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates) {
+	const std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation) {
 		LOG_TRACE();
 
+		CRectangleI centeredPosition = CRectangleI(-(position.GetWidth() / 2), -(position.GetHeight() / 2), position.GetWidth(), position.GetHeight());
+		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(0, 0, DegreeToRadian(rotation)), CVector3F(0, 0, 0));
+		CVector3F translation = CVector3F((float)(position.GetLeft() + position.GetWidth() / 2), (float)(position.GetTop() + (position.GetHeight() / 2)), 0);
 		std::vector<SGUIData> dataSet;
 		SGUIData data;
 
 		// First triangle
-		data.position = CVector3F((float)position.GetLeft(), (float)position.GetTop(), 0);
+		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetTop(), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)position.GetRight(), (float)position.GetBottom(), 0);
+		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetBottom(), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetBottom());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)position.GetLeft(), (float)position.GetBottom(), 0);
+		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetBottom(), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetBottom());
 		dataSet.push_back(data);
 
 		// Second triangle
-		data.position = CVector3F((float)position.GetLeft(), (float)position.GetTop(), 0);
+		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetTop(), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)position.GetRight(), (float)position.GetTop(), 0);
+		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetTop(), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)position.GetRight(), (float)position.GetBottom(), 0);
+		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetBottom(), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetBottom());
 		dataSet.push_back(data);
+
+		for(auto it = dataSet.begin(); it != dataSet.end(); it++) {
+			(*it).position = rotationMatrix.Transform((*it).position) + translation;
+		}
 
 		return dataSet;
 	}

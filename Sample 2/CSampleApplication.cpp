@@ -43,8 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLE2 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
 
-		this->m_loadingThread = std::thread(&CSampleApplication::LoadLevel, this, "sample2.des");
-		this->m_loadingThread.detach();
+		std::thread(&CSampleApplication::LoadLevel, this, "sample2.des").detach();
 
 		MainLoop();
 	}
@@ -93,6 +92,7 @@ namespace SAMPLE2 {
 			this->m_hud->SetHealth(this->m_camera->GetHealth());
 
 			this->m_cursor.Update(time);
+			this->m_scene2D->Update(time);
 		} else {
 			this->m_loadingScene->Update(time);
 		}

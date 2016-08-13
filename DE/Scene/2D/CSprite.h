@@ -37,6 +37,7 @@ namespace DE {
 	*/
 	class CSprite : public IView {
 	private:
+		float m_rotation;
 		CColor m_backgroundColor;
 		CTexture2D m_texture;
 
@@ -45,6 +46,12 @@ namespace DE {
 		* Constructor
 		*/
 		CSprite();
+
+		/**
+		* Set the rotation in degree
+		* @param rotation The rotation
+		*/
+		void SetRotation(const float rotation);
 
 		/**
 		* Set the texture
@@ -67,6 +74,12 @@ namespace DE {
 		* Render the button
 		*/
 		void Render();
+
+		/**
+		* Get the rotation
+		* @return The rotation
+		*/
+		const float GetRotation() const;
 	};
 }
 

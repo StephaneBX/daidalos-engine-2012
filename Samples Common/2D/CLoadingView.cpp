@@ -30,6 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
+#define GEAR_ROTATION_SPEED 90.0f
+
+	/**
+	* Constructor
+	* @param bounds The view bounds
+	*/
 	CLoadingView::CLoadingView(const DE::CRectangleI & bounds) {
 
 		SetBounds(bounds);
@@ -49,6 +55,18 @@ namespace SAMPLES {
 		this->m_gearSprite.SetBounds(DE::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
 		this->m_gearSprite.SetTexture("gear.png");
 		AddSubview(&this->m_gearSprite);
+	}
+
+	/**
+	* Update the state and the geometry
+	* @param time The elapsed time
+	*/
+	void CLoadingView::Update(const float time) {
+
+		// Update the gear rotation
+		this->m_gearSprite.SetRotation(this->m_gearSprite.GetRotation() + (GEAR_ROTATION_SPEED * time) / 1000.0f);
+
+		IView::Update(time);
 	}
 }
 

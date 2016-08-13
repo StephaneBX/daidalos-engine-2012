@@ -223,8 +223,11 @@ namespace DE {
 
 		/**
 		* Generate and return a quad with a given position and texture coordinates
+		* @param position The position
+		* @param coordinates The texture coordinates
+		* @param rotation The rotation
 		*/
-		const std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates);
+		const std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation = 0);
 	};
 }
 

@@ -41,6 +41,11 @@ namespace DE {
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 	}
 
+	void CSprite::SetRotation(const float rotation) {
+		this->m_rotation = rotation;
+		this->m_changed = true;
+	}
+
 	void CSprite::SetTexture(const std::string texture) {
 		LOG_TRACE();
 
@@ -59,7 +64,7 @@ namespace DE {
 		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
-			this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1));
+			this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1), this->m_rotation);
 
 			if(this->m_data.size() > 0) {
 				// Create a new buffer if the current one is too small
@@ -96,5 +101,9 @@ namespace DE {
 
 		// Render the subviews
 		IView::Render();
+	}
+
+	const float CSprite::GetRotation() const {
+		return this->m_rotation;
 	}
 }

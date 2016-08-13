@@ -75,8 +75,6 @@ namespace SAMPLES {
 		CHudView * m_hud;
 		CLoadingView * m_loadingView;
 
-		std::thread m_loadingThread;
-
 	public:
 		/**
 		* Constructor

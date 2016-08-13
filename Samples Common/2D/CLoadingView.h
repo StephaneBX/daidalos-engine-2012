@@ -48,6 +48,12 @@ namespace SAMPLES {
 		* @param bounds The view bounds
 		*/
 		CLoadingView(const DE::CRectangleI & bounds);
+
+		/**
+		* Update the state and the geometry
+		* @param time The elapsed time
+		*/
+		void Update(const float time);
 	};
 }
 
