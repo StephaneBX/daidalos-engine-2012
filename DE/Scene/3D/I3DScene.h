@@ -38,6 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CSkybox.h"
 #include "../../Scene/Particles/CParticleSystem.h"
 #include "../../Core/CSingletonManager.h"
+#include <thread>
 
 #define MAX_LIGHTS_IN_SHADERS 200
 

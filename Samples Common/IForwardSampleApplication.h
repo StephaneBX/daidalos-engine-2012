@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IFORWARDSAMPLEAPPLICATION_H
 #define __IFORWARDSAMPLEAPPLICATION_H
 
+#include <thread>
 #include <Scene/3D/C3DScene.h>
 #include <Scene/2D/C2DScene.h>
 #include <Scene/2D/CLabel.h>
@@ -38,7 +39,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/IRenderer.h>
 #include <Core/IDeclaration.h>
 #include <Applications/IWin32Application.h>
-#include "CHudView.h"
+#include "2D/CHudView.h"
+#include "2D/CLoadingView.h"
 
 namespace SAMPLES {
 	/**
@@ -46,8 +48,10 @@ namespace SAMPLES {
 	*/
 	class IForwardSampleApplication : public DE::IWin32Application {
 	protected:
+		bool m_loading;
 		DE::C3DScene * m_scene3D;
 		DE::C2DScene * m_scene2D;
+		DE::C2DScene * m_loadingScene;
 		DE::ICameraSceneNode * m_activeCamera;
 		DE::CCursor m_cursor;
 
@@ -69,6 +73,9 @@ namespace SAMPLES {
 		// Hud
 		DE::CFPSCounter m_fpsCounter;
 		CHudView * m_hud;
+		CLoadingView * m_loadingView;
+
+		std::thread m_loadingThread;
 
 	public:
 		/**
@@ -96,19 +103,29 @@ namespace SAMPLES {
 
 	protected:
 		/**
+		* Render a 3D scene
+		*/
+		void Render3DScene(DE::C3DScene * scene3D);
+
+		/**
+		* Render a 2D scene
+		*/
+		void Render2DScene(DE::C2DScene * scene2D);
+
+		/**
 		* Render the spot lights in the backbuffer
 		*/
-		void SpotLightsRendering();
+		void SpotLightsRendering(DE::C3DScene * scene3D);
 
 		/**
 		* Render the point lights in the backbuffer
 		*/
-		void PointLightsRendering();
+		void PointLightsRendering(DE::C3DScene * scene3D);
 
 		/**
 		* Render the directional lights in the backbuffer
 		*/
-		void DirectionalLightsRendering();
+		void DirectionalLightsRendering(DE::C3DScene * scene3D);
 	};
 }
 

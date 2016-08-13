@@ -66,24 +66,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CDoorEntity.h" />
-    <ClInclude Include="CFanEntity.h" />
+    <ClInclude Include="2D\CHudView.h" />
+    <ClInclude Include="2D\CLoadingView.h" />
+    <ClInclude Include="3D\CDoorEntity.h" />
+    <ClInclude Include="3D\CFanEntity.h" />
+    <ClInclude Include="3D\CSwitchEntity.h" />
+    <ClInclude Include="3D\IEntity.h" />
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
-    <ClInclude Include="CHudView.h" />
-    <ClInclude Include="CSwitchEntity.h" />
-    <ClInclude Include="IEntity.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
     <ClInclude Include="ISampleApplication.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CDoorEntity.cpp" />
-    <ClCompile Include="CFanEntity.cpp" />
+    <ClCompile Include="2D\CHudView.cpp" />
+    <ClCompile Include="2D\CLoadingView.cpp" />
+    <ClCompile Include="3D\CDoorEntity.cpp" />
+    <ClCompile Include="3D\CFanEntity.cpp" />
+    <ClCompile Include="3D\CSwitchEntity.cpp" />
+    <ClCompile Include="3D\IEntity.cpp" />
     <ClCompile Include="CFPSCamera.cpp" />
     <ClCompile Include="CFreeCamera.cpp" />
-    <ClCompile Include="CHudView.cpp" />
-    <ClCompile Include="CSwitchEntity.cpp" />
-    <ClCompile Include="IEntity.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="ISampleApplication.cpp" />
   </ItemGroup>

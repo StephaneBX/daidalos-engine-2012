@@ -25,49 +25,33 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CDOORENTITY_H
-#define __CDOORENTITY_H
+#ifndef __CRADIUSPOSITIONPARTICLEINITIALIZER_H
+#define __CRADIUSPOSITIONPARTICLEINITIALIZER_H
 
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Medias/CSound.h>
-#include "CFPSCamera.h"
+#include "../../../Scene/Particles/IParticleInitializer.h"
 
-namespace SAMPLES {
-		
-	enum EDoorState {
-		DOOR_STATE_CLOSED,
-		DOOR_STATE_OPENED,
-		DOOR_STATE_OPENING,
-		DOOR_STATE_CLOSING
-	};
-
+namespace DE {
 	/**
-	* Door entity
+	* The particle position initializer class on a radius area
 	*/
-	class CDoorEntity {
-	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-		CFPSCamera * m_player;
+	class CRadiusPositionParticleInitializer : public IParticleInitializer {
 
-		DE::CSound m_startSound;
-		DE::CSound m_stopSound;
-		EDoorState m_state;
-		float m_timer;
+	private:
+		float m_radius;
 
 	public:
 		/**
-		* @param node The door node
-		* @param camera The player
-		* @param scene3D The scene associated to the node
+		* Constructor
+		* @param radius The radius
 		*/
-		CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D);
+		CRadiusPositionParticleInitializer(float radius);
 
 		/**
-		* Update the door
-		* @param time Elapsed time
+		* Initialize the particle
+		* @param buffer The particle buffer
+		* @param particles The particles id to initialize
 		*/
-		void Update(float const time = 0);
+		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
 	};
 }
 

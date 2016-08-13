@@ -41,6 +41,16 @@ namespace DE {
 	}
 
 	/**
+	* Set the particle emitter active state
+	* @param active The active state
+	*/
+	void CParticleEmitterSceneNode::SetActive(const bool active) {
+		LOG_TRACE();
+
+		this->m_emitter->SetActive(active);
+	}
+
+	/**
 	* Update the absolute position
 	* @param time The elapsed time
 	*/

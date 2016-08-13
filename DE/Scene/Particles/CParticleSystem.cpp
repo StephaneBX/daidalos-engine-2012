@@ -136,14 +136,11 @@ namespace DE {
 
 		// Set the render states
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, true);
-		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+		
 		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
 		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
-
-		// Fill the instance buffer
-		FillParticlesData();
 
 		// Prepare the billboard matrix
 		CMatrix billboardMatrix = this->m_activeCamera->GetViewMatrix().GetBillboard();
@@ -160,12 +157,18 @@ namespace DE {
 		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());
 		this->m_renderer->SetIndexBuffer(this->m_particleIB, 0);
 		this->m_renderer->SetVertexBuffer(0, this->m_particleVB, sizeof(SParticleElement), 0, 4);
-		this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB, sizeof(SParticleData), 0, this->m_particleSize);
-		this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
 		this->m_renderer->SetStreamSourceFrequency(1, STREAM_SOURCE_TYPE_INSTANCE, 4);
 
-		// Call
-		this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+		// Draw for each type of blend
+		for(int i = RENDER_STATE_BLEND_FUNCTION_ZERO; i <= RENDER_STATE_BLEND_FUNCTION_INVSRCCOLOR2; i++) {
+			FillParticlesData(i);
+			if(this->m_particleSize > 0) {
+				this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, (DE::ERenderStateBlendFunction)i);
+				this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB, sizeof(SParticleData), 0, this->m_particleSize);
+				this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
+				this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+			}
+		}
 
 		// Cancel the render states
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -196,15 +199,16 @@ namespace DE {
 	}
 
 	/**
-	* Get all the live and visible particles and store them sorted into the buffer
+	* Get all the live and visible particles for a given blend mode and store them sorted into the buffer.
+	* @param blendMode The blend mode
 	*/
-	void CParticleSystem::FillParticlesData() {
+	void CParticleSystem::FillParticlesData(const int blendMode) {
 
 		// Get the live particles for each visible emitter
 		this->m_particleSize = 0;
 		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); it++) {
 			// If the particle is not culled
-			if(!this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
+			if((*it)->GetBlendMode() == blendMode && !this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
 				// Get the particle index and the distance to camera
 				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
 					this->m_particleIndex.get()[this->m_particleSize] = (*it2);

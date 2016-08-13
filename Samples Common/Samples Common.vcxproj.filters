@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\2D">
+      <UniqueIdentifier>{dfc25e59-08de-4752-a9e3-8dd69f7ef43a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D">
+      <UniqueIdentifier>{0e7fb4c4-d5c1-49f3-b93e-333d7bd06eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\2D">
+      <UniqueIdentifier>{d1cae2ce-d5d9-450d-8c3e-0db200f5ed60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D">
+      <UniqueIdentifier>{dadb38cd-f1f2-4a76-bd6b-4eb8d4292ece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -27,20 +39,23 @@
     <ClInclude Include="IForwardSampleApplication.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="CDoorEntity.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="2D\CHudView.h">
+      <Filter>Fichiers d%27en-tête\2D</Filter>
     </ClInclude>
-    <ClInclude Include="CFanEntity.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="3D\CDoorEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
-    <ClInclude Include="IEntity.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="3D\CFanEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
-    <ClInclude Include="CSwitchEntity.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="3D\CSwitchEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
-    <ClInclude Include="CHudView.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="3D\IEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="2D\CLoadingView.h">
+      <Filter>Fichiers d%27en-tête\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,20 +71,23 @@
     <ClCompile Include="IForwardSampleApplication.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="CDoorEntity.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="2D\CHudView.cpp">
+      <Filter>Fichiers sources\2D</Filter>
     </ClCompile>
-    <ClCompile Include="CFanEntity.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="3D\CDoorEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
-    <ClCompile Include="IEntity.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="3D\CFanEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
-    <ClCompile Include="CSwitchEntity.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="3D\CSwitchEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
-    <ClCompile Include="CHudView.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="3D\IEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="2D\CLoadingView.cpp">
+      <Filter>Fichiers sources\2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

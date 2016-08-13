@@ -37,12 +37,12 @@ namespace DE {
 		}
 	}
 
-	void IView::Update() {
+	void IView::Update(const float time) {
 		LOG_TRACE();
 
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it)->IsVisible()) {
-				(*it)->Update();
+				(*it)->Update(time);
 			}
 		}
 	}

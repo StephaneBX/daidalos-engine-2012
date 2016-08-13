@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene structure="1">
+	<!-- Override default Particle System -->
+	<particleSystem>
+		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
+		<atlasTextureSize>4:4</atlasTextureSize>
+		<systemSize>5000</systemSize>
+	</particleSystem>
+
+	<!-- Level node with a bsp structure -->
+	<node type="0" name="level" ambientColor="0.6:0.6:0.6" skyName="sky1" skyAmbientColor="0.5:0.5:0.5">
+		<!-- Level node geometry -->
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>0.00:0.00:-10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:-10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:-10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>0.00:0.00:0.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:0.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:0.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>0.00:0.00:10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_3.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:-10.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_1.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:0.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_3.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>-10.00:0.00:10.00</position>
+			<rotation>0.00:90.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_3.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:10.00</position>
+			<rotation>0.00:180.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_1.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:0.00</position>
+			<rotation>0.00:180.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_3.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>10.00:0.00:-10.00</position>
+			<rotation>0.00:270.00:0.00</rotation>
+		</brush>
+		
+		<brush file="wall_1.obj">
+			<diffuse_texture>tile_blue.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>0.00:0.00:-10.00</position>
+			<rotation>0.00:270.00:0.00</rotation>
+		</brush>
+		
+		<brush file="ground_1.obj">
+			<diffuse_texture>tile_green.png</diffuse_texture>
+			<normal_texture>tile_n.png</normal_texture>
+			<position>0.00:0.00:20.00</position>
+			<rotation>0.00:0.00:0.00</rotation>
+		</brush>
+		
+		<!-- Player camera -->
+		<node type="1" name="player">
+			<position>0:4:-10</position>
+			<rotation>0:0:0</rotation>
+			<fov>55</fov>
+			<near>0.1</near>
+			<far>80</far>
+		</node>
+	</node>
+</scene>

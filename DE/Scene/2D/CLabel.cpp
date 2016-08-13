@@ -86,7 +86,7 @@ namespace DE {
 		this->m_changed = true;
 	}
 
-	void CLabel::Update() {
+	void CLabel::Update(const float time) {
 		LOG_TRACE();
 
 		if(this->m_changed) {
@@ -107,7 +107,7 @@ namespace DE {
 		}
 
 		// Update the subviews
-		IView::Update();
+		IView::Update(time);
 	}
 
 	void CLabel::Render() {

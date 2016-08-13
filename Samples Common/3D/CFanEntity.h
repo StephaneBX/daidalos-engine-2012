@@ -25,44 +25,42 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSWITCHENTITY_H
-#define __CSWITCHENTITY_H
+#ifndef __CFANENTITY_H
+#define __CFANRENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Medias/CSound.h>
 #include "IEntity.h"
-#include "CFPSCamera.h"
+#include "../CFPSCamera.h"
 
 namespace SAMPLES {
 
-	enum ESwitchState {
-		SWITCH_STATE_ON,
-		SWITCH_STATE_ACTIVATING,
-		SWITCH_STATE_OFF,
-		SWITCH_STATE_DEACTIVATING
+	enum EFanState {
+		FAN_STATE_STOPPED,
+		FAN_STATE_STOPPING,
+		FAN_STATE_STARTED,
+		FAN_STATE_STARTING
 	};
 
 	/**
-	* Switch entity
+	* Door entity
 	*/
-	class CSwitchEntity : public IEntity {
+	class CFanEntity : public IEntity {
 	private:
-		bool m_highlighted;
-		DE::CInputDevice * m_inputDevice;
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
 		CFPSCamera * m_player;
 
-		DE::CSound m_sound;
-		ESwitchState m_state;
+		EFanState m_state;
+		float m_speed;
 
 	public:
 		/**
-		* @param node The switch node
+		* @param node The fan node
 		* @param camera The player
 		* @param scene3D The scene associated to the node
 		*/
-		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D);
+		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera);
 
 		/**
 		* Update the door
@@ -83,14 +81,14 @@ namespace SAMPLES {
 
 	private:
 		/**
-		* Set the switch on
+		* Start the fan
 		*/
-		void SetOn();
+		void Start();
 
 		/**
-		* Set the switch off
+		* Stop the fan
 		*/
-		void SetOff();
+		void Stop();
 	};
 }
 

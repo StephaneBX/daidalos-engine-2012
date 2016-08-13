@@ -332,7 +332,7 @@ namespace SAMPLES {
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderProgram2D.GetShaderProgram());
 		this->m_shaderProgram2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_menu->GetProjMatrix());
-		this->m_cursor.Update();
+		this->m_cursor.Update(0);
 		this->m_menu->Render();
 		if(this->m_cursor.IsVisible()) {
 			this->m_cursor.Render();

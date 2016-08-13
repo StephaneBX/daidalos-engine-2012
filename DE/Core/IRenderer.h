@@ -65,6 +65,7 @@ namespace DE {
 		CVector2I m_resolution;
 		CVector2I m_internalResolution;
 		STexture2DFilterPolicy m_defaultTextureFilter;
+		STexture2DFilterPolicy m_defaultBasicTextureFilter;
 
 		CBuffer m_quadIB;
 
@@ -117,6 +118,12 @@ namespace DE {
 		* @return The default textuer filter
 		*/
 		STexture2DFilterPolicy * GetDefaultTextureFilter();
+
+		/**
+		* Get the default basic texture filter
+		* @return The default basic textuer filter
+		*/
+		STexture2DFilterPolicy * GetDefaultBasicTextureFilter();
 
 		/**
 		* Get the Index Buffer for a quad (0,1,2,2,3,0)

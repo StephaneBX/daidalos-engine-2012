@@ -44,6 +44,7 @@ namespace DE {
 
 		// Create the main view
 		this->m_mainView = std::unique_ptr<CSprite>(new CSprite());
+		this->m_mainView->SetBackgroundColor(CColor(0, 0, 0, 0));
 		this->m_mainView->SetBounds(CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 	}
 
@@ -69,11 +70,13 @@ namespace DE {
 		this->m_cursor = cursor;
 	}
 
+	void C2DScene::Update(const float time) {
+		// Update the elements
+		this->m_mainView->Update(time);
+	}
+
 	void C2DScene::Render() {
 		LOG_TRACE();
-
-		// Update the elements
-		this->m_mainView->Update();
 
 		// Hit test
 		if(this->m_cursor != nullptr && this->m_cursor->IsVisible()) {

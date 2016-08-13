@@ -118,6 +118,13 @@ namespace DE {
 		return &this->m_defaultTextureFilter;
 	}
 
+
+	STexture2DFilterPolicy * IRenderer::GetDefaultBasicTextureFilter() {
+		LOG_TRACE();
+
+		return &this->m_defaultBasicTextureFilter;
+	}
+
 	const CBuffer & IRenderer::GetQuadIB() const {
 		LOG_TRACE();
 
@@ -194,11 +201,20 @@ namespace DE {
 		this->m_anisotropicFiltering = anisotropicFiltering;
 		this->m_antialiasing = antialiasing;
 
+		// Default texture filter based on engine config
 		this->m_defaultTextureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_ANISOTROPIC;
 		this->m_defaultTextureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_LINEAR;
 		this->m_defaultTextureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_LINEAR;
 		this->m_defaultTextureFilter.addressU = DE::TEXTURE_ADDRESS_WRAP;
 		this->m_defaultTextureFilter.addressV = DE::TEXTURE_ADDRESS_WRAP;
 		this->m_defaultTextureFilter.maxAnisotropy = anisotropicFiltering;
+
+		// Basic texture filter
+		this->m_defaultBasicTextureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.addressU = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_defaultBasicTextureFilter.addressV = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_defaultBasicTextureFilter.maxAnisotropy = 0;
 	}
 }

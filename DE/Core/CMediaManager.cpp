@@ -40,9 +40,10 @@ namespace DE {
 		LOG_TRACE();
 
 		for(auto i = this->m_paths.begin(); i != this->m_paths.end(); ++i) {
-			CFile file = *i + filename;
-			if(file.FileExists())
+			CFile file = CFile(*i + filename);
+			if(file.FileExists()) {
 				return file;
+			}
 		}
 
 		LOG_ERROR("Unable to locate the file '" << filename << "'");

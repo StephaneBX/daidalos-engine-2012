@@ -50,6 +50,12 @@ namespace DE {
 		CParticleEmitterSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, CParticleEmitter * emitter);
 
 		/**
+		* Set the particle emitter active state
+		* @param active The active state
+		*/
+		void SetActive(const bool active);
+
+		/**
 		* Update the absolute position
 		* @param time The elapsed time
 		*/

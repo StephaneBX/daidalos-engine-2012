@@ -25,54 +25,33 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CHUDVIEW_H
-#define __CHUDVIEW_H
+#include "../../../Scene/Particles/Initializers/CBoxPositionParticleInitializer.h"
 
-#include <Scene/2D/IView.h>
-#include <Scene/2D/CLabel.h>
+namespace DE {
 
-namespace SAMPLES {
 	/**
-	* Head-up display implementation
+	* Constructor
+	* @param colorMin The color min
+	* @param colorMax The color max
 	*/
-	class CHudView : public DE::IView {
-	private:
-		DE::CLabel m_fpsLabel;
-		DE::CLabel m_positionLabel;
-		DE::CLabel m_gravityLabel;
-		DE::CLabel m_healthLabel;
+	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(CVector3F positionMin, CVector3F positionMax) {
+		this->m_positionMin = positionMin;
+		this->m_positionMax = positionMax;
 
-	public:
-		/**
-		* Constructor
-		* @param texture The view bounds
-		*/
-		CHudView(const DE::CRectangleI & bounds);
+	}
 
-		/**
-		* Set the fps value
-		* @param fps Set the fps value
-		*/
-		void SetFPS(const std::string fps);
+	/**
+	* Initialize the particle
+	* @param buffer The particle buffer
+	* @param particles The particles id to initialize
+	*/
+	void CBoxPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		/**
-		* Set the player's position
-		* @param position The position
-		*/
-		void SetPosition(const DE::CVector3F position);
-
-		/**
-		* Set the players's gravity
-		* @param gravity The gravity
-		*/
-		void SetGravity(const float gravity);
-
-		/**
-		* Set the player's health
-		* @param health The health
-		*/
-		void SetHealth(const int health);
-	};
+		for(auto it = particles.begin(); it != particles.end(); it++) {
+			CParticleEntity * particle = buffer.GetAt((*it));
+			CVector3F position = CVector3F(RandomNumber<float>(this->m_positionMin.x, this->m_positionMax.x), RandomNumber<float>(this->m_positionMin.y, this->m_positionMax.y), RandomNumber<float>(this->m_positionMin.z, this->m_positionMax.z));
+			// Keep the current position that hold the emitter's position
+			particle->SetPosition(particle->GetPosition() + position);
+		}
+	}
 }
-
-#endif

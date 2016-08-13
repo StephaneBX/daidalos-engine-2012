@@ -145,10 +145,12 @@
     <ClInclude Include="Scene\Particles\CParticleEmitter.h" />
     <ClInclude Include="Scene\Particles\CParticleEntity.h" />
     <ClInclude Include="Scene\Particles\CParticleSystem.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h" />
@@ -269,10 +271,12 @@
     <ClCompile Include="Scene\Particles\CParticleEmitter.cpp" />
     <ClCompile Include="Scene\Particles\CParticleEntity.cpp" />
     <ClCompile Include="Scene\Particles\CParticleSystem.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CColorParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CCompositeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CLifeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp" />

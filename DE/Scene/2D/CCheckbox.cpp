@@ -100,7 +100,7 @@ namespace DE {
 		}
 	}
 
-	void CCheckbox::Update() {
+	void CCheckbox::Update(const float time) {
 		LOG_TRACE();
 
 		if(this->m_changed) {
@@ -123,7 +123,7 @@ namespace DE {
 		}
 
 		// Update the subviews
-		IView::Update();
+		IView::Update(time);
 	}
 
 	void CCheckbox::Render() {

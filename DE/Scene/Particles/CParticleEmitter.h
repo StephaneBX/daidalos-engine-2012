@@ -43,6 +43,7 @@ namespace DE {
 	protected:
 		bool m_active;
 		int m_textureId;
+		int m_blendMode;
 		float m_life;
 		float m_lifeMax;
 		float m_emissionRate;
@@ -70,6 +71,12 @@ namespace DE {
 		* @param textureId The texture id
 		*/
 		void SetTextureId(const int textureId);
+
+		/**
+		* Set the blend mode
+		* @param blendMode The blend mode
+		*/
+		void SetBlendMode(const int blendMode);
 
 		/**
 		* Set the life
@@ -125,6 +132,12 @@ namespace DE {
 		* @return The texture id
 		*/
 		const int GetTextureId() const;
+
+		/**
+		* Get the blend mode
+		* @return The blend mode
+		*/
+		const int GetBlendMode() const;
 
 		/**
 		* Get the life

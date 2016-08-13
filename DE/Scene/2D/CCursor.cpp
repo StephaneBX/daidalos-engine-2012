@@ -56,7 +56,7 @@ namespace DE {
 		}
 	}
 
-	void CCursor::Update() {
+	void CCursor::Update(const float time) {
 		LOG_TRACE();
 
 		UpdatePosition();
@@ -77,7 +77,7 @@ namespace DE {
 		}
 
 		// Update the subviews
-		IView::Update();
+		IView::Update(time);
 	}
 
 	void CCursor::Render() {

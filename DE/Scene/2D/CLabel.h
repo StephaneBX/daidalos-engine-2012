@@ -94,9 +94,10 @@ namespace DE {
 		void SetColor(const CColor & color);
 
 		/**
-		* Update the text geometry
+		* Update the state and the geometry
+		* @parm time The elapsed time
 		*/
-		void Update();
+		void Update(const float time);
 
 		/**
 		* Render the text

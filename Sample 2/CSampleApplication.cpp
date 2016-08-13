@@ -42,7 +42,70 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLE2 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
-		this->m_scene3D->LoadScene("sample2.des");
+
+		this->m_loadingThread = std::thread(&CSampleApplication::LoadLevel, this, "sample2.des");
+		this->m_loadingThread.detach();
+
+		MainLoop();
+	}
+
+	CSampleApplication::~CSampleApplication() {}
+
+	void CSampleApplication::Update(const float time) {
+
+		if(!this->m_loading) {
+			this->m_fpsCounter.Update(time);
+
+			if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
+				this->m_alive = false;
+			}
+
+			this->m_camera->Update(time);
+
+			if(this->m_spotLight) {
+				DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
+				lightRotation.y += (40 * time) / 1000.0f;
+				this->m_spotLight->SetRotation(lightRotation);
+			}
+
+			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+			this->m_scene3D->UpdateAll(time);
+
+			// Update the doors
+			for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
+				(*it)->Update(time);
+			}
+
+			// Update the switch
+			for(auto it = this->m_switchs.begin(); it != this->m_switchs.end(); it++) {
+				(*it)->Update(time);
+			}
+
+			// Update the fans
+			for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
+				(*it)->Update(time);
+			}
+
+			// Update the hud
+			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+			this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
+			this->m_hud->SetGravity(this->m_camera->GetGravity());
+			this->m_hud->SetHealth(this->m_camera->GetHealth());
+
+			this->m_cursor.Update(time);
+		} else {
+			this->m_loadingScene->Update(time);
+		}
+	}
+
+	/**
+	* Load a level and show a loading screen
+	* @param filename The level filename
+	*/
+	void CSampleApplication::LoadLevel(const std::string & filename) {
+		this->m_loading = true;
+		this->m_scene3D->LoadScene(filename);
+
 		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
 		this->m_camera->SetScene(this->m_scene3D);
 		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
@@ -52,6 +115,7 @@ namespace SAMPLE2 {
 		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
 		// Load the doors
+		this->m_doors.clear();
 		std::vector<DE::ISceneNode*> doorNode = this->m_scene3D->GetNodeArray("door_entity");
 		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
 			SAMPLES::CDoorEntity * doorEntity = new SAMPLES::CDoorEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
@@ -59,6 +123,7 @@ namespace SAMPLE2 {
 		}
 
 		// Load the fans
+		this->m_fans.clear();
 		std::vector<DE::ISceneNode*> fanNode = this->m_scene3D->GetNodeArray("fan_entity");
 		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
 			SAMPLES::CFanEntity * fanEntity = new SAMPLES::CFanEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get());
@@ -67,74 +132,24 @@ namespace SAMPLE2 {
 		}
 
 		// Load the switchs
+		this->m_switchs.clear();
 		std::vector<DE::ISceneNode*> switchNode = this->m_scene3D->GetNodeArray("switch_entity");
 		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
 			SAMPLES::CSwitchEntity * switchEntity = new SAMPLES::CSwitchEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
 			this->m_switchs.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
 		}
-		this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
+		if(this->m_switchs.size() > 0) {
+			this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
+		}
 
-		/*
-		DE::CParticleEmitter * emitter2 = this->m_scene3D->GetParticleSystem().InstanciateEmitter();
-		emitter2->SetLife(0);
-		emitter2->SetLifeMax(99999999.0f);
-		emitter2->SetPosition(DE::CVector3F(0, 0.1f, 30));
-		emitter2->SetTextureId(1);
-		emitter2->SetEmissionRate(200);
-
-		emitter2->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.7f, 0.25f, 0.25f, 0.5f), DE::CColor(0.7f, 0.25f, 0.25f, 0.0f)));
-		emitter2->AddInitializer(new DE::CLifeParticleInitializer(500, 2000));
-		emitter2->AddInitializer(new DE::CSizeParticleInitializer(0.2f, 0.5f));
-		emitter2->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0.3f, 1.0f, 0.0f), 0.2f, 12.0f, 15.0f));
-
-		emitter2->AddUpdater(new DE::CColorParticleUpdater());
-		emitter2->AddUpdater(new DE::CGravityParticleUpdater(DE::CVector3F(0, -5.0f, 0)));
-		emitter2->AddUpdater(new DE::CLifeParticleUpdater());
-		emitter2->AddUpdater(new DE::CSizeParticleUpdater());
-		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0.5f));*/
-
-		MainLoop();
+		this->m_loading = false;
 	}
 
-	CSampleApplication::~CSampleApplication() {}
-
-	void CSampleApplication::Update(const float time) {
-		this->m_fpsCounter.Update(time);
-
-		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
-			this->m_alive = false;
-		}
-
-		this->m_camera->Update(time);
-
-		if(this->m_spotLight) {
-			DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
-			lightRotation.y += (40 * time) / 1000.0f;
-			this->m_spotLight->SetRotation(lightRotation);
-		}
-
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_scene3D->UpdateAll(time);
-
-		// Update the doors
-		for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
-			(*it)->Update(time);
-		}
-
-		// Update the switch
-		for(auto it = this->m_switchs.begin(); it != this->m_switchs.end(); it++) {
-			(*it)->Update(time);
-		}
-
-		// Update the fans
-		for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
-			(*it)->Update(time);
-		}
-
-		// Update the hud
-		this->m_hud->SetFPS(this->m_fpsCounter.GetText());
-		this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
-		this->m_hud->SetGravity(this->m_camera->GetGravity());
-		this->m_hud->SetHealth(this->m_camera->GetHealth());
+	/**
+	* Set the loading state
+	* @param loading The loading state
+	*/
+	void CSampleApplication::SetLoading(const bool loading) {
+		this->m_loading = loading;
 	}
 }

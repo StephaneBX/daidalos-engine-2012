@@ -147,12 +147,12 @@ namespace DE {
 		Assert(this->m_root != nullptr);
 		this->m_root->Update(time);
 
+		// Update the particle system
+		this->m_particleSystem.Update(time);
+
 		// Sort the lights
 		SortLights();
 		ActiveLightsCheck();
-
-		// Update the particle system
-		this->m_particleSystem.Update(time);
 	}
 
 	void I3DScene::RenderSkyboxMask() {

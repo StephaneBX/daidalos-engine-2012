@@ -73,7 +73,13 @@ namespace DE {
 		void SetCursor(CCursor * cursor);
 
 		/**
-		* Render the gui
+		* Update the scene
+		* @parm time The elapsed time
+		*/
+		void Update(const float time);
+
+		/**
+		* Render the scene
 		*/
 		void Render();
 

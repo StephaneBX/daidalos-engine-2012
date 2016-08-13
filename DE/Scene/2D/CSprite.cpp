@@ -37,14 +37,14 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_changed = true;
-		this->m_backgroundColor = CColor(0, 0, 0, 0);
-		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		this->m_backgroundColor = CColor(1.0f, 1.0f, 1.0f, 1.0f);
+		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 	}
 
 	void CSprite::SetTexture(const std::string texture) {
 		LOG_TRACE();
 
-		this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 	}
 
 	void CSprite::SetBackgroundColor(const CColor & color) {
@@ -53,7 +53,7 @@ namespace DE {
 		this->m_backgroundColor = color;
 	}
 
-	void CSprite::Update() {
+	void CSprite::Update(const float time) {
 		LOG_TRACE();
 
 		if(this->m_changed) {
@@ -74,7 +74,7 @@ namespace DE {
 		}
 
 		// Update the subviews
-		IView::Update();
+		IView::Update(time);
 	}
 
 	void CSprite::Render() {

@@ -31,8 +31,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 
 	IForwardSampleApplication::IForwardSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+		this->m_loading = false;
 		this->m_scene3D = new DE::C3DScene();
 		this->m_scene2D = new DE::C2DScene();
+		this->m_loadingScene = new DE::C2DScene();
 
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
@@ -98,23 +100,59 @@ namespace SAMPLES {
 		this->m_frameBufferShadowMap.CreateFromDeclaration(fbd, fbdd);
 		this->m_frameBufferShadowMap.AttachDepth("lightDepth");
 
-
 		// ------------------------------------------------------------------------------------------------
 		// The Hud
 		// --------------------------------------------------------------------------------------------------
 		this->m_hud = new CHudView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
 		this->m_scene2D->AddToMainView(this->m_hud);
+
+		// ------------------------------------------------------------------------------------------------
+		// The loading scene
+		// --------------------------------------------------------------------------------------------------
+		this->m_loadingView = new CLoadingView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
+		this->m_loadingScene->AddToMainView(this->m_loadingView);
 	}
 
 	IForwardSampleApplication::~IForwardSampleApplication() {
 		delete this->m_scene3D;
 		delete this->m_scene2D;
+		delete this->m_loadingScene;
 		delete this->m_hud;
 	}
 
 	void IForwardSampleApplication::Render() {
 		this->m_renderer->BeginScene();
 
+		if(!this->m_loading) {
+			Render3DScene(this->m_scene3D);
+			Render2DScene(this->m_scene2D);
+
+			if(this->m_cursor.IsVisible()) {
+				this->m_cursor.Render();
+			}
+
+		} else {
+			this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+			Render2DScene(this->m_loadingScene);
+		}
+		
+		// ------------------------------
+		// Cleanup
+		// ------------------------------
+		this->m_renderer->SetFrameBuffer(nullptr);
+		this->m_renderer->SetVertexDeclaration(nullptr);
+		this->m_renderer->SetShaderProgram(nullptr);
+		this->m_renderer->SetTexture(0, nullptr);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
+
+		this->m_renderer->EndScene();
+	}
+
+	/**
+	* Render a 3D scene
+	*/
+	void IForwardSampleApplication::Render3DScene(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Sky box mask
 		// ------------------------------
@@ -125,27 +163,27 @@ namespace SAMPLES {
 		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
-		this->m_scene3D->RenderSkyboxMask();
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		scene3D->RenderSkyboxMask();
 
 		// ------------------------------
 		// Sky box
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_activeCamera);
 		this->m_renderer->SetStencilFunction(DE::COMPARE_LESS);
 		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilRef(0);
-		this->m_scene3D->RenderSkybox();
+		scene3D->RenderSkybox();
 
 		// ------------------------------
 		// Forward rendering: diffuse
@@ -153,42 +191,47 @@ namespace SAMPLES {
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		this->m_scene3D->RenderAll();
+		scene3D->RenderAll();
 
 		// ------------------------------
 		// Forward rendering: spot lights
 		// ------------------------------
-		SpotLightsRendering();
+		SpotLightsRendering(scene3D);
 
 		// ------------------------------
 		// Forward rendering: point lights
 		// ------------------------------
-		PointLightsRendering();
+		PointLightsRendering(scene3D);
 
 		// ------------------------------
 		// Forward rendering: directional lights
 		// ------------------------------
-		DirectionalLightsRendering();
+		DirectionalLightsRendering(scene3D);
 
 		// ------------------------------
 		// Particle System
 		// ------------------------------
-		this->m_scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
-		this->m_scene3D->GetParticleSystem().RenderAll();
+		scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
+		scene3D->GetParticleSystem().RenderAll();
 
 		// ------------------------------
 		// Debug
 		// ------------------------------
 		if(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
-			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-			this->m_scene3D->RenderDebugInformation();
+			scene3D->SetActiveCamera(this->m_activeCamera);
+			scene3D->RenderDebugInformation();
 		}
+	}
 
+	/**
+	* Render a 2D scene
+	*/
+	void IForwardSampleApplication::Render2DScene(DE::C2DScene * scene2D) {
 		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
@@ -199,31 +242,16 @@ namespace SAMPLES {
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_DESTALPHA);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration2D.get());
 		this->m_renderer->SetShaderProgram(this->m_shader2D.GetShaderProgram());
-		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), this->m_scene2D->GetProjMatrix());
-		this->m_cursor.Update();
-		this->m_scene2D->Render();
-		if(this->m_cursor.IsVisible()) {
-			this->m_cursor.Render();
-		}
-
-		// ------------------------------
-		// Cleanup
-		// ------------------------------
-		this->m_renderer->SetVertexDeclaration(nullptr);
-		this->m_renderer->SetShaderProgram(nullptr);
-		this->m_renderer->SetTexture(0, nullptr);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
-
-		this->m_renderer->EndScene();
+		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), scene2D->GetProjMatrix());
+		scene2D->Render();
 	}
 
-	void IForwardSampleApplication::SpotLightsRendering() {
+	void IForwardSampleApplication::SpotLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
 
-		for(int i = 0; i < this->m_scene3D->GetNumberOfActiveSpotLights(); ++i) {
-			if(this->m_scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
+		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
+			if(scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 				this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
@@ -231,8 +259,8 @@ namespace SAMPLES {
 				this->m_renderer->SetViewport(DE::CRectangleI(0, 0, this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512), this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512)));
 
 				// Fill the shadow map
-				this->m_scene3D->SetActiveCamera(this->m_scene3D->GetActiveSpotLightsBuffer()->node[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
-				this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
+				scene3D->SetActiveCamera(scene3D->GetActiveSpotLightsBuffer()->node[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
+				scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION);
 				this->m_frameBufferShadowMap.DetachAllElements();
 				this->m_frameBufferShadowMap.AttachElement("lightDepthRT", 0);
 				this->m_frameBufferShadowMap.AttachDepth("lightDepth");
@@ -240,7 +268,7 @@ namespace SAMPLES {
 				this->m_renderer->SetShaderProgram(this->m_shaderShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_frameBufferShadowMap.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-				this->m_scene3D->RenderAll();
+				scene3D->RenderAll();
 			}
 
 			// Add the light effect to the backbuffer
@@ -254,22 +282,22 @@ namespace SAMPLES {
 			this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 			this->m_renderer->SetShaderProgram(this->m_shaderSpotLight.GetShaderProgram());
 			this->m_renderer->SetFrameBuffer(nullptr);
-			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-			this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
+			scene3D->SetActiveCamera(this->m_activeCamera);
+			scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 			this->m_renderer->SetTexture(2, this->m_frameBufferShadowMap.GetFrameBuffer()->GetTexture("lightDepthRT"));
 
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), this->m_scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-			this->m_scene3D->SendSpotLightDataToShader(this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
-			this->m_scene3D->RenderAll();
+			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
+			scene3D->RenderAll();
 		}
 	}
 
-	void IForwardSampleApplication::PointLightsRendering() {
+	void IForwardSampleApplication::PointLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
@@ -283,21 +311,21 @@ namespace SAMPLES {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderPointLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
+		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 
-		for(int i = 0; i < this->m_scene3D->GetNumberOfActivePointLights(); ++i) {
+		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
 			// Add the light effect to the backbuffer
-			this->m_scene3D->SendPointLightDataToShader(this->m_scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
-			this->m_scene3D->RenderAll();
+			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
+			scene3D->RenderAll();
 		}
 	}
 
-	void IForwardSampleApplication::DirectionalLightsRendering() {
+	void IForwardSampleApplication::DirectionalLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
@@ -311,17 +339,17 @@ namespace SAMPLES {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDirectionalLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
+		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 
-		for(int i = 0; i < this->m_scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
+		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			// Add the light effect to the backbuffer
-			this->m_scene3D->SendDirectionalLightDataToShader(i);
-			this->m_scene3D->RenderAll();
+			scene3D->SendDirectionalLightDataToShader(i);
+			scene3D->RenderAll();
 		}
 	}
 }

@@ -47,6 +47,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/Particles/Initializers/CRotationParticleInitializer.h"
 #include "../Scene/Particles/Initializers/CSizeParticleInitializer.h"
 #include "../Scene/Particles/Initializers/CSphereVelocityParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CBoxPositionParticleInitializer.h"
+#include "../Scene/Particles/Initializers/CRadiusPositionParticleInitializer.h"
 #include "../Scene/Particles/Updaters/CColorParticleUpdater.h"
 #include "../Scene/Particles/Updaters/CGravityParticleUpdater.h"
 #include "../Scene/Particles/Updaters/CLifeParticleUpdater.h"
@@ -249,12 +251,17 @@ namespace DE {
 			// Create the node
 			node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			node->SetId(id);
-			if(diffuseTexture != "")
+			if(diffuseTexture != "") {
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(normalTexture != "")
+			} else {
+				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, "default.png", PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			}
+			if(normalTexture != "") {
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(flatShading)
+			}
+			if(flatShading) {
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+			}
 			static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
 
 			break;
@@ -275,12 +282,17 @@ namespace DE {
 			// Create the node
 			node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			node->SetId(id);
-			if(diffuseTexture != "")
+			if(diffuseTexture != "") {
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(normalTexture != "")
+			} else {
+				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, "default.png", PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			}
+			if(normalTexture != "") {
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(flatShading)
+			}
+			if(flatShading) {
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+			}
 			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
 
 			break;
@@ -339,15 +351,16 @@ namespace DE {
 
 		case SCENE_NODE_PARTICLE_EMITTER: {
 			bool emitterActive;
-			int emitterTextureId;
-			float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation;
+			int emitterTextureId, emitterBlendMode;
+			float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation, emitterParticleRadiusPosition;
 			CColor emitterParticleColorMin, emitterParticleColorMax;
-			CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection;
+			CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
 
 			// Basic values
 			GetNodeData(handle, "active", emitterActive, true);
 			GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
 			GetNodeData(handle, "textureId", emitterTextureId, 0);
+			GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 			GetNodeData(handle, "life", emitterLife, -1);
 			GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
 			GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
@@ -356,6 +369,7 @@ namespace DE {
 			CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter();
 			emitter->SetActive(emitterActive);
 			emitter->SetTextureId(emitterTextureId);
+			emitter->SetBlendMode(emitterBlendMode);
 			emitter->SetLife(emitterLife);
 			emitter->SetLifeMax(emitterLifeMax);
 			emitter->SetEmissionRate(emitterEmissionRate);
@@ -401,6 +415,15 @@ namespace DE {
 					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
 					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
+					emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxBoxPosition") == 0) {
+					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
+					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
+					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
+					emitter->AddInitializer(initializer);
+				} else if(childName.compare("radiusPosition") == 0) {
+					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
+					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
 					emitter->AddInitializer(initializer);
 				}
 			}

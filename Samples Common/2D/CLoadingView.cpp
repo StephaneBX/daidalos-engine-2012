@@ -25,71 +25,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CFANENTITY_H
-#define __CFANRENTITY_H
-
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Medias/CSound.h>
-#include "IEntity.h"
-#include "CFPSCamera.h"
+#include <sstream>
+#include "CLoadingView.h"
 
 namespace SAMPLES {
 
-	enum EFanState {
-		FAN_STATE_STOPPED,
-		FAN_STATE_STOPPING,
-		FAN_STATE_STARTED,
-		FAN_STATE_STARTING
-	};
+	CLoadingView::CLoadingView(const DE::CRectangleI & bounds) {
 
-	/**
-	* Door entity
-	*/
-	class CFanEntity : public IEntity {
-	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-		CFPSCamera * m_player;
+		SetBounds(bounds);
 
-		EFanState m_state;
-		float m_speed;
+		this->m_backgroundSprite.SetBounds(this->m_boundingRectangle);
+		this->m_backgroundSprite.SetTexture("loading.png");
+		AddSubview(&this->m_backgroundSprite);
 
-	public:
-		/**
-		* @param node The fan node
-		* @param camera The player
-		* @param scene3D The scene associated to the node
-		*/
-		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera);
+		this->m_textLabel.SetBounds(DE::CRectangleI(0, (this->m_boundingRectangle.GetHeight() - 100) / 2, this->m_boundingRectangle.GetWidth(), 100));
+		this->m_textLabel.SetSize(80);
+		this->m_textLabel.SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_textLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_CENTERED);
+		this->m_textLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_textLabel.SetText("LOADING...");
+		AddSubview(&this->m_textLabel);
 
-		/**
-		* Update the door
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
-
-		/**
-		* Trigger the entity action
-		*/
-		void DoAction();
-
-		/**
-		* Check if the action can be triggered
-		* @return True if the action can be triggered, false otherwise
-		*/
-		const bool CanDoAction() const;
-
-	private:
-		/**
-		* Start the fan
-		*/
-		void Start();
-
-		/**
-		* Stop the fan
-		*/
-		void Stop();
-	};
+		this->m_gearSprite.SetBounds(DE::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
+		this->m_gearSprite.SetTexture("gear.png");
+		AddSubview(&this->m_gearSprite);
+	}
 }
 
-#endif

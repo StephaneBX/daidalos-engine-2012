@@ -44,7 +44,7 @@ namespace SAMPLES {
 		AddSubview(&this->m_fpsLabel);
 
 		// Create the position label
-		this->m_positionLabel.SetBounds(DE::CRectangleI(5, 0, 200, 30));
+		this->m_positionLabel.SetBounds(DE::CRectangleI(5, 0, 400, 30));
 		this->m_positionLabel.SetSize(26);
 		this->m_positionLabel.SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
 		this->m_positionLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -69,6 +69,11 @@ namespace SAMPLES {
 		this->m_healthLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_healthLabel.SetText("0%");
 		AddSubview(&this->m_healthLabel);
+
+		// Create the crosshair
+		this->m_crosshairView.SetTexture("crosshair.tga");
+		this->m_crosshairView.SetBounds(DE::CRectangleI((this->m_preferredsize.x - 32) / 2, (this->m_preferredsize.y - 32) / 2, 32, 32));
+		AddSubview(&this->m_crosshairView);
 	}
 
 	/**
@@ -85,7 +90,7 @@ namespace SAMPLES {
 	*/
 	void CHudView::SetPosition(const DE::CVector3F position) {
 		std::stringstream ss;
-		ss << "P: " << (int)position.x << " : " << (int)position.y << " : " << (int)position.z;
+		ss << "POSITION: " << (int)position.x << " : " << (int)position.y << " : " << (int)position.z;
 		this->m_positionLabel.SetText(ss.str());
 	}
 
@@ -95,7 +100,7 @@ namespace SAMPLES {
 	*/
 	void CHudView::SetGravity(const float gravity) {
 		std::stringstream ss;
-		ss << "Gravity: " << (int)gravity;
+		ss << "GRAVITY: " << (int)gravity;
 		this->m_gravityLabel.SetText(ss.str());
 	}
 

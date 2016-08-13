@@ -53,8 +53,9 @@ namespace DE {
 
 		/**
 		* Update the state and the geometry
+		* @param time The elapsed time
 		*/
-		void Update();
+		void Update(const float time);
 
 		/**
 		* Render the button

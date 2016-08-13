@@ -53,6 +53,14 @@ namespace DE {
 	}
 
 	/**
+	* Set the blend mode
+	* @param blendMode The blend mode
+	*/
+	void CParticleEmitter::SetBlendMode(const int blendMode) {
+		this->m_blendMode = blendMode;
+	}
+
+	/**
 	* Set the life
 	* @param life The life
 	*/
@@ -195,6 +203,14 @@ namespace DE {
 	*/
 	const int CParticleEmitter::GetTextureId() const {
 		return this->m_textureId;
+	}
+
+	/**
+	* Get the blend mode
+	* @return The blend mode
+	*/
+	const int CParticleEmitter::GetBlendMode() const {
+		return this->m_blendMode;
 	}
 
 	/**

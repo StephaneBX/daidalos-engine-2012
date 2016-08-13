@@ -646,7 +646,7 @@ namespace DE {
 
 		this->m_d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
-		if(FAILED(this->m_d3d->CreateDevice(adapterToUse, deviceType, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE, &this->m_d3dpp, &this->m_device))) {
+		if(FAILED(this->m_d3d->CreateDevice(adapterToUse, deviceType, this->m_hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED, &this->m_d3dpp, &this->m_device))) {
 			LOG_ERROR("Unable to create the device");
 			ILogger::Kill();
 

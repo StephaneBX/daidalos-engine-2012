@@ -72,8 +72,9 @@ namespace DE {
 
 		/**
 		* Update the text geometry
+		* @param time The elapsed time
 		*/
-		virtual void Update();
+		virtual void Update(const float time);
 
 		/**
 		* Render the text

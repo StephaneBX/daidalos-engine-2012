@@ -31,9 +31,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IForwardSampleApplication.h>
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include "CFPSCamera.h"
-#include "CDoorEntity.h"
-#include "CFanEntity.h"
-#include "CSwitchEntity.h"
+#include "3D/CDoorEntity.h"
+#include "3D/CFanEntity.h"
+#include "3D/CSwitchEntity.h"
 
 namespace SAMPLE2
 {
@@ -67,6 +67,18 @@ namespace SAMPLE2
 		* @param time Elapsed time
 		*/
 		virtual void Update(const float time);
+
+		/**
+		* Load a level and show a loading screen
+		* @param filename The level filename
+		*/
+		void LoadLevel(const std::string & filename);
+
+		/**
+		* Set the loading state
+		* @param loading The loading state
+		*/
+		void SetLoading(const bool loading);
 	};
 }
 

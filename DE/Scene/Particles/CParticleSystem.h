@@ -122,9 +122,10 @@ namespace DE {
 
 	private:
 		/**
-		* Get all the live and visible particles and store them sorted into the buffer
+		* Get all the live and visible particles for a given blend mode and store them sorted into the buffer
+		* @param blendMode The blend mode
 		*/
-		void FillParticlesData();
+		void FillParticlesData(const int blendMode);
 	};
 }
 

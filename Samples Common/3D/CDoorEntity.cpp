@@ -29,16 +29,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define OPENED_TIME 6000
 #define ANIMATION_SPEED 1.0f
 
+#include <sstream>
 #include "CDoorEntity.h"
 
 namespace SAMPLES {
 
 	CDoorEntity::CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
 		this->m_node = meshNode;
+		this->m_emitterNode = nullptr;
 		this->m_scene3D = scene3D;
 		this->m_player = camera;
 
 		this->m_state = DOOR_STATE_CLOSED;
+		this->m_closable = true;
+		this->m_animationSpeed = ANIMATION_SPEED;
+		this->m_triggerRadius = TRIGGER_RADIUS;
 		this->m_timer = 0;
 
 		this->m_startSound.LoadFromFile("door_start.wav", DE::SOUND_TYPE_STATIC);
@@ -48,6 +53,22 @@ namespace SAMPLES {
 		this->m_stopSound.LoadFromFile("door_stop.wav", DE::SOUND_TYPE_STATIC);
 		this->m_stopSound.SetRelativeToListener(false);
 		this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
+
+		// Read the attributes
+		if(meshNode->GetAttribute("closable") == "false") {
+			this->m_closable = false;
+		}
+		if(meshNode->GetAttribute("animationSpeed") != "") {
+			std::istringstream ss(meshNode->GetAttribute("animationSpeed"));
+			ss >> this->m_animationSpeed;
+		}
+		if(meshNode->GetAttribute("openingParticleEmitter") != "") {
+			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(this->m_scene3D->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
+		}
+		if(meshNode->GetAttribute("triggerRadius") != "") {
+			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));
+			ss >> this->m_triggerRadius;
+		}
 	}
 
 	void CDoorEntity::Update(float const time) {
@@ -58,6 +79,9 @@ namespace SAMPLES {
 			this->m_scene3D->SetBrushCollision(this->m_node->GetId(), false);
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			if(this->m_emitterNode != nullptr) {
+				this->m_emitterNode->SetActive(false);
+			}
 		}
 
 		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
@@ -67,14 +91,17 @@ namespace SAMPLES {
 		}
 
 		// Trigger action
-		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS) {
+		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= this->m_triggerRadius) {
 
 			switch(this->m_state) {
 			case DOOR_STATE_CLOSED:
 				this->m_state = DOOR_STATE_OPENING;
-				this->m_node->StartAnimation(1, 2, ANIMATION_SPEED);
+				this->m_node->StartAnimation(1, 2, this->m_animationSpeed);
 				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
+				if(this->m_emitterNode != nullptr) {
+					this->m_emitterNode->SetActive(true);
+				}
 				break;
 
 			case DOOR_STATE_OPENED:
@@ -86,14 +113,14 @@ namespace SAMPLES {
 			}
 			
 		} else {
-			if(this->m_state == DOOR_STATE_OPENED) {
+			if(this->m_state == DOOR_STATE_OPENED && this->m_closable) {
 				this->m_timer += time;
 
 				// The door stay opened for a limited time
 				if(this->m_timer >= OPENED_TIME) {
 					this->m_timer = 0;
 					this->m_state = DOOR_STATE_CLOSING;
-					this->m_node->StartAnimation(2, 3, ANIMATION_SPEED);
+					this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
 					this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
 					this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 					this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);

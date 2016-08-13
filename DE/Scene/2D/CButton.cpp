@@ -131,7 +131,7 @@ namespace DE {
 		this->m_focusedTitleColor = color;
 	}
 
-	void CButton::Update() {
+	void CButton::Update(const float time) {
 		LOG_TRACE();
 
 		if(this->m_changed) {
@@ -155,7 +155,7 @@ namespace DE {
 		}
 
 		// Update the subviews
-		IView::Update();
+		IView::Update(time);
 	}
 
 	void CButton::Render() {
