@@ -57,6 +57,9 @@
     <ClInclude Include="2D\CLoadingView.h">
       <Filter>Fichiers d%27en-tête\2D</Filter>
     </ClInclude>
+    <ClInclude Include="3D\CTeleporterEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="2D\CLoadingView.cpp">
       <Filter>Fichiers sources\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CTeleporterEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

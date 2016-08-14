@@ -395,6 +395,12 @@ namespace DE {
 		void ResetMouseMovement();
 
 		/**
+		* Freeze an active action, it will be avaible after the associated key is up
+		* @param action The action name
+		*/
+		void FreezeAction(const unsigned int action);
+
+		/**
 		* Check if an action is active
 		* @param action The action name
 		* @return True if the action is active

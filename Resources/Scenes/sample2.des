@@ -7882,90 +7882,9 @@
 		</node>
 		
 		<!-- Start level teleporter -->
-		<node type="6" name="health" file="teleporter.ms3d">
+		<node type="6" name="teleporter_entity" file="teleporter.ms3d">
 			<position>0:0:0</position>
-			
-			<node type="9">
-				<active>true</active>
-				<position>0:0:0</position>
-				<textureId>1</textureId>
-				<blendMode>1</blendMode>
-				<life>-1</life>
-				<lifeMax>-1</lifeMax>
-				<emissionRate>80</emissionRate>
-				<initializers>
-					<minMaxColor>
-						<min>0.7:0.0:0.0:0.2</min>
-						<max>0.7:0.0:0.0:0.2</max>
-					</minMaxColor>
-					<minMaxSize>
-						<min>0.4</min>
-						<max>0.4</max>
-					</minMaxSize>
-					<minMaxLife>
-						<min>2000</min>
-						<max>2000</max>
-					</minMaxLife>
-					<radiusPosition>
-						<radius>1</radius>
-					</radiusPosition>
-					<linearVelocity>
-						<direction>0:1:0</direction>
-						<variationFactor>0</variationFactor>
-						<min>2</min>
-						<max>4</max>
-					</linearVelocity>
-				</initializers>
-				<updaters>
-					<color/>
-					<life/>
-					<velocity>
-						<damping>0</damping>
-					</velocity>
-				</updaters>
-			</node>
-			
-			<node type="9">
-				<active>true</active>
-				<position>0:8:0</position>
-				<textureId>1</textureId>
-				<blendMode>1</blendMode>
-				<life>-1</life>
-				<lifeMax>-1</lifeMax>
-				<emissionRate>80</emissionRate>
-				<initializers>
-					<minMaxColor>
-						<min>0.7:0.0:0.0:0.2</min>
-						<max>0.7:0.0:0.0:0.2</max>
-					</minMaxColor>
-					<minMaxSize>
-						<min>0.4</min>
-						<max>0.4</max>
-					</minMaxSize>
-					<minMaxLife>
-						<min>2000</min>
-						<max>2000</max>
-					</minMaxLife>
-					<radiusPosition>
-						<radius>1</radius>
-					</radiusPosition>
-					<linearVelocity>
-						<direction>0:-1:0</direction>
-						<variationFactor>0</variationFactor>
-						<min>2</min>
-						<max>4</max>
-					</linearVelocity>
-				</initializers>
-				<updaters>
-					<color/>
-					<life/>
-					<velocity>
-						<damping>0</damping>
-					</velocity>
-				</updaters>
-			</node>
 		</node>
-		
 		
 		<!-- Models -->
 		<node type="6" name="health" file="health_bonus.md2">
@@ -7987,6 +7906,7 @@
 			<scale>1.00:8.00:10.00</scale>
 		</brush>
 		
+		<!-- Deadly spikes -->
 		<node type="5" name="spikes" file="spikes.obj">
 			<position>-20:-32:70</position>
 			<diffuse_texture>spikes_d.png</diffuse_texture>
@@ -8169,6 +8089,14 @@
 				</updaters>
 			</node>
 			
+		</node>
+		
+		<!-- End level teleporter -->
+		<node type="6" name="teleporter_entity" file="teleporter.ms3d">
+			<position>160:8:220</position>
+			<attributes>
+				<nextLevelName>simple.des</nextLevelName>
+			</attributes>
 		</node>
 		
 		<!-- Player camera -->

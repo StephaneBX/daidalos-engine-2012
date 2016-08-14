@@ -129,9 +129,15 @@
 			<rotation>0.00:0.00:0.00</rotation>
 		</brush>
 		
+		
+		<!-- Start level teleporter -->
+		<node type="6" name="teleporter_entity" file="teleporter.ms3d">
+			<position>0:0:-10</position>
+		</node>
+		
 		<!-- Player camera -->
 		<node type="1" name="player">
-			<position>0:4:-10</position>
+			<position>0:4:0</position>
 			<rotation>0:0:0</rotation>
 			<fov>55</fov>
 			<near>0.1</near>

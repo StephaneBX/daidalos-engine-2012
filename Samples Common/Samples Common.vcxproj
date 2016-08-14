@@ -71,6 +71,7 @@
     <ClInclude Include="3D\CDoorEntity.h" />
     <ClInclude Include="3D\CFanEntity.h" />
     <ClInclude Include="3D\CSwitchEntity.h" />
+    <ClInclude Include="3D\CTeleporterEntity.h" />
     <ClInclude Include="3D\IEntity.h" />
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="3D\CDoorEntity.cpp" />
     <ClCompile Include="3D\CFanEntity.cpp" />
     <ClCompile Include="3D\CSwitchEntity.cpp" />
+    <ClCompile Include="3D\CTeleporterEntity.cpp" />
     <ClCompile Include="3D\IEntity.cpp" />
     <ClCompile Include="CFPSCamera.cpp" />
     <ClCompile Include="CFreeCamera.cpp" />

@@ -29,14 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLE1 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
-		this->m_scene3D->LoadScene("sample1.des");
-		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
-		this->m_camera->SetScene(this->m_scene3D);
-		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene3D->GetNode("directionalLight");
-		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene3D->GetNode("dwarf");
-		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
-		this->m_activeCamera = this->m_camera->GetCameraNode();
-		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+
+		std::thread(&CSampleApplication::LoadLevel, this, "sample1.des").detach();
 
 		MainLoop();
 	}
@@ -44,25 +38,48 @@ namespace SAMPLE1 {
 	CSampleApplication::~CSampleApplication() {}
 
 	void CSampleApplication::Update(const float time) {
-		this->m_fpsCounter.Update(time);
 
-		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
-			this->m_alive = false;
+		if(!this->m_loading) {
+			this->m_fpsCounter.Update(time);
+
+			if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
+				this->m_alive = false;
+			}
+
+			// Update the 3D scene
+			this->m_camera->Update(time);
+			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+
+			if(this->m_directionalLight != nullptr) {
+				DE::CVector3F lightRotation = this->m_directionalLight->GetRotation();
+				lightRotation.y += (40 * time) / 1000.0f;
+				this->m_directionalLight->SetRotation(lightRotation);
+			}
+
+			if(this->m_dwarfNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+				this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
+			}
+			this->m_scene3D->UpdateAll(time);
+
+			// Update the hud
+			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+			this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
+
+			this->m_cursor.Update(time);
+			this->m_scene2D->Update(time);
+
+		} else {
+			this->m_loadingScene->Update(time);
 		}
+	}
 
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_camera->Update(time);
-
-		if(this->m_directionalLight != nullptr) {
-			DE::CVector3F lightRotation = this->m_directionalLight->GetRotation();
-			lightRotation.y += (40 * time) / 1000.0f;
-			this->m_directionalLight->SetRotation(lightRotation);
-		}
-
-		if(this->m_dwarfNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
-			this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
-		}
-
-		this->m_scene3D->UpdateAll(time);
+	/**
+	* Do post level loading initialization
+	*/
+	void CSampleApplication::PostLoadLevel() {
+		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera(this->m_activeCamera));
+		this->m_camera->SetScene(this->m_scene3D);
+		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene3D->GetNode("directionalLight");
+		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene3D->GetNode("dwarf");
 	}
 }

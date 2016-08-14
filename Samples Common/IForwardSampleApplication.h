@@ -101,6 +101,18 @@ namespace SAMPLES {
 
 	protected:
 		/**
+		* Load a level and show a loading screen
+		* Should be called from a new thread
+		* @param filename The level filename
+		*/
+		virtual void LoadLevel(const std::string & filename);
+
+		/**
+		* Do post level loading process
+		*/
+		virtual void PostLoadLevel();
+
+		/**
 		* Render a 3D scene
 		*/
 		void Render3DScene(DE::C3DScene * scene3D);

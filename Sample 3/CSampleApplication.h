@@ -62,7 +62,12 @@ namespace SAMPLE3
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time);
+		void Update(const float time);
+
+		/**
+		* Do post level loading initialization
+		*/
+		void PostLoadLevel();
 	};
 }
 

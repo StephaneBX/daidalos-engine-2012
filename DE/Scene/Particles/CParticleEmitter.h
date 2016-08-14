@@ -35,6 +35,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/IParticleInitializer.h"
 #include "../../Scene/Particles/IParticleUpdater.h"
 
+#include "../../Scene/Particles/Initializers/CBoxPositionParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CColorParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CLifeParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CLinearVelocityParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CRadiusPositionParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CRotationParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CSizeParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CSphereVelocityParticleInitializer.h"
+
+#include "../../Scene/Particles/Updaters/CColorParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CGravityParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CLifeParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CRotationParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CSizeParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CVelocityParticleUpdater.h"
+
 namespace DE {
 	/**
 	* A particle emitter

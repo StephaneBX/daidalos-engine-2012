@@ -29,12 +29,56 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLE3 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
-		this->m_scene3D->LoadScene("sample3.des");
-		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
+
+		std::thread(&CSampleApplication::LoadLevel, this, "sample3.des").detach();
+
+		MainLoop();
+	}
+
+	CSampleApplication::~CSampleApplication() {}
+
+	void CSampleApplication::Update(const float time) {
+		
+		if(!this->m_loading) {
+			if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
+				this->m_alive = false;
+			}
+
+			// Update the 3D scene
+			this->m_camera->Update(time);
+			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+			this->m_scene3D->UpdateAll(time);
+
+			// Update the entities
+			if(this->m_flashlight != nullptr) {
+				this->m_flashlight->Update(time);
+			}
+
+			for(auto it = this->m_health.begin(); it != this->m_health.end(); it++) {
+				(*it)->Update(time);
+			}
+
+			// Update the hud
+			this->m_fpsCounter.Update(time);
+			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+			this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
+			this->m_hud->SetGravity(this->m_camera->GetGravity());
+			this->m_hud->SetHealth(this->m_camera->GetHealth());
+
+			this->m_cursor.Update(time);
+			this->m_scene2D->Update(time);
+		} else {
+			this->m_loadingScene->Update(time);
+		}
+	}
+
+	/**
+	* Do post level loading initialization
+	*/
+	void CSampleApplication::PostLoadLevel() {
+		// Load the camera
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
 		this->m_camera->SetScene(this->m_scene3D);
-		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
-		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-		this->m_activeCamera = this->m_camera->GetCameraNode();
 
 		// Load the flashlight
 		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_scene3D->GetNode("flashlight_spot"), this->m_camera.get()));
@@ -45,32 +89,6 @@ namespace SAMPLE3 {
 		for(auto it = health.begin(); it != health.end(); it++) {
 			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
 			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
-		}
-
-		MainLoop();
-	}
-
-	CSampleApplication::~CSampleApplication() {}
-
-	void CSampleApplication::Update(const float time) {
-		
-		if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
-			this->m_alive = false;
-		}
-
-		this->m_fpsCounter.Update(time);
-
-		this->m_camera->Update(time);
-
-		this->m_scene3D->UpdateAll(time);
-
-		// Update the entities
-		if(this->m_flashlight != nullptr) {
-			this->m_flashlight->Update(time);
-		}
-
-		for(auto it = this->m_health.begin(); it != this->m_health.end(); it++) {
-			(*it)->Update(time);
 		}
 	}
 }

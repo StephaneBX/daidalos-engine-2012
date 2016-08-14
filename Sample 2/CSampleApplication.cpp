@@ -43,6 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLE2 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
 
+		this->m_scene2D->AddToMainView(this->m_hud);
 		std::thread(&CSampleApplication::LoadLevel, this, "sample2.des").detach();
 
 		MainLoop();
@@ -67,6 +68,7 @@ namespace SAMPLE2 {
 				this->m_spotLight->SetRotation(lightRotation);
 			}
 
+			// Update the 3D scene
 			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 			this->m_scene3D->UpdateAll(time);
 
@@ -93,26 +95,26 @@ namespace SAMPLE2 {
 
 			this->m_cursor.Update(time);
 			this->m_scene2D->Update(time);
+
+			// Check for a loading call
+			for(auto it = this->m_teleporters.begin(); it != this->m_teleporters.end() && !this->m_loading; it++) {
+				if((*it)->CanDoAction()) {
+					std::thread(&CSampleApplication::LoadLevel, this, (*it)->GetNextLevelName()).detach();
+				}
+			}
+
 		} else {
 			this->m_loadingScene->Update(time);
 		}
 	}
 
 	/**
-	* Load a level and show a loading screen
-	* @param filename The level filename
+	* Do post level loading process
 	*/
-	void CSampleApplication::LoadLevel(const std::string & filename) {
-		this->m_loading = true;
-		this->m_scene3D->LoadScene(filename);
-
-		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera((DE::ICameraSceneNode*)this->m_scene3D->GetNode("player")));
+	void CSampleApplication::PostLoadLevel() {
+		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
 		this->m_camera->SetScene(this->m_scene3D);
 		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
-		this->m_scene3D->SetActiveCamera(this->m_camera->GetCameraNode());
-		this->m_activeCamera = this->m_camera->GetCameraNode();
-
-		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 
 		// Load the doors
 		this->m_doors.clear();
@@ -142,14 +144,12 @@ namespace SAMPLE2 {
 			this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
 		}
 
-		this->m_loading = false;
-	}
-
-	/**
-	* Set the loading state
-	* @param loading The loading state
-	*/
-	void CSampleApplication::SetLoading(const bool loading) {
-		this->m_loading = loading;
+		// Load the teleporters
+		this->m_teleporters.clear();
+		std::vector<DE::ISceneNode*> teleporterNode = this->m_scene3D->GetNodeArray("teleporter_entity");
+		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
+			SAMPLES::CTeleporterEntity * teleporterEntity = new SAMPLES::CTeleporterEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
+			this->m_teleporters.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
+		}
 	}
 }

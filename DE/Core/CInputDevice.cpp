@@ -176,11 +176,20 @@ namespace DE {
 		this->m_mouseMovement = CVector2I(0, 0);
 	}
 
+	void CInputDevice::FreezeAction(const unsigned int action) {
+		if(this->m_actions.find(action) != this->m_actions.end() && this->m_actions.at(action).state == INPUT_KEY_STATE_DOWN) {
+			this->m_actions.at(action).state = INPUT_KEY_STATE_FROZEN;
+		}
+	}
+
 	const bool CInputDevice::IsActionActive(const unsigned int action) const {
 		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
-		return this->m_actions.at(action).state == INPUT_KEY_STATE_DOWN;
+		if(this->m_actions.find(action) != this->m_actions.end()) {
+			return this->m_actions.at(action).state == INPUT_KEY_STATE_DOWN;
+		} 
+		return false;
 	}
 
 	const bool CInputDevice::IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const {

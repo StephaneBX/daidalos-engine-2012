@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Daidalos Engine", "DE\DE.vcxproj", "{EF4560DD-C97C-422C-88C4-85F1C4FDE022}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample 1", "Sample 1\Sample 1.vcxproj", "{BA7A5EB3-28D3-4AAD-A0F1-1E34E3455FBD}"
@@ -28,6 +30,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Unit Test", "Unit Test\Unit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Samples Common", "Samples Common\Samples Common.vcxproj", "{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelEditor", "LevelEditor\LevelEditor.vcxproj", "{B015B381-07E9-4A7A-A5CD-2F4851DA2570}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8} = {B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}
 		{EF4560DD-C97C-422C-88C4-85F1C4FDE022} = {EF4560DD-C97C-422C-88C4-85F1C4FDE022}
 	EndProjectSection
 EndProject
@@ -61,6 +69,10 @@ Global
 		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Debug|Win32.Build.0 = Debug|Win32
 		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Release|Win32.ActiveCfg = Release|Win32
 		{B6D8DFDA-5A80-499F-A302-A64FD7F78AE8}.Release|Win32.Build.0 = Release|Win32
+		{B015B381-07E9-4A7A-A5CD-2F4851DA2570}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B015B381-07E9-4A7A-A5CD-2F4851DA2570}.Debug|Win32.Build.0 = Debug|Win32
+		{B015B381-07E9-4A7A-A5CD-2F4851DA2570}.Release|Win32.ActiveCfg = Release|Win32
+		{B015B381-07E9-4A7A-A5CD-2F4851DA2570}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

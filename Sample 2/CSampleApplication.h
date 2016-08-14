@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/CDoorEntity.h"
 #include "3D/CFanEntity.h"
 #include "3D/CSwitchEntity.h"
+#include "3D/CTeleporterEntity.h"
 
 namespace SAMPLE2
 {
@@ -48,6 +49,7 @@ namespace SAMPLE2
 		std::vector<std::unique_ptr<SAMPLES::CDoorEntity> > m_doors;
 		std::vector<std::unique_ptr<SAMPLES::CFanEntity> > m_fans;
 		std::vector<std::unique_ptr<SAMPLES::CSwitchEntity> > m_switchs;
+		std::vector<std::unique_ptr<SAMPLES::CTeleporterEntity> > m_teleporters;
 
 	public:
 		/**
@@ -66,19 +68,12 @@ namespace SAMPLE2
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time);
+		void Update(const float time);
 
 		/**
-		* Load a level and show a loading screen
-		* @param filename The level filename
+		* Do post level loading initialization
 		*/
-		void LoadLevel(const std::string & filename);
-
-		/**
-		* Set the loading state
-		* @param loading The loading state
-		*/
-		void SetLoading(const bool loading);
+		void PostLoadLevel();
 	};
 }
 

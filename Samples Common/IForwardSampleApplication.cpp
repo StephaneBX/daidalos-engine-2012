@@ -104,7 +104,6 @@ namespace SAMPLES {
 		// The Hud
 		// --------------------------------------------------------------------------------------------------
 		this->m_hud = new CHudView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
-		this->m_scene2D->AddToMainView(this->m_hud);
 
 		// ------------------------------------------------------------------------------------------------
 		// The loading scene
@@ -118,6 +117,18 @@ namespace SAMPLES {
 		delete this->m_scene2D;
 		delete this->m_loadingScene;
 		delete this->m_hud;
+	}
+
+	void IForwardSampleApplication::Update(const float time) {
+		if(!this->m_loading) {
+			this->m_fpsCounter.Update(time);
+
+			this->m_cursor.Update(time);
+			this->m_scene2D->Update(time);
+
+		} else {
+			this->m_loadingScene->Update(time);
+		}
 	}
 
 	void IForwardSampleApplication::Render() {
@@ -147,6 +158,29 @@ namespace SAMPLES {
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 
 		this->m_renderer->EndScene();
+	}
+
+	/**
+	* Load a level and show a loading screen
+	* @param filename The level filename
+	*/
+	void IForwardSampleApplication::LoadLevel(const std::string & filename) {
+		this->m_loading = true;
+		this->m_scene3D->LoadScene(filename);
+		this->m_activeCamera = (DE::ICameraSceneNode*)this->m_scene3D->GetNode("player");
+
+		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+		this->m_scene3D->UpdateAll(0);
+		PostLoadLevel();
+
+		this->m_loading = false;
+	}
+
+	/**
+	* Do post level loading process
+	*/
+	void IForwardSampleApplication::PostLoadLevel() {
 	}
 
 	/**
