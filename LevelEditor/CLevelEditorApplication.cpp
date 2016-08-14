@@ -30,6 +30,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace EDITOR {
 	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
 
+		this->m_drawSkybox = true;
+		this->m_drawLights = true;
 		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
 		std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 
@@ -49,6 +51,16 @@ namespace EDITOR {
 			if(this->m_input->IsActionActive(VIEW_CAMERA_CURSOR)) {
 				this->m_cursor.SetVisible(!this->m_cursor.IsVisible());
 				this->m_input->FreezeAction(VIEW_CAMERA_CURSOR);
+			}
+
+			if(this->m_input->IsActionActive(VIEW_CAMERA_SKYBOX)) {
+				this->m_drawSkybox = !this->m_drawSkybox;
+				this->m_input->FreezeAction(VIEW_CAMERA_SKYBOX);
+			}
+
+			if(this->m_input->IsActionActive(VIEW_CAMERA_LIGHTS)) {
+				this->m_drawLights = !this->m_drawLights;
+				this->m_input->FreezeAction(VIEW_CAMERA_LIGHTS);
 			}
 
 			// Update the 3D scene
@@ -72,6 +84,53 @@ namespace EDITOR {
 		} else {
 			this->m_loadingScene->Update(time);
 		}
+	}
+
+	/**
+	* Render a 3D scene
+	*/
+	void CLevelEditorApplication::Render3DScene(DE::C3DScene * scene3D) {
+
+		// ------------------------------
+		// Initialization
+		// ------------------------------
+		InitializeRendering(scene3D);
+
+		// ------------------------------
+		// Sky box mask + rendering
+		// ------------------------------
+		if(this->m_drawSkybox) {
+			SkyboxRendering(scene3D);
+		}
+
+		// ------------------------------
+		// Diffuse
+		// ------------------------------
+		DiffuseRendering(scene3D);
+
+		// Lights
+		if(this->m_drawLights) {
+			// ------------------------------
+			// Forward rendering: spot lights
+			// ------------------------------
+			SpotLightsRendering(scene3D);
+
+			// ------------------------------
+			// Forward rendering: point lights
+			// ------------------------------
+			PointLightsRendering(scene3D);
+
+			// ------------------------------
+			// Forward rendering: directional lights
+			// ------------------------------
+			DirectionalLightsRendering(scene3D);
+		}
+
+		// ------------------------------
+		// Particle System
+		// ------------------------------
+		scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
+		scene3D->GetParticleSystem().RenderAll();
 	}
 
 	/**

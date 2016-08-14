@@ -97,7 +97,7 @@ namespace SAMPLES {
 		/**
 		* Render the application
 		*/
-		void Render();
+		virtual void Render();
 
 	protected:
 		/**
@@ -114,28 +114,51 @@ namespace SAMPLES {
 
 		/**
 		* Render a 3D scene
+		* @param scene3D The scene
 		*/
-		void Render3DScene(DE::C3DScene * scene3D);
+		virtual void Render3DScene(DE::C3DScene * scene3D);
 
 		/**
 		* Render a 2D scene
+		* @param scene2D The scene
 		*/
-		void Render2DScene(DE::C2DScene * scene2D);
+		virtual void Render2DScene(DE::C2DScene * scene2D);
+
+		/**
+		* Do initialization before rendering anything
+		* @param scene3D The scene
+		*/
+		virtual void InitializeRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the skybox
+		* @param scene3D The scene
+		*/
+		virtual void SkyboxRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the diffuse part
+		* @param scene3D The scene
+		*/
+		virtual void DiffuseRendering(DE::C3DScene * scene3D);
 
 		/**
 		* Render the spot lights in the backbuffer
+		* @param scene3D The scene
 		*/
-		void SpotLightsRendering(DE::C3DScene * scene3D);
+		virtual void SpotLightsRendering(DE::C3DScene * scene3D);
 
 		/**
 		* Render the point lights in the backbuffer
+		* @param scene3D The scene
 		*/
-		void PointLightsRendering(DE::C3DScene * scene3D);
+		virtual void PointLightsRendering(DE::C3DScene * scene3D);
 
 		/**
 		* Render the directional lights in the backbuffer
+		* @param scene3D The scene
 		*/
-		void DirectionalLightsRendering(DE::C3DScene * scene3D);
+		virtual void DirectionalLightsRendering(DE::C3DScene * scene3D);
 	};
 }
 

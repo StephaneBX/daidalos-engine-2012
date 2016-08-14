@@ -37,6 +37,8 @@ namespace EDITOR {
 	*/
 	class CLevelEditorApplication : public SAMPLES::IForwardSampleApplication {
 	private:
+		bool m_drawSkybox;
+		bool m_drawLights;
 		std::unique_ptr<CViewCamera> m_camera;
 		DE::CVector3F m_cameraPosition;
 		DE::CVector3F m_cameraRotation;
@@ -59,6 +61,12 @@ namespace EDITOR {
 		* @param time Elapsed time
 		*/
 		void Update(const float time);
+
+		/**
+		* Render a 3D scene
+		* @param scene3D The scene
+		*/
+		void Render3DScene(DE::C3DScene * scene3D);
 
 		/**
 		* Do post level loading initialization

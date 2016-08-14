@@ -187,50 +187,21 @@ namespace SAMPLES {
 	* Render a 3D scene
 	*/
 	void IForwardSampleApplication::Render3DScene(DE::C3DScene * scene3D) {
-		// ------------------------------
-		// Sky box mask
-		// ------------------------------
-		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, true);
-		this->m_renderer->SetStencilFunction(DE::COMPARE_ALWAYS);
-		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
-		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
-		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
-		scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
-		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
-		scene3D->RenderSkyboxMask();
 
 		// ------------------------------
-		// Sky box
+		// Initialization
 		// ------------------------------
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_renderer->SetStencilFunction(DE::COMPARE_LESS);
-		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
-		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
-		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_KEEP);
-		this->m_renderer->SetStencilRef(0);
-		scene3D->RenderSkybox();
+		InitializeRendering(scene3D);
+		
+		// ------------------------------
+		// Sky box mask + rendering
+		// ------------------------------
+		SkyboxRendering(scene3D);
 
 		// ------------------------------
-		// Forward rendering: diffuse
+		// Diffuse
 		// ------------------------------
-		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
-		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
-		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		scene3D->RenderAll();
+		DiffuseRendering(scene3D);
 
 		// ------------------------------
 		// Forward rendering: spot lights
@@ -280,6 +251,74 @@ namespace SAMPLES {
 		scene2D->Render();
 	}
 
+	/**
+	* Do initialization before rendering anything
+	* @param scene3D The scene
+	*/
+	void IForwardSampleApplication::InitializeRendering(DE::C3DScene * scene3D) {
+		scene3D->SetActiveCamera(this->m_activeCamera);
+		this->m_renderer->SetFrameBuffer(nullptr);
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+	}
+
+	/**
+	* Render the skybox
+	* @param scene3D The scene
+	*/
+	void IForwardSampleApplication::SkyboxRendering(DE::C3DScene * scene3D) {
+		// ------------------------------
+		// Sky box mask
+		// ------------------------------
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, true);
+		this->m_renderer->SetStencilFunction(DE::COMPARE_ALWAYS);
+		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		scene3D->RenderSkyboxMask();
+
+		// ------------------------------
+		// Sky box
+		// ------------------------------
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		scene3D->SetActiveCamera(this->m_activeCamera);
+		this->m_renderer->SetStencilFunction(DE::COMPARE_LESS);
+		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_KEEP);
+		this->m_renderer->SetStencilRef(0);
+		scene3D->RenderSkybox();
+	}
+
+	/**
+	* Render the diffuse part
+	* @param scene3D The scene
+	*/
+	void IForwardSampleApplication::DiffuseRendering(DE::C3DScene * scene3D) {
+		// ------------------------------
+		// Forward rendering: diffuse
+		// ------------------------------
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		scene3D->RenderAll();
+	}
+
+	/**
+	* Render the spot lights in the backbuffer
+	* @param scene3D The scene
+	*/
 	void IForwardSampleApplication::SpotLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
@@ -331,6 +370,10 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Render the point lights in the backbuffer
+	* @param scene3D The scene
+	*/
 	void IForwardSampleApplication::PointLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
@@ -359,6 +402,10 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Render the directional lights in the backbuffer
+	* @param scene3D The scene
+	*/
 	void IForwardSampleApplication::DirectionalLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
 
