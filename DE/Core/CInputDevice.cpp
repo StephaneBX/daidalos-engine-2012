@@ -177,8 +177,8 @@ namespace DE {
 	}
 
 	void CInputDevice::FreezeAction(const unsigned int action) {
-		if(this->m_actions.find(action) != this->m_actions.end() && this->m_actions.at(action).state == INPUT_KEY_STATE_DOWN) {
-			this->m_actions.at(action).state = INPUT_KEY_STATE_FROZEN;
+		if(this->m_actions.find(action) != this->m_actions.end() && this->m_actions[action].state == INPUT_KEY_STATE_DOWN) {
+			this->m_actions[action].state = INPUT_KEY_STATE_FROZEN;
 		}
 	}
 
@@ -225,7 +225,7 @@ namespace DE {
 
 			// Search if the action uses this key
 			for(unsigned int i = 0; i < it->second.keys.size() && !found; ++i) {
-				if(it->second.keys.at(i).type == type && it->second.keys.at(i).key == key)
+				if(it->second.keys[i].type == type && it->second.keys[i].key == key)
 					found = true;
 			}
 
@@ -274,7 +274,7 @@ namespace DE {
 
 			// Search if the action uses this key
 			for(unsigned int i = 0; i < it->second.keys.size() && !found; ++i) {
-				if(it->second.keys.at(i).type == type && it->second.keys.at(i).key == key)
+				if(it->second.keys[i].type == type && it->second.keys[i].key == key)
 					found = true;
 			}
 

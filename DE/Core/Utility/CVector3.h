@@ -474,15 +474,15 @@ namespace DE {
 			std::istringstream ss;
 
 			ss.clear();
-			ss.str(token.GetTokens().at(0));
+			ss.str(token.GetTokens()[0]);
 			ss >> result.x;
 
 			ss.clear();
-			ss.str(token.GetTokens().at(1));
+			ss.str(token.GetTokens()[1]);
 			ss >> result.y;
 
 			ss.clear();
-			ss.str(token.GetTokens().at(2));
+			ss.str(token.GetTokens()[2]);
 			ss >> result.z;
 		} else {
 			result = defaultValue;

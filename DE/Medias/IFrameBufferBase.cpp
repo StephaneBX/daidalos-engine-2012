@@ -133,7 +133,7 @@ namespace DE {
 	SFrameBufferAttachment * IFrameBufferBase::GetAttachment(const int number) {
 		LOG_TRACE();
 
-		return &this->m_attachments.at(number);
+		return &this->m_attachments[number];
 	}
 
 	IRenderTargetBase * IFrameBufferBase::GetDepthRenderTarget(const std::string & name) const {

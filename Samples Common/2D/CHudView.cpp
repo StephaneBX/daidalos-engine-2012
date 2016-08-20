@@ -35,7 +35,7 @@ namespace SAMPLES {
 		SetBounds(bounds);
 
 		// Create the fps label
-		this->m_fpsLabel.SetBounds(DE::CRectangleI((int)(this->m_preferredsize.x - 150), 0, 150, 30));
+		this->m_fpsLabel.SetBounds(DE::CRectangleI((int)(this->m_preferredsize.x - 200), 0, 200, 30));
 		this->m_fpsLabel.SetSize(30);
 		this->m_fpsLabel.SetColor(DE::CColor(255, 255, 102, 255));
 		this->m_fpsLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);

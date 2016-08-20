@@ -66,27 +66,27 @@ namespace DE {
 		// Loop through the brushes
 		for(unsigned int i = 0; i < brushDefinition.size(); ++i) {
 			brushGeometry.clear();
-			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j) {
+			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
-				if(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
-					this->m_diffuseTextures.push_back(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE));
+				if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
+					this->m_diffuseTextures.push_back(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
-				if(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-					this->m_normalTextures.push_back(brushDefinition.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL));
+				if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
+					this->m_normalTextures.push_back(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Add a copy in the global vector
-				global.push_back(new CBSPTriangle(*brushDefinition.at(i).geometry.at(j)));
+				global.push_back(new CBSPTriangle(*brushDefinition[i].geometry[j]));
 
 				// Add a copy in the brush vector
-				brushGeometry.push_back(new CBSPTriangle(*brushDefinition.at(i).geometry.at(j)));
+				brushGeometry.push_back(new CBSPTriangle(*brushDefinition[i].geometry[j]));
 			}
 
 			// Create the brush and add it to the brush list
 			SBSPBrush * brush = new SBSPBrush();
-			brush->enabled = brushDefinition.at(i).collision;
+			brush->enabled = brushDefinition[i].collision;
 			brush->tested = false;
-			brush->id = brushDefinition.at(i).id;
+			brush->id = brushDefinition[i].id;
 			brush->root = std::unique_ptr<CBSPTreeNode>(new CBSPTreeNode());
 			brush->root->LoadTriangleList(brushGeometry);
 
@@ -103,19 +103,19 @@ namespace DE {
 
 		for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
 			// Add the brushes to the collision bsp
-			this->m_collisionBsp->AddBrush(this->m_brushes.at(i).get(), brushDefinition.at(i).geometry);
+			this->m_collisionBsp->AddBrush(this->m_brushes[i].get(), brushDefinition[i].geometry);
 
 			// Update the bounding box
-			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j) {
+			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j) {
 				for(unsigned int k = 0; k < 3; k++) {
-					minPosition = minPosition.Min(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
-					maxPosition = maxPosition.Max(brushDefinition.at(i).geometry.at(j)->GetVertex(k));
+					minPosition = minPosition.Min(brushDefinition[i].geometry[j]->GetVertex(k));
+					maxPosition = maxPosition.Max(brushDefinition[i].geometry[j]->GetVertex(k));
 				}
 			}
 
 			// Delete the triangles as they're no longer needed
-			for(unsigned int j = 0; j < brushDefinition.at(i).geometry.size(); ++j)
-				delete brushDefinition.at(i).geometry.at(j);
+			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j)
+				delete brushDefinition[i].geometry[j];
 		}
 
 		// Set the bounding box
@@ -296,7 +296,7 @@ namespace DE {
 		Assert(shaderProgram != nullptr);
 
 		this->m_activeCamera = this->m_scene->GetActiveCamera();
-		RegisterNodeForRendering(filterId);
+		RegisterNodeForRendering(this->m_bsp.get(),filterId);
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0) {
 			// World matrixes
@@ -313,9 +313,9 @@ namespace DE {
 			while(this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
-				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
-				batchNormalTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_NORMAL);
-				batchMaterialElement = batchTriangles.at(0)->GetMaterialElement();
+				batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
+				batchNormalTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_NORMAL);
+				batchMaterialElement = batchTriangles[0]->GetMaterialElement();
 
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
@@ -361,6 +361,8 @@ namespace DE {
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
 
+			// Check the visibility for the leaf before testing each triangle
+			if(!this->m_activeCamera->FrustumCull(&(*it)->GetVisibilitySphere())) {
 				// Loop through each triangle
 				for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
 					if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
@@ -368,13 +370,14 @@ namespace DE {
 						(*it2)->SetDrawn(true);
 					}
 				}
+			}	
 		}
 	}
 
 	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node, const int filterId) {
 		LOG_TRACE();
 
-		if(this->m_activeCamera->FrustumCull(node->GetBoundingBox())) {
+		if(this->m_activeCamera->FrustumCull(&node->GetVisibilitySphere())) {
 			return;
 		}
 

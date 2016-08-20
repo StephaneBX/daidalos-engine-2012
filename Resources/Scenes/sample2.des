@@ -4,7 +4,7 @@
 	<particleSystem>
 		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
 		<atlasTextureSize>4:4</atlasTextureSize>
-		<systemSize>5000</systemSize>
+		<systemSize>10000</systemSize>
 	</particleSystem>
 
 	<!-- Level node with a bsp structure -->
@@ -7906,7 +7906,7 @@
 			<scale>1.00:8.00:10.00</scale>
 		</brush>
 		
-		<!-- Deadly spikes -->
+		<!-- Deadly spikes 
 		<node type="5" name="spikes" file="spikes.obj">
 			<position>-20:-32:70</position>
 			<diffuse_texture>spikes_d.png</diffuse_texture>
@@ -7926,7 +7926,7 @@
 			<position>-30:-32:80</position>
 			<diffuse_texture>spikes_d.png</diffuse_texture>
 			<normal_texture>spikes_n.png</normal_texture>
-		</node>
+		</node> -->
 		
 		<!-- Door entity with brush collision -->
 		<node id="-5" type="6" name="door_entity" file="door.ms3d">

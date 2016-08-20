@@ -112,7 +112,7 @@ namespace DE {
 		std::shared_ptr<ILoader<T>> ptr(loader);
 
 		for(unsigned int i = 0; i < tokenizer.GetTokens().size(); ++i)
-			CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens().at(i)] = ptr;
+			CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens()[i]] = ptr;
 	}
 
 	template <class T> void CMediaManager::RemoveLoader() {

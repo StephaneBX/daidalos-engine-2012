@@ -224,8 +224,8 @@ namespace DE {
 
 		const std::vector<ISceneNode*> cameras = GetNodeArray(SCENE_NODE_CAMERA);
 		for(unsigned int i = 0; i < cameras.size(); ++i) {
-			if(cameras.at(i) != this->m_activeCamera) {
-				cameras.at(i)->Render();
+			if(cameras[i] != this->m_activeCamera) {
+				cameras[i]->Render();
 			}
 		}
 	}

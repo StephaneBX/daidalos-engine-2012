@@ -71,7 +71,7 @@ namespace DE {
 				if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0) {
 					// If a filter list is given, verify that the beginning of the line is recognized.
 					for(unsigned int i = 0; i < filterList.size() && !valid; i++) {
-						if(tmpLine.substr(0, filterList.at(i).length()) == filterList.at(i))
+						if(tmpLine.substr(0, filterList[i].length()) == filterList[i])
 							valid = true;
 					}
 
@@ -152,7 +152,7 @@ namespace DE {
 		// Iterate through the tokens.
 		for(unsigned int i = 0; i < this->m_tokens.size() && valid; i++) {
 			// Split each token with the given delimiter.
-			elementCount = SplitString(this->m_tokens.at(i), delimiter);
+			elementCount = SplitString(this->m_tokens[i], delimiter);
 
 			// The tokenization process is valid if the number of split is not over maxSplit or if maxSplit = 0
 			if(maxSplit > 0 && elementCount != 1 && elementCount != maxSplit)
@@ -164,7 +164,7 @@ namespace DE {
 
 		// Put back the tokens in the tokens buffer.
 		for(unsigned int i = 0; i < this->m_buffer.size() && valid; i++)
-			this->m_tokens.push_back(this->m_buffer.at(i));
+			this->m_tokens.push_back(this->m_buffer[i]);
 
 		return valid;
 	}
@@ -180,7 +180,7 @@ namespace DE {
 		int count = 0;
 
 		for(unsigned int i = 0; i < this->m_tokens.size(); i++) {
-			if(this->m_tokens.at(i) == token)
+			if(this->m_tokens[i] == token)
 				count++;
 		}
 

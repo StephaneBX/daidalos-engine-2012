@@ -64,6 +64,9 @@ namespace DE {
 		// Get the bounding box
 		CalculateBoundingBox(triangles);
 
+		// Get the visibility sphere
+		CalculateVisibilitySphere(triangles);
+
 		// Find a splitter
 		CBSPTriangle * splitter = FindBestSplitter(triangles);
 
@@ -119,6 +122,7 @@ namespace DE {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPTreeNode(BSP_NODE_TYPE_EMPTY_LEAF);
 			this->m_children[BSP_NODE_CHILD_FRONT]->AddTriangles(front);
 			this->m_children[BSP_NODE_CHILD_FRONT]->CalculateBoundingBox(front);
+			this->m_children[BSP_NODE_CHILD_FRONT]->CalculateVisibilitySphere(front);
 		} else {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPTreeNode(BSP_NODE_TYPE_NODE);
 			this->m_children[BSP_NODE_CHILD_FRONT]->LoadTriangleList(front);
@@ -262,6 +266,13 @@ namespace DE {
 		LOG_TRACE();
 
 		return this->m_plane;
+	}
+
+	
+	CSphereF & CBSPTreeNode::GetVisibilitySphere() {
+		LOG_TRACE();
+
+		return this->m_visibilitySphere;
 	}
 
 	CAABoundingBoxF * CBSPTreeNode::GetBoundingBox() const {
@@ -713,6 +724,30 @@ namespace DE {
 		}
 
 		this->m_boundingBox->SetMinMax(minPosition, maxPosition);
+	}
+
+	void CBSPTreeNode::CalculateVisibilitySphere(const std::vector<CBSPTriangle*> triangles) {
+		LOG_TRACE();
+
+		// Initial values
+		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
+		// Read each vertex for each triangle
+		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
+			for(int i = 0; i < 3; ++i) {
+				minPosition.x = std::min(minPosition.x, (*it)->GetVertex(i).x);
+				minPosition.y = std::min(minPosition.y, (*it)->GetVertex(i).y);
+				minPosition.z = std::min(minPosition.z, (*it)->GetVertex(i).z);
+
+				maxPosition.x = std::max(maxPosition.x, (*it)->GetVertex(i).x);
+				maxPosition.y = std::max(maxPosition.y, (*it)->GetVertex(i).y);
+				maxPosition.z = std::max(maxPosition.z, (*it)->GetVertex(i).z);
+			}
+		}
+
+		this->m_visibilitySphere.SetPosition((minPosition + maxPosition) / 2.0f);
+		this->m_visibilitySphere.SetRadius((maxPosition - minPosition).Length() / 2.0f);
 	}
 
 	void CBSPTreeNode::BuildInitialPortal() {

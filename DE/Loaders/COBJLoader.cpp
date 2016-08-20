@@ -223,8 +223,8 @@ namespace DE {
 
 			// Fill the vertex buffer
 			for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-				if(vertexOrder.at(i) >= 1 && vertexOrder.at(i) <= (int)tmpVertex.size()) {
-					this->m_internalData->vertex[groupCounter][i] = tmpVertex.at(vertexOrder.at(i) - 1);
+				if(vertexOrder[i] >= 1 && vertexOrder[i] <= (int)tmpVertex.size()) {
+					this->m_internalData->vertex[groupCounter][i] = tmpVertex[vertexOrder[i] - 1];
 				} else {
 					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id)");
 					ILogger::Kill();
@@ -239,17 +239,17 @@ namespace DE {
 					// Verify the validity of the normal numbers
 					bool hasNormals = true;
 					for(int i = 0; i < this->m_internalData->groupSize[groupCounter] && hasNormals; i++) {
-						if(normalOrder.at(i) < 1 || normalOrder.at(i) > (int)tmpNormal.size())
+						if(normalOrder[i] < 1 || normalOrder[i] > (int)tmpNormal.size())
 							hasNormals = false;
 					}
 
 					if(hasNormals) {
 						this->m_internalData->normal[groupCounter] = new CVector3F[this->m_internalData->groupSize[groupCounter]];
 						for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-							if(normalOrder.at(i) >= 1 && normalOrder.at(i) <= (int)tmpNormal.size()) {
-								this->m_internalData->normal[groupCounter][i] = tmpNormal.at(normalOrder.at(i) - 1);
+							if(normalOrder[i] >= 1 && normalOrder[i] <= (int)tmpNormal.size()) {
+								this->m_internalData->normal[groupCounter][i] = tmpNormal[normalOrder[i] - 1];
 							} else {
-								if(normalOrder.at(i) != 0) {
+								if(normalOrder[i] != 0) {
 									LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid normal id)");
 									ILogger::Kill();
 
@@ -271,8 +271,8 @@ namespace DE {
 				if(textureOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					this->m_internalData->texcoord[groupCounter] = new CVector2F[this->m_internalData->groupSize[groupCounter]];
 					for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-						if(textureOrder.at(i) >= 1 && textureOrder.at(i) <= (int)tmpTexture.size()) {
-							this->m_internalData->texcoord[groupCounter][i] = tmpTexture.at(textureOrder.at(i) - 1);
+						if(textureOrder[i] >= 1 && textureOrder[i] <= (int)tmpTexture.size()) {
+							this->m_internalData->texcoord[groupCounter][i] = tmpTexture[textureOrder[i] - 1];
 						} else {
 							LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id)");
 							ILogger::Kill();

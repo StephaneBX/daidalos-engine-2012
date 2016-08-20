@@ -141,7 +141,7 @@ namespace SAMPLE2 {
 			this->m_switchs.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
 		}
 		if(this->m_switchs.size() > 0) {
-			this->m_switchs.at(0)->AddTarget(this->m_fans.at(0).get());
+			this->m_switchs[0]->AddTarget(this->m_fans[0].get());
 		}
 
 		// Load the teleporters

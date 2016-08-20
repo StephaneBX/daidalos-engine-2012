@@ -80,19 +80,16 @@ namespace DE {
 			// Normal Tangent and Binormal transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_NTB) != 0) {
 				for(int j = 0; j < 3; ++j) {
+					// Normal
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, normal[i + j], sizeof(CVector3F));
-				}
-				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j) {
-					memcpy(lock + (this->m_stride * (index + j)) + pitch, tangent[i + j], sizeof(CVector3F));
-				}
-				pitch += sizeof(CVector3F);
+					// Tangent
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F), tangent[i + j], sizeof(CVector3F));
 
-				for(int j = 0; j < 3; ++j) {
-					memcpy(lock + (this->m_stride * (index + j)) + pitch, binormal[i + j], sizeof(CVector3F));
+					// Binormal
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F) * 2, binormal[i + j], sizeof(CVector3F));
 				}
-				pitch += sizeof(CVector3F);
+				pitch += sizeof(CVector3F) * 3;
 			}
 
 			index += 3;
@@ -174,19 +171,16 @@ namespace DE {
 				}
 
 				for(int j = 0; j < 3; ++j) {
+					// Normal
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, tmpNormal[j], sizeof(CVector3F));
-				}
-				pitch += sizeof(CVector3F);
 
-				for(int j = 0; j < 3; ++j) {
-					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetTangent(j), sizeof(CVector3F));
-				}
-				pitch += sizeof(CVector3F);
+					// Tangent
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F), triangles[i]->GetTangent(j), sizeof(CVector3F));
 
-				for(int j = 0; j < 3; ++j) {
-					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetBinormal(j), sizeof(CVector3F));
+					// Binormal
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F) * 2, triangles[i]->GetBinormal(j), sizeof(CVector3F));
 				}
-				pitch += sizeof(CVector3F);
+				pitch += sizeof(CVector3F) * 3;
 			}
 
 			index += 3;

@@ -171,14 +171,14 @@ namespace DE {
 	}
 
 	template <class T> const float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
-		CVector3<T> endSegment = this->m_position - (plane.GetNormal() * this->m_size.x * this->m_size.y * this->m_size.z);
+		CVector3<T> endSegment = this->m_position + CVector3<T>(plane.GetNormal().x * this->m_size.x, plane.GetNormal().y * this->m_size.y, plane.GetNormal().z * this->m_size.z);
 		float factor = 1.0f;
 		CVector3<T> intersection;
 
 		// Check the intersection between each plane and the segment (plane - position)
 		for(auto it = this->m_planes.begin(); it != this->m_planes.end(); ++it) {
 			intersection = (*it).IntersectSegment(this->m_position, endSegment, factor);
-			if(factor < 1.0f) {
+			if(factor > 0 && factor < 1.0f) {
 				break;
 			}
 		}

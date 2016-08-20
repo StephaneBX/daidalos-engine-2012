@@ -132,8 +132,8 @@ namespace DE {
 
 		// Draw each part of the skybox
 		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {
-			renderer->SetVertexBuffer(0, this->m_buffers.at(i), sizeof(DE::SSkyboxElement), 0, 4);
-			renderer->SetTexture(0, this->m_textures.at(i).GetTexture());
+			renderer->SetVertexBuffer(0, this->m_buffers[i], sizeof(DE::SSkyboxElement), 0, 4);
+			renderer->SetTexture(0, this->m_textures[i].GetTexture());
 			renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
 

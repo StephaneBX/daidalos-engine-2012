@@ -79,9 +79,15 @@ namespace DE {
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
+		// Check left/right planes
+
+		// Check top/bottom planes
+
+		// Check near/far planes
+
 		int count = 0;
 
-		for(int i = 0; i < FRUSTUM_PLANE_SIZE; i++) {
+		for(int i = 0; i < FRUSTUM_PLANE_SIZE && count < 1; i++) {
 			float dist = GetViewFrustumPlane((EFrustumPlane)i).PointDistance(shape->GetPosition());
 			if(dist < -shape->GetInnerDepth(GetViewFrustumPlane(FRUSTUM_PLANE_NEAR))) {
 				count++;

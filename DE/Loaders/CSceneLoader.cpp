@@ -876,16 +876,16 @@ namespace DE {
 			std::istringstream ss;
 			float r, g, b, a;
 
-			ss.str(tokenizer.GetTokens().at(0));
+			ss.str(tokenizer.GetTokens()[0]);
 			ss >> r;
 			ss.clear();
-			ss.str(tokenizer.GetTokens().at(1));
+			ss.str(tokenizer.GetTokens()[1]);
 			ss >> g;
 			ss.clear();
-			ss.str(tokenizer.GetTokens().at(2));
+			ss.str(tokenizer.GetTokens()[2]);
 			ss >> b;
 			ss.clear();
-			ss.str(tokenizer.GetTokens().at(3));
+			ss.str(tokenizer.GetTokens()[3]);
 			ss >> a;
 
 			data = CColor(r, g, b, a);

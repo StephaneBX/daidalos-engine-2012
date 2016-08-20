@@ -54,19 +54,19 @@ namespace DE {
 		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		for(unsigned int i = 0; i < brushes.size(); ++i) {
-			for(unsigned int j = 0; j < brushes.at(i).geometry.size(); ++j) {
+			for(unsigned int j = 0; j < brushes[i].geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
-				if(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
-					this->m_diffuseTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_DIFFUSE));
+				if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
+					this->m_diffuseTextures.push_back(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
-				if(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-					this->m_normalTextures.push_back(brushes.at(i).geometry.at(j)->GetTexture(TEXTURE_TYPE_NORMAL));
+				if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
+					this->m_normalTextures.push_back(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Update the bounding box
 				for(unsigned int k = 0; k < 3; k++) {
-					minPosition = minPosition.Min(brushes.at(i).geometry.at(j)->GetVertex(k));
-					maxPosition = maxPosition.Max(brushes.at(i).geometry.at(j)->GetVertex(k));
+					minPosition = minPosition.Min(brushes[i].geometry[j]->GetVertex(k));
+					maxPosition = maxPosition.Max(brushes[i].geometry[j]->GetVertex(k));
 				}
 			}
 		}
@@ -136,20 +136,29 @@ namespace DE {
 			while(this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
-				batchDiffuseTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_DIFFUSE);
-				batchNormalTexture = batchTriangles.at(0)->GetTexture(TEXTURE_TYPE_NORMAL);
-				batchMaterialElement = batchTriangles.at(0)->GetMaterialElement();
+				batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
+				batchNormalTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_NORMAL);
+				batchMaterialElement = batchTriangles[0]->GetMaterialElement();
 
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
-				// Check for compatible triangles
-				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
-					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
-						batchTriangles.push_back(*it);
-						it = this->m_visibleTriangles.erase(it);
-					} else
-						++it;
+				// Batch per texture
+				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) {
+					// The textures are disabled so no batching needed, we take all the triangles
+					batchTriangles.insert(std::end(batchTriangles), std::begin(this->m_visibleTriangles), std::end(this->m_visibleTriangles));
+					this->m_visibleTriangles.clear();
+				} else {
+					// Check for compatible triangles
+					for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+						if((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
+							batchTriangles.push_back(*it);
+							it = this->m_visibleTriangles.erase(it);
+						} else
+							++it;
+					}
 				}
+
+				
 
 				// Transform
 				this->m_levelBuffer.Transform(batchTriangles, this->m_shadingType);

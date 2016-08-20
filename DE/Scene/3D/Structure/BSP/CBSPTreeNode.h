@@ -54,6 +54,7 @@ namespace DE {
 		std::vector<std::unique_ptr<CBSPTriangle> > m_triangles;
 		CPlane3DF m_plane;
 		CBSPTreeNode * m_children[2];
+		CSphereF m_visibilitySphere;
 
 		// PVS generation-only attributes
 		std::unique_ptr<CAABoundingBoxF> m_boundingBox;
@@ -113,6 +114,11 @@ namespace DE {
 		const CPlane3DF & GetPlane() const;
 
 		/**
+		* Get the node visibility sphere
+		*/
+		CSphereF & GetVisibilitySphere();
+
+		/**
 		* Get the bounding box
 		*/
 		CAABoundingBoxF * GetBoundingBox() const;
@@ -150,6 +156,12 @@ namespace DE {
 		* @param triangles A list of triangles
 		*/
 		void CalculateBoundingBox(const std::vector<CBSPTriangle*> triangles);
+
+		/**
+		* Calculate the node's visibility sphere
+		* @param triangles A list of triangles
+		*/
+		void CalculateVisibilitySphere(const std::vector<CBSPTriangle*> triangles);
 
 		/**
 		* Build the initial portal of the node

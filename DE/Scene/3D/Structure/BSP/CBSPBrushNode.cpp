@@ -67,7 +67,7 @@ namespace DE {
 		bool coplanar = false;
 
 		for(unsigned int i = 0; i < triangles.size(); ++i) {
-			switch(triangles.at(i)->Classify(this->m_plane)) {
+			switch(triangles[i]->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_FRONT:
 				front = true;
 				break;
@@ -131,8 +131,8 @@ namespace DE {
 		// Cross check
 		if(d1 > offset && d2 <= offset2) {
 			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
-				if(this->m_brushes.at(i)->enabled)
-					this->m_brushes.at(i)->root->CollisionDetection(shape, impact, iBrush);
+				if(this->m_brushes[i]->enabled)
+					this->m_brushes[i]->root->CollisionDetection(shape, impact, iBrush);
 			}
 		}
 
