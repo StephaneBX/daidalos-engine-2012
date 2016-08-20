@@ -62,8 +62,9 @@ namespace DE {
 		LOG_TRACE();
 
 		// Release previously used resource
-		if(this->m_mesh != nullptr)
+		if(this->m_mesh != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+		}
 
 		// Check the existence of the resource and load it if necessary
 		IAnimatedMeshBase * tmp = CResourceManager::GetInstance()->GetResource<IAnimatedMeshBase>(filename);
@@ -71,8 +72,9 @@ namespace DE {
 		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IAnimatedMeshBase>(filename);
 			CResourceManager::GetInstance()->AddResource(filename, this->m_mesh);
-		} else
+		} else {
 			this->m_mesh = tmp;
+		}
 	}
 
 	void CAnimatedMesh::Animate(const float frame) {

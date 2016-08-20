@@ -162,12 +162,27 @@ namespace DE {
 		CMatrix::TransformArray(this->m_internalData->transformedVertex, this->m_internalData->transformedVertex, rotation, this->m_internalData->header.numVertices, false);
 		CMatrix::TransformArray(this->m_internalData->transformedNormal, this->m_internalData->transformedNormal, rotation, this->m_internalData->header.numVertices, true);
 
-		// Copy the vertices
-		for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
-			for(int j = 0; j < 3; ++j) {
-				this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
-				this->m_normal[0][i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
+		/**
+		* Data interpolation
+		*/
+		switch(shadingType) {
+		case MESH_SHADING_FLAT:
+			for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+				for(int j = 0; j < 3; ++j) {
+					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
+				}
 			}
+			FlatShadingNormals();
+			break;
+
+		case MESH_SHADING_SMOOTH:
+			for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+				for(int j = 0; j < 3; ++j) {
+					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
+					this->m_normal[0][i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
+				}
+			}
+			break;
 		}
 	}
 

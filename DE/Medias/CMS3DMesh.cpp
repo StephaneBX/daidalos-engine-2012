@@ -128,11 +128,24 @@ namespace DE {
 		/**
 		* Data interpolation
 		*/
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-			for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
-				this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
-				this->m_normal[i][j] = this->m_internalData->mesh[i].normal[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
+		switch(shadingType) {
+		case MESH_SHADING_FLAT:
+			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+				}
 			}
+			FlatShadingNormals();
+			break;
+
+		case MESH_SHADING_SMOOTH:
+			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+					this->m_normal[i][j] = this->m_internalData->mesh[i].normal[frameA][j].CosineInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
+				}
+			}
+			break;
 		}
 	}
 

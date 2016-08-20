@@ -56,16 +56,10 @@ namespace DE {
 
 			if(this->m_internalData->normal[i] == nullptr) {
 				// If no normals are present, calculate them (flat)
-				for(int j = 0; j < this->m_internalData->groupSize[i]; j += 3) {
-					CVector3F tmp = this->m_internalData->vertex[i][j + 1] - this->m_internalData->vertex[i][j];
-					CVector3F normal = tmp.CrossProduct(this->m_internalData->vertex[i][j + 2] - this->m_internalData->vertex[i][j]).Normalize();
-
-					for(int k = 0; k < 3; ++k)
-						this->m_normal[i][j + k] = normal;
-				}
-			} else
+				FlatShadingNormals();
+			} else {
 				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
-
+			}
 		}
 
 		// Visibilty shape calculation
@@ -120,8 +114,9 @@ namespace DE {
 			break;
 
 		case MESH_SHADING_SMOOTH:
-			for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i)
+			for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+			}
 			break;
 		}
 	}

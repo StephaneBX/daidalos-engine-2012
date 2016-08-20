@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
-	CHudView::CHudView(const DE::CRectangleI & bounds) {
+	CHudView::CHudView(const DE::CRectangleI & bounds) : IView() {
 
 		SetBounds(bounds);
 

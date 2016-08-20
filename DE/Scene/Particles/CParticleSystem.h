@@ -115,6 +115,12 @@ namespace DE {
 		void RenderAll();
 
 		/**
+		* Get the number of emitters
+		* @return The number of emitters
+		*/
+		const int GetNumberOfEmitters() const;
+
+		/**
 		* Create a particle emitter and return it
 		* @return The emitter
 		*/

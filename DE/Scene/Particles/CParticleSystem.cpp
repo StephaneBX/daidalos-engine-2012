@@ -121,7 +121,7 @@ namespace DE {
 			(*it)->Update(time, this->m_particleBuffer);
 
 			// Remove the dead emitters
-			if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax()) {
+			if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax() && (*it)->GetParticleIndex().size() == 0) {
 				it = this->m_emitters.erase(it);
 			} else {
 				it++;
@@ -186,6 +186,14 @@ namespace DE {
 		this->m_renderer->SetStreamSourceFrequency(1, STREAM_SOURCE_TYPE_DEFAULT, 1);
 
 		this->m_renderer->SetShaderProgram(nullptr);
+	}
+
+	/**
+	* Get the number of emitters
+	* @return The number of emitters
+	*/
+	const int CParticleSystem::GetNumberOfEmitters() const {
+		return this->m_emitters.size();
 	}
 
 	/**
