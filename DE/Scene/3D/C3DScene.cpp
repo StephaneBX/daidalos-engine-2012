@@ -220,6 +220,13 @@ namespace DE {
 		return this->m_scene->GetNode(name);
 	}
 
+
+	I3DScene * C3DScene::GetScene() const {
+		LOG_TRACE();
+
+		return this->m_scene;
+	}
+
 	std::vector<ISceneNode*> C3DScene::GetNodeArray(const std::string & name) const {
 		LOG_TRACE();
 

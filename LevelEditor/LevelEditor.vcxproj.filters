@@ -24,12 +24,24 @@
     <ClCompile Include="CLevelEditorApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CEditCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditorConfiguration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CViewCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CLevelEditorApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditorConfiguration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,7 +29,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CLEVELEDITORAPPLICATION_H
 
 #include <IForwardSampleApplication.h>
+#include <Scene/3D/CProjectionCameraSceneNode.h>
+#include "CEditorConfiguration.h"
 #include "CViewCamera.h"
+#include "CEditCamera.h"
 
 namespace EDITOR {
 	/**
@@ -37,11 +40,33 @@ namespace EDITOR {
 	*/
 	class CLevelEditorApplication : public SAMPLES::IForwardSampleApplication {
 	private:
+		bool m_viewMode;
 		bool m_drawSkybox;
 		bool m_drawLights;
-		std::unique_ptr<CViewCamera> m_camera;
+
+		int m_meshCategorySelectionMode;
+
+		int m_groundMeshEditIndex;
+		int m_groundTextureEditIndex;
+
+		int m_wallMeshEditIndex;
+		int m_wallTextureEditIndex;
+
+		int m_ceilingMeshEditIndex;
+		int m_ceilingTextureEditIndex;
+
+		CEditorConfiguration m_configuration;
+
+		std::unique_ptr<CViewCamera> m_viewCamera;
+		std::unique_ptr<CEditCamera> m_editCamera;
+
+		DE::CProjectionCameraSceneNode * m_viewCameraNode;
+		DE::CProjectionCameraSceneNode * m_editCameraNode;
+
 		DE::CVector3F m_cameraPosition;
 		DE::CVector3F m_cameraRotation;
+
+		DE::CStaticMeshSceneNode * m_meshNode;
 
 	public:
 		/**
@@ -61,6 +86,34 @@ namespace EDITOR {
 		* @param time Elapsed time
 		*/
 		void Update(const float time);
+
+	private:
+		/**
+		* Update the view mode
+		* @param time Elapsed time
+		*/
+		void UpdateViewMode(const float time);
+
+		/**
+		* Update the edit mode
+		* @param time Elapsed time
+		*/
+		void UpdateEditMode(const float time);
+
+		/**
+		* Update the selection mesh node
+		*/
+		void UpdateMeshNode();
+
+		/**
+		* Update the next texture to apply depending on the mesh category selection
+		*/
+		void UpdateTextureNext();
+
+		/**
+		* Update the next mesh to apply depending on the mesh category selection
+		*/
+		void UpdateMeshNext();
 
 		/**
 		* Render a 3D scene

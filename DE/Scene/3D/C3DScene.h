@@ -202,6 +202,12 @@ namespace DE {
 		ISceneNode * GetNode(const std::string & name) const;
 
 		/**
+		* Get the scene
+		* @return The scene
+		*/
+		I3DScene * GetScene() const;
+
+		/**
 		* Get all the nodes with the given name
 		* @param name The node name
 		* @return A vector containing all the nodes with the given name

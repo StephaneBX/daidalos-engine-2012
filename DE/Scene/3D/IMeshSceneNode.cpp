@@ -206,10 +206,17 @@ namespace DE {
 			for(int i = 0; i < this->m_numberOfGroups; ++i) {
 				// Material
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), this->m_activeMaterialElement[i]->m_kDiffuse);
-				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_activeMaterialElement[i]->m_kAmbient);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), this->m_activeMaterialElement[i]->m_kSpecular);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), this->m_activeMaterialElement[i]->m_kEmission);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), this->m_activeMaterialElement[i]->m_ns);
+
+				// Can override material ambient color
+				if(this->m_scene->GetRootNode()->GetUseGlobalAmbientColor()) {
+					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_scene->GetRootNode()->GetAmbientColor());
+				} else {
+					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_activeMaterialElement[i]->m_kAmbient);
+				}
+				
 
 				if((this->m_buffer[i].GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
 					renderer->SetTexture(0, this->m_diffuseTexture[i].GetTexture());

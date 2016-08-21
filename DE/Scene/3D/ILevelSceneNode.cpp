@@ -34,6 +34,11 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_levelBuffer.SetScene(scene);
+		this->m_useGlobalAmbientColor = false;
+	}
+
+	void ILevelSceneNode::SetUseGlobalAmbientColor(const bool useGlobalAmbientColor) {
+		this->m_useGlobalAmbientColor = useGlobalAmbientColor;
 	}
 
 	void ILevelSceneNode::SetMeshFormat(const int format) {
@@ -67,6 +72,10 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_skyAmbientColor = ambientColor;
+	}
+
+	const bool ILevelSceneNode::GetUseGlobalAmbientColor() const {
+		return this->m_useGlobalAmbientColor;
 	}
 
 	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const {

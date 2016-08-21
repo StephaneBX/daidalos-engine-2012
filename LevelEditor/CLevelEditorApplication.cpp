@@ -28,11 +28,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CLevelEditorApplication.h"
 
 namespace EDITOR {
+
+	enum EMeshCategorySelectionMode {
+		MESH_CATEGORY_SELECTION_MODE_NONE,
+		MESH_CATEGORY_SELECTION_MODE_GROUND,
+		MESH_CATEGORY_SELECTION_MODE_WALL,
+		MESH_CATEGORY_SELECTION_MODE_CEILING
+	};
+
 	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
 
+		this->m_viewMode = true;
 		this->m_drawSkybox = true;
 		this->m_drawLights = true;
+		this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_NONE;
+		this->m_wallMeshEditIndex = 0;
+		this->m_wallTextureEditIndex = 0;
 		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
+		this->m_meshNode = nullptr;
 		std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 
 		MainLoop();
@@ -44,28 +57,16 @@ namespace EDITOR {
 
 		if(!this->m_loading) {
 
-			if(this->m_input->IsActionActive(VIEW_CAMERA_EXIT)) {
-				this->m_alive = false;
-			}
-
-			if(this->m_input->IsActionActive(VIEW_CAMERA_CURSOR)) {
-				this->m_cursor.SetVisible(!this->m_cursor.IsVisible());
-				this->m_input->FreezeAction(VIEW_CAMERA_CURSOR);
-			}
-
-			if(this->m_input->IsActionActive(VIEW_CAMERA_SKYBOX)) {
-				this->m_drawSkybox = !this->m_drawSkybox;
-				this->m_input->FreezeAction(VIEW_CAMERA_SKYBOX);
-			}
-
 			if(this->m_input->IsActionActive(VIEW_CAMERA_LIGHTS)) {
 				this->m_drawLights = !this->m_drawLights;
 				this->m_input->FreezeAction(VIEW_CAMERA_LIGHTS);
+				this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 			}
 
-			// Update the 3D scene
-			if(!this->m_cursor.IsVisible()) {
-				this->m_camera->Update(time);
+			if(this->m_viewMode) {
+				UpdateViewMode(time);
+			} else {
+				UpdateEditMode(time);
 			}
 			
 			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
@@ -77,12 +78,209 @@ namespace EDITOR {
 			this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
 			this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
 
-			if(this->m_input->IsActionActive(VIEW_CAMERA_REFRESH)) {
+			if(this->m_input->IsActionActive(VIEW_CAMERA_REFRESH) && this->m_viewMode) {
 				std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 			}
 
 		} else {
 			this->m_loadingScene->Update(time);
+		}
+	}
+
+	/**
+	* Update the view mode
+	* @param time Elapsed time
+	*/
+	void CLevelEditorApplication::UpdateViewMode(const float time) {
+
+		// Skybox state
+		if(this->m_input->IsActionActive(VIEW_CAMERA_SKYBOX)) {
+			this->m_drawSkybox = !this->m_drawSkybox;
+			this->m_input->FreezeAction(VIEW_CAMERA_SKYBOX);
+		}
+
+		// Update the 3D scene
+		if(!this->m_cursor.IsVisible()) {
+			this->m_viewCamera->Update(time);
+		}
+
+		if(this->m_input->IsActionActive(VIEW_CAMERA_EXIT)) {
+			this->m_alive = false;
+		}
+
+		// Cursor state
+		if(this->m_input->IsActionActive(VIEW_CAMERA_CURSOR)) {
+			this->m_cursor.SetVisible(!this->m_cursor.IsVisible());
+			this->m_input->FreezeAction(VIEW_CAMERA_CURSOR);
+		}
+
+		// edit mode state
+		if(this->m_input->IsActionActive(VIEW_CAMERA_EDIT)) {
+			this->m_viewMode = false;
+			this->m_drawSkybox = false;
+			this->m_input->FreezeAction(VIEW_CAMERA_EDIT);
+			this->m_input->FreezeAction(EDIT_CAMERA_DONE);
+			this->m_activeCamera = this->m_editCamera->GetCameraNode();
+		}
+	}
+
+	/**
+	* Update the edit mode
+	* @param time Elapsed time
+	*/
+	void CLevelEditorApplication::UpdateEditMode(const float time) {
+		this->m_editCamera->Update(time);
+
+		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_GROUND)) {
+			this->m_input->FreezeAction(EDIT_CAMERA_MESH_GROUND);
+			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_GROUND;
+			UpdateMeshNode();
+		}
+
+		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_WALL)) {
+			this->m_input->FreezeAction(EDIT_CAMERA_MESH_WALL);
+			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_WALL;
+			UpdateMeshNode();
+		}
+
+		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_CEILING)) {
+			this->m_input->FreezeAction(EDIT_CAMERA_MESH_CEILING);
+			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_CEILING;
+			UpdateMeshNode();
+		}
+
+		if(this->m_meshNode != nullptr) {
+			this->m_meshNode->SetPosition(DE::CVector3F(this->m_editCamera->GetCameraNode()->GetPosition().x, 0, this->m_editCamera->GetCameraNode()->GetPosition().z));
+
+			// Next texture
+			if(this->m_input->IsActionActive(EDIT_CAMERA_TEXTURE_NEXT)) {
+				this->m_input->FreezeAction(EDIT_CAMERA_TEXTURE_NEXT);
+				UpdateTextureNext();
+			}
+
+			// Next mesh
+			if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_NEXT)) {
+				this->m_input->FreezeAction(EDIT_CAMERA_MESH_NEXT);
+				UpdateMeshNext();
+			}
+
+			// Rotate mesh
+			if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_ROTATE)) {
+				this->m_input->FreezeAction(EDIT_CAMERA_MESH_ROTATE);
+				this->m_meshNode->SetRotation(DE::CVector3F(0, (this->m_meshNode->GetRotation().y + 90), 0));
+			}
+		}
+
+		// Close edit mode
+		if(this->m_input->IsActionActive(EDIT_CAMERA_DONE)) {
+			this->m_viewMode = true;
+			this->m_input->FreezeAction(VIEW_CAMERA_EDIT);
+			this->m_input->FreezeAction(EDIT_CAMERA_DONE);
+			this->m_activeCamera = this->m_viewCamera->GetCameraNode();
+		}
+	}
+
+	/**
+	* Update the selection mesh node
+	*/
+	void CLevelEditorApplication::UpdateMeshNode() {
+		std::string meshFilename;
+		std::string textureDiffuseFilename;
+		std::string textureNormalFilename;
+
+		switch(this->m_meshCategorySelectionMode) {
+		case MESH_CATEGORY_SELECTION_MODE_GROUND:
+			meshFilename = this->m_configuration.GetGroundMeshFilenames()[this->m_groundMeshEditIndex];
+			textureDiffuseFilename = this->m_configuration.GetGroundTextureDiffuseFilenames()[this->m_groundTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetGroundTextureNormalFilenames()[this->m_groundTextureEditIndex];
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_WALL:
+			meshFilename = this->m_configuration.GetWallMeshFilenames()[this->m_wallMeshEditIndex];
+			textureDiffuseFilename = this->m_configuration.GetWallTextureDiffuseFilenames()[this->m_wallTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetWallTextureNormalFilenames()[this->m_wallTextureEditIndex];
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_CEILING:
+			meshFilename = this->m_configuration.GetCeilingMeshFilenames()[this->m_ceilingMeshEditIndex];
+			textureDiffuseFilename = this->m_configuration.GetCeilingTextureDiffuseFilenames()[this->m_ceilingTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetCeilingTextureNormalFilenames()[this->m_ceilingTextureEditIndex];
+			break;
+		default:
+			break;
+		}
+
+		// Update or create a new node
+		if(this->m_meshNode != nullptr) {
+			this->m_meshNode->SetMesh(meshFilename);
+			
+		} else {
+			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_multibrush", meshFilename, DE::CVector3F(), DE::CVector3F(), DE::CVector3F(1.0f, 1.0f, 1.0f));
+			this->m_meshNode->SetId(0);
+			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+			this->m_scene3D->GetRootNode()->AddChild(this->m_meshNode);
+		}
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, textureNormalFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+	}
+
+	/**
+	* Update the next texture to apply depending on the mesh category selection
+	*/
+	void CLevelEditorApplication::UpdateTextureNext() {
+
+		std::string textureDiffuseFilename;
+		std::string textureNormalFilename;
+
+		switch(this->m_meshCategorySelectionMode) {
+		case MESH_CATEGORY_SELECTION_MODE_GROUND:
+			this->m_groundTextureEditIndex = (this->m_groundTextureEditIndex + 1) % this->m_configuration.GetGroundTextureDiffuseFilenames().size();
+			textureDiffuseFilename = this->m_configuration.GetGroundTextureDiffuseFilenames()[this->m_groundTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetGroundTextureNormalFilenames()[this->m_groundTextureEditIndex];
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_WALL:
+			this->m_wallTextureEditIndex = (this->m_wallTextureEditIndex + 1) % this->m_configuration.GetWallTextureDiffuseFilenames().size();
+			textureDiffuseFilename = this->m_configuration.GetWallTextureDiffuseFilenames()[this->m_wallTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetWallTextureNormalFilenames()[this->m_wallTextureEditIndex];
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_CEILING:
+			this->m_ceilingTextureEditIndex = (this->m_ceilingTextureEditIndex + 1) % this->m_configuration.GetCeilingTextureDiffuseFilenames().size();
+			textureDiffuseFilename = this->m_configuration.GetCeilingTextureDiffuseFilenames()[this->m_ceilingTextureEditIndex];
+			textureNormalFilename = this->m_configuration.GetCeilingTextureNormalFilenames()[this->m_ceilingTextureEditIndex];
+			break;
+		default:
+			break;
+		}
+
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, textureNormalFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+	}
+
+	/**
+	* Update the next mesh to apply depending on the mesh category selection
+	*/
+	void CLevelEditorApplication::UpdateMeshNext() {
+
+		switch(this->m_meshCategorySelectionMode) {
+		case MESH_CATEGORY_SELECTION_MODE_GROUND:
+			this->m_groundMeshEditIndex = (this->m_groundMeshEditIndex + 1) % this->m_configuration.GetGroundMeshFilenames().size();
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_WALL:
+			this->m_wallMeshEditIndex = (this->m_wallMeshEditIndex + 1) % this->m_configuration.GetWallMeshFilenames().size();
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_CEILING:
+			this->m_ceilingMeshEditIndex = (this->m_ceilingMeshEditIndex + 1) % this->m_configuration.GetCeilingMeshFilenames().size();
+			break;
+		default:
+			break;
+		}
+
+		if(this->m_meshNode != nullptr) {
+			UpdateMeshNode();
 		}
 	}
 
@@ -137,9 +335,25 @@ namespace EDITOR {
 	* Do post level loading initialization
 	*/
 	void CLevelEditorApplication::PostLoadLevel() {
-		this->m_camera = std::unique_ptr<CViewCamera>(new CViewCamera(this->m_activeCamera));
-		this->m_camera->SetScene(this->m_scene3D);
-		this->m_camera->SetPosition(this->m_cameraPosition);
-		this->m_camera->SetRotation(this->m_cameraRotation);
+
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		this->m_scene3D->GetRootNode()->AddChild(viewCameraNode);
+
+		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
+		this->m_viewCamera->SetScene(this->m_scene3D);
+		this->m_viewCamera->SetPosition(this->m_cameraPosition);
+		this->m_viewCamera->SetRotation(this->m_cameraRotation);
+
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_camera", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		this->m_scene3D->GetRootNode()->AddChild(editCameraNode);
+
+		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
+		this->m_editCamera->SetScene(this->m_scene3D);
+
+		this->m_scene3D->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+		this->m_activeCamera = viewCameraNode;
+
+		//
 	}
 }

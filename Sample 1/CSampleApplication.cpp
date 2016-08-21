@@ -80,6 +80,8 @@ namespace SAMPLE1 {
 		this->m_camera = std::unique_ptr<SAMPLES::CFreeCamera>(new SAMPLES::CFreeCamera(this->m_activeCamera));
 		this->m_camera->SetScene(this->m_scene3D);
 		this->m_directionalLight = (DE::CDirectionalLightSceneNode*)this->m_scene3D->GetNode("directionalLight");
+
 		this->m_dwarfNode = (DE::CAnimatedMeshSceneNode*)this->m_scene3D->GetNode("dwarf");
+		this->m_dwarfNode->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 	}
 }

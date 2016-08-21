@@ -82,6 +82,12 @@ namespace DE {
 		virtual ~IMeshSceneNode();
 
 		/**
+		* Set the mesh
+		* @param filename The mesh filename
+		*/
+		virtual void SetMesh(const std::string filename) = 0;
+
+		/**
 		* Set a material
 		* @param filename The material filename
 		*/

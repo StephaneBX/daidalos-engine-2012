@@ -43,6 +43,7 @@ namespace DE {
 	class ILevelSceneNode : public ISceneNode {
 	protected:
 		EMeshShadingType m_shadingType;
+		bool m_useGlobalAmbientColor;
 		int m_numberOfVisibleTriangles;
 		CVector4F m_ambientColor;
 		std::vector<ITexture2DBase*> m_diffuseTextures;
@@ -60,6 +61,12 @@ namespace DE {
 		* Constructor
 		*/
 		ILevelSceneNode(I3DScene * scene);
+
+		/**
+		* Set on/off the global ambient color
+		* @param useGlobalAmbientColor The global ambient color flag
+		*/
+		void SetUseGlobalAmbientColor(const bool useGlobalAmbientColor);
 
 		/**
 		* Set the mesh format
@@ -90,6 +97,12 @@ namespace DE {
 		* @param ambientColor The sky ambient color
 		*/
 		void SetSkyAmbientColor(const CVector4F & ambientColor);
+
+		/**
+		* Get the global ambient color flag
+		* @return The global ambient color flag
+		*/
+		const bool GetUseGlobalAmbientColor() const;
 
 		/**
 		* Get the number of visible triangles

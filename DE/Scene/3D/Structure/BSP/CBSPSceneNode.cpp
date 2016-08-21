@@ -319,13 +319,21 @@ namespace DE {
 
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
-				// Check for compatible triangles
-				for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
-					if(((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) || ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement)) {
-						batchTriangles.push_back(*it);
-						it = this->m_visibleTriangles.erase(it);
-					} else
-						++it;
+				// Batch per texture
+				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) {
+					// The textures are disabled so no batching needed, we take all the triangles
+					batchTriangles.insert(std::end(batchTriangles), std::begin(this->m_visibleTriangles), std::end(this->m_visibleTriangles));
+					this->m_visibleTriangles.clear();
+				} else {
+					// Check for compatible triangles
+					for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+						if((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
+							batchTriangles.push_back(*it);
+							it = this->m_visibleTriangles.erase(it);
+						} else {
+							++it;
+						}
+					}
 				}
 
 				// Transform

@@ -68,6 +68,12 @@ namespace DE {
 		CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
+		* Set the mesh
+		* @param filename The mesh filename
+		*/
+		void SetMesh(const std::string filename);
+
+		/**
 		* Set the looped state
 		* @param looped If the animation is looped
 		*/

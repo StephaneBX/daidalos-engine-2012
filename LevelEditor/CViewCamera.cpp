@@ -54,12 +54,13 @@ namespace EDITOR {
 			{ VIEW_CAMERA_STRAFERIGHT, VIEW_CAMERA_STRAFELEFT },
 			{ VIEW_CAMERA_FORWARD, VIEW_CAMERA_BACKWARD },
 			{ VIEW_CAMERA_BACKWARD, VIEW_CAMERA_FORWARD },
-			{ VIEW_CAMERA_LOOKUP, VIEW_CAMERA_LOOKDOWN },
-			{ VIEW_CAMERA_LOOKDOWN, VIEW_CAMERA_LOOKUP },
-			{ VIEW_CAMERA_LOOKLEFT, VIEW_CAMERA_LOOKRIGHT },
-			{ VIEW_CAMERA_LOOKRIGHT, VIEW_CAMERA_LOOKLEFT },
 			{ VIEW_CAMERA_ASCEND, VIEW_CAMERA_DESCEND },
-			{ VIEW_CAMERA_DESCEND, VIEW_CAMERA_ASCEND }
+			{ VIEW_CAMERA_DESCEND, VIEW_CAMERA_ASCEND },
+			{ VIEW_CAMERA_REFRESH, -1 },
+			{ VIEW_CAMERA_CURSOR, -1 },
+			{ VIEW_CAMERA_LIGHTS, -1 },
+			{ VIEW_CAMERA_SKYBOX, -1 },
+			{ VIEW_CAMERA_EDIT, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -70,16 +71,13 @@ namespace EDITOR {
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_STRAFERIGHT, DE::INPUT_KEY_KEYBOARD_D);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_FORWARD, DE::INPUT_KEY_KEYBOARD_Z);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_BACKWARD, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LOOKUP, DE::INPUT_KEY_KEYBOARD_UP);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LOOKDOWN, DE::INPUT_KEY_KEYBOARD_DOWN);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_REFRESH, DE::INPUT_KEY_KEYBOARD_F5);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_ASCEND, DE::INPUT_KEY_KEYBOARD_PAGEUP);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_DESCEND, DE::INPUT_KEY_KEYBOARD_PAGEDOWN);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_CURSOR, DE::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(VIEW_CAMERA_CURSOR, DE::INPUT_KEY_KEYBOARD_C);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LIGHTS, DE::INPUT_KEY_KEYBOARD_KP1);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_SKYBOX, DE::INPUT_KEY_KEYBOARD_KP2);
+		this->m_inputDevice->SetActionKey(VIEW_CAMERA_EDIT, DE::INPUT_KEY_KEYBOARD_SPACE);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition());
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
@@ -132,18 +130,6 @@ namespace EDITOR {
 
 		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_BACKWARD))
 			this->m_state |= VIEW_CAMERA_BACKWARD;
-
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_LOOKUP))
-			this->m_state |= VIEW_CAMERA_LOOKUP;
-
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_LOOKDOWN))
-			this->m_state |= VIEW_CAMERA_LOOKDOWN;
-
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_LOOKLEFT))
-			this->m_state |= VIEW_CAMERA_LOOKLEFT;
-
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_LOOKRIGHT))
-			this->m_state |= VIEW_CAMERA_LOOKRIGHT;
 
 		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_ASCEND))
 			this->m_state |= VIEW_CAMERA_ASCEND;
@@ -207,24 +193,6 @@ namespace EDITOR {
 			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 		}
-
-		// Keyboard view
-		if((this->m_state & VIEW_CAMERA_LOOKUP) != 0) {
-			this->m_rotation.x -= VIEW_CAMERA_ROTATION_SPEED * timeSecond;
-		}
-
-		if((this->m_state & VIEW_CAMERA_LOOKDOWN) != 0) {
-			this->m_rotation.x += VIEW_CAMERA_ROTATION_SPEED * timeSecond;
-		}
-
-		if((this->m_state & VIEW_CAMERA_LOOKLEFT) != 0) {
-			this->m_rotation.y -= VIEW_CAMERA_ROTATION_SPEED * timeSecond;
-		}
-
-		if((this->m_state & VIEW_CAMERA_LOOKRIGHT) != 0) {
-			this->m_rotation.y += VIEW_CAMERA_ROTATION_SPEED * timeSecond;
-		}
-
 
 		if(this->m_rotation.x >= 80.0f)
 			this->m_rotation.x = 80;

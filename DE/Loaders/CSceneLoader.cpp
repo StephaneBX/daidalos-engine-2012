@@ -242,8 +242,8 @@ namespace DE {
 			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
-			GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
-			GetNodeData(handle, "normal_texture", normalTexture, "");
+			GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
+			GetNodeData(handle, "normal_texture", normalTexture, "default.png");
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
 			file = handle.ToElement()->Attribute("file");
@@ -251,14 +251,8 @@ namespace DE {
 			// Create the node
 			node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			node->SetId(id);
-			if(diffuseTexture != "") {
-				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			} else {
-				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, "default.png", PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			}
-			if(normalTexture != "") {
-				static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			}
+			static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(flatShading) {
 				static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 			}
@@ -273,8 +267,8 @@ namespace DE {
 			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
-			GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
-			GetNodeData(handle, "normal_texture", normalTexture, "");
+			GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
+			GetNodeData(handle, "normal_texture", normalTexture, "default.png");
 			GetNodeData(handle, "flat_shading", flatShading, false);
 			GetNodeData(handle, "material", material, "default.mtl");
 			file = handle.ToElement()->Attribute("file");
@@ -282,14 +276,8 @@ namespace DE {
 			// Create the node
 			node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 			node->SetId(id);
-			if(diffuseTexture != "") {
-				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			} else {
-				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, "default.png", PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			}
-			if(normalTexture != "") {
-				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			}
+			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			if(flatShading) {
 				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 			}
@@ -597,7 +585,7 @@ namespace DE {
 			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
 		static_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
-		// Read the bsp geometry
+		// Read the level geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
 		for(child; child; child = child->NextSiblingElement()) {
 			// A brush created with a bunch of static models
@@ -607,8 +595,10 @@ namespace DE {
 				SSimpleBrush brush;
 
 				for(child2; child2; child2 = child2->NextSiblingElement()) {
-					if(std::string(child2->Name()) == "brush")
+					if(std::string(child2->Name()) == "brush") {
 						AddSimpleBrushData(tinyxml2::XMLHandle(child2), brush);
+						brush.isMultiBrush = true;
+					}
 				}
 
 				if(brush.geometry.size() > 0) {
@@ -625,6 +615,7 @@ namespace DE {
 				SSimpleBrush brush;
 
 				AddSimpleBrushData(bspHandle, brush);
+				brush.isMultiBrush = false;
 				brushes.push_back(brush);
 			}
 		}
@@ -747,12 +738,12 @@ namespace DE {
 
 		// Create the geometry
 		CStaticMesh mesh(name);
+		CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		CVector3F maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 			CTexture2D diffuse;
 			CTexture2D normal;
-			CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-			CVector3F maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
-
+			
 			if(diffuseTexture != "") {
 				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			} 
@@ -796,10 +787,15 @@ namespace DE {
 				// Add the triangle to the geometry
 				brush.geometry.push_back(triangle);
 			}
-
-			// Add the visibility shape to the geometry
-			brush.visibilityShape = new CSphereF((maxVector + minVector) / 2.0f, (maxVector - minVector).Length() / 2.0f);
 		}
+		// Add the visibility shape to the geometry
+		brush.visibilityShape = new CSphereF((maxVector + minVector) / 2.0f, (maxVector - minVector).Length() / 2.0f);
+
+		// Add the original values
+		brush.filename = name;
+		brush.position = position;
+		brush.rotation = rotation;
+		brush.scale = scale;
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {

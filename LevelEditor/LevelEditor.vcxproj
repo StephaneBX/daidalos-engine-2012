@@ -75,10 +75,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CEditCamera.h" />
+    <ClInclude Include="CEditorConfiguration.h" />
     <ClInclude Include="CLevelEditorApplication.h" />
     <ClInclude Include="CViewCamera.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CEditCamera.cpp" />
+    <ClCompile Include="CEditorConfiguration.cpp" />
     <ClCompile Include="CLevelEditorApplication.cpp" />
     <ClCompile Include="CViewCamera.cpp" />
     <ClCompile Include="main.cpp" />

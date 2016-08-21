@@ -62,6 +62,12 @@ namespace DE {
 		CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
+		* Set the mesh
+		* @param filename The mesh filename
+		*/
+		void SetMesh(const std::string filename);
+
+		/**
 		* Update the absolute position
 		* @param time The elapsed time
 		*/

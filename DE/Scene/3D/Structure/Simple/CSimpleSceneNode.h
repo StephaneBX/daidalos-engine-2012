@@ -38,6 +38,11 @@ namespace DE {
 	* The structure used by the node
 	*/
 	struct SSimpleBrush {
+		bool isMultiBrush;
+		std::string filename;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
 		CSphereF * visibilityShape;
 		std::vector<CTriangle3D*> geometry;
 	};

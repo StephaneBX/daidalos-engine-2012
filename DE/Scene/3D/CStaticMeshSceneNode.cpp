@@ -35,18 +35,12 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_STATICMESH;
-		this->m_filename = filename;
-		this->m_mesh.LoadFromFile(filename);
-		this->m_numberOfGroups = this->m_mesh.GetMesh()->GetNumberOfGroups();
+		this->m_numberOfGroups = 0;
+		this->m_buffer = nullptr;
+		this->m_diffuseTexture = nullptr;
+		this->m_normalTexture = nullptr;
 
-		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
-		for(int i = 0; i < this->m_numberOfGroups; i++) {
-			this->m_buffer[i].SetScene(scene);
-		}
-
-		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
-		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
-
+		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
 	}
 
@@ -54,19 +48,37 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_STATICMESH;
+		this->m_numberOfGroups = 0;
+		this->m_buffer = nullptr;
+		this->m_diffuseTexture = nullptr;
+		this->m_normalTexture = nullptr;
+
+		SetMesh(filename);
+		SetMeshMaterial("default.mtl");
+	}
+
+	/**
+	* Set the mesh
+	* @param filename The mesh filename
+	*/
+	void CStaticMeshSceneNode::SetMesh(const std::string filename) {
+		LOG_TRACE();
+
+		SAFE_DELETE_ARRAY(this->m_buffer);
+		SAFE_DELETE_ARRAY(this->m_diffuseTexture);
+		SAFE_DELETE_ARRAY(this->m_normalTexture);
+
 		this->m_filename = filename;
 		this->m_mesh.LoadFromFile(filename);
 		this->m_numberOfGroups = this->m_mesh.GetMesh()->GetNumberOfGroups();
 
 		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
 		for(int i = 0; i < this->m_numberOfGroups; i++) {
-			this->m_buffer[i].SetScene(scene);
+			this->m_buffer[i].SetScene(this->m_scene);
 		}
 
 		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
 		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
-
-		SetMeshMaterial("default.mtl");
 	}
 
 	void CStaticMeshSceneNode::Update(const float time) {
