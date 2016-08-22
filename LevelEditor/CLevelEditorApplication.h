@@ -102,8 +102,9 @@ namespace EDITOR {
 
 		/**
 		* Update the selection mesh node
+		* @param rotation The rotation
 		*/
-		void UpdateMeshNode();
+		void UpdateMeshNode(const DE::CVector3F & rotation = DE::CVector3F());
 
 		/**
 		* Update the next texture to apply depending on the mesh category selection
@@ -116,6 +117,11 @@ namespace EDITOR {
 		void UpdateMeshNext();
 
 		/**
+		* Put the current mesh and replace any category on the same block
+		*/
+		void PutAndReplaceMesh();
+
+		/**
 		* Render a 3D scene
 		* @param scene3D The scene
 		*/
@@ -125,6 +131,21 @@ namespace EDITOR {
 		* Do post level loading initialization
 		*/
 		void PostLoadLevel();
+
+		/**
+		* Get the current node category name
+		* @return The current node category name
+		*/
+		const std::string GetCurrentNodeCategoryName();
+
+		/**
+		* Get the node atching the position, the laer and the name
+		* @param position The position
+		* @param layer The layer
+		* @param name The name
+		* @return A node or nullptr
+		*/
+		DE::ISceneNode * GetNodeOnBlock(DE::CVector2I position, int layer, const std::string & name);
 	};
 }
 

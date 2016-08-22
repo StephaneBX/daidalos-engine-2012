@@ -124,6 +124,12 @@ namespace DE {
 		void SetId(const int id);
 
 		/**
+		* Set the node name
+		* @param name The node name
+		*/
+		void SetName(const std::string name);
+
+		/**
 		* Set the local position
 		* @param position The local position
 		*/

@@ -77,7 +77,7 @@ namespace EDITOR {
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_CURSOR, DE::INPUT_KEY_KEYBOARD_C);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LIGHTS, DE::INPUT_KEY_KEYBOARD_KP1);
 		this->m_inputDevice->SetActionKey(VIEW_CAMERA_SKYBOX, DE::INPUT_KEY_KEYBOARD_KP2);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_EDIT, DE::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(VIEW_CAMERA_EDIT, DE::INPUT_KEY_KEYBOARD_TAB);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition());
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));

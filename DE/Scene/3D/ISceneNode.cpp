@@ -104,6 +104,11 @@ namespace DE {
 		this->m_id = id;
 	}
 
+	void ISceneNode::SetName(const std::string name) {
+		LOG_TRACE();
+		this->m_name = name;
+	}
+
 	void ISceneNode::SetPosition(const CVector3F & position) {
 		LOG_TRACE();
 
@@ -215,6 +220,8 @@ namespace DE {
 
 	const bool ISceneNode::RemoveChild(ISceneNode * child) {
 		LOG_TRACE();
+
+		this->m_children.remove(child);
 
 		return true;
 	}

@@ -29,6 +29,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace EDITOR {
 
+	#define EDITOR_NODE_NAME_CAMERA "__editor_node_camera"
+	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
+	#define EDITOR_NODE_NAME_GROUND "__editor_node_multibrush_ground"
+	#define EDITOR_NODE_NAME_WALL "__editor_node_multibrush_wall"
+	#define EDITOR_NODE_NAME_CEILING "__editor_node_multibrush_ceiling"
+
 	enum EMeshCategorySelectionMode {
 		MESH_CATEGORY_SELECTION_MODE_NONE,
 		MESH_CATEGORY_SELECTION_MODE_GROUND,
@@ -149,6 +155,14 @@ namespace EDITOR {
 			UpdateMeshNode();
 		}
 
+		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_PUT)) {
+			this->m_input->FreezeAction(EDIT_CAMERA_MESH_PUT);
+			
+			if(this->m_meshNode != nullptr) {
+				PutAndReplaceMesh();
+			}
+		}
+
 		if(this->m_meshNode != nullptr) {
 			this->m_meshNode->SetPosition(DE::CVector3F(this->m_editCamera->GetCameraNode()->GetPosition().x, 0, this->m_editCamera->GetCameraNode()->GetPosition().z));
 
@@ -182,8 +196,9 @@ namespace EDITOR {
 
 	/**
 	* Update the selection mesh node
+	* @param rotation The rotation
 	*/
-	void CLevelEditorApplication::UpdateMeshNode() {
+	void CLevelEditorApplication::UpdateMeshNode(const DE::CVector3F & rotation) {
 		std::string meshFilename;
 		std::string textureDiffuseFilename;
 		std::string textureNormalFilename;
@@ -215,7 +230,7 @@ namespace EDITOR {
 			this->m_meshNode->SetMesh(meshFilename);
 			
 		} else {
-			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_multibrush", meshFilename, DE::CVector3F(), DE::CVector3F(), DE::CVector3F(1.0f, 1.0f, 1.0f));
+			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
 			this->m_meshNode->SetId(0);
 			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 			this->m_scene3D->GetRootNode()->AddChild(this->m_meshNode);
@@ -285,6 +300,22 @@ namespace EDITOR {
 	}
 
 	/**
+	* Put the current mesh and replace any category on the same block
+	*/
+	void CLevelEditorApplication::PutAndReplaceMesh() {
+
+		DE::ISceneNode * nodeToRemove = GetNodeOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer(), GetCurrentNodeCategoryName());
+		if(nodeToRemove != nullptr) {
+			this->m_scene3D->GetRootNode()->RemoveChild(nodeToRemove);
+		}
+
+		DE::CVector3F rotation = this->m_meshNode->GetRotation();
+		this->m_meshNode->SetName(GetCurrentNodeCategoryName());
+		this->m_meshNode = nullptr;
+		UpdateMeshNode(rotation);
+	}
+
+	/**
 	* Render a 3D scene
 	*/
 	void CLevelEditorApplication::Render3DScene(DE::C3DScene * scene3D) {
@@ -336,7 +367,7 @@ namespace EDITOR {
 	*/
 	void CLevelEditorApplication::PostLoadLevel() {
 
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CAMERA, DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
 		this->m_scene3D->GetRootNode()->AddChild(viewCameraNode);
 
 		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
@@ -344,7 +375,7 @@ namespace EDITOR {
 		this->m_viewCamera->SetPosition(this->m_cameraPosition);
 		this->m_viewCamera->SetRotation(this->m_cameraRotation);
 
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "_editor_camera", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CAMERA, DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
 		this->m_scene3D->GetRootNode()->AddChild(editCameraNode);
 
 		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
@@ -355,5 +386,49 @@ namespace EDITOR {
 		this->m_activeCamera = viewCameraNode;
 
 		//
+	}
+
+	/**
+	* Get the current node category name
+	* @return The current node category name
+	*/
+	const std::string CLevelEditorApplication::GetCurrentNodeCategoryName() {
+		std::string name = EDITOR_NODE_NAME_GROUND;
+
+		switch(this->m_meshCategorySelectionMode) {
+		case MESH_CATEGORY_SELECTION_MODE_GROUND:
+			name = EDITOR_NODE_NAME_GROUND;
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_WALL:
+			name = EDITOR_NODE_NAME_WALL;
+			break;
+
+		case MESH_CATEGORY_SELECTION_MODE_CEILING:
+			name = EDITOR_NODE_NAME_CEILING;
+			break;
+		default:
+			break;
+		}
+		return name;
+	}
+
+	/**
+	* Get the node atching the position, the laer and the name
+	* @param position The position
+	* @param layer The layer
+	* @param name The name
+	* @return A node or nullptr
+	*/
+	DE::ISceneNode * CLevelEditorApplication::GetNodeOnBlock(DE::CVector2I position, int layer, const std::string & name) {
+		DE::ISceneNode * node = nullptr;
+		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(name);
+
+		for(auto it = nodes.begin(); it != nodes.end() && node == nullptr; it++) {
+			if((*it)->GetPosition().x > (position.x - EDIT_CAMERA_STEP) && (*it)->GetPosition().x < (position.x + EDIT_CAMERA_STEP) && (*it)->GetPosition().z >(position.y - EDIT_CAMERA_STEP) && (*it)->GetPosition().z < (position.y + EDIT_CAMERA_STEP) && (*it)->GetPosition().y > (layer - EDIT_CAMERA_LAYER_HEIGHT) && (*it)->GetPosition().y < (layer + EDIT_CAMERA_LAYER_HEIGHT)) {
+				node = (*it);
+			}
+		}
+		return node;
 	}
 }

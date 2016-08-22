@@ -25,9 +25,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define EDIT_CAMERA_LAYER_HEIGHT 8.0f
-#define EDIT_CAMERA_STEP 10.0f
-
 #include <limits>
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
@@ -61,13 +58,14 @@ namespace EDITOR {
 			{ EDIT_CAMERA_TEXTURE_NEXT, -1 },
 			{ EDIT_CAMERA_MESH_GROUND, -1 },
 			{ EDIT_CAMERA_MESH_WALL, -1 },
-			{ EDIT_CAMERA_MESH_CEILING, -1 }
+			{ EDIT_CAMERA_MESH_CEILING, -1 },
+			{ EDIT_CAMERA_MESH_PUT, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
 
 		// Keyboard mapping
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_DONE, DE::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(EDIT_CAMERA_DONE, DE::INPUT_KEY_KEYBOARD_TAB);
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_LEFT, DE::INPUT_KEY_KEYBOARD_Q);
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_RIGHT, DE::INPUT_KEY_KEYBOARD_D);
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_UP, DE::INPUT_KEY_KEYBOARD_Z);
@@ -80,6 +78,7 @@ namespace EDITOR {
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_GROUND, DE::INPUT_KEY_KEYBOARD_1);
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_WALL, DE::INPUT_KEY_KEYBOARD_2);
 		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_CEILING, DE::INPUT_KEY_KEYBOARD_3);
+		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_PUT, DE::INPUT_KEY_KEYBOARD_SPACE);
 	}
 
 	void CEditCamera::SetScene(DE::C3DScene * scene) {
@@ -106,6 +105,10 @@ namespace EDITOR {
 
 	DE::ICameraSceneNode * CEditCamera::GetCameraNode() const {
 		return this->m_node;
+	}
+
+	const int CEditCamera::GetLayer() const {
+		return this->m_layer;
 	}
 
 	void CEditCamera::UpdateState() {

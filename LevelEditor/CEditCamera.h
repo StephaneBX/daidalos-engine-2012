@@ -36,6 +36,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 
 namespace EDITOR {
+	#define EDIT_CAMERA_LAYER_HEIGHT 8.0f
+	#define EDIT_CAMERA_STEP 10.0f
+
 	enum EEditCameraMovement {
 		EDIT_CAMERA_DONE = 1 << 13,
 		EDIT_CAMERA_UP = 1 << 14,
@@ -49,7 +52,8 @@ namespace EDITOR {
 		EDIT_CAMERA_TEXTURE_NEXT = 1 << 22,
 		EDIT_CAMERA_MESH_GROUND = 1 << 23,
 		EDIT_CAMERA_MESH_WALL = 1 << 24,
-		EDIT_CAMERA_MESH_CEILING = 1 << 25
+		EDIT_CAMERA_MESH_CEILING = 1 << 25,
+		EDIT_CAMERA_MESH_PUT = 1 << 26
 	};
 
 	/**
@@ -103,6 +107,12 @@ namespace EDITOR {
 		* @return The camera node
 		*/
 		DE::ICameraSceneNode * GetCameraNode() const;
+
+		/**
+		* Get the layer
+		* @return The layer
+		*/
+		const int GetLayer() const;
 
 	private:
 		/**
