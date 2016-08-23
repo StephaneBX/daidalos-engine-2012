@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
+#include "CEditorConfiguration.h"
 #include "CEditCamera.h"
 
 namespace EDITOR {
@@ -44,41 +45,6 @@ namespace EDITOR {
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
 		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
-
-		DE::SInputActionDeclaration decl[] = {
-			{ EDIT_CAMERA_DONE, -1 },
-			{ EDIT_CAMERA_UP, EDIT_CAMERA_DOWN },
-			{ EDIT_CAMERA_DOWN, EDIT_CAMERA_UP },
-			{ EDIT_CAMERA_LEFT, EDIT_CAMERA_RIGHT },
-			{ EDIT_CAMERA_RIGHT, EDIT_CAMERA_LEFT },
-			{ EDIT_CAMERA_ZOOM_IN , -1 },
-			{ EDIT_CAMERA_ZOOM_OUT, -1 },
-			{ EDIT_CAMERA_MESH_ROTATE, -1 },
-			{ EDIT_CAMERA_MESH_NEXT, -1 },
-			{ EDIT_CAMERA_TEXTURE_NEXT, -1 },
-			{ EDIT_CAMERA_MESH_GROUND, -1 },
-			{ EDIT_CAMERA_MESH_WALL, -1 },
-			{ EDIT_CAMERA_MESH_CEILING, -1 },
-			{ EDIT_CAMERA_MESH_PUT, -1 }
-		};
-
-		this->m_inputDevice->AddActions(decl);
-
-		// Keyboard mapping
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_DONE, DE::INPUT_KEY_KEYBOARD_TAB);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_LEFT, DE::INPUT_KEY_KEYBOARD_Q);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_RIGHT, DE::INPUT_KEY_KEYBOARD_D);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_UP, DE::INPUT_KEY_KEYBOARD_Z);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_DOWN, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_ZOOM_IN, DE::INPUT_KEY_KEYBOARD_KP_PLUS);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_ZOOM_OUT, DE::INPUT_KEY_KEYBOARD_KP_MINUS);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_ROTATE, DE::INPUT_KEY_KEYBOARD_R);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_NEXT, DE::INPUT_KEY_KEYBOARD_A);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_TEXTURE_NEXT, DE::INPUT_KEY_KEYBOARD_E);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_GROUND, DE::INPUT_KEY_KEYBOARD_1);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_WALL, DE::INPUT_KEY_KEYBOARD_2);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_CEILING, DE::INPUT_KEY_KEYBOARD_3);
-		this->m_inputDevice->SetActionKey(EDIT_CAMERA_MESH_PUT, DE::INPUT_KEY_KEYBOARD_SPACE);
 	}
 
 	void CEditCamera::SetScene(DE::C3DScene * scene) {
@@ -114,61 +80,61 @@ namespace EDITOR {
 	void CEditCamera::UpdateState() {
 		this->m_state = 0;
 
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_LEFT)) {
-			this->m_state |= EDIT_CAMERA_LEFT;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_LEFT);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LEFT)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_LEFT;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_LEFT);
 		}
 
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_RIGHT)) {
-			this->m_state |= EDIT_CAMERA_RIGHT;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_RIGHT);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_RIGHT)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_RIGHT;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_RIGHT);
 		}
 
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_UP)) {
-			this->m_state |= EDIT_CAMERA_UP;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_UP);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_UP)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_UP;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_UP);
 		}
 			
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_DOWN)) {
-			this->m_state |= EDIT_CAMERA_DOWN;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_DOWN);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_DOWN)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_DOWN;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_DOWN);
 		}
 
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_ZOOM_IN)) {
-			this->m_state |= EDIT_CAMERA_ZOOM_IN;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_ZOOM_IN);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_IN)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_IN;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_ZOOM_IN);
 		}
 
-		if(this->m_inputDevice->IsActionActive(EDIT_CAMERA_ZOOM_OUT)) {
-			this->m_state |= EDIT_CAMERA_ZOOM_OUT;
-			this->m_inputDevice->FreezeAction(EDIT_CAMERA_ZOOM_OUT);
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_OUT)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_OUT;
+			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_ZOOM_OUT);
 		}
 	}
 
 	void CEditCamera::UpdateMovement(const float timeSecond) {
 		DE::CVector3F movement;
 
-		if((this->m_state & EDIT_CAMERA_ZOOM_IN) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_IN) != 0) {
 			this->m_zoom--;
 		}
 
-		if((this->m_state & EDIT_CAMERA_ZOOM_OUT) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_OUT) != 0) {
 			this->m_zoom++;
 		}
 
-		if((this->m_state & EDIT_CAMERA_LEFT) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {
 			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(-EDIT_CAMERA_STEP, 0, 0));
 		}
 
-		if((this->m_state & EDIT_CAMERA_RIGHT) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_RIGHT) != 0) {
 			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(EDIT_CAMERA_STEP, 0, 0));
 		}
 
-		if((this->m_state & EDIT_CAMERA_UP) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_UP) != 0) {
 			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(0, 0, EDIT_CAMERA_STEP));
 		}
 
-		if((this->m_state & EDIT_CAMERA_DOWN) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_DOWN) != 0) {
 			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(0, 0, -EDIT_CAMERA_STEP));
 		}
 	}

@@ -31,9 +31,7 @@ namespace EDITOR {
 
 	#define EDITOR_NODE_NAME_CAMERA "__editor_node_camera"
 	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
-	#define EDITOR_NODE_NAME_GROUND "__editor_node_multibrush_ground"
-	#define EDITOR_NODE_NAME_WALL "__editor_node_multibrush_wall"
-	#define EDITOR_NODE_NAME_CEILING "__editor_node_multibrush_ceiling"
+	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
 
 	enum EMeshCategorySelectionMode {
 		MESH_CATEGORY_SELECTION_MODE_NONE,
@@ -63,9 +61,9 @@ namespace EDITOR {
 
 		if(!this->m_loading) {
 
-			if(this->m_input->IsActionActive(VIEW_CAMERA_LIGHTS)) {
+			if(this->m_input->IsActionActive(EDITOR_ACTION_LIGHTS)) {
 				this->m_drawLights = !this->m_drawLights;
-				this->m_input->FreezeAction(VIEW_CAMERA_LIGHTS);
+				this->m_input->FreezeAction(EDITOR_ACTION_LIGHTS);
 				this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 			}
 
@@ -84,7 +82,7 @@ namespace EDITOR {
 			this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
 			this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
 
-			if(this->m_input->IsActionActive(VIEW_CAMERA_REFRESH) && this->m_viewMode) {
+			if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
 				std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 			}
 
@@ -100,9 +98,9 @@ namespace EDITOR {
 	void CLevelEditorApplication::UpdateViewMode(const float time) {
 
 		// Skybox state
-		if(this->m_input->IsActionActive(VIEW_CAMERA_SKYBOX)) {
+		if(this->m_input->IsActionActive(EDITOR_ACTION_SKYBOX)) {
 			this->m_drawSkybox = !this->m_drawSkybox;
-			this->m_input->FreezeAction(VIEW_CAMERA_SKYBOX);
+			this->m_input->FreezeAction(EDITOR_ACTION_SKYBOX);
 		}
 
 		// Update the 3D scene
@@ -110,22 +108,21 @@ namespace EDITOR {
 			this->m_viewCamera->Update(time);
 		}
 
-		if(this->m_input->IsActionActive(VIEW_CAMERA_EXIT)) {
+		if(this->m_input->IsActionActive(EDITOR_ACTION_EXIT)) {
 			this->m_alive = false;
 		}
 
-		// Cursor state
+		/*// Cursor state
 		if(this->m_input->IsActionActive(VIEW_CAMERA_CURSOR)) {
 			this->m_cursor.SetVisible(!this->m_cursor.IsVisible());
 			this->m_input->FreezeAction(VIEW_CAMERA_CURSOR);
-		}
+		}*/
 
 		// edit mode state
-		if(this->m_input->IsActionActive(VIEW_CAMERA_EDIT)) {
+		if(this->m_input->IsActionActive(EDITOR_ACTION_CHANGE_MODE)) {
 			this->m_viewMode = false;
 			this->m_drawSkybox = false;
-			this->m_input->FreezeAction(VIEW_CAMERA_EDIT);
-			this->m_input->FreezeAction(EDIT_CAMERA_DONE);
+			this->m_input->FreezeAction(EDITOR_ACTION_CHANGE_MODE);
 			this->m_activeCamera = this->m_editCamera->GetCameraNode();
 		}
 	}
@@ -137,29 +134,41 @@ namespace EDITOR {
 	void CLevelEditorApplication::UpdateEditMode(const float time) {
 		this->m_editCamera->Update(time);
 
-		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_GROUND)) {
-			this->m_input->FreezeAction(EDIT_CAMERA_MESH_GROUND);
+		if(this->m_input->IsActionActive(EDITOR_ACTION_SELECT_GROUND)) {
+			this->m_input->FreezeAction(EDITOR_ACTION_SELECT_GROUND);
 			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_GROUND;
 			UpdateMeshNode();
 		}
 
-		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_WALL)) {
-			this->m_input->FreezeAction(EDIT_CAMERA_MESH_WALL);
+		if(this->m_input->IsActionActive(EDITOR_ACTION_SELECT_WALL)) {
+			this->m_input->FreezeAction(EDITOR_ACTION_SELECT_WALL);
 			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_WALL;
 			UpdateMeshNode();
 		}
 
-		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_CEILING)) {
-			this->m_input->FreezeAction(EDIT_CAMERA_MESH_CEILING);
+		if(this->m_input->IsActionActive(EDITOR_ACTION_SELECT_CEILING)) {
+			this->m_input->FreezeAction(EDITOR_ACTION_SELECT_CEILING);
 			this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_CEILING;
 			UpdateMeshNode();
 		}
 
-		if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_PUT)) {
-			this->m_input->FreezeAction(EDIT_CAMERA_MESH_PUT);
+		if(this->m_input->IsActionActive(EDITOR_ACTION_PUT_MESH)) {
+			this->m_input->FreezeAction(EDITOR_ACTION_PUT_MESH);
 			
 			if(this->m_meshNode != nullptr) {
-				PutAndReplaceMesh();
+				DE::CVector3F rotation = this->m_meshNode->GetRotation();
+				this->m_meshNode->SetName(EDITOR_NODE_NAME_MULTIBRUSH);
+				this->m_meshNode = nullptr;
+				UpdateMeshNode(rotation);
+			}
+		}
+
+		if(this->m_input->IsActionActive(EDITOR_ACTION_DELETE_MESH)) {
+			this->m_input->FreezeAction(EDITOR_ACTION_DELETE_MESH);
+
+			std::vector<DE::ISceneNode *> nodesToRemove = GetNodesOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
+			for(auto it = nodesToRemove.begin(); it != nodesToRemove.end(); it++) {
+				this->m_scene3D->GetRootNode()->RemoveChild((*it));
 			}
 		}
 
@@ -167,29 +176,28 @@ namespace EDITOR {
 			this->m_meshNode->SetPosition(DE::CVector3F(this->m_editCamera->GetCameraNode()->GetPosition().x, 0, this->m_editCamera->GetCameraNode()->GetPosition().z));
 
 			// Next texture
-			if(this->m_input->IsActionActive(EDIT_CAMERA_TEXTURE_NEXT)) {
-				this->m_input->FreezeAction(EDIT_CAMERA_TEXTURE_NEXT);
+			if(this->m_input->IsActionActive(EDITOR_ACTION_TEXTURE_NEXT)) {
+				this->m_input->FreezeAction(EDITOR_ACTION_TEXTURE_NEXT);
 				UpdateTextureNext();
 			}
 
 			// Next mesh
-			if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_NEXT)) {
-				this->m_input->FreezeAction(EDIT_CAMERA_MESH_NEXT);
+			if(this->m_input->IsActionActive(EDITOR_ACTION_MESH_NEXT)) {
+				this->m_input->FreezeAction(EDITOR_ACTION_MESH_NEXT);
 				UpdateMeshNext();
 			}
 
 			// Rotate mesh
-			if(this->m_input->IsActionActive(EDIT_CAMERA_MESH_ROTATE)) {
-				this->m_input->FreezeAction(EDIT_CAMERA_MESH_ROTATE);
+			if(this->m_input->IsActionActive(EDITOR_ACTION_MESH_ROTATE)) {
+				this->m_input->FreezeAction(EDITOR_ACTION_MESH_ROTATE);
 				this->m_meshNode->SetRotation(DE::CVector3F(0, (this->m_meshNode->GetRotation().y + 90), 0));
 			}
 		}
 
 		// Close edit mode
-		if(this->m_input->IsActionActive(EDIT_CAMERA_DONE)) {
+		if(this->m_input->IsActionActive(EDITOR_ACTION_CHANGE_MODE)) {
 			this->m_viewMode = true;
-			this->m_input->FreezeAction(VIEW_CAMERA_EDIT);
-			this->m_input->FreezeAction(EDIT_CAMERA_DONE);
+			this->m_input->FreezeAction(EDITOR_ACTION_CHANGE_MODE);
 			this->m_activeCamera = this->m_viewCamera->GetCameraNode();
 		}
 	}
@@ -304,15 +312,12 @@ namespace EDITOR {
 	*/
 	void CLevelEditorApplication::PutAndReplaceMesh() {
 
-		DE::ISceneNode * nodeToRemove = GetNodeOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer(), GetCurrentNodeCategoryName());
-		if(nodeToRemove != nullptr) {
-			this->m_scene3D->GetRootNode()->RemoveChild(nodeToRemove);
+		std::vector<DE::ISceneNode *> nodesToRemove = GetNodesOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
+		for(auto it = nodesToRemove.begin(); it != nodesToRemove.end(); it++) {
+			this->m_scene3D->GetRootNode()->RemoveChild((*it));
 		}
 
-		DE::CVector3F rotation = this->m_meshNode->GetRotation();
-		this->m_meshNode->SetName(GetCurrentNodeCategoryName());
-		this->m_meshNode = nullptr;
-		UpdateMeshNode(rotation);
+		
 	}
 
 	/**
@@ -389,44 +394,19 @@ namespace EDITOR {
 	}
 
 	/**
-	* Get the current node category name
-	* @return The current node category name
-	*/
-	const std::string CLevelEditorApplication::GetCurrentNodeCategoryName() {
-		std::string name = EDITOR_NODE_NAME_GROUND;
-
-		switch(this->m_meshCategorySelectionMode) {
-		case MESH_CATEGORY_SELECTION_MODE_GROUND:
-			name = EDITOR_NODE_NAME_GROUND;
-			break;
-
-		case MESH_CATEGORY_SELECTION_MODE_WALL:
-			name = EDITOR_NODE_NAME_WALL;
-			break;
-
-		case MESH_CATEGORY_SELECTION_MODE_CEILING:
-			name = EDITOR_NODE_NAME_CEILING;
-			break;
-		default:
-			break;
-		}
-		return name;
-	}
-
-	/**
 	* Get the node atching the position, the laer and the name
 	* @param position The position
 	* @param layer The layer
 	* @param name The name
-	* @return A node or nullptr
+	* @return A vector of nodes
 	*/
-	DE::ISceneNode * CLevelEditorApplication::GetNodeOnBlock(DE::CVector2I position, int layer, const std::string & name) {
-		DE::ISceneNode * node = nullptr;
-		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(name);
+	std::vector<DE::ISceneNode*> CLevelEditorApplication::GetNodesOnBlock(DE::CVector2I position, int layer) {
+		std::vector<DE::ISceneNode*> node;
+		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_MULTIBRUSH);
 
-		for(auto it = nodes.begin(); it != nodes.end() && node == nullptr; it++) {
+		for(auto it = nodes.begin(); it != nodes.end(); it++) {
 			if((*it)->GetPosition().x > (position.x - EDIT_CAMERA_STEP) && (*it)->GetPosition().x < (position.x + EDIT_CAMERA_STEP) && (*it)->GetPosition().z >(position.y - EDIT_CAMERA_STEP) && (*it)->GetPosition().z < (position.y + EDIT_CAMERA_STEP) && (*it)->GetPosition().y > (layer - EDIT_CAMERA_LAYER_HEIGHT) && (*it)->GetPosition().y < (layer + EDIT_CAMERA_LAYER_HEIGHT)) {
-				node = (*it);
+				node.push_back(*it);
 			}
 		}
 		return node;

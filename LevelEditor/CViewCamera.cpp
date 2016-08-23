@@ -33,6 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
+#include "CEditorConfiguration.h"
 #include "CViewCamera.h"
 
 namespace EDITOR {
@@ -46,38 +47,6 @@ namespace EDITOR {
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
 		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
-
-		DE::SInputActionDeclaration decl[] =
-		{
-			{ VIEW_CAMERA_EXIT, -1 },
-			{ VIEW_CAMERA_STRAFELEFT, VIEW_CAMERA_STRAFERIGHT },
-			{ VIEW_CAMERA_STRAFERIGHT, VIEW_CAMERA_STRAFELEFT },
-			{ VIEW_CAMERA_FORWARD, VIEW_CAMERA_BACKWARD },
-			{ VIEW_CAMERA_BACKWARD, VIEW_CAMERA_FORWARD },
-			{ VIEW_CAMERA_ASCEND, VIEW_CAMERA_DESCEND },
-			{ VIEW_CAMERA_DESCEND, VIEW_CAMERA_ASCEND },
-			{ VIEW_CAMERA_REFRESH, -1 },
-			{ VIEW_CAMERA_CURSOR, -1 },
-			{ VIEW_CAMERA_LIGHTS, -1 },
-			{ VIEW_CAMERA_SKYBOX, -1 },
-			{ VIEW_CAMERA_EDIT, -1 }
-		};
-
-		this->m_inputDevice->AddActions(decl);
-
-		// Keyboard mapping
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_EXIT, DE::INPUT_KEY_KEYBOARD_ESCAPE);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_STRAFELEFT, DE::INPUT_KEY_KEYBOARD_Q);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_STRAFERIGHT, DE::INPUT_KEY_KEYBOARD_D);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_FORWARD, DE::INPUT_KEY_KEYBOARD_Z);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_BACKWARD, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_REFRESH, DE::INPUT_KEY_KEYBOARD_F5);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_ASCEND, DE::INPUT_KEY_KEYBOARD_PAGEUP);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_DESCEND, DE::INPUT_KEY_KEYBOARD_PAGEDOWN);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_CURSOR, DE::INPUT_KEY_KEYBOARD_C);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_LIGHTS, DE::INPUT_KEY_KEYBOARD_KP1);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_SKYBOX, DE::INPUT_KEY_KEYBOARD_KP2);
-		this->m_inputDevice->SetActionKey(VIEW_CAMERA_EDIT, DE::INPUT_KEY_KEYBOARD_TAB);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition());
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
@@ -119,55 +88,55 @@ namespace EDITOR {
 	void CViewCamera::UpdateState() {
 		this->m_state = 0;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_STRAFELEFT))
-			this->m_state |= VIEW_CAMERA_STRAFELEFT;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LEFT))
+			this->m_state |= EDITOR_ACTION_CAMERA_LEFT;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_STRAFERIGHT))
-			this->m_state |= VIEW_CAMERA_STRAFERIGHT;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_RIGHT))
+			this->m_state |= EDITOR_ACTION_CAMERA_RIGHT;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_FORWARD))
-			this->m_state |= VIEW_CAMERA_FORWARD;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_UP))
+			this->m_state |= EDITOR_ACTION_CAMERA_UP;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_BACKWARD))
-			this->m_state |= VIEW_CAMERA_BACKWARD;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_DOWN))
+			this->m_state |= EDITOR_ACTION_CAMERA_DOWN;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_ASCEND))
-			this->m_state |= VIEW_CAMERA_ASCEND;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_OUT))
+			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_OUT;
 
-		if(this->m_inputDevice->IsActionActive(VIEW_CAMERA_DESCEND))
-			this->m_state |= VIEW_CAMERA_DESCEND;
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_IN))
+			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_IN;
 	}
 
 	void CViewCamera::UpdateMovement(const float timeSecond) {
 		DE::CVector3F movement;
 
-		if((this->m_state & VIEW_CAMERA_STRAFELEFT) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {
 			movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180);
 			movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180);
 		}
 
-		if((this->m_state & VIEW_CAMERA_STRAFERIGHT) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_RIGHT) != 0) {
 			movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180);
 			movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180);
 		}
 
-		if((this->m_state & VIEW_CAMERA_FORWARD) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_UP) != 0) {
 			movement.x += sin(this->m_rotation.y * PI_OVER_180);
 			movement.z += cos(this->m_rotation.y * PI_OVER_180);
 			movement.y -= sin(this->m_rotation.x * PI_OVER_180);
 		}
 
-		if((this->m_state & VIEW_CAMERA_BACKWARD) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_DOWN) != 0) {
 			movement.x += -sin(this->m_rotation.y * PI_OVER_180);
 			movement.z += -cos(this->m_rotation.y * PI_OVER_180);
 			movement.y += sin(this->m_rotation.x * PI_OVER_180);
 		}
 
-		if((this->m_state & VIEW_CAMERA_ASCEND) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_OUT) != 0) {
 			movement.y += VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
 		}
 
-		if((this->m_state & VIEW_CAMERA_DESCEND) != 0) {
+		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_IN) != 0) {
 			movement.y -= VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
 		}
 

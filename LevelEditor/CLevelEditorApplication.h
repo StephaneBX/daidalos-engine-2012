@@ -133,19 +133,12 @@ namespace EDITOR {
 		void PostLoadLevel();
 
 		/**
-		* Get the current node category name
-		* @return The current node category name
-		*/
-		const std::string GetCurrentNodeCategoryName();
-
-		/**
 		* Get the node atching the position, the laer and the name
 		* @param position The position
 		* @param layer The layer
-		* @param name The name
-		* @return A node or nullptr
+		* @return A vector of nodes
 		*/
-		DE::ISceneNode * GetNodeOnBlock(DE::CVector2I position, int layer, const std::string & name);
+		std::vector<DE::ISceneNode *> GetNodesOnBlock(DE::CVector2I position, int layer);
 	};
 }
 

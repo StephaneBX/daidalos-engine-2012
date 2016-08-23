@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Core/CConfigurationManager.h>
 #include <Core/Utility/CTokenizer.h>
+#include <Core/CInputDevice.h>
 #include "CEditorConfiguration.h"
 
 namespace EDITOR {
@@ -92,6 +93,52 @@ namespace EDITOR {
 		tokenizer.AddLine(this->m_configuration.GetValueString("texture_normal", "ceiling", ""));
 		tokenizer.Tokenize(":");
 		this->m_ceilingTextureNormalFilename.insert(this->m_ceilingTextureNormalFilename.end(), tokenizer.GetTokens().begin(), tokenizer.GetTokens().end());
+
+
+		this->m_inputDevice = DE::CInputDevice::GetInstance();
+
+		DE::SInputActionDeclaration decl[] = {
+			{ EDITOR_ACTION_EXIT, -1 },
+			{ EDITOR_ACTION_CAMERA_UP, EDITOR_ACTION_CAMERA_DOWN },
+			{ EDITOR_ACTION_CAMERA_DOWN, EDITOR_ACTION_CAMERA_UP },
+			{ EDITOR_ACTION_CAMERA_LEFT, EDITOR_ACTION_CAMERA_RIGHT },
+			{ EDITOR_ACTION_CAMERA_RIGHT, EDITOR_ACTION_CAMERA_LEFT },
+			{ EDITOR_ACTION_CAMERA_ZOOM_IN, EDITOR_ACTION_CAMERA_ZOOM_OUT },
+			{ EDITOR_ACTION_CAMERA_ZOOM_OUT, EDITOR_ACTION_CAMERA_ZOOM_IN },
+			{ EDITOR_ACTION_CHANGE_MODE, -1 },
+			{ EDITOR_ACTION_LIGHTS, -1 },
+			{ EDITOR_ACTION_SKYBOX, -1 },
+			{ EDITOR_ACTION_REFRESH, -1 },
+			{ EDITOR_ACTION_MESH_ROTATE, -1 },
+			{ EDITOR_ACTION_MESH_NEXT, -1 },
+			{ EDITOR_ACTION_TEXTURE_NEXT, -1 },
+			{ EDITOR_ACTION_SELECT_GROUND, -1 },
+			{ EDITOR_ACTION_SELECT_WALL, -1 },
+			{ EDITOR_ACTION_SELECT_CEILING, -1 },
+			{ EDITOR_ACTION_PUT_MESH, -1 },
+			{ EDITOR_ACTION_DELETE_MESH, -1 }
+		};
+
+		this->m_inputDevice->AddActions(decl);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_EXIT, DE::INPUT_KEY_KEYBOARD_ESCAPE);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_UP, DE::INPUT_KEY_KEYBOARD_Z);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_DOWN, DE::INPUT_KEY_KEYBOARD_S);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LEFT, DE::INPUT_KEY_KEYBOARD_Q);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_RIGHT, DE::INPUT_KEY_KEYBOARD_D);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_IN, DE::INPUT_KEY_KEYBOARD_KP_PLUS);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_OUT, DE::INPUT_KEY_KEYBOARD_KP_MINUS);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CHANGE_MODE, DE::INPUT_KEY_KEYBOARD_TAB);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_LIGHTS, DE::INPUT_KEY_KEYBOARD_KP0);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SKYBOX, DE::INPUT_KEY_KEYBOARD_KP1);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_REFRESH, DE::INPUT_KEY_KEYBOARD_F5);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_ROTATE, DE::INPUT_KEY_KEYBOARD_R);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_NEXT, DE::INPUT_KEY_KEYBOARD_E);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_TEXTURE_NEXT, DE::INPUT_KEY_KEYBOARD_T);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_GROUND, DE::INPUT_KEY_KEYBOARD_1);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_WALL, DE::INPUT_KEY_KEYBOARD_2);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_CEILING, DE::INPUT_KEY_KEYBOARD_3);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_PUT_MESH, DE::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_DELETE_MESH, DE::INPUT_KEY_KEYBOARD_DELETE);
 	}
 
 	/**

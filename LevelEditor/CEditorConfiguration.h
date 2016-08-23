@@ -32,12 +32,35 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 
 namespace EDITOR {
+	enum EEditorActionConfiguration {
+		EDITOR_ACTION_EXIT = 1 << 1,
+		EDITOR_ACTION_CAMERA_UP = 1 << 2,
+		EDITOR_ACTION_CAMERA_DOWN = 1 << 3,
+		EDITOR_ACTION_CAMERA_LEFT = 1 << 4,
+		EDITOR_ACTION_CAMERA_RIGHT = 1 << 5,
+		EDITOR_ACTION_CAMERA_ZOOM_IN = 1 << 6,
+		EDITOR_ACTION_CAMERA_ZOOM_OUT = 1 << 7,
+		EDITOR_ACTION_CHANGE_MODE = 1 << 8,
+		EDITOR_ACTION_LIGHTS = 1 << 9,
+		EDITOR_ACTION_SKYBOX = 1 << 10,
+		EDITOR_ACTION_REFRESH = 1 << 11,
+		EDITOR_ACTION_MESH_ROTATE = 1 << 12,
+		EDITOR_ACTION_MESH_NEXT = 1 << 13,
+		EDITOR_ACTION_TEXTURE_NEXT = 1 << 14,
+		EDITOR_ACTION_SELECT_GROUND = 1 << 15,
+		EDITOR_ACTION_SELECT_WALL = 1 << 16,
+		EDITOR_ACTION_SELECT_CEILING = 1 << 17,
+		EDITOR_ACTION_PUT_MESH = 1 << 18,
+		EDITOR_ACTION_DELETE_MESH = 1 << 19
+	};
+
 	/**
 	* Level editor configuration
 	*/
 	class CEditorConfiguration {
 	private:
 		SiniP m_configuration;
+		DE::CInputDevice * m_inputDevice;
 
 		std::vector<std::string> m_groundMeshFilename;
 		std::vector<std::string> m_wallMeshFilename;

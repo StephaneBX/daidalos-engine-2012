@@ -37,21 +37,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 
 namespace EDITOR {
-	enum EViewCameraMovement {
-		VIEW_CAMERA_EXIT = 1 << 1,
-		VIEW_CAMERA_STRAFELEFT = 1 << 2,
-		VIEW_CAMERA_STRAFERIGHT = 1 << 3,
-		VIEW_CAMERA_FORWARD = 1 << 4,
-		VIEW_CAMERA_BACKWARD = 1 << 5,
-		VIEW_CAMERA_ASCEND = 1 << 6,
-		VIEW_CAMERA_DESCEND = 1 << 7,
-		VIEW_CAMERA_REFRESH = 1 << 8,
-		VIEW_CAMERA_CURSOR = 1 << 9,
-		VIEW_CAMERA_LIGHTS = 1 << 10,
-		VIEW_CAMERA_SKYBOX = 1 << 11,
-		VIEW_CAMERA_EDIT = 1 << 12
-	};
-
 	/**
 	* Viewer camera
 	*/
