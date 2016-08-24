@@ -25,6 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <Core/CMediaManager.h>
+#include "CEditorSceneLoader.h"
 #include "CLevelEditorApplication.h"
 
 namespace EDITOR {
@@ -41,6 +43,9 @@ namespace EDITOR {
 	};
 
 	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
+
+		// Replace the default level loader
+		DE::CMediaManager::GetInstance()->AddLoader(new CEditorSceneLoader(), "des");
 
 		this->m_viewMode = true;
 		this->m_drawSkybox = true;

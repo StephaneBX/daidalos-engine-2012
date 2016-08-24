@@ -43,7 +43,7 @@ namespace DE {
 	* Loader for daidalos engine scene files (.des)
 	*/
 	class CSceneLoader : public ILoader < I3DScene > {
-	private:
+	protected:
 		std::string m_filename;
 		ESceneNodeRootStructureType m_structure;
 		SiniP m_nodesConf;
@@ -66,22 +66,22 @@ namespace DE {
 		* @param filename The scene filename
 		* @return The scene
 		*/
-		I3DScene * LoadFromFile(const std::string & filename);
+		virtual I3DScene * LoadFromFile(const std::string & filename);
 
 		/**
 		* Save a scene into a file
 		* @param root The scene root
 		* @param filename The output file
 		*/
-		void SaveToFile(ISceneNode * root, const std::string & filename);
+		virtual void SaveToFile(ISceneNode * root, const std::string & filename);
 
-	private:
+	protected:
 		/**
 		* Load a node by reading its xml declaration
 		* @param parent The node parent
 		* @param xmlElement The xml element describing the node
 		*/
-		void LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
+		virtual void LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
 
 		/**
 		* Load a BSP structure
@@ -89,7 +89,7 @@ namespace DE {
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		virtual void LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Load a simple structure
@@ -97,28 +97,28 @@ namespace DE {
 		* @param child The bsp node root
 		* @param node The node to fill
 		*/
-		void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		virtual void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
 
 		/**
 		* Load the particle system declaration
 		* @param scene The scene
 		* @param handle The xml handle
 		*/
-		void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle);
+		virtual void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle);
 
 		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		void AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition);
+		virtual void AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition);
 
 		/**
 		* Add data into the simple brush by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		void AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush);
+		virtual void AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush);
 
 		/**
 		* Get a node data

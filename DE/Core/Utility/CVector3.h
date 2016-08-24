@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CVECTOR3_H
 
 #include <math.h>
+#include <sstream>
 #include "../../Core/Utility/CTokenizer.h"
 #include "../../Core/Core.h"
 
