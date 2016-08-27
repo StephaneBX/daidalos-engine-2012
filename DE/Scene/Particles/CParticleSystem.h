@@ -115,10 +115,28 @@ namespace DE {
 		void RenderAll();
 
 		/**
+		* Get the system size
+		* @return The system size
+		*/
+		const int GetSystemSize() const;
+
+		/**
 		* Get the number of emitters
 		* @return The number of emitters
 		*/
 		const int GetNumberOfEmitters() const;
+
+		/**
+		* Get the atlas texture name
+		* @return The atlas texture name
+		*/
+		const std::string GetAtlasTextureName() const;
+
+		/**
+		* Get the atlas texture size
+		* @return The atlas texture size
+		*/
+		const CVector2I & GetAtlasTextureSize() const;
 
 		/**
 		* Create a particle emitter and return it

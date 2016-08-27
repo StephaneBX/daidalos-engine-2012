@@ -121,6 +121,21 @@ namespace DE {
 
 	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename) {
 		LOG_TRACE();
+
+		this->m_structure = SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP;
+
+		tinyxml2::XMLDocument document;
+
+		// Create the root element
+		tinyxml2::XMLElement * scene = document.NewElement("scene");
+		scene->SetAttribute("structure", SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
+		document.InsertEndChild(scene);
+
+		// Save the nodes
+		SaveNode(root, document, scene);
+
+		// Save the xml
+		document.SaveFile(filename.c_str());
 	}
 
 	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
@@ -796,6 +811,192 @@ namespace DE {
 		brush.position = position;
 		brush.rotation = rotation;
 		brush.scale = scale;
+	}
+
+	void CSceneLoader::SaveNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		switch(node->GetType()) {
+			case SCENE_NODE_ROOT:
+				if(this->m_structure == SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE) {
+					SaveSimpleStructure(node, document, parent);
+				} else {
+					SaveBSPStructure(node, document, parent);
+				}
+				break;
+
+			case SCENE_NODE_CAMERA:
+				SaveCameraNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_SPOTLIGHT:
+				SaveSpotLightNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_POINTLIGHT:
+				SavePointLightNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_DIRECTIONALLIGHT:
+				SaveDirectionalLightNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_STATICMESH:
+				SaveStaticMeshNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_ANIMATEDMESH:
+				SaveAnimatedMeshNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_SOUND:
+				SaveSoundNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_EMPTY:
+				SaveEmptyNode(node, document, parent);
+				break;
+
+			case SCENE_NODE_PARTICLE_EMITTER:
+				SaveParticleEmitterNode(node, document, parent);
+				break;
+		}
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, parent);
+		}
+	}
+
+	void CSceneLoader::SaveParticleSystem(DE::I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		std::stringstream ss;
+
+		tinyxml2::XMLElement * particleSystemNode = document.NewElement("particleSystem");
+
+		tinyxml2::XMLElement * atlasTextureFileNode = document.NewElement("atlasTextureFile");
+		atlasTextureFileNode->SetValue(scene->GetParticleSystem().GetAtlasTextureName().c_str());
+		particleSystemNode->InsertEndChild(atlasTextureFileNode);
+
+		tinyxml2::XMLElement * atlasTextureSizeNode = document.NewElement("atlasTextureSize");
+		atlasTextureSizeNode->SetValue(scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str());
+		particleSystemNode->InsertEndChild(atlasTextureSizeNode);
+
+		tinyxml2::XMLElement * systemSizeNode = document.NewElement("systemSize");
+		ss << scene->GetParticleSystem().GetSystemSize();
+		systemSizeNode->SetValue(ss.str().c_str());
+		particleSystemNode->InsertEndChild(systemSizeNode);
+
+		parent->InsertEndChild(particleSystemNode);
+	}
+
+	/**
+	* Save the simple structure
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save the bsp structure
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a camera node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveCameraNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a spot light node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveSpotLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a point light node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SavePointLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a directional light node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveDirectionalLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a static mesh node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveStaticMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save an animated mesh node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveAnimatedMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a sound node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveSoundNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save an empty node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveEmptyNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+	}
+
+	/**
+	* Save a particle emitter node
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CSceneLoader::SaveParticleEmitterNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {

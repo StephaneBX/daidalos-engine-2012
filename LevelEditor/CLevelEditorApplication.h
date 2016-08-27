@@ -117,9 +117,9 @@ namespace EDITOR {
 		void UpdateMeshNext();
 
 		/**
-		* Put the current mesh and replace any category on the same block
+		* Update the visibility of the nodes
 		*/
-		void PutAndReplaceMesh();
+		void UpdateNodesVisibility();
 
 		/**
 		* Render a 3D scene

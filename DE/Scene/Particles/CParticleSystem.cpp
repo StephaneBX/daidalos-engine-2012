@@ -189,11 +189,35 @@ namespace DE {
 	}
 
 	/**
+	* Get the system size
+	* @return The system size
+	*/
+	const int CParticleSystem::GetSystemSize() const {
+		return this->m_particleBuffer.GetSize();
+	}
+
+	/**
 	* Get the number of emitters
 	* @return The number of emitters
 	*/
 	const int CParticleSystem::GetNumberOfEmitters() const {
 		return this->m_emitters.size();
+	}
+
+	/**
+	* Get the atlas texture name
+	* @return The atlas texture name
+	*/
+	const std::string CParticleSystem::GetAtlasTextureName() const {
+		return this->m_atlasTexture.GetTexture()->GetName();
+	}
+
+	/**
+	* Get the atlas texture size
+	* @return The atlas texture size
+	*/
+	const CVector2I & CParticleSystem::GetAtlasTextureSize() const {
+		return this->m_atlasSize;
 	}
 
 	/**

@@ -38,6 +38,7 @@ namespace DE {
 	*/
 	CParticleEmitterSceneNode::CParticleEmitterSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, CParticleEmitter * emitter) : ISceneNode(scene, parent, name) {
 		this->m_emitter = emitter;
+		this->m_type = SCENE_NODE_PARTICLE_EMITTER;
 	}
 
 	/**

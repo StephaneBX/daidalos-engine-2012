@@ -62,11 +62,11 @@ namespace EDITOR {
 	void CEditCamera::Update(const float time) {
 		float timeSecond = time / 1000.0f;
 
-		this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z));
-		this->m_node->SetRotation(DE::CVector3F(80, 0, 0));
-
 		UpdateState();
 		UpdateMovement(timeSecond);
+
+		this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * EDIT_CAMERA_LAYER_HEIGHT + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z));
+		this->m_node->SetRotation(DE::CVector3F(80, 0, 0));
 	}
 
 	DE::ICameraSceneNode * CEditCamera::GetCameraNode() const {
@@ -109,6 +109,14 @@ namespace EDITOR {
 			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_OUT;
 			this->m_inputDevice->FreezeAction(EDITOR_ACTION_CAMERA_ZOOM_OUT);
 		}
+
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LAYER_UP)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_LAYER_UP;
+		}
+
+		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LAYER_DOWN)) {
+			this->m_state |= EDITOR_ACTION_CAMERA_LAYER_DOWN;
+		}
 	}
 
 	void CEditCamera::UpdateMovement(const float timeSecond) {
@@ -120,6 +128,14 @@ namespace EDITOR {
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_OUT) != 0) {
 			this->m_zoom++;
+		}
+
+		if((this->m_state & EDITOR_ACTION_CAMERA_LAYER_UP) != 0) {
+			this->m_layer++;
+		}
+
+		if((this->m_state & EDITOR_ACTION_CAMERA_LAYER_DOWN) != 0) {
+			this->m_layer--;
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {

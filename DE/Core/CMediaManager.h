@@ -105,17 +105,47 @@ namespace DE {
 
 	template <class T> void CMediaManager::AddLoader(ILoader<T> * loader, const std::string & extensions) {
 		CTokenizer tokenizer;
-		//std::transform(extensions.begin(), extensions.end(), extensions.begin(), tolower);
 		tokenizer.AddLine(extensions);
 		tokenizer.Tokenize(" ");
 
-		std::shared_ptr<ILoader<T>> ptr(loader);
+		std::set<ILoader<T>*> replacedLoaders;
+		for(unsigned int i = 0; i < tokenizer.GetTokens().size(); ++i) {
 
-		for(unsigned int i = 0; i < tokenizer.GetTokens().size(); ++i)
-			CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens()[i]] = ptr;
+			// Store the loaders that are replaced
+			if(CLoaderExtensions<T>::s_loaders.find(tokenizer.GetTokens()[i]) != CLoaderExtensions<T>::s_loaders.end()) {
+				replacedLoaders.insert(CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens()[i]]);
+			}
+
+			// Set or replace
+			CLoaderExtensions<T>::s_loaders[tokenizer.GetTokens()[i]] = loader;
+		}
+
+		// If the replaced loaders are not used anymore, delete them
+		for(auto it = replacedLoaders.begin(); it != replacedLoaders.end(); it++) {
+			bool found = false;
+			for(auto it2 = CLoaderExtensions<T>::s_loaders.begin(); it2 != CLoaderExtensions<T>::s_loaders.end() && !found; it2++) {
+				if((*it) == (*it2).second) {
+					found = true;
+				}
+			}
+
+			if(!found) {
+				delete (*it);
+			}
+		}
 	}
 
 	template <class T> void CMediaManager::RemoveLoader() {
+
+		// Delete all the loaders
+		std::set<ILoader<T>*> deletedLoaders;
+		for(auto it = CLoaderExtensions<T>::s_loaders.begin(); it != CLoaderExtensions<T>::s_loaders.end(); it++) {
+			if(deletedLoaders.find((*it).second) == deletedLoaders.end()) {
+				deletedLoaders.insert((*it).second);
+				delete (*it).second;
+			}
+		}
+
 		CLoaderExtensions<T>::s_loaders.clear();
 	}
 

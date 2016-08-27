@@ -38,7 +38,7 @@ namespace DE {
 	*/
 	template <class T> class CLoaderExtensions {
 	public:
-		static std::map<std::string, std::shared_ptr<ILoader<T>>> s_loaders;
+		static std::map<std::string, ILoader<T> *> s_loaders;
 
 		/**
 		* Check if this loader type handle the given extension
@@ -56,7 +56,7 @@ namespace DE {
 		}
 	};
 
-	template <class T> std::map<std::string, std::shared_ptr<ILoader<T>>> CLoaderExtensions<T>::s_loaders;
+	template <class T> std::map<std::string, ILoader<T> *> CLoaderExtensions<T>::s_loaders;
 }
 
 #endif

@@ -33,6 +33,7 @@ namespace DE {
 	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		LOG_TRACE();
 
+		this->m_type = SCENE_NODE_SOUND;
 		this->m_sound.LoadFromFile(filename, type);
 	}
 

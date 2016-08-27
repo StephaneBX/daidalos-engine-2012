@@ -65,6 +65,7 @@ namespace DE {
 		const T Length() const;
 		const T DotProduct(const CVector2<T> & vec) const;
 		const T Distance(const CVector2<T> & vec) const;
+		const std::string ToString(const std::string separator = ":") const;
 		operator T * ();
 		operator const T * () const;
 		static const CVector2<T> GetFrom(const std::string text, const CVector2<T> & defaultValue = CVector2<T>(), const std::string separator = ":");
@@ -308,7 +309,18 @@ namespace DE {
 	}
 
 	/**
-	* float * cast operator override
+	* Get a string from a CVector2
+	* @param separator The separator
+	*/
+	template <class T> inline const std::string CVector2<T>::ToString(const std::string separator) const {
+		std::stringstream ss;
+
+		ss << this->x << separator << this->y;
+		return ss.str();
+	}
+
+	/**
+	* T * cast operator override
 	* @return A float pointer
 	*/
 	template <class T> inline CVector2<T>::operator T * () {
@@ -316,7 +328,7 @@ namespace DE {
 	}
 
 	/**
-	* float * cast operator override
+	* T * cast operator override
 	* @return A float pointer
 	*/
 	template <class T> inline CVector2<T>::operator const T * () const {

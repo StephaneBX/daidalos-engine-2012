@@ -290,7 +290,6 @@
 			
 			<brush file="ceiling_1.obj" id="-9999">
 				<diffuse_texture>sky_d.png</diffuse_texture>
-				<normal_texture>ground_1n.png</normal_texture>
 				<position>10.00:0.00:30.00</position>
 				<rotation>0.00:0.00:0.00</rotation>
 			</brush>
