@@ -43,6 +43,7 @@ namespace EDITOR {
 		bool m_viewMode;
 		bool m_drawSkybox;
 		bool m_drawLights;
+		bool m_culling;
 
 		int m_meshCategorySelectionMode;
 
@@ -139,6 +140,12 @@ namespace EDITOR {
 		* @return A vector of nodes
 		*/
 		std::vector<DE::ISceneNode *> GetNodesOnBlock(DE::CVector2I position, int layer);
+
+		/**
+		* Render the diffuse part
+		* @param scene3D The scene
+		*/
+		void DiffuseRendering(DE::C3DScene * scene3D);
 	};
 }
 

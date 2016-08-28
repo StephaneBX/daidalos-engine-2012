@@ -50,6 +50,7 @@ namespace EDITOR {
 		this->m_viewMode = true;
 		this->m_drawSkybox = true;
 		this->m_drawLights = true;
+		this->m_culling = true;
 		this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_NONE;
 		this->m_wallMeshEditIndex = 0;
 		this->m_wallTextureEditIndex = 0;
@@ -72,6 +73,12 @@ namespace EDITOR {
 				this->m_drawLights = !this->m_drawLights;
 				this->m_input->FreezeAction(EDITOR_ACTION_LIGHTS);
 				this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+			}
+
+			// Culling state
+			if(this->m_input->IsActionActive(EDITOR_ACTION_CULLING)) {
+				this->m_culling = !this->m_culling;
+				this->m_input->FreezeAction(EDITOR_ACTION_CULLING);
 			}
 
 			if(this->m_viewMode) {
@@ -103,12 +110,6 @@ namespace EDITOR {
 	* @param time Elapsed time
 	*/
 	void CLevelEditorApplication::UpdateViewMode(const float time) {
-
-		// Skybox state
-		if(this->m_input->IsActionActive(EDITOR_ACTION_SKYBOX)) {
-			this->m_drawSkybox = !this->m_drawSkybox;
-			this->m_input->FreezeAction(EDITOR_ACTION_SKYBOX);
-		}
 
 		// Update the 3D scene
 		if(!this->m_cursor.IsVisible()) {
@@ -448,5 +449,29 @@ namespace EDITOR {
 			}
 		}
 		return node;
+	}
+
+	/**
+	* Render the diffuse part
+	* @param scene3D The scene
+	*/
+	void CLevelEditorApplication::DiffuseRendering(DE::C3DScene * scene3D) {
+		// ------------------------------
+		// Forward rendering: diffuse
+		// ------------------------------
+		if(this->m_culling) {
+			this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		} else {
+			this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
+		}
+
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		scene3D->RenderAll();
 	}
 }

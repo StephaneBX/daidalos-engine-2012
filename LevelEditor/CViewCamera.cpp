@@ -133,11 +133,11 @@ namespace EDITOR {
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_OUT) != 0) {
-			movement.y += VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
+			movement.y -= VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_IN) != 0) {
-			movement.y -= VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
+			movement.y += VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
 		}
 
 		movement = movement.Normalize();
