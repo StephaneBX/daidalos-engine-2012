@@ -32,10 +32,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/CParticleEntity.h"
 
 namespace DE {
+
+	enum EParticleUpdaterType {
+		PARTICLE_UPDATER_TYPE_COLOR,
+		PARTICLE_UPDATER_TYPE_GRAVITY,
+		PARTICLE_UPDATER_TYPE_ROTATION,
+		PARTICLE_UPDATER_TYPE_SIZE,
+		PARTICLE_UPDATER_TYPE_LIFE,
+		PARTICLE_UPDATER_TYPE_VELOCITY
+	};
+
 	/**
 	* The particle updater abstract class
 	*/
 	class IParticleUpdater {
+
+	protected:
+		EParticleUpdaterType m_type;
 
 	public:
 		/**
@@ -45,6 +58,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
+
+		/**
+		* Get the updater type
+		* @return The updater type
+		*/
+		const EParticleUpdaterType GetType() const;
 	};
 }
 

@@ -53,6 +53,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the damping
+		* @return The damping
+		*/
+		const float GetDamping() const;
 	};
 }
 

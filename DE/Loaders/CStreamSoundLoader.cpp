@@ -81,6 +81,6 @@ namespace DE {
 			throw CExceptionLoad(filename);
 		}
 
-		return new IStreamSoundBase(file, format, nbSamples, sampleRate);
+		return new IStreamSoundBase(filename, file, format, nbSamples, sampleRate);
 	}
 }

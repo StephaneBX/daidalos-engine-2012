@@ -232,10 +232,50 @@ namespace DE {
 		ISceneNode::Render();
 	}
 
+	const EMeshShadingType IMeshSceneNode::GetMeshShadingType() const {
+		LOG_TRACE();
+
+		return this->m_shadingType;
+	}
+
 	CSphereF * IMeshSceneNode::GetVisibilityShape() const {
 		LOG_TRACE();
 
 		return this->m_visibilityShape;
+	}
+
+	const std::string IMeshSceneNode::GetMeshTextureName(ETextureType textureType) const {
+		LOG_TRACE();
+
+		std::string name = "";
+		switch(textureType) {
+		case TEXTURE_TYPE_DIFFUSE:
+			if(this->m_diffuseTexture != nullptr) {
+				name = this->m_diffuseTexture->GetTexture()->GetName();
+			}
+			
+			break;
+
+		case TEXTURE_TYPE_NORMAL:
+			if(this->m_normalTexture != nullptr) {
+				name = this->m_normalTexture->GetTexture()->GetName();
+			}
+			break;
+		}
+
+		return name;
+	}
+
+	const std::string IMeshSceneNode::GetMeshMaterialName() const {
+		LOG_TRACE();
+
+		std::string name = "";
+
+		if(this->m_material.GetMaterial() != nullptr) {
+			name = this->m_material.GetMaterial()->GetName();
+		}
+
+		return name;
 	}
 
 	void IMeshSceneNode::FinalizeGeometry() {

@@ -62,7 +62,7 @@ namespace DE {
 		* @param object The image
 		* @param filename The output file
 		*/
-		void SaveToFile(const CImage * object, const std::string & filename);
+		void SaveToFile(CImage * object, const std::string & filename);
 	};
 }
 

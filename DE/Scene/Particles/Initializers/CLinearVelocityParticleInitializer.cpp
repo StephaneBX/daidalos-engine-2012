@@ -37,6 +37,7 @@ namespace DE {
 	* @param velocityMax The velocity max
 	*/
 	CLinearVelocityParticleInitializer::CLinearVelocityParticleInitializer(CVector3F direction, float variationFactor, float velocityMin, float velocityMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_LINEAR_VELOCITY;
 		this->m_direction = direction;
 		this->m_variationFactor = variationFactor;
 		this->m_velocityMin = velocityMin;
@@ -67,5 +68,37 @@ namespace DE {
 
 			particle->SetVelocity(velocity);
 		}
+	}
+
+	/**
+	* Get the variation factor
+	* @return The variation factor
+	*/
+	const float CLinearVelocityParticleInitializer::GetVariationFactor() const {
+		return this->m_variationFactor;
+	}
+
+	/**
+	* Get the velocity min
+	* @return The velocity min
+	*/
+	const float CLinearVelocityParticleInitializer::GetVelocityMin() const {
+		return this->m_velocityMin;
+	}
+
+	/**
+	* Get the velocity max
+	* @return The velocity max
+	*/
+	const float CLinearVelocityParticleInitializer::GetVelocityMax() const {
+		return this->m_velocityMax;
+	}
+
+	/**
+	* Get the direction
+	* @return The direction
+	*/
+	const CVector3F & CLinearVelocityParticleInitializer::GetDirection() const {
+		return this->m_direction;
 	}
 }

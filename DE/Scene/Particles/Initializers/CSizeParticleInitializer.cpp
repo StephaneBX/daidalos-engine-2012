@@ -35,6 +35,7 @@ namespace DE {
 	* @param sizeMax The size max
 	*/
 	CSizeParticleInitializer::CSizeParticleInitializer(float sizeMin, float sizeMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE;
 		this->m_sizeMin = sizeMin;
 		this->m_sizeMax = sizeMax;
 	}
@@ -52,6 +53,22 @@ namespace DE {
 			particle->SetSizeMax(this->m_sizeMax);
 			particle->SetSize(RandomNumber<float>(this->m_sizeMin, this->m_sizeMax));
 		}
+	}
+
+	/**
+	* Get the size min
+	* @return The size min
+	*/
+	const float CSizeParticleInitializer::GetSizeMin() {
+		return this->m_sizeMin;
+	}
+
+	/**
+	* Get the size max
+	* @return The size max
+	*/
+	const float CSizeParticleInitializer::GetSizeMax() {
+		return this->m_sizeMax;
 	}
 }
 

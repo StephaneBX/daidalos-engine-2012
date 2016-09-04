@@ -70,7 +70,7 @@ namespace DE {
 		* @param object The object to save
 		* @param filename The filename
 		*/
-		template <class T> void SaveMediaToFile(const T * object, const std::string & filename);
+		template <class T> void SaveMediaToFile(T * object, const std::string & filename);
 
 		/**
 		* Load a media from a file
@@ -149,10 +149,10 @@ namespace DE {
 		CLoaderExtensions<T>::s_loaders.clear();
 	}
 
-	template <class T> void CMediaManager::SaveMediaToFile(const T * object, const std::string & filename) {
+	template <class T> void CMediaManager::SaveMediaToFile(T * object, const std::string & filename) {
 		const std::string extension = CFile(filename).GetExtension();
 		if(CLoaderExtensions<T>::IsExtensionFound(extension)) {
-		CLoaderExtensions<T>::s_loaders[extension]->SaveToFile(object, filename);
+			CLoaderExtensions<T>::s_loaders[extension]->SaveToFile(object, filename);
 		}
 	}
 

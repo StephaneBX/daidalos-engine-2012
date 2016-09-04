@@ -54,6 +54,18 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the rotation min
+		* @return The rotation min
+		*/
+		const float GetRotationMin() const;
+
+		/**
+		* Get the rotation max
+		* @return The rotation max
+		*/
+		const float GetRotationMax() const;
 	};
 }
 

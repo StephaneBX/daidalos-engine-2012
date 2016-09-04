@@ -52,6 +52,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the radius
+		* @return The radius
+		*/
+		const float GetRadius() const;
 	};
 }
 

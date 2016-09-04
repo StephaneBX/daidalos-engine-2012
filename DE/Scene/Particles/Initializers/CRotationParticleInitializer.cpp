@@ -35,6 +35,7 @@ namespace DE {
 	* @param rotationMax The rotation max
 	*/
 	CRotationParticleInitializer::CRotationParticleInitializer(float rotationMin, float rotationMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION;
 		this->m_rotationMin = rotationMin;
 		this->m_rotationMax = rotationMax;
 
@@ -51,5 +52,21 @@ namespace DE {
 			CParticleEntity * particle = buffer.GetAt((*it));
 			particle->SetRotationSpeed(RandomNumber<float>(this->m_rotationMin, this->m_rotationMax));
 		}
+	}
+
+	/**
+	* Get the rotation min
+	* @return The rotation min
+	*/
+	const float CRotationParticleInitializer::GetRotationMin() const {
+		return this->m_rotationMin;
+	}
+
+	/**
+	* Get the rotation max
+	* @return The rotation max
+	*/
+	const float CRotationParticleInitializer::GetRotationMax() const {
+		return this->m_rotationMax;
 	}
 }

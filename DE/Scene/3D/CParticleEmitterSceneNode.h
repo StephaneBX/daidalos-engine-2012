@@ -60,6 +60,12 @@ namespace DE {
 		* @param time The elapsed time
 		*/
 		void Update(const float time = 0);
+
+		/**
+		* Get the particle emitter
+		* @return The particle emitter
+		*/
+		CParticleEmitter * GetEmitter() const;
 	};
 }
 

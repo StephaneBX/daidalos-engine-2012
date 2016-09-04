@@ -56,4 +56,12 @@ namespace DE {
 			particle->SetVelocity(particle->GetVelocity() - (particle->GetVelocity() * (this->m_damping * timeSecond)));
 		}
 	}
+
+	/**
+	* Get the damping
+	* @return The damping
+	*/
+	const float CVelocityParticleUpdater::GetDamping() const {
+		return this->m_damping;
+	}
 }

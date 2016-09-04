@@ -186,7 +186,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		ISoundBase();
+		ISoundBase(const std::string & name);
 
 		/**
 		* Get the OpenAL sound format

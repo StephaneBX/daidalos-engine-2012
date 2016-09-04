@@ -35,6 +35,7 @@ namespace DE {
 	* @param colorMax The color max
 	*/
 	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(CVector3F positionMin, CVector3F positionMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION;
 		this->m_positionMin = positionMin;
 		this->m_positionMax = positionMax;
 
@@ -53,5 +54,21 @@ namespace DE {
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + position);
 		}
+	}
+
+	/**
+	* Get the min position
+	* @return The min position
+	*/
+	const CVector3F & CBoxPositionParticleInitializer::GetPositionMin() const {
+		return this->m_positionMin;
+	}
+
+	/**
+	* Get the max position
+	* @return The max position
+	*/
+	const CVector3F & CBoxPositionParticleInitializer::GetPositionMax() const {
+		return this->m_positionMax;
 	}
 }

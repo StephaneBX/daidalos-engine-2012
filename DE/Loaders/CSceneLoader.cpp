@@ -119,7 +119,7 @@ namespace DE {
 		return scene;
 	}
 
-	void CSceneLoader::SaveToFile(ISceneNode * root, const std::string & filename) {
+	void CSceneLoader::SaveToFile(I3DScene * object, const std::string & filename) {
 		LOG_TRACE();
 
 		this->m_structure = SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP;
@@ -127,12 +127,15 @@ namespace DE {
 		tinyxml2::XMLDocument document;
 
 		// Create the root element
-		tinyxml2::XMLElement * scene = document.NewElement("scene");
-		scene->SetAttribute("structure", SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
-		document.InsertEndChild(scene);
+		tinyxml2::XMLElement * sceneElement = document.NewElement("scene");
+		sceneElement->SetAttribute("structure", SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
+		document.InsertEndChild(sceneElement);
+
+		// Create the particle system element
+		SaveParticleSystem(object, document, sceneElement);
 
 		// Save the nodes
-		SaveNode(root, document, scene);
+		SaveNode(object->GetRoot(), document, sceneElement);
 
 		// Save the xml
 		document.SaveFile(filename.c_str());
@@ -336,6 +339,7 @@ namespace DE {
 			static_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
 			static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
 			if(playOnStartup) {
+				static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
 				static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
 			}
 
@@ -412,6 +416,7 @@ namespace DE {
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
 					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
+
 				} else if(childName.compare("linearVelocity") == 0) {
 					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
 					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
@@ -419,11 +424,13 @@ namespace DE {
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
 					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
+
 				} else if(childName.compare("minMaxBoxPosition") == 0) {
 					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
 					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
 					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
 					emitter->AddInitializer(initializer);
+
 				} else if(childName.compare("radiusPosition") == 0) {
 					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
 					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
@@ -815,7 +822,8 @@ namespace DE {
 
 	void CSceneLoader::SaveNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		switch(node->GetType()) {
+		if(std::string(NOSAVE_NODES_NAME).compare(node->GetName()) != 0) {
+			switch(node->GetType()) {
 			case SCENE_NODE_ROOT:
 				if(this->m_structure == SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE) {
 					SaveSimpleStructure(node, document, parent);
@@ -859,31 +867,29 @@ namespace DE {
 			case SCENE_NODE_PARTICLE_EMITTER:
 				SaveParticleEmitterNode(node, document, parent);
 				break;
-		}
-
-		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, parent);
+			}
 		}
 	}
 
 	void CSceneLoader::SaveParticleSystem(DE::I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		parent->InsertEndChild(document.NewComment(" Particle System Parameters "));
 
 		std::stringstream ss;
 
 		tinyxml2::XMLElement * particleSystemNode = document.NewElement("particleSystem");
 
 		tinyxml2::XMLElement * atlasTextureFileNode = document.NewElement("atlasTextureFile");
-		atlasTextureFileNode->SetValue(scene->GetParticleSystem().GetAtlasTextureName().c_str());
+		atlasTextureFileNode->InsertEndChild(document.NewText(scene->GetParticleSystem().GetAtlasTextureName().c_str()));
 		particleSystemNode->InsertEndChild(atlasTextureFileNode);
 
 		tinyxml2::XMLElement * atlasTextureSizeNode = document.NewElement("atlasTextureSize");
-		atlasTextureSizeNode->SetValue(scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str());
+		atlasTextureSizeNode->InsertEndChild(document.NewText((scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str())));
 		particleSystemNode->InsertEndChild(atlasTextureSizeNode);
 
 		tinyxml2::XMLElement * systemSizeNode = document.NewElement("systemSize");
 		ss << scene->GetParticleSystem().GetSystemSize();
-		systemSizeNode->SetValue(ss.str().c_str());
+		systemSizeNode->InsertEndChild(document.NewText((ss.str().c_str())));
 		particleSystemNode->InsertEndChild(systemSizeNode);
 
 		parent->InsertEndChild(particleSystemNode);
@@ -895,7 +901,7 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveSimpleStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
 	}
 
@@ -905,7 +911,7 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveBSPStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
 	}
 
@@ -915,8 +921,69 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveCameraNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveCameraNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Projection Camera Node "));
+
+		std::stringstream ss;
+		CProjectionCameraSceneNode * sceneNode = static_cast<CProjectionCameraSceneNode*>(node);
+		tinyxml2::XMLElement * cameraNode = document.NewElement("node");
+
+		// Type
+		cameraNode->SetAttribute("type", SCENE_NODE_CAMERA);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			cameraNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		cameraNode->SetAttribute("name", sceneNode->GetName().c_str());
+		
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Scale
+		child = document.NewElement("scale");
+		child->InsertEndChild(document.NewText(sceneNode->GetScale().ToString().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Fov
+		child = document.NewElement("fov");
+		ss << RadianToDegree(sceneNode->GetAngle());
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Near
+		child = document.NewElement("near");
+		ss.str("");
+		ss << sceneNode->GetNearDistance();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Far
+		child = document.NewElement("far");
+		ss.str("");
+		ss << sceneNode->GetFarDistance();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		cameraNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, cameraNode);
+
+		parent->InsertEndChild(cameraNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, cameraNode);
+		}
 	}
 
 	/**
@@ -925,8 +992,86 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveSpotLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveSpotLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" SpotLight Node "));
+
+		std::stringstream ss;
+		CSpotLightSceneNode * sceneNode = static_cast<CSpotLightSceneNode*>(node);
+		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+
+		// Type
+		lightNode->SetAttribute("type", SCENE_NODE_SPOTLIGHT);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			lightNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Enabled
+		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Shadow
+		child = document.NewElement("shadow_caster");
+		child->InsertEndChild(document.NewText(sceneNode->IsShadowCaster() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Position
+		child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Color
+		child = document.NewElement("color");
+		child->InsertEndChild(document.NewText(sceneNode->GetColor().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Range
+		child = document.NewElement("range");
+		ss << sceneNode->GetRange();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Radius
+		ss.str("");
+		child = document.NewElement("radius");
+		ss << RadianToDegree(sceneNode->GetRadius());
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Falloff
+		ss.str("");
+		child = document.NewElement("falloff");
+		ss << sceneNode->GetFalloff();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Tightness
+		ss.str("");
+		child = document.NewElement("tightness");
+		ss << sceneNode->GetTightness();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, lightNode);
+
+		parent->InsertEndChild(lightNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, lightNode);
+		}
 	}
 
 	/**
@@ -935,8 +1080,72 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SavePointLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SavePointLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" PointLight Node "));
+
+		std::stringstream ss;
+		CPointLightSceneNode * sceneNode = static_cast<CPointLightSceneNode*>(node);
+		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+
+		// Type
+		lightNode->SetAttribute("type", SCENE_NODE_POINTLIGHT);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			lightNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Enabled
+		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Shadow
+		child = document.NewElement("shadow_caster");
+		child->InsertEndChild(document.NewText(sceneNode->IsShadowCaster() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Position
+		child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Color
+		child = document.NewElement("color");
+		child->InsertEndChild(document.NewText(sceneNode->GetColor().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Range
+		child = document.NewElement("range");
+		ss << sceneNode->GetRange();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Falloff
+		ss.str("");
+		child = document.NewElement("falloff");
+		ss << sceneNode->GetFalloff();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, lightNode);
+
+		parent->InsertEndChild(lightNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, lightNode);
+		}
 	}
 
 	/**
@@ -945,8 +1154,59 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveDirectionalLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveDirectionalLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" DirectionalLight Node "));
+
+		std::stringstream ss;
+		CDirectionalLightSceneNode * sceneNode = static_cast<CDirectionalLightSceneNode*>(node);
+		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+
+		// Type
+		lightNode->SetAttribute("type", SCENE_NODE_DIRECTIONALLIGHT);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			lightNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Enabled
+		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Shadow
+		child = document.NewElement("shadow_caster");
+		child->InsertEndChild(document.NewText(sceneNode->IsShadowCaster() ? "true" : "false"));
+		lightNode->InsertEndChild(child);
+
+		// Position
+		child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Color
+		child = document.NewElement("color");
+		child->InsertEndChild(document.NewText(sceneNode->GetColor().ToString().c_str()));
+		lightNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, lightNode);
+
+		parent->InsertEndChild(lightNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, lightNode);
+		}
 	}
 
 	/**
@@ -955,8 +1215,76 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveStaticMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveStaticMeshNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Static Mesh Node "));
+
+		std::stringstream ss;
+		CStaticMeshSceneNode * sceneNode = static_cast<CStaticMeshSceneNode*>(node);
+		tinyxml2::XMLElement * meshNode = document.NewElement("node");
+
+		// Type
+		meshNode->SetAttribute("type", SCENE_NODE_STATICMESH);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			meshNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		meshNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// File
+		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
+
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Scale
+		child = document.NewElement("scale");
+		child->InsertEndChild(document.NewText(sceneNode->GetScale().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Diffuse texture
+		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE) != "") {
+			child = document.NewElement("diffuse_texture");
+			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).c_str()));
+			meshNode->InsertEndChild(child);
+		}
+
+		// Normal texture
+		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL) != "") {
+			child = document.NewElement("normal_texture");
+			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).c_str()));
+			meshNode->InsertEndChild(child);
+		}
+
+		// Flat shading
+		child = document.NewElement("flat_shading");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "true" : "false"));
+		meshNode->InsertEndChild(child);
+
+		// Material
+		child = document.NewElement("material");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshMaterialName().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, meshNode);
+
+		parent->InsertEndChild(meshNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, meshNode);
+		}
 	}
 
 	/**
@@ -965,8 +1293,76 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveAnimatedMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveAnimatedMeshNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Animated Mesh Node "));
+
+		std::stringstream ss;
+		CAnimatedMeshSceneNode * sceneNode = static_cast<CAnimatedMeshSceneNode*>(node);
+		tinyxml2::XMLElement * meshNode = document.NewElement("node");
+
+		// Type
+		meshNode->SetAttribute("type", SCENE_NODE_ANIMATEDMESH);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			meshNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		meshNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// File
+		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
+
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Scale
+		child = document.NewElement("scale");
+		child->InsertEndChild(document.NewText(sceneNode->GetScale().ToString().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Diffuse texture
+		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE) != "") {
+			child = document.NewElement("diffuse_texture");
+			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).c_str()));
+			meshNode->InsertEndChild(child);
+		}
+
+		// Normal texture
+		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL) != "") {
+			child = document.NewElement("normal_texture");
+			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).c_str()));
+			meshNode->InsertEndChild(child);
+		}
+
+		// Flat shading
+		child = document.NewElement("flat_shading");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "true" : "false"));
+		meshNode->InsertEndChild(child);
+
+		// Material
+		child = document.NewElement("material");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshMaterialName().c_str()));
+		meshNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, meshNode);
+
+		parent->InsertEndChild(meshNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, meshNode);
+		}
 	}
 
 	/**
@@ -975,8 +1371,108 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveSoundNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveSoundNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Sound Node "));
+
+		std::stringstream ss;
+		CSoundSceneNode * sceneNode = static_cast<CSoundSceneNode*>(node);
+		tinyxml2::XMLElement * soundNode = document.NewElement("node");
+
+		// Type
+		soundNode->SetAttribute("type", SCENE_NODE_SOUND);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			soundNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		soundNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Type
+		ss.str("");
+		child = document.NewElement("type");
+		ss << sceneNode->GetSoundType();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Gain
+		ss.str("");
+		child = document.NewElement("gain");
+		ss << sceneNode->GetSoundGain();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Cone inner angle
+		ss.str("");
+		child = document.NewElement("cone_inner_angle");
+		ss << sceneNode->GetSoundConeInnerAngle();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Cone outer angle
+		ss.str("");
+		child = document.NewElement("cone_outer_angle");
+		ss << sceneNode->GetSoundConeOuterAngle();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Reference distance
+		ss.str("");
+		child = document.NewElement("reference_distance");
+		ss << sceneNode->GetSoundReferenceDistance();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Max distance
+		ss.str("");
+		child = document.NewElement("max_distance");
+		ss << sceneNode->GetSoundMaxDistance();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Relative to listener
+		child = document.NewElement("relative_to_listener");
+		child->InsertEndChild(document.NewText(sceneNode->IsSoundRelativeToListener() ? "true" : "false"));
+		soundNode->InsertEndChild(child);
+
+		// Looped
+		child = document.NewElement("looped");
+		child->InsertEndChild(document.NewText(sceneNode->IsSoundLooped() ? "true" : "false"));
+		soundNode->InsertEndChild(child);
+
+		// Play on startup
+		ss.str("");
+		child = document.NewElement("play_on_startup");
+		ss << sceneNode->IsSoundAutoStart();
+		child->InsertEndChild(document.NewText(sceneNode->IsSoundAutoStart() ? "true" : "false"));
+		soundNode->InsertEndChild(child);
+
+		// File
+		child = document.NewElement("file");
+		child->InsertEndChild(document.NewText(sceneNode->GetSoundName().c_str()));
+		soundNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, soundNode);
+
+		parent->InsertEndChild(soundNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, soundNode);
+		}
 	}
 
 	/**
@@ -985,8 +1481,44 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveEmptyNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveEmptyNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Empty Node "));
+
+		std::stringstream ss;
+		CEmptySceneNode * sceneNode = static_cast<CEmptySceneNode*>(node);
+		tinyxml2::XMLElement * emptyNode = document.NewElement("node");
+
+		// Type
+		emptyNode->SetAttribute("type", SCENE_NODE_EMPTY);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			emptyNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		emptyNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		emptyNode->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText(sceneNode->GetRotation().ToString().c_str()));
+		emptyNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, emptyNode);
+
+		parent->InsertEndChild(emptyNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, emptyNode);
+		}
 	}
 
 	/**
@@ -995,8 +1527,343 @@ namespace DE {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CSceneLoader::SaveParticleEmitterNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveParticleEmitterNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
+		parent->InsertEndChild(document.NewComment(" Particle Emitter Node "));
+
+		std::stringstream ss;
+		CParticleEmitterSceneNode * sceneNode = static_cast<CParticleEmitterSceneNode*>(node);
+		tinyxml2::XMLElement * emitterNode = document.NewElement("node");
+
+		// Type
+		emitterNode->SetAttribute("type", SCENE_NODE_PARTICLE_EMITTER);
+
+		// Id
+		if(sceneNode->GetId() != SCENE_DEFAULT_ID) {
+			emitterNode->SetAttribute("id", sceneNode->GetId());
+		}
+
+		// Name
+		emitterNode->SetAttribute("name", sceneNode->GetName().c_str());
+
+		// Active
+		ss.str("");
+		tinyxml2::XMLElement * child = document.NewElement("active");
+		ss << sceneNode->IsActive();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Position
+		child = document.NewElement("position");
+		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Texture id
+		ss.str("");
+		child = document.NewElement("textureId");
+		ss << sceneNode->GetEmitter()->GetTextureId();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Blend mode
+		ss.str("");
+		child = document.NewElement("blendMode");
+		ss << sceneNode->GetEmitter()->GetBlendMode();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Life
+		ss.str("");
+		child = document.NewElement("life");
+		ss << sceneNode->GetEmitter()->GetLife();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Life max
+		ss.str("");
+		child = document.NewElement("lifeMax");
+		ss << sceneNode->GetEmitter()->GetLifeMax();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Emission rate
+		ss.str("");
+		child = document.NewElement("emissionRate");
+		ss << sceneNode->GetEmitter()->GetEmissionRate();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		emitterNode->InsertEndChild(child);
+
+		// Initializers
+		child = document.NewElement("initializers");
+		for(auto it = sceneNode->GetEmitter()->GetInitializers().begin(); it != sceneNode->GetEmitter()->GetInitializers().end(); it++) {
+			switch((*it)->GetType()) {
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR: {
+				CColorParticleInitializer* initializer = static_cast<CColorParticleInitializer*>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxColor");
+
+				// Min
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				child2->InsertEndChild(document.NewText(initializer->GetColorMin().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				child2 = document.NewElement("max");
+				child2->InsertEndChild(document.NewText(initializer->GetColorMax().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE: {
+				CSizeParticleInitializer* initializer = static_cast<CSizeParticleInitializer*>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxSize");
+
+				// Min
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				ss << initializer->GetSizeMin();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				ss.str("");
+				child2 = document.NewElement("max");
+				ss << initializer->GetSizeMax();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE: {
+				CLifeParticleInitializer* initializer = static_cast<CLifeParticleInitializer*>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxLife");
+
+				// Min
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				ss << initializer->GetLifeMin();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				ss.str("");
+				child2 = document.NewElement("max");
+				ss << initializer->GetLifeMax();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION: {
+				CBoxPositionParticleInitializer * initializer = static_cast<CBoxPositionParticleInitializer*>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxBoxPosition");
+
+				// Min
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				child2->InsertEndChild(document.NewText(initializer->GetPositionMin().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				child2 = document.NewElement("max");
+				child2->InsertEndChild(document.NewText(initializer->GetPositionMax().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION: {
+				CRotationParticleInitializer * initializer = static_cast<CRotationParticleInitializer*>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxRotation");
+
+				// Min
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				ss << initializer->GetRotationMin();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				ss.str("");
+				child2 = document.NewElement("max");
+				ss << initializer->GetRotationMax();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY: {
+				CSphereVelocityParticleInitializer * initializer = static_cast<CSphereVelocityParticleInitializer *>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("minMaxSphereVelocity");
+
+				// Min
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("min");
+				ss << initializer->GetVelocityMin();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				ss.str("");
+				child2 = document.NewElement("max");
+				ss << initializer->GetVelocityMax();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_LINEAR_VELOCITY: {
+				CLinearVelocityParticleInitializer * initializer = static_cast<CLinearVelocityParticleInitializer *>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("linearVelocity");
+
+				// Direction
+				tinyxml2::XMLElement * child2 = document.NewElement("direction");
+				child2->InsertEndChild(document.NewText(initializer->GetDirection().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				// Variation factor
+				ss.str("");
+				child2 = document.NewElement("variationFactor");
+				ss << initializer->GetVariationFactor();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Min
+				ss.str("");
+				child2 = document.NewElement("min");
+				ss << initializer->GetVelocityMin();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				// Max
+				ss.str("");
+				child2 = document.NewElement("max");
+				ss << initializer->GetVelocityMax();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION: {
+				CRadiusPositionParticleInitializer * initializer = static_cast<CRadiusPositionParticleInitializer *>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("radiusPosition");
+
+				// Radius
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("radius");
+				ss << initializer->GetRadius();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+			}
+		}
+		emitterNode->InsertEndChild(child);
+
+		// Updaters
+		child = document.NewElement("updaters");
+		for(auto it = sceneNode->GetEmitter()->GetUpdaters().begin(); it != sceneNode->GetEmitter()->GetUpdaters().end(); it++) {
+			switch((*it)->GetType()) {
+
+			case PARTICLE_UPDATER_TYPE_COLOR: {
+				tinyxml2::XMLElement * element = document.NewElement("color");
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_UPDATER_TYPE_GRAVITY:{
+				CGravityParticleUpdater * updater = static_cast<CGravityParticleUpdater *>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("gravity");
+
+				// Vector
+				tinyxml2::XMLElement * child2 = document.NewElement("vector");
+				child2->InsertEndChild(document.NewText(updater->GetGravity().ToString().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_UPDATER_TYPE_ROTATION: {
+				tinyxml2::XMLElement * element = document.NewElement("rotation");
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_UPDATER_TYPE_SIZE: {
+				tinyxml2::XMLElement * element = document.NewElement("size");
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_UPDATER_TYPE_LIFE: {
+				tinyxml2::XMLElement * element = document.NewElement("life");
+				child->InsertEndChild(element);
+				}
+				break;
+
+			case PARTICLE_UPDATER_TYPE_VELOCITY: {
+				CVelocityParticleUpdater * updater = static_cast<CVelocityParticleUpdater *>((*it).get());
+				tinyxml2::XMLElement * element = document.NewElement("velocity");
+
+				// Damping
+				ss.str("");
+				tinyxml2::XMLElement * child2 = document.NewElement("damping");
+				ss << updater->GetDamping();
+				child2->InsertEndChild(document.NewText(ss.str().c_str()));
+				element->InsertEndChild(child2);
+
+				child->InsertEndChild(element);
+				}
+				break;
+			}
+		}
+		emitterNode->InsertEndChild(child);
+
+		// Attributes
+		SaveNodeAttributes(sceneNode, document, emitterNode);
+
+		parent->InsertEndChild(emitterNode);
+
+		// Save the children
+		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
+			SaveNode((*it), document, emitterNode);
+		}
+	}
+
+	/**
+	* Save the node attributes
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element
+	*/
+	void CSceneLoader::SaveNodeAttributes(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		std::map<std::string, std::string> attributes = node->GetAttributes();
+
+		if(!attributes.empty()) {
+			tinyxml2::XMLElement * child = document.NewElement("attributes");
+
+			for(auto it = attributes.begin(); it != attributes.end(); it++) {
+				tinyxml2::XMLElement * element = document.NewElement((*it).first.c_str());
+				element->SetValue((*it).second.c_str());
+			}
+
+			parent->InsertEndChild(child);
+		}
 	}
 
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {

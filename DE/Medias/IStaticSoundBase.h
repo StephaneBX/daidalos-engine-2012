@@ -41,12 +41,13 @@ namespace DE {
 	public:
 		/**
 		* Constructor
+		* @param name The file name
 		* @param buffer The sound buffer
 		* @param format The format
 		* @param samplesCount The number of samples
 		* @param sampleRate The sample rate
 		*/
-		IStaticSoundBase(const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate);
+		IStaticSoundBase(const std::string & name, const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate);
 
 		/**
 		* Destructor

@@ -105,6 +105,6 @@ namespace DE {
 			throw CExceptionLoad(filename);
 		}
 
-		return new IStaticSoundBase(buffer, format, nbSamples, sampleRate);
+		return new IStaticSoundBase(filename, buffer, format, nbSamples, sampleRate);
 	}
 }

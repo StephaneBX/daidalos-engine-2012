@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStreamSoundBase.h"
 
 namespace DE {
-	IStreamSoundBase::IStreamSoundBase(SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) {
+	IStreamSoundBase::IStreamSoundBase(const std::string & name, SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
 		LOG_TRACE();
 
 		this->m_framesRead = 0;

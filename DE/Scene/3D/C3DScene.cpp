@@ -55,6 +55,12 @@ namespace DE {
 		this->m_scene = CMediaManager::GetInstance()->LoadMediaFromFile<I3DScene>(sceneFile);
 	}
 
+	void C3DScene::SaveScene(const std::string & destination) {
+		LOG_TRACE();
+
+		CMediaManager::GetInstance()->SaveMediaToFile(this->m_scene, destination);
+	}
+
 	void C3DScene::ClearAll() {
 		LOG_TRACE();
 	}

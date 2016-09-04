@@ -73,6 +73,11 @@ namespace DE {
 		*/
 		void Update(const float time = 0);
 
+		/**
+		* Get the mesh name
+		*/
+		const std::string GetMeshName() const;
+
 	protected:
 		/**
 		* Finalize the geometry before rendering the mesh

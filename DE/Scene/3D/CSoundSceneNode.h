@@ -38,6 +38,7 @@ namespace DE {
 	*/
 	class CSoundSceneNode : public ISceneNode {
 	protected:
+		bool m_autoStart;
 		CSound m_sound;
 
 	public:
@@ -117,6 +118,12 @@ namespace DE {
 		void SetSoundLooped(const bool loop);
 
 		/**
+		* Set if the sound play on startup
+		* @param The auto start value
+		*/
+		void SetSoundAutoStart(const bool autoStart);
+
+		/**
 		* Get the format
 		* @return The format
 		*/
@@ -141,10 +148,58 @@ namespace DE {
 		const bool IsSoundLooped() const;
 
 		/**
+		* Get if the position relative to the listener
+		* @return If the position relative to the listener
+		*/
+		const bool IsSoundRelativeToListener() const;
+
+		/**
+		* Check if the sound should play on startup
+		* @return If the sound should play on startup
+		*/
+		const bool IsSoundAutoStart() const;
+
+		/**
 		* Get the number of channels
 		* @return The number of channels
 		*/
 		const int GetSoundChannelsCount() const;
+
+		/**
+		* Get the soudn gain
+		* @return The sound gain
+		*/
+		const float GetSoundGain() const;
+
+		/**
+		* Get the cone inner angle
+		* @return The cone inner angle
+		*/
+		const float GetSoundConeInnerAngle() const;
+
+		/**
+		* Get the cone outer angle
+		* @return The cone inner angle
+		*/
+		const float GetSoundConeOuterAngle() const;
+
+		/**
+		* Get the distance from wich the gain will be maximal
+		* @return The distance from wich the gain will be maximal
+		*/
+		const float GetSoundReferenceDistance() const;
+
+		/**
+		* Get the distance from wich the gain will be minimal
+		* @return The distance from wich the gain will be minimal
+		*/
+		const float GetSoundMaxDistance() const;
+
+		/**
+		* Get the sound name
+		* @return The sound name
+		*/
+		const std::string GetSoundName() const;
 	};
 }
 

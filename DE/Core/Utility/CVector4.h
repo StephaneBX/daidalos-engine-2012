@@ -62,6 +62,7 @@ namespace DE {
 		const bool operator==(const CVector4<T> & vec) const;
 		const bool operator!=(const CVector4<T> & vec) const;
 		const T Length() const;
+		const std::string ToString(const std::string separator = ":") const;
 		operator T * ();
 		operator const T * () const;
 		static const CVector4<T> GetFrom(const std::string text, const CVector4<T> & defaultValue = CVector4<T>(), const std::string separator = ":");
@@ -304,6 +305,17 @@ namespace DE {
 	*/
 	template <class T> inline const T CVector4<T>::Length() const {
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w);
+	}
+
+	/**
+	* Get a string from a CVector3
+	* @param separator The separator
+	*/
+	template <class T> inline const std::string CVector4<T>::ToString(const std::string separator) const {
+		std::stringstream ss;
+
+		ss << this->x << separator << this->y << separator << this->z << separator << this->w;
+		return ss.str();
 	}
 
 	/**

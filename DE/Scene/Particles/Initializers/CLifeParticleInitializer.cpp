@@ -35,6 +35,7 @@ namespace DE {
 	* @param colorMax The color max
 	*/
 	CLifeParticleInitializer::CLifeParticleInitializer(float lifeMin, float lifeMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE;
 		this->m_lifeMin = lifeMin;
 		this->m_lifeMax = lifeMax;
 
@@ -52,5 +53,21 @@ namespace DE {
 			particle->SetLife(0);
 			particle->SetLifeMax(RandomNumber<float>(this->m_lifeMin, this->m_lifeMax));
 		}
+	}
+
+	/**
+	* Get the life min
+	* @return The life min
+	*/
+	const float CLifeParticleInitializer::GetLifeMin() const {
+		return this->m_lifeMin;
+	}
+
+	/**
+	* Get the life max
+	* @return The life max
+	*/
+	const float CLifeParticleInitializer::GetLifeMax() const {
+		return this->m_lifeMax;
 	}
 }

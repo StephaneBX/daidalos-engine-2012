@@ -47,12 +47,13 @@ namespace DE {
 	public:
 		/**
 		* Constructor
+		* @param name The file name
 		* @param file The sound file
 		* @param format The format
 		* @param samplesCount The number of samples
 		* @param sampleRate The sample rate
 		*/
-		IStreamSoundBase(SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate);
+		IStreamSoundBase(const std::string & name, SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate);
 
 		/**
 		* Destructor

@@ -80,7 +80,7 @@ namespace DE {
 		return image;
 	}
 
-	void CImagesLoader::SaveToFile(const CImage * object, const std::string & filename) {
+	void CImagesLoader::SaveToFile(CImage * object, const std::string & filename) {
 		LOG_TRACE();
 
 		CImage image(object->GetSize(), PIXEL_FORMAT_A8R8G8B8);

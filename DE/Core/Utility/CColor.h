@@ -114,6 +114,12 @@ namespace DE {
 		const unsigned long ToABGR() const;
 
 		/**
+		* Get a string from a CVector3
+		* @param separator The separator
+		*/
+		const std::string ToString(const std::string separator = ":") const;
+
+		/**
 		* Get a RGB vector of this color
 		* @return a RGB color vector
 		*/

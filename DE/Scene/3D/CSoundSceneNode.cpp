@@ -34,6 +34,7 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_SOUND;
+		this->m_autoStart = false;
 		this->m_sound.LoadFromFile(filename, type);
 	}
 
@@ -114,6 +115,12 @@ namespace DE {
 		this->m_sound.SetLooped(loop);
 	}
 
+	void CSoundSceneNode::SetSoundAutoStart(const bool autoStart) {
+		LOG_TRACE();
+
+		this->m_autoStart = autoStart;
+	}
+
 	ESoundFormat CSoundSceneNode::GetSoundFormat() const {
 		LOG_TRACE();
 
@@ -138,9 +145,57 @@ namespace DE {
 		return this->m_sound.IsLooped();
 	}
 
+	const bool CSoundSceneNode::IsSoundRelativeToListener() const {
+		LOG_TRACE();
+
+		return this->m_sound.IsRelativeToListener();
+	}
+
+	const bool CSoundSceneNode::IsSoundAutoStart() const {
+		LOG_TRACE();
+
+		return this->m_autoStart;
+	}
+
 	const int CSoundSceneNode::GetSoundChannelsCount() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetChannelsCount();
+	}
+
+	const float CSoundSceneNode::GetSoundGain() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetGain();
+	}
+
+	const float CSoundSceneNode::GetSoundConeInnerAngle() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetConeInnerAngle();
+	}
+
+	const float CSoundSceneNode::GetSoundConeOuterAngle() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetConeOuterAngle();
+	}
+
+	const float CSoundSceneNode::GetSoundReferenceDistance() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetReferenceDistance();
+	}
+
+	const float CSoundSceneNode::GetSoundMaxDistance() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetMaxDistance();
+	}
+
+	const std::string CSoundSceneNode::GetSoundName() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetSound()->GetName();
 	}
 }

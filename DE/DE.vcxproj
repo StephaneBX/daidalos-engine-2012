@@ -280,6 +280,8 @@
     <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\IParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\IParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CColorParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CGravityParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CLifeParticleUpdater.cpp" />

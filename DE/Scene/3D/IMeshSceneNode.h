@@ -150,9 +150,33 @@ namespace DE {
 		virtual void Render();
 
 		/**
+		* Get the mesh name
+		*/
+		virtual const std::string GetMeshName() const = 0;
+
+		/**
+		* Get the mesh shading type
+		* @return The mesh shading type
+		*/
+		const EMeshShadingType GetMeshShadingType() const;
+
+		/**
 		* Get the visibility shape 
 		*/
 		CSphereF * GetVisibilityShape() const;
+
+		/**
+		* Get the texture name
+		* @param textureType The texture type
+		* @return The texture name
+		*/ 
+		const std::string GetMeshTextureName(ETextureType textureType) const;
+
+		/**
+		* Get the material name
+		* @return The material name
+		*/
+		const std::string GetMeshMaterialName() const;
 
 	protected:
 		/**

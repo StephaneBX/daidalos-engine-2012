@@ -26,14 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Core/CMediaManager.h>
+#include <Scene/3D/ISceneNode.h>
 #include "CEditorSceneLoader.h"
 #include "CLevelEditorApplication.h"
 
 namespace EDITOR {
-
-	#define EDITOR_NODE_NAME_CAMERA "__editor_node_camera"
-	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
-	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
 
 	enum EMeshCategorySelectionMode {
 		MESH_CATEGORY_SELECTION_MODE_NONE,
@@ -58,7 +55,7 @@ namespace EDITOR {
 		this->m_meshNode = nullptr;
 		//std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 
-		LoadLevel("sample1.des");
+		LoadLevel("sample2.des");
 
 		MainLoop();
 	}
@@ -411,7 +408,7 @@ namespace EDITOR {
 	*/
 	void CLevelEditorApplication::PostLoadLevel() {
 
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CAMERA, DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), NOSAVE_NODES_NAME, DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
 		this->m_scene3D->GetRootNode()->AddChild(viewCameraNode);
 
 		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
@@ -419,7 +416,7 @@ namespace EDITOR {
 		this->m_viewCamera->SetPosition(this->m_cameraPosition);
 		this->m_viewCamera->SetRotation(this->m_cameraRotation);
 
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CAMERA, DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), NOSAVE_NODES_NAME, DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
 		this->m_scene3D->GetRootNode()->AddChild(editCameraNode);
 
 		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
@@ -429,7 +426,8 @@ namespace EDITOR {
 		this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 		this->m_activeCamera = viewCameraNode;
 
-		//
+		// Save test
+		this->m_scene3D->SaveScene("tmpFile.des");
 	}
 
 	/**

@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStaticSoundBase.h"
 
 namespace DE {
-	IStaticSoundBase::IStaticSoundBase(const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) {
+	IStaticSoundBase::IStaticSoundBase(const std::string & name, const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
 		LOG_TRACE();
 
 		this->m_buffer = buffer;

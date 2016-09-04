@@ -116,7 +116,7 @@ namespace DE {
 		return new IFontBase(filename, data);
 	}
 
-	void CFontLoader::SaveToFile(const IFontBase * object, const std::string & filename) {
+	void CFontLoader::SaveToFile(IFontBase * object, const std::string & filename) {
 		LOG_TRACE();
 	}
 }

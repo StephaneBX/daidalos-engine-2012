@@ -35,6 +35,7 @@ namespace DE {
 	* @param velocityMax The velocity max
 	*/
 	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(float velocityMin, float velocityMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY;
 		this->m_velocityMin = velocityMin;
 		this->m_velocityMax = velocityMax;
 	}
@@ -59,6 +60,22 @@ namespace DE {
 
 			particle->SetVelocity(velocity);
 		}
+	}
+
+	/**
+	* Get the velocity min
+	* @return The velocity min
+	*/
+	const float CSphereVelocityParticleInitializer::GetVelocityMin() const {
+		return this->m_velocityMin;
+	}
+
+	/**
+	* Get the velocity max
+	* @return The velocity max
+	*/
+	const float CSphereVelocityParticleInitializer::GetVelocityMax() const {
+		return this->m_velocityMax;
 	}
 }
 

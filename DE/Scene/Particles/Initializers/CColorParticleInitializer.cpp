@@ -35,6 +35,7 @@ namespace DE {
 	* @param colorMax The color max
 	*/
 	CColorParticleInitializer::CColorParticleInitializer(CColor colorMin, CColor colorMax) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR;
 		this->m_colorMin = colorMin;
 		this->m_colorMax = colorMax;
 	}
@@ -52,5 +53,21 @@ namespace DE {
 			particle->SetColorMin(this->m_colorMin);
 			particle->SetColorMax(this->m_colorMax);
 		}
+	}
+
+	/**
+	* Get the color min
+	* @return The color min
+	*/
+	const CColor & CColorParticleInitializer::GetColorMin() const {
+		return this->m_colorMin;
+	}
+
+	/**
+	* Get the color max
+	* @return The color max
+	*/
+	const CColor & CColorParticleInitializer::GetColorMax() const {
+		return this->m_colorMax;
 	}
 }

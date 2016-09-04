@@ -52,6 +52,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the gravity
+		* @return The gravity
+		*/
+		const CVector3F & GetGravity() const;
 	};
 }
 

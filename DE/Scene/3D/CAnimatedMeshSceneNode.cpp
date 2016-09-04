@@ -181,6 +181,17 @@ namespace DE {
 		}
 	}
 
+	const std::string CAnimatedMeshSceneNode::GetMeshName() const {
+		LOG_TRACE();
+
+		std::string name = "";
+		if(this->m_mesh.GetMesh() != nullptr) {
+			name = this->m_mesh.GetMesh()->GetName();
+		}
+
+		return name;
+	}
+
 	const int CAnimatedMeshSceneNode::GetNumberOfFrames() const {
 		LOG_TRACE();
 

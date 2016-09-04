@@ -63,4 +63,14 @@ namespace DE {
 		// Update the emitter position
 		this->m_emitter->SetPosition(GetAbsolutePosition());
 	}
+
+	/**
+	* Get the particle emitter
+	* @return The particle emitter
+	*/
+	CParticleEmitter * CParticleEmitterSceneNode::GetEmitter() const {
+		LOG_TRACE();
+
+		return this->m_emitter;
+	}
 }

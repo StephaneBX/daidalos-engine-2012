@@ -250,6 +250,12 @@ namespace DE {
 		return this->m_attributes[attributeName];
 	}
 
+	const std::map<std::string, std::string> & ISceneNode::GetAttributes() const {
+		LOG_TRACE();
+
+		return this->m_attributes;
+	}
+
 	const CVector3F & ISceneNode::GetRotation() const {
 		LOG_TRACE();
 

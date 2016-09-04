@@ -58,6 +58,30 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the variation factor
+		* @return The variation factor
+		*/
+		const float GetVariationFactor() const;
+
+		/**
+		* Get the velocity min
+		* @return The velocity min
+		*/
+		const float GetVelocityMin() const;
+
+		/**
+		* Get the velocity max
+		* @return The velocity max
+		*/
+		const float GetVelocityMax() const;
+
+		/**
+		* Get the direction
+		* @return The direction
+		*/
+		const CVector3F & GetDirection() const;
 	};
 }
 

@@ -950,5 +950,11 @@
     <ClCompile Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.cpp">
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Particles\IParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\IParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

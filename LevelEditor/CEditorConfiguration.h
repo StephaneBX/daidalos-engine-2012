@@ -32,6 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 
 namespace EDITOR {
+
+	#define EDITOR_NODE_NAME_CAMERA "__editor_node_camera"
+	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
+	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
+	#define EDITOR_NODE_NAME_BRUSH "__editor_node_brush"
+
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,
 		EDITOR_ACTION_CAMERA_UP = 1 << 2,

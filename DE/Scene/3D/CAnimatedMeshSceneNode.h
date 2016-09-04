@@ -143,6 +143,11 @@ namespace DE {
 		*/
 		EMeshAnimationState GetAnimationState() const;
 
+		/**
+		* Get the mesh name
+		*/
+		const std::string GetMeshName() const;
+
 	protected:
 		/**
 		* Finalize the geometry before rendering the mesh

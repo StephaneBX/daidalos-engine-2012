@@ -32,10 +32,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/CParticleEntity.h"
 
 namespace DE {
+
+	enum EParticleInitializerType {
+		PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR,
+		PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE,
+		PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE,
+		PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION,
+		PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION,
+		PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY,
+		PARTICLE_INITIALIZER_TYPE_LINEAR_VELOCITY,
+		PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION
+	};
+
 	/**
 	* The particle initializer abstract class
 	*/
 	class IParticleInitializer {
+
+	protected:
+		EParticleInitializerType m_type;
 
 	public:
 		/**
@@ -44,6 +59,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
+
+		/**
+		* Get the initializer type
+		* @return The initializer type
+		*/
+		const EParticleInitializerType GetType() const;
 	};
 }
 

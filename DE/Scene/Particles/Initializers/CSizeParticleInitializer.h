@@ -54,6 +54,18 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+
+		/**
+		* Get the size min
+		* @return The size min
+		*/
+		const float GetSizeMin();
+
+		/**
+		* Get the size max
+		* @return The size max
+		*/
+		const float GetSizeMax();
 	};
 }
 

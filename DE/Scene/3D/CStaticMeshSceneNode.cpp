@@ -96,6 +96,17 @@ namespace DE {
 		}
 	}
 
+	const std::string CStaticMeshSceneNode::GetMeshName() const {
+		LOG_TRACE();
+
+		std::string name = "";
+		if(this->m_mesh.GetMesh() != nullptr) {
+			name = this->m_mesh.GetMesh()->GetName();
+		}
+
+		return name;
+	}
+
 	void CStaticMeshSceneNode::FinalizeGeometry() {
 		LOG_TRACE();
 

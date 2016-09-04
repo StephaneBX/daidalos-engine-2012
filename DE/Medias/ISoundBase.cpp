@@ -238,7 +238,7 @@ namespace DE {
 		return result;
 	}
 
-	ISoundBase::ISoundBase() {
+	ISoundBase::ISoundBase(const std::string & name) : IResource(name) {
 		LOG_TRACE();
 
 		this->m_format = SOUND_FORMAT_MONO16;

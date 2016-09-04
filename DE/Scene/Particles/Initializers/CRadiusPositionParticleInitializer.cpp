@@ -35,6 +35,7 @@ namespace DE {
 	* @param colorMax The color max
 	*/
 	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(float radius) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION;
 		this->m_radius = radius;
 	}
 
@@ -51,5 +52,13 @@ namespace DE {
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + position);
 		}
+	}
+
+	/**
+	* Get the radius
+	* @return The radius
+	*/
+	const float CRadiusPositionParticleInitializer::GetRadius() const {
+		return this->m_radius;
 	}
 }

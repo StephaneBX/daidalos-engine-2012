@@ -252,4 +252,20 @@ namespace DE {
 	const std::vector<int> & CParticleEmitter::GetParticleIndex() const {
 		return this->m_particleIndex;
 	}
+
+	/**
+	* Get the particle initializers
+	* @return The initializers
+	*/
+	const std::vector<std::unique_ptr<IParticleInitializer> > & CParticleEmitter::GetInitializers() const {
+		return this->m_initializers;
+	}
+
+	/**
+	* Get the particle updaters
+	* @return The particle updaters
+	*/
+	const std::vector<std::unique_ptr<IParticleUpdater> > & CParticleEmitter::GetUpdaters() const {
+		return this->m_updaters;
+	}
 }

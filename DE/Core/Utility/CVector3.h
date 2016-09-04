@@ -71,6 +71,7 @@ namespace DE {
 		const T Length() const;
 		const T DotProduct(const CVector3<T> & vec) const;
 		const T Distance(const CVector3<T> & vec) const;
+		const std::string ToString(const std::string separator = ":") const;
 		operator T * ();
 		operator const T * () const;
 		static const CVector3<T> CrossProduct(const CVector3<T> & vec1, const CVector3<T> & vec2);
@@ -388,6 +389,17 @@ namespace DE {
 	*/
 	template <class T> inline const T CVector3<T>::Distance(const CVector3<T> & vec) const {
 		return CVector3<T>(vec.x - this->x, vec.y - this->y, vec.z - this->z).Length();
+	}
+
+	/**
+	* Get a string from a CVector3
+	* @param separator The separator
+	*/
+	template <class T> inline const std::string CVector3<T>::ToString(const std::string separator) const {
+		std::stringstream ss;
+
+		ss << this->x << separator << this->y << separator << this->z;
+		return ss.str();
 	}
 
 	/**

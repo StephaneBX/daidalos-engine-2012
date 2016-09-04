@@ -184,6 +184,18 @@ namespace DE {
 		* @return the index vector
 		*/
 		const std::vector<int> & GetParticleIndex() const;
+
+		/**
+		* Get the particle initializers
+		* @return The initializers
+		*/
+		const std::vector<std::unique_ptr<IParticleInitializer> > & GetInitializers() const;
+
+		/**
+		* Get the particle updaters
+		* @return The particle updaters
+		*/
+		const std::vector<std::unique_ptr<IParticleUpdater> > & GetUpdaters() const;
 	};
 }
 

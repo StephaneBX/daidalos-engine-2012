@@ -32,15 +32,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace EDITOR {
 
 	/**
-	* Save a scene into a file
-	* @param root The scene root
-	* @param filename The output file
-	*/
-	void CEditorSceneLoader::SaveToFile(DE::ISceneNode * root, const std::string & filename) {
-
-	}
-
-	/**
 	* Override and use a simple node system
 	* @param parent The node parent
 	* @param child The bsp node root
@@ -58,6 +49,68 @@ namespace EDITOR {
 	*/
 	void CEditorSceneLoader::LoadSimpleStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
+	}
+
+	/**
+	* Save the simple structure
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CEditorSceneLoader::SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+		SaveBSPStructure(node, document, parent);
+	}
+
+	/**
+	* Save the bsp structure
+	* @param node The node
+	* @param document The xml document
+	* @param parent The element parent
+	*/
+	void CEditorSceneLoader::SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		parent->InsertEndChild(document.NewComment(" BSP Level Node "));
+
+		DE::ILevelSceneNode * levelNode = static_cast<DE::ILevelSceneNode*>(node);
+
+		// Level node
+		tinyxml2::XMLElement * levelElement = document.NewElement("node");
+
+		// Type
+		levelElement->SetAttribute("type", DE::SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
+
+		// Name
+		levelElement->SetAttribute("name", "level");
+
+		// Ambient color
+		levelElement->SetAttribute("ambientColor", levelNode->GetAmbientColor().ToString().c_str());
+
+		// Skybox name
+		levelElement->SetAttribute("skyName", levelNode->GetSkyName().c_str());
+
+		// Skybox ambient color
+		levelElement->SetAttribute("skyAmbientColor", levelNode->GetSkyAmbientColor().ToString().c_str());
+
+		// Multibrush
+		tinyxml2::XMLElement * multiBrush = document.NewElement("multi_brush");
+
+		// Search for multi brush elements
+		for(auto it = levelNode->GetChildren().begin(); it != levelNode->GetChildren().end(); it++) {
+
+			if(std::string("__editor_node_multibrush").compare((*it)->GetName()) == 0) {
+				// The child is part of the multi brush, add it to the multi_brush element
+				SaveBrush((*it), document, multiBrush);
+			} else if(std::string("__editor_node_brush").compare((*it)->GetName()) == 0) {
+				// The child is a brush, add it to the level node
+				SaveBrush((*it), document, levelElement);
+			} else {
+				// The child is not part on multi brush, add it to the level node
+				SaveNode((*it), document, levelElement);
+			}
+		}
+
+		levelElement->InsertFirstChild(multiBrush);
+		parent->InsertEndChild(levelElement);
 	}
 
 	/**
@@ -98,12 +151,13 @@ namespace EDITOR {
 					if(std::string(child2->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2);
 
-						DE::CVector3F position, rotation;
+						DE::CVector3F position, rotation, scale;
 						std::string diffuseTexture, normalTexture;
 
 						// Search for defined values in the element or use default values
 						GetNodeData(brushHandle, "position", position, DE::CVector3F(0, 0, 0));
 						GetNodeData(brushHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
+						GetNodeData(brushHandle, "scale", scale, DE::CVector3F(1, 1, 1));
 						GetNodeData(brushHandle, "diffuse_texture", diffuseTexture, "default.png");
 						GetNodeData(brushHandle, "normal_texture", normalTexture, "default.png");
 						std::string file = brushHandle.ToElement()->Attribute("file");
@@ -112,7 +166,7 @@ namespace EDITOR {
 						brushHandle.ToElement()->QueryIntAttribute("id", &id);
 
 						// Create the node
-						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, "__editor_node_multibrush", file, position, rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
+						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, "__editor_node_multibrush", file, position, rotation, scale);
 						meshNode->SetId(id);
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
@@ -121,5 +175,85 @@ namespace EDITOR {
 				}
 			}
 		}
+
+		child = handle.FirstChildElement("brush").ToElement();
+		for(child; child; child = child->NextSiblingElement()) {
+			// A simple brush
+			if(std::string(child->Name()) == "brush") {
+				tinyxml2::XMLHandle brushHandle(child);
+
+				DE::CVector3F position, rotation, scale;
+				std::string diffuseTexture, normalTexture;
+
+				// Search for defined values in the element or use default values
+				GetNodeData(brushHandle, "position", position, DE::CVector3F(0, 0, 0));
+				GetNodeData(brushHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
+				GetNodeData(brushHandle, "scale", scale, DE::CVector3F(1, 1, 1));
+				GetNodeData(brushHandle, "diffuse_texture", diffuseTexture, "default.png");
+				GetNodeData(brushHandle, "normal_texture", normalTexture, "default.png");
+				std::string file = brushHandle.ToElement()->Attribute("file");
+
+				int id = SCENE_DEFAULT_ID;
+				brushHandle.ToElement()->QueryIntAttribute("id", &id);
+
+				// Create the node
+				DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, "__editor_node_brush", file, position, rotation, scale);
+				meshNode->SetId(id);
+				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				node->AddChild(meshNode);
+			}
+		}
+	}
+
+	/**
+	* Save a node as a brush
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CEditorSceneLoader::SaveBrush(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+
+		DE::IMeshSceneNode * meshNode = static_cast<DE::IMeshSceneNode *>(node);
+		tinyxml2::XMLElement * brush = document.NewElement("brush");
+
+		// Id
+		if(meshNode->GetId() != SCENE_DEFAULT_ID) {
+			brush->SetAttribute("id", meshNode->GetId());
+		}
+
+		// File
+		brush->SetAttribute("file", meshNode->GetMeshName().c_str());
+
+		// Position
+		tinyxml2::XMLElement * child = document.NewElement("position");
+		child->InsertEndChild(document.NewText((meshNode->GetPosition().ToString().c_str())));
+		brush->InsertEndChild(child);
+
+		// Rotation
+		child = document.NewElement("rotation");
+		child->InsertEndChild(document.NewText((meshNode->GetRotation().ToString().c_str())));
+		brush->InsertEndChild(child);
+
+		// Scale
+		child = document.NewElement("scale");
+		child->InsertEndChild(document.NewText((meshNode->GetScale().ToString().c_str())));
+		brush->InsertEndChild(child);
+
+		// Diffuse texture
+		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE) != "") {
+			child = document.NewElement("diffuse_texture");
+			child->InsertEndChild(document.NewText((meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).c_str())));
+			brush->InsertEndChild(child);
+		}
+
+		// Normal texture
+		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL) != "") {
+			child = document.NewElement("normal_texture");
+			child->InsertEndChild(document.NewText((meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL).c_str())));
+			brush->InsertEndChild(child);
+		}
+
+		parent->InsertEndChild(brush);
 	}
 }

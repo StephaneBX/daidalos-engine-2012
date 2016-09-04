@@ -50,4 +50,12 @@ namespace DE {
 			particle->SetPosition(particle->GetPosition() + (this->m_gravity * timeSecond));
 		}
 	}
+
+	/**
+	* Get the gravity
+	* @return The gravity
+	*/
+	const CVector3F & CGravityParticleUpdater::GetGravity() const {
+		return this->m_gravity;
+	}
 }

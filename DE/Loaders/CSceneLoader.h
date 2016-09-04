@@ -39,6 +39,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/3D/ISceneNode.h"
 
 namespace DE {
+
 	/**
 	* Loader for daidalos engine scene files (.des)
 	*/
@@ -73,7 +74,7 @@ namespace DE {
 		* @param root The scene root
 		* @param filename The output file
 		*/
-		virtual void SaveToFile(ISceneNode * root, const std::string & filename);
+		virtual void SaveToFile(I3DScene * object, const std::string & filename);
 
 	protected:
 		/**
@@ -126,7 +127,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save the particle system configuration into an xml element
@@ -134,7 +135,7 @@ namespace DE {
 		* @param parent The element parent
 		* @param scene The scene holding the particle system
 		*/
-		virtual void SaveParticleSystem(DE::I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveParticleSystem(I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save the simple structure
@@ -142,7 +143,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveSimpleStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save the bsp structure
@@ -150,7 +151,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveBSPStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a camera node
@@ -158,7 +159,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveCameraNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveCameraNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a spot light node
@@ -166,7 +167,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveSpotLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveSpotLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a point light node
@@ -174,7 +175,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SavePointLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SavePointLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a directional light node
@@ -182,7 +183,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveDirectionalLightNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveDirectionalLightNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a static mesh node
@@ -190,7 +191,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveStaticMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveStaticMeshNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save an animated mesh node
@@ -198,7 +199,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveAnimatedMeshNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveAnimatedMeshNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a sound node
@@ -206,7 +207,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveSoundNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveSoundNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save an empty node
@@ -214,7 +215,15 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveEmptyNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveEmptyNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+
+		/**
+		* Save the node attributes
+		* @param node The node
+		* @param document The xml document
+		* @param parent The element parent
+		*/
+		void SaveNodeAttributes(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Save a particle emitter node
@@ -222,7 +231,7 @@ namespace DE {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveParticleEmitterNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveParticleEmitterNode(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 
 		/**
 		* Get a node data

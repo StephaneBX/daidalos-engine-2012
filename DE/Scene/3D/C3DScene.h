@@ -56,6 +56,12 @@ namespace DE {
 		void LoadScene(const std::string & sceneFile);
 
 		/**
+		* Save a Daidalos Engine Scene file (.des)
+		* @param destination The destination
+		*/
+		void SaveScene(const std::string & destination);
+
+		/**
 		* Clear the scene
 		*/
 		void ClearAll();

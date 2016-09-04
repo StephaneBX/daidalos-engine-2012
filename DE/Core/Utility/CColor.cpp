@@ -134,6 +134,23 @@ namespace DE {
 	}
 
 	/**
+	* Get a string from a CVector3
+	* @param separator The separator
+	*/
+	const std::string CColor::ToString(const std::string separator) const {
+		LOG_TRACE();
+
+		// Truncate
+		CVector4F vector = ToRGBAVector();
+		vector.x = TruncateDecimal(vector.x);
+		vector.y = TruncateDecimal(vector.y);
+		vector.z = TruncateDecimal(vector.z);
+		vector.w = TruncateDecimal(vector.w);
+
+		return vector.ToString();
+	}
+
+	/**
 	* Get a RGB vector of this color
 	* @return a RGB color vector
 	*/

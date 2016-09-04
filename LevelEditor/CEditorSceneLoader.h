@@ -37,12 +37,6 @@ namespace EDITOR {
 	class CEditorSceneLoader : public DE::CSceneLoader {
 
 	public:
-		/**
-		* Save a scene into a file
-		* @param root The scene root
-		* @param filename The output file
-		*/
-		virtual void SaveToFile(DE::ISceneNode * root, const std::string & filename);
 
 	protected:
 		/**
@@ -61,6 +55,22 @@ namespace EDITOR {
 		*/
 		virtual void LoadSimpleStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node);
 
+		/**
+		* Save the simple structure
+		* @param node The node
+		* @param document The xml document
+		* @param parent The element parent
+		*/
+		virtual void SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+
+		/**
+		* Save the bsp structure
+		* @param node The node
+		* @param document The xml document
+		* @param parent The element parent
+		*/
+		virtual void SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+
 	private:
 		/**
 		* Replace the bsp and simple structure with an editor specific one
@@ -69,6 +79,14 @@ namespace EDITOR {
 		* @param node The node to fill
 		*/
 		void LoadEditorLevelStucture(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node);
+
+		/**
+		* Save a node as a brush
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		void SaveBrush(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 	};
 }
 

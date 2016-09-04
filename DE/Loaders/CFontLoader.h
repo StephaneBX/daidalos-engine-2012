@@ -60,7 +60,7 @@ namespace DE {
 		* @param object The font
 		* @param filename The output file
 		*/
-		void SaveToFile(const IFontBase * object, const std::string & filename);
+		void SaveToFile(IFontBase * object, const std::string & filename);
 	};
 }
 

@@ -36,9 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector3.h"
 #include "../../Core/Utility/CMatrix.h"
 
-#define MESHSCENE_ALL_GROUPS -1
-
 namespace DE {
+
+	#define MESHSCENE_ALL_GROUPS -1
+	#define NOSAVE_NODES_NAME "__nosave__"
+
 	class I3DScene;
 	/**
 	* Basic class for the scene nodes.
@@ -223,6 +225,12 @@ namespace DE {
 		* @return The attribute value or an empty string if the attribute is not found
 		*/
 		const std::string & GetAttribute(const std::string & attributeName);
+
+		/**
+		* Get the attributes
+		* @return The attributes
+		*/
+		const std::map<std::string, std::string> & GetAttributes() const;
 
 		/**
 		* Get the local position
