@@ -40,7 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 #define INPUT_NO_LINKED_ACTION -1
 #define MAX_GAMEPADS 4
-#define GAMEPAD_AXIS_THRESHOLD 0.2f
+#define GAMEPAD_AXIS_THRESHOLD 0.3f
 
 	enum EInputKey {
 		INPUT_KEY_UNDEFINED,
@@ -326,6 +326,12 @@ namespace DE {
 		void AddKeyboardListener(IInputKeyboardListener * listener);
 
 		/**
+		* Remove a keyboard listener from the listeners list
+		* @param listener The keyboard listener
+		*/
+		void RemoveKeyboardListener(IInputKeyboardListener * listener);
+
+		/**
 		* Add a mouse listener to the listeners list
 		* @param listener The mouse listener
 		*/
@@ -372,14 +378,16 @@ namespace DE {
 		/**
 		* Set a keyboard key to up
 		* @param key The keyboard key
+		* @param ascii The ascii value
 		*/
-		void SetKeyUp(EInputKey key);
+		void SetKeyUp(EInputKey key, const unsigned int ascii = 0);
 
 		/**
 		* Set a keyboard key to down
 		* @param key The keyboard key
+		* @param ascii The ascii value
 		*/
-		void SetKeyDown(EInputKey key);
+		void SetKeyDown(EInputKey key, const unsigned int ascii = 0);
 
 		/**
 		* Set a gamepad key

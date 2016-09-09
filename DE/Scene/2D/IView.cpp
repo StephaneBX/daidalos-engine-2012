@@ -85,6 +85,12 @@ namespace DE {
 		this->m_visible = visible;
 	}
 
+	void IView::SetBlended(const bool blended) {
+		LOG_TRACE();
+
+		this->m_blended = blended;
+	}
+
 	void IView::SetPosition(const CVector2I & position) {
 		LOG_TRACE();
 
@@ -210,6 +216,7 @@ namespace DE {
 
 		this->m_changed = false;
 		this->m_visible = true;
+		this->m_blended = true;
 		this->m_hitTest = false;
 		this->m_parent = nullptr;
 
@@ -233,6 +240,7 @@ namespace DE {
 
 		this->m_changed = copy.m_changed;
 		this->m_visible = copy.m_visible;
+		this->m_blended = copy.m_blended;
 		this->m_position = copy.m_position;
 		this->m_preferredsize = copy.m_preferredsize;
 		this->m_boundingRectangle = copy.m_boundingRectangle;

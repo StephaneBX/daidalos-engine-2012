@@ -345,12 +345,12 @@ namespace DE {
 				switch(msg.message) {
 				case WM_KEYDOWN:
 					if(msg.wParam < 167)
-						this->m_input->SetKeyDown(s_keyCode[msg.wParam]);
+						this->m_input->SetKeyDown(s_keyCode[msg.wParam], msg.wParam);
 					break;
 
 				case WM_KEYUP:
 					if(msg.wParam < 167)
-						this->m_input->SetKeyUp(s_keyCode[msg.wParam]);
+						this->m_input->SetKeyUp(s_keyCode[msg.wParam], msg.wParam);
 					break;
 
 				case WM_MOUSEMOVE:
@@ -529,7 +529,7 @@ namespace DE {
 				}
 
 				// V
-				if(state.lRz < axisCenter * axisThreshold) {
+				if(state.lRz < axisCenter * axisThreshold && state.lRz > 0) {
 					axisFactor = std::min(1.0f, 1.0f - (state.lRz / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
 				} else {

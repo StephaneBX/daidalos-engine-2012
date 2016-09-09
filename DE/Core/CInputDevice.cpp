@@ -87,6 +87,15 @@ namespace DE {
 		this->m_keyboardListeners.push_back(listener);
 	}
 
+	void CInputDevice::RemoveKeyboardListener(IInputKeyboardListener * listener) {
+		LOG_TRACE();
+
+		auto it = std::find(this->m_keyboardListeners.begin(), this->m_keyboardListeners.end(), listener);
+		if(it != this->m_keyboardListeners.end()) {
+			this->m_keyboardListeners.erase(it);
+		}
+	}
+
 	void CInputDevice::AddMouseListener(IInputMouseListener * listener) {
 		LOG_TRACE();
 		this->m_mouseListeners.push_back(listener);
@@ -142,22 +151,30 @@ namespace DE {
 			(*it)->OnInputMouseMoved(this->m_mousePosition, this->m_mouseMovement);
 	}
 
-	void CInputDevice::SetKeyUp(EInputKey key) {
+	void CInputDevice::SetKeyUp(EInputKey key, const unsigned int ascii) {
 		LOG_TRACE();
 
-		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING)
+		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING) {
 			SetKeyUp(this->m_actions, INPUT_TYPE_KEYBOARD, key);
-		else
+
+			// Call all the listeners
+			for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2) {
+				(*it2)->OnKeyPressed(ascii);
+			}
+
+		} else {
 			SetKeyUp(this->m_actions, INPUT_TYPE_MOUSE, key);
+		}
 	}
 
-	void CInputDevice::SetKeyDown(EInputKey key) {
+	void CInputDevice::SetKeyDown(EInputKey key, const unsigned int ascii) {
 		LOG_TRACE();
 
-		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING)
+		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING) {
 			SetKeyDown(this->m_actions, INPUT_TYPE_KEYBOARD, key);
-		else
+		} else {
 			SetKeyDown(this->m_actions, INPUT_TYPE_MOUSE, key);
+		}
 	}
 
 	void CInputDevice::SetGamepadKey(const unsigned int gamepadId, EInputKeyGamepad key, const float factor) {
@@ -297,8 +314,9 @@ namespace DE {
 					}
 
 					// Call all the listeners
-					for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2)
+					for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2) {
 						(*it2)->OnInputActionStarted(it->second.actionId);
+					}
 				}
 
 				// Update the factor

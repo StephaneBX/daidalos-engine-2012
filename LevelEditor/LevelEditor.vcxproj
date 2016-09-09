@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CConsoleView.h" />
     <ClInclude Include="CEditCamera.h" />
     <ClInclude Include="CEditorConfiguration.h" />
     <ClInclude Include="CEditorLevelSceneNode.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="CViewCamera.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CConsoleView.cpp" />
     <ClCompile Include="CEditCamera.cpp" />
     <ClCompile Include="CEditorConfiguration.cpp" />
     <ClCompile Include="CEditorLevelSceneNode.cpp" />

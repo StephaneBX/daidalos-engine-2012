@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 
 namespace DE {
+
 	/**
 	* Keyboard inputs listener interface.
 	*/
@@ -47,6 +48,12 @@ namespace DE {
 		* @param actionId The action id
 		*/
 		virtual void OnInputActionStopped(const unsigned int actionId) = 0;
+
+		/**
+		* Called when a key has been pressed
+		* @param key The key
+		*/
+		virtual void OnKeyPressed(const unsigned int key) = 0;
 	};
 }
 

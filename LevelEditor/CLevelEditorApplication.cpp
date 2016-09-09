@@ -55,6 +55,9 @@ namespace EDITOR {
 		this->m_meshNode = nullptr;
 		//std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
 
+		this->m_consoleView = std::unique_ptr<CConsoleView>(new CConsoleView(5));
+		this->m_scene2D->AddToMainView(this->m_consoleView.get());
+
 		LoadLevel("sample2.des");
 
 		MainLoop();
@@ -66,35 +69,47 @@ namespace EDITOR {
 
 		if(!this->m_loading) {
 
-			if(this->m_input->IsActionActive(EDITOR_ACTION_LIGHTS)) {
-				this->m_drawLights = !this->m_drawLights;
-				this->m_input->FreezeAction(EDITOR_ACTION_LIGHTS);
-				this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+			// Console
+			if(this->m_input->IsActionActive(EDITOR_ACTION_CONSOLE)) {
+				this->m_input->FreezeAction(EDITOR_ACTION_CONSOLE);
+				this->m_consoleView->SetVisible(!this->m_consoleView->IsVisible());
 			}
 
-			// Culling state
-			if(this->m_input->IsActionActive(EDITOR_ACTION_CULLING)) {
-				this->m_culling = !this->m_culling;
-				this->m_input->FreezeAction(EDITOR_ACTION_CULLING);
-			}
+			// The console view pauses everything
+			if(!this->m_consoleView->IsVisible()) {
+				// Lights state
+				if(this->m_input->IsActionActive(EDITOR_ACTION_LIGHTS)) {
+					this->m_drawLights = !this->m_drawLights;
+					this->m_input->FreezeAction(EDITOR_ACTION_LIGHTS);
+					this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+				}
 
-			if(this->m_viewMode) {
-				UpdateViewMode(time);
+				// Culling state
+				if(this->m_input->IsActionActive(EDITOR_ACTION_CULLING)) {
+					this->m_culling = !this->m_culling;
+					this->m_input->FreezeAction(EDITOR_ACTION_CULLING);
+				}
+
+				if(this->m_viewMode) {
+					UpdateViewMode(time);
+				} else {
+					UpdateEditMode(time);
+				}
+
+				this->m_scene3D->SetActiveCamera(this->m_activeCamera);
+				this->m_scene3D->UpdateAll(time);
+
+				this->m_cursor.Update(time);
+				this->m_scene2D->Update(time);
+
+				this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
+				this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
+
+				if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
+					std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
+				}
 			} else {
-				UpdateEditMode(time);
-			}
-			
-			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-			this->m_scene3D->UpdateAll(time);
-
-			this->m_cursor.Update(time);
-			this->m_scene2D->Update(time);
-
-			this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
-			this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
-
-			if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
-				std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
+				this->m_scene2D->Update(time);
 			}
 
 		} else {

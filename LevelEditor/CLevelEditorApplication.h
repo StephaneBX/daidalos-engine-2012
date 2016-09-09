@@ -33,6 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CEditorConfiguration.h"
 #include "CViewCamera.h"
 #include "CEditCamera.h"
+#include "CConsoleView.h"
 
 namespace EDITOR {
 	/**
@@ -68,6 +69,8 @@ namespace EDITOR {
 		DE::CVector3F m_cameraRotation;
 
 		DE::CStaticMeshSceneNode * m_meshNode;
+
+		std::unique_ptr<CConsoleView> m_consoleView;
 
 	public:
 		/**
