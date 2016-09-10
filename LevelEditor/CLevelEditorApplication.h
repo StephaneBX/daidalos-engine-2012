@@ -31,15 +31,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IForwardSampleApplication.h>
 #include <Scene/3D/CProjectionCameraSceneNode.h>
 #include "CEditorConfiguration.h"
-#include "CViewCamera.h"
-#include "CEditCamera.h"
-#include "CConsoleView.h"
+#include "3D/CViewCamera.h"
+#include "3D/CEditCamera.h"
+#include "2D/CConsoleView.h"
+#include "2D/IConsoleListener.h"
 
 namespace EDITOR {
 	/**
 	* Level editor application implementation
 	*/
-	class CLevelEditorApplication : public SAMPLES::IForwardSampleApplication {
+	class CLevelEditorApplication : public SAMPLES::IForwardSampleApplication, IConsoleListener {
 	private:
 		bool m_viewMode;
 		bool m_drawSkybox;
@@ -47,13 +48,10 @@ namespace EDITOR {
 		bool m_culling;
 
 		int m_meshCategorySelectionMode;
-
 		int m_groundMeshEditIndex;
 		int m_groundTextureEditIndex;
-
 		int m_wallMeshEditIndex;
 		int m_wallTextureEditIndex;
-
 		int m_ceilingMeshEditIndex;
 		int m_ceilingTextureEditIndex;
 
@@ -90,6 +88,18 @@ namespace EDITOR {
 		* @param time Elapsed time
 		*/
 		void Update(const float time);
+
+		/**
+		* Called when a load command is inputed in the console
+		* @param filename The level filename to load
+		*/
+		void OnConsoleCommandLoad(const std::string filename);
+
+		/**
+		* Called when a save command is inputed in the console
+		* @param filename The level filename to save the current scene into
+		*/
+		void OnConsoleCommandSave(const std::string filename);
 
 	private:
 		/**

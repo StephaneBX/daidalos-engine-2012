@@ -77,7 +77,7 @@ namespace DE {
 	I3DScene * CSceneLoader::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
-		I3DScene * scene = new I3DScene();
+		I3DScene * scene = new I3DScene(filename);
 
 		if(this->m_renderer == nullptr)
 			this->m_renderer = IRenderer::GetRenderer();
@@ -100,6 +100,8 @@ namespace DE {
 			if(element != nullptr) {
 				tinyxml2::XMLHandle & handle = tinyxml2::XMLHandle(element);
 				LoadParticleSystem(scene, handle);
+			} else {
+				LoadDefaultParticleSystem(scene);
 			}
 
 			// Read the structure nodes
@@ -139,6 +141,9 @@ namespace DE {
 
 		// Save the xml
 		document.SaveFile(filename.c_str());
+
+		// Update the scene filename
+		object->SetFilename(filename);
 	}
 
 	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
@@ -662,6 +667,13 @@ namespace DE {
 
 		scene->GetParticleSystem().InitializeSystem(particleSystemSize);
 		scene->GetParticleSystem().SetAtlasTexture(atlasTexture, atlasSize);
+	}
+
+	void CSceneLoader::LoadDefaultParticleSystem(I3DScene * scene) {
+		LOG_TRACE();
+
+		scene->GetParticleSystem().InitializeSystem(5000);
+		scene->GetParticleSystem().SetAtlasTexture("particleAtlas.tga", CVector2I(1, 1));
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {

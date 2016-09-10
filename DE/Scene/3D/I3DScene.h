@@ -98,6 +98,7 @@ namespace DE {
 	class I3DScene {
 	private:
 		float m_lighteningUpdateTimer;
+		std::string m_filename;
 		SSPotLightsShaderData * m_activeSpotLights;
 		SPointLightsShaderData * m_activePointLights;
 		SDirectionalLightsShaderData * m_activeDirectionalLights;
@@ -115,7 +116,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		I3DScene();
+		I3DScene(const std::string & filename);
 
 		/**
 		* Destructor
@@ -126,6 +127,12 @@ namespace DE {
 		* Clear the scene
 		*/
 		void ClearAll();
+
+		/**
+		* Set the scene filename
+		* @param filename The filename
+		*/
+		void SetFilename(const std::string & filename);
 
 		/**
 		* Set the root node
@@ -258,6 +265,11 @@ namespace DE {
 		* @return The number of visible triangles
 		*/
 		const int GetNumberOfVisibleTriangles() const;
+
+		/**
+		* Get the scene filename
+		*/
+		const std::string & GetFilename() const;
 
 		/**
 		* Get the ambient color of the scene

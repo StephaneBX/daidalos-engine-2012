@@ -36,10 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 
-	I3DScene::I3DScene() {
+	I3DScene::I3DScene(const std::string & filename) {
 		LOG_TRACE();
 
 		this->m_root = nullptr;
+		this->m_filename = filename;
 		this->m_activeSpotLights = new SSPotLightsShaderData;
 		this->m_activePointLights = new SPointLightsShaderData;
 		this->m_activeDirectionalLights = new SDirectionalLightsShaderData;
@@ -71,6 +72,11 @@ namespace DE {
 
 	void I3DScene::ClearAll() {
 		LOG_TRACE();
+	}
+
+	void I3DScene::SetFilename(const std::string & filename) {
+		LOG_TRACE();
+		this->m_filename = filename;
 	}
 
 	void I3DScene::SetRoot(ISceneNode * root) {
@@ -325,6 +331,12 @@ namespace DE {
 		Assert(this->m_root != nullptr);
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
+	}
+
+	const std::string & I3DScene::GetFilename() const {
+		LOG_TRACE();
+
+		return this->m_filename;
 	}
 
 	const CVector4F & I3DScene::GetAmbientColor() const {

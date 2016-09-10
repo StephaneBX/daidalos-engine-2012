@@ -33,8 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
-#include "CEditorConfiguration.h"
-#include "CViewCamera.h"
+#include "../CEditorConfiguration.h"
+#include "../3D/CViewCamera.h"
 
 namespace EDITOR {
 	CViewCamera::CViewCamera(DE::ICameraSceneNode * cameraNode) {

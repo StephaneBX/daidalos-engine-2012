@@ -25,39 +25,80 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "CEditorLevelSceneNode.h"
+#ifndef __CCONSOLEVIEW_H
+#define __CCONSOLEVIEW_H
+
+#include <Scene/2D/CSprite.h>
+#include <Scene/2D/CLabel.h>
+#include <Core/Listeners/IInputKeyboardListener.h>
+#include <Core/CInputDevice.h>
+#include "IConsoleListener.h"
 
 namespace EDITOR {
-	CEditorLevelSceneNode::CEditorLevelSceneNode(DE::I3DScene * scene) : ILevelSceneNode(scene) {
-		this->m_type = DE::SCENE_NODE_ROOT;
-		this->m_shadingType = DE::MESH_SHADING_SMOOTH;
-	}
 
-	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
+	/**
+	* Console implementation
+	*/
+	class CConsoleView : public DE::CSprite, DE::IInputKeyboardListener {
+	private:
+		std::vector<IConsoleListener*> m_listeners;
+		std::vector<DE::CLabel> m_historyLabel;
+		DE::CLabel m_inputLabel;
 
-	void CEditorLevelSceneNode::Render() {
-		RenderWithOptions(SCENE_DEFAULT_ID);
-	}
+	public:
+		/**
+		* Constructor
+		* @param texture The view bounds
+		*/
+		CConsoleView(const int numberOfLines);
 
-	void CEditorLevelSceneNode::RenderSkyboxMask() {
-		RenderWithOptions(SCENE_SKYBOX_ID);
-	}
+		/**
+		* Set the visible value
+		* @param visible The visible value
+		*/
+		void SetVisible(const bool visible);
 
-	void CEditorLevelSceneNode::SetBrushCollision(const int brushId, const bool collision) {}
+		/**
+		* Add a listener
+		* @param listener The listener to add
+		*/
+		void AddListener(IConsoleListener * listener);
 
-	const bool CEditorLevelSceneNode::Slide(DE::IShape3DF & shape, const DE::CVector3F & movement) {
+		/**
+		* Remove a listener
+		* @param listener The listener to remove
+		*/
+		void RemoveListener(IConsoleListener * listener);
 
-		shape.SetPosition(shape.GetPosition() + movement);
-		return false;
-	}
+		/**
+		* Called when a keyboard action is started
+		* @param actionId The action id
+		*/
+		void OnInputActionStarted(const unsigned int actionId);
 
-	const bool CEditorLevelSceneNode::GetCollisionPoint(DE::IShape3DF & shape, const DE::CVector3F & movement, DE::CVector3F & point) {
-		return false;
-	}
+		/**
+		* Called when a keyboard action is stopped
+		* @param actionId The action id
+		*/
+		void OnInputActionStopped(const unsigned int actionId);
 
-	void CEditorLevelSceneNode::RenderWithOptions(const int filterId) {
-		if(filterId == SCENE_DEFAULT_ID) {
-			ISceneNode::Render();
-		}
-	}
+		/**
+		* Called when a key has been pressed
+		* @param key The key
+		*/
+		void OnKeyPressed(const unsigned int key);
+
+	private:
+		/**
+		* Check the input label for a valid command
+		*/
+		void ValidInputLabel();
+
+		/**
+		* Move the current input in the history labels and shift them
+		*/
+		void ShiftLabels();
+	};
 }
+
+#endif

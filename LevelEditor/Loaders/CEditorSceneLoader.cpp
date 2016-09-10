@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Scene/3D/CStaticMeshSceneNode.h>
-#include "CEditorLevelSceneNode.h"
-#include "CEditorSceneLoader.h"
+#include "../3D/CEditorLevelSceneNode.h"
+#include "../Loaders/CEditorSceneLoader.h"
 
 namespace EDITOR {
 

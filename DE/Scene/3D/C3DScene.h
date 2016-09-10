@@ -177,6 +177,12 @@ namespace DE {
 		const int GetNumberOfVisibleTriangles() const;
 
 		/**
+		* Get the scene filename
+		* @return The scene filename
+		*/
+		const std::string & GetFilename() const;
+
+		/**
 		* Get the ambient color of the scene
 		* @return The ambient color
 		*/

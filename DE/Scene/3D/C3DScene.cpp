@@ -191,6 +191,13 @@ namespace DE {
 		return this->m_scene->GetNumberOfVisibleTriangles();
 	}
 
+	const std::string & C3DScene::GetFilename() const {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		return this->m_scene->GetFilename();
+	}
+
 	const CVector4F & C3DScene::GetAmbientColor() const {
 		LOG_TRACE();
 

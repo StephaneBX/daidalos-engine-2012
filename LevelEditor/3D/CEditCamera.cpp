@@ -29,8 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
-#include "CEditorConfiguration.h"
-#include "CEditCamera.h"
+#include "../CEditorConfiguration.h"
+#include "../3D/CEditCamera.h"
 
 namespace EDITOR {
 	CEditCamera::CEditCamera(DE::ICameraSceneNode * cameraNode) {

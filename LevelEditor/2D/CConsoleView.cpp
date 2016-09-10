@@ -25,13 +25,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "CConsoleView.h"
+#include <Core/Utility/CTokenizer.h>
+#include "../2D/CConsoleView.h"
 
 namespace EDITOR {
 
 	#define LABEL_HEIGHT 20
 	#define MARGIN 10
 	#define CONSOLE_INPUT_TEXT ">"
+
+	#define CONSOLE_INPUT_LOAD ">LOAD"
+	#define CONSOLE_INPUT_SAVE ">SAVE"
 
 	/**
 	* Constructor
@@ -91,6 +95,26 @@ namespace EDITOR {
 	}
 
 	/**
+	* Add a listener
+	* @param listener The listener to add
+	*/
+	void CConsoleView::AddListener(IConsoleListener * listener) {
+		this->m_listeners.push_back(listener);
+	}
+
+	/**
+	* Remove a listener
+	* @param listener The listener to remove
+	*/
+	void CConsoleView::RemoveListener(IConsoleListener * listener) {
+
+		auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), listener);
+		if(it != this->m_listeners.end()) {
+			this->m_listeners.erase(it);
+		}
+	}
+
+	/**
 	* Called when a keyboard action is started
 	* @param actionId The action id
 	*/
@@ -108,6 +132,7 @@ namespace EDITOR {
 	*/
 	void CConsoleView::OnKeyPressed(const unsigned int key) {
 
+		// Add a key
 		if(key >= '0' && key <= '9' || key >= 'A' && key <= 'Z' || key == ' ') {
 
 			if((this->m_inputLabel.GetBoundingRectangle().GetWidth() + LABEL_HEIGHT) < this->m_boundingRectangle.GetWidth()) {
@@ -117,5 +142,67 @@ namespace EDITOR {
 				this->m_inputLabel.SetText(ss.str());
 			}
 		}
+
+		// Backspace
+		if(key == 8 && this->m_inputLabel.GetText().size() > 1) {
+			this->m_inputLabel.SetText(this->m_inputLabel.GetText().substr(0, this->m_inputLabel.GetText().size() - 1));
+		}
+
+		// Carriage return
+		if(key == 13) {
+			ValidInputLabel();
+		}
+	}
+
+	/**
+	* Check the input label for a valid command
+	*/
+	void CConsoleView::ValidInputLabel() {
+		DE::CTokenizer tokenizer;
+
+		tokenizer.AddLine(this->m_inputLabel.GetText());
+		tokenizer.Tokenize(" ");
+
+		const DE::TToken tokens = tokenizer.GetTokens();
+		if(tokens.size() == 2) {
+			// Check for known commands
+			if(std::string(CONSOLE_INPUT_LOAD).compare(tokens[0]) == 0) {
+				// Load a scene
+				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
+					std::string filename = tokens[1] + ".des";
+					std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+					(*it)->OnConsoleCommandLoad(filename);
+				}
+
+			} else if(std::string(CONSOLE_INPUT_SAVE).compare(tokens[0]) == 0) {
+				// Save a scene
+				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
+					std::string filename = tokens[1] + ".des";
+					std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+					(*it)->OnConsoleCommandSave(filename);
+				}
+			}
+		}
+
+		// Move the input to history and shift the history labels
+		ShiftLabels();
+	}
+
+	/**
+	* Move the current input in the history labels and shift them
+	*/
+	void CConsoleView::ShiftLabels() {
+
+		for(unsigned int i = 0; i < this->m_historyLabel.size(); i++) {
+
+			if((i + 1) < this->m_historyLabel.size()) {
+				// Shift the history label
+				this->m_historyLabel[i].SetText(this->m_historyLabel[i + 1].GetText());
+			} else {
+				// Take the input label text
+				this->m_historyLabel[i].SetText(this->m_inputLabel.GetText());
+			}
+		}
+		this->m_inputLabel.SetText(CONSOLE_INPUT_TEXT);
 	}
 }

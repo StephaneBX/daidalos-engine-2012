@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Core/CMediaManager.h>
 #include <Scene/3D/ISceneNode.h>
-#include "CEditorSceneLoader.h"
+#include "Loaders/CEditorSceneLoader.h"
 #include "CLevelEditorApplication.h"
 
 namespace EDITOR {
@@ -53,12 +53,11 @@ namespace EDITOR {
 		this->m_wallTextureEditIndex = 0;
 		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
 		this->m_meshNode = nullptr;
-		//std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
+		std::thread(&CLevelEditorApplication::LoadLevel, this, "sample2.des").detach();
 
 		this->m_consoleView = std::unique_ptr<CConsoleView>(new CConsoleView(5));
+		this->m_consoleView->AddListener(this);
 		this->m_scene2D->AddToMainView(this->m_consoleView.get());
-
-		LoadLevel("sample2.des");
 
 		MainLoop();
 	}
@@ -106,7 +105,7 @@ namespace EDITOR {
 				this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
 
 				if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
-					std::thread(&CLevelEditorApplication::LoadLevel, this, "sample1.des").detach();
+					std::thread(&CLevelEditorApplication::LoadLevel, this, this->m_scene3D->GetFilename()).detach();
 				}
 			} else {
 				this->m_scene2D->Update(time);
@@ -115,6 +114,22 @@ namespace EDITOR {
 		} else {
 			this->m_loadingScene->Update(time);
 		}
+	}
+
+	/**
+	* Called when a load command is inputed in the console
+	* @param filename The level filename to load
+	*/
+	void CLevelEditorApplication::OnConsoleCommandLoad(const std::string filename) {
+		std::thread(&CLevelEditorApplication::LoadLevel, this, filename).detach();
+	}
+
+	/**
+	* Called when a save command is inputed in the console
+	* @param filename The level filename to save the current scene into
+	*/
+	void CLevelEditorApplication::OnConsoleCommandSave(const std::string filename) {
+		this->m_scene3D->SaveScene(filename);
 	}
 
 	/**
@@ -441,8 +456,7 @@ namespace EDITOR {
 		this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 		this->m_activeCamera = viewCameraNode;
 
-		// Save test
-		this->m_scene3D->SaveScene("tmpFile.des");
+		this->m_consoleView->SetVisible(false);
 	}
 
 	/**

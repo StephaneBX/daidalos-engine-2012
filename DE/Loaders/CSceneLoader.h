@@ -108,6 +108,12 @@ namespace DE {
 		virtual void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle);
 
 		/**
+		* Load a default particle system
+		* @param scene The scene
+		*/
+		virtual void LoadDefaultParticleSystem(I3DScene * scene);
+
+		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition

@@ -25,54 +25,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CCONSOLEVIEW_H
-#define __CCONSOLEVIEW_H
+#ifndef __ICONSOLELISTENER_H
+#define __ICONSOLELISTENER_H
 
-#include <Scene/2D/CSprite.h>
-#include <Scene/2D/CLabel.h>
-#include <Core/Listeners/IInputKeyboardListener.h>
-#include <Core/CInputDevice.h>
+#include <string>
 
 namespace EDITOR {
 
 	/**
-	* Console implementation
+	* Console listener
 	*/
-	class CConsoleView : public DE::CSprite, DE::IInputKeyboardListener {
-	private:
-		std::vector<DE::CLabel> m_historyLabel;
-		DE::CLabel m_inputLabel;
+	class IConsoleListener {
 
 	public:
 		/**
-		* Constructor
-		* @param texture The view bounds
+		* Called when a load command is inputed in the console
+		* @param filename The level filename to load
 		*/
-		CConsoleView(const int numberOfLines);
+		virtual void OnConsoleCommandLoad(const std::string filename) = 0;
 
 		/**
-		* Set the visible value
-		* @param visible The visible value
+		* Called when a save command is inputed in the console
+		* @param filename The level filename to save the current scene into
 		*/
-		void SetVisible(const bool visible);
-
-		/**
-		* Called when a keyboard action is started
-		* @param actionId The action id
-		*/
-		void OnInputActionStarted(const unsigned int actionId);
-
-		/**
-		* Called when a keyboard action is stopped
-		* @param actionId The action id
-		*/
-		void OnInputActionStopped(const unsigned int actionId);
-
-		/**
-		* Called when a key has been pressed
-		* @param key The key
-		*/
-		void OnKeyPressed(const unsigned int key);
+		virtual void OnConsoleCommandSave(const std::string filename) = 0;
 	};
 }
 
