@@ -53,7 +53,7 @@ namespace EDITOR {
 		this->m_wallTextureEditIndex = 0;
 		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
 		this->m_meshNode = nullptr;
-		std::thread(&CLevelEditorApplication::LoadLevel, this, "sample2.des").detach();
+		std::thread(&CLevelEditorApplication::LoadLevel, this, "minimal.des").detach();
 
 		this->m_consoleView = std::unique_ptr<CConsoleView>(new CConsoleView(5));
 		this->m_consoleView->AddListener(this);
@@ -200,6 +200,11 @@ namespace EDITOR {
 			if(this->m_meshNode != nullptr) {
 				DE::CVector3F rotation = this->m_meshNode->GetRotation();
 				this->m_meshNode->SetName(EDITOR_NODE_NAME_MULTIBRUSH);
+
+				if(this->m_meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).compare(EDITOR_SKY_TEXURE_NAME) == 0) {
+					this->m_meshNode->SetId(SCENE_SKYBOX_ID);
+				}
+
 				this->m_meshNode = nullptr;
 				UpdateMeshNode(rotation);
 			}
@@ -457,6 +462,7 @@ namespace EDITOR {
 		this->m_activeCamera = viewCameraNode;
 
 		this->m_consoleView->SetVisible(false);
+		this->m_meshNode = nullptr;
 	}
 
 	/**

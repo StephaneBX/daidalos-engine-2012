@@ -56,6 +56,14 @@ namespace EDITOR {
 		virtual void LoadSimpleStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node);
 
 		/**
+		* Load a sound node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadSoundNode(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node, const std::string & name);
+
+		/**
 		* Save the simple structure
 		* @param node The node
 		* @param document The xml document

@@ -241,8 +241,11 @@ namespace SAMPLES {
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+		this->m_renderer->SetAlphaReference(0x00000001);
+		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_DESTALPHA);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration2D.get());
 		this->m_renderer->SetShaderProgram(this->m_shader2D.GetShaderProgram());

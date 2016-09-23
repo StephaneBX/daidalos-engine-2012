@@ -114,6 +114,78 @@ namespace DE {
 		virtual void LoadDefaultParticleSystem(I3DScene * scene);
 
 		/**
+		* Load a camera node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a spot light node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a camera node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a directional light node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a static mesh node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load an animated mesh node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a sound node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load an empty node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
+		* Load a camera node
+		* @param parent The node parent
+		* @param child The bsp node root
+		* @param node The node to fill
+		*/
+		virtual void LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+
+		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition

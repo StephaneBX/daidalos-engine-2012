@@ -28,15 +28,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILEVELSCENENODE_H
 #define __ILEVELSCENENODE_H
 
-#define SCENE_DEFAULT_ID 0
-#define SCENE_SKYBOX_ID -9999
-
 #include "../../Scene/3D/CMeshBuffer.h"
 #include "../../Scene/3D/ICameraSceneNode.h"
 #include "../../Scene/3D/ISceneNode.h"
 #include "../../Scene/3D/CAABoundingBox.h"
 
 namespace DE {
+	#define SCENE_DEFAULT_ID 0
+	#define SCENE_SKYBOX_ID -9999
+	#define SCENE_TRANSPARENT_ID -9998
+
 	/**
 	* Base class for level nodes
 	*/

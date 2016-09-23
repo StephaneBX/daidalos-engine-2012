@@ -150,16 +150,11 @@ namespace DE {
 		LOG_TRACE();
 
 		// Global data variables
-		bool visible, flatShading, enabled, shadowCaster;
-		float fov, ratio, near, far, range, radius, falloff, tightness;
-		CVector3F position, rotation, scale;
 		std::map<std::string, std::string> attributes;
-		CColor color;
 		tinyxml2::XMLElement * child = nullptr;
 		ISceneNode * node = nullptr;
 		int type = -1;
 		handle.ToElement()->QueryIntAttribute("type", &type);
-		std::string file, diffuseTexture, normalTexture, material;
 		CTokenizer tokenizer;
 
 		std::string name = "undefined";
@@ -180,307 +175,57 @@ namespace DE {
 				// Simple structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE:
 				LoadSimpleStructure(scene, parent, handle, node);
-				if(parent == nullptr)
+				if(parent == nullptr) {
 					parent = node;
-
+				}
 				break;
 
 				// BSP structure
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
 				LoadBSPStructure(scene, parent, handle, node);
-				if(parent == nullptr)
+				if(parent == nullptr) {
 					parent = node;
-
+				}
 				break;
 			}
 
 			break;
 
-		case SCENE_NODE_CAMERA:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
-			GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
-			GetNodeData(handle, "ratio", ratio, this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y);
-			GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1f));
-			GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0f));
-
-			// Create the node
-			node = new CProjectionCameraSceneNode(scene, parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
-			node->SetScale(scale);
-			node->SetId(id);
+		case SCENE_NODE_CAMERA:			
+			LoadCameraNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_SPOTLIGHT:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "enabled", enabled, true);
-			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("ISpotLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
-			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
-			GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "range", 100.0f));
-			GetNodeData(handle, "radius", radius, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "radius", 30.0f));
-			GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "falloff", 0.8f));
-			GetNodeData(handle, "tightness", tightness, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "tightness", 0.6f));
-
-			// Create the node
-			node = new CSpotLightSceneNode(scene, parent, name, position, rotation, color, range, radius, falloff, tightness, shadowCaster, enabled);
-			node->SetId(id);
+			LoadSpotLightNode(scene, parent, handle, node, name);;
 			break;
 
 		case SCENE_NODE_POINTLIGHT:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "enabled", enabled, true);
-			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
-			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
-			GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "range", 100.0f));
-			GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "falloff", 0.8f));
-
-			// Create the node
-			node = new CPointLightSceneNode(scene, parent, name, position, color, range, falloff, shadowCaster, enabled);
-			node->SetId(id);
+			LoadPointLightNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_DIRECTIONALLIGHT:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "enabled", enabled, true);
-			GetNodeData(handle, "shadow_caster", shadowCaster, false);
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
-			GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
-
-			// Create the node
-			node = new CDirectionalLightSceneNode(scene, parent, name, rotation, color, shadowCaster, enabled);
-			node->SetId(id);
+			LoadDirectionalLightNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_STATICMESH:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IStaticMeshSceneNode", "visible", true));
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
-			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
-			GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
-			GetNodeData(handle, "normal_texture", normalTexture, "default.png");
-			GetNodeData(handle, "flat_shading", flatShading, false);
-			GetNodeData(handle, "material", material, "default.mtl");
-			file = handle.ToElement()->Attribute("file");
-
-			// Create the node
-			node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
-			node->SetId(id);
-			static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(flatShading) {
-				static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-			}
-			static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
-
+			LoadStaticMeshNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_ANIMATEDMESH:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IAnimatedMeshSceneNode", "visible", true));
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
-			GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
-			GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
-			GetNodeData(handle, "normal_texture", normalTexture, "default.png");
-			GetNodeData(handle, "flat_shading", flatShading, false);
-			GetNodeData(handle, "material", material, "default.mtl");
-			file = handle.ToElement()->Attribute("file");
-
-			// Create the node
-			node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
-			node->SetId(id);
-			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			if(flatShading) {
-				static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-			}
-			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
-
+			LoadAnimatedMeshNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_SOUND:
-			int soundType;
-			float gain;
-			float coneInnerAngle;
-			float coneOuterAngle;
-			float referenceDistance;
-			float maxDistance;
-			bool relativeToListener;
-			bool looped;
-			bool playOnStartup;
-
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-			GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", 0));
-			GetNodeData(handle, "gain", gain, this->m_nodesConf.GetValueBool("ISoundSceneNode", "gain", 1));
-			GetNodeData(handle, "cone_inner_angle", coneInnerAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_inner_angle", 360.0f));
-			GetNodeData(handle, "cone_outer_angle", coneOuterAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_outer_angle", 360.0f));
-			GetNodeData(handle, "reference_distance", referenceDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "reference_distance", 2));
-			GetNodeData(handle, "max_distance", maxDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "max_distance", 20));
-			GetNodeData(handle, "relative_to_listener", relativeToListener, this->m_nodesConf.GetValueBool("ISoundSceneNode", "relative_to_listener", false));
-			GetNodeData(handle, "looped", looped, this->m_nodesConf.GetValueBool("ISoundSceneNode", "looped", false));
-			GetNodeData(handle, "play_on_startup", playOnStartup, this->m_nodesConf.GetValueBool("ISoundSceneNode", "play_on_startup", false));
-			GetNodeData(handle, "file", file, "");
-
-			node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), parent, name);
-			node->SetId(id);
-			static_cast<CSoundSceneNode*>(node)->SetPosition(position);
-			static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
-			static_cast<CSoundSceneNode*>(node)->SetSoundGain(gain);
-			static_cast<CSoundSceneNode*>(node)->SetSoundConeInnerAngle(coneInnerAngle);
-			static_cast<CSoundSceneNode*>(node)->SetSoundConeOuterAngle(coneInnerAngle);
-			static_cast<CSoundSceneNode*>(node)->SetSoundReferenceDistance(referenceDistance);
-			static_cast<CSoundSceneNode*>(node)->SetSoundMaxDistance(maxDistance);
-			static_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
-			static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
-			if(playOnStartup) {
-				static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
-				static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
-			}
-
+			LoadSoundNode(scene, parent, handle, node, name);
 			break;
 
 		case SCENE_NODE_EMPTY:
-			// Search for defined values in the element or use default values
-			GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-			GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-
-			// Create the node
-			node = new CEmptySceneNode(scene, parent, name, position);
-			node->SetId(id);
-			static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
+			LoadEmptyNode(scene, parent, handle, node, name);
 			break;
 
-		case SCENE_NODE_PARTICLE_EMITTER: {
-			bool emitterActive;
-			int emitterTextureId, emitterBlendMode;
-			float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation, emitterParticleRadiusPosition;
-			CColor emitterParticleColorMin, emitterParticleColorMax;
-			CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
-
-			// Basic values
-			GetNodeData(handle, "active", emitterActive, true);
-			GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
-			GetNodeData(handle, "textureId", emitterTextureId, 0);
-			GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
-			GetNodeData(handle, "life", emitterLife, -1);
-			GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
-			GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
-
-			// Create the emitter
-			CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter();
-			emitter->SetActive(emitterActive);
-			emitter->SetTextureId(emitterTextureId);
-			emitter->SetBlendMode(emitterBlendMode);
-			emitter->SetLife(emitterLife);
-			emitter->SetLifeMax(emitterLifeMax);
-			emitter->SetEmissionRate(emitterEmissionRate);
-
-			// Look for initializers
-			tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
-			for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
-
-				if(childName.compare("minMaxColor") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxSize") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
-					GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
-					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxLife") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
-					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxRotation") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
-					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxSphereVelocity") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("linearVelocity") == 0) {
-					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
-					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
-					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxBoxPosition") == 0) {
-					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
-					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
-					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("radiusPosition") == 0) {
-					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
-					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
-					emitter->AddInitializer(initializer);
-				}
-			}
-
-			// Look for updaters
-			tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
-			for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
-
-				if(childName.compare("color") == 0) {
-					CColorParticleUpdater * updater = new CColorParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("gravity") == 0) {
-					GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
-					CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("life") == 0) {
-					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("rotation") == 0) {
-					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("size") == 0) {
-					CSizeParticleUpdater * updater = new CSizeParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("velocity") == 0) {
-					GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
-					CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
-					emitter->AddUpdater(updater);
-				}
-			}
-			node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
-			node->SetId(id);
-			static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
-		}
-		break;
+		case SCENE_NODE_PARTICLE_EMITTER:
+			LoadParticleEmitterNode(scene, parent, handle, node, name);
+			break;
 
 		default:
 			// Invalid or missing type
@@ -490,6 +235,9 @@ namespace DE {
 
 		// If a node has been successfully created
 		if(node != nullptr) {
+			// Set the id
+			node->SetId(id);
+
 			// Get the node attributes
 			attributes = GetNodeAttributes(handle);
 
@@ -674,6 +422,377 @@ namespace DE {
 
 		scene->GetParticleSystem().InitializeSystem(5000);
 		scene->GetParticleSystem().SetAtlasTexture("particleAtlas.tga", CVector2I(1, 1));
+	}
+
+	/**
+	* Load a camera node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		float fov, ratio, near, far;
+		CVector3F position, rotation, scale;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
+		GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
+		GetNodeData(handle, "ratio", ratio, this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y);
+		GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1f));
+		GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0f));
+
+		// Create the node
+		node = new CProjectionCameraSceneNode(scene, parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
+		node->SetScale(scale);
+	}
+
+	/**
+	* Load a spot light node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool enabled, shadowCaster;
+		float range, radius, falloff, tightness;
+		CVector3F position, rotation, scale;
+		CVector4F nodeDefaultColor;
+		CColor color;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "enabled", enabled, true);
+		GetNodeData(handle, "shadow_caster", shadowCaster, false);
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("ISpotLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
+		GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "range", 100.0f));
+		GetNodeData(handle, "radius", radius, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "radius", 30.0f));
+		GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "falloff", 0.8f));
+		GetNodeData(handle, "tightness", tightness, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "tightness", 0.6f));
+
+		// Create the node
+		node = new CSpotLightSceneNode(scene, parent, name, position, rotation, color, range, radius, falloff, tightness, shadowCaster, enabled);
+	}
+
+	/**
+	* Load a camera node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool enabled, shadowCaster;
+		float range, falloff;
+		CVector3F position;
+		CVector4F nodeDefaultColor;
+		CColor color;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "enabled", enabled, true);
+		GetNodeData(handle, "shadow_caster", shadowCaster, false);
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
+		GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "range", 100.0f));
+		GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "falloff", 0.8f));
+
+		// Create the node
+		node = new CPointLightSceneNode(scene, parent, name, position, color, range, falloff, shadowCaster, enabled);
+	}
+
+	/**
+	* Load a directional light node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool enabled, shadowCaster;
+		CVector4F nodeDefaultColor;
+		CVector3F rotation;
+		CColor color;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "enabled", enabled, true);
+		GetNodeData(handle, "shadow_caster", shadowCaster, false);
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
+
+		// Create the node
+		node = new CDirectionalLightSceneNode(scene, parent, name, rotation, color, shadowCaster, enabled);
+	}
+
+	/**
+	* Load a static mesh node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool visible, flatShading;
+		std::string diffuseTexture, normalTexture, material, file;
+		CVector3F position, rotation, scale, nodeDefaultScale;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IStaticMeshSceneNode", "visible", true));
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
+		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
+		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
+		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
+		GetNodeData(handle, "flat_shading", flatShading, false);
+		GetNodeData(handle, "material", material, "default.mtl");
+		file = handle.ToElement()->Attribute("file");
+
+		// Create the node
+		node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		if(flatShading) {
+			static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		}
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
+	}
+
+	/**
+	* Load an animated mesh node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool visible, flatShading;
+		std::string diffuseTexture, normalTexture, material, file;
+		CVector3F position, rotation, scale, nodeDefaultScale;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IAnimatedMeshSceneNode", "visible", true));
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
+		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
+		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
+		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
+		GetNodeData(handle, "flat_shading", flatShading, false);
+		GetNodeData(handle, "material", material, "default.mtl");
+		file = handle.ToElement()->Attribute("file");
+
+		// Create the node
+		node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		if(flatShading) {
+			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		}
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
+	}
+
+	/**
+	* Load a sound node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool relativeToListener, looped, playOnStartup;
+		int soundType;
+		float gain, coneInnerAngle, coneOuterAngle, referenceDistance, maxDistance;
+		std::string file;
+		CVector3F position, rotation;
+		
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+		GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", 0));
+		GetNodeData(handle, "gain", gain, this->m_nodesConf.GetValueBool("ISoundSceneNode", "gain", 1));
+		GetNodeData(handle, "cone_inner_angle", coneInnerAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_inner_angle", 360.0f));
+		GetNodeData(handle, "cone_outer_angle", coneOuterAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_outer_angle", 360.0f));
+		GetNodeData(handle, "reference_distance", referenceDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "reference_distance", 2));
+		GetNodeData(handle, "max_distance", maxDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "max_distance", 20));
+		GetNodeData(handle, "relative_to_listener", relativeToListener, this->m_nodesConf.GetValueBool("ISoundSceneNode", "relative_to_listener", false));
+		GetNodeData(handle, "looped", looped, this->m_nodesConf.GetValueBool("ISoundSceneNode", "looped", false));
+		GetNodeData(handle, "play_on_startup", playOnStartup, this->m_nodesConf.GetValueBool("ISoundSceneNode", "play_on_startup", false));
+		GetNodeData(handle, "file", file, "");
+
+		node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), parent, name);
+		static_cast<CSoundSceneNode*>(node)->SetPosition(position);
+		static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
+		static_cast<CSoundSceneNode*>(node)->SetSoundGain(gain);
+		static_cast<CSoundSceneNode*>(node)->SetSoundConeInnerAngle(coneInnerAngle);
+		static_cast<CSoundSceneNode*>(node)->SetSoundConeOuterAngle(coneInnerAngle);
+		static_cast<CSoundSceneNode*>(node)->SetSoundReferenceDistance(referenceDistance);
+		static_cast<CSoundSceneNode*>(node)->SetSoundMaxDistance(maxDistance);
+		static_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
+		static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
+		if(playOnStartup) {
+			static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
+			static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
+		}
+	}
+
+	/**
+	* Load an empty node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		CVector3F position, rotation;
+
+		// Search for defined values in the element or use default values
+		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
+		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
+
+		// Create the node
+		node = new CEmptySceneNode(scene, parent, name, position);
+		static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
+	}
+
+	/**
+	* Load a camera node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CSceneLoader::LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+		LOG_TRACE();
+
+		bool emitterActive;
+		int emitterTextureId, emitterBlendMode;
+		float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation, emitterParticleRadiusPosition;
+		CColor emitterParticleColorMin, emitterParticleColorMax;
+		CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
+
+		// Basic values
+		GetNodeData(handle, "active", emitterActive, true);
+		GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
+		GetNodeData(handle, "textureId", emitterTextureId, 0);
+		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+		GetNodeData(handle, "life", emitterLife, -1);
+		GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
+		GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
+
+		// Create the emitter
+		CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter();
+		emitter->SetActive(emitterActive);
+		emitter->SetTextureId(emitterTextureId);
+		emitter->SetBlendMode(emitterBlendMode);
+		emitter->SetLife(emitterLife);
+		emitter->SetLifeMax(emitterLifeMax);
+		emitter->SetEmissionRate(emitterEmissionRate);
+
+		// Look for initializers
+		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
+		for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+			std::string childName = std::string(child->Name());
+			tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+
+			if(childName.compare("minMaxColor") == 0) {
+				GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+				GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+				CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("minMaxSize") == 0) {
+				GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
+				GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
+				CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("minMaxLife") == 0) {
+				GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
+				GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
+				CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("minMaxRotation") == 0) {
+				GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
+				GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
+				CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("minMaxSphereVelocity") == 0) {
+				GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+				GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+				CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("linearVelocity") == 0) {
+				GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
+				GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
+				GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+				GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+				CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("minMaxBoxPosition") == 0) {
+				GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
+				GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
+				CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
+				emitter->AddInitializer(initializer);
+
+			} else if(childName.compare("radiusPosition") == 0) {
+				GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
+				CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
+				emitter->AddInitializer(initializer);
+			}
+		}
+
+		// Look for updaters
+		tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
+		for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+			std::string childName = std::string(child->Name());
+			tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+
+			if(childName.compare("color") == 0) {
+				CColorParticleUpdater * updater = new CColorParticleUpdater();
+				emitter->AddUpdater(updater);
+
+			} else if(childName.compare("gravity") == 0) {
+				GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
+				CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
+				emitter->AddUpdater(updater);
+
+			} else if(childName.compare("life") == 0) {
+				CLifeParticleUpdater * updater = new CLifeParticleUpdater();
+				emitter->AddUpdater(updater);
+
+			} else if(childName.compare("rotation") == 0) {
+				CRotationParticleUpdater * updater = new CRotationParticleUpdater();
+				emitter->AddUpdater(updater);
+
+			} else if(childName.compare("size") == 0) {
+				CSizeParticleUpdater * updater = new CSizeParticleUpdater();
+				emitter->AddUpdater(updater);
+
+			} else if(childName.compare("velocity") == 0) {
+				GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
+				CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
+				emitter->AddUpdater(updater);
+			}
+		}
+		node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
+		static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {

@@ -37,6 +37,7 @@ namespace EDITOR {
 	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
 	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
 	#define EDITOR_NODE_NAME_BRUSH "__editor_node_brush"
+	#define EDITOR_SKY_TEXURE_NAME "sky_d.png"
 
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,

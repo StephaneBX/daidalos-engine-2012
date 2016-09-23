@@ -35,6 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/CFanEntity.h"
 #include "3D/CSwitchEntity.h"
 #include "3D/CTeleporterEntity.h"
+#include "3D/CAlarmEntity.h"
 
 namespace SAMPLE2
 {
@@ -50,6 +51,7 @@ namespace SAMPLE2
 		std::vector<std::unique_ptr<SAMPLES::CFanEntity> > m_fans;
 		std::vector<std::unique_ptr<SAMPLES::CSwitchEntity> > m_switchs;
 		std::vector<std::unique_ptr<SAMPLES::CTeleporterEntity> > m_teleporters;
+		std::vector<std::unique_ptr<SAMPLES::CAlarmEntity> > m_alarms;
 
 	public:
 		/**

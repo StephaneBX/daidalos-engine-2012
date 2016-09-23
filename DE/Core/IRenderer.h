@@ -273,6 +273,18 @@ namespace DE {
 		virtual void SetBlendColor(const CColor & color) = 0;
 
 		/**
+		* Set the alpha reference value
+		* @param value The reference value
+		*/
+		virtual void SetAlphaReference(const unsigned long value) = 0;
+
+		/**
+		* Set the alpha function
+		* @param function The alpha function
+		*/
+		virtual void SetAlphaFunction(ECompare function) = 0;
+
+		/**
 		* Set the cull type
 		* @param The cull type
 		*/

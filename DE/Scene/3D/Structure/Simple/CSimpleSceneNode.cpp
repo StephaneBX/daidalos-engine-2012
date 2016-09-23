@@ -82,6 +82,12 @@ namespace DE {
 		LOG_TRACE();
 
 		RenderWithOptions(SCENE_DEFAULT_ID);
+
+		// Render the semi opaque elements
+		IRenderer * renderer = IRenderer::GetRenderer();
+		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
+		RenderWithOptions(SCENE_TRANSPARENT_ID);
+		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 
 	void CSimpleSceneNode::RenderSkyboxMask() {

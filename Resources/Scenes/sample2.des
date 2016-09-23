@@ -8095,7 +8095,7 @@
 		<node type="6" name="teleporter_entity" file="teleporter.ms3d">
 			<position>160:8:220</position>
 			<attributes>
-				<nextLevelName>simple.des</nextLevelName>
+				<nextLevelName>factory.des</nextLevelName>
 			</attributes>
 		</node>
 		

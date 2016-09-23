@@ -106,11 +106,10 @@ namespace DE {
 
 			if(read == 0 && nbProcessed > 0)
 				SetStatus(SOUND_STATUS_STOP);
-		} else {
-			if(IsLooped()) {
-				SetStatus(SOUND_STATUS_STOP);
-				SetStatus(SOUND_STATUS_PLAY);
-			}
+
+		} else if(GetStatus() == SOUND_STATUS_STOP && IsLooped()) {
+			SetStatus(SOUND_STATUS_STOP);
+			SetStatus(SOUND_STATUS_PLAY);
 		}
 	}
 

@@ -25,9 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define VIEW_CAMERA_MOVEMENT_SPEED 10.0f
+#define VIEW_CAMERA_MOVEMENT_SPEED 30.0f
 #define VIEW_CAMERA_ROTATION_SPEED 60.0f
-#define VIEW_CAMERA_GRAVITY -20.0f
 
 #include <limits>
 #include <Core/CInputDevice.h>

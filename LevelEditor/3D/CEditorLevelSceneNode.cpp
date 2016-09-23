@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <Core/IRenderer.h>
 #include "../3D/CEditorLevelSceneNode.h"
 
 namespace EDITOR {
@@ -36,7 +37,12 @@ namespace EDITOR {
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
 
 	void CEditorLevelSceneNode::Render() {
+		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
+		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		renderer->SetAlphaReference(0x00000001);
+		renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
 		RenderWithOptions(SCENE_DEFAULT_ID);
+		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 
 	void CEditorLevelSceneNode::RenderSkyboxMask() {

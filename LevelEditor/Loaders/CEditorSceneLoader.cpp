@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Scene/3D/CStaticMeshSceneNode.h>
+#include <Scene/3D/CSoundSceneNode.h>
 #include "../3D/CEditorLevelSceneNode.h"
 #include "../Loaders/CEditorSceneLoader.h"
 
@@ -49,6 +50,18 @@ namespace EDITOR {
 	*/
 	void CEditorSceneLoader::LoadSimpleStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
+	}
+
+	/**
+	* Load a sound node
+	* @param parent The node parent
+	* @param child The bsp node root
+	* @param node The node to fill
+	*/
+	void CEditorSceneLoader::LoadSoundNode(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node, const std::string & name) {
+
+		DE::CSceneLoader::LoadSoundNode(scene, parent, handle, node, name);
+		static_cast<DE::CSoundSceneNode*>(node)->SetSoundStatus(DE::SOUND_STATUS_PAUSE);
 	}
 
 	/**
@@ -77,7 +90,7 @@ namespace EDITOR {
 		tinyxml2::XMLElement * levelElement = document.NewElement("node");
 
 		// Type
-		levelElement->SetAttribute("type", DE::SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
+		levelElement->SetAttribute("type", DE::SCENE_NODE_ROOT);
 
 		// Name
 		levelElement->SetAttribute("name", "level");

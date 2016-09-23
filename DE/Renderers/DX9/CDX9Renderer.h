@@ -199,6 +199,18 @@ namespace DE {
 		void SetBlendColor(const CColor & color);
 
 		/**
+		* Set the alpha reference value
+		* @param value The reference value
+		*/
+		void SetAlphaReference(const unsigned long value);
+
+		/**
+		* Set the alpha function
+		* @param function The alpha function
+		*/
+		void SetAlphaFunction(ECompare function);
+
+		/**
 		* Set the cull type
 		* @param The cull type
 		*/

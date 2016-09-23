@@ -166,10 +166,8 @@ namespace DE {
 					StopAnimation();
 				}
 			}
-
-			this->m_mesh.Animate(this->m_animationCurrent);
-			this->m_needGeometryUpdate = true;
 		}
+		this->m_needGeometryUpdate = true;
 
 		// Update the activation shape
 		if(this->m_needVisibilityShapeUpdate) {
@@ -207,6 +205,7 @@ namespace DE {
 	void CAnimatedMeshSceneNode::FinalizeGeometry() {
 		LOG_TRACE();
 
+		this->m_mesh.Animate(this->m_animationCurrent);
 		this->m_mesh.FinalizeGeometry(this->m_shadingType);
 		for(int i = 0; i < this->m_numberOfGroups; ++i)
 			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));

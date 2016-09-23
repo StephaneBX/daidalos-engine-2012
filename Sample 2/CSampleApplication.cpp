@@ -44,7 +44,7 @@ namespace SAMPLE2 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
 
 		this->m_scene2D->AddToMainView(this->m_hud);
-		std::thread(&CSampleApplication::LoadLevel, this, "sample2.des").detach();
+		std::thread(&CSampleApplication::LoadLevel, this, "factory.des").detach();
 
 		MainLoop();
 	}
@@ -84,6 +84,11 @@ namespace SAMPLE2 {
 
 			// Update the fans
 			for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
+				(*it)->Update(time);
+			}
+
+			// Update the alarms
+			for(auto it = this->m_alarms.begin(); it != this->m_alarms.end(); it++) {
 				(*it)->Update(time);
 			}
 
@@ -150,6 +155,14 @@ namespace SAMPLE2 {
 		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
 			SAMPLES::CTeleporterEntity * teleporterEntity = new SAMPLES::CTeleporterEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
 			this->m_teleporters.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
+		}
+
+		// Load the alarms
+		this->m_alarms.clear();
+		std::vector<DE::ISceneNode*> alarmNode = this->m_scene3D->GetNodeArray("alarm_entity");
+		for(auto it = alarmNode.begin(); it != alarmNode.end(); it++) {
+			SAMPLES::CAlarmEntity * alarmEntity = new SAMPLES::CAlarmEntity((DE::CStaticMeshSceneNode*)(*it), this->m_scene3D);
+			this->m_alarms.push_back(std::unique_ptr<SAMPLES::CAlarmEntity>(alarmEntity));
 		}
 	}
 }

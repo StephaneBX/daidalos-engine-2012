@@ -41,6 +41,7 @@ namespace DE {
 		this->m_horizontalAlignment = TEXT_HORIZONTAL_ALIGNMENT_CENTERED;
 		this->m_verticalAlignment = TEXT_VERTICAL_ALIGNMENT_TOP;
 		this->m_size = 12;
+		this->m_blended = true;
 	}
 
 	void CLabel::SetFont(const std::string & font) {

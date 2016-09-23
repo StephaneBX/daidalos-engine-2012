@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #ifndef __CFANENTITY_H
-#define __CFANRENTITY_H
+#define __CFANENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Medias/CSound.h>

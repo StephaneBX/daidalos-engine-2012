@@ -365,6 +365,18 @@ namespace DE {
 		this->m_device->SetRenderState(D3DRS_BLENDFACTOR, D3DCOLOR(color.ToARGB()));
 	}
 
+	void CDX9Renderer::SetAlphaReference(const unsigned long value) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_ALPHAREF, value);
+	}
+
+	void CDX9Renderer::SetAlphaFunction(ECompare function) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_ALPHAFUNC, CDX9Enums::Get(function));
+	}
+
 	void CDX9Renderer::SetCullType(ERenderStateCullType cullType) {
 		LOG_TRACE();
 

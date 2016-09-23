@@ -216,7 +216,7 @@ namespace DE {
 
 		this->m_changed = false;
 		this->m_visible = true;
-		this->m_blended = true;
+		this->m_blended = false;
 		this->m_hitTest = false;
 		this->m_parent = nullptr;
 
