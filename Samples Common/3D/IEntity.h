@@ -32,11 +32,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
+	enum EEntityType {
+		ENTITY_TYPE_ALARM,
+		ENTITY_TYPE_DOOR,
+		ENTITY_TYPE_FAN,
+		ENTITY_TYPE_SWITCH,
+		ENTITY_TYPE_TELEPORTER,
+		ENTITY_TYPE_ARMOR,
+		ENTITY_TYPE_HEALTH
+	};
+
 	/**
 	* Abstract entity
 	*/
 	class IEntity {
 	protected:
+		EEntityType m_type;
 		std::set<IEntity*> m_targetsEntity;
 
 	public:
@@ -51,6 +62,18 @@ namespace SAMPLES {
 		* @param entity The target entity
 		*/
 		void RemoveTarget(IEntity * entity);
+
+		/**
+		* Get the entity type
+		* @return The entity type
+		*/
+		const EEntityType GetType() const;
+
+		/**
+		* Update the entity
+		* @param time Elapsed time
+		*/
+		virtual void Update(float const time) = 0;
 
 		/**
 		* Trigger the entity action

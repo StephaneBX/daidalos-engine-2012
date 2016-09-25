@@ -37,6 +37,7 @@ namespace SAMPLES {
 	*/
 	CTeleporterEntity::CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
 
+		this->m_type = ENTITY_TYPE_TELEPORTER;
 		this->m_node = meshNode;
 		this->m_player = camera;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
@@ -85,6 +86,14 @@ namespace SAMPLES {
 		emitter2->AddUpdater(new DE::CColorParticleUpdater());
 		emitter2->AddUpdater(new DE::CLifeParticleUpdater());
 		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0));
+	}
+
+	/**
+	* Update the teleporter
+	* @param time Elapsed time
+	*/
+	void CTeleporterEntity::Update(float const time) {
+
 	}
 
 	/**

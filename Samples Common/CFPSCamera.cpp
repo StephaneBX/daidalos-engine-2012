@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define FPS_CAMERA_MOVEMENT_SPEED 10.0f
 #define FPS_CAMERA_ROTATION_SPEED 90.0f
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 1.5f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 #define FPS_CAMERA_COLLISION_UPDATE 16
@@ -275,7 +276,7 @@ namespace SAMPLES {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP);
+				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
 			}
 
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
@@ -285,7 +286,7 @@ namespace SAMPLES {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN);
+				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
 			}
 
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
@@ -295,7 +296,7 @@ namespace SAMPLES {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT);
+				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
 			}
 
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
@@ -305,7 +306,7 @@ namespace SAMPLES {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT);
+				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
 			}
 
 			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;

@@ -35,6 +35,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 
 	CDoorEntity::CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
+
+		this->m_type = ENTITY_TYPE_DOOR;
 		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;
 		this->m_scene3D = scene3D;
@@ -127,5 +129,18 @@ namespace SAMPLES {
 				}
 			}
 		}
+	}
+
+	/**
+	* Trigger the entity action
+	*/
+	void CDoorEntity::DoAction() {}
+
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
+	const bool CDoorEntity::CanDoAction() const {
+		return false;
 	}
 }

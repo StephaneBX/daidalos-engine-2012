@@ -519,12 +519,12 @@
                 <diffuse_texture>ground_1d.png</diffuse_texture>
                 <normal_texture>ground_1n.png</normal_texture>
             </brush>
-            <brush file="ground_1.obj">
+            <brush id="-9998" file="ground_1.obj">
                 <position>40:0:80</position>
                 <rotation>0:0:0</rotation>
                 <scale>1:1:1</scale>
-                <diffuse_texture>ground_1d.png</diffuse_texture>
-                <normal_texture>ground_1n.png</normal_texture>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
             </brush>
             <brush file="ground_1.obj">
                 <position>40:0:90</position>
@@ -596,12 +596,12 @@
                 <diffuse_texture>ground_1d.png</diffuse_texture>
                 <normal_texture>ground_1n.png</normal_texture>
             </brush>
-            <brush file="ground_1.obj">
+            <brush id="-9998" file="ground_1.obj">
                 <position>-40:0:80</position>
                 <rotation>0:0:0</rotation>
                 <scale>1:1:1</scale>
-                <diffuse_texture>ground_1d.png</diffuse_texture>
-                <normal_texture>ground_1n.png</normal_texture>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
             </brush>
             <brush file="ground_1.obj">
                 <position>-40:0:70</position>
@@ -1968,12 +1968,12 @@
                 <diffuse_texture>wall_2d.png</diffuse_texture>
                 <normal_texture>wall_2n.png</normal_texture>
             </brush>
-            <brush file="wall_1.obj">
+            <brush id="-100" file="wall_1.obj">
                 <position>110:8:80</position>
                 <rotation>0:5670:0</rotation>
                 <scale>1:1:1</scale>
-                <diffuse_texture>wall_2d.png</diffuse_texture>
-                <normal_texture>wall_2n.png</normal_texture>
+                <diffuse_texture>default.png</diffuse_texture>
+                <normal_texture>default.png</normal_texture>
             </brush>
             <brush file="wall_1.obj">
                 <position>120:8:80</position>
@@ -4392,11 +4392,11 @@
             <normal_texture>crate_2n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>91:0:86</position>
+            <position>92:0:87</position>
             <rotation>0:0:0</rotation>
-            <scale>1:1:1</scale>
-            <diffuse_texture>crate_2d.png</diffuse_texture>
-            <normal_texture>crate_2n.png</normal_texture>
+            <scale>2:2:2</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
             <position>87:2:86</position>
@@ -4413,18 +4413,18 @@
             <normal_texture>crate_2n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>91:2:86</position>
+            <position>87:0:88</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_2d.png</diffuse_texture>
             <normal_texture>crate_2n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>87:0:88</position>
+            <position>134:0:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>crate_2d.png</diffuse_texture>
-            <normal_texture>crate_2n.png</normal_texture>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
             <position>134:0:123</position>
@@ -4448,7 +4448,7 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>134:0:129</position>
+            <position>134:2:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -4476,7 +4476,7 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>134:2:129</position>
+            <position>134:4:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -4504,7 +4504,7 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>134:4:129</position>
+            <position>132:0:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -4532,7 +4532,7 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>132:0:129</position>
+            <position>132:2:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -4560,7 +4560,7 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
         <brush file="crate.obj">
-            <position>132:2:129</position>
+            <position>132:4:121</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -4582,13 +4582,6 @@
         </brush>
         <brush file="crate.obj">
             <position>132:4:127</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:1:1</scale>
-            <diffuse_texture>crate_3d.png</diffuse_texture>
-            <normal_texture>crate_3n.png</normal_texture>
-        </brush>
-        <brush file="crate.obj">
-            <position>132:4:129</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
@@ -5130,9 +5123,72 @@
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
 		
+		
+		<brush file="lockers.obj">
+            <position>120:8:144</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
 		<node type="4" name="directionalLight">
 			<rotation>40:180:0</rotation>
 			<color>0.1:0.1:0.1:1</color>
+		</node>
+		
+		<node type="5" file="leaked_wall.obj">
+            <position>110:8:80</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+            <flat_shading>true</flat_shading>
+            <material>default.mtl</material>
+        </node>
+		
+		<!-- Smoke coming from the fan -->
+		<node type="9" name="smokeFanEmitter">
+			<active>true</active>
+			<position>110:12:75</position>
+			<textureId>0</textureId>
+			<life>-1</life>
+			<lifeMax>-1</lifeMax>
+			<emissionRate>40</emissionRate>
+			<initializers>
+				<minMaxColor>
+					<min>0.3:0.3:0.3:0.05</min>
+					<max>0.3:0.3:0.3:0</max>
+				</minMaxColor>
+				<minMaxSize>
+					<min>2</min>
+					<max>6</max>
+				</minMaxSize>
+				<minMaxLife>
+					<min>0</min>
+					<max>8000</max>
+				</minMaxLife>
+				<minMaxRotation>
+					<min>-45</min>
+					<max>45</max>
+				</minMaxRotation>
+				<minMaxSphereVelocity>
+					<min>1</min>
+					<max>1.5</max>
+				</minMaxSphereVelocity>
+			</initializers>
+			<updaters>
+				<color/>
+				<gravity>
+					<vector>0:0:0.8</vector>
+				</gravity>
+				<life/>
+				<rotation/>
+				<size/>
+				<velocity>
+					<damping>0.05</damping>
+				</velocity>
+			</updaters>
 		</node>
 		
 		
@@ -5161,5 +5217,114 @@
 				<rotation_speed>-60.0f</rotation_speed>
 			</attributes>
         </node>
+		
+		<node type="5" file="pipe_floor.obj">
+            <position>-40:0:80</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <flat_shading>true</flat_shading>
+            <material>default.mtl</material>
+        </node>
+		
+		<node type="5" file="pipe_floor.obj">
+            <position>40:0:80</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <flat_shading>true</flat_shading>
+            <material>default.mtl</material>
+        </node>
+		
+		<brush file="vent.obj">
+                <position>140:8:90</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>vent_1d.png</diffuse_texture>
+                <normal_texture>vent_1n.png</normal_texture>
+            </brush>
+		
+		<brush file="lift.obj">
+            <position>100:8:132</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lift_d.png</diffuse_texture>
+            <normal_texture>lift_n.png</normal_texture>
+        </brush>
+		
+		<node type="5" file="switch.obj">
+            <position>95:0:130</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>switch_d.png</diffuse_texture>
+            <normal_texture>switch_n.png</normal_texture>
+            <flat_shading>true</flat_shading>
+            <material>default.mtl</material>
+        </node>
+		
+		<brush id="-100" file="cube.obj">
+            <position>95:0:130</position>
+            <rotation>0:0:0</rotation>
+            <scale>1.5:4:1.5</scale>
+            <diffuse_texture>default.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+        </brush>
+		
+		<node type="5" file="switch.obj">
+            <position>95:8:136</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>switch_d.png</diffuse_texture>
+            <normal_texture>switch_n.png</normal_texture>
+            <flat_shading>true</flat_shading>
+            <material>default.mtl</material>
+        </node>
+		
+		<brush id="-100" file="cube.obj">
+            <position>95:8:136</position>
+            <rotation>0:0:0</rotation>
+            <scale>1.5:4:1.5</scale>
+            <diffuse_texture>default.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+        </brush>
+		
+		<node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
+            <position>0:0:15</position>
+            <rotation>0:00:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>armor_bonus_d.png</diffuse_texture>
+            <normal_texture>armor_bonus_n.png</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		
+		<node type="6" name="health_bonus_entity" file="health_bonus.md2">
+            <position>140:8:100</position>
+            <rotation>0:00:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>health_bonus_d.png</diffuse_texture>
+            <normal_texture>health_bonus_n.png</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		
+		<node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+            <position>110:8:140</position>
+            <rotation>0:00:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>handgun_ammo_d.png</diffuse_texture>
+            <normal_texture>handgun_ammo_n.png</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		
+		<node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+            <position>105:8:140</position>
+            <rotation>0:00:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>handgun_ammo_d.png</diffuse_texture>
+            <normal_texture>handgun_ammo_n.png</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		
     </node>
 </scene>

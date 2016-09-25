@@ -32,6 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	CFanEntity::CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera) {
+
+		this->m_type = ENTITY_TYPE_FAN;
 		this->m_node = meshNode;
 		this->m_player = camera;
 

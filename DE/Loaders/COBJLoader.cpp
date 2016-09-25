@@ -119,8 +119,7 @@ namespace DE {
 					ss.str(token.GetTokens().at(i + 2));
 					ss >> tmpVec2.y;
 
-					// Temporaray fix?
-					tmpVec2.x = 1 - tmpVec2.x;
+					// Temporary fix?
 					tmpVec2.y = 1 - tmpVec2.y;
 
 					tmpTexture.push_back(tmpVec2);

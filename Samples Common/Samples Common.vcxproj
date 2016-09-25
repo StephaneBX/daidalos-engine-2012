@@ -69,8 +69,11 @@
     <ClInclude Include="2D\CHudView.h" />
     <ClInclude Include="2D\CLoadingView.h" />
     <ClInclude Include="3D\CAlarmEntity.h" />
+    <ClInclude Include="3D\CArmorBonusEntity.h" />
     <ClInclude Include="3D\CDoorEntity.h" />
     <ClInclude Include="3D\CFanEntity.h" />
+    <ClInclude Include="3D\CHandgunAmmoEntity.h" />
+    <ClInclude Include="3D\CHealthBonusEntity.h" />
     <ClInclude Include="3D\CSwitchEntity.h" />
     <ClInclude Include="3D\CTeleporterEntity.h" />
     <ClInclude Include="3D\IEntity.h" />
@@ -83,8 +86,11 @@
     <ClCompile Include="2D\CHudView.cpp" />
     <ClCompile Include="2D\CLoadingView.cpp" />
     <ClCompile Include="3D\CAlarmEntity.cpp" />
+    <ClCompile Include="3D\CArmorBonusEntity.cpp" />
     <ClCompile Include="3D\CDoorEntity.cpp" />
     <ClCompile Include="3D\CFanEntity.cpp" />
+    <ClCompile Include="3D\CHandgunAmmoEntity.cpp" />
+    <ClCompile Include="3D\CHealthBonusEntity.cpp" />
     <ClCompile Include="3D\CSwitchEntity.cpp" />
     <ClCompile Include="3D\CTeleporterEntity.cpp" />
     <ClCompile Include="3D\IEntity.cpp" />

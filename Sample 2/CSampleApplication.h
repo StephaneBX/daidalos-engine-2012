@@ -31,11 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IForwardSampleApplication.h>
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include "CFPSCamera.h"
-#include "3D/CDoorEntity.h"
-#include "3D/CFanEntity.h"
-#include "3D/CSwitchEntity.h"
-#include "3D/CTeleporterEntity.h"
-#include "3D/CAlarmEntity.h"
+#include "3D/IEntity.h"
 
 namespace SAMPLE2
 {
@@ -47,11 +43,6 @@ namespace SAMPLE2
 	private:
 		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
 		DE::CSpotLightSceneNode * m_spotLight;
-		std::vector<std::unique_ptr<SAMPLES::CDoorEntity> > m_doors;
-		std::vector<std::unique_ptr<SAMPLES::CFanEntity> > m_fans;
-		std::vector<std::unique_ptr<SAMPLES::CSwitchEntity> > m_switchs;
-		std::vector<std::unique_ptr<SAMPLES::CTeleporterEntity> > m_teleporters;
-		std::vector<std::unique_ptr<SAMPLES::CAlarmEntity> > m_alarms;
 
 	public:
 		/**

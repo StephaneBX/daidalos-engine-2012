@@ -52,7 +52,7 @@ namespace SAMPLES {
 		CAlarmEntity(DE::CStaticMeshSceneNode * meshNode, DE::C3DScene * scene3D);
 
 		/**
-		* Update the door
+		* Update the alarm
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);

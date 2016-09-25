@@ -29,11 +29,27 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
+	/**
+	* Add a target entity
+	* @param entity The target entity
+	*/
 	void IEntity::AddTarget(IEntity * entity) {
 		this->m_targetsEntity.insert(entity);
 	}
 
+	/**
+	* Remove a target entity
+	* @param entity The target entity
+	*/
 	void IEntity::RemoveTarget(IEntity * entity) {
 		this->m_targetsEntity.erase(entity);
+	}
+
+	/**
+	* Get the entity type
+	* @return The entity type
+	*/
+	const EEntityType IEntity::GetType() const {
+		return this->m_type;
 	}
 }

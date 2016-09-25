@@ -55,6 +55,12 @@ namespace SAMPLES {
 		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D);
 
 		/**
+		* Update the alarm
+		* @param time Elapsed time
+		*/
+		void Update(float const time = 0);
+
+		/**
 		* Trigger the entity action
 		*/
 		void DoAction();

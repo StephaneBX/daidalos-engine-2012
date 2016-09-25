@@ -63,6 +63,15 @@
     <ClInclude Include="3D\CAlarmEntity.h">
       <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
+    <ClInclude Include="3D\CArmorBonusEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\CHealthBonusEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\CHandgunAmmoEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -99,6 +108,15 @@
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
     <ClCompile Include="3D\CAlarmEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CArmorBonusEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CHealthBonusEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CHandgunAmmoEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
   </ItemGroup>

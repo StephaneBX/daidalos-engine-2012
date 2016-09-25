@@ -38,6 +38,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Scene\Particles\Updaters\CRotationParticleUpdater.h"
 #include "Scene\Particles\Updaters\CSizeParticleUpdater.h"
 #include "Scene\Particles\Updaters\CVelocityParticleUpdater.h"
+#include "3D/CDoorEntity.h"
+#include "3D/CFanEntity.h"
+#include "3D/CSwitchEntity.h"
+#include "3D/CTeleporterEntity.h"
+#include "3D/CAlarmEntity.h"
+#include "3D/CArmorBonusEntity.h"
+#include "3D/CHealthBonusEntity.h"
+#include "3D/CHandgunAmmoEntity.h"
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
@@ -72,23 +80,8 @@ namespace SAMPLE2 {
 			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 			this->m_scene3D->UpdateAll(time);
 
-			// Update the doors
-			for(auto it = this->m_doors.begin(); it != this->m_doors.end(); it++) {
-				(*it)->Update(time);
-			}
-
-			// Update the switch
-			for(auto it = this->m_switchs.begin(); it != this->m_switchs.end(); it++) {
-				(*it)->Update(time);
-			}
-
-			// Update the fans
-			for(auto it = this->m_fans.begin(); it != this->m_fans.end(); it++) {
-				(*it)->Update(time);
-			}
-
-			// Update the alarms
-			for(auto it = this->m_alarms.begin(); it != this->m_alarms.end(); it++) {
+			// Update the entities
+			for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
 				(*it)->Update(time);
 			}
 
@@ -102,9 +95,9 @@ namespace SAMPLE2 {
 			this->m_scene2D->Update(time);
 
 			// Check for a loading call
-			for(auto it = this->m_teleporters.begin(); it != this->m_teleporters.end() && !this->m_loading; it++) {
-				if((*it)->CanDoAction()) {
-					std::thread(&CSampleApplication::LoadLevel, this, (*it)->GetNextLevelName()).detach();
+			for(auto it = this->m_entities.begin(); it != this->m_entities.end() && !this->m_loading; it++) {
+				if((*it)->GetType() == SAMPLES::ENTITY_TYPE_TELEPORTER && (*it)->CanDoAction()) {
+					std::thread(&CSampleApplication::LoadLevel, this, ((SAMPLES::CTeleporterEntity*)(*it).get())->GetNextLevelName()).detach();
 				}
 			}
 
@@ -120,49 +113,67 @@ namespace SAMPLE2 {
 		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
 		this->m_camera->SetScene(this->m_scene3D);
 		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
+		this->m_entities.clear();
 
 		// Load the doors
-		this->m_doors.clear();
 		std::vector<DE::ISceneNode*> doorNode = this->m_scene3D->GetNodeArray("door_entity");
 		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
 			SAMPLES::CDoorEntity * doorEntity = new SAMPLES::CDoorEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
-			this->m_doors.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
 		}
 
 		// Load the fans
-		this->m_fans.clear();
 		std::vector<DE::ISceneNode*> fanNode = this->m_scene3D->GetNodeArray("fan_entity");
 		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
 			SAMPLES::CFanEntity * fanEntity = new SAMPLES::CFanEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get());
 			fanEntity->DoAction();
-			this->m_fans.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
 		}
 
 		// Load the switchs
-		this->m_switchs.clear();
 		std::vector<DE::ISceneNode*> switchNode = this->m_scene3D->GetNodeArray("switch_entity");
 		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
 			SAMPLES::CSwitchEntity * switchEntity = new SAMPLES::CSwitchEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
-			this->m_switchs.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
 		}
-		if(this->m_switchs.size() > 0) {
-			this->m_switchs[0]->AddTarget(this->m_fans[0].get());
-		}
+		
+		/*if(switchNode.size() > 0) {
+			switchNode[0]->AddTarget(fanNode[0].get();
+		}*/
 
 		// Load the teleporters
-		this->m_teleporters.clear();
 		std::vector<DE::ISceneNode*> teleporterNode = this->m_scene3D->GetNodeArray("teleporter_entity");
 		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
 			SAMPLES::CTeleporterEntity * teleporterEntity = new SAMPLES::CTeleporterEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_camera.get(), this->m_scene3D);
-			this->m_teleporters.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
 		}
 
 		// Load the alarms
-		this->m_alarms.clear();
 		std::vector<DE::ISceneNode*> alarmNode = this->m_scene3D->GetNodeArray("alarm_entity");
 		for(auto it = alarmNode.begin(); it != alarmNode.end(); it++) {
 			SAMPLES::CAlarmEntity * alarmEntity = new SAMPLES::CAlarmEntity((DE::CStaticMeshSceneNode*)(*it), this->m_scene3D);
-			this->m_alarms.push_back(std::unique_ptr<SAMPLES::CAlarmEntity>(alarmEntity));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CAlarmEntity>(alarmEntity));
+		}
+
+		// Load the armor bonus
+		std::vector<DE::ISceneNode*> armorNode = this->m_scene3D->GetNodeArray("armor_bonus_entity");
+		for(auto it = armorNode.begin(); it != armorNode.end(); it++) {
+			SAMPLES::CArmorBonusEntity * armorBonusEntity = new SAMPLES::CArmorBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CArmorBonusEntity>(armorBonusEntity));
+		}
+
+		// Load the health bonus
+		std::vector<DE::ISceneNode*> healthNode = this->m_scene3D->GetNodeArray("health_bonus_entity");
+		for(auto it = healthNode.begin(); it != healthNode.end(); it++) {
+			SAMPLES::CHealthBonusEntity * healthBonusEntity = new SAMPLES::CHealthBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHealthBonusEntity>(healthBonusEntity));
+		}
+
+		// Load the handgun ammo
+		std::vector<DE::ISceneNode*> handgunAmmoNode = this->m_scene3D->GetNodeArray("handgun_ammo_entity");
+		for(auto it = handgunAmmoNode.begin(); it != handgunAmmoNode.end(); it++) {
+			SAMPLES::CHandgunAmmoEntity * handgunAmmoEntity = new SAMPLES::CHandgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHandgunAmmoEntity>(handgunAmmoEntity));
 		}
 	}
 }

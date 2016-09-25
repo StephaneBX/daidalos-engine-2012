@@ -32,8 +32,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	CSwitchEntity::CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
+
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 
+		this->m_type = ENTITY_TYPE_SWITCH;
 		this->m_node = meshNode;
 		this->m_player = camera;
 		this->m_player = camera;

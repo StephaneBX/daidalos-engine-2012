@@ -41,6 +41,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Applications/IWin32Application.h>
 #include "2D/CHudView.h"
 #include "2D/CLoadingView.h"
+#include "3D/IEntity.h"
 
 namespace SAMPLES {
 	/**
@@ -74,6 +75,9 @@ namespace SAMPLES {
 		DE::CFPSCounter m_fpsCounter;
 		CHudView * m_hud;
 		CLoadingView * m_loadingView;
+
+		// Entities
+		std::vector<std::unique_ptr<SAMPLES::IEntity> > m_entities;
 
 	public:
 		/**

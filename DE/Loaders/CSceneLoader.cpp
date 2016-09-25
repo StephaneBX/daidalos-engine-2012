@@ -1990,7 +1990,8 @@ namespace DE {
 
 			for(auto it = attributes.begin(); it != attributes.end(); it++) {
 				tinyxml2::XMLElement * element = document.NewElement((*it).first.c_str());
-				element->SetValue((*it).second.c_str());
+				element->InsertEndChild(document.NewText((*it).second.c_str()));
+				child->InsertEndChild(element);
 			}
 
 			parent->InsertEndChild(child);

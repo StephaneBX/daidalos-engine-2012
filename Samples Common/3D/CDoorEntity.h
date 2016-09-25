@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Scene/3D/CParticleEmitterSceneNode.h>
 #include <Medias/CSound.h>
+#include "IEntity.h"
 #include "../CFPSCamera.h"
 
 namespace SAMPLES {
@@ -45,7 +46,7 @@ namespace SAMPLES {
 	/**
 	* Door entity
 	*/
-	class CDoorEntity {
+	class CDoorEntity : public IEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::CParticleEmitterSceneNode * m_emitterNode;
@@ -74,6 +75,17 @@ namespace SAMPLES {
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
+
+		/**
+		* Trigger the entity action
+		*/
+		void DoAction();
+
+		/**
+		* Check if the action can be triggered
+		* @return True if the action can be triggered, false otherwise
+		*/
+		const bool CanDoAction() const;
 	};
 }
 
