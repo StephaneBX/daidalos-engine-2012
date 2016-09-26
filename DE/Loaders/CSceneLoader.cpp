@@ -332,6 +332,40 @@ namespace DE {
 			}
 		}
 
+		// Check for bounding box declared in nodes
+		child = handle.FirstChildElement("node").ToElement();
+		for(child; child; child = child->NextSiblingElement()) {
+			// A simple brush
+			if(std::string(child->Name()) == "node") {
+				tinyxml2::XMLHandle bspHandle(child);
+				std::string boundBoxFile;
+
+				GetNodeData(bspHandle, "boundingBox", boundBoxFile, "");
+
+				// Bounding box detected
+				if(boundBoxFile != "") {
+					CVector3F position, rotation, scale, nodeDefaultScale;
+
+					// Get the node position, rotation etc
+					GetNodeData(bspHandle, "position", position, CVector3F(0, 0, 0));
+					GetNodeData(bspHandle, "rotation", rotation, CVector3F(0, 0, 0));
+					GetNodeData(bspHandle, "scale", scale, CVector3F(1, 1, 1));
+
+					SBSPBrushDefinition brush;
+
+					// Default values
+					brush.id = SCENE_DEFAULT_ID;
+					brush.collision = true;
+
+					// Get the brush options
+					bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
+
+					AddBSPBoundingBoxData(boundBoxFile, position, rotation, scale, brush);
+					brushDefinition.push_back(brush);
+				}
+			}
+		}
+
 		// Add all the geometry in the bsp scene node
 		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
@@ -853,6 +887,53 @@ namespace DE {
 				triangle->SetTexture(diffuse, TEXTURE_TYPE_DIFFUSE);
 				triangle->SetTexture(normal, TEXTURE_TYPE_NORMAL);
 				triangle->SetMaterial(mat, this->m_materialsConf.GetValueString(name, ss.str(), "default"));
+				triangle->CreatePlane();
+				triangle->Update();
+
+				// Add the triangle to the geometry
+				brushDefinition.geometry.push_back(triangle);
+			}
+		}
+	}
+
+	/**
+	* Add data into the bsp brush definition
+	* @param file The mesh name
+	* @param position The position
+	* @param rotation The rotation
+	* @param scale The scale
+	* @param brushDefinition The brush definition
+	*/
+	void CSceneLoader::AddBSPBoundingBoxData(const std::string file, const CVector3F position, const CVector3F rotation, const CVector3F scale, SBSPBrushDefinition & brushDefinition) {
+		LOG_TRACE();
+
+		std::stringstream ss;
+
+		// Modification matrixes
+		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
+		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
+
+		CMaterial mat("default.mtl");
+
+		// Create the geometry
+		CStaticMesh mesh(file);
+		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
+
+			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
+				CBSPTriangle * triangle = new CBSPTriangle();
+				triangle->SetId(brushDefinition.id);
+
+				ss.str("");
+				ss << "group_" << (i + 1);
+
+				for(int k = 0; k < 3; ++k) {
+					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
+					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
+					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
+				}
+
+				triangle->SetVisible(false);
+				triangle->SetMaterial(mat, this->m_materialsConf.GetValueString(file, ss.str(), "default"));
 				triangle->CreatePlane();
 				triangle->Update();
 

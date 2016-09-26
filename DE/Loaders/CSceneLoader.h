@@ -193,6 +193,16 @@ namespace DE {
 		virtual void AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition);
 
 		/**
+		* Add data into the bsp brush definition
+		* @param file The mesh name
+		* @param position The position
+		* @param rotation The rotation
+		* @param scale The scale
+		* @param brushDefinition The brush definition
+		*/
+		virtual void AddBSPBoundingBoxData(const std::string file, const CVector3F position, const CVector3F rotation, const CVector3F scale, SBSPBrushDefinition & brushDefinition);
+
+		/**
 		* Add data into the simple brush by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition

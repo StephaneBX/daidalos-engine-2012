@@ -217,6 +217,36 @@ namespace EDITOR {
 				node->AddChild(meshNode);
 			}
 		}
+
+		child = handle.FirstChildElement("node").ToElement();
+		for(child; child; child = child->NextSiblingElement()) {
+			// A node with a brush bounding box declared
+			if(std::string(child->Name()) == "node") {
+				tinyxml2::XMLHandle nodeHandle(child);
+
+				DE::CVector3F position, rotation, scale;
+				std::string boundingBox;
+
+				// Search for defined values in the element or use default values
+				GetNodeData(nodeHandle, "position", position, DE::CVector3F(0, 0, 0));
+				GetNodeData(nodeHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
+				GetNodeData(nodeHandle, "scale", scale, DE::CVector3F(1, 1, 1));
+				GetNodeData(nodeHandle, "boundingBox", boundingBox, "");
+
+				// Create a bounding box if necessary
+				if(boundingBox != "") {
+					int id = SCENE_DEFAULT_ID;
+					nodeHandle.ToElement()->QueryIntAttribute("id", &id);
+
+					// Create the node
+					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, NOSAVE_NODES_NAME, boundingBox, position, rotation, scale);
+					meshNode->SetId(id);
+					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, "collision.png", DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, "collision.png", DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					node->AddChild(meshNode);
+				}
+			}
+		}
 	}
 
 	/**

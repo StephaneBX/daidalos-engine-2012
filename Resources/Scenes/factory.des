@@ -1972,8 +1972,8 @@
                 <position>110:8:80</position>
                 <rotation>0:5670:0</rotation>
                 <scale>1:1:1</scale>
-                <diffuse_texture>default.png</diffuse_texture>
-                <normal_texture>default.png</normal_texture>
+                <diffuse_texture>collision.png</diffuse_texture>
+                <normal_texture>collision.png</normal_texture>
             </brush>
             <brush file="wall_1.obj">
                 <position>120:8:80</position>
@@ -4587,13 +4587,6 @@
             <diffuse_texture>crate_3d.png</diffuse_texture>
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
-        <brush id="-6" file="cube.obj">
-            <position>0:0:36</position>
-            <rotation>0:0:0</rotation>
-            <scale>6:6:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
         <brush file="pillar_top.obj">
             <position>0:0:36</position>
             <rotation>0:0:0</rotation>
@@ -4614,13 +4607,6 @@
             <scale>1:1:1</scale>
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
-        </brush>
-        <brush id="-2" file="cube.obj">
-            <position>0:0:180</position>
-            <rotation>0:0:0</rotation>
-            <scale>6:6:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
         </brush>
         <brush file="pillar_top.obj">
             <position>0:0:180</position>
@@ -4643,13 +4629,6 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
-        <brush id="-3" file="cube.obj">
-            <position>0:-16:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>6:6:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
         <brush file="pillar_top.obj">
             <position>0:-16:110</position>
             <rotation>0:0:0</rotation>
@@ -4670,13 +4649,6 @@
             <scale>1:1:1</scale>
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
-        </brush>
-        <brush id="-4" file="cube.obj">
-            <position>70:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:6:6</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
         </brush>
         <brush file="pillar_top.obj">
             <position>70:0:110</position>
@@ -4699,13 +4671,6 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
-        <brush id="-5" file="cube.obj">
-            <position>-70:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:6:6</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
         <brush file="pillar_top.obj">
             <position>-70:0:110</position>
             <rotation>0:90:0</rotation>
@@ -4727,13 +4692,6 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
-        <brush id="-7" file="cube.obj">
-            <position>140:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:6:6</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
         <brush file="pillar_top.obj">
             <position>140:0:110</position>
             <rotation>0:90:0</rotation>
@@ -4754,13 +4712,6 @@
             <scale>1:1:1</scale>
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
-        </brush>
-        <brush id="-8" file="cube.obj">
-            <position>90:8:150</position>
-            <rotation>0:0:0</rotation>
-            <scale>6:6:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
         </brush>
         <brush file="pillar_top.obj">
             <position>90:8:150</position>
@@ -4802,6 +4753,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-2" name="door_entity" file="door.ms3d">
@@ -4812,6 +4764,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-3" name="door_entity" file="door.ms3d">
@@ -4822,6 +4775,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-4" name="door_entity" file="door.ms3d">
@@ -4832,6 +4786,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-5" name="door_entity" file="door.ms3d">
@@ -4842,6 +4797,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-7" name="door_entity" file="door.ms3d">
@@ -4852,6 +4808,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
             <attributes>
 				<triggerRadius>-1.0</triggerRadius>
 			</attributes>
@@ -4865,6 +4822,7 @@
             <normal_texture>door_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>door_bbox.obj</boundingBox>
         </node>
         <!-- Projection Camera Node -->
         <node type="1" name="player">
@@ -4893,6 +4851,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4905,6 +4864,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4917,6 +4877,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4929,6 +4890,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4941,6 +4903,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4953,6 +4916,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		
 		<node type="5" file="bars.obj">
@@ -4960,6 +4924,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4972,6 +4937,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4984,6 +4950,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -4996,6 +4963,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5008,6 +4976,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5020,6 +4989,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5032,6 +5002,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:90:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5044,6 +5015,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:90:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5056,6 +5028,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:90:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5068,6 +5041,7 @@
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:90:0</rotation>
 			<flat_shading>true</flat_shading>
+			<boundingBox>bars_bbox.obj</boundingBox>
 		</node>
 		<brush file="pillar.obj">
 			<diffuse_texture>wall_2d.png</diffuse_texture>
@@ -5075,31 +5049,6 @@
 			<position>20.0:0.0:105.0</position>
 			<rotation>0.0:0.0:0.0</rotation>
 		</brush>
-		
-		<brush id="-100" file="cube.obj">
-            <position>-20:0:135</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:8:60</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
-		
-		<brush id="-100" file="cube.obj">
-            <position>20:0:135</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:8:60</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
-		
-		<brush id="-100" file="cube.obj">
-            <position>0:0:105</position>
-            <rotation>0:0:0</rotation>
-            <scale>40:8:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
-		
 		
 		<brush file="crate.obj">
             <position>0:0:110</position>
@@ -5262,15 +5211,8 @@
             <normal_texture>switch_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>switch_bbox.obj</boundingBox>
         </node>
-		
-		<brush id="-100" file="cube.obj">
-            <position>95:0:130</position>
-            <rotation>0:0:0</rotation>
-            <scale>1.5:4:1.5</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
 		
 		<node type="5" file="switch.obj">
             <position>95:8:136</position>
@@ -5280,15 +5222,8 @@
             <normal_texture>switch_n.png</normal_texture>
             <flat_shading>true</flat_shading>
             <material>default.mtl</material>
+			<boundingBox>switch_bbox.obj</boundingBox>
         </node>
-		
-		<brush id="-100" file="cube.obj">
-            <position>95:8:136</position>
-            <rotation>0:0:0</rotation>
-            <scale>1.5:4:1.5</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
-        </brush>
 		
 		<node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
             <position>0:0:15</position>
