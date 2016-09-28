@@ -30,14 +30,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <SiniP/SiniP.h>
 #include <vector>
+#include <Core/CInputDevice.h>
 
 namespace EDITOR {
 
 	#define EDITOR_NODE_NAME_CAMERA "__editor_node_camera"
 	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
 	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
+	#define EDITOR_NODE_NAME_BOUNDINGBOX "__editor_node_boundingbox"
 	#define EDITOR_NODE_NAME_BRUSH "__editor_node_brush"
 	#define EDITOR_SKY_TEXURE_NAME "sky_d.png"
+	#define EDITOR_COLLISION_TEXTURE_NAME "collision.png"
+	#define EDITOR_PLAYER_TEXTURE_NAME "player.png"
 
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,
@@ -61,7 +65,8 @@ namespace EDITOR {
 		EDITOR_ACTION_DELETE_MESH = 1 << 19,
 		EDITOR_ACTION_CAMERA_LAYER_UP = 1 << 20,
 		EDITOR_ACTION_CAMERA_LAYER_DOWN = 1 << 21,
-		EDITOR_ACTION_CONSOLE = 1 << 22
+		EDITOR_ACTION_CONSOLE = 1 << 22,
+		EDITOR_ACTION_BOUNDINGBOX = 1 << 23
 	};
 
 	/**

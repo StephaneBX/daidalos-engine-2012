@@ -7898,7 +7898,7 @@
 			<position>-35.5:0:40</position>
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
-			<flat_shading>true</flat_shading>
+			<meshShading>0</meshShading>
 		</node>
 		<brush file="cube.obj" id="-100">
 			<position>-36:0:40.00</position>
@@ -7932,7 +7932,7 @@
 		<node id="-5" type="6" name="door_entity" file="door.ms3d">
 			<position>106:8:80</position>
 			<rotation>0:0:0</rotation>
-			<flat_shading>true</flat_shading>
+			<meshShading>0</meshShading>
 			<diffuse_texture>door_d.png</diffuse_texture>
 			<normal_texture>door_n.png</normal_texture>
 		</node>
@@ -7946,7 +7946,7 @@
 		<node id="-6" type="6" name="door_entity" file="door2.ms3d">
 			<position>150:8:54</position>
 			<rotation>0:0:0</rotation>
-			<flat_shading>true</flat_shading>
+			<meshShading>0</meshShading>
 			<diffuse_texture>wall_1d.png</diffuse_texture>
 			<normal_texture>wall_1n.png</normal_texture>
 			<attributes>
@@ -8008,7 +8008,7 @@
 		<node id="-7" type="6" name="door_entity" file="door.ms3d">
 			<position>190:8:24</position>
 			<rotation>0:90:0</rotation>
-			<flat_shading>true</flat_shading>
+			<meshShading>0</meshShading>
 			<diffuse_texture>door_d.png</diffuse_texture>
 			<normal_texture>door_n.png</normal_texture>
 		</node>
@@ -8023,7 +8023,7 @@
 			<position>205.5:8:70</position>
 			<diffuse_texture>black.png</diffuse_texture>
 			<rotation>0:0:0</rotation>
-			<flat_shading>true</flat_shading>
+			<meshShading>0</meshShading>
 		</node>
 		<brush file="cube.obj" id="-100">
 			<position>206:8:70</position>

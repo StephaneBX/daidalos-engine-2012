@@ -39,7 +39,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 
 	#define MESHSCENE_ALL_GROUPS -1
-	#define NOSAVE_NODES_NAME "__nosave__"
 
 	class I3DScene;
 	/**
@@ -49,8 +48,10 @@ namespace DE {
 	protected:
 		bool m_enabled;
 		bool m_active;
+		bool m_saved;
 		int m_id;
 		std::string m_name;
+		std::string m_boundingBox;
 		ESceneNodeType m_type;
 		CVector3F m_localPosition;
 		CVector3F m_localRotation;
@@ -120,6 +121,12 @@ namespace DE {
 		void SetEnabled(const bool enabled);
 
 		/**
+		* Set the saved status
+		* @param saved The saved status
+		*/
+		void SetSaved(const bool saved);
+
+		/**
 		* Set the node id
 		* @param id The id
 		*/
@@ -130,6 +137,12 @@ namespace DE {
 		* @param name The node name
 		*/
 		void SetName(const std::string name);
+
+		/**
+		* Set the bounding box name
+		* @param boundingBox The bounding box name
+		*/
+		void SetBoundingBox(const std::string boundingBox);
 
 		/**
 		* Set the local position
@@ -195,6 +208,12 @@ namespace DE {
 		const bool IsEnabled() const;
 
 		/**
+		* Check if the node is saved by the loader
+		* @return True if the node is saved
+		*/
+		const bool IsSaved() const;
+
+		/**
 		* Check if the node is active
 		* @return True if the node is active
 		*/
@@ -218,6 +237,12 @@ namespace DE {
 		* @return The node name
 		*/
 		const std::string & GetName() const;
+
+		/**
+		* Get the bounding box name
+		* @return The bounding box name
+		*/
+		const std::string & GetBoundingBox() const;
 
 		/**
 		* Get an attribute

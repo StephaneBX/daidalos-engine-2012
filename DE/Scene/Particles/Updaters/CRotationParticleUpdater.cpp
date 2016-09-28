@@ -33,7 +33,7 @@ namespace DE {
 	* Constructor
 	*/
 	CRotationParticleUpdater::CRotationParticleUpdater() {
-
+		this->m_type = PARTICLE_UPDATER_TYPE_ROTATION;
 	}
 
 	/**

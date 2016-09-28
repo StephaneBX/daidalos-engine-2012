@@ -34,6 +34,7 @@ namespace DE {
 	* @param damping The damping factor
 	*/
 	CVelocityParticleUpdater::CVelocityParticleUpdater(const float damping) {
+		this->m_type = PARTICLE_UPDATER_TYPE_VELOCITY;
 		this->m_damping = damping;
 	}
 

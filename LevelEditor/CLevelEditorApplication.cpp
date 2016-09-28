@@ -48,6 +48,7 @@ namespace EDITOR {
 		this->m_drawSkybox = true;
 		this->m_drawLights = true;
 		this->m_culling = true;
+		this->m_boundingBox = true;
 		this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_NONE;
 		this->m_wallMeshEditIndex = 0;
 		this->m_wallTextureEditIndex = 0;
@@ -87,6 +88,17 @@ namespace EDITOR {
 				if(this->m_input->IsActionActive(EDITOR_ACTION_CULLING)) {
 					this->m_culling = !this->m_culling;
 					this->m_input->FreezeAction(EDITOR_ACTION_CULLING);
+				}
+
+				// Bounding box
+				if(this->m_input->IsActionActive(EDITOR_ACTION_BOUNDINGBOX)) {
+					this->m_boundingBox = !this->m_boundingBox;
+					this->m_input->FreezeAction(EDITOR_ACTION_BOUNDINGBOX);
+
+					std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+					for(auto it = nodes.begin(); it != nodes.end(); it++) {
+						(*it)->SetEnabled(this->m_boundingBox);
+					}
 				}
 
 				if(this->m_viewMode) {
@@ -200,6 +212,7 @@ namespace EDITOR {
 			if(this->m_meshNode != nullptr) {
 				DE::CVector3F rotation = this->m_meshNode->GetRotation();
 				this->m_meshNode->SetName(EDITOR_NODE_NAME_MULTIBRUSH);
+				this->m_meshNode->SetSaved(true);
 
 				if(this->m_meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).compare(EDITOR_SKY_TEXURE_NAME) == 0) {
 					this->m_meshNode->SetId(SCENE_SKYBOX_ID);
@@ -288,6 +301,7 @@ namespace EDITOR {
 		} else {
 			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
 			this->m_meshNode->SetId(0);
+			this->m_meshNode->SetSaved(false);
 			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 			this->m_scene3D->GetRootNode()->AddChild(this->m_meshNode);
 		}
@@ -443,7 +457,9 @@ namespace EDITOR {
 	*/
 	void CLevelEditorApplication::PostLoadLevel() {
 
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), NOSAVE_NODES_NAME, DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		// Add the cameras
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		viewCameraNode->SetSaved(false);
 		this->m_scene3D->GetRootNode()->AddChild(viewCameraNode);
 
 		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
@@ -451,16 +467,32 @@ namespace EDITOR {
 		this->m_viewCamera->SetPosition(this->m_cameraPosition);
 		this->m_viewCamera->SetRotation(this->m_cameraRotation);
 
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), NOSAVE_NODES_NAME, DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		editCameraNode->SetSaved(false);
 		this->m_scene3D->GetRootNode()->AddChild(editCameraNode);
+
+		// Add the player marker
+		DE::ISceneNode * playerNode = this->m_scene3D->GetNode("player");
+		if(playerNode != nullptr) {
+			DE::CStaticMeshSceneNode * playerMeshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "playerMarker", "cube.obj", DE::CVector3F(playerNode->GetAbsolutePosition().x, playerNode->GetAbsolutePosition().y - 3, playerNode->GetAbsolutePosition().z), DE::CVector3F(), DE::CVector3F(2, 4, 2));
+			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			playerMeshNode->SetSaved(false);
+			this->m_scene3D->GetRootNode()->AddChild(playerMeshNode);
+		}
 
 		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
 		this->m_editCamera->SetScene(this->m_scene3D);
 
 		this->m_scene3D->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
 		this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
-		this->m_activeCamera = viewCameraNode;
 
+		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+		for(auto it = nodes.begin(); it != nodes.end(); it++) {
+			(*it)->SetEnabled(this->m_boundingBox);
+		}
+
+		this->m_activeCamera = viewCameraNode;
 		this->m_consoleView->SetVisible(false);
 		this->m_meshNode = nullptr;
 	}

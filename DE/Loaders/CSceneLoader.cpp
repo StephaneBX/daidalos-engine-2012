@@ -577,8 +577,9 @@ namespace DE {
 	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool visible, flatShading;
-		std::string diffuseTexture, normalTexture, material, file;
+		bool visible;
+		int meshShading;
+		std::string diffuseTexture, normalTexture, material, file, boundingBox;
 		CVector3F position, rotation, scale, nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
@@ -589,18 +590,18 @@ namespace DE {
 		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
 		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
-		GetNodeData(handle, "flat_shading", flatShading, false);
+		GetNodeData(handle, "meshShading", meshShading, 0);
 		GetNodeData(handle, "material", material, "default.mtl");
+		GetNodeData(handle, "boundingBox", boundingBox, "");
 		file = handle.ToElement()->Attribute("file");
 
 		// Create the node
 		node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		if(flatShading) {
-			static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-		}
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
+		static_cast<CStaticMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
 	}
 
 	/**
@@ -612,8 +613,9 @@ namespace DE {
 	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool visible, flatShading;
-		std::string diffuseTexture, normalTexture, material, file;
+		bool visible;
+		int meshShading;
+		std::string diffuseTexture, normalTexture, material, file, boundingBox;
 		CVector3F position, rotation, scale, nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
@@ -624,18 +626,18 @@ namespace DE {
 		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
 		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
-		GetNodeData(handle, "flat_shading", flatShading, false);
+		GetNodeData(handle, "meshShading", meshShading, 0);
 		GetNodeData(handle, "material", material, "default.mtl");
+		GetNodeData(handle, "boundingBox", boundingBox, "");
 		file = handle.ToElement()->Attribute("file");
 
 		// Create the node
 		node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		if(flatShading) {
-			static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-		}
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
 	}
 
 	/**
@@ -832,7 +834,7 @@ namespace DE {
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
 		LOG_TRACE();
 
-		bool visible, flatShading;
+		bool visible;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
 		std::ostringstream ss;
@@ -847,7 +849,6 @@ namespace DE {
 		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
 		GetNodeData(handle, "normal_texture", normalTexture, "");
-		GetNodeData(handle, "flat_shading", flatShading, false);
 		GetNodeData(handle, "material", material, "default.mtl");
 
 		// Modification matrixes
@@ -946,7 +947,7 @@ namespace DE {
 	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush) {
 		LOG_TRACE();
 
-		bool visible, flatShading;
+		bool visible;
 		CVector3F position, rotation, scale;
 		std::string diffuseTexture, normalTexture, material;
 		std::ostringstream ss;
@@ -961,7 +962,6 @@ namespace DE {
 		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "");
 		GetNodeData(handle, "normal_texture", normalTexture, "");
-		GetNodeData(handle, "flat_shading", flatShading, false);
 		GetNodeData(handle, "material", material, "default.mtl");
 
 		// Modification matrixes
@@ -1034,7 +1034,7 @@ namespace DE {
 
 	void CSceneLoader::SaveNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		if(std::string(NOSAVE_NODES_NAME).compare(node->GetName()) != 0) {
+		if(node->IsSaved()) {
 			switch(node->GetType()) {
 			case SCENE_NODE_ROOT:
 				if(this->m_structure == SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE) {
@@ -1478,15 +1478,22 @@ namespace DE {
 			meshNode->InsertEndChild(child);
 		}
 
-		// Flat shading
-		child = document.NewElement("flat_shading");
-		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "true" : "false"));
+		// Mesh shading
+		child = document.NewElement("meshShading");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "0" : "1"));
 		meshNode->InsertEndChild(child);
 
 		// Material
 		child = document.NewElement("material");
 		child->InsertEndChild(document.NewText(sceneNode->GetMeshMaterialName().c_str()));
 		meshNode->InsertEndChild(child);
+
+		// Bounding box
+		if(sceneNode->GetBoundingBox() != "") {
+			child = document.NewElement("boundingBox");
+			child->InsertEndChild(document.NewText(sceneNode->GetBoundingBox().c_str()));
+			meshNode->InsertEndChild(child);
+		}
 
 		// Attributes
 		SaveNodeAttributes(sceneNode, document, meshNode);
@@ -1556,15 +1563,22 @@ namespace DE {
 			meshNode->InsertEndChild(child);
 		}
 
-		// Flat shading
-		child = document.NewElement("flat_shading");
-		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "true" : "false"));
+		// Mesh shading
+		child = document.NewElement("meshShading");
+		child->InsertEndChild(document.NewText(sceneNode->GetMeshShadingType() == MESH_SHADING_FLAT ? "0" : "1"));
 		meshNode->InsertEndChild(child);
 
 		// Material
 		child = document.NewElement("material");
 		child->InsertEndChild(document.NewText(sceneNode->GetMeshMaterialName().c_str()));
 		meshNode->InsertEndChild(child);
+
+		// Bounding box
+		if(sceneNode->GetBoundingBox() != "") {
+			child = document.NewElement("boundingBox");
+			child->InsertEndChild(document.NewText(sceneNode->GetBoundingBox().c_str()));
+			meshNode->InsertEndChild(child);
+		}
 
 		// Attributes
 		SaveNodeAttributes(sceneNode, document, meshNode);

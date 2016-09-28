@@ -46,6 +46,7 @@ namespace DE {
 		this->m_localScale = CVector3F(1, 1, 1);
 		this->m_active = true;
 		this->m_enabled = true;
+		this->m_saved = true;
 	}
 
 	ISceneNode::ISceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) {
@@ -64,6 +65,7 @@ namespace DE {
 		this->m_localScale = CVector3F(1, 1, 1);
 		this->m_active = true;
 		this->m_enabled = true;
+		this->m_saved = true;
 	}
 
 	ISceneNode::~ISceneNode() {
@@ -98,6 +100,12 @@ namespace DE {
 		this->m_enabled = enabled;
 	}
 
+	void ISceneNode::SetSaved(const bool saved) {
+		LOG_TRACE();
+
+		this->m_saved = saved;
+	}
+
 	void ISceneNode::SetId(const int id) {
 		LOG_TRACE();
 
@@ -106,7 +114,14 @@ namespace DE {
 
 	void ISceneNode::SetName(const std::string name) {
 		LOG_TRACE();
+
 		this->m_name = name;
+	}
+
+	void ISceneNode::SetBoundingBox(const std::string boundingBox) {
+		LOG_TRACE();
+
+		this->m_boundingBox = boundingBox;
 	}
 
 	void ISceneNode::SetPosition(const CVector3F & position) {
@@ -212,6 +227,12 @@ namespace DE {
 		return this->m_enabled;
 	}
 
+	const bool ISceneNode::IsSaved() const {
+		LOG_TRACE();
+
+		return this->m_saved;
+	}
+
 	const bool ISceneNode::IsActive() const {
 		LOG_TRACE();
 
@@ -236,6 +257,12 @@ namespace DE {
 		LOG_TRACE();
 
 		return this->m_name;
+	}
+
+	const std::string & ISceneNode::GetBoundingBox() const {
+		LOG_TRACE();
+
+		return this->m_boundingBox;
 	}
 
 	const CVector3F & ISceneNode::GetPosition() const {

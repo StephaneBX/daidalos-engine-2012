@@ -33,6 +33,7 @@ namespace DE {
 	* Constructor
 	*/
 	CGravityParticleUpdater::CGravityParticleUpdater(CVector3F gravity) {
+		this->m_type = PARTICLE_UPDATER_TYPE_GRAVITY;
 		this->m_gravity = gravity;
 	}
 

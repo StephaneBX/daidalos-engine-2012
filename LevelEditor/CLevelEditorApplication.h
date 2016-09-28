@@ -46,6 +46,7 @@ namespace EDITOR {
 		bool m_drawSkybox;
 		bool m_drawLights;
 		bool m_culling;
+		bool m_boundingBox;
 
 		int m_meshCategorySelectionMode;
 		int m_groundMeshEditIndex;

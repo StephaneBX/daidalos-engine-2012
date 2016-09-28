@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CSoundSceneNode.h>
 #include "../3D/CEditorLevelSceneNode.h"
 #include "../Loaders/CEditorSceneLoader.h"
+#include "../CEditorConfiguration.h"
 
 namespace EDITOR {
 
@@ -110,10 +111,10 @@ namespace EDITOR {
 		// Search for multi brush elements
 		for(auto it = levelNode->GetChildren().begin(); it != levelNode->GetChildren().end(); it++) {
 
-			if(std::string("__editor_node_multibrush").compare((*it)->GetName()) == 0) {
+			if(std::string(EDITOR_NODE_NAME_MULTIBRUSH).compare((*it)->GetName()) == 0) {
 				// The child is part of the multi brush, add it to the multi_brush element
 				SaveBrush((*it), document, multiBrush);
-			} else if(std::string("__editor_node_brush").compare((*it)->GetName()) == 0) {
+			} else if(std::string(EDITOR_NODE_NAME_BRUSH).compare((*it)->GetName()) == 0) {
 				// The child is a brush, add it to the level node
 				SaveBrush((*it), document, levelElement);
 			} else {
@@ -179,7 +180,7 @@ namespace EDITOR {
 						brushHandle.ToElement()->QueryIntAttribute("id", &id);
 
 						// Create the node
-						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, "__editor_node_multibrush", file, position, rotation, scale);
+						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_MULTIBRUSH, file, position, rotation, scale);
 						meshNode->SetId(id);
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
@@ -210,7 +211,7 @@ namespace EDITOR {
 				brushHandle.ToElement()->QueryIntAttribute("id", &id);
 
 				// Create the node
-				DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, "__editor_node_brush", file, position, rotation, scale);
+				DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BRUSH, file, position, rotation, scale);
 				meshNode->SetId(id);
 				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
@@ -239,10 +240,11 @@ namespace EDITOR {
 					nodeHandle.ToElement()->QueryIntAttribute("id", &id);
 
 					// Create the node
-					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, NOSAVE_NODES_NAME, boundingBox, position, rotation, scale);
+					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
 					meshNode->SetId(id);
-					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, "collision.png", DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, "collision.png", DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetSaved(false);
+					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(meshNode);
 				}
 			}

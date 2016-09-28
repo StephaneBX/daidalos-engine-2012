@@ -33,7 +33,7 @@ namespace DE {
 	* Constructor
 	*/
 	CColorParticleUpdater::CColorParticleUpdater() {
-
+		this->m_type = PARTICLE_UPDATER_TYPE_COLOR;
 	}
 
 	/**

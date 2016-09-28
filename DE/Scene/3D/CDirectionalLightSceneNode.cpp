@@ -40,7 +40,8 @@ namespace DE {
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(scene, this, NOSAVE_NODES_NAME, CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
 
@@ -50,7 +51,8 @@ namespace DE {
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(scene, this, NOSAVE_NODES_NAME, CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
 
