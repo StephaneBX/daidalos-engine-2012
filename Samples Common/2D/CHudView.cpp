@@ -61,14 +61,47 @@ namespace SAMPLES {
 		this->m_gravityLabel.SetText("Gravity");
 		AddSubview(&this->m_gravityLabel);
 
+		// Create the health sprite
+		this->m_healthSprite.SetTexture("health.png");
+		this->m_healthSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 110, 32, 32));
+		AddSubview(&this->m_healthSprite);
+
 		// Create the health label
-		this->m_healthLabel.SetBounds(DE::CRectangleI(5, this->m_preferredsize.y - 55, 200, 55));
-		this->m_healthLabel.SetSize(50);
-		this->m_healthLabel.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
-		this->m_healthLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_healthLabel.SetBounds(DE::CRectangleI(75, this->m_preferredsize.y - 110, 100, 55));
+		this->m_healthLabel.SetSize(35);
+		this->m_healthLabel.SetColor(DE::CColor(0.0f, 1.0f, 0.0f, 1.0f));
+		this->m_healthLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
 		this->m_healthLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_healthLabel.SetText("0%");
 		AddSubview(&this->m_healthLabel);
+
+		// Create the armor sprite
+		this->m_armorSprite.SetTexture("armor.png");
+		this->m_armorSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 55, 32, 32));
+		AddSubview(&this->m_armorSprite);
+
+		// Create the armor label
+		this->m_armorLabel.SetBounds(DE::CRectangleI(75, this->m_preferredsize.y - 55, 100, 55));
+		this->m_armorLabel.SetSize(35);
+		this->m_armorLabel.SetColor(DE::CColor(1.0f, 0.0f, 0.0f, 1.0f));
+		this->m_armorLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
+		this->m_armorLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_armorLabel.SetText("0%");
+		AddSubview(&this->m_armorLabel);
+
+		// Create the ammo sprite
+		this->m_ammoSprite.SetTexture("ammo.png");
+		this->m_ammoSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, this->m_preferredsize.y - 55, 32, 32));
+		AddSubview(&this->m_ammoSprite);
+
+		// Create the ammo label
+		this->m_ammoLabel.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 200, this->m_preferredsize.y - 55, 100, 55));
+		this->m_ammoLabel.SetSize(35);
+		this->m_ammoLabel.SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_ammoLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
+		this->m_ammoLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_ammoLabel.SetText("0 / 0");
+		AddSubview(&this->m_ammoLabel);
 
 		// Create the crosshair
 		this->m_crosshairView.SetTexture("crosshair.tga");
@@ -112,6 +145,52 @@ namespace SAMPLES {
 		std::stringstream ss;
 		ss << (int)health << "%";
 		this->m_healthLabel.SetText(ss.str());
+		this->m_healthLabel.SetColor(GetStateColor(health));
+	}
+
+	/**
+	* Set the player's armor
+	* @param armor The armor
+	*/
+	void CHudView::SetArmor(const int armor) {
+		std::stringstream ss;
+		ss << (int)armor << "%";
+		this->m_armorLabel.SetText(ss.str());
+		this->m_armorLabel.SetColor(GetStateColor(armor));
+	}
+
+	/**
+	* Set the player's ammo
+	* @param magazine The magazine ammo
+	* @param stock The stock ammo
+	*/
+	void CHudView::SetAmmo(const unsigned int magazine, const unsigned int stock) {
+		std::stringstream ss;
+		ss << (int)magazine << " / " << (int)stock;
+		this->m_ammoLabel.SetText(ss.str());
+	}
+
+	/**
+	* Get the color for a state value
+	* @param state The state value
+	*/
+	const DE::CColor CHudView::GetStateColor(const int state) {
+
+		DE::CColor color;
+
+		if(state <= 20) {
+			color = DE::CColor(1.0f, 0.0f, 0.0f, 1.0f);
+
+		} else if(state <= 80) {
+			color = DE::CColor(1.0f, 1.0f, 0.5f, 1.0f);
+
+		} else if(state <= 100) {
+			color = DE::CColor(0.0f, 1.0f, 0.0f, 1.0f);
+
+		} else {
+			color = DE::CColor(0.0f, 0.0f, 1.0f, 1.0f);
+		}
+		return color;
 	}
 }
 

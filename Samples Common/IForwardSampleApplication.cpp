@@ -26,6 +26,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Core/Core.h>
+#include "3D/CDoorEntity.h"
+#include "3D/CFanEntity.h"
+#include "3D/CSwitchEntity.h"
+#include "3D/CTeleporterEntity.h"
+#include "3D/CAlarmEntity.h"
+#include "3D/CArmorBonusEntity.h"
+#include "3D/CHealthBonusEntity.h"
+#include "3D/CHandgunAmmoEntity.h"
+#include "3D/CFlashlightEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {
@@ -181,6 +190,75 @@ namespace SAMPLES {
 	* Do post level loading process
 	*/
 	void IForwardSampleApplication::PostLoadLevel() {
+		this->m_entities.clear();
+
+		// Load the doors
+		std::vector<DE::ISceneNode*> doorNode = this->m_scene3D->GetNodeArray("door_entity");
+		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
+			SAMPLES::CDoorEntity * doorEntity = new SAMPLES::CDoorEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
+		}
+
+		// Load the fans
+		std::vector<DE::ISceneNode*> fanNode = this->m_scene3D->GetNodeArray("fan_entity");
+		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
+			SAMPLES::CFanEntity * fanEntity = new SAMPLES::CFanEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get());
+			fanEntity->DoAction();
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
+		}
+
+		// Load the switchs
+		std::vector<DE::ISceneNode*> switchNode = this->m_scene3D->GetNodeArray("switch_entity");
+		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
+			SAMPLES::CSwitchEntity * switchEntity = new SAMPLES::CSwitchEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
+		}
+
+		/*if(switchNode.size() > 0) {
+		switchNode[0]->AddTarget(fanNode[0].get();
+		}*/
+
+		// Load the teleporters
+		std::vector<DE::ISceneNode*> teleporterNode = this->m_scene3D->GetNodeArray("teleporter_entity");
+		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
+			SAMPLES::CTeleporterEntity * teleporterEntity = new SAMPLES::CTeleporterEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
+		}
+
+		// Load the alarms
+		std::vector<DE::ISceneNode*> alarmNode = this->m_scene3D->GetNodeArray("alarm_entity");
+		for(auto it = alarmNode.begin(); it != alarmNode.end(); it++) {
+			SAMPLES::CAlarmEntity * alarmEntity = new SAMPLES::CAlarmEntity((DE::CStaticMeshSceneNode*)(*it), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CAlarmEntity>(alarmEntity));
+		}
+
+		// Load the armor bonus
+		std::vector<DE::ISceneNode*> armorNode = this->m_scene3D->GetNodeArray("armor_bonus_entity");
+		for(auto it = armorNode.begin(); it != armorNode.end(); it++) {
+			SAMPLES::CArmorBonusEntity * armorBonusEntity = new SAMPLES::CArmorBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CArmorBonusEntity>(armorBonusEntity));
+		}
+
+		// Load the health bonus
+		std::vector<DE::ISceneNode*> healthNode = this->m_scene3D->GetNodeArray("health_bonus_entity");
+		for(auto it = healthNode.begin(); it != healthNode.end(); it++) {
+			SAMPLES::CHealthBonusEntity * healthBonusEntity = new SAMPLES::CHealthBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHealthBonusEntity>(healthBonusEntity));
+		}
+
+		// Load the handgun ammo
+		std::vector<DE::ISceneNode*> handgunAmmoNode = this->m_scene3D->GetNodeArray("handgun_ammo_entity");
+		for(auto it = handgunAmmoNode.begin(); it != handgunAmmoNode.end(); it++) {
+			SAMPLES::CHandgunAmmoEntity * handgunAmmoEntity = new SAMPLES::CHandgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHandgunAmmoEntity>(handgunAmmoEntity));
+		}
+
+		// Load the flashlight
+		std::vector<DE::ISceneNode*> flashlightNode = this->m_scene3D->GetNodeArray("flashlight_entity");
+		for(auto it = flashlightNode.begin(); it != flashlightNode.end(); it++) {
+			SAMPLES::CFlashlightEntity * flashlightEntity = new SAMPLES::CFlashlightEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D->GetNode("flashlight"));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFlashlightEntity>(flashlightEntity));
+		}
 	}
 
 	/**
@@ -241,12 +319,12 @@ namespace SAMPLES {
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
 		this->m_renderer->SetAlphaReference(0x00000001);
 		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
-		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_DESTALPHA);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration2D.get());
 		this->m_renderer->SetShaderProgram(this->m_shader2D.GetShaderProgram());
 		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), scene2D->GetProjMatrix());

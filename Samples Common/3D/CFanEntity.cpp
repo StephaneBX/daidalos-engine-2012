@@ -31,11 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CFanEntity.h"
 
 namespace SAMPLES {
-	CFanEntity::CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera) {
+	CFanEntity::CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player) {
 
 		this->m_type = ENTITY_TYPE_FAN;
 		this->m_node = meshNode;
-		this->m_player = camera;
+		this->m_player = player;
 
 		this->m_speed = 0;
 		this->m_state = FAN_STATE_STOPPED;

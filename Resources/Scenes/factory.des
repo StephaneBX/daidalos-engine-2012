@@ -4320,6 +4320,90 @@
                 <diffuse_texture>ceiling_2d.png</diffuse_texture>
                 <normal_texture>ceiling_1n.png</normal_texture>
             </brush>
+            <brush file="ground_1.obj">
+                <position>90:8:160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>90:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>100:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>110:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>90:8:160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>90:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>100:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>110:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>90:8:160</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>90:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>100:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>110:8:170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
         </multi_brush>
         <brush file="slope_high.obj">
             <position>0:-8:150</position>
@@ -4827,7 +4911,7 @@
             <far>80</far>
             <!-- SpotLight Node -->
             <node type="2" name="flashlight">
-                <enabled>true</enabled>
+                <enabled>false</enabled>
                 <shadow_caster>true</shadow_caster>
                 <position>0.5:-0.8:0</position>
                 <rotation>0:0:0</rotation>
@@ -5219,14 +5303,14 @@
 			<boundingBox>switch_bbox.obj</boundingBox>
         </node>
 		
-		<node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
-            <position>0:0:15</position>
+		<node type="6" name="flashlight_entity" file="flashlight.md2">
+			<position>0:0:15</position>
             <rotation>0:00:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>armor_bonus_d.png</diffuse_texture>
-            <normal_texture>armor_bonus_n.png</normal_texture>
-            <material>default.mtl</material>
-        </node>
+			<diffuse_texture>flashlight_d.png</diffuse_texture>
+			<normal_texture>flashlight_n.png</normal_texture>
+			<material>default.mtl</material>
+		</node>
 		
 		<node type="6" name="health_bonus_entity" file="health_bonus.md2">
             <position>140:8:100</position>

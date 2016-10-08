@@ -71,6 +71,15 @@ namespace EDITOR {
 		const bool Slide(DE::IShape3DF & shape, const DE::CVector3F & movement);
 
 		/**
+		* Get the collision point of a moving point
+		* @param position The point
+		* @param movement A CVector3F describing the shape movement
+		* @param point The CVector3F that will hold the collision position
+		* @return True if a collision occurred
+		*/
+		const bool GetCollisionPoint(const DE::CVector3F & position, const DE::CVector3F & movement, DE::CVector3F & point);
+
+		/**
 		* Get the collision point of a moving shape
 		* @param shape The shape
 		* @param movement A CVector3F describing the shape movement

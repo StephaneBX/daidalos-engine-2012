@@ -38,12 +38,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
 #include "CFPSCamera.h"
+#include "Weapons/CHandgun.h"
 
 namespace SAMPLES {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
-		this->m_health = 100;
+		this->m_health = 80;
+		this->m_armor = 0;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
@@ -62,7 +64,9 @@ namespace SAMPLES {
 			{ FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT },
 			{ FPS_CAMERA_LOOKRIGHT, FPS_CAMERA_LOOKLEFT },
 			{ FPS_CAMERA_RUN, -1 },
-			{ FPS_CAMERA_INTERACT, -1 }
+			{ FPS_CAMERA_INTERACT, -1 },
+			{ FPS_CAMERA_FIRE , -1 },
+			{ FPS_CAMERA_RELOAD, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -80,6 +84,10 @@ namespace SAMPLES {
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, DE::INPUT_KEY_KEYBOARD_E);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, DE::INPUT_KEY_KEYBOARD_R);
+
+		// Mouse mapping
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_FIRE, DE::INPUT_KEY_MOUSE_BUTTON0);
 
 		// Gamepad mapping
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON6);
@@ -103,14 +111,51 @@ namespace SAMPLES {
 
 	void CFPSCamera::SetScene(DE::C3DScene * scene) {
 		this->m_scene = scene;
+		this->m_currentWeapon = std::unique_ptr<IWeapon>(new CHandgun(nullptr, scene));
+	}
+
+	/**
+	* Set the player health
+	* @param health The player health
+	*/
+	void CFPSCamera::SetHealth(const int health) {
+		this->m_health = health;
+	}
+
+	/**
+	* Set the player armor
+	* @param health The player armor
+	*/
+	void CFPSCamera::SetArmor(const int armor) {
+		this->m_armor = armor;
+	}
+
+	/**
+	* Set a player object
+	* @param id The player object id
+	* @param value The object value
+	*/
+	void CFPSCamera::SetObject(const unsigned int id, const int value) {
+
+	}
+
+	/**
+	* Set the player position
+	* @param position The position
+	*/
+	void CFPSCamera::SetPosition(const DE::CVector3F position) {
+		this->m_visiblePosition = position;
 	}
 
 	void CFPSCamera::Update(const float time) {
 		float timeSecond = time / 1000.0f;
 
+		this->m_currentWeapon->Update(time);
+
 		UpdateState();
 		UpdateView(timeSecond);
 		UpdateMovement(timeSecond, time);
+		UpdateAction();
 
 		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
@@ -121,16 +166,85 @@ namespace SAMPLES {
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
 
+	/**
+	* Get the player shape
+	* @return The player shape
+	*/
+	DE::IShape3DF *  CFPSCamera::GetShape() {
+		return &this->m_shape;
+	}
+
+	/**
+	* Check if the player can see a shape
+	* @param shape A shape
+	* @return True if the player can see the shape
+	*/
+	const bool CFPSCamera::IsShapeVisible(DE::IShape3DF * shape) {
+		return !this->m_node->FrustumCull(shape);
+	}
+
+	/**
+	* If the player interaction action is active
+	* @return True if the player interaction action is active
+	*/
+	const bool CFPSCamera::IsInteracting() const {
+		return this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT);
+	}
+
+	/**
+	* Get the player health
+	* @return The player health
+	*/
 	const int CFPSCamera::GetHealth() const {
 		return this->m_health;
 	}
 
+	/**
+	* Get the player health
+	* @return The player health
+	*/
+	const int CFPSCamera::GetArmor() const {
+		return this->m_armor;
+	}
+
+	/**
+	* Get the player magazine ammo for the current weapon
+	* @return The current magazine ammo
+	*/
+	const unsigned int CFPSCamera::GetCurrentWeaponMagazineAmmo() const {
+		return this->m_currentWeapon != nullptr ? this->m_currentWeapon->GetMagazineSize() : 0;
+	}
+
+	/**
+	* Get the player stock ammo for the current weapon
+	* @return The current stock ammo
+	*/
+	const unsigned int CFPSCamera::GetCurrentWeaponStockAmmo() const {
+		return this->m_currentWeapon != nullptr ? this->m_currentWeapon->GetRemainingAmmo() : 0;
+	}
+
+	/**
+	* Get the player's object value
+	* @param id The object id
+	* @return The object value
+	*/
+	const int CFPSCamera::GetObjectValue(const unsigned int id) const {
+		return -1;
+	}
+
+	/**
+	* Get the player gravity factor
+	*/
 	const float CFPSCamera::GetGravity() const {
 		return this->m_gravity.y;
 	}
 
-	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
-		return this->m_node;
+	/**
+	* Get the player position
+	* @return The player position
+	*/
+	const DE::CVector3F & CFPSCamera::GetPosition() const {
+		return this->m_visiblePosition;
 	}
 
 	void CFPSCamera::UpdateState() {
@@ -165,8 +279,19 @@ namespace SAMPLES {
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN))
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)) {
 			this->m_state |= FPS_CAMERA_RUN;
+		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FIRE) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FIRE)) {
+			this->m_state |= FPS_CAMERA_FIRE;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_FIRE);
+		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RELOAD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RELOAD)) {
+			this->m_state |= FPS_CAMERA_RELOAD;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_RELOAD);
+		}
 	}
 
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
@@ -324,5 +449,18 @@ namespace SAMPLES {
 
 		if(this->m_rotation.y < 0)
 			this->m_rotation.y += 360.0f;
+	}
+
+	/**
+	* Update the action
+	*/
+	void CFPSCamera::UpdateAction() {
+		if((this->m_state & FPS_CAMERA_FIRE) != 0) {
+			this->m_currentWeapon->Fire();
+		}
+
+		if((this->m_state & FPS_CAMERA_RELOAD) != 0) {
+			this->m_currentWeapon->Reload();
+		}
 	}
 }

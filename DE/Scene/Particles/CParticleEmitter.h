@@ -58,6 +58,7 @@ namespace DE {
 	class CParticleEmitter {
 	protected:
 		bool m_active;
+		bool m_reusable;
 		int m_textureId;
 		int m_blendMode;
 		float m_life;
@@ -81,6 +82,12 @@ namespace DE {
 		* @param active If the emitter is active
 		*/
 		void SetActive(const bool active);
+
+		/**
+		* Set if it can be reused. Will not be automatically removed by the particle system.
+		* @param reusable If the emitter is reusable
+		*/
+		void SetReusable(const bool reusable);
 
 		/**
 		* Set the texture id
@@ -142,6 +149,12 @@ namespace DE {
 		* @return The active state
 		*/
 		const bool IsActive() const;
+
+		/**
+		* If the emitter is reusable
+		* @return If the emitter is reusable
+		*/
+		const bool IsReusable() const;
 
 		/**
 		* Get the texture id

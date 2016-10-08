@@ -54,7 +54,6 @@ namespace SAMPLES {
 
 		this->m_gearSprite.SetBounds(DE::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
 		this->m_gearSprite.SetTexture("gear.png");
-		this->m_gearSprite.SetBlended(true);
 		AddSubview(&this->m_gearSprite);
 	}
 

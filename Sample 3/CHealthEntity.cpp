@@ -33,9 +33,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CHealthEntity.h"
 
 namespace SAMPLE3 {
-	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera) {
+	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::IPlayer * player) {
 		this->m_node = meshNode;
-		this->m_player = camera;
+		this->m_player = player;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
 		this->m_sound.SetRelativeToListener(true);
@@ -51,7 +51,7 @@ namespace SAMPLE3 {
 		this->m_node->SetRotation(rotation);
 
 		if(this->m_node->IsEnabled()) {
-			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS) {
+			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
 				this->m_node->SetEnabled(false);
 				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}

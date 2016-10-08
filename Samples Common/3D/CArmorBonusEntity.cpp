@@ -34,11 +34,12 @@ namespace SAMPLES {
 	* @param node The armor bonus node
 	* @param scene3D The scene associated to the node
 	*/
-	CArmorBonusEntity::CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene3D) {
+	CArmorBonusEntity::CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_ARMOR;
 		this->m_node = meshNode;
 		this->m_scene3D = scene3D;
+		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 	}
 

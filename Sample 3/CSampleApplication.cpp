@@ -45,7 +45,7 @@ namespace SAMPLE3 {
 			}
 
 			// Update the 3D scene
-			this->m_camera->Update(time);
+			this->m_player->Update(time);
 			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
 			this->m_scene3D->UpdateAll(time);
 
@@ -61,9 +61,9 @@ namespace SAMPLE3 {
 			// Update the hud
 			this->m_fpsCounter.Update(time);
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
-			this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
-			this->m_hud->SetGravity(this->m_camera->GetGravity());
-			this->m_hud->SetHealth(this->m_camera->GetHealth());
+			this->m_hud->SetPosition(this->m_player->GetPosition());
+			this->m_hud->SetGravity(this->m_player->GetGravity());
+			this->m_hud->SetHealth(this->m_player->GetHealth());
 
 			this->m_cursor.Update(time);
 			this->m_scene2D->Update(time);
@@ -77,17 +77,17 @@ namespace SAMPLE3 {
 	*/
 	void CSampleApplication::PostLoadLevel() {
 		// Load the camera
-		this->m_camera = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
-		this->m_camera->SetScene(this->m_scene3D);
+		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
+		((SAMPLES::CFPSCamera*)this->m_player.get())->SetScene(this->m_scene3D);
 
 		// Load the flashlight
-		this->m_flashlight = std::unique_ptr<CFlashlightEntity>(new CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_scene3D->GetNode("flashlight_spot"), this->m_camera.get()));
+		this->m_flashlight = std::unique_ptr<SAMPLES::CFlashlightEntity>(new SAMPLES::CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_player.get(), this->m_scene3D->GetNode("flashlight_spot")));
 
 		// Load the health bonus
 		std::vector<DE::ISceneNode*> health = this->m_scene3D->GetNodeArray("health_entity");
 
 		for(auto it = health.begin(); it != health.end(); it++) {
-			CHealthEntity * entity = new CHealthEntity((*it), this->m_camera.get());
+			CHealthEntity * entity = new CHealthEntity((*it), this->m_player.get());
 			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
 		}
 	}

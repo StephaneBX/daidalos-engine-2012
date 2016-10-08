@@ -42,6 +42,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "2D/CHudView.h"
 #include "2D/CLoadingView.h"
 #include "3D/IEntity.h"
+#include "IPlayer.h"
 
 namespace SAMPLES {
 	/**
@@ -70,6 +71,9 @@ namespace SAMPLES {
 		DE::CShaderProgram m_shaderPointLight;
 		DE::CShaderProgram m_shaderDirectionalLight;
 		DE::CFrameBuffer m_frameBufferShadowMap;
+
+		// The player
+		std::unique_ptr<IPlayer> m_player;
 
 		// Hud
 		DE::CFPSCounter m_fpsCounter;

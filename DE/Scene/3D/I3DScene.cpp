@@ -301,6 +301,12 @@ namespace DE {
 		return static_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
 	}
 
+	const bool I3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
+		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(position, movement, point);
+	}
+
 	const bool I3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 

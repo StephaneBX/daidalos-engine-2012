@@ -97,6 +97,49 @@ namespace DE {
 			this->m_children[BSP_NODE_CHILD_BACK]->AddBrush(brush, triangles);
 	}
 
+	void CBSPBrushNode::CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush) {
+		LOG_TRACE();
+
+		if(this->m_type != BSP_NODE_TYPE_NODE)
+			return;
+
+		// Get the distances
+		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+
+		// Front check
+		if(d1 > 0 && d2 > 0) {
+			// The impact is in front of the plane, we need to visit the front child
+			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+			return;
+		}
+
+		// Back check
+		if(d1 < 0 && d2 < 0) {
+			// The impact is in the back of the plane, we need to visit the back child
+			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
+			return;
+		}
+
+		// Cross check
+		if(d1 > 0 && d2 <= 0) {
+			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
+				if(this->m_brushes[i]->enabled) {
+					this->m_brushes[i]->root->CollisionDetection(position, impact, iBrush);
+				}
+			}
+		}
+
+		// Visit in the right order
+		if(d1 > d2) {
+			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
+		} else {
+			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
+		}
+	}
+
 	void CBSPBrushNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
 		LOG_TRACE();
 
@@ -131,8 +174,9 @@ namespace DE {
 		// Cross check
 		if(d1 > offset && d2 <= offset2) {
 			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
-				if(this->m_brushes[i]->enabled)
+				if(this->m_brushes[i]->enabled) {
 					this->m_brushes[i]->root->CollisionDetection(shape, impact, iBrush);
+				}
 			}
 		}
 

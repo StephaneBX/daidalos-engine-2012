@@ -89,6 +89,14 @@ namespace DE {
 		void ResetDraw();
 
 		/**
+		* Detect a collison with a point in movement
+		* @param point The object's position
+		* @param impact The final impact
+		* @param iBrush The temporaty impact
+		*/
+		void CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush);
+
+		/**
 		* Detect a collison with a shape in movement
 		* @param shape The object' shape
 		* @param impact The final impact

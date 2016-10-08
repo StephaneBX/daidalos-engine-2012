@@ -89,6 +89,14 @@ namespace DE {
 		*/
 		void CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush);
 
+		/**
+		* Detect a collison with a point in movement
+		* @param point The object's position
+		* @param impact The final impact
+		* @param iBrush The temporaty impact
+		*/
+		void CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush);
+
 	private:
 		CBSPBrushNode(const CBSPBrushNode & copy);
 		const CBSPBrushNode & operator=(const CBSPBrushNode & copy);

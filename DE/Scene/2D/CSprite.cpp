@@ -94,7 +94,6 @@ namespace DE {
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_backgroundColor);
 
-			renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, this->m_blended);
 			renderer->SetTexture(0, this->m_texture.GetTexture());
 			renderer->SetTexture(1, nullptr);
 			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));

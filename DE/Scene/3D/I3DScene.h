@@ -234,6 +234,15 @@ namespace DE {
 		const bool Slide(IShape3DF & shape, const CVector3F & movement);
 
 		/**
+		* Get the collision point of a moving point
+		* @param position The point
+		* @param movement A CVector3F describing the shape movement
+		* @param point The CVector3F that will hold the collision position
+		* @return True if a collision occurred
+		*/
+		const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point);
+
+		/**
 		* Get the collision point of a moving shape
 		* @param shape The shape
 		* @param movement A CVector3F describing the shape movement

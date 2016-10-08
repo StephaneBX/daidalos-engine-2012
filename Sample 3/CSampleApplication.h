@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <IForwardSampleApplication.h>
 #include <CFPSCamera.h>
-#include "CFlashlightEntity.h"
+#include "3D/CFlashlightEntity.h"
 #include "CHealthEntity.h"
 
 namespace SAMPLE3
@@ -41,8 +41,7 @@ namespace SAMPLE3
 	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
-		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
-		std::unique_ptr<CFlashlightEntity> m_flashlight;
+		std::unique_ptr<SAMPLES::CFlashlightEntity> m_flashlight;
 		std::vector<std::unique_ptr<CHealthEntity> > m_health;
 
 	public:

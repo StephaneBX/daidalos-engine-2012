@@ -164,6 +164,72 @@ namespace DE {
 			this->m_children[BSP_NODE_CHILD_BACK]->ResetDraw();
 	}
 
+	void CBSPTreeNode::CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush) {
+		LOG_TRACE();
+
+		float impactFraction, realFraction;
+		CVector3F normalTemp;
+
+		// Empty leaf, no collision possible
+		if(this->m_type == BSP_NODE_TYPE_EMPTY_LEAF) {
+			iBrush.ClearImpact();
+			return;
+		}
+
+		// Solid leaf, check for nearest impact
+		if(this->m_type == BSP_NODE_TYPE_SOLID_LEAF) {
+			impact.SetNearestImpact(iBrush.GetPlaneNormal(), iBrush.GetImpactFraction(), iBrush.GetRealFraction());
+			iBrush.ClearImpact();
+			return;
+		}
+
+		// Get the distances
+		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+
+		// Front check
+		if(d1 > 0 && d2 > 0) {
+			// The impact is in front of the plane, we need to visit the front child
+			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+			return;
+		}
+
+		// Back check
+		if(d1 < 0 && d2 < 0) {
+			// The impact is in the back of the plane, we need to visit the back child
+			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
+			return;
+		}
+
+		// Cross check
+		if(d1 > 0 && d2 <= 0) {
+			realFraction = d1 / (d1 - d2);
+
+			if(realFraction >= impact.GetRealFraction())
+				return;
+
+			if(realFraction < iBrush.GetRealFraction()) {
+				normalTemp = this->m_plane.GetNormal();
+				impactFraction = (d1 - BSP_MIN_DISTANCE) / (d1 - d2);
+				iBrush.SetImpact(normalTemp, impactFraction, realFraction);
+			} else {
+				// Memorize iBrush data
+				normalTemp = iBrush.GetPlaneNormal();
+				impactFraction = iBrush.GetImpactFraction();
+				realFraction = iBrush.GetRealFraction();
+			}
+		} else {
+			// Memorize iBrush data
+			normalTemp = iBrush.GetPlaneNormal();
+			impactFraction = iBrush.GetImpactFraction();
+			realFraction = iBrush.GetRealFraction();
+		}
+
+		this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
+		iBrush.SetImpact(normalTemp, impactFraction, realFraction);
+		this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+	}
+
 	void CBSPTreeNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
 		LOG_TRACE();
 

@@ -41,7 +41,6 @@ namespace SAMPLE2
 	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
-		std::unique_ptr<SAMPLES::CFPSCamera> m_camera;
 		DE::CSpotLightSceneNode * m_spotLight;
 
 	public:

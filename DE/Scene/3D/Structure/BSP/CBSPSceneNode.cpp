@@ -220,8 +220,9 @@ namespace DE {
 			distance = impact.GetDistance() * impact.GetImpactFraction();
 
 			// Reset the normal index if the distance shape-impact is too big
-			if(distance.Length() > BSP_MIN_MOVE)
+			if(distance.Length() > BSP_MIN_MOVE) {
 				normalIndex = 0;
+			}
 
 			// Memorize the plane normal
 			this->m_normals[normalIndex] = impact.GetPlaneNormal();
@@ -284,7 +285,22 @@ namespace DE {
 		iBrush.Initialize(shape.GetPosition(), shape.GetPosition() + movement);
 
 		this->m_collisionBsp->CollisionDetection(shape, impact, iBrush);
-		point = shape.GetPosition() + movement * impact.GetImpactFraction();
+		point = shape.GetPosition() + impact.GetDistance() * impact.GetImpactFraction();
+
+		return impact.IsImpact();
+	}
+
+	const bool CBSPSceneNode::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
+		CImpact impact;
+		CImpact iBrush;
+
+		impact.Initialize(position, position + movement);
+		iBrush.Initialize(position, position + movement);
+
+		this->m_collisionBsp->CollisionDetection(position, impact, iBrush);
+		point = position + impact.GetDistance() * impact.GetImpactFraction();
 
 		return impact.IsImpact();
 	}

@@ -30,19 +30,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/ISceneNode.h>
 #include <Medias/CSound.h>
-#include "CFPSCamera.h"
+#include "IEntity.h"
+#include "../IPlayer.h"
 
-namespace SAMPLE3
+namespace SAMPLES
 {
 	/**
 	* Flashlight entity
 	*/
-	class CFlashlightEntity
+	class CFlashlightEntity : public IEntity
 	{
 	private:
 		DE::ISceneNode * m_node;
 		DE::ISceneNode * m_light;
-		SAMPLES::CFPSCamera * m_player;
+		IPlayer * m_player;
 		DE::CSound m_sound;
 
 	public:
@@ -51,13 +52,24 @@ namespace SAMPLE3
 		* @param light The light node
 		* @param camera The player
 		*/
-		CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, SAMPLES::CFPSCamera * camera);
+		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player, DE::ISceneNode * lightNode);
 
 		/**
 		* Update the flashlight
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
+
+		/**
+		* Trigger the entity action
+		*/
+		void DoAction();
+
+		/**
+		* Check if the action can be triggered
+		* @return True if the action can be triggered, false otherwise
+		*/
+		const bool CanDoAction() const;
 	};
 }
 

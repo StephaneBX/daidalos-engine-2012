@@ -41,7 +41,6 @@ namespace DE {
 		this->m_horizontalAlignment = TEXT_HORIZONTAL_ALIGNMENT_CENTERED;
 		this->m_verticalAlignment = TEXT_VERTICAL_ALIGNMENT_TOP;
 		this->m_size = 12;
-		this->m_blended = true;
 	}
 
 	void CLabel::SetFont(const std::string & font) {
@@ -122,7 +121,6 @@ namespace DE {
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
 
-			renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, this->m_blended);
 			renderer->SetTexture(0, this->m_font.GetTexture().GetTexture());
 			renderer->SetTexture(1, nullptr);
 			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));

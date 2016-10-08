@@ -34,11 +34,12 @@ namespace SAMPLES {
 	* @param node The handgun ammo node
 	* @param scene3D The scene associated to the node
 	*/
-	CHandgunAmmoEntity::CHandgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene3D) {
+	CHandgunAmmoEntity::CHandgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_HEALTH;
 		this->m_node = meshNode;
 		this->m_scene3D = scene3D;
+		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 	}
 

@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/ISceneNode.h>
 #include <Medias/CSound.h>
-#include "CFPSCamera.h"
+#include "IPlayer.h"
 
 namespace SAMPLE3
 {
@@ -41,7 +41,7 @@ namespace SAMPLE3
 	{
 	private:
 		DE::ISceneNode * m_node;
-		SAMPLES::CFPSCamera * m_player;
+		SAMPLES::IPlayer * m_player;
 		DE::CSound m_sound;
 		float m_respawnTime;
 
@@ -50,7 +50,7 @@ namespace SAMPLE3
 		* @param node The health node
 		* @param camera The player
 		*/
-		CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::CFPSCamera * camera);
+		CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::IPlayer * player);
 
 		/**
 		* Update the health

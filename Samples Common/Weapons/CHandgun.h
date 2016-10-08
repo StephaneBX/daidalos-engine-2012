@@ -25,34 +25,32 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define ROTATION_SPEED 45
-#define TRIGGER_RADIUS 5
+#ifndef __CHandgun_H
+#define __CHandgun_H
 
-#include <Core/Utility/CVector3.h>
-#include "CFlashlightEntity.h"
+#include "IWeapon.h"
 
-namespace SAMPLE3 {
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, DE::ISceneNode * lightNode, SAMPLES::CFPSCamera * camera) {
-		this->m_node = meshNode;
-		this->m_light = lightNode;
-		this->m_player = camera;
+namespace SAMPLES {
 
-		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC);
-		this->m_sound.SetRelativeToListener(true);
-	}
+	/**
+	* Handgun weapon
+	*/
+	class CHandgun : public IWeapon {
 
-	void CFlashlightEntity::Update(float const time) {
-		DE::CVector3F rotation = this->m_node->GetRotation();
-		rotation.y += (ROTATION_SPEED * time) / 1000.0f;
-		if(rotation.y > 360) {
-			rotation.y -= 360;
-		}
-		this->m_node->SetRotation(rotation);
+	public:
+		/**
+		* Constructor
+		* @param meshNode The weapon mesh node
+		* @param scene The 3D scene
+		*/
+		CHandgun(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene);
 
-		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS) {
-			this->m_node->SetEnabled(false);
-			this->m_light->SetEnabled(true);
-			this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		}
-	}
+	protected:
+		/**
+		* Initialize the particle emitters
+		*/
+		void InitializeParticleEmitters();
+	};
 }
+
+#endif

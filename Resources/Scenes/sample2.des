@@ -8117,11 +8117,6 @@
 				<tightness>0.5</tightness>
 				<shadow_caster>true</shadow_caster>
 			</node>
-			
-			<node type="4" name="directionalLight">
-				<rotation>40:180:0</rotation>
-				<color>0.1:0.1:0.1:1</color>
-			</node>
 		</node>
 	</node>
 </scene>

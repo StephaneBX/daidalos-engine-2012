@@ -34,6 +34,7 @@ namespace DE {
 	*/
 	CParticleEmitter::CParticleEmitter() {
 		this->m_pendingTime = 0;
+		this->m_reusable = false;
 	}
 
 	/**
@@ -42,6 +43,14 @@ namespace DE {
 	*/
 	void CParticleEmitter::SetActive(const bool active) {
 		this->m_active = active;
+	}
+
+	/**
+	* Set if it can be reused. Will not be automatically removed by the particle system.
+	* @param reusable If the emitter is reusable
+	*/
+	void CParticleEmitter::SetReusable(const bool reusable) {
+		this->m_reusable = reusable;
 	}
 
 	/**
@@ -118,9 +127,7 @@ namespace DE {
 		// Create new particle only when active
 		if(this->m_active) {
 			// Update the emitter's life
-			if(this->m_lifeMax > 0) {
-				this->m_life += time;
-			}
+			this->m_life += time;
 
 			// New particle emission
 			this->m_pendingTime += time;
@@ -195,6 +202,14 @@ namespace DE {
 	*/
 	const bool CParticleEmitter::IsActive() const {
 		return this->m_active;
+	}
+
+	/**
+	* If the emitter is reusable
+	* @return If the emitter is reusable
+	*/
+	const bool CParticleEmitter::IsReusable() const {
+		return this->m_reusable;
 	}
 
 	/**

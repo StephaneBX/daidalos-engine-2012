@@ -29,9 +29,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CSWITCHENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
 #include "IEntity.h"
-#include "../CFPSCamera.h"
+#include "../IPlayer.h"
 
 namespace SAMPLES {
 
@@ -48,10 +49,9 @@ namespace SAMPLES {
 	class CSwitchEntity : public IEntity {
 	private:
 		bool m_highlighted;
-		DE::CInputDevice * m_inputDevice;
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
-		CFPSCamera * m_player;
+		IPlayer * m_player;
 
 		DE::CSound m_sound;
 		ESwitchState m_state;
@@ -62,7 +62,7 @@ namespace SAMPLES {
 		* @param camera The player
 		* @param scene3D The scene associated to the node
 		*/
-		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D);
+		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
 		* Update the door

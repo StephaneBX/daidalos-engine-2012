@@ -34,13 +34,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
-	CDoorEntity::CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
+	CDoorEntity::CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_DOOR;
 		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;
 		this->m_scene3D = scene3D;
-		this->m_player = camera;
+		this->m_player = player;
 
 		this->m_state = DOOR_STATE_CLOSED;
 		this->m_closable = true;
@@ -93,7 +93,7 @@ namespace SAMPLES {
 		}
 
 		// Trigger action
-		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= this->m_triggerRadius) {
+		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= this->m_triggerRadius) {
 
 			switch(this->m_state) {
 			case DOOR_STATE_CLOSED:

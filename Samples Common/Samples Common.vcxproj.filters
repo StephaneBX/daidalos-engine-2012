@@ -25,6 +25,12 @@
     <Filter Include="Fichiers sources\3D">
       <UniqueIdentifier>{dadb38cd-f1f2-4a76-bd6b-4eb8d4292ece}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Weapons">
+      <UniqueIdentifier>{39dd48a6-5e29-42fe-84af-9423d43f1cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Weapons">
+      <UniqueIdentifier>{89912ed3-4f1e-4d02-ab2d-fc0688c62335}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -72,6 +78,18 @@
     <ClInclude Include="3D\CHandgunAmmoEntity.h">
       <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
+    <ClInclude Include="IPlayer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\CFlashlightEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\CHandgun.h">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\IWeapon.h">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -118,6 +136,15 @@
     </ClCompile>
     <ClCompile Include="3D\CHandgunAmmoEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CFlashlightEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\CHandgun.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\IWeapon.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

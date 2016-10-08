@@ -29,9 +29,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CTELEPORTERENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
 #include "IEntity.h"
-#include "../CFPSCamera.h"
+#include "../IPlayer.h"
 
 namespace SAMPLES {
 
@@ -42,7 +43,7 @@ namespace SAMPLES {
 	private:
 		std::string m_levelName;
 		DE::CAnimatedMeshSceneNode * m_node;
-		CFPSCamera * m_player;
+		IPlayer * m_player;
 
 		DE::CSound m_sound;
 
@@ -52,7 +53,7 @@ namespace SAMPLES {
 		* @param camera The player
 		* @param scene3D The scene
 		*/
-		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D);
+		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
 		* Update the alarm

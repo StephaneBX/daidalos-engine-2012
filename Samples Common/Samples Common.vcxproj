@@ -72,6 +72,7 @@
     <ClInclude Include="3D\CArmorBonusEntity.h" />
     <ClInclude Include="3D\CDoorEntity.h" />
     <ClInclude Include="3D\CFanEntity.h" />
+    <ClInclude Include="3D\CFlashlightEntity.h" />
     <ClInclude Include="3D\CHandgunAmmoEntity.h" />
     <ClInclude Include="3D\CHealthBonusEntity.h" />
     <ClInclude Include="3D\CSwitchEntity.h" />
@@ -80,7 +81,10 @@
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
+    <ClInclude Include="IPlayer.h" />
     <ClInclude Include="ISampleApplication.h" />
+    <ClInclude Include="Weapons\CHandgun.h" />
+    <ClInclude Include="Weapons\IWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D\CHudView.cpp" />
@@ -89,6 +93,7 @@
     <ClCompile Include="3D\CArmorBonusEntity.cpp" />
     <ClCompile Include="3D\CDoorEntity.cpp" />
     <ClCompile Include="3D\CFanEntity.cpp" />
+    <ClCompile Include="3D\CFlashlightEntity.cpp" />
     <ClCompile Include="3D\CHandgunAmmoEntity.cpp" />
     <ClCompile Include="3D\CHealthBonusEntity.cpp" />
     <ClCompile Include="3D\CSwitchEntity.cpp" />
@@ -98,6 +103,8 @@
     <ClCompile Include="CFreeCamera.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="ISampleApplication.cpp" />
+    <ClCompile Include="Weapons\CHandgun.cpp" />
+    <ClCompile Include="Weapons\IWeapon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

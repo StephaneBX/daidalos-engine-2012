@@ -57,6 +57,10 @@ namespace EDITOR {
 		return false;
 	}
 
+	const bool CEditorLevelSceneNode::GetCollisionPoint(const DE::CVector3F & position, const DE::CVector3F & movement, DE::CVector3F & point) {
+		return false;
+	}
+
 	const bool CEditorLevelSceneNode::GetCollisionPoint(DE::IShape3DF & shape, const DE::CVector3F & movement, DE::CVector3F & point) {
 		return false;
 	}

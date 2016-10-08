@@ -49,8 +49,6 @@ namespace EDITOR {
 		// Set background color
 		SetBackgroundColor(DE::CColor(0.2f, 0.2f, 0.2f));
 
-		this->m_blended = false;
-
 		// Create the input label
 		this->m_inputLabel.SetBounds(DE::CRectangleI(MARGIN, this->m_boundingRectangle.GetHeight() - LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 		this->m_inputLabel.SetSize(LABEL_HEIGHT);

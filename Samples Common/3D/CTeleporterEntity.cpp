@@ -35,11 +35,11 @@ namespace SAMPLES {
 	* @param node The switch node
 	* @param camera The player
 	*/
-	CTeleporterEntity::CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
+	CTeleporterEntity::CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_TELEPORTER;
 		this->m_node = meshNode;
-		this->m_player = camera;
+		this->m_player = player;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters
@@ -108,7 +108,7 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CTeleporterEntity::CanDoAction() const {
-		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0,4,0), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS;
+		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0,4,0), this->m_player->GetPosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

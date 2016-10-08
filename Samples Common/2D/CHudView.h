@@ -41,7 +41,12 @@ namespace SAMPLES {
 		DE::CLabel m_fpsLabel;
 		DE::CLabel m_positionLabel;
 		DE::CLabel m_gravityLabel;
+		DE::CSprite m_armorSprite;
+		DE::CLabel m_armorLabel;
+		DE::CSprite m_healthSprite;
 		DE::CLabel m_healthLabel;
+		DE::CSprite m_ammoSprite;
+		DE::CLabel m_ammoLabel;
 		DE::CSprite m_crosshairView;
 
 	public:
@@ -74,6 +79,26 @@ namespace SAMPLES {
 		* @param health The health
 		*/
 		void SetHealth(const int health);
+
+		/**
+		* Set the player's armor
+		* @param armor The armor
+		*/
+		void SetArmor(const int armor);
+
+		/**
+		* Set the player's ammo
+		* @param magazine The magazine ammo
+		* @param stock The stock ammo
+		*/
+		void SetAmmo(const unsigned int magazine, const unsigned int stock);
+
+	private:
+		/**
+		* Get the color for a state value
+		* @param state The state value
+		*/
+		const DE::CColor GetStateColor(const int state);
 	};
 }
 

@@ -120,8 +120,13 @@ namespace DE {
 
 			(*it)->Update(time, this->m_particleBuffer);
 
+			// Emitters with life max achieved are considered inactive
+			if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax()) {
+				(*it)->SetActive(false);
+			}
+
 			// Remove the dead emitters
-			if((*it)->GetLifeMax() > 0 && (*it)->GetLife() >= (*it)->GetLifeMax() && (*it)->GetParticleIndex().size() == 0) {
+			if(!(*it)->IsReusable() && !(*it)->IsActive() && (*it)->GetParticleIndex().size() == 0) {
 				it = this->m_emitters.erase(it);
 			} else {
 				it++;

@@ -54,7 +54,6 @@ namespace DE {
 	protected:
 		bool m_changed;
 		bool m_visible;
-		bool m_blended;
 		bool m_hitTest;
 		std::vector<SGUIData> m_data;
 		std::vector<IView*> m_subviews;
@@ -101,12 +100,6 @@ namespace DE {
 		* @param visible The visible value
 		*/
 		virtual void SetVisible(const bool visible);
-
-		/**
-		* Set the blended value
-		* @param blended The blended value
-		*/
-		virtual void SetBlended(const bool blended);
 
 		/**
 		* Set the position

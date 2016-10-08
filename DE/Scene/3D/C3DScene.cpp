@@ -156,6 +156,13 @@ namespace DE {
 		return this->m_scene->Slide(shape, movement);
 	}
 
+	const bool C3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		return this->m_scene->GetCollisionPoint(position, movement, point);
+	}
+
 	const bool C3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 

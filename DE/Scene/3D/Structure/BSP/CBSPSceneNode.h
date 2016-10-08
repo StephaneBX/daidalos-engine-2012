@@ -108,6 +108,15 @@ namespace DE {
 		*/
 		const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point);
 
+		/**
+		* Get the collision point of a moving point
+		* @param position The position
+		* @param movement A CVector3F describing the shape movement
+		* @param point The CVector3F that will hold the collision position
+		* @return True if a collision occurred
+		*/
+		const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point);
+
 	protected:
 		/**
 		* Render the node with an optional filterId

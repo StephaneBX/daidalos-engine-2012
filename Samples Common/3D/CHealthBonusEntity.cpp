@@ -28,18 +28,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CHealthBonusEntity.h"
 
 #define ROTATION_SPEED 70.0f
+#define TRIGGER_RADIUS 5
 
 namespace SAMPLES {
 	/**
 	* @param node The health bonus node
 	* @param scene3D The scene associated to the node
 	*/
-	CHealthBonusEntity::CHealthBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene3D) {
+	CHealthBonusEntity::CHealthBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_HEALTH;
 		this->m_node = meshNode;
 		this->m_scene3D = scene3D;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+		this->m_player = player;
+		
+		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.SetRelativeToListener(true);
 	}
 
 	/**
@@ -57,6 +62,12 @@ namespace SAMPLES {
 			rotation += 360.0f;
 		}
 		this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+
+		if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS && this->m_player->GetHealth() < 100) {
+			this->m_node->SetEnabled(false);
+			this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_player->SetHealth(this->m_player->GetHealth() < 80 ? this->m_player->GetHealth() + 20 : 100);
+		}
 	}
 
 	/**

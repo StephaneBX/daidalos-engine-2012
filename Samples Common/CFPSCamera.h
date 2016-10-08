@@ -35,6 +35,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <SiniP/SiniP.h>
+#include "IPlayer.h"
+#include "Weapons/IWeapon.h"
 
 namespace SAMPLES 
 {
@@ -50,18 +52,21 @@ namespace SAMPLES
 		FPS_CAMERA_LOOKDOWN		= 1 << 8,
 		FPS_CAMERA_LOOKLEFT		= 1 << 9,
 		FPS_CAMERA_LOOKRIGHT	= 1 << 10,
-		FPS_CAMERA_RUN = 1 << 11,
-		FPS_CAMERA_INTERACT = 1 << 12
+		FPS_CAMERA_RUN			= 1 << 11,
+		FPS_CAMERA_INTERACT		= 1 << 12,
+		FPS_CAMERA_FIRE			= 1 << 13,
+		FPS_CAMERA_RELOAD		= 1 << 14
 	};
 
 	/**
 	* FPS type camera implementation
 	*/
-	class CFPSCamera
+	class CFPSCamera : public IPlayer
 	{
 	private:
 		unsigned int m_state;
 		int m_health;
+		int m_armor;
 		float m_lastCollisionUpdateTimer;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
@@ -73,6 +78,7 @@ namespace SAMPLES
 		DE::C3DScene * m_scene;
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
+		std::unique_ptr<IWeapon> m_currentWeapon;
 
 	public:
 		/**
@@ -87,28 +93,96 @@ namespace SAMPLES
 		void SetScene(DE::C3DScene * scene);
 
 		/**
+		* Set the player health
+		* @param health The player health
+		*/
+		void SetHealth(const int health);
+
+		/**
+		* Set the player armor
+		* @param health The player armor
+		*/
+		void SetArmor(const int armor);
+
+		/**
+		* Set a player object
+		* @param id The player object id
+		* @param value The object value
+		*/
+		void SetObject(const unsigned int id, const int value);
+
+		/**
+		* Set the player position
+		* @param position The position
+		*/
+		void SetPosition(const DE::CVector3F position);
+
+		/**
 		* Update the camera
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
 
 		/**
-		* Get the health
-		* @return The health
+		* Get the player shape
+		* @return The player shape
+		*/
+		DE::IShape3DF * GetShape();
+
+		/**
+		* Check if the player can see a shape
+		* @param shape A shape
+		* @return True if the player can see the shape
+		*/
+		const bool IsShapeVisible(DE::IShape3DF * shape);
+
+		/**
+		* If the player interaction action is active
+		* @return True if the player interaction action is active
+		*/
+		const bool IsInteracting() const;
+
+		/**
+		* Get the player health
+		* @return The player health
 		*/
 		const int GetHealth() const;
 
 		/**
-		* Get the player's gravity
-		* @return The gravity
+		* Get the player health
+		* @return The player health
+		*/
+		const int GetArmor() const;
+
+		/**
+		* Get the player magazine ammo for the current weapon
+		* @return The current magazine ammo
+		*/
+		const unsigned int GetCurrentWeaponMagazineAmmo() const;
+
+		/**
+		* Get the player stock ammo for the current weapon
+		* @return The current stock ammo
+		*/
+		const unsigned int GetCurrentWeaponStockAmmo() const;
+
+		/**
+		* Get the player's object value
+		* @param id The object id
+		* @return The object value
+		*/
+		const int GetObjectValue(const unsigned int id) const;
+
+		/**
+		* Get the player gravity factor
 		*/
 		const float GetGravity() const;
 
 		/**
-		* Get the camera node
-		* @return The camera node
+		* Get the player position
+		* @return The player position
 		*/
-		DE::ICameraSceneNode * GetCameraNode() const;
+		const DE::CVector3F & GetPosition() const;
 
 	private:
 		/**
@@ -127,6 +201,11 @@ namespace SAMPLES
 		* @param timeSecond Elapsed time
 		*/
 		void UpdateView(const float timeSecond);
+
+		/**
+		* Update the action
+		*/
+		void UpdateAction();
 	};
 }
 

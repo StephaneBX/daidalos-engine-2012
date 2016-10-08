@@ -31,14 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSwitchEntity.h"
 
 namespace SAMPLES {
-	CSwitchEntity::CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, CFPSCamera * camera, DE::C3DScene * scene3D) {
-
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
+	CSwitchEntity::CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_SWITCH;
 		this->m_node = meshNode;
-		this->m_player = camera;
-		this->m_player = camera;
+		this->m_player = player;
 
 		this->m_highlighted = false;
 		this->m_state = SWITCH_STATE_OFF;
@@ -53,7 +50,7 @@ namespace SAMPLES {
 				this->m_highlighted = true;
 			}
 
-			if(this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT)) {
+			if(this->m_player->IsInteracting()) {
 				DoAction();
 			}
 		} else if(this->m_highlighted) {
@@ -107,7 +104,7 @@ namespace SAMPLES {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetCameraNode()->GetAbsolutePosition()) <= TRIGGER_RADIUS && !this->m_player->GetCameraNode()->FrustumCull(this->m_node->GetVisibilityShape());
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS && this->m_player->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	void CSwitchEntity::SetOn() {

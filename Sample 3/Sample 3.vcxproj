@@ -73,12 +73,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CFlashlightEntity.h" />
     <ClInclude Include="CHealthEntity.h" />
     <ClInclude Include="CSampleApplication.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CFlashlightEntity.cpp" />
     <ClCompile Include="CHealthEntity.cpp" />
     <ClCompile Include="CSampleApplication.cpp" />
     <ClCompile Include="sample.cpp" />
