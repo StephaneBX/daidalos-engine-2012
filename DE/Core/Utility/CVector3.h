@@ -394,6 +394,7 @@ namespace DE {
 	/**
 	* Get a string from a CVector3
 	* @param separator The separator
+	* @return A string
 	*/
 	template <class T> inline const std::string CVector3<T>::ToString(const std::string separator) const {
 		std::stringstream ss;

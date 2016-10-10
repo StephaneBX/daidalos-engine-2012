@@ -91,7 +91,7 @@ namespace DE {
 
 		/**
 		* Detect a collison with a point in movement
-		* @param point The object's position
+		* @param position The object's position
 		* @param impact The final impact
 		* @param iBrush The temporaty impact
 		*/

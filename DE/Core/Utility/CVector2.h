@@ -311,6 +311,7 @@ namespace DE {
 	/**
 	* Get a string from a CVector2
 	* @param separator The separator
+	* @return A string
 	*/
 	template <class T> inline const std::string CVector2<T>::ToString(const std::string separator) const {
 		std::stringstream ss;

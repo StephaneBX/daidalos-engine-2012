@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['new',['New',['../class_d_e_1_1_c_memory_allocator.html#a932f636486c928ad815f29bdf9f1b03a',1,'DE::CMemoryAllocator']]],
+  ['normalize',['Normalize',['../class_d_e_1_1_c_quaternion.html#abe33b8ac5b972c526248f3f8945c8dff',1,'DE::CQuaternion::Normalize() const'],['../class_d_e_1_1_c_quaternion.html#a732146cbf17c9c1aa3473db70fe4866a',1,'DE::CQuaternion::Normalize(CQuaternion &amp;quat)'],['../class_d_e_1_1_c_vector2.html#ae907e81cfeafb875cf251dd4048d1ee8',1,'DE::CVector2::Normalize() const'],['../class_d_e_1_1_c_vector2.html#a35f38d1a0e01ec24046ecf68bd262f2c',1,'DE::CVector2::Normalize(CVector2&lt; T &gt; &amp;vec)'],['../class_d_e_1_1_c_vector3.html#a6762725a31897816eb7d6a9c367c1eae',1,'DE::CVector3::Normalize() const'],['../class_d_e_1_1_c_vector3.html#aa93a274b0d3b403b8a59180028adb7aa',1,'DE::CVector3::Normalize(CVector3&lt; T &gt; &amp;vec)'],['../class_d_e_1_1_c_vector4.html#a4d47df22634b05c0a5bc58f11b3bd22d',1,'DE::CVector4::Normalize() const'],['../class_d_e_1_1_c_vector4.html#ad6018a504d6425e63d42372559c51aad',1,'DE::CVector4::Normalize(CVector4&lt; T &gt; &amp;vec)']]]
+];

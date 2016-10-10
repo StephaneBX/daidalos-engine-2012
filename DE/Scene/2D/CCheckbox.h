@@ -81,22 +81,25 @@ namespace DE {
 
 		/**
 		* Set the unchecked texture
+		* @param texture The texture
 		*/
 		void SetUncheckedTexture(const std::string & texture);
 
 		/**
 		* Set the checked texture
+		* @param texture The texture
 		*/
 		void SetCheckedTexture(const std::string & texture);
 
 		/**
 		* Set the clicked texture
+		* @param texture The texture
 		*/
 		void SetClickedTexture(const std::string & texture);
 
 		/**
 		* Update the state and the geometry
-		* @parm time The elapsed time
+		* @param time The elapsed time
 		*/
 		void Update(const float time);
 

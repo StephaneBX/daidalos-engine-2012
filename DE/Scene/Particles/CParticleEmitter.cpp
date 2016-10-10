@@ -79,7 +79,7 @@ namespace DE {
 
 	/**
 	* Set the maximum life
-	* @param lifeMax The maximum life
+	* @param maxLife The maximum life
 	*/
 	void CParticleEmitter::SetLifeMax(const float maxLife) {
 		this->m_lifeMax = maxLife;
@@ -102,8 +102,8 @@ namespace DE {
 	}
 
 	/**
-	* Add a generator to the emitter
-	* @param generator The generator to add
+	* Add an initializer to the emitter
+	* @param initializer The initializer to add
 	*/
 	void CParticleEmitter::AddInitializer(IParticleInitializer * initializer) {
 		this->m_initializers.push_back(std::unique_ptr<IParticleInitializer>(initializer));

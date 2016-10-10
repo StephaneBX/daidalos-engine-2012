@@ -31,8 +31,8 @@ namespace DE {
 
 	/**
 	* Constructor
-	* @param colorMin The color min
-	* @param colorMax The color max
+	* @param positionMin The min position
+	* @param positionMax The max position
 	*/
 	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(CVector3F positionMin, CVector3F positionMax) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION;

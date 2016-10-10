@@ -1,0 +1,13 @@
+<map id="DE::CParticleEmitterSceneNode" name="DE::CParticleEmitterSceneNode">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_scene_node.html" title="Basic class for the scene nodes. " alt="" coords="1007,208,1125,235"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_i3_d_scene.html" title="Handle the scene. " alt="" coords="637,5,741,32"/>
+<area shape="rect" id="node5" title="STL class. " alt="" coords="308,117,388,144"/>
+<area shape="rect" id="node6" title="STL class. " alt="" coords="17,110,144,151"/>
+<area shape="rect" id="node8" href="$class_d_e_1_1_c_matrix.html" title="CMatrix class Basic math class for matrixes. " alt="" coords="642,272,735,299"/>
+<area shape="rect" id="node9" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="5,373,156,400"/>
+<area shape="rect" id="node10" href="$class_d_e_1_1_c_particle_emitter.html" title="A particle emitter. " alt="" coords="995,452,1137,479"/>
+<area shape="rect" id="node12" href="$class_d_e_1_1_i_shape3_d.html" title="DE::IShape3D\&lt; float \&gt;" alt="" coords="272,424,424,451"/>
+<area shape="rect" id="node11" href="$class_d_e_1_1_c_sphere.html" title="DE::CSphere\&lt; float \&gt;" alt="" coords="615,424,762,451"/>
+<area shape="rect" id="node15" href="$class_d_e_1_1_i_particle_updater.html" title="The particle updater abstract class. " alt="" coords="11,483,151,509"/>
+<area shape="rect" id="node19" href="$class_d_e_1_1_i_particle_initializer.html" title="The particle initializer abstract class. " alt="" coords="7,600,154,627"/>
+</map>

@@ -460,9 +460,11 @@ namespace DE {
 
 	/**
 	* Load a camera node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -486,9 +488,11 @@ namespace DE {
 
 	/**
 	* Load a spot light node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -517,9 +521,11 @@ namespace DE {
 
 	/**
 	* Load a camera node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -545,9 +551,11 @@ namespace DE {
 
 	/**
 	* Load a directional light node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -570,9 +578,11 @@ namespace DE {
 
 	/**
 	* Load a static mesh node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -606,9 +616,11 @@ namespace DE {
 
 	/**
 	* Load an animated mesh node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -642,9 +654,11 @@ namespace DE {
 
 	/**
 	* Load a sound node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -686,9 +700,11 @@ namespace DE {
 
 	/**
 	* Load an empty node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
@@ -705,10 +721,12 @@ namespace DE {
 	}
 
 	/**
-	* Load a camera node
+	* Load a particle emitter node
+	* @param scene The scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle The xml handle
 	* @param node The node to fill
+	* @param name The name
 	*/
 	void CSceneLoader::LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();

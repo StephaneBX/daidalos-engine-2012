@@ -1,0 +1,7 @@
+<map id="DE::CParticleEmitter" name="DE::CParticleEmitter">
+<area shape="rect" id="node2" href="$class_d_e_1_1_c_sphere.html" title="DE::CSphere\&lt; float \&gt;" alt="" coords="569,47,715,73"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_i_shape3_d.html" title="DE::IShape3D\&lt; float \&gt;" alt="" coords="272,47,424,73"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="5,13,156,40"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_i_particle_updater.html" title="The particle updater abstract class. " alt="" coords="11,105,151,132"/>
+<area shape="rect" id="node11" href="$class_d_e_1_1_i_particle_initializer.html" title="The particle initializer abstract class. " alt="" coords="7,223,154,249"/>
+</map>

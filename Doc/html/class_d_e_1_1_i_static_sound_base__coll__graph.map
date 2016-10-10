@@ -1,0 +1,5 @@
+<map id="DE::IStaticSoundBase" name="DE::IStaticSoundBase">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_sound_base.html" title="Basic class for sounds. " alt="" coords="22,171,141,197"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_i_resource.html" title="Basic class used for every resources. " alt="" coords="28,95,135,121"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_file.html" title="CFile class File information class. " alt="" coords="42,5,121,32"/>
+</map>

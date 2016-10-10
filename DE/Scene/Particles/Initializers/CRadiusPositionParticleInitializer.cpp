@@ -31,8 +31,7 @@ namespace DE {
 
 	/**
 	* Constructor
-	* @param colorMin The color min
-	* @param colorMax The color max
+	* @param radius The radius
 	*/
 	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(float radius) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION;

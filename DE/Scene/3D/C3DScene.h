@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	/**
-	* Handle the scene
+	* Handle a 3d scene
 	*/
 	class C3DScene {
 	private:

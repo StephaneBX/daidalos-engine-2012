@@ -1,0 +1,26 @@
+var class_xml_outputter =
+[
+    [ "FailedTests", "class_xml_outputter.html#a987608d04ba56dcc13461c9522f3da7e", null ],
+    [ "Hooks", "class_xml_outputter.html#a721fa60bda8d779457ae8e429be21d74", null ],
+    [ "XmlOutputter", "class_xml_outputter.html#af98780d86b93b9eb2aa440c752d5ed6f", null ],
+    [ "~XmlOutputter", "class_xml_outputter.html#a159ce827427e235d8f2db9719acbba94", null ],
+    [ "addFailedTest", "class_xml_outputter.html#abbe12c670f490cbe29b8be6d9ff174e6", null ],
+    [ "addFailedTests", "class_xml_outputter.html#a8675cbea5b79eea10f41d0ab05379421", null ],
+    [ "addFailureLocation", "class_xml_outputter.html#a1afa9344722155ae8ea3d7d67493ade3", null ],
+    [ "addHook", "class_xml_outputter.html#a5ecb9d974d3fbfe46324637462edb408", null ],
+    [ "addStatistics", "class_xml_outputter.html#a8ba291b109ac04b9f652c027c3318f14", null ],
+    [ "addSuccessfulTest", "class_xml_outputter.html#a025e0e041db1ec557e9af2887a24dd9e", null ],
+    [ "addSuccessfulTests", "class_xml_outputter.html#a57805372b9f3ceeafd43a1e637f8b888", null ],
+    [ "fillFailedTestsMap", "class_xml_outputter.html#a063afe5aaec2936d53ba58c45b5bdb54", null ],
+    [ "removeHook", "class_xml_outputter.html#ac4659712ab6b0f168119a22fbdb70255", null ],
+    [ "setRootNode", "class_xml_outputter.html#a902bd7f9c9968ea311e4da3437a37b3e", null ],
+    [ "setStandalone", "class_xml_outputter.html#aee5fd34688999cef1d04e48b4e9b695e", null ],
+    [ "setStyleSheet", "class_xml_outputter.html#af6e681ba18061b5b8dd6f37614ab556e", null ],
+    [ "write", "class_xml_outputter.html#a816f0010b840d445616c67152ac98d57", null ],
+    [ "m_encoding", "class_xml_outputter.html#a193e314a66971eec760045fc20e5a2d1", null ],
+    [ "m_hooks", "class_xml_outputter.html#a54643e72aed488db22338cb878be2c81", null ],
+    [ "m_result", "class_xml_outputter.html#a982002691814b46b0fe8ca79a74d8895", null ],
+    [ "m_stream", "class_xml_outputter.html#a6f7eb773760301d381ba7f3ca5729bca", null ],
+    [ "m_styleSheet", "class_xml_outputter.html#a83e00800a42c2a62127e335f28b58230", null ],
+    [ "m_xml", "class_xml_outputter.html#a7c789c60c2031edc2527e75e736612cb", null ]
+];

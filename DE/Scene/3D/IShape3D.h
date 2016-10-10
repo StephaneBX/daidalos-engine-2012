@@ -79,6 +79,7 @@ namespace DE {
 		/**
 		* Check a collision between two shapes
 		* @param shape The shape to test with
+		* @return If a collision occured
 		*/
 		virtual const bool IsCollision(const IShape3D * shape) const;
 

@@ -1,0 +1,10 @@
+<map id="DE::SMD2InternalData" name="DE::SMD2InternalData">
+<area shape="rect" id="node2" href="$struct_d_e_1_1_s_m_d2_skin.html" title="MD2 skin information structure. " alt="" coords="636,15,747,41"/>
+<area shape="rect" id="node3" href="$struct_d_e_1_1_s_m_d2_frame.html" title="MD2 frame information structure. " alt="" coords="631,65,752,92"/>
+<area shape="rect" id="node4" href="$struct_d_e_1_1_s_m_d2_vertex.html" title="MD2 veretx information structure. " alt="" coords="293,67,416,93"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="5,67,156,93"/>
+<area shape="rect" id="node6" href="$struct_d_e_1_1_s_m_d2_triangle.html" title="MD2 triangle information structure. " alt="" coords="440,117,569,144"/>
+<area shape="rect" id="node7" href="$struct_d_e_1_1_s_m_d2_texture_coordinates.html" title="MD2 texture coordinates information structure. " alt="" coords="593,179,789,205"/>
+<area shape="rect" id="node8" href="$class_d_e_1_1_c_vector3.html" title="CVector3 class Basic math class for vectors of size 3. " alt="" coords="625,229,758,256"/>
+<area shape="rect" id="node10" href="$struct_d_e_1_1_s_m_d2_header.html" title="MD2 header information structure. " alt="" coords="629,280,754,307"/>
+</map>

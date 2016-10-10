@@ -116,6 +116,7 @@ namespace DE {
 		/**
 		* Get a string from a CVector3
 		* @param separator The separator
+		* @return A string
 		*/
 		const std::string ToString(const std::string separator = ":") const;
 

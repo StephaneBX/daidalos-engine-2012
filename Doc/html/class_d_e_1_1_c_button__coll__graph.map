@@ -1,0 +1,10 @@
+<map id="DE::CButton" name="DE::CButton">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_view.html" title="Basic class for views. " alt="" coords="849,117,928,144"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; int \&gt;" alt="" coords="503,16,643,43"/>
+<area shape="rect" id="node5" href="$struct_d_e_1_1_s_g_u_i_data.html" title="The GUI data structure for the shaders. " alt="" coords="265,67,372,93"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="5,41,156,68"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; float \&gt;" alt="" coords="5,92,156,119"/>
+<area shape="rect" id="node8" href="$struct_d_e_1_1_s_texture2_d_filter_policy.html" title="Texture filter policy structure. " alt="" coords="482,117,663,144"/>
+<area shape="rect" id="node9" href="$class_d_e_1_1_c_buffer.html" title="Buffer enclosing class. " alt="" coords="527,168,618,195"/>
+<area shape="rect" id="node11" href="$class_d_e_1_1_c_rectangle.html" title="DE::CRectangle\&lt; int \&gt;" alt="" coords="496,219,649,245"/>
+</map>

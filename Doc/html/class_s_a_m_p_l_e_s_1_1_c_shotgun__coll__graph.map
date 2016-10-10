@@ -1,0 +1,24 @@
+<map id="SAMPLES::CShotgun" name="SAMPLES::CShotgun">
+<area shape="rect" id="node2" href="$class_s_a_m_p_l_e_s_1_1_i_weapon.html" title="Abstract weapon. " alt="" coords="1975,733,2119,760"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_memory_allocator.html" title="DE::CMemoryAllocator\l\&lt; SAMPLES::SProjectile \&gt;" alt="" coords="1594,585,1774,626"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_sound.html" title="Sound enclosing class. " alt="" coords="1637,651,1731,677"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_particle_emitter.html" title="A particle emitter. " alt="" coords="1247,760,1389,787"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_sphere.html" title="DE::CSphere\&lt; float \&gt;" alt="" coords="849,641,995,668"/>
+<area shape="rect" id="node19" href="$class_d_e_1_1_i_mesh_scene_node.html" title="Basic class for mesh nodes. " alt="" coords="1243,508,1393,535"/>
+<area shape="rect" id="node8" href="$class_d_e_1_1_i_shape3_d.html" title="DE::IShape3D\&lt; float \&gt;" alt="" coords="464,596,616,623"/>
+<area shape="rect" id="node9" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="181,567,332,593"/>
+<area shape="rect" id="node20" href="$class_d_e_1_1_i_scene_node.html" title="Basic class for the scene nodes. " alt="" coords="863,271,981,297"/>
+<area shape="rect" id="node31" href="$struct_d_e_1_1_s_material_element.html" title="Material element structure. " alt="" coords="465,533,615,560"/>
+<area shape="rect" id="node12" href="$class_d_e_1_1_i_particle_updater.html" title="The particle updater abstract class. " alt="" coords="187,771,327,797"/>
+<area shape="rect" id="node16" href="$class_d_e_1_1_i_particle_initializer.html" title="The particle initializer abstract class. " alt="" coords="183,836,330,863"/>
+<area shape="rect" id="node17" href="$class_d_e_1_1_c3_d_scene.html" title="Handle a 3d scene. " alt="" coords="1629,945,1739,972"/>
+<area shape="rect" id="node18" href="$class_d_e_1_1_c_animated_mesh_scene_node.html" title="Mesh scene node for animated meshes. " alt="" coords="1579,701,1789,728"/>
+<area shape="rect" id="node21" href="$class_d_e_1_1_i3_d_scene.html" title="Handle the scene. " alt="" coords="488,159,592,185"/>
+<area shape="rect" id="node23" title="STL class. " alt="" coords="217,100,297,127"/>
+<area shape="rect" id="node24" title="STL class. " alt="" coords="5,93,132,134"/>
+<area shape="rect" id="node26" href="$class_d_e_1_1_c_matrix.html" title="CMatrix class Basic math class for matrixes. " alt="" coords="493,293,587,320"/>
+<area shape="rect" id="node27" href="$class_d_e_1_1_c_mesh_buffer.html" title="Mesh buffer class. " alt="" coords="861,540,983,567"/>
+<area shape="rect" id="node28" href="$class_d_e_1_1_c_texture2_d.html" title="Basic class used for textures. " alt="" coords="864,591,980,617"/>
+<area shape="rect" id="node29" href="$class_d_e_1_1_c_material.html" title="Material enclosing class. " alt="" coords="871,489,973,516"/>
+<area shape="rect" id="node32" href="$class_d_e_1_1_c_animated_mesh.html" title="Basic class used for animated meshs. " alt="" coords="1246,244,1390,271"/>
+</map>

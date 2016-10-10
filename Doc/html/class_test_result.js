@@ -1,0 +1,27 @@
+var class_test_result =
+[
+    [ "TestListeners", "class_test_result.html#a781741f5636cab07026c43e141781d19", null ],
+    [ "TestResult", "class_test_result.html#a51781d20e0edeceae06589f1d9c90b48", null ],
+    [ "~TestResult", "class_test_result.html#a318d2696f70564678f866bad6d5510b6", null ],
+    [ "addError", "class_test_result.html#a25b7f26ec9a52ea4e05b38a490d381c5", null ],
+    [ "addFailure", "class_test_result.html#a648e7986cd583f7687dfaa88b5b2c080", null ],
+    [ "addFailure", "class_test_result.html#aa423474527cbc89141763ea41336a188", null ],
+    [ "addListener", "class_test_result.html#aaa44db4de1b095eff670e433f12d51de", null ],
+    [ "endSuite", "class_test_result.html#acacd853a4392a0473b3407051d79d471", null ],
+    [ "endTest", "class_test_result.html#abad5c059d9f01f251057c6065a5c35b3", null ],
+    [ "endTestRun", "class_test_result.html#a9721fc94b9991cfd3efde322701ebf70", null ],
+    [ "popProtector", "class_test_result.html#acfbbc6037e1af423f93cdb0360076524", null ],
+    [ "protect", "class_test_result.html#a243b3097a3d9468abc61e7910bbaa8b7", null ],
+    [ "pushProtector", "class_test_result.html#a1a4fbbca38cb73e8e00905193b7593dc", null ],
+    [ "removeListener", "class_test_result.html#a695fb70894352cead51d0db8ec59b3e8", null ],
+    [ "reset", "class_test_result.html#a5122b5d4edddb4b2d4ea9c214eed8c3f", null ],
+    [ "runTest", "class_test_result.html#ae00af1cdee85b14923b80a01678478ee", null ],
+    [ "shouldStop", "class_test_result.html#a20067407262c5370ca895209d46d76c6", null ],
+    [ "startSuite", "class_test_result.html#a9e21095aa704141c285819b99785326f", null ],
+    [ "startTest", "class_test_result.html#a4acd959411284f57a26eefe4c79c30d3", null ],
+    [ "startTestRun", "class_test_result.html#a6263b1ca50fa6bf504332e181bf75670", null ],
+    [ "stop", "class_test_result.html#ada481ef1a01dfa7737a1bf019f352855", null ],
+    [ "m_listeners", "class_test_result.html#a6e5daf8393ca6cdd5a9c3b44074b037b", null ],
+    [ "m_protectorChain", "class_test_result.html#abb4a702b14af262661a9e02a0193312f", null ],
+    [ "m_stop", "class_test_result.html#ab8c04c2021b19f0c8d19bf4675f2bd86", null ]
+];

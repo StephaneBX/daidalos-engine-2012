@@ -1,0 +1,7 @@
+<map id="DE::ILightSceneNode" name="DE::ILightSceneNode">
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_directional_light_scene_node.html" title="Handle a directional light. " alt="" coords="5,155,219,181"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_i_bounded_light_scene_node.html" title="Basic class for all bounded / finite lights. " alt="" coords="243,155,440,181"/>
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_scene_node.html" title="Basic class for the scene nodes. " alt="" coords="167,5,286,32"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_point_light_scene_node.html" title="Handle a point light. " alt="" coords="147,229,330,256"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_spot_light_scene_node.html" title="Handle a spot light. " alt="" coords="355,229,533,256"/>
+</map>

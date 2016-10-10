@@ -101,7 +101,7 @@ namespace DE {
 
 	/**
 	* Set the left inset
-	* @param the left inset
+	* @param left The left inset
 	*/
 	template <class T> inline void CInset<T>::SetLeft(const T left) {
 		this->m_left = left;
@@ -109,7 +109,7 @@ namespace DE {
 
 	/**
 	* Set the top inset
-	* @param the top inset
+	* @param top The top inset
 	*/
 	template <class T> inline void CInset<T>::SetTop(const T top) {
 		this->m_top = top;
@@ -117,7 +117,7 @@ namespace DE {
 
 	/**
 	* Set the right inset
-	* @param the right inset
+	* @param right The right inset
 	*/
 	template <class T> inline void CInset<T>::SetRight(const T right) {
 		this->m_right = right;
@@ -125,7 +125,7 @@ namespace DE {
 
 	/**
 	* Set the bottom inset
-	* @param the bottom inset
+	* @param bottom The bottom inset
 	*/
 	template <class T> inline void CInset<T>::SetBottom(const T bottom) {
 		this->m_bottom = bottom;

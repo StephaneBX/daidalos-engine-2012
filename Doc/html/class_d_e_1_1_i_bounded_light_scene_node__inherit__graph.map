@@ -1,0 +1,6 @@
+<map id="DE::IBoundedLightSceneNode" name="DE::IBoundedLightSceneNode">
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_point_light_scene_node.html" title="Handle a point light. " alt="" coords="5,229,188,256"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_spot_light_scene_node.html" title="Handle a spot light. " alt="" coords="213,229,391,256"/>
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_light_scene_node.html" title="Basic class for all lights. " alt="" coords="126,80,273,107"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_i_scene_node.html" title="Basic class for the scene nodes. " alt="" coords="140,5,259,32"/>
+</map>

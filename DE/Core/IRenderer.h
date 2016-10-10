@@ -286,7 +286,7 @@ namespace DE {
 
 		/**
 		* Set the cull type
-		* @param The cull type
+		* @param cullType The cull type
 		*/
 		virtual void SetCullType(ERenderStateCullType cullType) = 0;
 
@@ -392,7 +392,7 @@ namespace DE {
 
 		/**
 		* Set a renderer
-		* @param @renderer The renderer
+		* @param renderer The renderer
 		*/
 		static void SetRenderer(IRenderer * renderer);
 

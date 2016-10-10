@@ -212,7 +212,7 @@ namespace DE {
 
 		/**
 		* Set the cull type
-		* @param The cull type
+		* @param cullType The cull type
 		*/
 		void SetCullType(ERenderStateCullType cullType);
 

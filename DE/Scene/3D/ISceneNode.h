@@ -103,7 +103,7 @@ namespace DE {
 
 		/**
 		* Set the attributes map
-		* @param The attributes map to set
+		* @param attributes The attributes map to set
 		*/
 		void SetAttributes(const std::map<std::string, std::string> & attributes);
 

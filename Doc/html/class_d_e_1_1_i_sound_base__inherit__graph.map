@@ -1,0 +1,5 @@
+<map id="DE::ISoundBase" name="DE::ISoundBase">
+<area shape="rect" id="node3" href="$class_d_e_1_1_i_static_sound_base.html" title="Basic class for static sounds. " alt="" coords="5,155,157,181"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_i_stream_sound_base.html" title="Basic class for stream sounds. " alt="" coords="181,155,341,181"/>
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_resource.html" title="Basic class used for every resources. " alt="" coords="117,5,224,32"/>
+</map>

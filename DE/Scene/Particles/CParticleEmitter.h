@@ -109,7 +109,7 @@ namespace DE {
 
 		/**
 		* Set the maximum life
-		* @param lifeMax The maximum life
+		* @param maxLife The maximum life
 		*/
 		void SetLifeMax(const float maxLife);
 

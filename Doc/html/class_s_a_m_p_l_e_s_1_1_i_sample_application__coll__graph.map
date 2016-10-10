@@ -1,0 +1,39 @@
+<map id="SAMPLES::ISampleApplication" name="SAMPLES::ISampleApplication">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_win32_application.html" title="Win32 implementation of an application. " alt="" coords="1953,901,2105,927"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_i_application.html" title="Basic class for the application. " alt="" coords="1607,901,1722,927"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_i_renderer.html" title="IRenderer class. " alt="" coords="1236,938,1339,965"/>
+<area shape="rect" id="node5" href="$struct_d_e_1_1_s_screen_quad_element.html" title="Screen quad element. " alt="" coords="803,849,981,875"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="445,557,595,583"/>
+<area shape="rect" id="node24" href="$class_d_e_1_1_i_camera_scene_node.html" title="Handle a camera. " alt="" coords="1206,418,1369,445"/>
+<area shape="rect" id="node25" href="$class_d_e_1_1_i_scene_node.html" title="Basic class for the scene nodes. " alt="" coords="833,211,951,238"/>
+<area shape="rect" id="node30" href="$struct_d_e_1_1_s_view_frustum.html" title="Structure that hold view frustum information. " alt="" coords="825,406,959,433"/>
+<area shape="rect" id="node35" href="$struct_d_e_1_1_s_g_u_i_data.html" title="The GUI data structure for the shaders. " alt="" coords="839,614,945,641"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; float \&gt;" alt="" coords="445,771,595,798"/>
+<area shape="rect" id="node9" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; int \&gt;" alt="" coords="822,1157,962,1183"/>
+<area shape="rect" id="node33" href="$class_d_e_1_1_i_view.html" title="Basic class for views. " alt="" coords="1625,727,1704,754"/>
+<area shape="rect" id="node10" href="$class_d_e_1_1_i_shader_program_base.html" title="Basic class used for shader programs. " alt="" coords="807,1017,977,1043"/>
+<area shape="rect" id="node11" href="$class_d_e_1_1_i_resource.html" title="Basic class used for every resources. " alt="" coords="235,1021,341,1047"/>
+<area shape="rect" id="node13" href="$class_d_e_1_1_i_shader_base.html" title="Basic class used for shaders. " alt="" coords="459,991,581,1018"/>
+<area shape="rect" id="node12" href="$class_d_e_1_1_c_file.html" title="CFile class File information class. " alt="" coords="29,1021,108,1047"/>
+<area shape="rect" id="node14" href="$class_d_e_1_1_c_buffer.html" title="Buffer enclosing class. " alt="" coords="847,563,937,590"/>
+<area shape="rect" id="node15" href="$struct_d_e_1_1_s_texture2_d_filter_policy.html" title="Texture filter policy structure. " alt="" coords="801,745,983,771"/>
+<area shape="rect" id="node16" href="$class_d_e_1_1_c_rectangle.html" title="DE::CRectangle\&lt; int \&gt;" alt="" coords="815,798,969,825"/>
+<area shape="rect" id="node17" href="$class_d_e_1_1_c_input_device.html" title="The inputs device class. " alt="" coords="1226,1066,1349,1093"/>
+<area shape="rect" id="node18" href="$class_d_e_1_1_c_singleton_manager.html" title="DE::CSingletonManager\l\&lt; CInputDevice \&gt;" alt="" coords="1584,1013,1745,1055"/>
+<area shape="rect" id="node19" href="$class_d_e_1_1_c_sound_context_manager.html" title="Handle the sound context and the listener. " alt="" coords="1193,1117,1382,1143"/>
+<area shape="rect" id="node20" href="$class_d_e_1_1_c_singleton_manager.html" title="DE::CSingletonManager\l\&lt; CSoundContextManager \&gt;" alt="" coords="1571,1108,1758,1149"/>
+<area shape="rect" id="node21" title="STL class. " alt="" coords="248,87,328,114"/>
+<area shape="rect" id="node22" title="STL class. " alt="" coords="5,80,132,121"/>
+<area shape="rect" id="node26" href="$class_d_e_1_1_i3_d_scene.html" title="Handle the scene. " alt="" coords="468,149,572,175"/>
+<area shape="rect" id="node29" href="$class_d_e_1_1_c_matrix.html" title="CMatrix class Basic math class for matrixes. " alt="" coords="473,283,567,310"/>
+<area shape="rect" id="node31" href="$class_d_e_1_1_c_plane3_d.html" title="DE::CPlane3D\&lt; float \&gt;" alt="" coords="443,349,597,375"/>
+<area shape="rect" id="node32" href="$class_d_e_1_1_c_label.html" title="Basic class for gui text. " alt="" coords="1985,811,2073,838"/>
+<area shape="rect" id="node38" href="$class_d_e_1_1_c_checkbox.html" title="Basic class for gui checkbox. " alt="" coords="1972,659,2087,686"/>
+<area shape="rect" id="node39" href="$class_d_e_1_1_c_button.html" title="Basic class for buttons. " alt="" coords="1982,710,2077,737"/>
+<area shape="rect" id="node44" href="$class_d_e_1_1_c_cursor.html" title="Basic class for gui cursor. " alt="" coords="1982,761,2077,787"/>
+<area shape="rect" id="node37" href="$class_d_e_1_1_c_f_p_s_counter.html" title="CFPSCounter class. " alt="" coords="1965,951,2093,978"/>
+<area shape="rect" id="node40" href="$class_d_e_1_1_c2_d_scene.html" title="Handle a 2d scene. " alt="" coords="1974,1002,2085,1029"/>
+<area shape="rect" id="node41" href="$class_d_e_1_1_c3_d_scene.html" title="Handle a 3d scene. " alt="" coords="1974,1053,2085,1079"/>
+<area shape="rect" id="node42" href="$class_d_e_1_1_c_frame_buffer.html" title="Frame buffer enclosing class. " alt="" coords="1966,1103,2093,1130"/>
+<area shape="rect" id="node43" href="$class_d_e_1_1_c_shader_program.html" title="Shader Program enclosing class. " alt="" coords="1956,1234,2103,1261"/>
+</map>

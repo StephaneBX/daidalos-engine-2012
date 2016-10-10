@@ -1,0 +1,8 @@
+<map id="DE::IMaterialBase" name="DE::IMaterialBase">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_resource.html" title="Basic class used for every resources. " alt="" coords="5,361,112,388"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_file.html" title="CFile class File information class. " alt="" coords="19,250,98,277"/>
+<area shape="rect" id="node6" href="$struct_d_e_1_1_s_material_element.html" title="Material element structure. " alt="" coords="118,146,269,173"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="118,5,269,32"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="313,250,393,277"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="293,139,419,180"/>
+</map>

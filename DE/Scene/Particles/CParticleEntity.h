@@ -81,7 +81,7 @@ namespace DE {
 
 		/**
 		* Set the max life
-		* @param life The max life
+		* @param lifeMax The max life
 		*/
 		void SetLifeMax(const float lifeMax);
 
@@ -93,13 +93,13 @@ namespace DE {
 
 		/**
 		* Set the min size
-		* @param size The min size
+		* @param sizeMin The min size
 		*/
 		void SetSizeMin(const float sizeMin);
 
 		/**
 		* Set the max size
-		* @param size The max size
+		* @param sizeMax The max size
 		*/
 		void SetSizeMax(const float sizeMax);
 
@@ -111,13 +111,13 @@ namespace DE {
 
 		/**
 		* Set the rotation speed
-		* @param rotation The rotation
+		* @param rotationSpeed The rotation
 		*/
 		void SetRotationSpeed(const float rotationSpeed);
 
 		/**
 		* Set the texure id
-		* @param The texture id
+		* @param textureId The texture id
 		*/
 		void SetTextureId(const float textureId);
 
@@ -135,13 +135,13 @@ namespace DE {
 
 		/**
 		* Set the min color
-		* @param color The min color
+		* @param colorMin The min color
 		*/
 		void SetColorMin(const CColor & colorMin);
 
 		/**
 		* Set the max color
-		* @param color The max color
+		* @param colorMax The max color
 		*/
 		void SetColorMax(const CColor & colorMax);
 

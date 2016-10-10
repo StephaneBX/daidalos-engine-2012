@@ -51,8 +51,6 @@ namespace DE {
 		* @param parent The parent
 		* @param name The node name
 		* @param position The local position
-		* @param rotation The rotation
-		* @param scale The scale
 		*/
 		CEmptySceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position);
 	};

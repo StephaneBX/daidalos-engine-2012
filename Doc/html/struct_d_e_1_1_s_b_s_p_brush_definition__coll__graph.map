@@ -1,0 +1,14 @@
+<map id="DE::SBSPBrushDefinition" name="DE::SBSPBrushDefinition">
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_b_s_p_triangle.html" title="Handle a 3d triangle for the bsp. " alt="" coords="1125,289,1255,316"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_triangle3_d.html" title="Handle a 3d triangle. " alt="" coords="887,260,1006,287"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_sphere.html" title="DE::CSphere\&lt; float \&gt;" alt="" coords="555,153,702,180"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_i_shape3_d.html" title="DE::IShape3D\&lt; float \&gt;" alt="" coords="272,153,424,180"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="5,124,156,151"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="589,204,669,231"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="285,205,411,246"/>
+<area shape="rect" id="node10" href="$class_d_e_1_1_c_texture2_d.html" title="Basic class used for textures. " alt="" coords="571,255,687,281"/>
+<area shape="rect" id="node11" href="$class_d_e_1_1_c_material.html" title="Material enclosing class. " alt="" coords="577,305,680,332"/>
+<area shape="rect" id="node12" href="$class_d_e_1_1_c_vector4.html" title="DE::CVector4\&lt; float \&gt;" alt="" coords="553,356,704,383"/>
+<area shape="rect" id="node13" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; float \&gt;" alt="" coords="553,407,704,433"/>
+<area shape="rect" id="node14" href="$class_d_e_1_1_c_plane3_d.html" title="DE::CPlane3D\&lt; float \&gt;" alt="" coords="869,311,1024,337"/>
+</map>

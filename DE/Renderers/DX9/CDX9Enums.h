@@ -130,6 +130,7 @@ namespace DE {
 		/**
 		* Get the DX9 render state cull type
 		* @param type The render state cull type
+		* @return The DX9 render state cull type
 		*/
 		static D3DCULL Get(ERenderStateCullType type);
 

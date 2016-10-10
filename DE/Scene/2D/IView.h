@@ -226,6 +226,7 @@ namespace DE {
 		* @param position The position
 		* @param coordinates The texture coordinates
 		* @param rotation The rotation
+		* @return The quad
 		*/
 		const std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation = 0);
 	};

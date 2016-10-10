@@ -119,7 +119,7 @@ namespace DE {
 
 		/**
 		* Set if the sound play on startup
-		* @param The auto start value
+		* @param autoStart The auto start value
 		*/
 		void SetSoundAutoStart(const bool autoStart);
 

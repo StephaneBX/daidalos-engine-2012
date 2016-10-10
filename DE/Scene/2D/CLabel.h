@@ -95,7 +95,7 @@ namespace DE {
 
 		/**
 		* Update the state and the geometry
-		* @parm time The elapsed time
+		* @param time The elapsed time
 		*/
 		void Update(const float time);
 

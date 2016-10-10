@@ -1,0 +1,5 @@
+<map id="DE::SCharDescriptor" name="DE::SCharDescriptor">
+<area shape="rect" id="node3" href="$struct_d_e_1_1_s_kerning_pair.html" title="Kerning between 2 glyphs. " alt="" coords="5,13,129,39"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_rectangle.html" title="DE::CRectangle\&lt; float \&gt;" alt="" coords="235,71,397,98"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_rectangle.html" title="DE::CRectangle\&lt; int \&gt;" alt="" coords="239,122,393,149"/>
+</map>

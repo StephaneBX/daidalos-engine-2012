@@ -1,0 +1,7 @@
+<map id="DE::CParticleEntity" name="DE::CParticleEntity">
+<area shape="rect" id="node2" href="$struct_d_e_1_1_s_particle_data.html" title="The particle data structure for the shaders. " alt="" coords="103,109,231,136"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_vector4.html" title="DE::CVector4\&lt; float \&gt;" alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; float \&gt;" alt="" coords="180,5,331,32"/>
+<area shape="rect" id="node5" href="$class_d_e_1_1_c_color.html" title="CColor class Handle colors. " alt="" coords="256,109,343,136"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_vector3.html" title="DE::CVector3\&lt; float \&gt;" alt="" coords="367,109,517,136"/>
+</map>

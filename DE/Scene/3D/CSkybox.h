@@ -55,13 +55,11 @@ namespace DE {
 	public:
 		/**
 		* Constructor
-		* @param scene The associated scene
 		*/
 		CSkybox();
 
 		/**
 		* Constructor
-		* @param scene The associated scene
 		* @param name The start name without the extension and the face
 		*/
 		CSkybox(const std::string & name);

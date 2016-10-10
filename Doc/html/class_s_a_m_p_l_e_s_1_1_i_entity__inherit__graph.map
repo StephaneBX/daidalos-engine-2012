@@ -1,0 +1,12 @@
+<map id="SAMPLES::IEntity" name="SAMPLES::IEntity">
+<area shape="rect" id="node2" href="$class_s_a_m_p_l_e_s_1_1_c_alarm_entity.html" title="Alarm entity. " alt="" coords="211,5,382,32"/>
+<area shape="rect" id="node3" href="$class_s_a_m_p_l_e_s_1_1_c_armor_bonus_entity.html" title="Armor bonus entity. " alt="" coords="193,56,401,83"/>
+<area shape="rect" id="node4" href="$class_s_a_m_p_l_e_s_1_1_c_door_entity.html" title="Door entity. " alt="" coords="215,107,378,133"/>
+<area shape="rect" id="node5" href="$class_s_a_m_p_l_e_s_1_1_c_fan_entity.html" title="Door entity. " alt="" coords="217,157,376,184"/>
+<area shape="rect" id="node6" href="$class_s_a_m_p_l_e_s_1_1_c_flashlight_entity.html" title="Flashlight entity. " alt="" coords="201,208,393,235"/>
+<area shape="rect" id="node7" href="$class_s_a_m_p_l_e_s_1_1_c_handgun_ammo_entity.html" title="Handgun ammo entity. " alt="" coords="184,259,409,285"/>
+<area shape="rect" id="node8" href="$class_s_a_m_p_l_e_s_1_1_c_health_bonus_entity.html" title="Health bonus entity. " alt="" coords="191,309,402,336"/>
+<area shape="rect" id="node9" href="$class_s_a_m_p_l_e_s_1_1_c_shotgun_ammo_entity.html" title="Shotgun ammo entity. " alt="" coords="185,360,408,387"/>
+<area shape="rect" id="node10" href="$class_s_a_m_p_l_e_s_1_1_c_switch_entity.html" title="Switch entity. " alt="" coords="209,411,384,437"/>
+<area shape="rect" id="node11" href="$class_s_a_m_p_l_e_s_1_1_c_teleporter_entity.html" title="Teleporter entity. " alt="" coords="200,461,393,488"/>
+</map>

@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	/**
-	* Handle the 2d scene
+	* Handle a 2d scene
 	*/
 	class C2DScene {
 
@@ -74,7 +74,7 @@ namespace DE {
 
 		/**
 		* Update the scene
-		* @parm time The elapsed time
+		* @param time The elapsed time
 		*/
 		void Update(const float time);
 

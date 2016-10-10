@@ -1,0 +1,9 @@
+<map id="DE::SFontInternalData" name="DE::SFontInternalData">
+<area shape="rect" id="node3" href="$struct_d_e_1_1_s_char_data.html" title="A character data. " alt="" coords="500,13,611,39"/>
+<area shape="rect" id="node5" href="$struct_d_e_1_1_s_kerning_pair.html" title="Kerning between 2 glyphs. " alt="" coords="5,13,129,39"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; int \&gt;" alt="" coords="729,71,869,98"/>
+<area shape="rect" id="node7" href="$class_d_e_1_1_c_vector4.html" title="DE::CVector4\&lt; int \&gt;" alt="" coords="729,122,869,149"/>
+<area shape="rect" id="node8" title="STL class. " alt="" coords="759,173,839,199"/>
+<area shape="rect" id="node9" title="STL class. " alt="" coords="492,165,619,207"/>
+<area shape="rect" id="node10" href="$class_d_e_1_1_c_texture2_d.html" title="Basic class used for textures. " alt="" coords="741,223,857,250"/>
+</map>

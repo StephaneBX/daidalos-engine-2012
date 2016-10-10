@@ -95,6 +95,7 @@ namespace DE {
 	protected:
 		/**
 		* Constructor
+		* @param scene The scene
 		* @param parent The parent
 		* @param name The node name
 		* @param position The position

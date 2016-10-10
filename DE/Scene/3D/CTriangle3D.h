@@ -174,7 +174,7 @@ namespace DE {
 
 		/**
 		* Get a color
-		* @param id The id
+		* @param index The index
 		* @return A color
 		*/
 		const CVector4F & GetColor(const int index) const;

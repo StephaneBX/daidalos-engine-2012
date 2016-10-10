@@ -1,0 +1,7 @@
+<map id="DE::ITexture2DBase" name="DE::ITexture2DBase">
+<area shape="rect" id="node2" href="$class_d_e_1_1_i_resource.html" title="Basic class used for every resources. " alt="" coords="5,95,112,121"/>
+<area shape="rect" id="node3" href="$class_d_e_1_1_c_file.html" title="CFile class File information class. " alt="" coords="19,5,98,32"/>
+<area shape="rect" id="node4" href="$class_d_e_1_1_c_vector2.html" title="DE::CVector2\&lt; int \&gt;" alt="" coords="137,95,277,121"/>
+<area shape="rect" id="node5" href="$struct_d_e_1_1_s_texture2_d_filter_policy.html" title="Texture filter policy structure. " alt="" coords="301,95,483,121"/>
+<area shape="rect" id="node6" href="$class_d_e_1_1_c_image.html" title="CImage class. " alt="" coords="507,95,599,121"/>
+</map>

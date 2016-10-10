@@ -97,16 +97,19 @@ namespace DE {
 
 		/**
 		* Set the default texture
+		* @param texture The texture
 		*/
 		void SetDefaultTexture(const std::string & texture);
 
 		/**
 		* Set the clicked texture
+		* @param texture The texture
 		*/
 		void SetClickedTexture(const std::string & texture);
 
 		/**
 		* Set the focused texture
+		* @param texture The texture
 		*/
 		void SetFocusedTexture(const std::string & texture);
 
@@ -129,7 +132,7 @@ namespace DE {
 
 		/**
 		* Update the state and the geometry
-		* @parm time The elapsed time
+		* @param time The elapsed time
 		*/
 		void Update(const float time);
 

@@ -68,6 +68,7 @@ namespace DE {
 		* @param arrayList The data array
 		* @param order The order array
 		* @param arraySize The data array size
+		* @param sort The sort order
 		*/
 		void BubbleSort(T * const arrayList, int * const order, const int arraySize, EArraySorterOrder sort) {
 			this->m_arrayList = arrayList;
@@ -81,6 +82,7 @@ namespace DE {
 		* @param order The order array
 		* @param first The starting index
 		* @param last The last index
+		* @param sort The sort order
 		*/
 		void QuickSort(T * const arrayList, int * const order, const int first, const int last, EArraySorterOrder sort) {
 			this->m_arrayList = arrayList;

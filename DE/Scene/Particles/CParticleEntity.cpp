@@ -62,7 +62,7 @@ namespace DE {
 
 	/**
 	* Set the max life
-	* @param life The max life
+	* @param lifeMax The max life
 	*/
 	void CParticleEntity::SetLifeMax(const float lifeMax) {
 		this->m_lifeMax = lifeMax;
@@ -110,7 +110,7 @@ namespace DE {
 
 	/**
 	* Set the texure id
-	* @param The texture id
+	* @param textureId The texture id
 	*/
 	void CParticleEntity::SetTextureId(const float textureId) {
 		this->m_textureId = textureId;

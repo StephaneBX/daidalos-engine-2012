@@ -155,6 +155,7 @@ namespace DE {
 		/**
 		* Set the particle system atlas texture
 		* @param filename The filename
+		* @param size The atlas size
 		*/
 		void SetParticleSystemAtlasTexture(const std::string & filename, const CVector2I & size);
 

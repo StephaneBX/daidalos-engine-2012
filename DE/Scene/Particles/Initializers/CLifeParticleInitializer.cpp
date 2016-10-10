@@ -31,8 +31,8 @@ namespace DE {
 
 	/**
 	* Constructor
-	* @param colorMin The color min
-	* @param colorMax The color max
+	* @param lifeMin The life min
+	* @param lifeMax The life max
 	*/
 	CLifeParticleInitializer::CLifeParticleInitializer(float lifeMin, float lifeMax) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE;
