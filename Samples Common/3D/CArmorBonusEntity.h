@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Scene/3D/C3DScene.h>
+#include <Medias/CSound.h>
 #include "IEntity.h"
 #include "../IPlayer.h"
 
@@ -42,6 +43,7 @@ namespace SAMPLES {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
+		DE::CSound m_sound;
 		IPlayer * m_player;
 
 	public:

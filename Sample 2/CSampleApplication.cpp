@@ -90,6 +90,7 @@ namespace SAMPLE2 {
 			this->m_hud->SetPosition(this->m_player->GetPosition());
 			this->m_hud->SetGravity(this->m_player->GetGravity());
 			this->m_hud->SetHealth(this->m_player->GetHealth());
+			this->m_hud->SetArmor(this->m_player->GetArmor());
 			this->m_hud->SetAmmo(this->m_player->GetCurrentWeaponMagazineAmmo(), this->m_player->GetCurrentWeaponStockAmmo());
 
 			this->m_cursor.Update(time);

@@ -28,6 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CHandgunAmmoEntity.h"
 
 #define ROTATION_SPEED 70.0f
+#define TRIGGER_RADIUS 5
+#define AMMO_QUANTITY 12
 
 namespace SAMPLES {
 	/**
@@ -41,6 +43,9 @@ namespace SAMPLES {
 		this->m_scene3D = scene3D;
 		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+
+		this->m_sound.LoadFromFile("handgun_ammo.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.SetRelativeToListener(true);
 	}
 
 	/**
@@ -48,16 +53,25 @@ namespace SAMPLES {
 	* @param time Elapsed time
 	*/
 	void CHandgunAmmoEntity::Update(float const time) {
-		const float timePerSecond = time / 1000.0f;
+		
+		if(this->m_node->IsEnabled()) {
+			const float timePerSecond = time / 1000.0f;
 
-		float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-		if(rotation > 360.0f) {
-			rotation -= 360.0f;
+			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
+			if(rotation > 360.0f) {
+				rotation -= 360.0f;
+			}
+			if(rotation < 0) {
+				rotation += 360.0f;
+			}
+			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+
+			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
+				this->m_node->SetEnabled(false);
+				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+				this->m_player->SetObject(PLAYER_OBJECT_HANDGUN_AMMO, AMMO_QUANTITY);
+			}
 		}
-		if(rotation < 0) {
-			rotation += 360.0f;
-		}
-		this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
 	}
 
 	/**

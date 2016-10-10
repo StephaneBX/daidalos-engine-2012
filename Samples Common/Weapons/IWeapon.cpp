@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IWeapon.h"
 
 #define PARTICLE_LIFE 50
+#define WEAPON_VARIATION_FACTOR
 
 namespace SAMPLES {
 
@@ -45,9 +46,12 @@ namespace SAMPLES {
 		this->m_maxMagazineSize = 0;
 		this->m_remainingAmmo = 0;
 		this->m_maxAmmo = 0;
-		this->m_precision = 100;
+		this->m_precision = 90;
 		this->m_hitCount = 1;
 		this->m_fireRate = 1.0f;
+		this->m_fireDelay = 0;
+		this->m_reloadDelay = 0;
+		this->m_remainingDelay = 0;
 		this->m_range = 100;
 
 		this->m_meshNode = meshNode;
@@ -76,9 +80,18 @@ namespace SAMPLES {
 
 				int projectileIndex = this->m_projectiles.New();
 				if(projectileIndex > -1) {
+
+					// Add a direction variation
+					DE::CVector3F directionAltered = this->m_scene->GetActiveCamera()->GetForwardVector();
+					directionAltered.x += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
+					directionAltered.y += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
+					directionAltered.z += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
+					directionAltered = directionAltered.Normalize();
+
+					// Create the projectile
 					SProjectile & projectile = this->m_projectiles.GetReferenceAt(projectileIndex);
 					projectile.damage = this->m_damage;
-					projectile.direction = this->m_scene->GetActiveCamera()->GetForwardVector();
+					projectile.direction = directionAltered;
 					projectile.distance = this->m_range;
 					projectile.position = this->m_scene->GetActiveCamera()->GetAbsolutePosition();
 					this->m_activeProjectiles.push_back(projectileIndex);
@@ -86,8 +99,9 @@ namespace SAMPLES {
 				
 			}
 
-			// Update the state
-			this->m_state = WEAPON_STATE_NONE;
+			// Update the state and the delay
+			this->m_state = WEAPON_STATE_FIRE;
+			this->m_remainingDelay = this->m_fireDelay;
 		}
 	}
 
@@ -98,6 +112,8 @@ namespace SAMPLES {
 		// Start the animation
 		if(this->m_state == WEAPON_STATE_NONE && this->m_magazineSize < this->m_maxMagazineSize && this->m_remainingAmmo > 0) {
 			this->m_state = WEAPON_STATE_RELOAD;
+			this->m_remainingDelay = this->m_reloadDelay;
+			this->m_reloadSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 	}
 
@@ -120,11 +136,15 @@ namespace SAMPLES {
 
 		const float timeSecond = time / 1000.0f;
 
+		if(this->m_state == WEAPON_STATE_FIRE || this->m_state == WEAPON_STATE_RELOAD) {
+			this->m_remainingDelay -= time;
+		}
+
 		// Update the state
-		if(this->m_state == WEAPON_STATE_FIRE && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
+		if(this->m_state == WEAPON_STATE_FIRE && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
 
-		} else if(this->m_state == WEAPON_STATE_RELOAD && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
+		} else if(this->m_state == WEAPON_STATE_RELOAD && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
 			
 			// Update the magazine size and the remaining ammo

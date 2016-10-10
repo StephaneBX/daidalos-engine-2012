@@ -52,21 +52,24 @@ namespace SAMPLES {
 	* @param time Elapsed time
 	*/
 	void CHealthBonusEntity::Update(float const time) {
-		const float timePerSecond = time / 1000.0f;
 
-		float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-		if(rotation > 360.0f) {
-			rotation -= 360.0f;
-		}
-		if(rotation < 0) {
-			rotation += 360.0f;
-		}
-		this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+		if(this->m_node->IsEnabled()) {
+			const float timePerSecond = time / 1000.0f;
 
-		if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS && this->m_player->GetHealth() < 100) {
-			this->m_node->SetEnabled(false);
-			this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-			this->m_player->SetHealth(this->m_player->GetHealth() < 80 ? this->m_player->GetHealth() + 20 : 100);
+			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
+			if(rotation > 360.0f) {
+				rotation -= 360.0f;
+			}
+			if(rotation < 0) {
+				rotation += 360.0f;
+			}
+			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+
+			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS && this->m_player->GetHealth() < 100) {
+				this->m_node->SetEnabled(false);
+				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+				this->m_player->SetHealth(this->m_player->GetHealth() < 80 ? this->m_player->GetHealth() + 20 : 100);
+			}
 		}
 	}
 

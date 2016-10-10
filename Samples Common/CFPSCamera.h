@@ -42,20 +42,22 @@ namespace SAMPLES
 {
 	enum EFPSCameraMovement
 	{
-		FPS_CAMERA_EXIT			= 1 << 1,
-		FPS_CAMERA_STRAFELEFT	= 1 << 2,
-		FPS_CAMERA_STRAFERIGHT	= 1 << 3,
-		FPS_CAMERA_FORWARD		= 1 << 4,
-		FPS_CAMERA_BACKWARD		= 1 << 5,
-		FPS_CAMERA_JUMP			= 1 << 6,
-		FPS_CAMERA_LOOKUP		= 1 << 7,
-		FPS_CAMERA_LOOKDOWN		= 1 << 8,
-		FPS_CAMERA_LOOKLEFT		= 1 << 9,
-		FPS_CAMERA_LOOKRIGHT	= 1 << 10,
-		FPS_CAMERA_RUN			= 1 << 11,
-		FPS_CAMERA_INTERACT		= 1 << 12,
-		FPS_CAMERA_FIRE			= 1 << 13,
-		FPS_CAMERA_RELOAD		= 1 << 14
+		FPS_CAMERA_EXIT				= 1 << 1,
+		FPS_CAMERA_STRAFELEFT		= 1 << 2,
+		FPS_CAMERA_STRAFERIGHT		= 1 << 3,
+		FPS_CAMERA_FORWARD			= 1 << 4,
+		FPS_CAMERA_BACKWARD			= 1 << 5,
+		FPS_CAMERA_JUMP				= 1 << 6,
+		FPS_CAMERA_LOOKUP			= 1 << 7,
+		FPS_CAMERA_LOOKDOWN			= 1 << 8,
+		FPS_CAMERA_LOOKLEFT			= 1 << 9,
+		FPS_CAMERA_LOOKRIGHT		= 1 << 10,
+		FPS_CAMERA_RUN				= 1 << 11,
+		FPS_CAMERA_INTERACT			= 1 << 12,
+		FPS_CAMERA_FIRE				= 1 << 13,
+		FPS_CAMERA_RELOAD			= 1 << 14,
+		FPS_CAMERA_NEXT_WEAPON		= 1 << 15,
+		FPS_CAMERA_PREVIOUS_WEAPON	= 1 << 16
 	};
 
 	/**
@@ -78,7 +80,11 @@ namespace SAMPLES
 		DE::C3DScene * m_scene;
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
-		std::unique_ptr<IWeapon> m_currentWeapon;
+
+		IWeapon * m_currentWeapon;
+		int m_currentWeaponIndex;
+		std::vector<std::unique_ptr<IWeapon> > m_weapons;
+		DE::CSound m_weaponChangeSound;
 
 	public:
 		/**
@@ -106,10 +112,10 @@ namespace SAMPLES
 
 		/**
 		* Set a player object
-		* @param id The player object id
+		* @param object The player object id
 		* @param value The object value
 		*/
-		void SetObject(const unsigned int id, const int value);
+		void SetObject(EPlayerObject object, const unsigned int value);
 
 		/**
 		* Set the player position
@@ -168,10 +174,10 @@ namespace SAMPLES
 
 		/**
 		* Get the player's object value
-		* @param id The object id
+		* @param object The object id
 		* @return The object value
 		*/
-		const int GetObjectValue(const unsigned int id) const;
+		const unsigned int GetObjectValue(EPlayerObject object) const;
 
 		/**
 		* Get the player gravity factor

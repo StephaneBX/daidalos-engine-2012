@@ -61,7 +61,10 @@ namespace SAMPLES {
 		unsigned int m_precision;
 		unsigned int m_hitCount;
 		float m_fireRate;
+		float m_fireDelay;
+		float m_reloadDelay;
 		float m_range;
+		float m_remainingDelay;
 		std::pair<float, float> m_fireAnimation;
 		std::pair<float, float> m_reloadAnimation;
 		DE::CSound m_fireSound;

@@ -39,6 +39,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CConfigurationManager.h>
 #include "CFPSCamera.h"
 #include "Weapons/CHandgun.h"
+#include "Weapons/CShotgun.h"
 
 namespace SAMPLES {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode) {
@@ -66,7 +67,9 @@ namespace SAMPLES {
 			{ FPS_CAMERA_RUN, -1 },
 			{ FPS_CAMERA_INTERACT, -1 },
 			{ FPS_CAMERA_FIRE , -1 },
-			{ FPS_CAMERA_RELOAD, -1 }
+			{ FPS_CAMERA_RELOAD, -1 },
+			{ FPS_CAMERA_NEXT_WEAPON, -1 },
+			{ FPS_CAMERA_PREVIOUS_WEAPON, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -84,10 +87,12 @@ namespace SAMPLES {
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, DE::INPUT_KEY_KEYBOARD_E);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, DE::INPUT_KEY_KEYBOARD_R);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, DE::INPUT_KEY_KEYBOARD_R);	
 
 		// Mouse mapping
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_FIRE, DE::INPUT_KEY_MOUSE_BUTTON0);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_NEXT_WEAPON, DE::INPUT_KEY_MOUSE_WHEELUP);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_PREVIOUS_WEAPON, DE::INPUT_KEY_MOUSE_WHEELDOWN);
 
 		// Gamepad mapping
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON6);
@@ -102,16 +107,27 @@ namespace SAMPLES {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RUN, 0, DE::INPUT_KEY_GAMEPAD_BUTTON4);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_INTERACT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON2);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RELOAD, 0, DE::INPUT_KEY_GAMEPAD_BUTTON3);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FIRE, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LZN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_NEXT_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_RIGHT);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_LEFT);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
 		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
+
+		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC);
+		this->m_weaponChangeSound.SetRelativeToListener(true);
 	}
 
 	void CFPSCamera::SetScene(DE::C3DScene * scene) {
 		this->m_scene = scene;
-		this->m_currentWeapon = std::unique_ptr<IWeapon>(new CHandgun(nullptr, scene));
+
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(nullptr, scene)));
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(nullptr, scene)));
+		this->m_currentWeaponIndex = 0;
+		this->m_currentWeapon = this->m_weapons[0].get();
 	}
 
 	/**
@@ -132,11 +148,23 @@ namespace SAMPLES {
 
 	/**
 	* Set a player object
-	* @param id The player object id
+	* @param object The player object id
 	* @param value The object value
 	*/
-	void CFPSCamera::SetObject(const unsigned int id, const int value) {
+	void CFPSCamera::SetObject(EPlayerObject object, const unsigned int value) {
 
+		switch(object) {
+		case PLAYER_OBJECT_HANDGUN_AMMO:
+			this->m_weapons[0]->AddAmmo(value);
+			break;
+
+		case PLAYER_OBJECT_SHOTGUN_AMMO:
+			this->m_weapons[1]->AddAmmo(value);
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -225,10 +253,10 @@ namespace SAMPLES {
 
 	/**
 	* Get the player's object value
-	* @param id The object id
+	* @param object The object id
 	* @return The object value
 	*/
-	const int CFPSCamera::GetObjectValue(const unsigned int id) const {
+	const unsigned int CFPSCamera::GetObjectValue(EPlayerObject object) const {
 		return -1;
 	}
 
@@ -277,6 +305,8 @@ namespace SAMPLES {
 		if((this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_state & FPS_CAMERA_JUMP)) {
 			this->m_state |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
+			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)) {
@@ -285,12 +315,24 @@ namespace SAMPLES {
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FIRE) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FIRE)) {
 			this->m_state |= FPS_CAMERA_FIRE;
-			this->m_inputDevice->FreezeAction(FPS_CAMERA_FIRE);
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RELOAD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RELOAD)) {
 			this->m_state |= FPS_CAMERA_RELOAD;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_RELOAD);
+			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_RELOAD);
+		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_NEXT_WEAPON) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_NEXT_WEAPON)) {
+			this->m_state |= FPS_CAMERA_NEXT_WEAPON;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_NEXT_WEAPON);
+			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_NEXT_WEAPON);
+		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_PREVIOUS_WEAPON) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_PREVIOUS_WEAPON)) {
+			this->m_state |= FPS_CAMERA_PREVIOUS_WEAPON;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_PREVIOUS_WEAPON);
+			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_PREVIOUS_WEAPON);
 		}
 	}
 
@@ -461,6 +503,18 @@ namespace SAMPLES {
 
 		if((this->m_state & FPS_CAMERA_RELOAD) != 0) {
 			this->m_currentWeapon->Reload();
+		}
+
+		if((this->m_state & FPS_CAMERA_NEXT_WEAPON) != 0) {
+			this->m_currentWeaponIndex = (this->m_currentWeaponIndex + 1) % this->m_weapons.size();
+			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
+			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
+		}
+
+		if((this->m_state & FPS_CAMERA_PREVIOUS_WEAPON) != 0) {
+			this->m_currentWeaponIndex = (this->m_currentWeaponIndex - 1) % this->m_weapons.size();
+			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
+			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 	}
 }

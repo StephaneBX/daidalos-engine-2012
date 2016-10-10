@@ -33,6 +33,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
+	enum EPlayerObject {
+		PLAYER_OBJECT_FLASHLIGHT,
+		PLAYER_OBJECT_HANDGUN_WEAPON,
+		PLAYER_OBJECT_SHOTGUN_WEAPON,
+		PLAYER_OBJECT_HANDGUN_AMMO,
+		PLAYER_OBJECT_SHOTGUN_AMMO,
+	};
+
 	/**
 	* Player interface
 	*/
@@ -55,7 +63,7 @@ namespace SAMPLES {
 		* @param id The player object id
 		* @param value The object value
 		*/
-		virtual void SetObject(const unsigned int id, const int value) = 0;
+		virtual void SetObject(EPlayerObject object, const unsigned int value) = 0;
 
 		/**
 		* Set the player position
@@ -117,7 +125,7 @@ namespace SAMPLES {
 		* @param id The object id
 		* @return The object value
 		*/
-		virtual const int GetObjectValue(const unsigned int id) const = 0;
+		virtual const unsigned int GetObjectValue(EPlayerObject object) const = 0;
 
 		/**
 		* Get the player gravity factor

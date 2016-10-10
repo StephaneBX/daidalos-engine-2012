@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "CHandgun.h"
 
-#define PROJECTILE_SIZE 15
+#define PROJECTILE_BUFFER_SIZE 15
 
 namespace SAMPLES {
 
@@ -37,19 +37,24 @@ namespace SAMPLES {
 	* @param scene The 3D scene
 	*/
 	CHandgun::CHandgun(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene) : IWeapon(meshNode, scene) {
-		this->m_damage = 20;
+		this->m_damage = 10;
 		this->m_magazineSize = 12;
 		this->m_maxMagazineSize = 12;
-		this->m_remainingAmmo = 50;
+		this->m_remainingAmmo = 0;
 		this->m_maxAmmo = 108;
-		this->m_precision = 85;
+		this->m_precision = 90;
 		this->m_hitCount = 1;
 		this->m_fireRate = 1.0f;
+		this->m_fireDelay = 350.0f;
+		this->m_reloadDelay = 800.0f;
 		this->m_range = 100;
 
 		this->m_fireSound.LoadFromFile("handgun_fire.wav", DE::SOUND_TYPE_STATIC);
+		this->m_fireSound.SetRelativeToListener(true);
+		this->m_reloadSound.LoadFromFile("handgun_reload.wav", DE::SOUND_TYPE_STATIC);
+		this->m_reloadSound.SetRelativeToListener(true);
 
-		this->m_projectiles.Allocate(PROJECTILE_SIZE);
+		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);
 
 		InitializeParticleEmitters();
 	}
@@ -58,7 +63,7 @@ namespace SAMPLES {
 	* Initialize the particle emitters
 	*/
 	void CHandgun::InitializeParticleEmitters() {
-		for(int i = 0; i < PROJECTILE_SIZE; i++) {
+		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
 			DE::CParticleEmitter * emitter = this->m_scene->GetParticleSystem().InstanciateEmitter();
 			emitter->SetTextureId(1);
 			emitter->SetBlendMode(1);

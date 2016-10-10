@@ -75,6 +75,7 @@
     <ClInclude Include="3D\CFlashlightEntity.h" />
     <ClInclude Include="3D\CHandgunAmmoEntity.h" />
     <ClInclude Include="3D\CHealthBonusEntity.h" />
+    <ClInclude Include="3D\CShotgunAmmoEntity.h" />
     <ClInclude Include="3D\CSwitchEntity.h" />
     <ClInclude Include="3D\CTeleporterEntity.h" />
     <ClInclude Include="3D\IEntity.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="ISampleApplication.h" />
     <ClInclude Include="Weapons\CHandgun.h" />
+    <ClInclude Include="Weapons\CShotgun.h" />
     <ClInclude Include="Weapons\IWeapon.h" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +98,7 @@
     <ClCompile Include="3D\CFlashlightEntity.cpp" />
     <ClCompile Include="3D\CHandgunAmmoEntity.cpp" />
     <ClCompile Include="3D\CHealthBonusEntity.cpp" />
+    <ClCompile Include="3D\CShotgunAmmoEntity.cpp" />
     <ClCompile Include="3D\CSwitchEntity.cpp" />
     <ClCompile Include="3D\CTeleporterEntity.cpp" />
     <ClCompile Include="3D\IEntity.cpp" />
@@ -104,6 +107,7 @@
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="ISampleApplication.cpp" />
     <ClCompile Include="Weapons\CHandgun.cpp" />
+    <ClCompile Include="Weapons\CShotgun.cpp" />
     <ClCompile Include="Weapons\IWeapon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

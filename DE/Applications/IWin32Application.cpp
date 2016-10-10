@@ -341,7 +341,7 @@ namespace DE {
 			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELUP);
 			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELDOWN);
 
-			while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0) {
+			while(PeekMessage(&msg, this->m_hWnd, 0, 0, PM_REMOVE) > 0) {
 				switch(msg.message) {
 				case WM_KEYDOWN:
 					if(msg.wParam < 167)
@@ -364,11 +364,12 @@ namespace DE {
 					}
 					break;
 
-				case WM_MOUSEHWHEEL:
-					if(HIWORD(msg.wParam) > 0)
+				case WM_MOUSEWHEEL:
+					if(HIWORD(msg.wParam) > 0) {
 						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELUP);
-					else
+					} else {
 						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELDOWN);
+					}
 					break;
 
 				case WM_LBUTTONDOWN:
@@ -447,6 +448,12 @@ namespace DE {
 					}
 					this->m_input->SetGamepadKey(gamepadId, (EInputKeyGamepad)(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
 				}
+
+				// Update the pov - the values are angles
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_UP, state.rgdwPOV[0] == 0 ? 1.0f : 0.0f);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_RIGHT, state.rgdwPOV[0] == 9000 ? 1.0f : 0.0f);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_DOWN, state.rgdwPOV[0] == 18000 ? 1.0f : 0.0f);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_LEFT, state.rgdwPOV[0] == 27000 ? 1.0f : 0.0f);
 
 				// Update the axis
 				const float axisCenter = 32767;

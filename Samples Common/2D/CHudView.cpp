@@ -95,7 +95,7 @@ namespace SAMPLES {
 		AddSubview(&this->m_ammoSprite);
 
 		// Create the ammo label
-		this->m_ammoLabel.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 200, this->m_preferredsize.y - 55, 100, 55));
+		this->m_ammoLabel.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 230, this->m_preferredsize.y - 55, 130, 55));
 		this->m_ammoLabel.SetSize(35);
 		this->m_ammoLabel.SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
 		this->m_ammoLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);

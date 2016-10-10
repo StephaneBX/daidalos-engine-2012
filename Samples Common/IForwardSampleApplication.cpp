@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/CArmorBonusEntity.h"
 #include "3D/CHealthBonusEntity.h"
 #include "3D/CHandgunAmmoEntity.h"
+#include "3D/CShotgunAmmoEntity.h"
 #include "3D/CFlashlightEntity.h"
 #include "IForwardSampleApplication.h"
 
@@ -251,6 +252,13 @@ namespace SAMPLES {
 		for(auto it = handgunAmmoNode.begin(); it != handgunAmmoNode.end(); it++) {
 			SAMPLES::CHandgunAmmoEntity * handgunAmmoEntity = new SAMPLES::CHandgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHandgunAmmoEntity>(handgunAmmoEntity));
+		}
+
+		// Load the shotgun ammo
+		std::vector<DE::ISceneNode*> shotgunAmmoNode = this->m_scene3D->GetNodeArray("shotgun_ammo_entity");
+		for(auto it = shotgunAmmoNode.begin(); it != shotgunAmmoNode.end(); it++) {
+			SAMPLES::CShotgunAmmoEntity * shotgunAmmoEntity = new SAMPLES::CShotgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CShotgunAmmoEntity>(shotgunAmmoEntity));
 		}
 
 		// Load the flashlight

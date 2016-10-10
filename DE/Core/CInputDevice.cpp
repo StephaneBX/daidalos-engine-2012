@@ -199,6 +199,12 @@ namespace DE {
 		}
 	}
 
+	void CInputDevice::FreezeGamepadAction(const unsigned int gamepadId, const unsigned int action) {
+		if(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end() && this->m_gamepadActions[gamepadId][action].state == INPUT_KEY_STATE_DOWN) {
+			this->m_gamepadActions[gamepadId][action].state = INPUT_KEY_STATE_FROZEN;
+		}
+	}
+
 	const bool CInputDevice::IsActionActive(const unsigned int action) const {
 		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());

@@ -90,6 +90,12 @@
     <ClInclude Include="Weapons\IWeapon.h">
       <Filter>Fichiers d%27en-tête\Weapons</Filter>
     </ClInclude>
+    <ClInclude Include="Weapons\CShotgun.h">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\CShotgunAmmoEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -145,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="Weapons\IWeapon.cpp">
       <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\CShotgun.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CShotgunAmmoEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

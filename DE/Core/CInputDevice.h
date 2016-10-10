@@ -229,7 +229,11 @@ namespace DE {
 		INPUT_KEY_GAMEPAD_AXIS_RYP,
 		INPUT_KEY_GAMEPAD_AXIS_RYN,
 		INPUT_KEY_GAMEPAD_AXIS_RZP,
-		INPUT_KEY_GAMEPAD_AXIS_RZN
+		INPUT_KEY_GAMEPAD_AXIS_RZN,
+		INPUT_KEY_GAMEPAD_POV_UP,
+		INPUT_KEY_GAMEPAD_POV_DOWN,
+		INPUT_KEY_GAMEPAD_POV_LEFT,
+		INPUT_KEY_GAMEPAD_POV_RIGHT
 	};
 
 	enum EInputKeyType {
@@ -407,6 +411,13 @@ namespace DE {
 		* @param action The action name
 		*/
 		void FreezeAction(const unsigned int action);
+
+		/**
+		* Freeze an active action, it will be avaible after the associated key is up
+		* @param gamepadId The gamepad id
+		* @param action The action name
+		*/
+		void FreezeGamepadAction(const unsigned int gamepadId, const unsigned int action);
 
 		/**
 		* Check if an action is active
