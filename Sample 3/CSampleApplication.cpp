@@ -60,6 +60,7 @@ namespace SAMPLE3 {
 
 			// Update the hud
 			this->m_fpsCounter.Update(time);
+			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
 			this->m_hud->SetPosition(this->m_player->GetPosition());
 			this->m_hud->SetGravity(this->m_player->GetGravity());
@@ -77,11 +78,11 @@ namespace SAMPLE3 {
 	*/
 	void CSampleApplication::PostLoadLevel() {
 		// Load the camera
-		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
+		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera, nullptr));
 		((SAMPLES::CFPSCamera*)this->m_player.get())->SetScene(this->m_scene3D);
 
 		// Load the flashlight
-		this->m_flashlight = std::unique_ptr<SAMPLES::CFlashlightEntity>(new SAMPLES::CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_player.get(), this->m_scene3D->GetNode("flashlight_spot")));
+		this->m_flashlight = std::unique_ptr<SAMPLES::CFlashlightEntity>(new SAMPLES::CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_player.get()));
 
 		// Load the health bonus
 		std::vector<DE::ISceneNode*> health = this->m_scene3D->GetNodeArray("health_entity");

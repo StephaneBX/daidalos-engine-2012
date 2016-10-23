@@ -114,6 +114,7 @@ namespace SAMPLES {
 		// The Hud
 		// --------------------------------------------------------------------------------------------------
 		this->m_hud = new CHudView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
+		this->m_hud->SetDebugMode(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false));
 
 		// ------------------------------------------------------------------------------------------------
 		// The loading scene
@@ -264,7 +265,7 @@ namespace SAMPLES {
 		// Load the flashlight
 		std::vector<DE::ISceneNode*> flashlightNode = this->m_scene3D->GetNodeArray("flashlight_entity");
 		for(auto it = flashlightNode.begin(); it != flashlightNode.end(); it++) {
-			SAMPLES::CFlashlightEntity * flashlightEntity = new SAMPLES::CFlashlightEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D->GetNode("flashlight"));
+			SAMPLES::CFlashlightEntity * flashlightEntity = new SAMPLES::CFlashlightEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get());
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFlashlightEntity>(flashlightEntity));
 		}
 	}
@@ -313,7 +314,7 @@ namespace SAMPLES {
 		// ------------------------------
 		// Debug
 		// ------------------------------
-		if(this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
+		if(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
 			scene3D->SetActiveCamera(this->m_activeCamera);
 			scene3D->RenderDebugInformation();
 		}

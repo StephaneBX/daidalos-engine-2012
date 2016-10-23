@@ -42,7 +42,6 @@ namespace SAMPLES
 	{
 	private:
 		DE::ISceneNode * m_node;
-		DE::ISceneNode * m_light;
 		IPlayer * m_player;
 		DE::CSound m_sound;
 
@@ -52,7 +51,7 @@ namespace SAMPLES
 		* @param light The light node
 		* @param camera The player
 		*/
-		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player, DE::ISceneNode * lightNode);
+		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player);
 
 		/**
 		* Update the flashlight

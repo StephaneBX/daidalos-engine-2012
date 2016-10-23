@@ -87,6 +87,7 @@ namespace SAMPLE2 {
 
 			// Update the hud
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 			this->m_hud->SetPosition(this->m_player->GetPosition());
 			this->m_hud->SetGravity(this->m_player->GetGravity());
 			this->m_hud->SetHealth(this->m_player->GetHealth());
@@ -112,7 +113,7 @@ namespace SAMPLE2 {
 	* Do post level loading process
 	*/
 	void CSampleApplication::PostLoadLevel() {
-		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera));
+		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera, this->m_scene3D->GetNode("flashlight")));
 		((SAMPLES::CFPSCamera*)this->m_player.get())->SetScene(this->m_scene3D);
 		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
 		

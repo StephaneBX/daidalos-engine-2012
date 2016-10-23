@@ -33,7 +33,7 @@ namespace SAMPLES {
 	CHudView::CHudView(const DE::CRectangleI & bounds) : IView() {
 
 		SetBounds(bounds);
-
+		
 		// Create the fps label
 		this->m_fpsLabel.SetBounds(DE::CRectangleI((int)(this->m_preferredsize.x - 200), 0, 200, 30));
 		this->m_fpsLabel.SetSize(30);
@@ -103,10 +103,35 @@ namespace SAMPLES {
 		this->m_ammoLabel.SetText("0 / 0");
 		AddSubview(&this->m_ammoLabel);
 
+		// Create the flashlight sprite
+		this->m_flashlightSprite.SetTexture("flashlight.png");
+		this->m_flashlightSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, 20, 32, 32));
+		this->m_flashlightSprite.SetVisible(false);
+		AddSubview(&this->m_flashlightSprite);
+
 		// Create the crosshair
 		this->m_crosshairView.SetTexture("crosshair.tga");
 		this->m_crosshairView.SetBounds(DE::CRectangleI((this->m_preferredsize.x - 32) / 2, (this->m_preferredsize.y - 32) / 2, 32, 32));
 		AddSubview(&this->m_crosshairView);
+	}
+
+	/**
+	* Set the debug mode
+	* @param debugMode The debug mode
+	*/
+	void CHudView::SetDebugMode(const bool debugMode) {
+		this->m_debugMode = debugMode;
+		this->m_fpsLabel.SetVisible(this->m_debugMode);
+		this->m_positionLabel.SetVisible(this->m_debugMode);
+		this->m_gravityLabel.SetVisible(this->m_debugMode);
+	}
+
+	/**
+	* Set the flashlight state
+	* @param flashlight The flashlight state
+	*/
+	void CHudView::SetFlashlight(const bool flashlight) {
+		this->m_flashlightSprite.SetVisible(flashlight);
 	}
 
 	/**

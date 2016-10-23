@@ -75,6 +75,7 @@ namespace SAMPLES
 		DE::CVector3F m_gravity;
 		DE::CVector3F m_visiblePosition;
 		DE::ICameraSceneNode * m_node;
+		DE::ISceneNode * m_flashlightNode;
 		DE::CInputDevice * m_inputDevice;
 		DE::CEllipseF m_shape;
 		DE::C3DScene * m_scene;
@@ -88,9 +89,11 @@ namespace SAMPLES
 
 	public:
 		/**
+		* Constructor
 		* @param cameraNode The camera node
+		* @param flashlightNode The flashlight node
 		*/
-		CFPSCamera(DE::ICameraSceneNode * cameraNode);
+		CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
 
 		/**
 		* Set the associated scene

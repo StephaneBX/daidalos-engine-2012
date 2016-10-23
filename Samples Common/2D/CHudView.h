@@ -38,6 +38,7 @@ namespace SAMPLES {
 	*/
 	class CHudView : public DE::IView {
 	private:
+		bool m_debugMode;
 		DE::CLabel m_fpsLabel;
 		DE::CLabel m_positionLabel;
 		DE::CLabel m_gravityLabel;
@@ -47,6 +48,7 @@ namespace SAMPLES {
 		DE::CLabel m_healthLabel;
 		DE::CSprite m_ammoSprite;
 		DE::CLabel m_ammoLabel;
+		DE::CSprite m_flashlightSprite;
 		DE::CSprite m_crosshairView;
 
 	public:
@@ -55,6 +57,18 @@ namespace SAMPLES {
 		* @param texture The view bounds
 		*/
 		CHudView(const DE::CRectangleI & bounds);
+
+		/**
+		* Set the debug mode
+		* @param debugMode The debug mode
+		*/
+		void SetDebugMode(const bool debugMode);
+
+		/**
+		* Set the flashlight state
+		* @param flashlight The flashlight state
+		*/
+		void SetFlashlight(const bool flashlight);
 
 		/**
 		* Set the fps value

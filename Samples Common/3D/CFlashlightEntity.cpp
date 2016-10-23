@@ -32,11 +32,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CFlashlightEntity.h"
 
 namespace SAMPLES {
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player, DE::ISceneNode * lightNode) {
+	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player) {
 
 		this->m_type = ENTITY_TYPE_FLASHLIGHT;
 		this->m_node = meshNode;
-		this->m_light = lightNode;
 		this->m_player = player;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
@@ -55,7 +54,7 @@ namespace SAMPLES {
 
 			if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
 				this->m_node->SetEnabled(false);
-				this->m_light->SetEnabled(true);
+				this->m_player->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
 				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}
 		}

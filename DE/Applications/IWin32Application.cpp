@@ -344,13 +344,15 @@ namespace DE {
 			while(PeekMessage(&msg, this->m_hWnd, 0, 0, PM_REMOVE) > 0) {
 				switch(msg.message) {
 				case WM_KEYDOWN:
-					if(msg.wParam < 167)
+					if(msg.wParam < 167) {
 						this->m_input->SetKeyDown(s_keyCode[msg.wParam], msg.wParam);
+					}
 					break;
 
 				case WM_KEYUP:
-					if(msg.wParam < 167)
+					if(msg.wParam < 167) {
 						this->m_input->SetKeyUp(s_keyCode[msg.wParam], msg.wParam);
+					}
 					break;
 
 				case WM_MOUSEMOVE:

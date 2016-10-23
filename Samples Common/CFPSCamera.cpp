@@ -42,9 +42,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Weapons/CShotgun.h"
 
 namespace SAMPLES {
-	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode) {
+	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
+		this->m_flashlightNode = flashlightNode;
 		this->m_health = 80;
 		this->m_armor = 0;
 
@@ -154,6 +155,12 @@ namespace SAMPLES {
 	void CFPSCamera::SetObject(EPlayerObject object, const unsigned int value) {
 
 		switch(object) {
+		case PLAYER_OBJECT_FLASHLIGHT:
+			if(this->m_flashlightNode != nullptr) {
+				this->m_flashlightNode->SetEnabled(value >= 1 ? true : false);
+			}
+			break;
+
 		case PLAYER_OBJECT_HANDGUN_AMMO:
 			this->m_weapons[0]->AddAmmo(value);
 			break;
@@ -257,7 +264,14 @@ namespace SAMPLES {
 	* @return The object value
 	*/
 	const unsigned int CFPSCamera::GetObjectValue(EPlayerObject object) const {
-		return -1;
+
+		switch(object) {
+		case PLAYER_OBJECT_FLASHLIGHT:
+			return (this->m_flashlightNode != nullptr && this->m_flashlightNode->IsEnabled()) ? 1 : 0;
+
+		default:
+			return 0;
+		}
 	}
 
 	/**

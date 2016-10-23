@@ -850,8 +850,8 @@ namespace DE {
 		CVector3F vertex[4];
 		vertex[0] = portalCenter - u + v; // top left
 		vertex[1] = portalCenter + u + v; // top right
-		vertex[3] = portalCenter + u - v; // bottom right
-		vertex[4] = portalCenter - u - v; // bottom left
+		vertex[2] = portalCenter + u - v; // bottom right
+		vertex[3] = portalCenter - u - v; // bottom left
 
 		// Create the portal
 	}
