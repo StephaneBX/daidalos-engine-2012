@@ -7889,8 +7889,8 @@
 		<!-- Models -->
 		<node type="6" name="health" file="health_bonus.md2">
 			<position>0:1:70</position>
-			<diffuse_texture>health_bonus_d.png</diffuse_texture>
-			<normal_texture>health_bonus_n.png</normal_texture>
+			<diffuse_texture>glow_green.tga</diffuse_texture>
+			<normal_texture>glow_green.tga</normal_texture>
 		</node>
 		
 		<!-- Bars -->

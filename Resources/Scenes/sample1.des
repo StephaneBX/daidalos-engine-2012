@@ -340,7 +340,7 @@
 		<node type="1" name="player">
 			<position>15:4:0</position>
 			<rotation>0:0:0</rotation>
-			<fov>80</fov>
+			<fov>55</fov>
 			<near>0.1</near>
 			<far>80</far>
 		</node>

@@ -46,6 +46,7 @@ namespace DE {
 		static D3DBLEND s_renderStateBlendFunction[];
 		static D3DBLENDOP s_renderStateBlendOperation[];
 		static D3DCULL s_renderStateCullType[];
+		static D3DFILLMODE s_fillMode[];
 		static D3DSTENCILOP s_stencilOperation[];
 		static unsigned int s_streamSourceType[];
 
@@ -133,6 +134,13 @@ namespace DE {
 		* @return The DX9 render state cull type
 		*/
 		static D3DCULL Get(ERenderStateCullType type);
+
+		/**
+		* Get the DX9 render state fill mode
+		* @param fillMode The fill mode
+		* @return The DX9 render state fill mode
+		*/
+		static D3DFILLMODE Get(ERenderStateFillMode fillMode);
 
 		/**
 		* Get the DX9 stencil operation

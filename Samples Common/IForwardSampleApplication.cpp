@@ -95,7 +95,10 @@ namespace SAMPLES {
 		};
 		this->m_declarationLight = this->m_renderer->CreateVertexDeclaration(declarationLight);
 
+		
+
 		this->m_shaderDiffuse.LoadFromFile("ForwardDiffuse");
+		this->m_shaderTransparent.LoadFromFile("ForwardTransparent");
 		this->m_shaderShadowMap.LoadFromFile("ForwardShadowMap");
 		this->m_shaderSpotLight.LoadFromFile("ForwardSpotLight");
 		this->m_shaderPointLight.LoadFromFile("ForwardPointLight");
@@ -109,6 +112,31 @@ namespace SAMPLES {
 		};
 		this->m_frameBufferShadowMap.CreateFromDeclaration(fbd, fbdd);
 		this->m_frameBufferShadowMap.AttachDepth("lightDepth");
+
+		// --------------------------------------------------------------------------------------------------
+		// Post process
+		// --------------------------------------------------------------------------------------------------
+		DE::SFrameBufferDeclaration fbdpp[] = {
+			{ "postProcessRT", this->m_renderer->GetResolution(), DE::PIXEL_FORMAT_A8R8G8B8, textureFilter2, DE::FRAMEBUFFER_ATTACHMENT_TYPE_TEXTURE }
+		};
+		DE::SFrameBufferDepthDeclaration fbddpp[] = {
+			{ "postProcessDepth", this->m_renderer->GetResolution(), DE::PIXEL_FORMAT_DEPTH24S8 }
+		};
+		this->m_frameBufferPostProcess.CreateFromDeclaration(fbdpp, fbddpp);
+		this->m_frameBufferPostProcess.AttachElement("postProcessRT", 0);
+		this->m_frameBufferPostProcess.AttachDepth("postProcessDepth");
+
+		DE::SDeclarationElement screenQuadDecl[] =
+		{
+			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
+			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
+		};
+		this->m_screenQuadPostProcessVD = this->m_renderer->CreateVertexDeclaration(screenQuadDecl);
+		this->m_screenQuadPostProcessVB = this->m_renderer->CreateVertexBuffer(sizeof(DE::SScreenQuadElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, this->m_renderer->GetScreenQuad());
+
+		this->m_texture2DPostProcess.CreateEmpty("postProcessTexture2D", this->m_renderer->GetResolution(), DE::PIXEL_FORMAT_A8R8G8B8, &textureFilter2, DE::TEXTURE_FLAG_FRAMEBUFFER_TYPE);
+		this->m_shaderScreenBlur.LoadFromFile("ScreenBlur");
+		this->m_shaderScreenGlow.LoadFromFile("ScreenGlow");
 
 		// ------------------------------------------------------------------------------------------------
 		// The Hud
@@ -291,6 +319,16 @@ namespace SAMPLES {
 		DiffuseRendering(scene3D);
 
 		// ------------------------------
+		// Post processing
+		// ------------------------------
+		PostProcessRendering();
+
+		// ------------------------------
+		// Transparent
+		// ------------------------------
+		TransparentRendering(scene3D);
+
+		// ------------------------------
 		// Forward rendering: spot lights
 		// ------------------------------
 		SpotLightsRendering(scene3D);
@@ -402,6 +440,73 @@ namespace SAMPLES {
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->RenderAll();
+	}
+
+	/**
+	* Render the transparent part
+	* @param scene3D The scene
+	*/
+	void IForwardSampleApplication::TransparentRendering(DE::C3DScene * scene3D) {
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderTransparent.GetShaderProgram());
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		scene3D->RenderTransparent();
+	}
+
+	/**
+	* Do the post process rendering
+	*/
+	void IForwardSampleApplication::PostProcessRendering() {
+
+		// Get the back buffer as a texture
+		this->m_renderer->CopyBackBufferToTexture(this->m_texture2DPostProcess.GetTexture());
+
+		// Draw a quad with alpha blending and alpha test
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
+
+		this->m_renderer->SetAlphaReference(0x00000001);
+		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
+		this->m_renderer->SetVertexDeclaration(this->m_screenQuadPostProcessVD.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderScreenBlur.GetShaderProgram());
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadPostProcessVB, sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetTexture(0, this->m_texture2DPostProcess.GetTexture());
+
+		// Blur the copied back buffer
+		this->m_renderer->SetFrameBuffer(this->m_frameBufferPostProcess.GetFrameBuffer());
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_RESOLUTION), DE::CVector2F((float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y));
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 15);
+
+		// Horizontal convolution
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 0);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		// Vertical convolution
+		this->m_renderer->CopyTextureToTexture(this->m_frameBufferPostProcess.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 1);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		// Draw back to the back buffer with blending
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetShaderProgram(this->m_shaderScreenGlow.GetShaderProgram());
+		this->m_renderer->SetFrameBuffer(nullptr);
+		this->m_renderer->SetTexture(0, this->m_frameBufferPostProcess.GetFrameBuffer()->GetTexture("postProcessRT"));
+		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 6.5f);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 
 	/**

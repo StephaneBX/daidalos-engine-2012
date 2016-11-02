@@ -73,7 +73,14 @@ namespace DE {
 		"skyboxPosition",
 		"skyAmbientColor",
 
-		"textureAtlasSize"
+		"textureAtlasSize",
+
+		"resolution",
+
+		"convolutionMode",
+		"blurRadius",
+
+		"glowFactor"
 	};
 
 	IRenderer::~IRenderer() {
@@ -135,12 +142,6 @@ namespace DE {
 		LOG_TRACE();
 
 		return this->m_resolution;
-	}
-
-	const CVector2I & IRenderer::GetInternalResolution() const {
-		LOG_TRACE();
-
-		return this->m_internalResolution;
 	}
 
 	const SScreenQuadElement & IRenderer::GetScreenQuadElement(EScreenQuadPoint point) const {

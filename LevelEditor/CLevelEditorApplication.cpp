@@ -427,6 +427,11 @@ namespace EDITOR {
 		// ------------------------------
 		DiffuseRendering(scene3D);
 
+		// ------------------------------
+		// Transparent
+		// ------------------------------
+		TransparentRendering(scene3D);
+
 		// Lights
 		if(this->m_drawLights) {
 			// ------------------------------

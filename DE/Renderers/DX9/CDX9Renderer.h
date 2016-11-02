@@ -217,6 +217,12 @@ namespace DE {
 		void SetCullType(ERenderStateCullType cullType);
 
 		/**
+		* Set the fill mode
+		* @param fillMode The fill mode
+		*/
+		void SetFillMode(ERenderStateFillMode fillMode);
+
+		/**
 		* Set the stencil buffer function
 		* @param function The function
 		*/
@@ -263,6 +269,19 @@ namespace DE {
 		* @param viewport The viewport
 		*/
 		void SetViewport(const CRectangleI & viewport);
+
+		/**
+		* Copy the back buffer to a texture
+		* @param texture2D The texture
+		*/
+		void CopyBackBufferToTexture(ITexture2DBase * texture2D);
+
+		/**
+		* Copy a texture to another one
+		* @param source The source texture
+		* @param destination The destination texture
+		*/
+		void CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination);
 
 		/**
 		* Begin a rendering process

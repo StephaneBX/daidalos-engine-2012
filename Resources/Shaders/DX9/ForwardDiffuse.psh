@@ -24,7 +24,8 @@ PS_OUTPUT main(PS_INPUT IN) {
 	
 	float fogFactor = IN.depth >= (viewDistance * fogFalloff) ? saturate(1.0f - (((IN.depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff))) : 1.0f;
 	float4 diffuse = tex2D(diffuseSampler, IN.texcoord).xyzw;
-	OUT.color = float4(diffuse * materialAmbient * fogFactor, diffuse.w);
+	
+	OUT.color = float4(diffuse * materialAmbient * fogFactor, diffuse.w < 1.0f ? diffuse.w : 0.0f);
 	
 	return OUT;
 }

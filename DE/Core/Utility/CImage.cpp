@@ -42,7 +42,7 @@ namespace DE {
 
 		this->m_size = size;
 		this->m_format = format;
-		this->m_data = std::vector<unsigned char>(this->m_size.x * this->m_size.y * GetBytesPerPixel(format), 0x00);
+		this->m_data = std::vector<unsigned char>(this->m_size.x * this->m_size.y * GetBytesPerPixel(format), 255);
 	}
 
 	/**

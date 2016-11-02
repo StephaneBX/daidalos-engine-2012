@@ -63,7 +63,6 @@ namespace DE {
 		SScreenQuadElement m_screenQuadElement[SCREEN_QUAD_POINT_SIZE];
 		CRectangleI m_displayBounds;
 		CVector2I m_resolution;
-		CVector2I m_internalResolution;
 		STexture2DFilterPolicy m_defaultTextureFilter;
 		STexture2DFilterPolicy m_defaultBasicTextureFilter;
 
@@ -136,12 +135,6 @@ namespace DE {
 		* @return The resolution
 		*/
 		const CVector2I & GetResolution() const;
-
-		/**
-		* Get the internal resolution
-		* @return The internal resolution
-		*/
-		const CVector2I & GetInternalResolution() const;
 
 		/**
 		* Get a screen quad element
@@ -291,6 +284,12 @@ namespace DE {
 		virtual void SetCullType(ERenderStateCullType cullType) = 0;
 
 		/**
+		* Set the fill mode
+		* @param fillMode The fill mode
+		*/
+		virtual void SetFillMode(ERenderStateFillMode fillMode) = 0;
+
+		/**
 		* Set the stencil buffer function
 		* @param function The function
 		*/
@@ -337,6 +336,19 @@ namespace DE {
 		* @param viewport The viewport
 		*/
 		virtual void SetViewport(const CRectangleI & viewport) = 0;
+
+		/**
+		* Copy the back buffer to a texture
+		* @param texture2D The texture
+		*/
+		virtual void CopyBackBufferToTexture(ITexture2DBase * texture2D) = 0;
+
+		/**
+		* Copy a texture to another one
+		* @param source The source texture
+		* @param destination The destination texture
+		*/
+		virtual void CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination) = 0;
 
 		/**
 		* Begin a rendering process

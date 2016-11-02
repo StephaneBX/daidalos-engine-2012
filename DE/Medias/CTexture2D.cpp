@@ -126,10 +126,13 @@ namespace DE {
 			usedFilter = *filter;
 
 		// Release previously used resource
-		if(this->m_texture != nullptr)
+		if(this->m_texture != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+		}
 
-		Load(CImage(size, format), usedFilter, format, flags, name);
+		CImage * img = new CImage(size, format);
+		Load(*img, usedFilter, format, flags, name);
+		delete img;
 	}
 
 	void CTexture2D::CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
@@ -144,12 +147,14 @@ namespace DE {
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.maxAnisotropy = 0;
-		} else
+		} else {
 			usedFilter = *filter;
+		}
 
 		// Release previously used resource
-		if(this->m_texture != nullptr)
+		if(this->m_texture != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+		}
 
 		// Check the existence of the resource and load it if necessary
 		ITexture2DBase * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(filename);
@@ -158,8 +163,9 @@ namespace DE {
 			CImage * img = CMediaManager::GetInstance()->LoadMediaFromFile<CImage>(filename);
 			Load(*img, usedFilter, format, flags, filename);
 			delete img;
-		} else
+		} else {
 			this->m_texture = tmp;
+		}
 	}
 
 	void CTexture2D::CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name) {
@@ -174,19 +180,22 @@ namespace DE {
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.maxAnisotropy = 0;
-		} else
+		} else {
 			usedFilter = *filter;
+		}
 
 		// Release previously used resource
-		if(this->m_texture != nullptr)
+		if(this->m_texture != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+		}
 
 		ITexture2DBase * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(name);
 
-		if(tmp == nullptr)
+		if(tmp == nullptr) {
 			Load(image, usedFilter, format, flags, name);
-		else
+		} else {
 			this->m_texture = tmp;
+		}
 	}
 
 	void CTexture2D::SaveToFile(const std::string & filename) const {
@@ -198,10 +207,11 @@ namespace DE {
 	void CTexture2D::Update(const CRectangleI & rect) {
 		LOG_TRACE();
 
-		if(rect.GetSize().x == -1)
+		if(rect.GetSize().x == -1) {
 			this->m_texture->Update(CRectangleI(CVector2I(0, 0), this->m_texture->m_size));
-		else
+		} else {
 			this->m_texture->Update(rect);
+		}
 	}
 
 	void CTexture2D::Load(const CImage & image, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags, const std::string name) {
@@ -217,20 +227,28 @@ namespace DE {
 		CVector2I size = CVector2I(GetNearestPowerOfTwo(image.GetSize().x), GetNearestPowerOfTwo(image.GetSize().y));
 		if(size != image.GetSize() && !IRenderer::GetRenderer()->HasCapability(CAPABILITY_HARDWARE_NON_POW2_TEXTURES)) {
 			LOG_WARNING("Using a non power of two texture with a non compatible hardware. Resizing to the nearest power of two");
-		} else
+		} else {
 			size = image.GetSize();
+		}
 
 		this->m_texture = IRenderer::GetRenderer()->CreateTexture2D(size, filter, format, flags);
 
-		if(name != "")
+		if(name != "") {
 			CResourceManager::GetInstance()->AddResource(name, this->m_texture);
+		}
 
-		if(IsFormatCompressed(format))
+		if(IsFormatCompressed(format)) {
 			this->m_texture->m_image = CImage(GetSize(), PIXEL_FORMAT_A8R8G8B8);
+		}
 
 		// Copy pixels
 		this->m_texture->m_name = name;
 		this->m_texture->m_image.Copy(image);
-		Update();
+
+		// Do not update render target texture type
+		if((flags & TEXTURE_FLAG_FRAMEBUFFER_TYPE) == 0) {
+			Update();
+		}
+		
 	}
 }

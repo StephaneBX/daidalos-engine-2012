@@ -1,0 +1,21 @@
+uniform float glowFactor;
+
+struct PS_INPUT {
+	float4 position	: POSITION;
+	float2 texcoord : TEXCOORD0;
+};
+
+struct PS_OUTPUT {
+	float4 color 	: COLOR;
+};
+
+sampler2D diffuseSampler;
+
+PS_OUTPUT main(PS_INPUT IN) {
+	PS_OUTPUT OUT;
+	
+	float4 textureColor = tex2D(diffuseSampler, IN.texcoord);
+	
+	OUT.color = float4(textureColor.xyz * glowFactor, textureColor.w);
+	return OUT;
+}

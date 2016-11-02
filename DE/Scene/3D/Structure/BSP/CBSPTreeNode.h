@@ -80,8 +80,9 @@ namespace DE {
 		/**
 		* Load a triangle list
 		* @param triangles The triangles list
+		* @param split If the triangle should be split
 		*/
-		void LoadTriangleList(const std::vector<CBSPTriangle*> & triangles);
+		void LoadTriangleList(const std::vector<CBSPTriangle*> & triangles, bool split);
 
 		/**
 		* Rest the draw state of the geometry

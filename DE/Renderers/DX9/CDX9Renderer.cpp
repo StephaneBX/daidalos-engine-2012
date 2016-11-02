@@ -64,14 +64,14 @@ namespace DE {
 	const CRectangleI CDX9Renderer::GetLightScissor(const CVector4F & positionRadius) const {
 		LOG_TRACE();
 
-		int rect[4] = { 0, 0, this->m_internalResolution.x, this->m_internalResolution.y };
+		int rect[4] = { 0, 0, this->m_resolution.x, this->m_resolution.y };
 
 		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
 		CVector3F l2 = l * l;
 		float r = positionRadius.w;
 		float r2 = r * r;
 		float e = 1.2f;
-		float a = this->m_internalResolution.x / (float)this->m_internalResolution.y;
+		float a = this->m_resolution.x / (float)this->m_resolution.y;
 
 		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
 		if(d > 0) {
@@ -86,7 +86,7 @@ namespace DE {
 
 			if(pz1 > 0) {
 				float fx = (-nz1 * e) / nx1;
-				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
 				float px = -pz1 * nz1 / nx1;
 
 				if(px < l.x) {
@@ -98,7 +98,7 @@ namespace DE {
 
 			if(pz2 > 0) {
 				float fx = (-nz2 * e) / nx2;
-				int x = (int)((fx + 1) * this->m_internalResolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
 				float px = -pz2 * nz2 / nx2;
 
 				if(px < l.x) {
@@ -122,7 +122,7 @@ namespace DE {
 
 			if(pz1 > 0) {
 				float fy = (nz1 * e * a) / ny1;
-				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
 				float py = -pz1 * nz1 / ny1;
 
 				if(py < l.y) {
@@ -134,7 +134,7 @@ namespace DE {
 
 			if(pz2 > 0) {
 				float fy = (nz2 * e * a) / ny2;
-				int y = (int)((fy + 1) * this->m_internalResolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
 				float py = -pz2 * nz2 / ny2;
 
 				if(py < l.y) {
@@ -149,7 +149,7 @@ namespace DE {
 
 		// Boundary check
 		if(finalRect.GetWidth() <= 0 || finalRect.GetHeight() <= 0) {
-			finalRect = CRectangleI(0, 0, this->m_internalResolution.x, this->m_internalResolution.y);
+			finalRect = CRectangleI(0, 0, this->m_resolution.x, this->m_resolution.y);
 		}
 
 		return finalRect;
@@ -383,6 +383,12 @@ namespace DE {
 		this->m_device->SetRenderState(D3DRS_CULLMODE, CDX9Enums::Get(cullType));
 	}
 
+	void CDX9Renderer::SetFillMode(ERenderStateFillMode fillMode) {
+		LOG_TRACE();
+
+		this->m_device->SetRenderState(D3DRS_FILLMODE, CDX9Enums::Get(fillMode));
+	}
+
 	void CDX9Renderer::SetStencilFunction(ECompare function) {
 		LOG_TRACE();
 
@@ -438,6 +444,35 @@ namespace DE {
 		vp.MaxZ = 1.0f;
 
 		this->m_device->SetViewport(&vp);
+	}
+
+	void CDX9Renderer::CopyBackBufferToTexture(ITexture2DBase * texture2D) {
+		LOG_TRACE();
+		
+		const CDX9Texture2D * dx9Texture = static_cast<const CDX9Texture2D*>(texture2D);
+		const CDX9RenderTarget * mainBuffer = static_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
+		IDirect3DSurface9 * textureSurface = nullptr;
+		dx9Texture->GetTexture()->GetSurfaceLevel(0, &textureSurface);
+
+		this->m_device->StretchRect(mainBuffer->GetRenderTarget(), nullptr, textureSurface, nullptr, D3DTEXF_LINEAR);
+	}
+
+	/**
+	* Copy a texture to another one
+	* @param source The source texture
+	* @param destination The destination texture
+	*/
+	void CDX9Renderer::CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination) {
+		LOG_TRACE();
+
+
+		IDirect3DSurface9 * sourceTextureSurface = nullptr;
+		static_cast<const CDX9Texture2D*>(source)->GetTexture()->GetSurfaceLevel(0, &sourceTextureSurface);
+
+		IDirect3DSurface9 * destinationTextureSurface = nullptr;
+		static_cast<const CDX9Texture2D*>(destination)->GetTexture()->GetSurfaceLevel(0, &destinationTextureSurface);
+
+		this->m_device->StretchRect(sourceTextureSurface, nullptr, destinationTextureSurface, nullptr, D3DTEXF_LINEAR);
 	}
 
 	void CDX9Renderer::BeginScene() {
@@ -628,7 +663,7 @@ namespace DE {
 		this->m_d3dpp.Windowed = true;
 		this->m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		this->m_d3dpp.hDeviceWindow = this->m_hwnd;
-		this->m_d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+		this->m_d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 		this->m_d3dpp.BackBufferWidth = rect.right - rect.left;
 		this->m_d3dpp.BackBufferHeight = rect.bottom - rect.top;
 		this->m_d3dpp.EnableAutoDepthStencil = true;
@@ -673,6 +708,7 @@ namespace DE {
 		this->m_device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 		this->m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 		this->m_device->SetRenderState(D3DRS_STENCILENABLE, false);
+		this->m_device->SetRenderState(D3DRS_COLORWRITEENABLE , D3DCOLORWRITEENABLE_ALPHA | D3DCOLORWRITEENABLE_BLUE | D3DCOLORWRITEENABLE_GREEN | D3DCOLORWRITEENABLE_RED);
 
 		this->m_minVertexIndex = 0;
 		this->m_numVertices = 0;
@@ -695,8 +731,6 @@ namespace DE {
 
 		// Internal resolution
 		SiniP options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
-		this->m_internalResolution.x = options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_INTERNAL_RESOLUTION_X, this->m_resolution.x);
-		this->m_internalResolution.y = options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_INTERNAL_RESOLUTION_Y, this->m_resolution.y);
 
 		// Screen quad information
 		SScreenQuadElement sq[] =

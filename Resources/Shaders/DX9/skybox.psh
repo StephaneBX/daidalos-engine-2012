@@ -15,7 +15,7 @@ sampler2D diffuseSampler;
 PS_OUTPUT main(PS_INPUT IN)
 {
 	PS_OUTPUT OUT;
-	OUT.diffuse = float4(tex2D(diffuseSampler, IN.texcoord).xyz, 1);
+	OUT.diffuse = float4(tex2D(diffuseSampler, IN.texcoord).xyz, 0);
 	OUT.normal = float4(0,0,0,0);
 	return OUT;
 }

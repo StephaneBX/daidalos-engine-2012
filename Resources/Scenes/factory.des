@@ -4832,6 +4832,22 @@
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
         </node>
+		<node type="5" name="door_light" file="door_light.obj">
+            <position>0:0:36</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+            <position>0:0:36</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-2" name="door_entity" file="door.ms3d">
             <position>0:0:180</position>
@@ -4842,6 +4858,22 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+            <position>0:0:180</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+            <position>0:0:180</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-3" name="door_entity" file="door.ms3d">
@@ -4854,6 +4886,22 @@
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
         </node>
+		<node type="5" name="door_light" file="door_light.obj">
+           <position>0:-16:110</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+           <position>0:-16:110</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-4" name="door_entity" file="door.ms3d">
             <position>70:0:110</position>
@@ -4865,6 +4913,22 @@
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
         </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>70:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>70:0:110</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-5" name="door_entity" file="door.ms3d">
             <position>-70:0:110</position>
@@ -4875,6 +4939,22 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>-70:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>-70:0:110</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-7" name="door_entity" file="door.ms3d">
@@ -4890,6 +4970,14 @@
 				<triggerRadius>-1.0</triggerRadius>
 			</attributes>
         </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>140:0:110</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_red.tga</diffuse_texture>
+            <normal_texture>door_light_red.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-8" name="door_entity" file="door.ms3d">
             <position>90:8:150</position>
@@ -4900,6 +4988,22 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
 			<boundingBox>door_bbox.obj</boundingBox>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>90:8:150</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
+        </node>
+		<node type="5" name="door_light" file="door_light.obj">
+			<position>90:8:150</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <material>default.mtl</material>
         </node>
         <!-- Projection Camera Node -->
         <node type="1" name="player">
@@ -5285,7 +5389,7 @@
             <position>95:0:130</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>switch_d.png</diffuse_texture>
+            <diffuse_texture>switch_d.tga</diffuse_texture>
             <normal_texture>switch_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
@@ -5296,7 +5400,7 @@
             <position>95:8:136</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>switch_d.png</diffuse_texture>
+            <diffuse_texture>switch_d.tga</diffuse_texture>
             <normal_texture>switch_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>

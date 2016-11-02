@@ -60,6 +60,7 @@ namespace DE {
 		int m_height;
 		int m_anisotropicFiltering;
 		int m_antialiasing;
+		ERenderStateFillMode m_fillMode;
 		std::string m_rendererName;
 		std::string m_name;
 		CRectangleI m_displayBounds;

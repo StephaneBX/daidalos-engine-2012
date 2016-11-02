@@ -202,6 +202,25 @@ namespace DE {
 	}
 
 	/**
+	* Render all the transparent nodes
+	*/
+	void I3DScene::RenderTransparent() {
+		LOG_TRACE();
+
+		Assert(this->m_root != nullptr);
+		Assert(this->m_activeCamera != nullptr);
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		Assert(shaderProgram != nullptr);
+
+		// Global parameters of the scene
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+
+		this->m_root->RenderTransparent();
+	}
+
+	/**
 	* Render the particle system
 	*/
 	void I3DScene::RenderParticleSystem() {

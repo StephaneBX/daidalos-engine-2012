@@ -289,6 +289,7 @@ namespace DE {
 
 		this->m_renderer = IRenderer::GetRenderer();
 		this->m_renderer->SetDisplayBounds(this->m_displayBounds);
+		this->m_renderer->SetFillMode(this->m_fillMode);
 	}
 
 	/**

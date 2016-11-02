@@ -67,6 +67,13 @@ namespace DE {
 		this->m_verticalSynchro = this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_SYNCHRO, false);
 		this->m_rendererName = this->m_options.GetValueString(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_RENDERER, "dx9");
 
+		this->m_fillMode = RENDER_STATE_FILL_MODE_SOLID;
+		int fillMode = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_FILL_MODE, 0);
+		if(fillMode >= RENDER_STATE_FILL_MODE_POINT && fillMode <= RENDER_STATE_FILL_MODE_SOLID) {
+			this->m_fillMode = (ERenderStateFillMode)fillMode;
+		}
+		
+
 		// General loaders
 		CMediaManager::GetInstance()->AddLoader(new CMaterialsLoader(), "mtl");
 		CMediaManager::GetInstance()->AddLoader(new CImagesLoader(), "bmp dds jpg png pnm tga pcx tif");

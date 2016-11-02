@@ -107,6 +107,13 @@ namespace DE {
 		this->m_scene->RenderAll();
 	}
 
+	void C3DScene::RenderTransparent() {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		this->m_scene->RenderTransparent();
+	}
+
 	void C3DScene::RenderDebugInformation() {
 		LOG_TRACE();
 

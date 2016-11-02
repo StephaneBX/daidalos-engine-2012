@@ -82,8 +82,14 @@ namespace DE {
 		LOG_TRACE();
 
 		RenderWithOptions(SCENE_DEFAULT_ID);
+	}
 
-		// Render the semi opaque elements
+	/**
+	* Render the transparent elements of the level
+	*/
+	void CSimpleSceneNode::RenderTransparent() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);

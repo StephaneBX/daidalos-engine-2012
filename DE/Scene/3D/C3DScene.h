@@ -102,6 +102,11 @@ namespace DE {
 		void RenderAll();
 
 		/**
+		* Render all the transparent nodes
+		*/
+		void RenderTransparent();
+
+		/**
 		* Render the debug information
 		*/
 		void RenderDebugInformation();

@@ -188,6 +188,11 @@ namespace DE {
 		void RenderAll();
 
 		/**
+		* Render all the transparent nodes
+		*/
+		void RenderTransparent();
+
+		/**
 		* Render the particle system
 		*/
 		void RenderParticleSystem();

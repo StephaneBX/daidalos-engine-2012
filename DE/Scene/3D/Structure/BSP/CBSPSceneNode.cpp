@@ -88,14 +88,14 @@ namespace DE {
 			brush->tested = false;
 			brush->id = brushDefinition[i].id;
 			brush->root = std::unique_ptr<CBSPTreeNode>(new CBSPTreeNode());
-			brush->root->LoadTriangleList(brushGeometry);
+			brush->root->LoadTriangleList(brushGeometry, true);
 
 			this->m_brushes.push_back(std::unique_ptr<SBSPBrush>(brush));
 		}
 
 		// Add the triangles to the bsp geometry
 		this->m_bsp = std::unique_ptr<CBSPTreeNode>(new CBSPTreeNode());
-		this->m_bsp->LoadTriangleList(global);
+		this->m_bsp->LoadTriangleList(global, true);
 		RegisterLeafs(this->m_bsp.get());
 
 		// Create the collision bsp by cloning the main bsp nodes
@@ -126,8 +126,14 @@ namespace DE {
 		LOG_TRACE();
 
 		RenderWithOptions(SCENE_DEFAULT_ID);
+	}
 
-		// Render the semi opaque elements
+	/**
+	* Render the transparent elements of the level
+	*/
+	void CBSPSceneNode::RenderTransparent() {
+		LOG_TRACE();
+
 		IRenderer * renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);

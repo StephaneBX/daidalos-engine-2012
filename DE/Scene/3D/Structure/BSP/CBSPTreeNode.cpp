@@ -58,7 +58,7 @@ namespace DE {
 		SAFE_DELETE(this->m_children[BSP_NODE_CHILD_BACK]);
 	}
 
-	void CBSPTreeNode::LoadTriangleList(const std::vector<CBSPTriangle*> & triangles) {
+	void CBSPTreeNode::LoadTriangleList(const std::vector<CBSPTriangle*> & triangles, bool split) {
 		LOG_TRACE();
 
 		// Get the bounding box
@@ -103,8 +103,13 @@ namespace DE {
 
 			default:
 			case BSP_TRIANGLE_ORIENTATION_SPANNING:
-				// Split the triangle
-				SplitTriangle((*it), front, back);
+				if(split) {
+					// Split the triangle
+					SplitTriangle((*it), front, back);
+				} else {
+					front.push_back((*it));
+					back.push_back((*it));
+				}
 				break;
 			}
 		}
@@ -125,7 +130,7 @@ namespace DE {
 			this->m_children[BSP_NODE_CHILD_FRONT]->CalculateVisibilitySphere(front);
 		} else {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPTreeNode(BSP_NODE_TYPE_NODE);
-			this->m_children[BSP_NODE_CHILD_FRONT]->LoadTriangleList(front);
+			this->m_children[BSP_NODE_CHILD_FRONT]->LoadTriangleList(front, split);
 		}
 
 		// Back child
@@ -146,7 +151,7 @@ namespace DE {
 			} else {
 				// Valid node
 				this->m_children[BSP_NODE_CHILD_BACK] = new CBSPTreeNode(BSP_NODE_TYPE_NODE);
-				this->m_children[BSP_NODE_CHILD_BACK]->LoadTriangleList(back);
+				this->m_children[BSP_NODE_CHILD_BACK]->LoadTriangleList(back, split);
 			}
 		}
 	}

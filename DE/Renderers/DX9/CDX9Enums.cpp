@@ -129,6 +129,13 @@ namespace DE {
 		D3DCULL_CCW
 	};
 
+	D3DFILLMODE CDX9Enums::s_fillMode[] = {
+		D3DFILL_POINT,
+		D3DFILL_WIREFRAME,
+		D3DFILL_SOLID,
+		D3DFILL_FORCE_DWORD
+	};
+
 	D3DSTENCILOP CDX9Enums::s_stencilOperation[] {
 		D3DSTENCILOP_KEEP,
 		D3DSTENCILOP_ZERO,
@@ -243,6 +250,11 @@ namespace DE {
 		LOG_TRACE();
 
 		return s_renderStateCullType[type];
+	}
+
+
+	D3DFILLMODE CDX9Enums::Get(ERenderStateFillMode fillMode) {
+		return s_fillMode[fillMode];
 	}
 
 

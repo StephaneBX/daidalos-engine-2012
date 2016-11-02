@@ -66,11 +66,20 @@ namespace SAMPLES {
 		DE::DeclarationPtr m_declarationShadowMap;
 		DE::DeclarationPtr m_declarationLight;
 		DE::CShaderProgram m_shaderDiffuse;
+		DE::CShaderProgram m_shaderTransparent;
 		DE::CShaderProgram m_shaderShadowMap;
 		DE::CShaderProgram m_shaderSpotLight;
 		DE::CShaderProgram m_shaderPointLight;
 		DE::CShaderProgram m_shaderDirectionalLight;
 		DE::CFrameBuffer m_frameBufferShadowMap;
+
+		// Post process
+		DE::CFrameBuffer m_frameBufferPostProcess;
+		DE::DeclarationPtr m_screenQuadPostProcessVD;
+		DE::CBuffer m_screenQuadPostProcessVB;
+		DE::CTexture2D m_texture2DPostProcess;
+		DE::CShaderProgram m_shaderScreenBlur;
+		DE::CShaderProgram m_shaderScreenGlow;
 
 		// The player
 		std::unique_ptr<IPlayer> m_player;
@@ -151,6 +160,12 @@ namespace SAMPLES {
 		virtual void DiffuseRendering(DE::C3DScene * scene3D);
 
 		/**
+		* Render the transparent part
+		* @param scene3D The scene
+		*/
+		virtual void TransparentRendering(DE::C3DScene * scene3D);
+
+		/**
 		* Render the spot lights in the backbuffer
 		* @param scene3D The scene
 		*/
@@ -167,6 +182,11 @@ namespace SAMPLES {
 		* @param scene3D The scene
 		*/
 		virtual void DirectionalLightsRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Do the post process rendering
+		*/
+		virtual void PostProcessRendering();
 	};
 }
 

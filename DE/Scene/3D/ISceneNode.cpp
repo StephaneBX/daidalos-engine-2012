@@ -209,6 +209,8 @@ namespace DE {
 
 	void ISceneNode::RenderSkyboxMask() {}
 
+	void ISceneNode::RenderTransparent() {}
+
 	ESceneNodeType ISceneNode::GetType() const {
 		LOG_TRACE();
 

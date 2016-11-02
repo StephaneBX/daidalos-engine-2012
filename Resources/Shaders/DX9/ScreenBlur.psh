@@ -1,0 +1,59 @@
+#define MAX_BLUR_RADIUS 40
+
+uniform int convolutionMode;
+uniform int blurRadius;
+uniform float2 resolution;
+
+struct PS_INPUT {
+	float4 position	: POSITION;
+	float2 texcoord : TEXCOORD0;
+};
+
+struct PS_OUTPUT {
+	float4 color 	: COLOR;
+};
+
+sampler2D diffuseSampler;
+
+PS_OUTPUT main(PS_INPUT IN) {
+	PS_OUTPUT OUT;
+	OUT.color = float4(0,0,0,0);
+	float2 fTexelSize = float2(1.0f / resolution.x, 1.0f / resolution.y);
+	
+	// Blur radius must have a max value < 1024 to be valid
+	int cappedBlurRadius = blurRadius;
+	if(cappedBlurRadius > MAX_BLUR_RADIUS) {
+		cappedBlurRadius = MAX_BLUR_RADIUS;
+	}
+	
+	float4 textureColor = tex2D(diffuseSampler, IN.texcoord + (fTexelSize / 2.0f));
+	float4 blurTerm = textureColor;
+	int vTexCoordsSize = cappedBlurRadius * 2 + 1;
+	float2 vTexCoords = IN.texcoord;
+	float2 vTexCoordsStep = float2(0, 0);
+	
+	if(convolutionMode > 0) {
+		// Horizontal convolution
+		vTexCoordsStep = float2(fTexelSize.x, 0);
+	} else {
+		// Vertical convolution
+		vTexCoordsStep = float2(0, fTexelSize.y);
+	}
+	
+	// Get the average alpha
+	for(int i = 1; i <= cappedBlurRadius; i++) {
+		// Negative side
+		vTexCoords = IN.texcoord + (fTexelSize / 2.0f) - (vTexCoordsStep * i);
+		blurTerm += tex2D(diffuseSampler, vTexCoords);
+		
+		// Positive side
+		vTexCoords = IN.texcoord + (fTexelSize / 2.0f) + (vTexCoordsStep * i);
+		blurTerm += tex2D(diffuseSampler, vTexCoords);
+	}
+	blurTerm /= (float)(vTexCoordsSize);
+	
+	if(blurTerm.w > 0) {
+		OUT.color = float4(blurTerm.xyz, blurTerm.w);
+	}
+	return OUT;
+}

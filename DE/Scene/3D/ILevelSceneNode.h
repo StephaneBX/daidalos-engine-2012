@@ -141,6 +141,11 @@ namespace DE {
 		virtual void Render() = 0;
 
 		/**
+		* Render the transparent elements of the level
+		*/
+		virtual void RenderTransparent() = 0;
+
+		/**
 		* Render the geometry that will let the skybox pass through
 		*/
 		virtual void RenderSkyboxMask() = 0;

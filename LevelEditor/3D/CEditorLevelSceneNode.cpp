@@ -37,11 +37,19 @@ namespace EDITOR {
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
 
 	void CEditorLevelSceneNode::Render() {
+		RenderWithOptions(SCENE_DEFAULT_ID);
+	}
+
+	/**
+	* Render the transparent elements of the level
+	*/
+	void CEditorLevelSceneNode::RenderTransparent() {
+
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
 		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 		renderer->SetAlphaReference(0x00000001);
 		renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
-		RenderWithOptions(SCENE_DEFAULT_ID);
+		RenderWithOptions(SCENE_TRANSPARENT_ID);
 		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 

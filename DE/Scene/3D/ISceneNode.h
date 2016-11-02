@@ -186,6 +186,11 @@ namespace DE {
 		virtual void Render();
 
 		/**
+		* Render the node transparent parts
+		*/
+		virtual void RenderTransparent();
+
+		/**
 		* Render the geometry that will let the skybox pass through
 		*/
 		virtual void RenderSkyboxMask();
