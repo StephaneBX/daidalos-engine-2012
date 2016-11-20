@@ -4404,6 +4404,265 @@
                 <diffuse_texture>ceiling_2d.png</diffuse_texture>
                 <normal_texture>ceiling_1n.png</normal_texture>
             </brush>
+            <brush file="ground_1.obj">
+                <position>120:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>130:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>140:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>120:8:180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>130:8:180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>140:8:180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>150:8:180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>150:8:170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>150:8:190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>140:8:190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>130:8:190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>120:8:190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>160:8:180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>120:8:180</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>120:8:190</position>
+                <rotation>0:450:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>130:8:190</position>
+                <rotation>0:450:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>140:8:190</position>
+                <rotation>0:450:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>150:8:190</position>
+                <rotation>0:540:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>160:8:180</position>
+                <rotation>0:540:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>150:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>160:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>120:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>130:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>140:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>120:8:190</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>130:8:190</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>140:8:190</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>150:8:190</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>160:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>150:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>140:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>130:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>120:8:180</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>120:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>130:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>140:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>150:8:170</position>
+                <rotation>0:630:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
         </multi_brush>
         <brush file="slope_high.obj">
             <position>0:-8:150</position>
@@ -4811,6 +5070,153 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:155</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:145</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:135</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:125</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:115</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:155</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:145</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:135</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:125</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:115</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-20:0:105</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-10:0:105</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>0:0:105</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>10:0:105</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>20:0:105</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>0:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>2:2:2</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>4:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>2:2:2</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-4:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>2:2:2</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
+        </brush>
+        <brush file="lockers.obj">
+            <position>120:8:144</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+        <brush file="vent.obj">
+            <position>140:8:90</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>vent_1d.png</diffuse_texture>
+            <normal_texture>vent_1n.png</normal_texture>
+        </brush>
+        <brush file="lift.obj">
+            <position>100:8:132</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lift_d.png</diffuse_texture>
+            <normal_texture>lift_n.png</normal_texture>
+        </brush>
         <!-- Animated Mesh Node -->
         <node type="6" name="teleporter_entity" file="teleporter.ms3d">
             <position>0:0:0</position>
@@ -4830,22 +5236,26 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
             <position>0:0:36</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
             <position>0:0:36</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4857,22 +5267,26 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
             <position>0:0:180</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4884,22 +5298,26 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-           <position>0:-16:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>0:-16:110</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-           <position>0:-16:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>0:-16:110</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4911,22 +5329,26 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>70:0:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>70:0:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4938,22 +5360,26 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>-70:0:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>-70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>-70:0:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>-70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4965,17 +5391,19 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
             <attributes>
-				<triggerRadius>-1.0</triggerRadius>
-			</attributes>
+                <triggerRadius>-1.0</triggerRadius>
+            </attributes>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>140:0:110</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>140:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_red.tga</diffuse_texture>
             <normal_texture>door_light_red.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Animated Mesh Node -->
@@ -4987,22 +5415,205 @@
             <normal_texture>door_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>door_bbox.obj</boundingBox>
+            <boundingBox>door_bbox.obj</boundingBox>
+        </node>
+		
+		<!-- Animated Mesh Node -->
+        <node type="6" id="-9" name="door_entity" file="door.ms3d">
+            <position>110:8:170</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_d.png</diffuse_texture>
+            <normal_texture>door_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>door_bbox.obj</boundingBox>
+        </node>
+		<brush file="pillar_top.obj">
+            <position>110:8:170</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar_simple.obj">
+            <position>110:8:174</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar_simple.obj">
+            <position>110:8:166</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+		<!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>110:8:170</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
         </node>
 		<node type="5" name="door_light" file="door_light.obj">
-			<position>90:8:150</position>
+            <position>110:8:170</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_green.tga</diffuse_texture>
+            <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		
+		
+		
+		<!-- Animated Mesh Node -->
+        <node type="6" id="-10" name="door_entity" file="door.ms3d">
+            <position>160:8:180</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_d.png</diffuse_texture>
+            <normal_texture>door_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>door_bbox.obj</boundingBox>
+			<attributes>
+                <triggerRadius>-1.0</triggerRadius>
+            </attributes>
+        </node>
+		<brush file="pillar_top.obj">
+            <position>160:8:180</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar_simple.obj">
+            <position>160:8:184</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+        <brush file="pillar_simple.obj">
+            <position>160:8:176</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_2d.png</diffuse_texture>
+            <normal_texture>wall_2n.png</normal_texture>
+        </brush>
+		<!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>160:8:180</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>door_light_red.tga</diffuse_texture>
+            <normal_texture>door_light_red.tga</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		
+		
+		<brush file="lockers.obj">
+            <position>125:8:176</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		<brush file="lockers.obj">
+            <position>125:8:178</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		<brush file="lockers.obj">
+            <position>125:8:186</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		<brush file="lockers.obj">
+            <position>125:8:188</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		<brush file="lockers.obj">
+            <position>132:8:176</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		<brush file="lockers.obj">
+            <position>132:8:178</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		<brush file="lockers.obj">
+            <position>132:8:186</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		<brush file="lockers.obj">
+            <position>132:8:188</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		<brush file="lockers.obj">
+            <position>152:8:190</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		<brush file="lockers.obj">
+            <position>152:8:170</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>lockers_d.png</diffuse_texture>
+            <normal_texture>lockers_n.png</normal_texture>
+        </brush>
+		
+		
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>90:8:150</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		<node type="5" name="door_light" file="door_light.obj">
-			<position>90:8:150</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="door_light" file="door_light.obj">
+            <position>90:8:150</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>door_light_green.tga</diffuse_texture>
             <normal_texture>door_light_green.tga</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
         <!-- Projection Camera Node -->
@@ -5026,248 +5637,192 @@
                 <tightness>0.5</tightness>
             </node>
         </node>
-		
-		<node type="5" file="bars.obj">
-			<position>-20:0:160</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:155.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-20:0:150</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:145.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-20:0:140</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:135.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-20:0:130</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:125.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-20:0:120</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:115.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-20:0:110</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		
-		<node type="5" file="bars.obj">
-			<position>20:0:160</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:155.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>20:0:150</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:145.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>20:0:140</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:135.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>20:0:130</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:125.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>20:0:120</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:115.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>20:0:110</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:0:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-20.0:0.0:105.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-15:0:105</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:90:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>-10.0:0.0:105.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>-5:0:105</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:90:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>0.0:0.0:105.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>5:0:105</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:90:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>10.0:0.0:105.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		<node type="5" file="bars.obj">
-			<position>15:0:105</position>
-			<diffuse_texture>black.png</diffuse_texture>
-			<rotation>0:90:0</rotation>
-			<meshShading>0</meshShading>
-			<boundingBox>bars_bbox.obj</boundingBox>
-		</node>
-		<brush file="pillar.obj">
-			<diffuse_texture>wall_2d.png</diffuse_texture>
-			<normal_texture>wall_2n.png</normal_texture>
-			<position>20.0:0.0:105.0</position>
-			<rotation>0.0:0.0:0.0</rotation>
-		</brush>
-		
-		<brush file="crate.obj">
-            <position>0:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>2:2:2</scale>
-            <diffuse_texture>crate_3d.png</diffuse_texture>
-            <normal_texture>crate_3n.png</normal_texture>
-        </brush>
-		<brush file="crate.obj">
-            <position>4:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>2:2:2</scale>
-            <diffuse_texture>crate_3d.png</diffuse_texture>
-            <normal_texture>crate_3n.png</normal_texture>
-        </brush>
-		<brush file="crate.obj">
-            <position>-4:0:110</position>
-            <rotation>0:0:0</rotation>
-            <scale>2:2:2</scale>
-            <diffuse_texture>crate_3d.png</diffuse_texture>
-            <normal_texture>crate_3n.png</normal_texture>
-        </brush>
-		
-		
-		<brush file="lockers.obj">
-            <position>120:8:144</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:160</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>lockers_d.png</diffuse_texture>
-            <normal_texture>lockers_n.png</normal_texture>
-        </brush>
-		
-		<node type="4" name="directionalLight">
-			<rotation>40:180:0</rotation>
-			<color>0.1:0.1:0.1:1</color>
-		</node>
-		
-		<node type="5" file="leaked_wall.obj">
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:150</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:140</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:130</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:120</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-20:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:160</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:150</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:140</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:130</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:120</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>20:0:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-15:0:105</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>-5:0:105</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>5:0:105</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <position>15:0:105</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+        <!-- DirectionalLight Node -->
+        <node type="4" name="directionalLight">
+            <enabled>true</enabled>
+            <shadow_caster>false</shadow_caster>
+            <position>261.091:-13.7255:284.785</position>
+            <rotation>40:180:0</rotation>
+            <color>0.1:0.1:0.1:1</color>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
             <position>110:8:80</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5275,81 +5830,80 @@
             <normal_texture>wall_2n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>wall_1.obj</boundingBox>
+            <boundingBox>wall_1.obj</boundingBox>
         </node>
-		
-		<!-- Smoke coming from the fan -->
-		<node type="9" name="smokeFanEmitter">
-			<active>true</active>
-			<position>110:12:75</position>
-			<textureId>0</textureId>
-			<life>-1</life>
-			<lifeMax>-1</lifeMax>
-			<emissionRate>40</emissionRate>
-			<initializers>
-				<minMaxColor>
-					<min>0.3:0.3:0.3:0.05</min>
-					<max>0.3:0.3:0.3:0</max>
-				</minMaxColor>
-				<minMaxSize>
-					<min>2</min>
-					<max>6</max>
-				</minMaxSize>
-				<minMaxLife>
-					<min>0</min>
-					<max>8000</max>
-				</minMaxLife>
-				<minMaxRotation>
-					<min>-45</min>
-					<max>45</max>
-				</minMaxRotation>
-				<minMaxSphereVelocity>
-					<min>1</min>
-					<max>1.5</max>
-				</minMaxSphereVelocity>
-			</initializers>
-			<updaters>
-				<color/>
-				<gravity>
-					<vector>0:0:0.8</vector>
-				</gravity>
-				<life/>
-				<rotation/>
-				<size/>
-				<velocity>
-					<damping>0.05</damping>
-				</velocity>
-			</updaters>
-		</node>
-		
-		
+        <!-- Particle Emitter Node -->
+        <node type="9" name="smokeFanEmitter">
+            <active>1</active>
+            <position>110:12:75</position>
+            <textureId>0</textureId>
+            <blendMode>5</blendMode>
+            <life>173009</life>
+            <lifeMax>-1</lifeMax>
+            <emissionRate>40</emissionRate>
+            <initializers>
+                <minMaxColor>
+                    <min>0.3:0.3:0.3:0.05</min>
+                    <max>0.3:0.3:0.3:0</max>
+                </minMaxColor>
+                <minMaxSize>
+                    <min>2</min>
+                    <max>6</max>
+                </minMaxSize>
+                <minMaxLife>
+                    <min>0</min>
+                    <max>8000</max>
+                </minMaxLife>
+                <minMaxRotation>
+                    <min>-45</min>
+                    <max>45</max>
+                </minMaxRotation>
+                <minMaxSphereVelocity>
+                    <min>1</min>
+                    <max>1.5</max>
+                </minMaxSphereVelocity>
+            </initializers>
+            <updaters>
+                <color/>
+                <gravity>
+                    <vector>0:0:0.8</vector>
+                </gravity>
+                <life/>
+                <rotation/>
+                <size/>
+                <velocity>
+                    <damping>0.05</damping>
+                </velocity>
+            </updaters>
+        </node>
         <!-- Static Mesh Node -->
-        <node type="5" name="alarm_entity" file="cube.obj">
-            <position>30:23:135</position>
+        <node type="5" name="alarm_entity" file="alarm.obj">
+            <position>30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
+            <diffuse_texture>alarm_d.tga</diffuse_texture>
+            <normal_texture>alarm_d.tga</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<attributes>
-				<rotation_speed>60.0f</rotation_speed>
-			</attributes>
+            <attributes>
+                <rotation_speed>60.0f</rotation_speed>
+            </attributes>
         </node>
-		<node type="5" name="alarm_entity" file="cube.obj">
-            <position>-30:23:135</position>
+        <!-- Static Mesh Node -->
+        <node type="5" name="alarm_entity" file="alarm.obj">
+            <position>-30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
+            <diffuse_texture>alarm_d.tga</diffuse_texture>
+            <normal_texture>alarm_d.tga</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<attributes>
-				<rotation_speed>-60.0f</rotation_speed>
-			</attributes>
+            <attributes>
+                <rotation_speed>-60.0f</rotation_speed>
+            </attributes>
         </node>
-		
-		<node type="5" file="pipe_floor.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
             <position>-40:0:80</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5358,8 +5912,8 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<node type="5" file="pipe_floor.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
             <position>40:0:80</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5368,24 +5922,8 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<brush file="vent.obj">
-                <position>140:8:90</position>
-                <rotation>0:270:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>vent_1d.png</diffuse_texture>
-                <normal_texture>vent_1n.png</normal_texture>
-            </brush>
-		
-		<brush file="lift.obj">
-            <position>100:8:132</position>
-            <rotation>0:0:0</rotation>
-            <scale>1:1:1</scale>
-            <diffuse_texture>lift_d.png</diffuse_texture>
-            <normal_texture>lift_n.png</normal_texture>
-        </brush>
-		
-		<node type="5" file="switch.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="switch.obj">
             <position>95:0:130</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5393,10 +5931,10 @@
             <normal_texture>switch_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>switch_bbox.obj</boundingBox>
+            <boundingBox>switch_bbox.obj</boundingBox>
         </node>
-		
-		<node type="5" file="switch.obj">
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="switch.obj">
             <position>95:8:136</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5404,62 +5942,82 @@
             <normal_texture>switch_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>switch_bbox.obj</boundingBox>
+            <boundingBox>switch_bbox.obj</boundingBox>
         </node>
-		
-		<node type="6" name="flashlight_entity" file="flashlight.md2">
-			<position>0:0:15</position>
-            <rotation>0:00:0</rotation>
+        <!-- Animated Mesh Node -->
+        <node type="6" name="flashlight_entity" file="flashlight.md2">
+            <position>0:0:15</position>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
-			<diffuse_texture>flashlight_d.png</diffuse_texture>
-			<normal_texture>flashlight_n.png</normal_texture>
-			<material>default.mtl</material>
-		</node>
-		
-		<node type="6" name="health_bonus_entity" file="health_bonus.md2">
+            <diffuse_texture>flashlight_d.png</diffuse_texture>
+            <normal_texture>flashlight_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- Animated Mesh Node -->
+        <node type="6" name="health_bonus_entity" file="health_bonus.md2">
             <position>140:8:100</position>
-            <rotation>0:00:0</rotation>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>health_bonus_d.png</diffuse_texture>
             <normal_texture>health_bonus_n.png</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+        <!-- Animated Mesh Node -->
+        <node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
             <position>110:8:140</position>
-            <rotation>0:00:0</rotation>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>handgun_ammo_d.png</diffuse_texture>
             <normal_texture>handgun_ammo_n.png</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+        <!-- Animated Mesh Node -->
+        <node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
             <position>105:8:140</position>
-            <rotation>0:00:0</rotation>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>handgun_ammo_d.png</diffuse_texture>
             <normal_texture>handgun_ammo_n.png</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
+        <!-- Animated Mesh Node -->
+        <node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
             <position>-45:0:145</position>
-            <rotation>0:00:0</rotation>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>armor_bonus_d.png</diffuse_texture>
             <normal_texture>armor_bonus_n.png</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
-		<node type="6" name="shotgun_ammo_entity" file="shotgun_ammo.md2">
+        <!-- Animated Mesh Node -->
+        <node type="6" name="shotgun_ammo_entity" file="shotgun_ammo.md2">
             <position>0:0:30</position>
-            <rotation>0:00:0</rotation>
+            <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>shotgun_ammo_d.png</diffuse_texture>
             <normal_texture>shotgun_ammo_n.png</normal_texture>
+            <meshShading>0</meshShading>
             <material>default.mtl</material>
         </node>
-		
+        <!-- Sound Node -->
+        <node type="7" name="alarmSound">
+            <position>0:20:120</position>
+            <rotation>0:0:0</rotation>
+            <type>1</type>
+            <gain>0.1</gain>
+            <cone_inner_angle>360</cone_inner_angle>
+            <cone_outer_angle>360</cone_outer_angle>
+            <reference_distance>4</reference_distance>
+            <max_distance>100</max_distance>
+            <relative_to_listener>false</relative_to_listener>
+            <looped>true</looped>
+            <play_on_startup>true</play_on_startup>
+            <file>alarm.wav</file>
+        </node>
     </node>
 </scene>

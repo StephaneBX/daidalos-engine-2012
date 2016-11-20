@@ -448,14 +448,17 @@ namespace SAMPLES {
 	*/
 	void IForwardSampleApplication::TransparentRendering(DE::C3DScene * scene3D) {
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderTransparent.GetShaderProgram());
 		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->RenderTransparent();
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 	}
 
 	/**
@@ -561,6 +564,7 @@ namespace SAMPLES {
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
 			scene3D->RenderAll();
+			scene3D->RenderTransparent();
 		}
 	}
 
@@ -593,6 +597,7 @@ namespace SAMPLES {
 			// Add the light effect to the backbuffer
 			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			scene3D->RenderAll();
+			scene3D->RenderTransparent();
 		}
 	}
 
@@ -625,6 +630,7 @@ namespace SAMPLES {
 			// Add the light effect to the backbuffer
 			scene3D->SendDirectionalLightDataToShader(i);
 			scene3D->RenderAll();
+			scene3D->RenderTransparent();
 		}
 	}
 }

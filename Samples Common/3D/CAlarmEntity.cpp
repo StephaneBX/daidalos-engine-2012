@@ -49,9 +49,9 @@ namespace SAMPLES {
 		}
 
 		// Add the lights
-		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(), DE::CVector3F(25,0,0), DE::CColor(0.5f,0.0f,0.0f), 80, 20, 0.7f,0.8f, true, true);
+		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25,0,0), DE::CColor(0.5f,0.0f,0.0f), 80, 20, 0.7f,0.8f, true, true);
 		meshNode->AddChild(spot1);
-		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(), DE::CVector3F(25, 180, 0), DE::CColor(0.5f, 0.0f, 0.0f), 80, 20, 0.7f, 0.8f, true, true);
+		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5f, 0.0f, 0.0f), 80, 20, 0.7f, 0.8f, true, true);
 		meshNode->AddChild(spot2);
 	}
 

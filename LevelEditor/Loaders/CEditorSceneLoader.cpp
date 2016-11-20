@@ -228,6 +228,12 @@ namespace EDITOR {
 				DE::CVector3F position, rotation, scale;
 				std::string boundingBox;
 
+				int type = -1;
+				nodeHandle.ToElement()->QueryIntAttribute("type", &type);
+
+				int id = SCENE_DEFAULT_ID;
+				nodeHandle.ToElement()->QueryIntAttribute("id", &id);
+
 				// Search for defined values in the element or use default values
 				GetNodeData(nodeHandle, "position", position, DE::CVector3F(0, 0, 0));
 				GetNodeData(nodeHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
@@ -236,9 +242,6 @@ namespace EDITOR {
 
 				// Create a bounding box if necessary
 				if(boundingBox != "") {
-					int id = SCENE_DEFAULT_ID;
-					nodeHandle.ToElement()->QueryIntAttribute("id", &id);
-
 					// Create the node
 					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
 					meshNode->SetId(id);
@@ -246,6 +249,16 @@ namespace EDITOR {
 					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(meshNode);
+				}
+
+				// Add a visible element if the node is a sound
+				if(type == DE::SCENE_NODE_SOUND) {
+					DE::CStaticMeshSceneNode * soundNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, DE::CVector3F(2, 2, 2));
+					soundNode->SetId(id);
+					soundNode->SetSaved(false);
+					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					node->AddChild(soundNode);
 				}
 			}
 		}

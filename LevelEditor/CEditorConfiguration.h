@@ -38,10 +38,12 @@ namespace EDITOR {
 	#define EDITOR_NODE_NAME_CURRENT "__editor_node_current"
 	#define EDITOR_NODE_NAME_MULTIBRUSH "__editor_node_multibrush"
 	#define EDITOR_NODE_NAME_BOUNDINGBOX "__editor_node_boundingbox"
+	#define EDITOR_NODE_NAME_SOUND "__editor_node_sound"
 	#define EDITOR_NODE_NAME_BRUSH "__editor_node_brush"
 	#define EDITOR_SKY_TEXURE_NAME "sky_d.png"
 	#define EDITOR_COLLISION_TEXTURE_NAME "collision.png"
 	#define EDITOR_PLAYER_TEXTURE_NAME "player.png"
+	#define EDITOR_SOUND_TEXTURE_NAME "sound.png"
 
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,
