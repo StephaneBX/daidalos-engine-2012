@@ -59,7 +59,7 @@ namespace SAMPLES {
 	public:
 		/**
 		* @param node The switch node
-		* @param camera The player
+		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
 		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);

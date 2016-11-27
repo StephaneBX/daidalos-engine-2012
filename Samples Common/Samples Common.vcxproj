@@ -75,6 +75,7 @@
     <ClInclude Include="3D\CFlashlightEntity.h" />
     <ClInclude Include="3D\CHandgunAmmoEntity.h" />
     <ClInclude Include="3D\CHealthBonusEntity.h" />
+    <ClInclude Include="3D\CSecurityCameraEntity.h" />
     <ClInclude Include="3D\CShotgunAmmoEntity.h" />
     <ClInclude Include="3D\CSwitchEntity.h" />
     <ClInclude Include="3D\CTeleporterEntity.h" />
@@ -98,6 +99,7 @@
     <ClCompile Include="3D\CFlashlightEntity.cpp" />
     <ClCompile Include="3D\CHandgunAmmoEntity.cpp" />
     <ClCompile Include="3D\CHealthBonusEntity.cpp" />
+    <ClCompile Include="3D\CSecurityCameraEntity.cpp" />
     <ClCompile Include="3D\CShotgunAmmoEntity.cpp" />
     <ClCompile Include="3D\CSwitchEntity.cpp" />
     <ClCompile Include="3D\CTeleporterEntity.cpp" />

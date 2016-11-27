@@ -49,6 +49,7 @@ namespace SAMPLES {
 	public:
 		/**
 		* @param node The shotgun ammo node
+		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
 		CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);

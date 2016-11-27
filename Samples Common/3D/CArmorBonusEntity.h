@@ -49,6 +49,7 @@ namespace SAMPLES {
 	public:
 		/**
 		* @param node The armor node
+		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
 		CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);

@@ -461,4 +461,48 @@ namespace DE {
 			<< static_cast<int>(color.GetBlue()) << " "
 			<< static_cast<int>(color.GetAlpha());
 	}
+
+	/**
+	* Get a CColor from a string
+	* @param text The text
+	* @param defaultValue The default value
+	* @param separator The separator
+	* @return The vector
+	*/
+	const CColor CColor::GetFrom(const std::string text, const CColor & defaultValue, const std::string separator) {
+		CColor result;
+		CTokenizer token;
+
+		token.AddLine(text);
+
+		if(text.length() > 0 && token.Tokenize(separator, 0) && token.GetTokens().size() >= 3) {
+			float r, g, b, a;
+			a = 1.0f;
+			std::istringstream ss;
+
+			ss.clear();
+			ss.str(token.GetTokens()[0]);
+			ss >> r;
+
+			ss.clear();
+			ss.str(token.GetTokens()[1]);
+			ss >> g;
+
+			ss.clear();
+			ss.str(token.GetTokens()[2]);
+			ss >> b;
+
+			if(token.GetTokens().size() >= 4) {
+				ss.clear();
+				ss.str(token.GetTokens()[3]);
+				ss >> a;
+			}
+
+			result = CColor(r, g, b, a);
+		} else {
+			result = defaultValue;
+		}
+
+		return result;
+	}
 }

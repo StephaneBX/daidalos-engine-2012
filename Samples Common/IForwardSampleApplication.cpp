@@ -36,6 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/CHandgunAmmoEntity.h"
 #include "3D/CShotgunAmmoEntity.h"
 #include "3D/CFlashlightEntity.h"
+#include "3D/CSecurityCameraEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {
@@ -296,6 +297,13 @@ namespace SAMPLES {
 			SAMPLES::CFlashlightEntity * flashlightEntity = new SAMPLES::CFlashlightEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get());
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFlashlightEntity>(flashlightEntity));
 		}
+
+		// Load the security cameras
+		std::vector<DE::ISceneNode*> securityCameraNode = this->m_scene3D->GetNodeArray("security_camera_entity");
+		for(auto it = securityCameraNode.begin(); it != securityCameraNode.end(); it++) {
+			SAMPLES::CSecurityCameraEntity * securityCameraEntity = new SAMPLES::CSecurityCameraEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSecurityCameraEntity>(securityCameraEntity));
+		}
 	}
 
 	/**
@@ -324,11 +332,6 @@ namespace SAMPLES {
 		PostProcessRendering();
 
 		// ------------------------------
-		// Transparent
-		// ------------------------------
-		TransparentRendering(scene3D);
-
-		// ------------------------------
 		// Forward rendering: spot lights
 		// ------------------------------
 		SpotLightsRendering(scene3D);
@@ -348,6 +351,11 @@ namespace SAMPLES {
 		// ------------------------------
 		scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
 		scene3D->GetParticleSystem().RenderAll();
+
+		// ------------------------------
+		// Transparent
+		// ------------------------------
+		TransparentRendering(scene3D);
 
 		// ------------------------------
 		// Debug
@@ -505,7 +513,7 @@ namespace SAMPLES {
 		this->m_renderer->SetShaderProgram(this->m_shaderScreenGlow.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->SetTexture(0, this->m_frameBufferPostProcess.GetFrameBuffer()->GetTexture("postProcessRT"));
-		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 6.5f);
+		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 7.5f);
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -544,6 +552,7 @@ namespace SAMPLES {
 			// Add the light effect to the backbuffer
 			this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 			this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, true);
@@ -564,7 +573,7 @@ namespace SAMPLES {
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
 			scene3D->RenderAll();
-			scene3D->RenderTransparent();
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, true);
 		}
 	}
 
@@ -597,7 +606,6 @@ namespace SAMPLES {
 			// Add the light effect to the backbuffer
 			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			scene3D->RenderAll();
-			scene3D->RenderTransparent();
 		}
 	}
 
@@ -630,7 +638,6 @@ namespace SAMPLES {
 			// Add the light effect to the backbuffer
 			scene3D->SendDirectionalLightDataToShader(i);
 			scene3D->RenderAll();
-			scene3D->RenderTransparent();
 		}
 	}
 }

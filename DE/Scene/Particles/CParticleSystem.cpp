@@ -144,6 +144,7 @@ namespace DE {
 		
 		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
 		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
 

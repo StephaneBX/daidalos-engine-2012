@@ -48,7 +48,6 @@ namespace SAMPLES
 	public:
 		/**
 		* @param node The flashlight node
-		* @param light The light node
 		* @param camera The player
 		*/
 		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player);

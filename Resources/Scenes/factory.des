@@ -5833,17 +5833,17 @@
             <boundingBox>wall_1.obj</boundingBox>
         </node>
         <!-- Particle Emitter Node -->
-        <node type="9" name="smokeFanEmitter">
+        <node type="9" name="smokeLeakEmitter">
             <active>1</active>
             <position>110:12:75</position>
             <textureId>0</textureId>
             <blendMode>5</blendMode>
             <life>173009</life>
             <lifeMax>-1</lifeMax>
-            <emissionRate>40</emissionRate>
+            <emissionRate>80</emissionRate>
             <initializers>
                 <minMaxColor>
-                    <min>0.3:0.3:0.3:0.05</min>
+                    <min>0.3:0.3:0.3:0.2</min>
                     <max>0.3:0.3:0.3:0</max>
                 </minMaxColor>
                 <minMaxSize>
@@ -6009,7 +6009,7 @@
             <position>0:20:120</position>
             <rotation>0:0:0</rotation>
             <type>1</type>
-            <gain>0.1</gain>
+            <gain>0.02</gain>
             <cone_inner_angle>360</cone_inner_angle>
             <cone_outer_angle>360</cone_outer_angle>
             <reference_distance>4</reference_distance>
@@ -6018,6 +6018,92 @@
             <looped>true</looped>
             <play_on_startup>true</play_on_startup>
             <file>alarm.wav</file>
+        </node>
+		
+		<!-- Sound Node -->
+        <node type="7" name="theme">
+            <position>0:0:0</position>
+            <rotation>0:0:0</rotation>
+            <type>1</type>
+            <gain>0.1</gain>
+            <cone_inner_angle>360</cone_inner_angle>
+            <cone_outer_angle>360</cone_outer_angle>
+            <reference_distance>4</reference_distance>
+            <max_distance>100</max_distance>
+            <relative_to_listener>true</relative_to_listener>
+            <looped>true</looped>
+            <play_on_startup>true</play_on_startup>
+            <file>enter_the_maze.wav</file>
+        </node>
+		
+		<!-- Green smoke -->
+		<node type="9" name="smokeGreenEmitter">
+			<active>true</active>
+			<position>105:-40:110</position>
+			<textureId>0</textureId>
+			<life>-1</life>
+			<lifeMax>-1</lifeMax>
+			<emissionRate>100</emissionRate>
+			<initializers>
+				<minMaxColor>
+					<min>0.2:0.4:0.2:0.2</min>
+					<max>0.2:0.4:0.2:0</max>
+				</minMaxColor>
+				<minMaxSize>
+					<min>4</min>
+					<max>8</max>
+				</minMaxSize>
+				<minMaxLife>
+					<min>0</min>
+					<max>5000</max>
+				</minMaxLife>
+				<minMaxRotation>
+					<min>-45</min>
+					<max>45</max>
+				</minMaxRotation>
+				<minMaxBoxPosition>
+					<min>-10:0:-5</min>
+					<max>10:0:5</max>
+				</minMaxBoxPosition>
+			</initializers>
+			<updaters>
+				<color/>
+				<gravity>
+					<vector>0:3:0</vector>
+				</gravity>
+				<life/>
+				<rotation/>
+				<size/>
+			</updaters>
+		</node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="security_camera_entity" file="security_camera_root.obj">
+            <position>78:16:85</position>
+            <rotation>0:45:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>security_camera_d.tga</diffuse_texture>
+            <normal_texture>security_camera_d.tga</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+                <horizontal_rotation_speed>20.0</horizontal_rotation_speed>
+				<vertical_rotation_speed>10.0</vertical_rotation_speed>
+				<max_horizontal_rotation>30.0</max_horizontal_rotation>
+				<max_vertical_rotation>20.0</max_vertical_rotation>
+				<light_color>0.4:0.4:0.7</light_color>
+				<range>60</range>
+            </attributes>
+			
+			<node type="5" name="security_camera" file="security_camera.obj">
+				<position>-0.6:-2:0</position>
+				<rotation>15:0:0</rotation>
+				<scale>1:1:1</scale>
+				<diffuse_texture>security_camera_d.tga</diffuse_texture>
+				<normal_texture>security_camera_d.tga</normal_texture>
+				<meshShading>0</meshShading>
+				<material>default.mtl</material>
+			</node>
         </node>
     </node>
 </scene>

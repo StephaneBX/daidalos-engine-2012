@@ -66,7 +66,7 @@ namespace SAMPLES {
 		/**
 		* Constructor
 		* @param node The door node
-		* @param camera The player
+		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
 		CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);

@@ -114,7 +114,7 @@ namespace DE {
 		const unsigned long ToABGR() const;
 
 		/**
-		* Get a string from a CVector3
+		* Get a string from a CColor
 		* @param separator The separator
 		* @return A string
 		*/
@@ -304,6 +304,15 @@ namespace DE {
 		* @param a Alpha
 		*/
 		void SetInt(const int r, const int g, const int b, const int a);
+
+		/**
+		* Get a CColor from a string
+		* @param text The text
+		* @param defaultValue The default value
+		* @param separator The separator
+		* @return The vector
+		*/
+		static const CColor GetFrom(const std::string text, const CColor & defaultValue = CColor(), const std::string separator = ":");
 	};
 }
 

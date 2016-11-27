@@ -58,7 +58,7 @@ namespace SAMPLES {
 	public:
 		/**
 		* @param node The fan node
-		* @param camera The player
+		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
 		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player);
