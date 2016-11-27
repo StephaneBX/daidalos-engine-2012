@@ -37,6 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/CShotgunAmmoEntity.h"
 #include "3D/CFlashlightEntity.h"
 #include "3D/CSecurityCameraEntity.h"
+#include "3D/CLadderEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {
@@ -303,6 +304,13 @@ namespace SAMPLES {
 		for(auto it = securityCameraNode.begin(); it != securityCameraNode.end(); it++) {
 			SAMPLES::CSecurityCameraEntity * securityCameraEntity = new SAMPLES::CSecurityCameraEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSecurityCameraEntity>(securityCameraEntity));
+		}
+
+		// Load the ladders
+		std::vector<DE::ISceneNode*> ladderNode = this->m_scene3D->GetNodeArray("ladder_entity");
+		for(auto it = ladderNode.begin(); it != ladderNode.end(); it++) {
+			SAMPLES::CLadderEntity * ladderEntity = new SAMPLES::CLadderEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CLadderEntity>(ladderEntity));
 		}
 	}
 

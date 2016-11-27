@@ -99,6 +99,9 @@
     <ClInclude Include="3D\CSecurityCameraEntity.h">
       <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
+    <ClInclude Include="3D\CLadderEntity.h">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -162,6 +165,9 @@
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
     <ClCompile Include="3D\CSecurityCameraEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\CLadderEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
   </ItemGroup>

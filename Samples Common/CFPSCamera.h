@@ -66,6 +66,7 @@ namespace SAMPLES
 	class CFPSCamera : public IPlayer
 	{
 	private:
+		bool m_gravityEnabled;
 		unsigned int m_state;
 		int m_health;
 		int m_armor;
@@ -100,6 +101,12 @@ namespace SAMPLES
 		* @param scene The associated scene
 		*/
 		void SetScene(DE::C3DScene * scene);
+
+		/**
+		* Set the player gravity on/off
+		* @param enabled If the gravity is enabled
+		*/
+		void SetGravityEnabled(const bool enabled);
 
 		/**
 		* Set the player health

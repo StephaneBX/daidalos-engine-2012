@@ -47,6 +47,12 @@ namespace SAMPLES {
 	class IPlayer {
 	public:
 		/**
+		* Set the player gravity on/off
+		* @param enabled If the gravity is enabled
+		*/
+		virtual void SetGravityEnabled(const bool enabled) = 0;
+
+		/**
 		* Set the player health
 		* @param health The player health
 		*/
