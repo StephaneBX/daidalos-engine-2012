@@ -31,7 +31,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 #define FPS_CAMERA_COLLISION_UPDATE 16
+#define FPS_CAMERA_WALK_FACTOR 1.0f
 #define FPS_CAMERA_RUN_FACTOR 1.7f
+#define FPS_CAMERA_CROUCH_FACTOR 0.6f
+#define FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS 1.0f
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND 2.7f
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0f
 
 #include <limits>
 #include <Core/CInputDevice.h>
@@ -44,7 +49,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) {
 		this->m_gravityEnabled = true;
-		this->m_state = 0;
+		this->m_actionState = 0;
+		this->m_state = FPS_CAMERA_STATE_STAND;
 		this->m_node = cameraNode;
 		this->m_flashlightNode = flashlightNode;
 		this->m_health = 80;
@@ -71,7 +77,8 @@ namespace SAMPLES {
 			{ FPS_CAMERA_FIRE , -1 },
 			{ FPS_CAMERA_RELOAD, -1 },
 			{ FPS_CAMERA_NEXT_WEAPON, -1 },
-			{ FPS_CAMERA_PREVIOUS_WEAPON, -1 }
+			{ FPS_CAMERA_PREVIOUS_WEAPON, -1 },
+			{ FPS_CAMERA_CROUCH, -1 }
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -90,6 +97,7 @@ namespace SAMPLES {
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, DE::INPUT_KEY_KEYBOARD_E);
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, DE::INPUT_KEY_KEYBOARD_R);	
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_CROUCH, DE::INPUT_KEY_KEYBOARD_C);
 
 		// Mouse mapping
 		this->m_inputDevice->SetActionKey(FPS_CAMERA_FIRE, DE::INPUT_KEY_MOUSE_BUTTON0);
@@ -113,9 +121,10 @@ namespace SAMPLES {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FIRE, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LZN);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_NEXT_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_RIGHT);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_LEFT);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_CROUCH, 0, DE::INPUT_KEY_GAMEPAD_BUTTON1);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
-		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
+		this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
 
@@ -201,6 +210,7 @@ namespace SAMPLES {
 		UpdateMovement(timeSecond, time);
 		UpdateAction();
 
+		// Update the node
 		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
 
@@ -299,120 +309,160 @@ namespace SAMPLES {
 	}
 
 	void CFPSCamera::UpdateState() {
-		this->m_state = this->m_state & FPS_CAMERA_JUMP;
+		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT))
-			this->m_state |= FPS_CAMERA_STRAFELEFT;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
+			this->m_actionState |= FPS_CAMERA_STRAFELEFT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFERIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT))
-			this->m_state |= FPS_CAMERA_STRAFERIGHT;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFERIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT)) {
+			this->m_actionState |= FPS_CAMERA_STRAFERIGHT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FORWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD))
-			this->m_state |= FPS_CAMERA_FORWARD;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FORWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD)) {
+			this->m_actionState |= FPS_CAMERA_FORWARD;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_BACKWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD))
-			this->m_state |= FPS_CAMERA_BACKWARD;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_BACKWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD)) {
+			this->m_actionState |= FPS_CAMERA_BACKWARD;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKUP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP))
-			this->m_state |= FPS_CAMERA_LOOKUP;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKUP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
+			this->m_actionState |= FPS_CAMERA_LOOKUP;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKDOWN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN))
-			this->m_state |= FPS_CAMERA_LOOKDOWN;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKDOWN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
+			this->m_actionState |= FPS_CAMERA_LOOKDOWN;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKLEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT))
-			this->m_state |= FPS_CAMERA_LOOKLEFT;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKLEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
+			this->m_actionState |= FPS_CAMERA_LOOKLEFT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT))
-			this->m_state |= FPS_CAMERA_LOOKRIGHT;
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
+			this->m_actionState |= FPS_CAMERA_LOOKRIGHT;
+		}
 
-		if(this->m_gravityEnabled && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_state & FPS_CAMERA_JUMP)) {
-			this->m_state |= FPS_CAMERA_JUMP;
+		if(this->m_gravityEnabled && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
+			this->m_actionState |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
 		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)) {
-			this->m_state |= FPS_CAMERA_RUN;
+		if(this->m_gravityEnabled && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
+			this->m_actionState |= FPS_CAMERA_RUN;
+			this->m_state = FPS_CAMERA_STATE_RUN;
+		} else if(this->m_state == FPS_CAMERA_STATE_RUN) {
+			this->m_state = FPS_CAMERA_STATE_STAND;
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FIRE) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FIRE)) {
-			this->m_state |= FPS_CAMERA_FIRE;
+			this->m_actionState |= FPS_CAMERA_FIRE;
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_RELOAD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RELOAD)) {
-			this->m_state |= FPS_CAMERA_RELOAD;
+			this->m_actionState |= FPS_CAMERA_RELOAD;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_RELOAD);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_RELOAD);
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_NEXT_WEAPON) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_NEXT_WEAPON)) {
-			this->m_state |= FPS_CAMERA_NEXT_WEAPON;
+			this->m_actionState |= FPS_CAMERA_NEXT_WEAPON;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_NEXT_WEAPON);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_NEXT_WEAPON);
 		}
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_PREVIOUS_WEAPON) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_PREVIOUS_WEAPON)) {
-			this->m_state |= FPS_CAMERA_PREVIOUS_WEAPON;
+			this->m_actionState |= FPS_CAMERA_PREVIOUS_WEAPON;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_PREVIOUS_WEAPON);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_PREVIOUS_WEAPON);
+		}
+
+		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_CROUCH) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_CROUCH)) {
+			this->m_actionState |= FPS_CAMERA_CROUCH;
+			this->m_inputDevice->FreezeAction(FPS_CAMERA_CROUCH);
+			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_CROUCH);
 		}
 	}
 
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		DE::CVector3F movement;
 
-		if((this->m_state & FPS_CAMERA_STRAFELEFT) != 0) {
-			float factor = 1;
+		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->m_gravity.y == 0) {
+			this->m_state = FPS_CAMERA_STATE_CROUCH;
+			this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFELEFT);
+		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->m_gravity.y == 0) {
+
+			// Check if the player can stand up
+			DE::CVector3F movementUp = DE::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
+			DE::CVector3F collisionPoint;
+
+			// If no up collision detected at the standing position
+			if(!this->m_scene->GetCollisionPoint(this->m_shape, movementUp, collisionPoint)) {
+				this->m_state = FPS_CAMERA_STATE_STAND;
+				this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
+				this->m_shape.SetPosition(this->m_shape.GetPosition() + movementUp);
 			}
 
-			movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
-			movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
-		}
+		} else {
+			// Strafe left
+			if((this->m_actionState & FPS_CAMERA_STRAFELEFT) != 0) {
+				float factor = 1;
 
-		if((this->m_state & FPS_CAMERA_STRAFERIGHT) != 0) {
-			float factor = 1;
+				if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
+					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFELEFT);
+				}
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFERIGHT);
+				movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
+				movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
 			}
 
-			movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
-			movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
-		}
+			// Strafe right
+			if((this->m_actionState & FPS_CAMERA_STRAFERIGHT) != 0) {
+				float factor = 1;
 
-		if((this->m_state & FPS_CAMERA_FORWARD) != 0) {
-			float factor = 1;
+				if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT)) {
+					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFERIGHT);
+				}
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_FORWARD);
+				movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
+				movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
 			}
 
-			movement.x += sin(this->m_rotation.y * PI_OVER_180) * factor;
-			movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
+			// Go forward
+			if((this->m_actionState & FPS_CAMERA_FORWARD) != 0) {
+				float factor = 1;
 
-			// If no gravity, add the vertical part
-			if(!this->m_gravityEnabled) {
-				this->m_gravity.y = -sin(this->m_rotation.x * PI_OVER_180) * factor;
+				if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD)) {
+					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_FORWARD);
+				}
+
+				movement.x += sin(this->m_rotation.y * PI_OVER_180) * factor;
+				movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
+
+				// If no gravity, add the vertical part
+				if(!this->m_gravityEnabled) {
+					this->m_gravity.y = -sin(this->m_rotation.x * PI_OVER_180) * factor;
+				}
 			}
-		}
 
-		if((this->m_state & FPS_CAMERA_BACKWARD) != 0) {
-			float factor = 1;
+			// Go backward
+			if((this->m_actionState & FPS_CAMERA_BACKWARD) != 0) {
+				float factor = 1;
 
-			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_BACKWARD);
-			}
+				if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD)) {
+					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_BACKWARD);
+				}
 
-			movement.x += -sin(this->m_rotation.y * PI_OVER_180) * factor;
-			movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
+				movement.x += -sin(this->m_rotation.y * PI_OVER_180) * factor;
+				movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
 
-			// If no gravity, add the vertical part
-			if(!this->m_gravityEnabled) {
-				this->m_gravity.y = sin(this->m_rotation.x * PI_OVER_180) * factor;
+				// If no gravity, add the vertical part
+				if(!this->m_gravityEnabled) {
+					this->m_gravity.y = sin(this->m_rotation.x * PI_OVER_180) * factor;
+				}
 			}
 		}
 
@@ -424,8 +474,21 @@ namespace SAMPLES {
 			this->m_gravity.y *= FPS_CAMERA_MOVEMENT_SPEED;
 		}
 		
-		// Visibility position update
-		const float speedFactor = ((this->m_state & FPS_CAMERA_RUN) != 0) ? FPS_CAMERA_RUN_FACTOR : 1.0f;
+		// Visibility position update based on the state
+		float speedFactor = 1.0f;
+		switch(this->m_state) {
+		case FPS_CAMERA_STATE_STAND:
+			speedFactor = FPS_CAMERA_WALK_FACTOR;
+			break;
+
+		case FPS_CAMERA_STATE_RUN:
+			speedFactor = FPS_CAMERA_RUN_FACTOR;
+			break;
+
+		default:
+			speedFactor = FPS_CAMERA_CROUCH_FACTOR;
+			break;
+		}
 		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond * speedFactor;
 
 		// If a collision test is required 
@@ -444,7 +507,7 @@ namespace SAMPLES {
 
 				// Gravity damage
 				this->m_gravity.y = 0;
-				this->m_state &= ~FPS_CAMERA_JUMP;
+				this->m_actionState &= ~FPS_CAMERA_JUMP;
 			}
 
 			// Update the visibility position
@@ -480,7 +543,7 @@ namespace SAMPLES {
 		}
 
 		// Keyboard view
-		if((this->m_state & FPS_CAMERA_LOOKUP) != 0) {
+		if((this->m_actionState & FPS_CAMERA_LOOKUP) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
@@ -490,7 +553,7 @@ namespace SAMPLES {
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_LOOKDOWN) != 0) {
+		if((this->m_actionState & FPS_CAMERA_LOOKDOWN) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
@@ -500,7 +563,7 @@ namespace SAMPLES {
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_LOOKLEFT) != 0) {
+		if((this->m_actionState & FPS_CAMERA_LOOKLEFT) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
@@ -510,7 +573,7 @@ namespace SAMPLES {
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 		}
 
-		if((this->m_state & FPS_CAMERA_LOOKRIGHT) != 0) {
+		if((this->m_actionState & FPS_CAMERA_LOOKRIGHT) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
@@ -538,21 +601,21 @@ namespace SAMPLES {
 	* Update the action
 	*/
 	void CFPSCamera::UpdateAction() {
-		if((this->m_state & FPS_CAMERA_FIRE) != 0) {
+		if((this->m_actionState & FPS_CAMERA_FIRE) != 0) {
 			this->m_currentWeapon->Fire();
 		}
 
-		if((this->m_state & FPS_CAMERA_RELOAD) != 0) {
+		if((this->m_actionState & FPS_CAMERA_RELOAD) != 0) {
 			this->m_currentWeapon->Reload();
 		}
 
-		if((this->m_state & FPS_CAMERA_NEXT_WEAPON) != 0) {
+		if((this->m_actionState & FPS_CAMERA_NEXT_WEAPON) != 0) {
 			this->m_currentWeaponIndex = (this->m_currentWeaponIndex + 1) % this->m_weapons.size();
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
 			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
-		if((this->m_state & FPS_CAMERA_PREVIOUS_WEAPON) != 0) {
+		if((this->m_actionState & FPS_CAMERA_PREVIOUS_WEAPON) != 0) {
 			this->m_currentWeaponIndex = (this->m_currentWeaponIndex - 1) % this->m_weapons.size();
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
 			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);

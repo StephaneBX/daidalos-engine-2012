@@ -38,10 +38,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IPlayer.h"
 #include "Weapons/IWeapon.h"
 
-namespace SAMPLES 
-{
-	enum EFPSCameraMovement
-	{
+namespace SAMPLES {
+	enum EFPSCameraAction {
 		FPS_CAMERA_EXIT				= 1 << 1,
 		FPS_CAMERA_STRAFELEFT		= 1 << 2,
 		FPS_CAMERA_STRAFERIGHT		= 1 << 3,
@@ -57,7 +55,16 @@ namespace SAMPLES
 		FPS_CAMERA_FIRE				= 1 << 13,
 		FPS_CAMERA_RELOAD			= 1 << 14,
 		FPS_CAMERA_NEXT_WEAPON		= 1 << 15,
-		FPS_CAMERA_PREVIOUS_WEAPON	= 1 << 16
+		FPS_CAMERA_PREVIOUS_WEAPON	= 1 << 16,
+		FPS_CAMERA_CROUCH			= 1 << 17
+	};
+
+	enum EFPSCameraState {
+		FPS_CAMERA_STATE_STAND,
+		FPS_CAMERA_STATE_RUN,
+		FPS_CAMERA_STATE_CROUCH,
+		FPS_CAMERA_STATE_STANDING,
+		FPS_CAMERA_STATE_CROUCHING
 	};
 
 	/**
@@ -67,10 +74,11 @@ namespace SAMPLES
 	{
 	private:
 		bool m_gravityEnabled;
-		unsigned int m_state;
+		unsigned int m_actionState;
 		int m_health;
 		int m_armor;
 		float m_lastCollisionUpdateTimer;
+		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
 		DE::CVector3F m_gravity;
