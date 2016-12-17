@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ANIMATION_SPEED 1.0f
 
 #include <sstream>
+#include "../../Enums.h"
 #include "CDoorEntity.h"
 
 namespace SAMPLES {
@@ -75,6 +76,22 @@ namespace SAMPLES {
 
 	void CDoorEntity::Update(float const time) {
 
+		ITriggerEntity::Update(time);
+		if(this->m_state == DOOR_STATE_OPENED && this->m_closable) {
+			this->m_timer += time;
+
+			// The door stay opened for a limited time
+			if(this->m_timer >= OPENED_TIME) {
+				this->m_timer = 0;
+				this->m_state = DOOR_STATE_CLOSING;
+				this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
+				this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
+				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
+				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			}
+		}
+
+		// End of opening animation
 		if(this->m_state == DOOR_STATE_OPENING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
@@ -86,61 +103,43 @@ namespace SAMPLES {
 			}
 		}
 
+		// End of closing animation
 		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_CLOSED;
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
-		}
-
-		// Trigger action
-		if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= this->m_triggerRadius) {
-
-			switch(this->m_state) {
-			case DOOR_STATE_CLOSED:
-				this->m_state = DOOR_STATE_OPENING;
-				this->m_node->StartAnimation(1, 2, this->m_animationSpeed);
-				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
-				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
-				if(this->m_emitterNode != nullptr) {
-					this->m_emitterNode->SetActive(true);
-				}
-				break;
-
-			case DOOR_STATE_OPENED:
-				this->m_timer = 0;
-				break;
-
-			default:
-				break;
-			}
-			
-		} else {
-			if(this->m_state == DOOR_STATE_OPENED && this->m_closable) {
-				this->m_timer += time;
-
-				// The door stay opened for a limited time
-				if(this->m_timer >= OPENED_TIME) {
-					this->m_timer = 0;
-					this->m_state = DOOR_STATE_CLOSING;
-					this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
-					this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
-					this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
-					this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
-				}
-			}
 		}
 	}
 
 	/**
 	* Trigger the entity action
 	*/
-	void CDoorEntity::DoAction() {}
+	void CDoorEntity::DoAction() {
+		switch(this->m_state) {
+		case DOOR_STATE_CLOSED:
+			this->m_state = DOOR_STATE_OPENING;
+			this->m_node->StartAnimation(1, 2, this->m_animationSpeed);
+			this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
+			this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			if(this->m_emitterNode != nullptr) {
+				this->m_emitterNode->SetActive(true);
+			}
+			break;
+
+		case DOOR_STATE_OPENED:
+			this->m_timer = 0;
+			break;
+
+		default:
+			break;
+		}
+	}
 
 	/**
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CDoorEntity::CanDoAction() const {
-		return false;
+	const bool CDoorEntity::CanDoAction() {
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

@@ -26,18 +26,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Core/Core.h>
-#include "3D/CDoorEntity.h"
-#include "3D/CFanEntity.h"
-#include "3D/CSwitchEntity.h"
-#include "3D/CTeleporterEntity.h"
-#include "3D/CAlarmEntity.h"
-#include "3D/CArmorBonusEntity.h"
-#include "3D/CHealthBonusEntity.h"
-#include "3D/CHandgunAmmoEntity.h"
-#include "3D/CShotgunAmmoEntity.h"
-#include "3D/CFlashlightEntity.h"
-#include "3D/CSecurityCameraEntity.h"
-#include "3D/CLadderEntity.h"
+#include "3D/Trigger/CDoorEntity.h"
+#include "3D/Trigger/CFanEntity.h"
+#include "3D/Trigger/CSwitchEntity.h"
+#include "3D/Trigger/CTeleporterEntity.h"
+#include "3D/Misc/CAlarmEntity.h"
+#include "3D/Trigger/CArmorBonusEntity.h"
+#include "3D/Trigger/CHealthBonusEntity.h"
+#include "3D/Trigger/CHandgunAmmoEntity.h"
+#include "3D/Trigger/CShotgunAmmoEntity.h"
+#include "3D/Trigger/CFlashlightEntity.h"
+#include "3D/Misc/CSecurityCameraEntity.h"
+#include "3D/Trigger/CLadderEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {

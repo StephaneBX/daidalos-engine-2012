@@ -25,54 +25,52 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "CLadderEntity.h"
+#ifndef __ITRIGGERENTITY_H
+#define __ITRIGGERENTITY_H
+
+#include <set>
+#include "../IEntity.h"
 
 namespace SAMPLES {
-	/**
-	* @param node The ladder node
-	* @param scene3D The scene associated to the node
-	*/
-	CLadderEntity::CLadderEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
-
-		this->m_type = ENTITY_TYPE_LADDER;
-		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
-		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
-
-		// Read the attributes
-		DE::CVector3F boundingBoxSize = DE::CVector3F(1, 1, 1);
-		DE::CVector3F boundingBoxPosition = DE::CVector3F(0, 0, 0);
-		if(meshNode->GetAttribute("boundingBox_size") != "") {
-			boundingBoxSize = boundingBoxSize.GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
-		}
-		if(meshNode->GetAttribute("boundingBox_position") != "") {
-			boundingBoxPosition = boundingBoxPosition.GetFrom(meshNode->GetAttribute("boundingBox_position"), boundingBoxPosition);
-		}
-
-		// Set the bounding box
-		this->m_boundingBox.SetPosition(this->m_node->GetAbsolutePosition() + boundingBoxPosition);
-		this->m_boundingBox.SetSize(boundingBoxSize);
-	}
 
 	/**
-	* Update the armor bonus
-	* @param time Elapsed time
+	* Abstract entity with tigger targets and action properties
 	*/
-	void CLadderEntity::Update(float const time) {
-		this->m_player->SetGravityEnabled(!CanDoAction());
-	}
+	class ITriggerEntity : public IEntity {
+	protected:
+		unsigned int m_triggerParam;
+		std::set<ITriggerEntity*> m_targetsEntity;
 
-	/**
-	* Trigger the entity action
-	*/
-	void CLadderEntity::DoAction() {}
+	public:
+		/**
+		* Add a target entity
+		* @param entity The target entity
+		*/
+		void AddTarget(ITriggerEntity * entity);
 
-	/**
-	* Check if the action can be triggered
-	* @return True if the action can be triggered, false otherwise
-	*/
-	const bool CLadderEntity::CanDoAction() const {
-		return this->m_boundingBox.IsCollision(this->m_player->GetShape());
-	}
+		/**
+		* Remove a target entity
+		* @param entity The target entity
+		*/
+		void RemoveTarget(ITriggerEntity * entity);
+
+		/**
+		* Update the entity
+		* @param time Elapsed time
+		*/
+		virtual void Update(float const time);
+
+		/**
+		* Trigger the entity action
+		*/
+		virtual void DoAction() = 0;
+
+		/**
+		* Check if the action can be triggered
+		* @return True if the action can be triggered, false otherwise
+		*/
+		virtual const bool CanDoAction() = 0;
+	};
 }
+
+#endif

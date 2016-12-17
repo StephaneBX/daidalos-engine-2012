@@ -73,21 +73,15 @@ namespace SAMPLES {
 	class CFPSCamera : public IPlayer
 	{
 	private:
-		bool m_gravityEnabled;
 		unsigned int m_actionState;
 		int m_health;
 		int m_armor;
-		float m_lastCollisionUpdateTimer;
 		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector3F m_rotation;
-		DE::CVector3F m_gravity;
-		DE::CVector3F m_visiblePosition;
 		DE::ICameraSceneNode * m_node;
 		DE::ISceneNode * m_flashlightNode;
 		DE::CInputDevice * m_inputDevice;
-		DE::CEllipseF m_shape;
-		DE::C3DScene * m_scene;
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
@@ -109,12 +103,6 @@ namespace SAMPLES {
 		* @param scene The associated scene
 		*/
 		void SetScene(DE::C3DScene * scene);
-
-		/**
-		* Set the player gravity on/off
-		* @param enabled If the gravity is enabled
-		*/
-		void SetGravityEnabled(const bool enabled);
 
 		/**
 		* Set the player health
@@ -146,12 +134,6 @@ namespace SAMPLES {
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
-
-		/**
-		* Get the player shape
-		* @return The player shape
-		*/
-		DE::IShape3DF * GetShape();
 
 		/**
 		* Check if the player can see a shape
@@ -197,16 +179,12 @@ namespace SAMPLES {
 		*/
 		const unsigned int GetObjectValue(EPlayerObject object) const;
 
+	protected:
 		/**
-		* Get the player gravity factor
+		* Callback used to handle event when the entity fall and touch the ground
+		* @param gravity The gravity value before touching the ground
 		*/
-		const float GetGravity() const;
-
-		/**
-		* Get the player position
-		* @return The player position
-		*/
-		const DE::CVector3F & GetPosition() const;
+		void OnEntityTouchedGround(const DE::CVector3F gravity);
 
 	private:
 		/**

@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Core/Utility/CVector3.h>
 #include <Scene/3D/IShape3D.h>
+#include "3D/ICollidableEntity.h"
 
 namespace SAMPLES {
 
@@ -44,14 +45,8 @@ namespace SAMPLES {
 	/**
 	* Player interface
 	*/
-	class IPlayer {
+	class IPlayer : public ICollidableEntity {
 	public:
-		/**
-		* Set the player gravity on/off
-		* @param enabled If the gravity is enabled
-		*/
-		virtual void SetGravityEnabled(const bool enabled) = 0;
-
 		/**
 		* Set the player health
 		* @param health The player health
@@ -82,12 +77,6 @@ namespace SAMPLES {
 		* @param time Elapsed time
 		*/
 		virtual void Update(float const time = 0) = 0;
-
-		/**
-		* Get the player shape
-		* @return The player shape
-		*/
-		virtual DE::IShape3DF * GetShape() = 0;
 
 		/**
 		* Check if the player can see a shape
@@ -133,16 +122,12 @@ namespace SAMPLES {
 		*/
 		virtual const unsigned int GetObjectValue(EPlayerObject object) const = 0;
 
+	protected:
 		/**
-		* Get the player gravity factor
+		* Callback used to handle event when the entity fall and touch the ground
+		* @param gravity The gravity value before touching the ground
 		*/
-		virtual const float GetGravity() const = 0;
-
-		/**
-		* Get the player position
-		* @return The player position
-		*/
-		virtual const DE::CVector3F & GetPosition() const = 0;
+		virtual void OnEntityTouchedGround(const DE::CVector3F gravity) = 0;
 	};
 }
 

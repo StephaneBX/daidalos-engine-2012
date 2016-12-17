@@ -25,18 +25,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "CShotgunAmmoEntity.h"
+#include "../../Enums.h"
+#include "CHandgunAmmoEntity.h"
 
 #define ROTATION_SPEED 70.0f
 #define TRIGGER_RADIUS 5
-#define AMMO_QUANTITY 7
+#define AMMO_QUANTITY 12
 
 namespace SAMPLES {
 	/**
-	* @param node The shotgun ammo node
+	* @param node The handgun ammo node
 	* @param scene3D The scene associated to the node
 	*/
-	CShotgunAmmoEntity::CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CHandgunAmmoEntity::CHandgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
 
 		this->m_type = ENTITY_TYPE_HEALTH;
 		this->m_node = meshNode;
@@ -44,7 +45,7 @@ namespace SAMPLES {
 		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
-		this->m_sound.LoadFromFile("shotgun_ammo.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.LoadFromFile("handgun_ammo.wav", DE::SOUND_TYPE_STATIC);
 		this->m_sound.SetRelativeToListener(true);
 	}
 
@@ -52,8 +53,9 @@ namespace SAMPLES {
 	* Update the handgun ammo
 	* @param time Elapsed time
 	*/
-	void CShotgunAmmoEntity::Update(float const time) {
-
+	void CHandgunAmmoEntity::Update(float const time) {
+		
+		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {
 			const float timePerSecond = time / 1000.0f;
 
@@ -65,25 +67,23 @@ namespace SAMPLES {
 				rotation += 360.0f;
 			}
 			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
-
-			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
-				this->m_node->SetEnabled(false);
-				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-				this->m_player->SetObject(PLAYER_OBJECT_SHOTGUN_AMMO, AMMO_QUANTITY);
-			}
 		}
 	}
 
 	/**
 	* Trigger the entity action
 	*/
-	void CShotgunAmmoEntity::DoAction() {}
+	void CHandgunAmmoEntity::DoAction() {
+		this->m_node->SetEnabled(false);
+		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+		this->m_player->SetObject(PLAYER_OBJECT_HANDGUN_AMMO, AMMO_QUANTITY);
+	}
 
 	/**
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CShotgunAmmoEntity::CanDoAction() const {
-		return false;
+	const bool CHandgunAmmoEntity::CanDoAction() {
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

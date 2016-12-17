@@ -25,47 +25,35 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSWITCHENTITY_H
-#define __CSWITCHENTITY_H
+#ifndef __CFLASHLIGHTENTITY_H
+#define __CFLASHLIGHTENTITY_H
 
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/ISceneNode.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
-namespace SAMPLES {
-
-	enum ESwitchState {
-		SWITCH_STATE_ON,
-		SWITCH_STATE_ACTIVATING,
-		SWITCH_STATE_OFF,
-		SWITCH_STATE_DEACTIVATING
-	};
-
+namespace SAMPLES
+{
 	/**
-	* Switch entity
+	* Flashlight entity
 	*/
-	class CSwitchEntity : public IEntity {
+	class CFlashlightEntity : public ITriggerEntity
+	{
 	private:
-		bool m_highlighted;
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
+		DE::ISceneNode * m_node;
 		IPlayer * m_player;
-
 		DE::CSound m_sound;
-		ESwitchState m_state;
 
 	public:
 		/**
-		* @param node The switch node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* @param node The flashlight node
+		* @param camera The player
 		*/
-		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player);
 
 		/**
-		* Update the door
+		* Update the flashlight
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
@@ -79,18 +67,7 @@ namespace SAMPLES {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
-
-	private:
-		/**
-		* Set the switch on
-		*/
-		void SetOn();
-
-		/**
-		* Set the switch off
-		*/
-		void SetOff();
+		const bool CanDoAction();
 	};
 }
 

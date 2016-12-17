@@ -25,48 +25,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CALARMENTITY_H
-#define __CALARMENTITY_H
-
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include "IEntity.h"
+#ifndef __SAMPLESCOMMONENUMS_H
+#define __SAMPLESCOMMONENUMS_H
 
 namespace SAMPLES {
 
-	/**
-	* Alarm entity
-	*/
-	class CAlarmEntity : public IEntity {
-	private:
-		DE::CStaticMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-
-		float m_speed;
-
-	public:
-		/**
-		* @param node The alarm node
-		* @param scene3D The scene associated to the node
-		*/
-		CAlarmEntity(DE::CStaticMeshSceneNode * meshNode, DE::C3DScene * scene3D);
-
-		/**
-		* Update the alarm
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
-
-		/**
-		* Trigger the entity action
-		*/
-		void DoAction();
-
-		/**
-		* Check if the action can be triggered
-		* @return True if the action can be triggered, false otherwise
-		*/
-		const bool CanDoAction() const;
+	enum EEntityType {
+		ENTITY_TYPE_ALARM,
+		ENTITY_TYPE_DOOR,
+		ENTITY_TYPE_FAN,
+		ENTITY_TYPE_SWITCH,
+		ENTITY_TYPE_TELEPORTER,
+		ENTITY_TYPE_ARMOR,
+		ENTITY_TYPE_HEALTH,
+		ENTITY_TYPE_FLASHLIGHT,
+		ENTITY_TYPE_SECURITY_CAMERA,
+		ENTITY_TYPE_LADDER
 	};
 }
 

@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Enums.h"
 #include "CTeleporterEntity.h"
 
 namespace SAMPLES {
@@ -107,8 +108,8 @@ namespace SAMPLES {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CTeleporterEntity::CanDoAction() const {
-		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0,4,0), this->m_player->GetPosition()) <= TRIGGER_RADIUS;
+	const bool CTeleporterEntity::CanDoAction() {
+		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

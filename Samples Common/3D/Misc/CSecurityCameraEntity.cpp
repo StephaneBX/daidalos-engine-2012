@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include <Core/Utility/CMatrix.h>
+#include "../../Enums.h"
 #include "CSecurityCameraEntity.h"
 
 #define DEFAULT_HORIZONTAL_ROTATION_SPEED 40.0f
@@ -127,8 +128,8 @@ namespace SAMPLES {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_player->GetPosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
-		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
+		DE::CVector3F cameraToPlayer = (this->m_player->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
 		DE::CVector2F cameraToPlayerHorizontal = DE::CVector2F(cameraToPlayer.x, cameraToPlayer.z).Normalize();
@@ -164,13 +165,13 @@ namespace SAMPLES {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_player->GetPosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (this->m_player->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way
 		DE::CVector2F cameraToPlayerVertical = DE::CVector2F(cameraToPlayer.y, cameraToPlayer.z).Normalize();
 		DE::CVector2F cameraForwardVertical = DE::CVector2F(cameraForward.y, cameraForward.z).Normalize();
-		float rotationX = this->m_meshRootNode->GetRotation().x;
+		float rotationX = this->m_meshCameraNode->GetRotation().x;
 		if(atan2f(cameraForwardVertical.y, cameraForwardVertical.x) - atan2f(cameraToPlayerVertical.y, cameraToPlayerVertical.x) > 0) {
 			rotationX -= verticalRotation;
 		} else {
@@ -187,6 +188,6 @@ namespace SAMPLES {
 		}
 
 		// Update the camera rotation
-		this->m_meshRootNode->SetRotation(DE::CVector3F(rotationX, this->m_meshRootNode->GetRotation().y, this->m_meshRootNode->GetRotation().z));
+		this->m_meshCameraNode->SetRotation(DE::CVector3F(rotationX, this->m_meshCameraNode->GetRotation().y, this->m_meshCameraNode->GetRotation().z));
 	}
 }

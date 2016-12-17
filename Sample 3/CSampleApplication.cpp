@@ -62,8 +62,8 @@ namespace SAMPLE3 {
 			this->m_fpsCounter.Update(time);
 			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
-			this->m_hud->SetPosition(this->m_player->GetPosition());
-			this->m_hud->SetGravity(this->m_player->GetGravity());
+			this->m_hud->SetPosition(this->m_player->GetVisiblePosition());
+			this->m_hud->SetGravity(this->m_player->GetGravity().y);
 			this->m_hud->SetHealth(this->m_player->GetHealth());
 
 			this->m_cursor.Update(time);

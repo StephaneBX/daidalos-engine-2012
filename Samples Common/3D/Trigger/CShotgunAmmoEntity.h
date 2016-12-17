@@ -25,21 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CHANDGUNAMMOENTITY_H
-#define __CHANDGUNAMMOENTITY_H
+#ifndef __CSHOTGUNAMMOENTITY_H
+#define __CSHOTGUNAMMOENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
 namespace SAMPLES {
 
 	/**
-	* Handgun ammo entity
+	* Shotgun ammo entity
 	*/
-	class CHandgunAmmoEntity : public IEntity {
+	class CShotgunAmmoEntity : public ITriggerEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
@@ -48,11 +48,11 @@ namespace SAMPLES {
 
 	public:
 		/**
-		* @param node The handgun ammo node
+		* @param node The shotgun ammo node
 		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
-		CHandgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
 		* Update the health
@@ -69,7 +69,7 @@ namespace SAMPLES {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
+		const bool CanDoAction();
 	};
 }
 

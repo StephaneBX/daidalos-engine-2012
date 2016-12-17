@@ -38,14 +38,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Scene\Particles\Updaters\CRotationParticleUpdater.h"
 #include "Scene\Particles\Updaters\CSizeParticleUpdater.h"
 #include "Scene\Particles\Updaters\CVelocityParticleUpdater.h"
-#include "3D/CDoorEntity.h"
-#include "3D/CFanEntity.h"
-#include "3D/CSwitchEntity.h"
-#include "3D/CTeleporterEntity.h"
-#include "3D/CAlarmEntity.h"
-#include "3D/CArmorBonusEntity.h"
-#include "3D/CHealthBonusEntity.h"
-#include "3D/CHandgunAmmoEntity.h"
+#include "Enums.h"
+#include "3D/Trigger/CDoorEntity.h"
+#include "3D/Trigger/CFanEntity.h"
+#include "3D/Trigger/CSwitchEntity.h"
+#include "3D/Trigger/CTeleporterEntity.h"
+#include "3D/Misc/CAlarmEntity.h"
+#include "3D/Trigger/CArmorBonusEntity.h"
+#include "3D/Trigger/CHealthBonusEntity.h"
+#include "3D/Trigger/CHandgunAmmoEntity.h"
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
@@ -88,8 +89,8 @@ namespace SAMPLE2 {
 			// Update the hud
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
 			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
-			this->m_hud->SetPosition(this->m_player->GetPosition());
-			this->m_hud->SetGravity(this->m_player->GetGravity());
+			this->m_hud->SetPosition(this->m_player->GetVisiblePosition());
+			this->m_hud->SetGravity(this->m_player->GetGravity().y);
 			this->m_hud->SetHealth(this->m_player->GetHealth());
 			this->m_hud->SetArmor(this->m_player->GetArmor());
 			this->m_hud->SetAmmo(this->m_player->GetCurrentWeaponMagazineAmmo(), this->m_player->GetCurrentWeaponStockAmmo());
@@ -99,7 +100,7 @@ namespace SAMPLE2 {
 
 			// Check for a loading call
 			for(auto it = this->m_entities.begin(); it != this->m_entities.end() && !this->m_loading; it++) {
-				if((*it)->GetType() == SAMPLES::ENTITY_TYPE_TELEPORTER && (*it)->CanDoAction()) {
+				if((*it)->GetType() == SAMPLES::ENTITY_TYPE_TELEPORTER && ((SAMPLES::ITriggerEntity*)(*it).get())->CanDoAction()) {
 					std::thread(&CSampleApplication::LoadLevel, this, ((SAMPLES::CTeleporterEntity*)(*it).get())->GetNextLevelName()).detach();
 				}
 			}

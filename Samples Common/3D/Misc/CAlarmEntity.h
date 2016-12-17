@@ -25,37 +25,34 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CARMORBONUSENTITY_H
-#define __CARMORBONUSENTITY_H
+#ifndef __CALARMENTITY_H
+#define __CALARMENTITY_H
 
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/CStaticMeshSceneNode.h>
 #include <Scene/3D/C3DScene.h>
-#include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "../IEntity.h"
 
 namespace SAMPLES {
 
 	/**
-	* Armor bonus entity
+	* Alarm entity
 	*/
-	class CArmorBonusEntity : public IEntity {
+	class CAlarmEntity : public IEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
+		DE::CStaticMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
-		DE::CSound m_sound;
-		IPlayer * m_player;
+
+		float m_speed;
 
 	public:
 		/**
-		* @param node The armor node
-		* @param player The player
+		* @param node The alarm node
 		* @param scene3D The scene associated to the node
 		*/
-		CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CAlarmEntity(DE::CStaticMeshSceneNode * meshNode, DE::C3DScene * scene3D);
 
 		/**
-		* Update the armor
+		* Update the alarm
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);

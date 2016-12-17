@@ -31,6 +31,24 @@
     <Filter Include="Fichiers sources\Weapons">
       <UniqueIdentifier>{89912ed3-4f1e-4d02-ab2d-fc0688c62335}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Trigger">
+      <UniqueIdentifier>{b27b89c7-e631-4e4f-a202-2725d5459ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Enemy">
+      <UniqueIdentifier>{c120048b-f30f-4152-be69-6cea4f51895c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Misc">
+      <UniqueIdentifier>{66274220-dd90-4e25-acf7-6f4f4592328c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Trigger">
+      <UniqueIdentifier>{fdaf8edb-28b1-4f1c-bb0d-0687e259d74f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Enemy">
+      <UniqueIdentifier>{1e20432d-3837-4c0e-96e6-979fdacbd3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Misc">
+      <UniqueIdentifier>{8d3ba358-3a51-4bc6-bf64-4d855719edc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -48,41 +66,11 @@
     <ClInclude Include="2D\CHudView.h">
       <Filter>Fichiers d%27en-tête\2D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CDoorEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CFanEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CSwitchEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\IEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
     <ClInclude Include="2D\CLoadingView.h">
       <Filter>Fichiers d%27en-tête\2D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CTeleporterEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CAlarmEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CArmorBonusEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CHealthBonusEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CHandgunAmmoEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
-    </ClInclude>
     <ClInclude Include="IPlayer.h">
       <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="3D\CFlashlightEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
     <ClInclude Include="Weapons\CHandgun.h">
       <Filter>Fichiers d%27en-tête\Weapons</Filter>
@@ -93,14 +81,56 @@
     <ClInclude Include="Weapons\CShotgun.h">
       <Filter>Fichiers d%27en-tête\Weapons</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CShotgunAmmoEntity.h">
+    <ClInclude Include="3D\Enemy\IEnemyEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Misc\CAlarmEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Misc\CSecurityCameraEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CArmorBonusEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CDoorEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CFanEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CFlashlightEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CHandgunAmmoEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CHealthBonusEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CLadderEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CShotgunAmmoEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CSwitchEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CTeleporterEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\ITriggerEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ICollidableEntity.h">
       <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CSecurityCameraEntity.h">
+    <ClInclude Include="3D\IEntity.h">
       <Filter>Fichiers d%27en-tête\3D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CLadderEntity.h">
-      <Filter>Fichiers d%27en-tête\3D</Filter>
+    <ClInclude Include="Enums.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -119,38 +149,8 @@
     <ClCompile Include="2D\CHudView.cpp">
       <Filter>Fichiers sources\2D</Filter>
     </ClCompile>
-    <ClCompile Include="3D\CDoorEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CFanEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CSwitchEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\IEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
     <ClCompile Include="2D\CLoadingView.cpp">
       <Filter>Fichiers sources\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CTeleporterEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CAlarmEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CArmorBonusEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CHealthBonusEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CHandgunAmmoEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="3D\CFlashlightEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
     <ClCompile Include="Weapons\CHandgun.cpp">
       <Filter>Fichiers sources\Weapons</Filter>
@@ -161,14 +161,53 @@
     <ClCompile Include="Weapons\CShotgun.cpp">
       <Filter>Fichiers sources\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="3D\CShotgunAmmoEntity.cpp">
+    <ClCompile Include="3D\ICollidableEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
-    <ClCompile Include="3D\CSecurityCameraEntity.cpp">
+    <ClCompile Include="3D\IEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
-    <ClCompile Include="3D\CLadderEntity.cpp">
-      <Filter>Fichiers sources\3D</Filter>
+    <ClCompile Include="3D\Trigger\CArmorBonusEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CDoorEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CFanEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CFlashlightEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CHandgunAmmoEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CHealthBonusEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CLadderEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CShotgunAmmoEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CSwitchEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CTeleporterEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\ITriggerEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CAlarmEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CSecurityCameraEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\IEnemyEntity.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,70 +25,59 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSECURITYCAMERAENTITY_H
-#define __CSECURITYCAMERAENTITY_H
-
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include "../IPlayer.h"
-#include "IEntity.h"
+#include "../../Enums.h"
+#include "CLadderEntity.h"
 
 namespace SAMPLES {
+	/**
+	* @param node The ladder node
+	* @param scene3D The scene associated to the node
+	*/
+	CLadderEntity::CLadderEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+
+		this->m_type = ENTITY_TYPE_LADDER;
+		this->m_node = meshNode;
+		this->m_scene3D = scene3D;
+		this->m_player = player;
+		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+
+		// Read the attributes
+		DE::CVector3F boundingBoxSize = DE::CVector3F(1, 1, 1);
+		DE::CVector3F boundingBoxPosition = DE::CVector3F(0, 0, 0);
+		if(meshNode->GetAttribute("boundingBox_size") != "") {
+			boundingBoxSize = boundingBoxSize.GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
+		}
+		if(meshNode->GetAttribute("boundingBox_position") != "") {
+			boundingBoxPosition = boundingBoxPosition.GetFrom(meshNode->GetAttribute("boundingBox_position"), boundingBoxPosition);
+		}
+
+		// Set the bounding box
+		this->m_boundingBox.SetPosition(this->m_node->GetAbsolutePosition() + boundingBoxPosition);
+		this->m_boundingBox.SetSize(boundingBoxSize);
+	}
 
 	/**
-	* Security camera entity
-	* It's composed of a root node and a child with the camera itself
+	* Update the armor bonus
+	* @param time Elapsed time
 	*/
-	class CSecurityCameraEntity : public IEntity {
-	private:
-		DE::CStaticMeshSceneNode * m_meshRootNode;
-		DE::CStaticMeshSceneNode * m_meshCameraNode;
-		DE::C3DScene * m_scene3D;
-		IPlayer * m_player;
+	void CLadderEntity::Update(float const time) {
+		ITriggerEntity::Update(time);
+	}
 
-		float m_originalHorizontalRotation;
-		float m_originalVerticalRotation;
-		float m_horizontalRotationSpeed;
-		float m_verticalRotationSpeed;
-		float m_maxHorizontalRotation;
-		float m_maxVerticalRotation;
+	/**
+	* Trigger the entity action
+	*/
+	void CLadderEntity::DoAction() {
+		this->m_player->SetGravityState(this->m_triggerParam == 0);
+	}
 
-	public:
-		/**
-		* @param node The security camera root node
-		* @param player The player
-		* @param scene3D The scene associated to the node
-		*/
-		CSecurityCameraEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
+	const bool CLadderEntity::CanDoAction() {
 
-		/**
-		* Update the security camera
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
-
-		/**
-		* Trigger the entity action
-		*/
-		void DoAction();
-
-		/**
-		* Check if the action can be triggered
-		* @return True if the action can be triggered, false otherwise
-		*/
-		const bool CanDoAction() const;
-
-	private:
-		/**
-		* Update the security camera horizontal rotation
-		*/
-		void UpdateHorizontalRotation(float const time = 0);
-
-		/**
-		* Update the security camera vertical rotation
-		*/
-		void UpdateVerticalRotation(float const time = 0);
-	};
+		this->m_triggerParam = this->m_boundingBox.IsCollision(this->m_player->GetCollisionShape()) ? 1 : 0;
+		return true;
+	}
 }
-
-#endif

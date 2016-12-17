@@ -25,38 +25,54 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CTELEPORTERENTITY_H
-#define __CTELEPORTERENTITY_H
+#ifndef __CDOORENTITY_H
+#define __CDOORENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/CParticleEmitterSceneNode.h>
 #include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
 namespace SAMPLES {
+		
+	enum EDoorState {
+		DOOR_STATE_CLOSED,
+		DOOR_STATE_OPENED,
+		DOOR_STATE_OPENING,
+		DOOR_STATE_CLOSING
+	};
 
 	/**
-	* Teleporter entity
+	* Door entity
 	*/
-	class CTeleporterEntity : public IEntity {
+	class CDoorEntity : public ITriggerEntity {
 	private:
-		std::string m_levelName;
 		DE::CAnimatedMeshSceneNode * m_node;
+		DE::CParticleEmitterSceneNode * m_emitterNode;
+		DE::C3DScene * m_scene3D;
 		IPlayer * m_player;
 
-		DE::CSound m_sound;
+		DE::CSound m_startSound;
+		DE::CSound m_stopSound;
+		EDoorState m_state;
+		bool m_closable;
+		float m_animationSpeed;
+		float m_triggerRadius;
+		float m_timer;
 
 	public:
 		/**
-		* @param node The switch node
+		* Constructor
+		* @param node The door node
 		* @param player The player
-		* @param scene3D The scene
+		* @param scene3D The scene associated to the node
 		*/
-		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
-		* Update the alarm
+		* Update the door
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
@@ -70,13 +86,7 @@ namespace SAMPLES {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
-
-		/**
-		* Get the next level name
-		* @return The next level name
-		*/
-		const std::string & GetNextLevelName() const;
+		const bool CanDoAction();
 	};
 }
 

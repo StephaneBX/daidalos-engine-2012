@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <IForwardSampleApplication.h>
 #include <CFPSCamera.h>
-#include "3D/CFlashlightEntity.h"
+#include "3D/Trigger/CFlashlightEntity.h"
 #include "CHealthEntity.h"
 
 namespace SAMPLE3

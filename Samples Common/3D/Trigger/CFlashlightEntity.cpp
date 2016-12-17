@@ -25,52 +25,51 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CLADDERENTITY_H
-#define __CLADDERENTITY_H
+#define ROTATION_SPEED 45
+#define TRIGGER_RADIUS 5
 
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/CAABoundingBox.h>
-#include <Scene/3D/C3DScene.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include <Core/Utility/CVector3.h>
+#include "../../Enums.h"
+#include "CFlashlightEntity.h"
 
 namespace SAMPLES {
+	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player) {
+
+		this->m_type = ENTITY_TYPE_FLASHLIGHT;
+		this->m_node = meshNode;
+		this->m_player = player;
+
+		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.SetRelativeToListener(true);
+	}
+
+	void CFlashlightEntity::Update(float const time) {
+
+		ITriggerEntity::Update(time);
+		if(this->m_node->IsEnabled()) {
+			DE::CVector3F rotation = this->m_node->GetRotation();
+			rotation.y += (ROTATION_SPEED * time) / 1000.0f;
+			if(rotation.y > 360) {
+				rotation.y -= 360;
+			}
+			this->m_node->SetRotation(rotation);
+		}
+	}
 
 	/**
-	* Ladder entity
+	* Trigger the entity action
 	*/
-	class CLadderEntity : public IEntity {
-	private:
-		DE::CStaticMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-		DE::CAABoundingBoxF m_boundingBox;
-		IPlayer * m_player;
+	void CFlashlightEntity::DoAction() {
+		this->m_node->SetEnabled(false);
+		this->m_player->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
+		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+	}
 
-	public:
-		/**
-		* @param node The ladder node
-		* @param player The player
-		* @param scene3D The scene associated to the node
-		*/
-		CLadderEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
-
-		/**
-		* Update the armor
-		* @param time Elapsed time
-		*/
-		void Update(float const time = 0);
-
-		/**
-		* Trigger the entity action
-		*/
-		void DoAction();
-
-		/**
-		* Check if the action can be triggered
-		* @return True if the action can be triggered, false otherwise
-		*/
-		const bool CanDoAction() const;
-	};
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
+	const bool CFlashlightEntity::CanDoAction() {
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
+	}
 }
-
-#endif

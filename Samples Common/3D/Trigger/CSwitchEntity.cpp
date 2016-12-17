@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define TRIGGER_RADIUS 4
 #define ANIMATION_SPEED 10.0f
 
+#include "../../Enums.h"
 #include "CSwitchEntity.h"
 
 namespace SAMPLES {
@@ -97,14 +98,14 @@ namespace SAMPLES {
 		}
 	}
 
-	const bool CSwitchEntity::CanDoAction() const {
+	const bool CSwitchEntity::CanDoAction() {
 
 		bool targetsOk = true;
 		for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end() && targetsOk; it++) {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS && this->m_player->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_player->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	void CSwitchEntity::SetOn() {

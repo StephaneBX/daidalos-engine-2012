@@ -25,21 +25,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CSHOTGUNAMMOENTITY_H
-#define __CSHOTGUNAMMOENTITY_H
+#ifndef __CARMORBONUSENTITY_H
+#define __CARMORBONUSENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
 namespace SAMPLES {
 
 	/**
-	* Shotgun ammo entity
+	* Armor bonus entity
 	*/
-	class CShotgunAmmoEntity : public IEntity {
+	class CArmorBonusEntity : public ITriggerEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::C3DScene * m_scene3D;
@@ -48,14 +48,14 @@ namespace SAMPLES {
 
 	public:
 		/**
-		* @param node The shotgun ammo node
+		* @param node The armor node
 		* @param player The player
 		* @param scene3D The scene associated to the node
 		*/
-		CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
-		* Update the health
+		* Update the armor
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
@@ -69,7 +69,7 @@ namespace SAMPLES {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
+		const bool CanDoAction();
 	};
 }
 

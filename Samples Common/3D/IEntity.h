@@ -29,65 +29,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IENTITY_H
 
 #include <set>
+#include <Scene/3D/C3DScene.h>
 
 namespace SAMPLES {
-
-	enum EEntityType {
-		ENTITY_TYPE_ALARM,
-		ENTITY_TYPE_DOOR,
-		ENTITY_TYPE_FAN,
-		ENTITY_TYPE_SWITCH,
-		ENTITY_TYPE_TELEPORTER,
-		ENTITY_TYPE_ARMOR,
-		ENTITY_TYPE_HEALTH,
-		ENTITY_TYPE_FLASHLIGHT,
-		ENTITY_TYPE_SECURITY_CAMERA,
-		ENTITY_TYPE_LADDER
-	};
-
 	/**
 	* Abstract entity
 	*/
 	class IEntity {
 	protected:
-		EEntityType m_type;
-		std::set<IEntity*> m_targetsEntity;
+		unsigned int m_type;
+		DE::C3DScene * m_scene;
 
 	public:
-		/**
-		* Add a target entity
-		* @param entity The target entity
-		*/
-		void AddTarget(IEntity * entity);
-
-		/**
-		* Remove a target entity
-		* @param entity The target entity
-		*/
-		void RemoveTarget(IEntity * entity);
 
 		/**
 		* Get the entity type
 		* @return The entity type
 		*/
-		const EEntityType GetType() const;
+		const unsigned int GetType() const;
 
 		/**
 		* Update the entity
 		* @param time Elapsed time
 		*/
 		virtual void Update(float const time) = 0;
-
-		/**
-		* Trigger the entity action
-		*/
-		virtual void DoAction() = 0;
-
-		/**
-		* Check if the action can be triggered
-		* @return True if the action can be triggered, false otherwise
-		*/
-		virtual const bool CanDoAction() const = 0;
 	};
 }
 

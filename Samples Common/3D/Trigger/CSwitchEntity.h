@@ -25,51 +25,73 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define ROTATION_SPEED 45
-#define TRIGGER_RADIUS 5
+#ifndef __CSWITCHENTITY_H
+#define __CSWITCHENTITY_H
 
-#include <Core/Utility/CVector3.h>
-#include "CFlashlightEntity.h"
+#include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/C3DScene.h>
+#include <Medias/CSound.h>
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
 namespace SAMPLES {
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player) {
 
-		this->m_type = ENTITY_TYPE_FLASHLIGHT;
-		this->m_node = meshNode;
-		this->m_player = player;
-
-		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
-		this->m_sound.SetRelativeToListener(true);
-	}
-
-	void CFlashlightEntity::Update(float const time) {
-
-		if(this->m_node->IsEnabled()) {
-			DE::CVector3F rotation = this->m_node->GetRotation();
-			rotation.y += (ROTATION_SPEED * time) / 1000.0f;
-			if(rotation.y > 360) {
-				rotation.y -= 360;
-			}
-			this->m_node->SetRotation(rotation);
-
-			if(this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
-				this->m_node->SetEnabled(false);
-				this->m_player->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
-				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-			}
-		}
-	}
+	enum ESwitchState {
+		SWITCH_STATE_ON,
+		SWITCH_STATE_ACTIVATING,
+		SWITCH_STATE_OFF,
+		SWITCH_STATE_DEACTIVATING
+	};
 
 	/**
-	* Trigger the entity action
+	* Switch entity
 	*/
-	void CFlashlightEntity::DoAction() {}
+	class CSwitchEntity : public ITriggerEntity {
+	private:
+		bool m_highlighted;
+		DE::CAnimatedMeshSceneNode * m_node;
+		DE::C3DScene * m_scene3D;
+		IPlayer * m_player;
 
-	/**
-	* Check if the action can be triggered
-	* @return True if the action can be triggered, false otherwise
-	*/
-	const bool CFlashlightEntity::CanDoAction() const {
-		return false;
-	}
+		DE::CSound m_sound;
+		ESwitchState m_state;
+
+	public:
+		/**
+		* @param node The switch node
+		* @param player The player
+		* @param scene3D The scene associated to the node
+		*/
+		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+
+		/**
+		* Update the door
+		* @param time Elapsed time
+		*/
+		void Update(float const time = 0);
+
+		/**
+		* Trigger the entity action
+		*/
+		void DoAction();
+
+		/**
+		* Check if the action can be triggered
+		* @return True if the action can be triggered, false otherwise
+		*/
+		const bool CanDoAction();
+
+	private:
+		/**
+		* Set the switch on
+		*/
+		void SetOn();
+
+		/**
+		* Set the switch off
+		*/
+		void SetOff();
+	};
 }
+
+#endif

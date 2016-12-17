@@ -25,35 +25,46 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CFLASHLIGHTENTITY_H
-#define __CFLASHLIGHTENTITY_H
+#ifndef __CFANENTITY_H
+#define __CFANENTITY_H
 
-#include <Scene/3D/ISceneNode.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
-namespace SAMPLES
-{
+namespace SAMPLES {
+
+	enum EFanState {
+		FAN_STATE_STOPPED,
+		FAN_STATE_STOPPING,
+		FAN_STATE_STARTED,
+		FAN_STATE_STARTING
+	};
+
 	/**
-	* Flashlight entity
+	* Door entity
 	*/
-	class CFlashlightEntity : public IEntity
-	{
+	class CFanEntity : public ITriggerEntity {
 	private:
-		DE::ISceneNode * m_node;
+		DE::CAnimatedMeshSceneNode * m_node;
+		DE::C3DScene * m_scene3D;
 		IPlayer * m_player;
-		DE::CSound m_sound;
+
+		EFanState m_state;
+		float m_speed;
 
 	public:
 		/**
-		* @param node The flashlight node
-		* @param camera The player
+		* @param node The fan node
+		* @param player The player
+		* @param scene3D The scene associated to the node
 		*/
-		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player);
+		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player);
 
 		/**
-		* Update the flashlight
+		* Update the door
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
@@ -67,7 +78,18 @@ namespace SAMPLES
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
+		const bool CanDoAction();
+
+	private:
+		/**
+		* Start the fan
+		*/
+		void Start();
+
+		/**
+		* Stop the fan
+		*/
+		void Stop();
 	};
 }
 

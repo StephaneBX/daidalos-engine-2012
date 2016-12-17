@@ -51,7 +51,7 @@ namespace SAMPLE3 {
 		this->m_node->SetRotation(rotation);
 
 		if(this->m_node->IsEnabled()) {
-			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetPosition()) <= TRIGGER_RADIUS) {
+			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS) {
 				this->m_node->SetEnabled(false);
 				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}

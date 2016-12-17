@@ -48,7 +48,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) {
-		this->m_gravityEnabled = true;
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
 		this->m_node = cameraNode;
@@ -123,8 +122,7 @@ namespace SAMPLES {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_LEFT);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_CROUCH, 0, DE::INPUT_KEY_GAMEPAD_BUTTON1);
 
-		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
-		this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
+		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
 
@@ -139,14 +137,6 @@ namespace SAMPLES {
 		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(nullptr, scene)));
 		this->m_currentWeaponIndex = 0;
 		this->m_currentWeapon = this->m_weapons[0].get();
-	}
-
-	/**
-	* Set the player gravity on/off
-	* @param enabled If the gravity is enabled
-	*/
-	void CFPSCamera::SetGravityEnabled(const bool enabled) {
-		this->m_gravityEnabled = enabled;
 	}
 
 	/**
@@ -221,14 +211,6 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Get the player shape
-	* @return The player shape
-	*/
-	DE::IShape3DF *  CFPSCamera::GetShape() {
-		return &this->m_shape;
-	}
-
-	/**
 	* Check if the player can see a shape
 	* @param shape A shape
 	* @return True if the player can see the shape
@@ -294,18 +276,11 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Get the player gravity factor
+	* Callback used to handle event when the entity fall and touch the ground
+	* @param gravity The gravity value before touching the ground
 	*/
-	const float CFPSCamera::GetGravity() const {
-		return this->m_gravity.y;
-	}
-
-	/**
-	* Get the player position
-	* @return The player position
-	*/
-	const DE::CVector3F & CFPSCamera::GetPosition() const {
-		return this->m_visiblePosition;
+	void CFPSCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+		this->m_actionState &= ~FPS_CAMERA_JUMP;
 	}
 
 	void CFPSCamera::UpdateState() {
@@ -343,14 +318,14 @@ namespace SAMPLES {
 			this->m_actionState |= FPS_CAMERA_LOOKRIGHT;
 		}
 
-		if(this->m_gravityEnabled && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
+		if(this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
 			this->m_actionState |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
 		}
 
-		if(this->m_gravityEnabled && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
+		if(this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
 			this->m_actionState |= FPS_CAMERA_RUN;
 			this->m_state = FPS_CAMERA_STATE_RUN;
 		} else if(this->m_state == FPS_CAMERA_STATE_RUN) {
@@ -388,10 +363,11 @@ namespace SAMPLES {
 
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		DE::CVector3F movement;
+		DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
 
 		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->m_gravity.y == 0) {
 			this->m_state = FPS_CAMERA_STATE_CROUCH;
-			this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
+			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
 
 		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->m_gravity.y == 0) {
 
@@ -400,10 +376,10 @@ namespace SAMPLES {
 			DE::CVector3F collisionPoint;
 
 			// If no up collision detected at the standing position
-			if(!this->m_scene->GetCollisionPoint(this->m_shape, movementUp, collisionPoint)) {
+			if(!this->m_scene->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
 				this->m_state = FPS_CAMERA_STATE_STAND;
-				this->m_shape.SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
-				this->m_shape.SetPosition(this->m_shape.GetPosition() + movementUp);
+				collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
+				collisionShapeEllipse->SetPosition(collisionShapeEllipse->GetPosition() + movementUp);
 			}
 
 		} else {
@@ -443,7 +419,7 @@ namespace SAMPLES {
 				movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
 
 				// If no gravity, add the vertical part
-				if(!this->m_gravityEnabled) {
+				if(!this->m_gravityState) {
 					this->m_gravity.y = -sin(this->m_rotation.x * PI_OVER_180) * factor;
 				}
 			}
@@ -460,15 +436,13 @@ namespace SAMPLES {
 				movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
 
 				// If no gravity, add the vertical part
-				if(!this->m_gravityEnabled) {
+				if(!this->m_gravityState) {
 					this->m_gravity.y = sin(this->m_rotation.x * PI_OVER_180) * factor;
 				}
 			}
 		}
 
-		this->m_lastCollisionUpdateTimer += time;
-
-		if(this->m_gravityEnabled) {
+		if(this->m_gravityState) {
 			this->m_gravity.y += FPS_CAMERA_GRAVITY * timeSecond;
 		} else {
 			this->m_gravity.y *= FPS_CAMERA_MOVEMENT_SPEED;
@@ -489,40 +463,9 @@ namespace SAMPLES {
 			speedFactor = FPS_CAMERA_CROUCH_FACTOR;
 			break;
 		}
-		this->m_visiblePosition += movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond * speedFactor;
 
-		// If a collision test is required 
-		if(this->m_lastCollisionUpdateTimer >= FPS_CAMERA_COLLISION_UPDATE) {
-			// Collision test with only the movement
-			DE::CVector3F finalMovement = this->m_visiblePosition - this->m_shape.GetPosition();
-			this->m_scene->Slide(this->m_shape, finalMovement);
-
-			// Collision test of the gravity
-			finalMovement = this->m_gravity * timeSecond;
-			DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
-			this->m_scene->Slide(this->m_shape, finalMovement);
-			
-			// Reset gravity and state if the player has touched the ground
-			if(this->m_gravityEnabled && this->m_shape.GetPosition().y > finalPosition.y) {
-
-				// Gravity damage
-				this->m_gravity.y = 0;
-				this->m_actionState &= ~FPS_CAMERA_JUMP;
-			}
-
-			// Update the visibility position
-			this->m_visiblePosition = this->m_shape.GetPosition();
-
-			// Reset the collision timer
-			this->m_lastCollisionUpdateTimer = 0;
-		} else {
-			// Add the gravity when a collision test is not needed
-			this->m_visiblePosition += this->m_gravity * timeSecond;
-		}
-
-		if(!this->m_gravityEnabled) {
-			this->m_gravity.y = 0;
-		}
+		// Collision test
+		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 	}
 
 	void CFPSCamera::UpdateView(const float timeSecond) {

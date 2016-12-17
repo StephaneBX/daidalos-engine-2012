@@ -25,46 +25,38 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CFANENTITY_H
-#define __CFANENTITY_H
+#ifndef __CTELEPORTERENTITY_H
+#define __CTELEPORTERENTITY_H
 
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Scene/3D/C3DScene.h>
 #include <Medias/CSound.h>
-#include "IEntity.h"
-#include "../IPlayer.h"
+#include "ITriggerEntity.h"
+#include "../../IPlayer.h"
 
 namespace SAMPLES {
 
-	enum EFanState {
-		FAN_STATE_STOPPED,
-		FAN_STATE_STOPPING,
-		FAN_STATE_STARTED,
-		FAN_STATE_STARTING
-	};
-
 	/**
-	* Door entity
+	* Teleporter entity
 	*/
-	class CFanEntity : public IEntity {
+	class CTeleporterEntity : public ITriggerEntity {
 	private:
+		std::string m_levelName;
 		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
 		IPlayer * m_player;
 
-		EFanState m_state;
-		float m_speed;
+		DE::CSound m_sound;
 
 	public:
 		/**
-		* @param node The fan node
+		* @param node The switch node
 		* @param player The player
-		* @param scene3D The scene associated to the node
+		* @param scene3D The scene
 		*/
-		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player);
+		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
 
 		/**
-		* Update the door
+		* Update the alarm
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
@@ -78,18 +70,13 @@ namespace SAMPLES {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
-
-	private:
-		/**
-		* Start the fan
-		*/
-		void Start();
+		const bool CanDoAction();
 
 		/**
-		* Stop the fan
+		* Get the next level name
+		* @return The next level name
 		*/
-		void Stop();
+		const std::string & GetNextLevelName() const;
 	};
 }
 
