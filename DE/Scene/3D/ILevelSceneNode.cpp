@@ -53,7 +53,7 @@ namespace DE {
 
 		this->m_shadingType = shadingType;
 
-		ISceneNode::SetMeshShadingType(shadingType);
+		//ISceneNode::SetMeshShadingType(shadingType);
 	}
 
 	void ILevelSceneNode::SetAmbientColor(const CVector4F & ambientColor) {

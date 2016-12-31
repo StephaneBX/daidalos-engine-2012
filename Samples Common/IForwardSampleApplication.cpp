@@ -38,6 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "3D/Trigger/CFlashlightEntity.h"
 #include "3D/Misc/CSecurityCameraEntity.h"
 #include "3D/Trigger/CLadderEntity.h"
+#include "3D/Enemy/CZombieEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {
@@ -311,6 +312,13 @@ namespace SAMPLES {
 		for(auto it = ladderNode.begin(); it != ladderNode.end(); it++) {
 			SAMPLES::CLadderEntity * ladderEntity = new SAMPLES::CLadderEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CLadderEntity>(ladderEntity));
+		}
+
+		// Load the zombies
+		std::vector<DE::ISceneNode*> zombieNode = this->m_scene3D->GetNodeArray("zombie_enemy_entity");
+		for(auto it = zombieNode.begin(); it != zombieNode.end(); it++) {
+			SAMPLES::CZombieEntity * zombieEntity = new SAMPLES::CZombieEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CZombieEntity>(zombieEntity));
 		}
 	}
 

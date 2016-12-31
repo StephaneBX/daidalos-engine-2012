@@ -5875,7 +5875,7 @@
             <scale>1:1:1</scale>
             <fov>55</fov>
             <near>0.1</near>
-            <far>80</far>
+            <far>100</far>
             <!-- SpotLight Node -->
             <node type="2" name="flashlight">
                 <enabled>false</enabled>
@@ -6368,6 +6368,16 @@
                 <boundingBox_position>0:4:0</boundingBox_position>
                 <boundingBox_size>0.5:8:0.25</boundingBox_size>
             </attributes>
+        </node>
+		<!-- Animated Mesh Node -->
+        <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <position>0:10:75</position>
+            <rotation>0:0:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
         </node>
     </node>
 </scene>

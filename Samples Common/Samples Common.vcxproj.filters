@@ -49,6 +49,12 @@
     <Filter Include="Fichiers sources\3D\Misc">
       <UniqueIdentifier>{8d3ba358-3a51-4bc6-bf64-4d855719edc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Enemy\States">
+      <UniqueIdentifier>{f1013081-5eff-4ba5-91e8-40d9c285fb37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Enemy\States">
+      <UniqueIdentifier>{d7bc9e80-575b-4598-b161-c272fd1e2ffc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -132,6 +138,15 @@
     <ClInclude Include="Enums.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Enemy\IEnemyState.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateWait.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\CZombieEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -207,6 +222,15 @@
       <Filter>Fichiers sources\3D\Misc</Filter>
     </ClCompile>
     <ClCompile Include="3D\Enemy\IEnemyEntity.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateWait.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\IEnemyState.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\CZombieEntity.cpp">
       <Filter>Fichiers sources\3D\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

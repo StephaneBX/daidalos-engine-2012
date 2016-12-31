@@ -68,7 +68,10 @@
   <ItemGroup>
     <ClInclude Include="2D\CHudView.h" />
     <ClInclude Include="2D\CLoadingView.h" />
+    <ClInclude Include="3D\Enemy\CZombieEntity.h" />
     <ClInclude Include="3D\Enemy\IEnemyEntity.h" />
+    <ClInclude Include="3D\Enemy\IEnemyState.h" />
+    <ClInclude Include="3D\Enemy\States\CEnemyStateWait.h" />
     <ClInclude Include="3D\ICollidableEntity.h" />
     <ClInclude Include="3D\IEntity.h" />
     <ClInclude Include="3D\Misc\CAlarmEntity.h" />
@@ -97,7 +100,10 @@
   <ItemGroup>
     <ClCompile Include="2D\CHudView.cpp" />
     <ClCompile Include="2D\CLoadingView.cpp" />
+    <ClCompile Include="3D\Enemy\CZombieEntity.cpp" />
     <ClCompile Include="3D\Enemy\IEnemyEntity.cpp" />
+    <ClCompile Include="3D\Enemy\IEnemyState.cpp" />
+    <ClCompile Include="3D\Enemy\States\CEnemyStateWait.cpp" />
     <ClCompile Include="3D\ICollidableEntity.cpp" />
     <ClCompile Include="3D\IEntity.cpp" />
     <ClCompile Include="3D\Misc\CAlarmEntity.cpp" />

@@ -1,0 +1,125 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#ifndef __IENEMYENTITY_H
+#define __IENEMYENTITY_H
+
+#include <Scene/3D/CFrustum.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include "IEnemyState.h"
+#include "../ICollidableEntity.h"
+#include "../../IPlayer.h"
+
+namespace SAMPLES {
+	/**
+	* Abstract enemy entity
+	*/
+	class IEnemyEntity : public ICollidableEntity {
+		friend class IEnemyState;
+	protected:
+		unsigned int m_health;
+		unsigned int m_maxHealth;
+		float m_reactionTime;
+		float m_reactionTimer;
+		DE::CFrustum m_view;
+
+		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
+		IEnemyState * m_currentActionState;
+
+		IPlayer * m_player;
+		DE::CAnimatedMeshSceneNode * m_meshNode;
+
+	public:
+		/**
+		* Constructor
+		* @param node The mesh node
+		* @param player The player
+		* @param scene3D The scene
+		*/
+		IEnemyEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D);
+
+		/**
+		* Update the enemy entity
+		* @param time Elapsed time
+		*/
+		virtual void Update(float const time);
+
+		/**
+		* Determine the next active state
+		*/
+		virtual void SelectNextActionState() = 0;
+
+		/**
+		* Set the health
+		* @param health The health
+		*/
+		void SetHealth(unsigned int health);
+
+		/**
+		* Set the max health
+		* @param health The max health
+		*/
+		void SetMaxHealth(unsigned int health);
+
+		/**
+		* Set the reaction time
+		*/
+		void SetReactionTime(float reactionTime);
+
+		/**
+		* Get the health
+		* @return The health
+		*/
+		const unsigned int GetHealth() const;
+
+		/**
+		* Get the max health
+		* @return The max health
+		*/
+		const unsigned int GetMaxHealth() const;
+
+		/**
+		* Get the reaction time
+		* @return The reaction time
+		*/
+		const float GetReactionTime() const;
+
+		/**
+		* Get the player
+		* @return The player
+		*/
+		IPlayer * GetPlayer();
+
+		/**
+		* Get the mesh node
+		* @return The mesh node
+		*/
+		DE::CAnimatedMeshSceneNode * GetMeshNode();
+	};
+}
+
+#endif
