@@ -30,6 +30,28 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
+	* Constructor
+	*/
+	IEnemyState::IEnemyState() {
+		this->m_done = false;
+	}
+
+	/**
+	* Reset the state
+	*/
+	void IEnemyState::Reset() {
+		this->m_done = false;
+	}
+
+	/**
+	* Check if the state has done its work
+	* @return The state done status
+	*/
+	const bool IEnemyState::IsDone() const {
+		return this->m_done;
+	}
+
+	/**
 	* Process the level collisions (movement + gravity) based on the shape.
 	* The collision depends on the frequencies (in ms) set
 	* @param entity The enemy entity

@@ -42,9 +42,12 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
+		* @param startAnimation The start animation frame
+		* @param endAnimation The end animation frame
+		* @param animationSpeed The animation speed
 		* @param waitTime The wait time
 		*/
-		CEnemyStateWait(float waitTime);
+		CEnemyStateWait(float startAnimation, float endAnimation, float animationSpeed, float waitTime);
 
 		/**
 		* Update the entity
@@ -52,6 +55,11 @@ namespace SAMPLES {
 		* @param time Elapsed time
 		*/
 		virtual void Update(IEnemyEntity * entity, float const time);
+
+		/**
+		* Reset the state
+		*/
+		virtual void Reset();
 	};
 }
 

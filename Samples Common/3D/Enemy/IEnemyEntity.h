@@ -109,6 +109,12 @@ namespace SAMPLES {
 		const float GetReactionTime() const;
 
 		/**
+		* Get the entity view
+		* @return The entity view
+		*/
+		DE::CFrustum * GetView();
+
+		/**
 		* Get the player
 		* @return The player
 		*/

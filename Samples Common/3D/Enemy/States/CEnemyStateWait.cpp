@@ -31,11 +31,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 	/**
 	* Constructor
+	* @param startAnimation The start animation frame
+	* @param endAnimation The end animation frame
+	* @param animationSpeed The animation speed
 	* @param waitTime The wait time
 	*/
-	CEnemyStateWait::CEnemyStateWait(float waitTime) : IEnemyState() {
-		this->m_waitTime = m_waitTime;
+	CEnemyStateWait::CEnemyStateWait(float startAnimation, float endAnimation, float animationSpeed, float waitTime) : IEnemyState() {
+		this->m_waitTime = waitTime;
 		this->m_waited = 0;
+		this->m_animationFrames.x = startAnimation;
+		this->m_animationFrames.y = endAnimation;
+		this->m_animationSpeed = animationSpeed;
 	}
 
 	/**
@@ -47,7 +53,28 @@ namespace SAMPLES {
 
 		this->m_waited += time;
 
-		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+		if(!this->m_done) {
+			if(entity->GetMeshNode()->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+				entity->GetMeshNode()->SetLooped(true);
+				entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			}
+
+			PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+
+			// End wait state
+			if(this->m_waited >= this->m_waitTime) {
+				this->m_done = true;
+				entity->GetMeshNode()->StopAnimation();
+			}
+		}
+	}
+
+	/**
+	* Reset the state
+	*/
+	void CEnemyStateWait::Reset() {
+		IEnemyState::Reset();
+		this->m_waited = 0;
 	}
 }
 

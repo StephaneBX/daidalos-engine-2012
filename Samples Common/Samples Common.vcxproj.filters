@@ -147,6 +147,9 @@
     <ClInclude Include="3D\Enemy\CZombieEntity.h">
       <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStatePatrol.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="3D\Enemy\CZombieEntity.cpp">
       <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStatePatrol.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

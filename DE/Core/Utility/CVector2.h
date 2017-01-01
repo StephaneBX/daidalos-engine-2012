@@ -63,6 +63,7 @@ namespace DE {
 		const bool operator==(const CVector2<T> & vec) const;
 		const bool operator!=(const CVector2<T> & vec) const;
 		const T Length() const;
+		const T CrossProduct(const CVector2<T> & vec) const;
 		const T DotProduct(const CVector2<T> & vec) const;
 		const T Distance(const CVector2<T> & vec) const;
 		const std::string ToString(const std::string separator = ":") const;
@@ -70,6 +71,7 @@ namespace DE {
 		operator const T * () const;
 		static const CVector2<T> GetFrom(const std::string text, const CVector2<T> & defaultValue = CVector2<T>(), const std::string separator = ":");
 		static const T Length(const CVector2<T> & vec);
+		static const T CrossProduct(const CVector2<T> & vec1, const CVector2<T> & vec2);
 		static const T DotProduct(const CVector2<T> & vec1, const CVector2<T> & vec2);
 		static const T Distance(const CVector2<T> & vec1, const CVector2<T> & vec2);
 		static void Normalize(CVector2<T> & vec);
@@ -291,6 +293,15 @@ namespace DE {
 	}
 
 	/**
+	* Perform a cross product
+	* @param vec A CVector2
+	* @return The cross product
+	*/
+	template <class T> inline const T CVector2<T>::CrossProduct(const CVector2<T> & vec) const {
+		return this->x * vec.y - this->y * vec.x;
+	}
+
+	/**
 	* Perform a dot product
 	* @param vec A CVector2
 	* @return The dot product
@@ -373,6 +384,16 @@ namespace DE {
 	*/
 	template <class T> inline const T CVector2<T>::Length(const CVector2<T> & vec) {
 		return vec.Length();
+	}
+
+	/**
+	* Perform a cross product
+	* @param vec1 A CVector2
+	* @param vec2 A CVector2
+	* @return The cross product
+	*/
+	template <class T> inline const T CVector2<T>::CrossProduct(const CVector2<T> & vec1, const CVector2<T> & vec2) {
+		return vec1.CrossProduct(vec2);
 	}
 
 	/**

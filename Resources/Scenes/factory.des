@@ -6371,7 +6371,7 @@
         </node>
 		<!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
-            <position>0:10:75</position>
+            <position>0:1:75</position>
             <rotation>0:0:0</rotation>
             <scale>0.24:0.24:0.24</scale>
             <diffuse_texture>zombie_d.png</diffuse_texture>

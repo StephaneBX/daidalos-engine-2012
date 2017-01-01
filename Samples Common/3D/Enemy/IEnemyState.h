@@ -39,17 +39,35 @@ namespace SAMPLES {
 	*/
 	class IEnemyState {
 	protected:
+		bool m_done;
 		unsigned int m_id;
+		float m_animationSpeed;
 		DE::CVector2F m_animationFrames;
 		std::vector<DE::CVector3F> m_wayPoints;
 
 	public:
+		/**
+		* Constructor
+		*/
+		IEnemyState();
+
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
 		virtual void Update(IEnemyEntity * entity, float const time) = 0;
+
+		/**
+		* Reset the state
+		*/
+		virtual void Reset();
+
+		/**
+		* Check if the state has done its work
+		* @return The state done status
+		*/
+		const bool IsDone() const;
 
 	protected:
 		/**

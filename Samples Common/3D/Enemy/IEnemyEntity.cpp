@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 
 	#define DEFAULT_HEALTH 1
-	#define DEFAULT_REACTION_TIME 300.0f
+	#define DEFAULT_REACTION_TIME 60.0f
 
 	/**
 	* Constructor
@@ -62,7 +62,7 @@ namespace SAMPLES {
 		// If the entity can decide its next action
 		if(this->m_reactionTimer >= this->m_reactionTime) {
 			SelectNextActionState();
-			this->m_reactionTimer -= this->m_reactionTime;
+			this->m_reactionTimer = 0;
 		}
 
 		// Update the action state and perform collision state
@@ -116,6 +116,14 @@ namespace SAMPLES {
 	*/
 	const float IEnemyEntity::GetReactionTime() const {
 		return this->m_reactionTime;
+	}
+
+	/**
+	* Get the entity view
+	* @return The entity view
+	*/
+	DE::CFrustum * IEnemyEntity::GetView() {
+		return &this->m_view;
 	}
 
 	/**
