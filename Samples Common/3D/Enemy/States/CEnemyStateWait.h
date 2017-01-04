@@ -36,18 +36,31 @@ namespace SAMPLES {
 	*/
 	class CEnemyStateWait : public IEnemyState {
 	protected:
+		bool m_active;
 		float m_waitTime;
 		float m_waited;
 
 	public:
 		/**
 		* Constructor
+		* @param priority The priority
 		* @param startAnimation The start animation frame
 		* @param endAnimation The end animation frame
 		* @param animationSpeed The animation speed
 		* @param waitTime The wait time
 		*/
-		CEnemyStateWait(float startAnimation, float endAnimation, float animationSpeed, float waitTime);
+		CEnemyStateWait(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float waitTime);
+
+		/**
+		* Reset the state
+		*/
+		virtual void Reset();
+
+		/**
+		* Callback when an entity interrupt its process
+		* @param state The state
+		*/
+		virtual void OnStateInterrupted(IEnemyState * state);
 
 		/**
 		* Update the entity
@@ -57,9 +70,10 @@ namespace SAMPLES {
 		virtual void Update(IEnemyEntity * entity, float const time);
 
 		/**
-		* Reset the state
+		* If the state is candidate for the next action
+		* @return True if candidate
 		*/
-		virtual void Reset();
+		virtual const bool IsCandidateForNextAction();
 	};
 }
 

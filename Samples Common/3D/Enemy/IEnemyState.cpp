@@ -31,24 +31,60 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 	/**
 	* Constructor
+	* @param priority The priority
 	*/
-	IEnemyState::IEnemyState() {
-		this->m_done = false;
+	IEnemyState::IEnemyState(unsigned int priority) {
+		this->m_priority = priority;
+	}
+
+	/**
+	* Add a listener
+	* @param entity The entity
+	*/
+	void IEnemyState::AddListener(IEnemyState * state) {
+		this->m_listeners.push_back(state);
+	}
+
+	/**
+	* Remove a listener
+	* @param entity The entity
+	*/
+	void IEnemyState::RemoveListener(IEnemyState * state) {
+		auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), state);
+		if(it != this->m_listeners.end()) {
+			this->m_listeners.erase(it);
+		}
 	}
 
 	/**
 	* Reset the state
 	*/
-	void IEnemyState::Reset() {
-		this->m_done = false;
-	}
+	void IEnemyState::Reset() {}
 
 	/**
-	* Check if the state has done its work
-	* @return The state done status
+	* Callback when an entity is elected as the active state
+	* @param state The state
 	*/
-	const bool IEnemyState::IsDone() const {
-		return this->m_done;
+	void IEnemyState::OnStateElected(IEnemyState * state) {}
+
+	/**
+	* Callback when an entity interrupt its process
+	* @param state The state
+	*/
+	void IEnemyState::OnStateInterrupted(IEnemyState * state) {}
+
+	/**
+	* Callback when an entity is dismissed from the active state
+	* @param state The state
+	*/
+	void IEnemyState::OnStateDismissed(IEnemyState * state) {}
+
+	/**
+	* Get the priority
+	* @return The priority
+	*/
+	const unsigned int IEnemyState::GetPriority() const {
+		return this->m_priority;
 	}
 
 	/**

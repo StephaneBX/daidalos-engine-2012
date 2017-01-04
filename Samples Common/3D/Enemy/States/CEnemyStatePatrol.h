@@ -43,6 +43,7 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
+		* @param priority The priority
 		* @param startAnimation The start animation frame
 		* @param endAnimation The end animation frame
 		* @param animationSpeed The animation speed
@@ -50,7 +51,7 @@ namespace SAMPLES {
 		* @param rotationSpeed The rotation speed
 		* @param wayPoints The way points
 		*/
-		CEnemyStatePatrol(float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
+		CEnemyStatePatrol(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
 
 		/**
 		* Update the entity
@@ -58,6 +59,12 @@ namespace SAMPLES {
 		* @param time Elapsed time
 		*/
 		virtual void Update(IEnemyEntity * entity, float const time);
+
+		/**
+		* If the state is candidate for the next action
+		* @return True if candidate
+		*/
+		virtual const bool IsCandidateForNextAction();
 
 	private:
 		/**

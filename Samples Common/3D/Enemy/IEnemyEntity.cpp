@@ -30,7 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 
 	#define DEFAULT_HEALTH 1
-	#define DEFAULT_REACTION_TIME 60.0f
 
 	/**
 	* Constructor
@@ -41,8 +40,6 @@ namespace SAMPLES {
 	IEnemyEntity::IEnemyEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D) : ICollidableEntity() {
 		this->m_health = DEFAULT_HEALTH;
 		this->m_maxHealth = DEFAULT_HEALTH;
-		this->m_reactionTime = DEFAULT_REACTION_TIME;
-		this->m_reactionTimer = 0;
 
 		this->m_meshNode = node;
 		this->m_player = player;
@@ -56,14 +53,8 @@ namespace SAMPLES {
 	*/
 	void IEnemyEntity::Update(float const time) {
 
-		// Update the reaction timer
-		this->m_reactionTimer += time;
-
-		// If the entity can decide its next action
-		if(this->m_reactionTimer >= this->m_reactionTime) {
-			SelectNextActionState();
-			this->m_reactionTimer = 0;
-		}
+		// Select the next action
+		SelectNextActionState();
 
 		// Update the action state and perform collision state
 		if(this->m_currentActionState != nullptr) {
@@ -88,13 +79,6 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Set the reaction time
-	*/
-	void IEnemyEntity::SetReactionTime(float reactionTime) {
-		this->m_reactionTime = reactionTime;
-	}
-
-	/**
 	* Get the health
 	* @return The health
 	*/
@@ -108,14 +92,6 @@ namespace SAMPLES {
 	*/
 	const unsigned int IEnemyEntity::GetMaxHealth() const {
 		return this->m_maxHealth;
-	}
-
-	/**
-	* Get the reaction time
-	* @return The reaction time
-	*/
-	const float IEnemyEntity::GetReactionTime() const {
-		return this->m_reactionTime;
 	}
 
 	/**

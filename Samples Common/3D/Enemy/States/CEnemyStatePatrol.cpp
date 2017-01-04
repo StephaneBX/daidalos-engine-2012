@@ -33,6 +33,7 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
+	* @param priority The priority
 	* @param startAnimation The start animation frame
 	* @param endAnimation The end animation frame
 	* @param animationSpeed The animation speed
@@ -40,7 +41,7 @@ namespace SAMPLES {
 	* @param rotationSpeed The rotation speed
 	* @param wayPoints The way points
 	*/
-	CEnemyStatePatrol::CEnemyStatePatrol(float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState() {
+	CEnemyStatePatrol::CEnemyStatePatrol(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState(priority) {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
@@ -57,32 +58,40 @@ namespace SAMPLES {
 	*/
 	void CEnemyStatePatrol::Update(IEnemyEntity * entity, float const time) {
 
-		if(!this->m_done) {
-			DE::CVector3F movement = DE::CVector3F();
-			if(this->m_wayPoints.size() > 0) {
-				if(entity->GetMeshNode()->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
-					entity->GetMeshNode()->SetLooped(true);
-					entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
-				}
+		DE::CVector3F movement = DE::CVector3F();
+		if(this->m_wayPoints.size() > 0) {
+			if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+				entity->GetMeshNode()->SetLooped(true);
+				entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			}
 
-				// Change direction if necessary
-				if((DE::CVector3F(entity->GetVisiblePosition().x, this->m_wayPoints[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->m_wayPoints[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
-					this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->m_wayPoints.size();
-					this->m_done = true;
-					entity->GetMeshNode()->StopAnimation();
-				}
+			// Change direction if necessary
+			if((DE::CVector3F(entity->GetVisiblePosition().x, this->m_wayPoints[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->m_wayPoints[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
+				this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->m_wayPoints.size();
+				entity->GetMeshNode()->PauseAnimation();
 
-				if(!this->m_done) {
-					// Update the movement
-					movement = entity->GetView()->GetForward() * this->m_walkSpeed;
-
-					// Update the rotation
-					UpdateRotation(entity, time);
+				// Interrupted
+				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+					(*it)->OnStateInterrupted(this);
 				}
 			}
 
-			PerformEnemyLevelCollisions(entity, movement, time);
+			// Update the movement
+			movement = entity->GetView()->GetForward() * this->m_walkSpeed;
+
+			// Update the rotation
+			UpdateRotation(entity, time);
 		}
+
+		PerformEnemyLevelCollisions(entity, movement, time);
+	}
+
+	/**
+	* If the state is candidate for the next action
+	* @return True if candidate
+	*/
+	const bool CEnemyStatePatrol::IsCandidateForNextAction() {
+		return true;
 	}
 
 	/**

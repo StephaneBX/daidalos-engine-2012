@@ -63,8 +63,11 @@ namespace SAMPLES {
 		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(10, 0, -10)));
 		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(-10, 0, -10)));
 
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+
+		// Link the wait state with the patrol interruption callback
+		this->m_actionStates.front()->AddListener(this->m_actionStates.back().get());
 
 		this->m_currentActionState = this->m_actionStates.front().get();
 		this->m_visiblePosition = this->m_collisionShape->GetPosition();
@@ -88,17 +91,19 @@ namespace SAMPLES {
 	*/
 	void CZombieEntity::SelectNextActionState() {
 		if(this->m_currentActionState != nullptr) {
-			IEnemyState * currentState = this->m_currentActionState;
-			if(this->m_currentActionState->IsDone()) {
-				for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
-					if((*it).get() != this->m_currentActionState && !(*it)->IsDone()) {
-						// Get the next available state
-						this->m_currentActionState = (*it).get();
-					}
+
+			IEnemyState * nextState = nullptr;
+			for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
+				if((*it)->IsCandidateForNextAction()) {
+
+					if(nextState == nullptr || (*it)->GetPriority() > nextState->GetPriority()) {
+						nextState = (*it).get();
+					} 
 				}
-				// Reset the previous state
-				currentState->Reset();
 			}
+
+			// Get the next available state
+			this->m_currentActionState = nextState;
 		}
 	}
 

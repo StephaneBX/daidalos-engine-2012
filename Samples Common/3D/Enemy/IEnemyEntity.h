@@ -43,8 +43,6 @@ namespace SAMPLES {
 	protected:
 		unsigned int m_health;
 		unsigned int m_maxHealth;
-		float m_reactionTime;
-		float m_reactionTimer;
 		DE::CFrustum m_view;
 
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
@@ -84,11 +82,6 @@ namespace SAMPLES {
 		* @param health The max health
 		*/
 		void SetMaxHealth(unsigned int health);
-
-		/**
-		* Set the reaction time
-		*/
-		void SetReactionTime(float reactionTime);
 
 		/**
 		* Get the health

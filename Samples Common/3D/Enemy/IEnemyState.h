@@ -39,17 +39,53 @@ namespace SAMPLES {
 	*/
 	class IEnemyState {
 	protected:
-		bool m_done;
-		unsigned int m_id;
+		unsigned int m_priority;
 		float m_animationSpeed;
 		DE::CVector2F m_animationFrames;
 		std::vector<DE::CVector3F> m_wayPoints;
+		std::vector<IEnemyState *> m_listeners;
 
 	public:
 		/**
 		* Constructor
+		* @param priority The priority
 		*/
-		IEnemyState();
+		IEnemyState(unsigned int priority);
+
+		/**
+		* Add a listener
+		* @param state The state
+		*/
+		void AddListener(IEnemyState * state);
+
+		/**
+		* Remove a listener
+		* @param state The state
+		*/
+		void RemoveListener(IEnemyState * state);
+
+		/**
+		* Reset the state
+		*/
+		virtual void Reset();
+
+		/**
+		* Callback when an entity is elected as the active state
+		* @param state The state
+		*/
+		virtual void OnStateElected(IEnemyState * state);
+
+		/**
+		* Callback when an entity interrupt its process
+		* @param state The state
+		*/
+		virtual void OnStateInterrupted(IEnemyState * state);
+
+		/**
+		* Callback when an entity is dismissed from the active state
+		* @param state The state
+		*/
+		virtual void OnStateDismissed(IEnemyState * state);
 
 		/**
 		* Update the entity
@@ -59,15 +95,16 @@ namespace SAMPLES {
 		virtual void Update(IEnemyEntity * entity, float const time) = 0;
 
 		/**
-		* Reset the state
+		* If the state is candidate for the next action
+		* @return True if candidate
 		*/
-		virtual void Reset();
+		virtual const bool IsCandidateForNextAction() = 0;
 
 		/**
-		* Check if the state has done its work
-		* @return The state done status
+		* Get the priority
+		* @return The priority
 		*/
-		const bool IsDone() const;
+		const unsigned int GetPriority() const;
 
 	protected:
 		/**

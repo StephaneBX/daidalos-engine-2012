@@ -31,17 +31,35 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 	/**
 	* Constructor
+	* @param priority The priority
 	* @param startAnimation The start animation frame
 	* @param endAnimation The end animation frame
 	* @param animationSpeed The animation speed
 	* @param waitTime The wait time
 	*/
-	CEnemyStateWait::CEnemyStateWait(float startAnimation, float endAnimation, float animationSpeed, float waitTime) : IEnemyState() {
+	CEnemyStateWait::CEnemyStateWait(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float waitTime) : IEnemyState(priority) {
+		this->m_active = false;
 		this->m_waitTime = waitTime;
 		this->m_waited = 0;
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
+	}
+
+	/**
+	* Reset the state
+	*/
+	void CEnemyStateWait::Reset() {
+		IEnemyState::Reset();
+		this->m_waited = 0;
+	}
+
+	/**
+	* Callback when an entity interrupt its process
+	* @param state The state
+	*/
+	void CEnemyStateWait::OnStateInterrupted(IEnemyState * state) {
+		this->m_active = true;
 	}
 
 	/**
@@ -53,28 +71,28 @@ namespace SAMPLES {
 
 		this->m_waited += time;
 
-		if(!this->m_done) {
-			if(entity->GetMeshNode()->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
-				entity->GetMeshNode()->SetLooped(true);
-				entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
-			}
+		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+			entity->GetMeshNode()->SetLooped(true);
+			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+		}
 
-			PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
 
-			// End wait state
-			if(this->m_waited >= this->m_waitTime) {
-				this->m_done = true;
-				entity->GetMeshNode()->StopAnimation();
-			}
+		// End wait state
+		if(this->m_waited >= this->m_waitTime) {
+			entity->GetMeshNode()->StopAnimation();
+
+			this->m_active = false;
+			this->m_waited = 0;
 		}
 	}
 
 	/**
-	* Reset the state
+	* If the state is candidate for the next action
+	* @return True if candidate
 	*/
-	void CEnemyStateWait::Reset() {
-		IEnemyState::Reset();
-		this->m_waited = 0;
+	const bool CEnemyStateWait::IsCandidateForNextAction() {
+		return this->m_active;
 	}
 }
 
