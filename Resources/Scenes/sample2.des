@@ -4,7 +4,7 @@
 	<particleSystem>
 		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
 		<atlasTextureSize>4:4</atlasTextureSize>
-		<systemSize>10000</systemSize>
+		<systemSize>15000</systemSize>
 	</particleSystem>
 
 	<!-- Level node with a bsp structure -->
@@ -7836,8 +7836,8 @@
 		</node>
 		
 		<node type="2" name="spotLight2">
-			<position>170:40:80</position>
-			<rotation>60:-90:0</rotation>
+			<position>175:37:80</position>
+			<rotation>55:-90:0</rotation>
 			<color>0.6:0.6:0.6:1</color>
 			<range>40</range>
 			<radius>35</radius>
@@ -7962,6 +7962,7 @@
 				<active>false</active>
 				<position>0:7.5:0</position>
 				<textureId>0</textureId>
+				<blendMode>5</blendMode>
 				<life>-1</life>
 				<lifeMax>-1</lifeMax>
 				<emissionRate>40</emissionRate>

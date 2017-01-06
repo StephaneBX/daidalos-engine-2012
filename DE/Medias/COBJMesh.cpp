@@ -114,9 +114,16 @@ namespace DE {
 			break;
 
 		case MESH_SHADING_SMOOTH:
-			for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
-				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+			// Use the declared normal if possible
+			if(this->m_internalData->normal != nullptr) {
+				for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
+					memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+				}
+			} else {
+				// If no normal, use flat shading
+				FlatShadingNormals();
 			}
+			
 			break;
 		}
 	}

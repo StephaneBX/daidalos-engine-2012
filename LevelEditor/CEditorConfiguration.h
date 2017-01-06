@@ -44,6 +44,7 @@ namespace EDITOR {
 	#define EDITOR_COLLISION_TEXTURE_NAME "collision.png"
 	#define EDITOR_PLAYER_TEXTURE_NAME "player.png"
 	#define EDITOR_SOUND_TEXTURE_NAME "sound.png"
+	#define EDITOR_SPOTLIGHT_TEXTURE_NAME "spotlight.png"
 
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,

@@ -189,6 +189,14 @@ namespace DE {
 		// Activation check
 		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
 
+		// If the camera is bound to a light, it means that the render is used for a lightning process.
+		// Render the mesh only if it's a shadow caster
+		if(this->m_active && this->m_scene->GetActiveCamera()->GetParent() != nullptr && (this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_SPOTLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_DIRECTIONALLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_POINTLIGHT)) {
+			if(!IsShadowCaster()) {
+				this->m_active = false;
+			}
+		}
+
 		if(this->m_active && this->m_enabled) {
 			if(this->m_needGeometryUpdate)
 				FinalizeGeometry();

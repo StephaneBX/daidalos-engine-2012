@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace EDITOR {
 	CEditorLevelSceneNode::CEditorLevelSceneNode(DE::I3DScene * scene) : ILevelSceneNode(scene) {
 		this->m_type = DE::SCENE_NODE_ROOT;
-		this->m_shadingType = DE::MESH_SHADING_SMOOTH;
+		this->m_shadingType = DE::MESH_SHADING_FLAT;
 	}
 
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}

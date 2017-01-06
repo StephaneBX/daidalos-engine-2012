@@ -182,6 +182,7 @@ namespace EDITOR {
 						// Create the node
 						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_MULTIBRUSH, file, position, rotation, scale);
 						meshNode->SetId(id);
+						meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 						node->AddChild(meshNode);
@@ -213,6 +214,7 @@ namespace EDITOR {
 				// Create the node
 				DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BRUSH, file, position, rotation, scale);
 				meshNode->SetId(id);
+				meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 				node->AddChild(meshNode);
@@ -246,6 +248,8 @@ namespace EDITOR {
 					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
 					meshNode->SetId(id);
 					meshNode->SetSaved(false);
+					meshNode->SetShadowCaster(false);
+					meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(meshNode);
@@ -256,9 +260,23 @@ namespace EDITOR {
 					DE::CStaticMeshSceneNode * soundNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, DE::CVector3F(2, 2, 2));
 					soundNode->SetId(id);
 					soundNode->SetSaved(false);
+					soundNode->SetShadowCaster(false);
+					soundNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
 					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(soundNode);
+				}
+
+				// Add a visible element if the node is a light
+				if(type == DE::SCENE_NODE_SPOTLIGHT) {
+					DE::CStaticMeshSceneNode * lightNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, DE::CVector3F(2, 2, 2));
+					lightNode->SetId(id);
+					lightNode->SetSaved(false);
+					lightNode->SetShadowCaster(false);
+					lightNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+					lightNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_SPOTLIGHT_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					lightNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_SPOTLIGHT_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					node->AddChild(lightNode);
 				}
 			}
 		}

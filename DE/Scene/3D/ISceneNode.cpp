@@ -47,6 +47,7 @@ namespace DE {
 		this->m_active = true;
 		this->m_enabled = true;
 		this->m_saved = true;
+		this->m_shadowCaster = true;
 	}
 
 	ISceneNode::ISceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) {
@@ -66,6 +67,7 @@ namespace DE {
 		this->m_active = true;
 		this->m_enabled = true;
 		this->m_saved = true;
+		this->m_shadowCaster = true;
 	}
 
 	ISceneNode::~ISceneNode() {
@@ -104,6 +106,12 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_saved = saved;
+	}
+
+	void ISceneNode::SetShadowCaster(const bool shadowCaster) {
+		LOG_TRACE();
+
+		this->m_shadowCaster = shadowCaster;
 	}
 
 	void ISceneNode::SetId(const int id) {
@@ -235,6 +243,12 @@ namespace DE {
 		return this->m_saved;
 	}
 
+	const bool ISceneNode::IsShadowCaster() const {
+		LOG_TRACE();
+
+		return this->m_shadowCaster;
+	}
+
 	const bool ISceneNode::IsActive() const {
 		LOG_TRACE();
 
@@ -331,6 +345,12 @@ namespace DE {
 		LOG_TRACE();
 
 		return this->m_absolutePositionMatrix;
+	}
+
+	const ISceneNode * ISceneNode::GetParent() const {
+		LOG_TRACE();
+
+		return this->m_parent;
 	}
 
 	const std::list<ISceneNode*> & ISceneNode::GetChildren() const {

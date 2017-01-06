@@ -107,7 +107,7 @@ namespace SAMPLES {
 	* @return The player
 	*/
 	IPlayer * IEnemyEntity::GetPlayer() {
-		this->m_player;
+		return this->m_player;
 	}
 
 	/**

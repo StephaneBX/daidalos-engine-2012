@@ -49,6 +49,7 @@ namespace DE {
 		bool m_enabled;
 		bool m_active;
 		bool m_saved;
+		bool m_shadowCaster;
 		int m_id;
 		std::string m_name;
 		std::string m_boundingBox;
@@ -125,6 +126,12 @@ namespace DE {
 		* @param saved The saved status
 		*/
 		void SetSaved(const bool saved);
+
+		/**
+		* Set the cast shadows status
+		* @param shadowCaster The cast shadows status
+		*/
+		void SetShadowCaster(const bool shadowCaster);
 
 		/**
 		* Set the node id
@@ -217,6 +224,12 @@ namespace DE {
 		* @return True if the node is saved
 		*/
 		const bool IsSaved() const;
+
+		/**
+		* Check if the node is can cast shadows
+		* @return True if the node can cast shadows
+		*/
+		const bool IsShadowCaster() const;
 
 		/**
 		* Check if the node is active
@@ -315,6 +328,12 @@ namespace DE {
 		* @return The absolute translation matrix
 		*/
 		const CMatrix & GetAbsoluteTranslationMatrix() const;
+
+		/**
+		* Get the node parent
+		* @return The node parent, or nullptr
+		*/
+		const ISceneNode * GetParent() const;
 
 		/**
 		* Get the node children
