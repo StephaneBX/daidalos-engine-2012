@@ -6378,6 +6378,11 @@
             <normal_texture>zombie_n.png</normal_texture>
             <meshShading>1</meshShading>
             <material>default.mtl</material>
+			<attributes>
+				<health>10</health>
+				<max_health>10</max_health>
+				<patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
+			</attributes>
         </node>
     </node>
 </scene>

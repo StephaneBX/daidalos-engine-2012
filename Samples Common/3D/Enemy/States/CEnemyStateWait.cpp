@@ -89,9 +89,10 @@ namespace SAMPLES {
 
 	/**
 	* If the state is candidate for the next action
+	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateWait::IsCandidateForNextAction() {
+	const bool CEnemyStateWait::IsCandidateForNextAction(IEnemyEntity * entity) {
 		return this->m_active;
 	}
 }

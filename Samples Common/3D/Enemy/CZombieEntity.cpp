@@ -29,11 +29,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CZombieEntity.h"
 #include "States/CEnemyStateWait.h"
 #include "States/CEnemyStatePatrol.h"
+#include "States/CEnemyStateFollow.h"
+#include "States/CEnemyStateDie.h"
 
 namespace SAMPLES {
 	#define GRAVITY -20.0f
 	#define COLLISION_SHAPE_WIDTH 1.0f
 	#define COLLISION_SHAPE_HEIGHT 2.0f
+	#define VIEW_ANGLE 30.0f
 
 	#define ANIMATION_WALK_START 22
 	#define ANIMATION_WALK_END 36
@@ -46,6 +49,10 @@ namespace SAMPLES {
 	#define ANIMATION_WAIT_SPEED 10.0f
 	#define WAIT_TIME 6000.0f
 
+	#define ANIMATION_DIE_START 91
+	#define ANIMATION_DIE_END 103
+	#define ANIMATION_DIE_SPEED 9.0f
+
 	/**
 	* Constructor
 	* @param node The mesh node
@@ -56,23 +63,33 @@ namespace SAMPLES {
 		this->m_gravity = DE::CVector3F(0, GRAVITY, 0);
 		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_meshNode->GetPosition() + DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), DE::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
 
-		// Set the waypoints
+		// Read the waypoints
+		std::string waypointsString = this->m_meshNode->GetAttribute("patrol_waypoints");
 		std::vector<DE::CVector3F> wayPoints;
-		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(-10,0,10)));
-		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(10, 0, 10)));
-		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(10, 0, -10)));
-		wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F(-10, 0, -10)));
-
+		if(waypointsString != "") {
+			DE::CTokenizer tokenizer;
+			tokenizer.AddLine(waypointsString);
+			if(tokenizer.Tokenize("|")) {
+				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
+					wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F::GetFrom(*it)));
+				}
+			}
+		}
+		
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_player, WALK_SPEED, ROTATION_SPEED, 20.0f)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
-		this->m_actionStates.front()->AddListener(this->m_actionStates.back().get());
+		this->m_actionStates.front()->AddListener(this->m_actionStates[1].get());
 
 		this->m_currentActionState = this->m_actionStates.front().get();
 		this->m_visiblePosition = this->m_collisionShape->GetPosition();
 
-		this->m_view.Set(30.0f, 1.0, 0.5f, 40.0f);
+		// Change the efault camera settings
+		this->m_cameraNode->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
+		this->m_cameraNode->SetPosition(DE::CVector3F(0, 4, 0));
 	}
 
 	/**
@@ -83,7 +100,6 @@ namespace SAMPLES {
 		IEnemyEntity::Update(time);
 
 		this->m_meshNode->SetPosition(this->m_visiblePosition - DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));
-		this->m_view.Update(this->m_visiblePosition, this->m_visiblePosition + this->m_meshNode->GetAbsoluteRotationMatrix().Transform(DE::CVector3F(0, 0, this->m_view.GetFarDistance()), true));
 	}
 
 	/**
@@ -94,7 +110,7 @@ namespace SAMPLES {
 
 			IEnemyState * nextState = nullptr;
 			for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
-				if((*it)->IsCandidateForNextAction()) {
+				if((*it)->IsCandidateForNextAction(this)) {
 
 					if(nextState == nullptr || (*it)->GetPriority() > nextState->GetPriority()) {
 						nextState = (*it).get();

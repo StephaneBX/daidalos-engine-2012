@@ -96,9 +96,10 @@ namespace SAMPLES {
 
 		/**
 		* If the state is candidate for the next action
+		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction() = 0;
+		virtual const bool IsCandidateForNextAction(IEnemyEntity * entity) = 0;
 
 		/**
 		* Get the priority

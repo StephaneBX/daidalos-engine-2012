@@ -30,6 +30,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace SAMPLES {
 
 	#define DEFAULT_HEALTH 1
+	#define DEFAULT_CAMERA_ANGLE 20.0f
+	#define DEFAULT_CAMERA_RATIO 1.2f
+	#define DEFAULT_CAMERA_NEAR 0.1f
+	#define DEFAULT_CAMERA_FAR 20.0f
+
+	#define ATTRIBUTE_HEALTH "health"
+	#define ATTRIBUTE_MAXHEALTH "max_health"
 
 	/**
 	* Constructor
@@ -45,6 +52,21 @@ namespace SAMPLES {
 		this->m_player = player;
 		this->m_scene = scene3D;
 		this->m_currentActionState = nullptr;
+
+		// The camera node
+		this->m_cameraNode = new DE::CProjectionCameraSceneNode(this->m_scene->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
+		this->m_cameraNode->SetSaved(false);
+		this->m_meshNode->AddChild(this->m_cameraNode);
+
+		// Read the attributes
+		if(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH) != "") {
+			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH));
+			ss >> this->m_health;
+		}
+		if(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH) != "") {
+			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH));
+			ss >> this->m_maxHealth;
+		}
 	}
 
 	/**
@@ -95,11 +117,11 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Get the entity view
-	* @return The entity view
+	* Get the entity camera node
+	* @return The entity camera node
 	*/
-	DE::CFrustum * IEnemyEntity::GetView() {
-		return &this->m_view;
+	DE::CProjectionCameraSceneNode * IEnemyEntity::GetCameraNode() {
+		return this->m_cameraNode;
 	}
 
 	/**

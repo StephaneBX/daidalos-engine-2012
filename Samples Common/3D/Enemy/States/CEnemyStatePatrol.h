@@ -62,9 +62,10 @@ namespace SAMPLES {
 
 		/**
 		* If the state is candidate for the next action
+		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction();
+		virtual const bool IsCandidateForNextAction(IEnemyEntity * entity);
 
 	private:
 		/**

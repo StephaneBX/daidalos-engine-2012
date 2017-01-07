@@ -150,6 +150,12 @@
     <ClInclude Include="3D\Enemy\States\CEnemyStatePatrol.h">
       <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateDie.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateFollow.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -237,6 +243,12 @@
       <Filter>Fichiers sources\3D\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="3D\Enemy\States\CEnemyStatePatrol.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateDie.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateFollow.cpp">
       <Filter>Fichiers sources\3D\Enemy\States</Filter>
     </ClCompile>
   </ItemGroup>

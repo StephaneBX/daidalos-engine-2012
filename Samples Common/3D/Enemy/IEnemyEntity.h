@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/CFrustum.h>
 #include <Scene/3D/CAnimatedMeshSceneNode.h>
+#include <Scene/3D/CProjectionCameraSceneNode.h>
 #include "IEnemyState.h"
 #include "../ICollidableEntity.h"
 #include "../../IPlayer.h"
@@ -43,13 +44,13 @@ namespace SAMPLES {
 	protected:
 		unsigned int m_health;
 		unsigned int m_maxHealth;
-		DE::CFrustum m_view;
 
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
 		IEnemyState * m_currentActionState;
 
 		IPlayer * m_player;
 		DE::CAnimatedMeshSceneNode * m_meshNode;
+		DE::CProjectionCameraSceneNode * m_cameraNode;
 
 	public:
 		/**
@@ -102,10 +103,10 @@ namespace SAMPLES {
 		const float GetReactionTime() const;
 
 		/**
-		* Get the entity view
-		* @return The entity view
+		* Get the entity camera node
+		* @return The entity camera node
 		*/
-		DE::CFrustum * GetView();
+		DE::CProjectionCameraSceneNode * GetCameraNode();
 
 		/**
 		* Get the player

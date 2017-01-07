@@ -77,7 +77,7 @@ namespace SAMPLES {
 			}
 
 			// Update the movement
-			movement = entity->GetView()->GetForward() * this->m_walkSpeed;
+			movement = entity->GetCameraNode()->GetForwardVector() * this->m_walkSpeed;
 
 			// Update the rotation
 			UpdateRotation(entity, time);
@@ -88,9 +88,10 @@ namespace SAMPLES {
 
 	/**
 	* If the state is candidate for the next action
+	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStatePatrol::IsCandidateForNextAction() {
+	const bool CEnemyStatePatrol::IsCandidateForNextAction(IEnemyEntity * entity) {
 		return true;
 	}
 
@@ -110,7 +111,7 @@ namespace SAMPLES {
 
 		// Horizontal rotation way
 		DE::CVector2F entityToWaypointHorizontal = DE::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();
-		DE::CVector2F entityForwardHorizontal = DE::CVector2F(entity->GetView()->GetForward().x, entity->GetView()->GetForward().z).Normalize();
+		DE::CVector2F entityForwardHorizontal = DE::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
 
 		float rotationY = entity->GetMeshNode()->GetRotation().y;
 		if(atan2f(entityForwardHorizontal.CrossProduct(entityToWaypointHorizontal), entityForwardHorizontal.DotProduct(entityToWaypointHorizontal)) > 0) {

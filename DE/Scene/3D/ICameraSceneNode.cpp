@@ -59,7 +59,7 @@ namespace DE {
 		this->m_localUp = this->m_localRotationMatrix.Transform(CVector3F(0, 1, 0)).Normalize();
 
 		if(this->m_parent != nullptr) {
-			this->m_absoluteLookAt = this->m_parent->GetAbsoluteTransformationMatrix().Transform(this->m_localLookAt);
+			this->m_absoluteLookAt = (this->m_parent->GetAbsoluteRotationMatrix() * this->m_parent->GetAbsoluteTranslationMatrix()).Transform(this->m_localLookAt);
 			this->m_absoluteUp = CMatrix().RotationQuaternion(this->m_parent->GetAbsoluteTransformationMatrix().TransformRotation()).Transform(this->m_localUp).Normalize();
 		} else {
 			this->m_absoluteLookAt = this->m_localLookAt;
