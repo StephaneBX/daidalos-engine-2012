@@ -71,6 +71,7 @@
     <ClInclude Include="3D\Enemy\CZombieEntity.h" />
     <ClInclude Include="3D\Enemy\IEnemyEntity.h" />
     <ClInclude Include="3D\Enemy\IEnemyState.h" />
+    <ClInclude Include="3D\Enemy\States\CEnemyStateAttack.h" />
     <ClInclude Include="3D\Enemy\States\CEnemyStateDie.h" />
     <ClInclude Include="3D\Enemy\States\CEnemyStateFollow.h" />
     <ClInclude Include="3D\Enemy\States\CEnemyStateWait.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="3D\Enemy\CZombieEntity.cpp" />
     <ClCompile Include="3D\Enemy\IEnemyEntity.cpp" />
     <ClCompile Include="3D\Enemy\IEnemyState.cpp" />
+    <ClCompile Include="3D\Enemy\States\CEnemyStateAttack.cpp" />
     <ClCompile Include="3D\Enemy\States\CEnemyStateDie.cpp" />
     <ClCompile Include="3D\Enemy\States\CEnemyStateFollow.cpp" />
     <ClCompile Include="3D\Enemy\States\CEnemyStateWait.cpp" />

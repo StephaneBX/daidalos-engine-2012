@@ -42,9 +42,6 @@ namespace SAMPLES {
 	class IEnemyEntity : public ICollidableEntity {
 		friend class IEnemyState;
 	protected:
-		unsigned int m_health;
-		unsigned int m_maxHealth;
-
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
 		IEnemyState * m_currentActionState;
 
@@ -71,30 +68,6 @@ namespace SAMPLES {
 		* Determine the next active state
 		*/
 		virtual void SelectNextActionState() = 0;
-
-		/**
-		* Set the health
-		* @param health The health
-		*/
-		void SetHealth(unsigned int health);
-
-		/**
-		* Set the max health
-		* @param health The max health
-		*/
-		void SetMaxHealth(unsigned int health);
-
-		/**
-		* Get the health
-		* @return The health
-		*/
-		const unsigned int GetHealth() const;
-
-		/**
-		* Get the max health
-		* @return The max health
-		*/
-		const unsigned int GetMaxHealth() const;
 
 		/**
 		* Get the reaction time

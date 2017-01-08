@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "States/CEnemyStateWait.h"
 #include "States/CEnemyStatePatrol.h"
 #include "States/CEnemyStateFollow.h"
+#include "States/CEnemyStateAttack.h"
 #include "States/CEnemyStateDie.h"
 
 namespace SAMPLES {
@@ -37,6 +38,9 @@ namespace SAMPLES {
 	#define COLLISION_SHAPE_WIDTH 1.0f
 	#define COLLISION_SHAPE_HEIGHT 2.0f
 	#define VIEW_ANGLE 30.0f
+	#define VIEW_DISTANCE 35.0f
+	#define ATTACK_RANGE 4.0f
+	#define ATTACK_POWER 12
 
 	#define ANIMATION_WALK_START 22
 	#define ANIMATION_WALK_END 36
@@ -52,6 +56,12 @@ namespace SAMPLES {
 	#define ANIMATION_DIE_START 91
 	#define ANIMATION_DIE_END 103
 	#define ANIMATION_DIE_SPEED 9.0f
+
+	#define ANIMATION_ATTACK_START 116
+	#define ANIMATION_ATTACK_END 128
+	#define ANIMATION_ATTACK_SPEED 8.0f
+
+	#define FOLLOW_SEARCH_TIME 9000.0f
 
 	/**
 	* Constructor
@@ -78,7 +88,8 @@ namespace SAMPLES {
 		
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_player, WALK_SPEED, ROTATION_SPEED, 20.0f)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_player, WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_player, ATTACK_POWER, ATTACK_RANGE)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
@@ -87,9 +98,10 @@ namespace SAMPLES {
 		this->m_currentActionState = this->m_actionStates.front().get();
 		this->m_visiblePosition = this->m_collisionShape->GetPosition();
 
-		// Change the efault camera settings
+		// Change the default camera settings
 		this->m_cameraNode->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
 		this->m_cameraNode->SetPosition(DE::CVector3F(0, 4, 0));
+		this->m_cameraNode->SetFarDistance(VIEW_DISTANCE);
 	}
 
 	/**
@@ -118,8 +130,13 @@ namespace SAMPLES {
 				}
 			}
 
-			// Get the next available state
-			this->m_currentActionState = nextState;
+			if(this->m_currentActionState != nextState) {
+				// Get the next available state
+				this->m_currentActionState = nextState;
+				this->m_currentActionState->Reset(this);
+			}
+
+			
 		}
 	}
 

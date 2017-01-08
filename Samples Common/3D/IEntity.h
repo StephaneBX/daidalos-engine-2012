@@ -38,15 +38,40 @@ namespace SAMPLES {
 	class IEntity {
 	protected:
 		unsigned int m_type;
+		unsigned int m_health;
+		unsigned int m_maxHealth;
 		DE::C3DScene * m_scene;
 
 	public:
+		/**
+		* Set the health
+		* @param health The health
+		*/
+		virtual void SetHealth(unsigned int health);
+
+		/**
+		* Set the max health
+		* @param health The max health
+		*/
+		virtual void SetMaxHealth(unsigned int health);
 
 		/**
 		* Get the entity type
 		* @return The entity type
 		*/
 		const unsigned int GetType() const;
+
+		/**
+		* Get the health
+		* @return The health
+		*/
+		virtual const unsigned int GetHealth() const;
+
+		/**
+		* Get the max health
+		* @return The max health
+		*/
+		virtual const unsigned int GetMaxHealth() const;
 
 		/**
 		* Update the entity

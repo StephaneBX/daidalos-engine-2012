@@ -39,6 +39,8 @@ namespace SAMPLES {
 		float m_moveSpeed;
 		float m_rotationSpeed;
 		float m_stopDistance;
+		float m_searchTimer;
+		float m_searched;
 		ICollidableEntity * m_target;
 
 	public:
@@ -52,13 +54,15 @@ namespace SAMPLES {
 		* @param moveSpeed The move speed
 		* @param rotationSpeed The rotation speed
 		* @param stopDistance the stop distance
+		* @param searchTime Time the entity search if the target is lost
 		*/
-		CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance);
+		CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance, float searchTime);
 
 		/**
 		* Reset the state
+		* @param entity The entity
 		*/
-		virtual void Reset();
+		virtual void Reset(IEnemyEntity * entity);
 
 		/**
 		* Update the entity

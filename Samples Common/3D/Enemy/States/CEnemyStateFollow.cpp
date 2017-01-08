@@ -39,8 +39,9 @@ namespace SAMPLES {
 	* @param moveSpeed The walk speed
 	* @param rotationSpeed The rotation speed
 	* @param stopDistance the stop distance
+	* @param searchTime Time the entity search if the target is lost
 	*/
-	CEnemyStateFollow::CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance) : IEnemyState(priority) {
+	CEnemyStateFollow::CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance, float searchTime) : IEnemyState(priority) {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
@@ -48,13 +49,16 @@ namespace SAMPLES {
 		this->m_moveSpeed = moveSpeed;
 		this->m_rotationSpeed = rotationSpeed;
 		this->m_stopDistance = stopDistance;
+		this->m_searchTimer = searchTime;
+		this->m_searched = 0;
 	}
 
 	/**
 	* Reset the state
+	* @param entity The entity
 	*/
-	void CEnemyStateFollow::Reset() {
-		IEnemyState::Reset();
+	void CEnemyStateFollow::Reset(IEnemyEntity * entity) {
+		IEnemyState::Reset(entity);
 	}
 
 	/**
@@ -64,10 +68,20 @@ namespace SAMPLES {
 	*/
 	void CEnemyStateFollow::Update(IEnemyEntity * entity, float const time) {
 
+		// If the entity is in search mode, update the search timer
+		if(this->m_searched > 0) {
+			this->m_searched -= time;
+		}
+
 		DE::CVector3F movement = DE::CVector3F();
 		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
 			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+		}
+
+		// Reset the search timer if the target is in sight
+		if(!entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape())) {
+			this->m_searched = this->m_searchTimer;
 		}
 
 		// Follow the target
@@ -85,7 +99,7 @@ namespace SAMPLES {
 	* @return True if candidate
 	*/
 	const bool CEnemyStateFollow::IsCandidateForNextAction(IEnemyEntity * entity) {
-		return !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape());
+		return !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0);
 	}
 
 	/**

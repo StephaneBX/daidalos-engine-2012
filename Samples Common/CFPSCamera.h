@@ -74,7 +74,6 @@ namespace SAMPLES {
 	{
 	private:
 		unsigned int m_actionState;
-		int m_health;
 		int m_armor;
 		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
@@ -103,12 +102,6 @@ namespace SAMPLES {
 		* @param scene The associated scene
 		*/
 		void SetScene(DE::C3DScene * scene);
-
-		/**
-		* Set the player health
-		* @param health The player health
-		*/
-		void SetHealth(const int health);
 
 		/**
 		* Set the player armor
@@ -147,12 +140,6 @@ namespace SAMPLES {
 		* @return True if the player interaction action is active
 		*/
 		const bool IsInteracting() const;
-
-		/**
-		* Get the player health
-		* @return The player health
-		*/
-		const int GetHealth() const;
 
 		/**
 		* Get the player health

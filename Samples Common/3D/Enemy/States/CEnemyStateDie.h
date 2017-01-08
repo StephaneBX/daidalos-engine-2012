@@ -50,8 +50,9 @@ namespace SAMPLES {
 
 		/**
 		* Reset the state
+		* @param entity The entity
 		*/
-		virtual void Reset();
+		virtual void Reset(IEnemyEntity * entity);
 
 		/**
 		* Update the entity

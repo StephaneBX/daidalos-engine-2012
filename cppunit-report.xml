@@ -56,18 +56,6 @@
 - Not implemented
 </Message>
     </FailedTest>
-    <FailedTest id="32">
-      <Name>MemoryAllocatorTest::TestNewDelete</Name>
-      <FailureType>Assertion</FailureType>
-      <Location>
-        <File>MemoryAllocatorTest.cpp</File>
-        <Line>45</Line>
-      </Location>
-      <Message>equality assertion failed
-- Expected: 3
-- Actual  : 2
-</Message>
-    </FailedTest>
   </FailedTests>
   <SuccessfulTests>
     <Test id="1">
@@ -147,6 +135,9 @@
     </Test>
     <Test id="31">
       <Name>MemoryAllocatorTest::TestAllocate</Name>
+    </Test>
+    <Test id="32">
+      <Name>MemoryAllocatorTest::TestNewDelete</Name>
     </Test>
     <Test id="33">
       <Name>QuaternionTest::TestConstructors</Name>
@@ -286,8 +277,8 @@
   </SuccessfulTests>
   <Statistics>
     <Tests>77</Tests>
-    <FailuresTotal>6</FailuresTotal>
+    <FailuresTotal>5</FailuresTotal>
     <Errors>0</Errors>
-    <Failures>6</Failures>
+    <Failures>5</Failures>
   </Statistics>
 </TestRun>

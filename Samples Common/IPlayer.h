@@ -48,12 +48,6 @@ namespace SAMPLES {
 	class IPlayer : public ICollidableEntity {
 	public:
 		/**
-		* Set the player health
-		* @param health The player health
-		*/
-		virtual void SetHealth(const int health) = 0;
-
-		/**
 		* Set the player armor
 		* @param health The player armor
 		*/
@@ -90,12 +84,6 @@ namespace SAMPLES {
 		* @return True if the player interaction action is active
 		*/
 		virtual const bool IsInteracting() const = 0;
-
-		/**
-		* Get the player health
-		* @return The player health
-		*/
-		virtual const int GetHealth() const = 0;
 
 		/**
 		* Get the player health

@@ -58,8 +58,11 @@ namespace SAMPLES {
 
 	/**
 	* Reset the state
+	* @param entity The entity
 	*/
-	void IEnemyState::Reset() {}
+	void IEnemyState::Reset(IEnemyEntity * entity) {
+		entity->GetMeshNode()->StopAnimation();
+	}
 
 	/**
 	* Callback when an entity is elected as the active state

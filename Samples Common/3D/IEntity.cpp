@@ -36,4 +36,36 @@ namespace SAMPLES {
 	const unsigned int IEntity::GetType() const {
 		return this->m_type;
 	}
+
+	/**
+	* Set the health
+	* @param health The health
+	*/
+	void IEntity::SetHealth(unsigned int health) {
+		this->m_health = health;
+	}
+
+	/**
+	* Set the max health
+	* @param health The max health
+	*/
+	void IEntity::SetMaxHealth(unsigned int health) {
+		this->m_maxHealth = health;
+	}
+
+	/**
+	* Get the health
+	* @return The health
+	*/
+	const unsigned int IEntity::GetHealth() const {
+		return this->m_health;
+	}
+
+	/**
+	* Get the max health
+	* @return The max health
+	*/
+	const unsigned int IEntity::GetMaxHealth() const {
+		return this->m_maxHealth;
+	}
 }

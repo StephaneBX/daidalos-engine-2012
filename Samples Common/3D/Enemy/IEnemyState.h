@@ -66,8 +66,9 @@ namespace SAMPLES {
 
 		/**
 		* Reset the state
+		* @param entity The entity
 		*/
-		virtual void Reset();
+		virtual void Reset(IEnemyEntity * entity);
 
 		/**
 		* Callback when an entity is elected as the active state

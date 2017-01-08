@@ -140,14 +140,6 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Set the player health
-	* @param health The player health
-	*/
-	void CFPSCamera::SetHealth(const int health) {
-		this->m_health = health;
-	}
-
-	/**
 	* Set the player armor
 	* @param health The player armor
 	*/
@@ -225,14 +217,6 @@ namespace SAMPLES {
 	*/
 	const bool CFPSCamera::IsInteracting() const {
 		return this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT);
-	}
-
-	/**
-	* Get the player health
-	* @return The player health
-	*/
-	const int CFPSCamera::GetHealth() const {
-		return this->m_health;
 	}
 
 	/**

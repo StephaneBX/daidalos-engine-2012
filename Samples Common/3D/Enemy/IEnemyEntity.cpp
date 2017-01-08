@@ -85,38 +85,6 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Set the health
-	* @param health The health
-	*/
-	void IEnemyEntity::SetHealth(unsigned int health) {
-		this->m_health = health;
-	}
-
-	/**
-	* Set the max health
-	* @param health The max health
-	*/
-	void IEnemyEntity::SetMaxHealth(unsigned int health) {
-		this->m_maxHealth = health;
-	}
-
-	/**
-	* Get the health
-	* @return The health
-	*/
-	const unsigned int IEnemyEntity::GetHealth() const {
-		return this->m_health;
-	}
-
-	/**
-	* Get the max health
-	* @return The max health
-	*/
-	const unsigned int IEnemyEntity::GetMaxHealth() const {
-		return this->m_maxHealth;
-	}
-
-	/**
 	* Get the entity camera node
 	* @return The entity camera node
 	*/

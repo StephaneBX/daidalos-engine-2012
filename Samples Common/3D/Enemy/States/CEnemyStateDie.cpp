@@ -45,9 +45,10 @@ namespace SAMPLES {
 
 	/**
 	* Reset the state
+	* @param entity The entity
 	*/
-	void CEnemyStateDie::Reset() {
-		IEnemyState::Reset();
+	void CEnemyStateDie::Reset(IEnemyEntity * entity) {
+		IEnemyState::Reset(entity);
 	}
 
 	/**
@@ -57,7 +58,7 @@ namespace SAMPLES {
 	*/
 	void CEnemyStateDie::Update(IEnemyEntity * entity, float const time) {
 
-		if(!this->m_dead && entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+		if(!this->m_dead) {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
 			this->m_dead = true;

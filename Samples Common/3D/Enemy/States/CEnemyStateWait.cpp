@@ -48,10 +48,10 @@ namespace SAMPLES {
 
 	/**
 	* Reset the state
+	* @param entity The entity
 	*/
-	void CEnemyStateWait::Reset() {
-		IEnemyState::Reset();
-		this->m_waited = 0;
+	void CEnemyStateWait::Reset(IEnemyEntity * entity) {
+		IEnemyState::Reset(entity);
 	}
 
 	/**

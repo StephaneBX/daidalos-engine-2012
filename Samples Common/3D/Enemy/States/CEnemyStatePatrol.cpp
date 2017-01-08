@@ -68,7 +68,7 @@ namespace SAMPLES {
 			// Change direction if necessary
 			if((DE::CVector3F(entity->GetVisiblePosition().x, this->m_wayPoints[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->m_wayPoints[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
 				this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->m_wayPoints.size();
-				entity->GetMeshNode()->PauseAnimation();
+				entity->GetMeshNode()->StopAnimation();
 
 				// Interrupted
 				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
