@@ -29,9 +29,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IENTITY_H
 
 #include <set>
-#include <Scene/3D/C3DScene.h>
 
 namespace SAMPLES {
+	class ILevel;
+
 	/**
 	* Abstract entity
 	*/
@@ -40,9 +41,15 @@ namespace SAMPLES {
 		unsigned int m_type;
 		unsigned int m_health;
 		unsigned int m_maxHealth;
-		DE::C3DScene * m_scene;
+		ILevel * m_parent;
 
 	public:
+		/**
+		* The constructor
+		* @param parent The parent
+		*/
+		IEntity(ILevel * parent);
+
 		/**
 		* Set the health
 		* @param health The health

@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include <Core/Utility/CMatrix.h>
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CSecurityCameraEntity.h"
 
 #define DEFAULT_HORIZONTAL_ROTATION_SPEED 40.0f
@@ -38,16 +39,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
-	* @param node The alarm node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The alarm node
 	*/
-	CSecurityCameraEntity::CSecurityCameraEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CSecurityCameraEntity::CSecurityCameraEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_SECURITY_CAMERA;
 		this->m_meshRootNode = meshNode;
 		this->m_meshCameraNode = nullptr;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
 		this->m_originalHorizontalRotation = this->m_meshRootNode->GetRotation().y;
 		this->m_originalVerticalRotation = this->m_meshRootNode->GetRotation().x;
 		this->m_horizontalRotationSpeed = DEFAULT_HORIZONTAL_ROTATION_SPEED;
@@ -90,7 +90,7 @@ namespace SAMPLES {
 
 		// Add the light
 		if(this->m_meshCameraNode != nullptr) {
-			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7f, 0.8f, true, true);
+			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7f, 0.8f, true, true);
 			this->m_meshCameraNode->AddChild(spot);
 		}
 	}
@@ -128,7 +128,7 @@ namespace SAMPLES {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_player->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (this->m_parent->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
@@ -165,7 +165,7 @@ namespace SAMPLES {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_player->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (this->m_parent->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way

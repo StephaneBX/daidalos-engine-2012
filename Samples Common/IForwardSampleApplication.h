@@ -43,18 +43,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "2D/CLoadingView.h"
 #include "3D/IEntity.h"
 #include "IPlayer.h"
+#include "Level/ILevel.h"
 
 namespace SAMPLES {
 	/**
 	* Test application implementation
 	*/
-	class IForwardSampleApplication : public DE::IWin32Application {
+	class IForwardSampleApplication : public DE::IWin32Application, public SAMPLES::ILevelListener {
 	protected:
 		bool m_loading;
-		DE::C3DScene * m_scene3D;
-		DE::C2DScene * m_scene2D;
+		std::unique_ptr<ILevel> m_currentLevel;
 		DE::C2DScene * m_loadingScene;
-		DE::ICameraSceneNode * m_activeCamera;
 		DE::CCursor m_cursor;
 
 		// 2D Rendering 
@@ -81,16 +80,9 @@ namespace SAMPLES {
 		DE::CShaderProgram m_shaderScreenBlur;
 		DE::CShaderProgram m_shaderScreenGlow;
 
-		// The player
-		std::unique_ptr<IPlayer> m_player;
-
 		// Hud
 		DE::CFPSCounter m_fpsCounter;
-		CHudView * m_hud;
 		CLoadingView * m_loadingView;
-
-		// Entities
-		std::vector<std::unique_ptr<SAMPLES::IEntity> > m_entities;
 
 	public:
 		/**
@@ -122,12 +114,7 @@ namespace SAMPLES {
 		* Should be called from a new thread
 		* @param filename The level filename
 		*/
-		virtual void LoadLevel(const std::string & filename);
-
-		/**
-		* Do post level loading process
-		*/
-		virtual void PostLoadLevel();
+		virtual void LoadLevel(const std::string & filename) = 0;
 
 		/**
 		* Render a 3D scene
@@ -187,6 +174,16 @@ namespace SAMPLES {
 		* Do the post process rendering
 		*/
 		virtual void PostProcessRendering();
+
+		/**
+		* Callback when the level is fully loaded
+		*/
+		virtual void OnLevelLoaded() = 0;
+
+		/**
+		* Callback when the next level is triggered
+		*/
+		virtual void OnTriggerNextLevel(const std::string & nextLevel) = 0;
 	};
 }
 

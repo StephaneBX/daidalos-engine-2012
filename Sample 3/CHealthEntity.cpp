@@ -30,19 +30,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define RESPAWN_TIME 30000
 
 #include <Core/Utility/CVector3.h>
+#include "Level/ILevel.h"
 #include "CHealthEntity.h"
 
 namespace SAMPLE3 {
-	CHealthEntity::CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::IPlayer * player) {
+	/**
+	* Constructor
+	* @param paret The parent
+	* @param meshNode The health node
+	*/
+	CHealthEntity::CHealthEntity(SAMPLES::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 		this->m_node = meshNode;
-		this->m_player = player;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
 		this->m_sound.SetRelativeToListener(true);
 		this->m_respawnTime = RESPAWN_TIME;
 	}
 
+	/**
+	* Update the health
+	* @param time Elapsed time
+	*/
 	void CHealthEntity::Update(float const time) {
+		ITriggerEntity::Update(time);
+
 		DE::CVector3F rotation = this->m_node->GetRotation();
 		rotation.y += (ROTATION_SPEED * time) / 1000.0f;
 		if(rotation.y > 360) {
@@ -50,12 +61,7 @@ namespace SAMPLE3 {
 		}
 		this->m_node->SetRotation(rotation);
 
-		if(this->m_node->IsEnabled()) {
-			if(DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS) {
-				this->m_node->SetEnabled(false);
-				this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-			}
-		} else {
+		if(!this->m_node->IsEnabled()) {
 			this->m_respawnTime -= time;
 
 			if(this->m_respawnTime <= 0) {
@@ -63,5 +69,21 @@ namespace SAMPLE3 {
 				this->m_respawnTime = RESPAWN_TIME;
 			}
 		}
+	}
+
+	/**
+	* Trigger the entity action
+	*/
+	void CHealthEntity::DoAction() {
+		this->m_node->SetEnabled(false);
+		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+	}
+
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
+	const bool CHealthEntity::CanDoAction() {
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->GetHealth() < 100;
 	}
 }

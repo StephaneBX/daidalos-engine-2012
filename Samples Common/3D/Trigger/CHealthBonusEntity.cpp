@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CHealthBonusEntity.h"
 
 #define ROTATION_SPEED 70.0f
@@ -33,16 +34,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
-	* @param node The health bonus node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The health bonus node
 	*/
-	CHealthBonusEntity::CHealthBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CHealthBonusEntity::CHealthBonusEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_HEALTH;
 		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
-		this->m_player = player;
 		
 		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC);
 		this->m_sound.SetRelativeToListener(true);
@@ -75,7 +75,7 @@ namespace SAMPLES {
 	void CHealthBonusEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_player->SetHealth(this->m_player->GetHealth() < 80 ? this->m_player->GetHealth() + 20 : 100);
+		this->m_parent->GetPlayer()->SetHealth(this->m_parent->GetPlayer()->GetHealth() < 80 ? this->m_parent->GetPlayer()->GetHealth() + 20 : 100);
 	}
 
 	/**
@@ -83,6 +83,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CHealthBonusEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_player->GetHealth() < 100;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->GetHealth() < 100;
 	}
 }

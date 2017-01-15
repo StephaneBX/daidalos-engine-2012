@@ -28,6 +28,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.h"
 
 namespace SAMPLES {
+	/**
+	* Constructor
+	* @param parent The parent
+	*/
+	ITriggerEntity::ITriggerEntity(ILevel * parent) : IEntity(parent) {
+
+	}
 
 	/**
 	* Add a target entity

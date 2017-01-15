@@ -29,14 +29,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ANIMATION_FACTOR 30.0f
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CFanEntity.h"
 
 namespace SAMPLES {
-	CFanEntity::CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player) {
+	/**
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The fan node
+	*/
+	CFanEntity::CFanEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_FAN;
 		this->m_node = meshNode;
-		this->m_player = player;
 
 		this->m_speed = 0;
 		this->m_state = FAN_STATE_STOPPED;

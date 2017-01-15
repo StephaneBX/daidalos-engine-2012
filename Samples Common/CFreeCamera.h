@@ -35,6 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <SiniP/SiniP.h>
+#include "IPlayer.h"
 
 namespace SAMPLES
 {
@@ -54,7 +55,7 @@ namespace SAMPLES
 	/**
 	* Free type camera implementation
 	*/
-	class CFreeCamera
+	class CFreeCamera : public IPlayer
 	{
 	private:
 		unsigned int m_state;
@@ -69,16 +70,30 @@ namespace SAMPLES
 
 	public:
 		/**
+		* Constructor
+		* @param parent The parent
 		* @param cameraNode The camera node
-		* @param smooth The smooth view factor
 		*/
-		CFreeCamera(DE::ICameraSceneNode * cameraNode);
+		CFreeCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode);
 
 		/**
-		* Set the associated scene
-		* @param scene The associated scene
+		* Set the player armor
+		* @param health The player armor
 		*/
-		void SetScene(DE::C3DScene * scene);
+		void SetArmor(const int armor);
+
+		/**
+		* Set a player object
+		* @param object The player object id
+		* @param value The object value
+		*/
+		void SetObject(EPlayerObject object, const unsigned int value);
+
+		/**
+		* Set the player position
+		* @param position The position
+		*/
+		void SetPosition(const DE::CVector3F position);
 
 		/**
 		* Update the camera
@@ -87,10 +102,55 @@ namespace SAMPLES
 		void Update(float const time = 0);
 
 		/**
+		* Check if the player can see a shape
+		* @param shape A shape
+		* @return True if the player can see the shape
+		*/
+		const bool IsShapeVisible(DE::IShape3DF * shape);
+
+		/**
+		* If the player interaction action is active
+		* @return True if the player interaction action is active
+		*/
+		const bool IsInteracting() const;
+
+		/**
+		* Get the player health
+		* @return The player health
+		*/
+		const int GetArmor() const;
+
+		/**
+		* Get the player magazine ammo for the current weapon
+		* @return The current magazine ammo
+		*/
+		const unsigned int GetCurrentWeaponMagazineAmmo() const;
+
+		/**
+		* Get the player stock ammo for the current weapon
+		* @return The current stock ammo
+		*/
+		const unsigned int GetCurrentWeaponStockAmmo() const;
+
+		/**
+		* Get the player's object value
+		* @param object The object id
+		* @return The object value
+		*/
+		const unsigned int GetObjectValue(EPlayerObject object) const;
+
+		/**
 		* Get the camera node
 		* @return The camera node
 		*/
 		DE::ICameraSceneNode * GetCameraNode() const;
+
+	protected:
+		/**
+		* Callback used to handle event when the entity fall and touch the ground
+		* @param gravity The gravity value before touching the ground
+		*/
+		void OnEntityTouchedGround(const DE::CVector3F gravity);
 
 	private:
 		/**

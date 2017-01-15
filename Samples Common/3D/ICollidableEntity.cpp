@@ -27,13 +27,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_COLLISION_UPDATE_FREQUENCY 16
 
+#include "../Level/ILevel.h"
 #include "ICollidableEntity.h"
 
 namespace SAMPLES {
 	/**
 	* Constructor
+	* @param parent The parent
 	*/
-	ICollidableEntity::ICollidableEntity() {
+	ICollidableEntity::ICollidableEntity(ILevel * parent) : IEntity(parent) {
 		this->m_gravityState = true;
 		this->m_collisionState = true;
 		this->m_collisionUpdateFrequency = DEFAULT_COLLISION_UPDATE_FREQUENCY;
@@ -129,12 +131,12 @@ namespace SAMPLES {
 		if(this->m_lastCollisionUpdateTimer >= this->m_collisionUpdateFrequency) {
 			// Collision test with only the movement
 			DE::CVector3F finalMovement = this->m_visiblePosition - this->m_collisionShape->GetPosition();
-			this->m_scene->Slide(*this->m_collisionShape.get(), finalMovement);
+			this->m_parent->GetScene()->Slide(*this->m_collisionShape.get(), finalMovement);
 
 			// Collision test of the gravity
 			finalMovement = this->m_gravity * timeSecond;
 			DE::CVector3F finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
-			this->m_scene->Slide(*this->m_collisionShape, finalMovement);
+			this->m_parent->GetScene()->Slide(*this->m_collisionShape, finalMovement);
 
 			// Reset gravity and state if the entity has touched the ground
 			if(this->m_gravityState && this->m_collisionShape->GetPosition().y > finalPosition.y) {

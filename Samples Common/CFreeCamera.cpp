@@ -37,7 +37,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CFreeCamera.h"
 
 namespace SAMPLES {
-	CFreeCamera::CFreeCamera(DE::ICameraSceneNode * cameraNode) {
+	/**
+	* Constructor
+	* @param parent The parent
+	* @param cameraNode The camera node
+	*/
+	CFreeCamera::CFreeCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode) : IPlayer(parent) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
 
@@ -86,8 +91,27 @@ namespace SAMPLES {
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
-	void CFreeCamera::SetScene(DE::C3DScene * scene) {
-		this->m_scene = scene;
+	/**
+	* Set the player armor
+	* @param health The player armor
+	*/
+	void CFreeCamera::SetArmor(const int armor) {
+	}
+
+	/**
+	* Set a player object
+	* @param object The player object id
+	* @param value The object value
+	*/
+	void CFreeCamera::SetObject(EPlayerObject object, const unsigned int value) {
+	}
+
+	/**
+	* Set the player position
+	* @param position The position
+	*/
+	void CFreeCamera::SetPosition(const DE::CVector3F position) {
+		this->m_visiblePosition = position;
 	}
 
 	void CFreeCamera::Update(const float time) {
@@ -108,6 +132,64 @@ namespace SAMPLES {
 
 	DE::ICameraSceneNode * CFreeCamera::GetCameraNode() const {
 		return this->m_node;
+	}
+
+	/**
+	* Check if the player can see a shape
+	* @param shape A shape
+	* @return True if the player can see the shape
+	*/
+	const bool CFreeCamera::IsShapeVisible(DE::IShape3DF * shape) {
+		return !this->m_node->FrustumCull(shape);
+	}
+
+	/**
+	* If the player interaction action is active
+	* @return True if the player interaction action is active
+	*/
+	const bool CFreeCamera::IsInteracting() const {
+		return false;
+	}
+
+	/**
+	* Get the player health
+	* @return The player health
+	*/
+	const int CFreeCamera::GetArmor() const {
+		return 0;
+	}
+
+	/**
+	* Get the player magazine ammo for the current weapon
+	* @return The current magazine ammo
+	*/
+	const unsigned int CFreeCamera::GetCurrentWeaponMagazineAmmo() const {
+		return 0;
+	}
+
+	/**
+	* Get the player stock ammo for the current weapon
+	* @return The current stock ammo
+	*/
+	const unsigned int CFreeCamera::GetCurrentWeaponStockAmmo() const {
+		return 0;
+	}
+
+	/**
+	* Get the player's object value
+	* @param object The object id
+	* @return The object value
+	*/
+	const unsigned int CFreeCamera::GetObjectValue(EPlayerObject object) const {
+		return 0;
+	}
+
+	/**
+	* Callback used to handle event when the entity fall and touch the ground
+	* @param gravity The gravity value before touching the ground
+	*/
+	void CFreeCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+		
 	}
 
 	void CFreeCamera::UpdateState() {

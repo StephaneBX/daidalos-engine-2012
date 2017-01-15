@@ -26,32 +26,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Core/Core.h>
-#include "3D/Trigger/CDoorEntity.h"
-#include "3D/Trigger/CFanEntity.h"
-#include "3D/Trigger/CSwitchEntity.h"
-#include "3D/Trigger/CTeleporterEntity.h"
-#include "3D/Misc/CAlarmEntity.h"
-#include "3D/Trigger/CArmorBonusEntity.h"
-#include "3D/Trigger/CHealthBonusEntity.h"
-#include "3D/Trigger/CHandgunAmmoEntity.h"
-#include "3D/Trigger/CShotgunAmmoEntity.h"
-#include "3D/Trigger/CFlashlightEntity.h"
-#include "3D/Misc/CSecurityCameraEntity.h"
-#include "3D/Trigger/CLadderEntity.h"
-#include "3D/Enemy/CZombieEntity.h"
 #include "IForwardSampleApplication.h"
 
 namespace SAMPLES {
 
 	IForwardSampleApplication::IForwardSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 		this->m_loading = false;
-		this->m_scene3D = new DE::C3DScene();
-		this->m_scene2D = new DE::C2DScene();
 		this->m_loadingScene = new DE::C2DScene();
 
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
-		this->m_scene2D->SetCursor(&this->m_cursor);
 
 		DE::STexture2DFilterPolicy textureFilter2;
 		textureFilter2.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;
@@ -142,12 +126,6 @@ namespace SAMPLES {
 		this->m_shaderScreenGlow.LoadFromFile("ScreenGlow");
 
 		// ------------------------------------------------------------------------------------------------
-		// The Hud
-		// --------------------------------------------------------------------------------------------------
-		this->m_hud = new CHudView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
-		this->m_hud->SetDebugMode(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false));
-
-		// ------------------------------------------------------------------------------------------------
 		// The loading scene
 		// --------------------------------------------------------------------------------------------------
 		this->m_loadingView = new CLoadingView(DE::CRectangleI(0, 0, this->m_renderer->GetResolution().x, this->m_renderer->GetResolution().y));
@@ -155,30 +133,19 @@ namespace SAMPLES {
 	}
 
 	IForwardSampleApplication::~IForwardSampleApplication() {
-		delete this->m_scene3D;
-		delete this->m_scene2D;
 		delete this->m_loadingScene;
-		delete this->m_hud;
 	}
 
 	void IForwardSampleApplication::Update(const float time) {
-		if(!this->m_loading) {
-			this->m_fpsCounter.Update(time);
 
-			this->m_cursor.Update(time);
-			this->m_scene2D->Update(time);
-
-		} else {
-			this->m_loadingScene->Update(time);
-		}
 	}
 
 	void IForwardSampleApplication::Render() {
 		this->m_renderer->BeginScene();
 
 		if(!this->m_loading) {
-			Render3DScene(this->m_scene3D);
-			Render2DScene(this->m_scene2D);
+			Render3DScene(this->m_currentLevel->GetScene());
+			Render2DScene(this->m_currentLevel->GetHud());
 
 			if(this->m_cursor.IsVisible()) {
 				this->m_cursor.Render();
@@ -200,126 +167,6 @@ namespace SAMPLES {
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 
 		this->m_renderer->EndScene();
-	}
-
-	/**
-	* Load a level and show a loading screen
-	* @param filename The level filename
-	*/
-	void IForwardSampleApplication::LoadLevel(const std::string & filename) {
-		this->m_loading = true;
-		this->m_scene3D->LoadScene(filename);
-		this->m_activeCamera = (DE::ICameraSceneNode*)this->m_scene3D->GetNode("player");
-
-		this->m_scene3D->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-		this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-		this->m_scene3D->UpdateAll(0);
-		PostLoadLevel();
-
-		this->m_loading = false;
-	}
-
-	/**
-	* Do post level loading process
-	*/
-	void IForwardSampleApplication::PostLoadLevel() {
-		this->m_entities.clear();
-
-		// Load the doors
-		std::vector<DE::ISceneNode*> doorNode = this->m_scene3D->GetNodeArray("door_entity");
-		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
-			SAMPLES::CDoorEntity * doorEntity = new SAMPLES::CDoorEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CDoorEntity>(doorEntity));
-		}
-
-		// Load the fans
-		std::vector<DE::ISceneNode*> fanNode = this->m_scene3D->GetNodeArray("fan_entity");
-		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
-			SAMPLES::CFanEntity * fanEntity = new SAMPLES::CFanEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get());
-			fanEntity->DoAction();
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFanEntity>(fanEntity));
-		}
-
-		// Load the switchs
-		std::vector<DE::ISceneNode*> switchNode = this->m_scene3D->GetNodeArray("switch_entity");
-		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
-			SAMPLES::CSwitchEntity * switchEntity = new SAMPLES::CSwitchEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSwitchEntity>(switchEntity));
-		}
-
-		/*if(switchNode.size() > 0) {
-		switchNode[0]->AddTarget(fanNode[0].get();
-		}*/
-
-		// Load the teleporters
-		std::vector<DE::ISceneNode*> teleporterNode = this->m_scene3D->GetNodeArray("teleporter_entity");
-		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
-			SAMPLES::CTeleporterEntity * teleporterEntity = new SAMPLES::CTeleporterEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CTeleporterEntity>(teleporterEntity));
-		}
-
-		// Load the alarms
-		std::vector<DE::ISceneNode*> alarmNode = this->m_scene3D->GetNodeArray("alarm_entity");
-		for(auto it = alarmNode.begin(); it != alarmNode.end(); it++) {
-			SAMPLES::CAlarmEntity * alarmEntity = new SAMPLES::CAlarmEntity((DE::CStaticMeshSceneNode*)(*it), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CAlarmEntity>(alarmEntity));
-		}
-
-		// Load the armor bonus
-		std::vector<DE::ISceneNode*> armorNode = this->m_scene3D->GetNodeArray("armor_bonus_entity");
-		for(auto it = armorNode.begin(); it != armorNode.end(); it++) {
-			SAMPLES::CArmorBonusEntity * armorBonusEntity = new SAMPLES::CArmorBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CArmorBonusEntity>(armorBonusEntity));
-		}
-
-		// Load the health bonus
-		std::vector<DE::ISceneNode*> healthNode = this->m_scene3D->GetNodeArray("health_bonus_entity");
-		for(auto it = healthNode.begin(); it != healthNode.end(); it++) {
-			SAMPLES::CHealthBonusEntity * healthBonusEntity = new SAMPLES::CHealthBonusEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHealthBonusEntity>(healthBonusEntity));
-		}
-
-		// Load the handgun ammo
-		std::vector<DE::ISceneNode*> handgunAmmoNode = this->m_scene3D->GetNodeArray("handgun_ammo_entity");
-		for(auto it = handgunAmmoNode.begin(); it != handgunAmmoNode.end(); it++) {
-			SAMPLES::CHandgunAmmoEntity * handgunAmmoEntity = new SAMPLES::CHandgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CHandgunAmmoEntity>(handgunAmmoEntity));
-		}
-
-		// Load the shotgun ammo
-		std::vector<DE::ISceneNode*> shotgunAmmoNode = this->m_scene3D->GetNodeArray("shotgun_ammo_entity");
-		for(auto it = shotgunAmmoNode.begin(); it != shotgunAmmoNode.end(); it++) {
-			SAMPLES::CShotgunAmmoEntity * shotgunAmmoEntity = new SAMPLES::CShotgunAmmoEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CShotgunAmmoEntity>(shotgunAmmoEntity));
-		}
-
-		// Load the flashlight
-		std::vector<DE::ISceneNode*> flashlightNode = this->m_scene3D->GetNodeArray("flashlight_entity");
-		for(auto it = flashlightNode.begin(); it != flashlightNode.end(); it++) {
-			SAMPLES::CFlashlightEntity * flashlightEntity = new SAMPLES::CFlashlightEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get());
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CFlashlightEntity>(flashlightEntity));
-		}
-
-		// Load the security cameras
-		std::vector<DE::ISceneNode*> securityCameraNode = this->m_scene3D->GetNodeArray("security_camera_entity");
-		for(auto it = securityCameraNode.begin(); it != securityCameraNode.end(); it++) {
-			SAMPLES::CSecurityCameraEntity * securityCameraEntity = new SAMPLES::CSecurityCameraEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSecurityCameraEntity>(securityCameraEntity));
-		}
-
-		// Load the ladders
-		std::vector<DE::ISceneNode*> ladderNode = this->m_scene3D->GetNodeArray("ladder_entity");
-		for(auto it = ladderNode.begin(); it != ladderNode.end(); it++) {
-			SAMPLES::CLadderEntity * ladderEntity = new SAMPLES::CLadderEntity((DE::CStaticMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CLadderEntity>(ladderEntity));
-		}
-
-		// Load the zombies
-		std::vector<DE::ISceneNode*> zombieNode = this->m_scene3D->GetNodeArray("zombie_enemy_entity");
-		for(auto it = zombieNode.begin(); it != zombieNode.end(); it++) {
-			SAMPLES::CZombieEntity * zombieEntity = new SAMPLES::CZombieEntity((DE::CAnimatedMeshSceneNode*)(*it), this->m_player.get(), this->m_scene3D);
-			this->m_entities.push_back(std::unique_ptr<SAMPLES::CZombieEntity>(zombieEntity));
-		}
 	}
 
 	/**
@@ -365,7 +212,7 @@ namespace SAMPLES {
 		// ------------------------------
 		// Particle System
 		// ------------------------------
-		scene3D->GetParticleSystem().SetActiveCamera(this->m_activeCamera);
+		scene3D->GetParticleSystem().SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->GetParticleSystem().RenderAll();
 
 		// ------------------------------
@@ -377,7 +224,7 @@ namespace SAMPLES {
 		// Debug
 		// ------------------------------
 		if(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
-			scene3D->SetActiveCamera(this->m_activeCamera);
+			scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 			scene3D->RenderDebugInformation();
 		}
 	}
@@ -407,7 +254,7 @@ namespace SAMPLES {
 	* @param scene3D The scene
 	*/
 	void IForwardSampleApplication::InitializeRendering(DE::C3DScene * scene3D) {
-		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
 	}
@@ -429,7 +276,7 @@ namespace SAMPLES {
 		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		scene3D->RenderSkyboxMask();
@@ -438,7 +285,7 @@ namespace SAMPLES {
 		// Sky box
 		// ------------------------------
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		this->m_renderer->SetStencilFunction(DE::COMPARE_LESS);
 		this->m_renderer->SetStencilZFail(DE::STENCIL_OPERATION_KEEP);
 		this->m_renderer->SetStencilFail(DE::STENCIL_OPERATION_KEEP);
@@ -461,7 +308,7 @@ namespace SAMPLES {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->RenderAll();
 	}
@@ -479,7 +326,7 @@ namespace SAMPLES {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderTransparent.GetShaderProgram());
-		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->RenderTransparent();
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -541,7 +388,7 @@ namespace SAMPLES {
 	* @param scene3D The scene
 	*/
 	void IForwardSampleApplication::SpotLightsRendering(DE::C3DScene * scene3D) {
-		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
@@ -577,15 +424,15 @@ namespace SAMPLES {
 			this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 			this->m_renderer->SetShaderProgram(this->m_shaderSpotLight.GetShaderProgram());
 			this->m_renderer->SetFrameBuffer(nullptr);
-			scene3D->SetActiveCamera(this->m_activeCamera);
+			scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 			scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 			this->m_renderer->SetTexture(2, this->m_frameBufferShadowMap.GetFrameBuffer()->GetTexture("lightDepthRT"));
 
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_SHADOW_MAP_SIZE, 512));
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), scene3D->GetActiveSpotLightsBuffer()->shadowCaster[this->m_scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
 			scene3D->RenderAll();
@@ -598,7 +445,7 @@ namespace SAMPLES {
 	* @param scene3D The scene
 	*/
 	void IForwardSampleApplication::PointLightsRendering(DE::C3DScene * scene3D) {
-		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
@@ -611,11 +458,11 @@ namespace SAMPLES {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderPointLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 
 		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
@@ -630,7 +477,7 @@ namespace SAMPLES {
 	* @param scene3D The scene
 	*/
 	void IForwardSampleApplication::DirectionalLightsRendering(DE::C3DScene * scene3D) {
-		DE::CVector4F cameraPositionDistance(this->m_activeCamera->GetPosition(), this->m_activeCamera->GetFarDistance());
+		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
@@ -643,11 +490,11 @@ namespace SAMPLES {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationLight.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDirectionalLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		scene3D->SetActiveCamera(this->m_activeCamera);
+		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {

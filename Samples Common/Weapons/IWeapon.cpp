@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IWeapon.h"
 
 #define PARTICLE_LIFE 50
-#define WEAPON_VARIATION_FACTOR
+#define PARTICLE_DIRECTION_DECAL 0.05f
 
 namespace SAMPLES {
 
@@ -170,7 +170,7 @@ namespace SAMPLES {
 						this->m_bulletImpactParticle[index]->SetLife(0);
 						this->m_bulletImpactParticle[index]->SetLifeMax(PARTICLE_LIFE);
 						this->m_bulletImpactParticle[index]->SetActive(true);
-						this->m_bulletImpactParticle[index]->SetPosition(collisionPoint - (projectile.direction * 0.05f));
+						this->m_bulletImpactParticle[index]->SetPosition(collisionPoint - (projectile.direction * PARTICLE_DIRECTION_DECAL));
 					}
 				}
 

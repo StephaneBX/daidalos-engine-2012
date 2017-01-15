@@ -26,19 +26,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CLadderEntity.h"
 
 namespace SAMPLES {
 	/**
-	* @param node The ladder node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The ladder node
 	*/
-	CLadderEntity::CLadderEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CLadderEntity::CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_LADDER;
 		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
 		// Read the attributes
@@ -68,7 +68,7 @@ namespace SAMPLES {
 	* Trigger the entity action
 	*/
 	void CLadderEntity::DoAction() {
-		this->m_player->SetGravityState(this->m_triggerParam == 0);
+		this->m_parent->GetPlayer()->SetGravityState(this->m_triggerParam == 0);
 	}
 
 	/**
@@ -77,7 +77,7 @@ namespace SAMPLES {
 	*/
 	const bool CLadderEntity::CanDoAction() {
 
-		this->m_triggerParam = this->m_boundingBox.IsCollision(this->m_player->GetCollisionShape()) ? 1 : 0;
+		this->m_triggerParam = this->m_boundingBox.IsCollision(this->m_parent->GetPlayer()->GetCollisionShape()) ? 1 : 0;
 		return true;
 	}
 }

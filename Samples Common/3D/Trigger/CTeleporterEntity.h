@@ -43,17 +43,16 @@ namespace SAMPLES {
 	private:
 		std::string m_levelName;
 		DE::CAnimatedMeshSceneNode * m_node;
-		IPlayer * m_player;
 
 		DE::CSound m_sound;
 
 	public:
 		/**
-		* @param node The switch node
-		* @param player The player
-		* @param scene3D The scene
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The switch node
 		*/
-		CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CTeleporterEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the alarm

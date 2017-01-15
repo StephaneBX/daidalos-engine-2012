@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene structure="1">
+	<!-- Override default Particle System -->
+	<particleSystem>
+		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
+		<atlasTextureSize>4:4</atlasTextureSize>
+		<systemSize>5000</systemSize>
+	</particleSystem>
+	
 	<!-- Level node with a bsp structure -->
 	<node type="0" name="level" ambientColor="0.2:0.2:0.2">
 		<!-- Level node geometry -->
@@ -626,12 +633,6 @@
 			<normal_texture>health_bonus_n.png</normal_texture>
 		</node>
 		
-		<!-- Lights -->
-		<node type="4" name="directionalLight">
-			<rotation>40:180:0</rotation>
-			<color>0.15:0.15:0.15:1</color>
-		</node>
-		
 		<!-- Player camera -->
 		<node type="1" name="player">
 			<position>15:4:0</position>
@@ -640,7 +641,7 @@
 			<near>0.1</near>
 			<far>80</far>
 			
-			<node type="2" name="flashlight_spot">
+			<node type="2" name="flashlight">
 				<position>0.5:-0.8:0</position>
 				<rotation>0:0:0</rotation>
 				<color>0.5:0.5:0.5:1</color>
@@ -650,11 +651,6 @@
 				<tightness>0.5</tightness>
 				<shadow_caster>true</shadow_caster>
 				<enabled>false</enabled>
-			</node>
-			
-			<node type="4" name="directionalLight">
-				<rotation>40:180:0</rotation>
-				<color>0.05:0.05:0.05:1</color>
 			</node>
 		</node>
 	</node>

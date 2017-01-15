@@ -92,16 +92,11 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
+		* @param parent The parent
 		* @param cameraNode The camera node
 		* @param flashlightNode The flashlight node
 		*/
-		CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
-
-		/**
-		* Set the associated scene
-		* @param scene The associated scene
-		*/
-		void SetScene(DE::C3DScene * scene);
+		CFPSCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
 
 		/**
 		* Set the player armor

@@ -43,8 +43,6 @@ namespace SAMPLES {
 	private:
 		DE::CStaticMeshSceneNode * m_meshRootNode;
 		DE::CStaticMeshSceneNode * m_meshCameraNode;
-		DE::C3DScene * m_scene3D;
-		IPlayer * m_player;
 
 		float m_originalHorizontalRotation;
 		float m_originalVerticalRotation;
@@ -55,11 +53,10 @@ namespace SAMPLES {
 
 	public:
 		/**
-		* @param node The security camera root node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* @param parent The parent
+		* @param meshNode The security camera root node
 		*/
-		CSecurityCameraEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CSecurityCameraEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the security camera

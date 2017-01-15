@@ -51,8 +51,6 @@ namespace SAMPLES {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::CParticleEmitterSceneNode * m_emitterNode;
-		DE::C3DScene * m_scene3D;
-		IPlayer * m_player;
 
 		DE::CSound m_startSound;
 		DE::CSound m_stopSound;
@@ -65,11 +63,10 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
-		* @param node The door node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* @param parent The parent
+		* @param meshNode The door node
 		*/
-		CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the door

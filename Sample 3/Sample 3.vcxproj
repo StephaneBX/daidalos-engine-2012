@@ -75,10 +75,12 @@
   <ItemGroup>
     <ClInclude Include="CHealthEntity.h" />
     <ClInclude Include="CSampleApplication.h" />
+    <ClInclude Include="CSampleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CHealthEntity.cpp" />
     <ClCompile Include="CSampleApplication.cpp" />
+    <ClCompile Include="CSampleLevel.cpp" />
     <ClCompile Include="sample.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -80,6 +80,7 @@
     <ClCompile Include="3D\CEditorLevelSceneNode.cpp" />
     <ClCompile Include="3D\CViewCamera.cpp" />
     <ClCompile Include="CEditorConfiguration.cpp" />
+    <ClCompile Include="CEditorLevel.cpp" />
     <ClCompile Include="CLevelEditorApplication.cpp" />
     <ClCompile Include="Loaders\CEditorSceneLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="3D\CEditorLevelSceneNode.h" />
     <ClInclude Include="3D\CViewCamera.h" />
     <ClInclude Include="CEditorConfiguration.h" />
+    <ClInclude Include="CEditorLevel.h" />
     <ClInclude Include="CLevelEditorApplication.h" />
     <ClInclude Include="Loaders\CEditorSceneLoader.h" />
   </ItemGroup>

@@ -28,19 +28,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include "../../Enums.h"
 #include "CAlarmEntity.h"
+#include "../../Level/ILevel.h"
 
 #define ROTATION_SPEED 70.0f
 
 namespace SAMPLES {
 	/**
-	* @param node The alarm node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The alarm node
 	*/
-	CAlarmEntity::CAlarmEntity(DE::CStaticMeshSceneNode * meshNode, DE::C3DScene * scene3D) {
+	CAlarmEntity::CAlarmEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_ALARM;
 		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
 		this->m_speed = ROTATION_SPEED;
 
 		// Read the attributes
@@ -50,9 +51,9 @@ namespace SAMPLES {
 		}
 
 		// Add the lights
-		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25,0,0), DE::CColor(0.5f,0.0f,0.0f), 80, 20, 0.7f,0.8f, true, true);
+		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25,0,0), DE::CColor(0.5f,0.0f,0.0f), 80, 20, 0.7f,0.8f, true, true);
 		meshNode->AddChild(spot1);
-		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->m_scene3D->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5f, 0.0f, 0.0f), 80, 20, 0.7f, 0.8f, true, true);
+		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5f, 0.0f, 0.0f), 80, 20, 0.7f, 0.8f, true, true);
 		meshNode->AddChild(spot2);
 	}
 

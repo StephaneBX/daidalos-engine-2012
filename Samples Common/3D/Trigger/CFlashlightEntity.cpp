@@ -30,14 +30,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Core/Utility/CVector3.h>
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CFlashlightEntity.h"
 
 namespace SAMPLES {
-	CFlashlightEntity::CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player) {
+	/**
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The flashlight node
+	*/
+	CFlashlightEntity::CFlashlightEntity(ILevel * parent, DE::ISceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_FLASHLIGHT;
 		this->m_node = meshNode;
-		this->m_player = player;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC);
 		this->m_sound.SetRelativeToListener(true);
@@ -61,7 +66,7 @@ namespace SAMPLES {
 	*/
 	void CFlashlightEntity::DoAction() {
 		this->m_node->SetEnabled(false);
-		this->m_player->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
+		this->m_parent->GetPlayer()->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 	}
 
@@ -70,6 +75,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CFlashlightEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

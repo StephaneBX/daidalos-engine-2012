@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CShotgunAmmoEntity.h"
 
 #define ROTATION_SPEED 70.0f
@@ -34,15 +35,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
-	* @param node The shotgun ammo node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The shotgun ammo node
 	*/
-	CShotgunAmmoEntity::CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CShotgunAmmoEntity::CShotgunAmmoEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_HEALTH;
 		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
 		this->m_sound.LoadFromFile("shotgun_ammo.wav", DE::SOUND_TYPE_STATIC);
@@ -76,7 +76,7 @@ namespace SAMPLES {
 	void CShotgunAmmoEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_player->SetObject(PLAYER_OBJECT_SHOTGUN_AMMO, AMMO_QUANTITY);
+		this->m_parent->GetPlayer()->SetObject(PLAYER_OBJECT_SHOTGUN_AMMO, AMMO_QUANTITY);
 	}
 
 	/**
@@ -84,6 +84,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CShotgunAmmoEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

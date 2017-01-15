@@ -41,7 +41,6 @@ namespace SAMPLE2
 	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
-		DE::CSpotLightSceneNode * m_spotLight;
 
 	public:
 		/**
@@ -57,15 +56,28 @@ namespace SAMPLE2
 		~CSampleApplication();
 
 		/**
+		* Load a level and show a loading screen
+		* Should be called from a new thread
+		* @param filename The level filename
+		*/
+		void LoadLevel(const std::string & filename);
+
+		/**
 		* Update the application
 		* @param time Elapsed time
 		*/
 		void Update(const float time);
 
+	protected:
 		/**
-		* Do post level loading initialization
+		* Callback when the level is fully loaded
 		*/
-		void PostLoadLevel();
+		void OnLevelLoaded();
+
+		/**
+		* Callback when the next level is triggered
+		*/
+		void OnTriggerNextLevel(const std::string & nextLevel);
 	};
 }
 

@@ -42,17 +42,14 @@ namespace SAMPLES {
 	class CArmorBonusEntity : public ITriggerEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
 		DE::CSound m_sound;
-		IPlayer * m_player;
 
 	public:
 		/**
-		* @param node The armor node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* @param parent The parent
+		* @param meshNode The armor node
 		*/
-		CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CArmorBonusEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the armor

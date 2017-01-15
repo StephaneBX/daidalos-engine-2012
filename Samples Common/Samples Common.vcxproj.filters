@@ -55,6 +55,12 @@
     <Filter Include="Fichiers sources\3D\Enemy\States">
       <UniqueIdentifier>{d7bc9e80-575b-4598-b161-c272fd1e2ffc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Level">
+      <UniqueIdentifier>{f24cb4da-5736-427c-a6c5-69b19f0b0a4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Level">
+      <UniqueIdentifier>{82c32a4b-9cc3-4d4d-8c38-94917bb3d5f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -159,6 +165,15 @@
     <ClInclude Include="3D\Enemy\States\CEnemyStateAttack.h">
       <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
     </ClInclude>
+    <ClInclude Include="Level\ILevel.h">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\ILevelListener.h">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\CDaidalosLevel.h">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -256,6 +271,15 @@
     </ClCompile>
     <ClCompile Include="3D\Enemy\States\CEnemyStateAttack.cpp">
       <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\ILevel.cpp">
+      <Filter>Fichiers sources\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\CDaidalosLevel.cpp">
+      <Filter>Fichiers sources\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayer.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

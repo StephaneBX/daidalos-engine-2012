@@ -45,18 +45,16 @@ namespace SAMPLES {
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
 		IEnemyState * m_currentActionState;
 
-		IPlayer * m_player;
 		DE::CAnimatedMeshSceneNode * m_meshNode;
 		DE::CProjectionCameraSceneNode * m_cameraNode;
 
 	public:
 		/**
 		* Constructor
-		* @param node The mesh node
-		* @param player The player
-		* @param scene3D The scene
+		* @param parent The parent
+		* @param meshNode The mesh node
 		*/
-		IEnemyEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D);
+		IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the enemy entity

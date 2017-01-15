@@ -38,11 +38,10 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
-		* @param node The mesh node
-		* @param player The player
-		* @param scene3D The scene
+		* @param parent The parent
+		* @param meshNode The mesh node
 		*/
-		CZombieEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D);
+		CZombieEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the enemy entity

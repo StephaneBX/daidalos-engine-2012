@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "IEnemyEntity.h"
+#include "../../Level/ILevel.h"
 
 namespace SAMPLES {
 
@@ -40,21 +41,18 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
-	* @param node The mesh node
-	* @param player The player
-	* @param scene3D The scene
+	* @param parent The parent
+	* @param meshNode The mesh node
 	*/
-	IEnemyEntity::IEnemyEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D) : ICollidableEntity() {
+	IEnemyEntity::IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
 		this->m_health = DEFAULT_HEALTH;
 		this->m_maxHealth = DEFAULT_HEALTH;
 
-		this->m_meshNode = node;
-		this->m_player = player;
-		this->m_scene = scene3D;
+		this->m_meshNode = meshNode;
 		this->m_currentActionState = nullptr;
 
 		// The camera node
-		this->m_cameraNode = new DE::CProjectionCameraSceneNode(this->m_scene->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
+		this->m_cameraNode = new DE::CProjectionCameraSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
 		this->m_cameraNode->SetSaved(false);
 		this->m_meshNode->AddChild(this->m_cameraNode);
 
@@ -97,7 +95,7 @@ namespace SAMPLES {
 	* @return The player
 	*/
 	IPlayer * IEnemyEntity::GetPlayer() {
-		return this->m_player;
+		return this->m_parent->GetPlayer();
 	}
 
 	/**

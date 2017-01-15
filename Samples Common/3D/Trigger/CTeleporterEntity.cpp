@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CTeleporterEntity.h"
 
 namespace SAMPLES {
@@ -33,18 +34,18 @@ namespace SAMPLES {
 #define TRIGGER_RADIUS 3.0f
 
 	/**
-	* @param node The switch node
-	* @param camera The player
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The switch node
 	*/
-	CTeleporterEntity::CTeleporterEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CTeleporterEntity::CTeleporterEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_TELEPORTER;
 		this->m_node = meshNode;
-		this->m_player = player;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters
-		DE::CParticleEmitter * emitter1 = scene3D->GetParticleSystem().InstanciateEmitter();
+		DE::CParticleEmitter * emitter1 = parent->GetScene()->GetParticleSystem().InstanciateEmitter();
 		emitter1->SetPosition(this->m_node->GetAbsolutePosition());
 		emitter1->SetTextureId(1);
 		emitter1->SetBlendMode(1);
@@ -66,7 +67,7 @@ namespace SAMPLES {
 		emitter1->AddUpdater(new DE::CLifeParticleUpdater());
 		emitter1->AddUpdater(new DE::CVelocityParticleUpdater(0));
 
-		DE::CParticleEmitter * emitter2 = scene3D->GetParticleSystem().InstanciateEmitter();
+		DE::CParticleEmitter * emitter2 = parent->GetScene()->GetParticleSystem().InstanciateEmitter();
 		emitter2->SetPosition(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 8, 0));
 		emitter2->SetTextureId(1);
 		emitter2->SetBlendMode(1);
@@ -109,7 +110,7 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CTeleporterEntity::CanDoAction() {
-		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

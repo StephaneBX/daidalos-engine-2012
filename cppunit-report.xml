@@ -56,6 +56,18 @@
 - Not implemented
 </Message>
     </FailedTest>
+    <FailedTest id="58">
+      <Name>Shape3DTest::TestCollisionBoundingBoxBoundingBox</Name>
+      <FailureType>Assertion</FailureType>
+      <Location>
+        <File>Shape3DTest.cpp</File>
+        <Line>131</Line>
+      </Location>
+      <Message>equality assertion failed
+- Expected: 0
+- Actual  : 1
+</Message>
+    </FailedTest>
   </FailedTests>
   <SuccessfulTests>
     <Test id="1">
@@ -209,76 +221,82 @@
       <Name>RectangleTest::TestIntersectPoint</Name>
     </Test>
     <Test id="56">
-      <Name>Vector2Test::TestConstructors</Name>
+      <Name>Shape3DTest::TestCollisionBoundingBoxSphere</Name>
     </Test>
     <Test id="57">
-      <Name>Vector2Test::TestOperators</Name>
-    </Test>
-    <Test id="58">
-      <Name>Vector2Test::TestLength</Name>
+      <Name>Shape3DTest::TestCollisionBoundingBoxEllipse</Name>
     </Test>
     <Test id="59">
-      <Name>Vector2Test::TestDotProduct</Name>
+      <Name>Vector2Test::TestConstructors</Name>
     </Test>
     <Test id="60">
-      <Name>Vector2Test::TestDistance</Name>
+      <Name>Vector2Test::TestOperators</Name>
     </Test>
     <Test id="61">
-      <Name>Vector2Test::TestNormalize</Name>
+      <Name>Vector2Test::TestLength</Name>
     </Test>
     <Test id="62">
-      <Name>Vector2Test::TestGetFrom</Name>
+      <Name>Vector2Test::TestDotProduct</Name>
     </Test>
     <Test id="63">
-      <Name>Vector3Test::TestConstructors</Name>
+      <Name>Vector2Test::TestDistance</Name>
     </Test>
     <Test id="64">
-      <Name>Vector3Test::TestOperators</Name>
+      <Name>Vector2Test::TestNormalize</Name>
     </Test>
     <Test id="65">
-      <Name>Vector3Test::TestLength</Name>
+      <Name>Vector2Test::TestGetFrom</Name>
     </Test>
     <Test id="66">
-      <Name>Vector3Test::TestDotProduct</Name>
+      <Name>Vector3Test::TestConstructors</Name>
     </Test>
     <Test id="67">
-      <Name>Vector3Test::TestCrossProduct</Name>
+      <Name>Vector3Test::TestOperators</Name>
     </Test>
     <Test id="68">
-      <Name>Vector3Test::TestDistance</Name>
+      <Name>Vector3Test::TestLength</Name>
     </Test>
     <Test id="69">
-      <Name>Vector3Test::TestNormalize</Name>
+      <Name>Vector3Test::TestDotProduct</Name>
     </Test>
     <Test id="70">
-      <Name>Vector3Test::TestGetFrom</Name>
+      <Name>Vector3Test::TestCrossProduct</Name>
     </Test>
     <Test id="71">
-      <Name>Vector3Test::TestLinearInterpolation</Name>
+      <Name>Vector3Test::TestDistance</Name>
     </Test>
     <Test id="72">
-      <Name>Vector3Test::TestCosineInterpolation</Name>
+      <Name>Vector3Test::TestNormalize</Name>
     </Test>
     <Test id="73">
-      <Name>Vector4Test::TestConstructors</Name>
+      <Name>Vector3Test::TestGetFrom</Name>
     </Test>
     <Test id="74">
-      <Name>Vector4Test::TestOperators</Name>
+      <Name>Vector3Test::TestLinearInterpolation</Name>
     </Test>
     <Test id="75">
-      <Name>Vector4Test::TestLength</Name>
+      <Name>Vector3Test::TestCosineInterpolation</Name>
     </Test>
     <Test id="76">
-      <Name>Vector4Test::TestNormalize</Name>
+      <Name>Vector4Test::TestConstructors</Name>
     </Test>
     <Test id="77">
+      <Name>Vector4Test::TestOperators</Name>
+    </Test>
+    <Test id="78">
+      <Name>Vector4Test::TestLength</Name>
+    </Test>
+    <Test id="79">
+      <Name>Vector4Test::TestNormalize</Name>
+    </Test>
+    <Test id="80">
       <Name>Vector4Test::TestGetFrom</Name>
     </Test>
   </SuccessfulTests>
   <Statistics>
-    <Tests>77</Tests>
-    <FailuresTotal>5</FailuresTotal>
+    <Tests>80</Tests>
+    <FailuresTotal>6</FailuresTotal>
     <Errors>0</Errors>
-    <Failures>5</Failures>
+    <Failures>6</Failures>
   </Statistics>
 </TestRun>

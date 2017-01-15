@@ -49,19 +49,17 @@ namespace SAMPLES {
 	class CFanEntity : public ITriggerEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-		IPlayer * m_player;
 
 		EFanState m_state;
 		float m_speed;
 
 	public:
 		/**
-		* @param node The fan node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The fan node
 		*/
-		CFanEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player);
+		CFanEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the door

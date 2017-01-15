@@ -48,6 +48,12 @@ namespace SAMPLES {
 	class IPlayer : public ICollidableEntity {
 	public:
 		/**
+		* Constructor
+		* @param parent The parent
+		*/
+		IPlayer(ILevel * parent);
+
+		/**
 		* Set the player armor
 		* @param health The player armor
 		*/

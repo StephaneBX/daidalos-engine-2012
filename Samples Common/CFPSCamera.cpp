@@ -42,12 +42,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
+#include "Level/ILevel.h"
 #include "CFPSCamera.h"
 #include "Weapons/CHandgun.h"
 #include "Weapons/CShotgun.h"
 
 namespace SAMPLES {
-	CFPSCamera::CFPSCamera(DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) {
+	CFPSCamera::CFPSCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) : IPlayer(parent) {
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
 		this->m_node = cameraNode;
@@ -128,13 +129,10 @@ namespace SAMPLES {
 
 		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC);
 		this->m_weaponChangeSound.SetRelativeToListener(true);
-	}
 
-	void CFPSCamera::SetScene(DE::C3DScene * scene) {
-		this->m_scene = scene;
-
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(nullptr, scene)));
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(nullptr, scene)));
+		// Initialize the weapons
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(nullptr, this->m_parent->GetScene())));
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(nullptr, this->m_parent->GetScene())));
 		this->m_currentWeaponIndex = 0;
 		this->m_currentWeapon = this->m_weapons[0].get();
 	}
@@ -360,7 +358,7 @@ namespace SAMPLES {
 			DE::CVector3F collisionPoint;
 
 			// If no up collision detected at the standing position
-			if(!this->m_scene->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
+			if(!this->m_parent->GetScene()->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
 				this->m_state = FPS_CAMERA_STATE_STAND;
 				collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
 				collisionShapeEllipse->SetPosition(collisionShapeEllipse->GetPosition() + movementUp);

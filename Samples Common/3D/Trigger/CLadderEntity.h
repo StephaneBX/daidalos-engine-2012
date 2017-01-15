@@ -42,17 +42,15 @@ namespace SAMPLES {
 	class CLadderEntity : public ITriggerEntity {
 	private:
 		DE::CStaticMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
 		DE::CAABoundingBoxF m_boundingBox;
-		IPlayer * m_player;
 
 	public:
 		/**
-		* @param node The ladder node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The ladder node
 		*/
-		CLadderEntity(DE::CStaticMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the armor

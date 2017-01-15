@@ -42,17 +42,15 @@ namespace SAMPLES {
 	class CShotgunAmmoEntity : public ITriggerEntity {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
 		DE::CSound m_sound;
-		IPlayer * m_player;
 
 	public:
 		/**
-		* @param node The shotgun ammo node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The shotgun ammo node
 		*/
-		CShotgunAmmoEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CShotgunAmmoEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the health

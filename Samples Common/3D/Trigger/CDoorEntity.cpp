@@ -31,17 +31,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <sstream>
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CDoorEntity.h"
 
 namespace SAMPLES {
-
-	CDoorEntity::CDoorEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	/**
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The door node
+	*/
+	CDoorEntity::CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_DOOR;
 		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
 
 		this->m_state = DOOR_STATE_CLOSED;
 		this->m_closable = true;
@@ -66,7 +69,7 @@ namespace SAMPLES {
 			ss >> this->m_animationSpeed;
 		}
 		if(meshNode->GetAttribute("openingParticleEmitter") != "") {
-			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(this->m_scene3D->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
+			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(this->m_parent->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
 		}
 		if(meshNode->GetAttribute("triggerRadius") != "") {
 			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));
@@ -85,7 +88,7 @@ namespace SAMPLES {
 				this->m_timer = 0;
 				this->m_state = DOOR_STATE_CLOSING;
 				this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
-				this->m_scene3D->SetBrushCollision(this->m_node->GetId(), true);
+				this->m_parent->GetScene()->SetBrushCollision(this->m_node->GetId(), true);
 				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}
@@ -95,7 +98,7 @@ namespace SAMPLES {
 		if(this->m_state == DOOR_STATE_OPENING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
-			this->m_scene3D->SetBrushCollision(this->m_node->GetId(), false);
+			this->m_parent->GetScene()->SetBrushCollision(this->m_node->GetId(), false);
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 			if(this->m_emitterNode != nullptr) {
@@ -140,6 +143,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CDoorEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

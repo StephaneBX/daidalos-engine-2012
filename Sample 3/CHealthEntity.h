@@ -28,35 +28,46 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CHEALTHENTITY_H
 #define __CHEALTHENTITY_H
 
-#include <Scene/3D/ISceneNode.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.h>
 #include <Medias/CSound.h>
-#include "IPlayer.h"
+#include "3D/Trigger/ITriggerEntity.h"
 
 namespace SAMPLE3
 {
 	/**
 	* Health entity
 	*/
-	class CHealthEntity
+	class CHealthEntity : public SAMPLES::ITriggerEntity
 	{
 	private:
 		DE::ISceneNode * m_node;
-		SAMPLES::IPlayer * m_player;
 		DE::CSound m_sound;
 		float m_respawnTime;
 
 	public:
 		/**
-		* @param node The health node
-		* @param camera The player
+		* Constructor
+		* @param paret The parent
+		* @param meshNode The health node
 		*/
-		CHealthEntity(DE::ISceneNode * meshNode, SAMPLES::IPlayer * player);
+		CHealthEntity(SAMPLES::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the health
 		* @param time Elapsed time
 		*/
 		void Update(float const time = 0);
+
+		/**
+		* Trigger the entity action
+		*/
+		void DoAction();
+
+		/**
+		* Check if the action can be triggered
+		* @return True if the action can be triggered, false otherwise
+		*/
+		const bool CanDoAction();
 	};
 }
 

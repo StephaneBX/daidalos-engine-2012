@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CMediaManager.h>
 #include <Scene/3D/ISceneNode.h>
 #include "Loaders/CEditorSceneLoader.h"
+#include "CEditorLevel.h"
 #include "CLevelEditorApplication.h"
 
 namespace EDITOR {
@@ -54,16 +55,28 @@ namespace EDITOR {
 		this->m_wallTextureEditIndex = 0;
 		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
 		this->m_meshNode = nullptr;
-		std::thread(&CLevelEditorApplication::LoadLevel, this, "minimal.des").detach();
-
-		this->m_consoleView = std::unique_ptr<CConsoleView>(new CConsoleView(5));
+		this->m_loading = true;
+		
+		this->m_consoleView = new CConsoleView(5);
 		this->m_consoleView->AddListener(this);
-		this->m_scene2D->AddToMainView(this->m_consoleView.get());
+
+		std::thread(&CLevelEditorApplication::LoadLevel, this, "minimal.des").detach();
 
 		MainLoop();
 	}
 
 	CLevelEditorApplication::~CLevelEditorApplication() {}
+
+	/**
+	* Load a level and show a loading screen
+	* Should be called from a new thread
+	* @param filename The level filename
+	*/
+	void CLevelEditorApplication::LoadLevel(const std::string & filename) {
+		this->m_currentLevel = std::unique_ptr<SAMPLES::ILevel>(new CEditorLevel());
+		this->m_currentLevel->AddListener(this);
+		this->m_currentLevel->LoadLevel(filename);
+	}
 
 	void CLevelEditorApplication::Update(const float time) {
 
@@ -81,7 +94,7 @@ namespace EDITOR {
 				if(this->m_input->IsActionActive(EDITOR_ACTION_LIGHTS)) {
 					this->m_drawLights = !this->m_drawLights;
 					this->m_input->FreezeAction(EDITOR_ACTION_LIGHTS);
-					this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+					this->m_currentLevel->GetScene()->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 				}
 
 				// Culling state
@@ -95,7 +108,7 @@ namespace EDITOR {
 					this->m_boundingBox = !this->m_boundingBox;
 					this->m_input->FreezeAction(EDITOR_ACTION_BOUNDINGBOX);
 
-					std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+					std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
 					for(auto it = nodes.begin(); it != nodes.end(); it++) {
 						(*it)->SetEnabled(this->m_boundingBox);
 					}
@@ -107,20 +120,22 @@ namespace EDITOR {
 					UpdateEditMode(time);
 				}
 
-				this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-				this->m_scene3D->UpdateAll(time);
+				this->m_currentLevel->GetScene()->SetActiveCamera(this->m_activeCamera);
+				this->m_currentLevel->SetActiveCamera(this->m_activeCamera);
+				this->m_currentLevel->Update(time);
 
 				this->m_cursor.Update(time);
-				this->m_scene2D->Update(time);
+				//this->m_scene2D->Update(time);
 
 				this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
 				this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
 
 				if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
-					std::thread(&CLevelEditorApplication::LoadLevel, this, this->m_scene3D->GetFilename()).detach();
+					this->m_loading = true;
+					std::thread(&CLevelEditorApplication::LoadLevel, this, this->m_currentLevel->GetScene()->GetFilename()).detach();
 				}
 			} else {
-				this->m_scene2D->Update(time);
+				this->m_currentLevel->GetHud()->Update(time);
 			}
 
 		} else {
@@ -133,6 +148,7 @@ namespace EDITOR {
 	* @param filename The level filename to load
 	*/
 	void CLevelEditorApplication::OnConsoleCommandLoad(const std::string filename) {
+		this->m_loading = true;
 		std::thread(&CLevelEditorApplication::LoadLevel, this, filename).detach();
 	}
 
@@ -141,7 +157,7 @@ namespace EDITOR {
 	* @param filename The level filename to save the current scene into
 	*/
 	void CLevelEditorApplication::OnConsoleCommandSave(const std::string filename) {
-		this->m_scene3D->SaveScene(filename);
+		this->m_currentLevel->GetScene()->SaveScene(filename);
 	}
 
 	/**
@@ -151,9 +167,9 @@ namespace EDITOR {
 	void CLevelEditorApplication::UpdateViewMode(const float time) {
 
 		// Update the 3D scene
-		if(!this->m_cursor.IsVisible()) {
+		//if(!this->m_cursor.IsVisible()) {
 			this->m_viewCamera->Update(time);
-		}
+		//}
 
 		if(this->m_input->IsActionActive(EDITOR_ACTION_EXIT)) {
 			this->m_alive = false;
@@ -228,7 +244,7 @@ namespace EDITOR {
 
 			std::vector<DE::ISceneNode *> nodesToRemove = GetNodesOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
 			for(auto it = nodesToRemove.begin(); it != nodesToRemove.end(); it++) {
-				this->m_scene3D->GetRootNode()->RemoveChild((*it));
+				this->m_currentLevel->GetScene()->GetRootNode()->RemoveChild((*it));
 			}
 		}
 
@@ -299,11 +315,11 @@ namespace EDITOR {
 			this->m_meshNode->SetMesh(meshFilename);
 			
 		} else {
-			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
+			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
 			this->m_meshNode->SetId(0);
 			this->m_meshNode->SetSaved(false);
 			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-			this->m_scene3D->GetRootNode()->AddChild(this->m_meshNode);
+			this->m_currentLevel->GetScene()->GetRootNode()->AddChild(this->m_meshNode);
 		}
 		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, textureNormalFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
@@ -315,8 +331,8 @@ namespace EDITOR {
 	void CLevelEditorApplication::UpdateNodesVisibility() {
 
 		// Get all the mesh nodes
-		std::vector<DE::ISceneNode *> nodes = this->m_scene3D->GetNodeArray(DE::SCENE_NODE_STATICMESH);
-		std::vector<DE::ISceneNode *> animatedMeshNodes = this->m_scene3D->GetNodeArray(DE::SCENE_NODE_ANIMATEDMESH);
+		std::vector<DE::ISceneNode *> nodes = this->m_currentLevel->GetScene()->GetNodeArray(DE::SCENE_NODE_STATICMESH);
+		std::vector<DE::ISceneNode *> animatedMeshNodes = this->m_currentLevel->GetScene()->GetNodeArray(DE::SCENE_NODE_ANIMATEDMESH);
 		nodes.insert(nodes.end(), animatedMeshNodes.begin(), animatedMeshNodes.end());
 
 		if(this->m_viewMode) {
@@ -458,51 +474,6 @@ namespace EDITOR {
 	}
 
 	/**
-	* Do post level loading initialization
-	*/
-	void CLevelEditorApplication::PostLoadLevel() {
-
-		// Add the cameras
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
-		viewCameraNode->SetSaved(false);
-		this->m_scene3D->GetRootNode()->AddChild(viewCameraNode);
-
-		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
-		this->m_viewCamera->SetScene(this->m_scene3D);
-		this->m_viewCamera->SetPosition(this->m_cameraPosition);
-		this->m_viewCamera->SetRotation(this->m_cameraRotation);
-
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
-		editCameraNode->SetSaved(false);
-		this->m_scene3D->GetRootNode()->AddChild(editCameraNode);
-
-		// Add the player marker
-		DE::ISceneNode * playerNode = this->m_scene3D->GetNode("player");
-		if(playerNode != nullptr) {
-			DE::CStaticMeshSceneNode * playerMeshNode = new DE::CStaticMeshSceneNode(this->m_scene3D->GetScene(), this->m_scene3D->GetRootNode(), "playerMarker", "cube.obj", DE::CVector3F(playerNode->GetAbsolutePosition().x, playerNode->GetAbsolutePosition().y - 3, playerNode->GetAbsolutePosition().z), DE::CVector3F(), DE::CVector3F(2, 4, 2));
-			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			playerMeshNode->SetSaved(false);
-			this->m_scene3D->GetRootNode()->AddChild(playerMeshNode);
-		}
-
-		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
-		this->m_editCamera->SetScene(this->m_scene3D);
-
-		this->m_scene3D->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
-		this->m_scene3D->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
-
-		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
-		for(auto it = nodes.begin(); it != nodes.end(); it++) {
-			(*it)->SetEnabled(this->m_boundingBox);
-		}
-
-		this->m_activeCamera = viewCameraNode;
-		this->m_consoleView->SetVisible(false);
-		this->m_meshNode = nullptr;
-	}
-
-	/**
 	* Get the node atching the position, the laer and the name
 	* @param position The position
 	* @param layer The layer
@@ -511,7 +482,7 @@ namespace EDITOR {
 	*/
 	std::vector<DE::ISceneNode*> CLevelEditorApplication::GetNodesOnBlock(DE::CVector2I position, int layer) {
 		std::vector<DE::ISceneNode*> node;
-		std::vector<DE::ISceneNode*> nodes = this->m_scene3D->GetNodeArray(EDITOR_NODE_NAME_MULTIBRUSH);
+		std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_MULTIBRUSH);
 
 		for(auto it = nodes.begin(); it != nodes.end(); it++) {
 			if((*it)->GetPosition().x > (position.x - EDIT_CAMERA_STEP) && (*it)->GetPosition().x < (position.x + EDIT_CAMERA_STEP) && (*it)->GetPosition().z >(position.y - EDIT_CAMERA_STEP) && (*it)->GetPosition().z < (position.y + EDIT_CAMERA_STEP) && (*it)->GetPosition().y >((layer * EDIT_CAMERA_LAYER_HEIGHT) - EDIT_CAMERA_LAYER_HEIGHT) && (*it)->GetPosition().y < ((layer * EDIT_CAMERA_LAYER_HEIGHT) + EDIT_CAMERA_LAYER_HEIGHT)) {
@@ -543,5 +514,60 @@ namespace EDITOR {
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 		scene3D->RenderAll();
+	}
+
+	/**
+	* Callback when the level is fully loaded
+	*/
+	void CLevelEditorApplication::OnLevelLoaded() {
+
+		// Add the cameras
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		viewCameraNode->SetSaved(false);
+		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(viewCameraNode);
+
+		this->m_viewCamera = std::unique_ptr<CViewCamera>(new CViewCamera(viewCameraNode));
+		this->m_viewCamera->SetScene(this->m_currentLevel->GetScene());
+		this->m_viewCamera->SetPosition(this->m_cameraPosition);
+		this->m_viewCamera->SetRotation(this->m_cameraRotation);
+
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		editCameraNode->SetSaved(false);
+		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(editCameraNode);
+
+		// Add the player marker
+		DE::ISceneNode * playerNode = this->m_currentLevel->GetScene()->GetNode("player");
+		if(playerNode != nullptr) {
+			DE::CStaticMeshSceneNode * playerMeshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "playerMarker", "cube.obj", DE::CVector3F(playerNode->GetAbsolutePosition().x, playerNode->GetAbsolutePosition().y - 3, playerNode->GetAbsolutePosition().z), DE::CVector3F(), DE::CVector3F(2, 4, 2));
+			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			playerMeshNode->SetSaved(false);
+			this->m_currentLevel->GetScene()->GetRootNode()->AddChild(playerMeshNode);
+		}
+
+		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
+		this->m_editCamera->SetScene(this->m_currentLevel->GetScene());
+
+		this->m_currentLevel->GetScene()->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_currentLevel->GetScene()->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
+
+		std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+		for(auto it = nodes.begin(); it != nodes.end(); it++) {
+			(*it)->SetEnabled(this->m_boundingBox);
+		}
+
+		this->m_activeCamera = viewCameraNode;
+		this->m_consoleView->SetVisible(false);
+		this->m_currentLevel->GetHud()->AddToMainView(this->m_consoleView);
+		this->m_meshNode = nullptr;
+
+		this->m_loading = false;
+	}
+
+	/**
+	* Callback when the next level is triggered
+	*/
+	void CLevelEditorApplication::OnTriggerNextLevel(const std::string & nextLevel) {
+		
 	}
 }

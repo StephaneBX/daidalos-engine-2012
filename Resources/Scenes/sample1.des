@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene structure="0">
+	<!-- Override default Particle System -->
+	<particleSystem>
+		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
+		<atlasTextureSize>4:4</atlasTextureSize>
+		<systemSize>5000</systemSize>
+	</particleSystem>
+	
 	<!-- Level node with a bsp structure -->
 	<node type="0" name="level" ambientColor="0.1:0.1:0.1" skyName="sky1" skyAmbientColor="0.5:0.5:0.5">
 		<!-- Level node geometry -->
@@ -326,8 +333,6 @@
 		<!-- Test lights -->
 		<node type="8" name="spotLight1">
 			<position>15:8:15</position>
-
-			
 		</node>
 		
 		<node type="4" name="directionalLight">

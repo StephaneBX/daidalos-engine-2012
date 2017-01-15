@@ -43,6 +43,12 @@ namespace SAMPLES {
 
 	public:
 		/**
+		* Constructor
+		* @param parent The parent
+		*/
+		ITriggerEntity(ILevel * parent);
+
+		/**
 		* Add a target entity
 		* @param entity The target entity
 		*/

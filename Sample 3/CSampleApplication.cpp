@@ -26,16 +26,29 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "CSampleApplication.h"
+#include "CSampleLevel.h"
 
 namespace SAMPLE3 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
 
+		this->m_loading = true;
 		std::thread(&CSampleApplication::LoadLevel, this, "sample3.des").detach();
 
 		MainLoop();
 	}
 
 	CSampleApplication::~CSampleApplication() {}
+
+	/**
+	* Load a level and show a loading screen
+	* Should be called from a new thread
+	* @param filename The level filename
+	*/
+	void CSampleApplication::LoadLevel(const std::string & filename) {
+		this->m_currentLevel = std::unique_ptr<SAMPLES::ILevel>(new CSampleLevel());
+		this->m_currentLevel->AddListener(this);
+		this->m_currentLevel->LoadLevel(filename);
+	}
 
 	void CSampleApplication::Update(const float time) {
 		
@@ -44,52 +57,33 @@ namespace SAMPLE3 {
 				this->m_alive = false;
 			}
 
-			// Update the 3D scene
-			this->m_player->Update(time);
-			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-			this->m_scene3D->UpdateAll(time);
-
-			// Update the entities
-			if(this->m_flashlight != nullptr) {
-				this->m_flashlight->Update(time);
-			}
-
-			for(auto it = this->m_health.begin(); it != this->m_health.end(); it++) {
-				(*it)->Update(time);
-			}
+			this->m_currentLevel->Update(time);
 
 			// Update the hud
-			this->m_fpsCounter.Update(time);
+			/*this->m_fpsCounter.Update(time);
 			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
 			this->m_hud->SetPosition(this->m_player->GetVisiblePosition());
 			this->m_hud->SetGravity(this->m_player->GetGravity().y);
-			this->m_hud->SetHealth(this->m_player->GetHealth());
+			this->m_hud->SetHealth(this->m_player->GetHealth());*/
 
 			this->m_cursor.Update(time);
-			this->m_scene2D->Update(time);
 		} else {
 			this->m_loadingScene->Update(time);
 		}
 	}
 
 	/**
-	* Do post level loading initialization
+	* Callback when the level is fully loaded
 	*/
-	void CSampleApplication::PostLoadLevel() {
-		// Load the camera
-		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera, nullptr));
-		((SAMPLES::CFPSCamera*)this->m_player.get())->SetScene(this->m_scene3D);
+	void CSampleApplication::OnLevelLoaded() {
+		this->m_loading = false;
+	}
 
-		// Load the flashlight
-		this->m_flashlight = std::unique_ptr<SAMPLES::CFlashlightEntity>(new SAMPLES::CFlashlightEntity(this->m_scene3D->GetNode("flashlight_entity"), this->m_player.get()));
-
-		// Load the health bonus
-		std::vector<DE::ISceneNode*> health = this->m_scene3D->GetNodeArray("health_entity");
-
-		for(auto it = health.begin(); it != health.end(); it++) {
-			CHealthEntity * entity = new CHealthEntity((*it), this->m_player.get());
-			this->m_health.push_back(std::unique_ptr<CHealthEntity>(entity));
-		}
+	/**
+	* Callback when the next level is triggered
+	*/
+	void CSampleApplication::OnTriggerNextLevel(const std::string & nextLevel) {
+		
 	}
 }

@@ -69,7 +69,9 @@ namespace EDITOR {
 
 		DE::CStaticMeshSceneNode * m_meshNode;
 
-		std::unique_ptr<CConsoleView> m_consoleView;
+		CConsoleView * m_consoleView;
+
+		DE::ICameraSceneNode * m_activeCamera;
 
 	public:
 		/**
@@ -83,6 +85,13 @@ namespace EDITOR {
 		* Destructor
 		*/
 		~CLevelEditorApplication();
+
+		/**
+		* Load a level and show a loading screen
+		* Should be called from a new thread
+		* @param filename The level filename
+		*/
+		void LoadLevel(const std::string & filename);
 
 		/**
 		* Update the application
@@ -143,11 +152,6 @@ namespace EDITOR {
 		void Render3DScene(DE::C3DScene * scene3D);
 
 		/**
-		* Do post level loading initialization
-		*/
-		void PostLoadLevel();
-
-		/**
 		* Get the node atching the position, the laer and the name
 		* @param position The position
 		* @param layer The layer
@@ -160,6 +164,16 @@ namespace EDITOR {
 		* @param scene3D The scene
 		*/
 		void DiffuseRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Callback when the level is fully loaded
+		*/
+		void OnLevelLoaded();
+
+		/**
+		* Callback when the next level is triggered
+		*/
+		void OnTriggerNextLevel(const std::string & nextLevel);
 	};
 }
 

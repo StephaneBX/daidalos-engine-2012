@@ -120,6 +120,12 @@ namespace DE {
 	}
 
 	template <class T> const bool IShape3D<T>::IsCollision(const IShape3D * shape) const {
+
+		// Special case when the shapes are at the same exact spot
+		if(this->m_position == shape->GetPosition()) {
+			return true;
+		}
+
 		// Get the plane perpendicular to the shapes position in order to get the inner depth
 
 		// Get the z axis vector for the plane

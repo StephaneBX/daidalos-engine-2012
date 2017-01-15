@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Scene/3D/CEllipse.h>
+#include "../../Level/ILevel.h"
 #include "CZombieEntity.h"
 #include "States/CEnemyStateWait.h"
 #include "States/CEnemyStatePatrol.h"
@@ -65,11 +66,10 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
+	* @param parent The parent
 	* @param node The mesh node
-	* @param player The player
-	* @param scene3D The scene
 	*/
-	CZombieEntity::CZombieEntity(DE::CAnimatedMeshSceneNode * node, IPlayer * player, DE::C3DScene * scene3D) : IEnemyEntity(node, player, scene3D) {
+	CZombieEntity::CZombieEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * node) : IEnemyEntity(parent, node) {
 		this->m_gravity = DE::CVector3F(0, GRAVITY, 0);
 		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_meshNode->GetPosition() + DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), DE::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
 
@@ -88,8 +88,8 @@ namespace SAMPLES {
 		
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_player, WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_player, ATTACK_POWER, ATTACK_RANGE)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_parent->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_parent->GetPlayer(), ATTACK_POWER, ATTACK_RANGE)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback

@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CArmorBonusEntity.h"
 
 #define ROTATION_SPEED 70.0f
@@ -34,15 +35,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
-	* @param node The armor bonus node
-	* @param scene3D The scene associated to the node
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The armor bonus node
 	*/
-	CArmorBonusEntity::CArmorBonusEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	CArmorBonusEntity::CArmorBonusEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_ARMOR;
 		this->m_node = meshNode;
-		this->m_scene3D = scene3D;
-		this->m_player = player;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
 		this->m_sound.LoadFromFile("armor_bonus.wav", DE::SOUND_TYPE_STATIC);
@@ -76,7 +76,7 @@ namespace SAMPLES {
 	void CArmorBonusEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_player->SetArmor(this->m_player->GetArmor() < 150 ? this->m_player->GetArmor() + ARMOR_BONUS : 200);
+		this->m_parent->GetPlayer()->SetArmor(this->m_parent->GetPlayer()->GetArmor() < 150 ? this->m_parent->GetPlayer()->GetArmor() + ARMOR_BONUS : 200);
 	}
 
 	/**
@@ -84,6 +84,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CArmorBonusEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_player->GetArmor() < 200;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->GetArmor() < 200;
 	}
 }

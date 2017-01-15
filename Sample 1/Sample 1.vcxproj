@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSampleApplication.h" />
+    <ClInclude Include="CSampleLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CSampleApplication.cpp" />
+    <ClCompile Include="CSampleLevel.cpp" />
     <ClCompile Include="sample.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

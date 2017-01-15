@@ -39,26 +39,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Scene\Particles\Updaters\CSizeParticleUpdater.h"
 #include "Scene\Particles\Updaters\CVelocityParticleUpdater.h"
 #include "Enums.h"
-#include "3D/Trigger/CDoorEntity.h"
-#include "3D/Trigger/CFanEntity.h"
-#include "3D/Trigger/CSwitchEntity.h"
-#include "3D/Trigger/CTeleporterEntity.h"
-#include "3D/Misc/CAlarmEntity.h"
-#include "3D/Trigger/CArmorBonusEntity.h"
-#include "3D/Trigger/CHealthBonusEntity.h"
-#include "3D/Trigger/CHandgunAmmoEntity.h"
+#include "Level/CDaidalosLevel.h"
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
 	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
 
-		this->m_scene2D->AddToMainView(this->m_hud);
+		this->m_loading = true;
 		std::thread(&CSampleApplication::LoadLevel, this, "factory.des").detach();
 
 		MainLoop();
 	}
 
 	CSampleApplication::~CSampleApplication() {}
+
+	/**
+	* Load a level and show a loading screen
+	* Should be called from a new thread
+	* @param filename The level filename
+	*/
+	void CSampleApplication::LoadLevel(const std::string & filename) {
+		this->m_currentLevel = std::unique_ptr<SAMPLES::ILevel>(new SAMPLES::CDaidalosLevel());
+		this->m_currentLevel->AddListener(this);
+		this->m_currentLevel->LoadLevel(filename);
+	}
 
 	void CSampleApplication::Update(const float time) {
 
@@ -69,41 +73,18 @@ namespace SAMPLE2 {
 				this->m_alive = false;
 			}
 
-			this->m_player->Update(time);
-
-			if(this->m_spotLight) {
-				DE::CVector3F lightRotation = this->m_spotLight->GetRotation();
-				lightRotation.y += (40 * time) / 1000.0f;
-				this->m_spotLight->SetRotation(lightRotation);
-			}
-
-			// Update the 3D scene
-			this->m_scene3D->SetActiveCamera(this->m_activeCamera);
-			this->m_scene3D->UpdateAll(time);
-
-			// Update the entities
-			for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
-				(*it)->Update(time);
-			}
+			this->m_currentLevel->Update(time);
 
 			// Update the hud
-			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
+			/*this->m_hud->SetFPS(this->m_fpsCounter.GetText());
 			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 			this->m_hud->SetPosition(this->m_player->GetVisiblePosition());
 			this->m_hud->SetGravity(this->m_player->GetGravity().y);
 			this->m_hud->SetHealth(this->m_player->GetHealth());
 			this->m_hud->SetArmor(this->m_player->GetArmor());
-			this->m_hud->SetAmmo(this->m_player->GetCurrentWeaponMagazineAmmo(), this->m_player->GetCurrentWeaponStockAmmo());
+			this->m_hud->SetAmmo(this->m_player->GetCurrentWeaponMagazineAmmo(), this->m_player->GetCurrentWeaponStockAmmo());*/
 
 			this->m_cursor.Update(time);
-			this->m_scene2D->Update(time);
-
-			// Check for a loading call
-			for(auto it = this->m_entities.begin(); it != this->m_entities.end() && !this->m_loading; it++) {
-				if((*it)->GetType() == SAMPLES::ENTITY_TYPE_TELEPORTER && ((SAMPLES::ITriggerEntity*)(*it).get())->CanDoAction()) {
-					std::thread(&CSampleApplication::LoadLevel, this, ((SAMPLES::CTeleporterEntity*)(*it).get())->GetNextLevelName()).detach();
-				}
-			}
 
 		} else {
 			this->m_loadingScene->Update(time);
@@ -111,13 +92,16 @@ namespace SAMPLE2 {
 	}
 
 	/**
-	* Do post level loading process
+	* Callback when the level is fully loaded
 	*/
-	void CSampleApplication::PostLoadLevel() {
-		this->m_player = std::unique_ptr<SAMPLES::CFPSCamera>(new SAMPLES::CFPSCamera(this->m_activeCamera, this->m_scene3D->GetNode("flashlight")));
-		((SAMPLES::CFPSCamera*)this->m_player.get())->SetScene(this->m_scene3D);
-		this->m_spotLight = (DE::CSpotLightSceneNode*)this->m_scene3D->GetNode("spotLight1");
-		
-		IForwardSampleApplication::PostLoadLevel();
+	void CSampleApplication::OnLevelLoaded() {
+		this->m_loading = false;
+	}
+
+	/**
+	* Callback when the next level is triggered
+	*/
+	void CSampleApplication::OnTriggerNextLevel(const std::string & nextLevel) {
+
 	}
 }

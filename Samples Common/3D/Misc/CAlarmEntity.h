@@ -40,16 +40,14 @@ namespace SAMPLES {
 	class CAlarmEntity : public IEntity {
 	private:
 		DE::CStaticMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-
 		float m_speed;
 
 	public:
 		/**
-		* @param node The alarm node
-		* @param scene3D The scene associated to the node
+		* @param parent The parent
+		* @param meshNode The alarm node
 		*/
-		CAlarmEntity(DE::CStaticMeshSceneNode * meshNode, DE::C3DScene * scene3D);
+		CAlarmEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the alarm

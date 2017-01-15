@@ -42,15 +42,15 @@ namespace SAMPLES
 	{
 	private:
 		DE::ISceneNode * m_node;
-		IPlayer * m_player;
 		DE::CSound m_sound;
 
 	public:
 		/**
-		* @param node The flashlight node
-		* @param camera The player
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The flashlight node
 		*/
-		CFlashlightEntity(DE::ISceneNode * meshNode, IPlayer * player);
+		CFlashlightEntity(ILevel * parent, DE::ISceneNode * meshNode);
 
 		/**
 		* Update the flashlight

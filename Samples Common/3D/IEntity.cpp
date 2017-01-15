@@ -26,8 +26,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "IEntity.h"
+#include "../Level/ILevel.h"
 
 namespace SAMPLES {
+
+	/**
+	* The constructor
+	* @param parent The parent
+	*/
+	IEntity::IEntity(ILevel * parent) {
+		this->m_parent = parent;
+	}
 
 	/**
 	* Get the entity type

@@ -29,14 +29,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ANIMATION_SPEED 10.0f
 
 #include "../../Enums.h"
+#include "../../Level/ILevel.h"
 #include "CSwitchEntity.h"
 
 namespace SAMPLES {
-	CSwitchEntity::CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D) {
+	/**
+	* Constructor
+	* @param parent The parent
+	* @param meshNode The switch node
+	*/
+	CSwitchEntity::CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		this->m_type = ENTITY_TYPE_SWITCH;
 		this->m_node = meshNode;
-		this->m_player = player;
 
 		this->m_highlighted = false;
 		this->m_state = SWITCH_STATE_OFF;
@@ -51,7 +56,7 @@ namespace SAMPLES {
 				this->m_highlighted = true;
 			}
 
-			if(this->m_player->IsInteracting()) {
+			if(this->m_parent->GetPlayer()->IsInteracting()) {
 				DoAction();
 			}
 		} else if(this->m_highlighted) {
@@ -105,7 +110,7 @@ namespace SAMPLES {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_player->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_player->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	void CSwitchEntity::SetOn() {

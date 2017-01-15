@@ -50,19 +50,17 @@ namespace SAMPLES {
 	private:
 		bool m_highlighted;
 		DE::CAnimatedMeshSceneNode * m_node;
-		DE::C3DScene * m_scene3D;
-		IPlayer * m_player;
 
 		DE::CSound m_sound;
 		ESwitchState m_state;
 
 	public:
 		/**
-		* @param node The switch node
-		* @param player The player
-		* @param scene3D The scene associated to the node
+		* Constructor
+		* @param parent The parent
+		* @param meshNode The switch node
 		*/
-		CSwitchEntity(DE::CAnimatedMeshSceneNode * meshNode, IPlayer * player, DE::C3DScene * scene3D);
+		CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the door
