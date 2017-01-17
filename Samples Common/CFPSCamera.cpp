@@ -131,8 +131,8 @@ namespace SAMPLES {
 		this->m_weaponChangeSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(nullptr, this->m_parent->GetScene())));
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(nullptr, this->m_parent->GetScene())));
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, nullptr)));
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(this->m_parent, nullptr)));
 		this->m_currentWeaponIndex = 0;
 		this->m_currentWeapon = this->m_weapons[0].get();
 	}

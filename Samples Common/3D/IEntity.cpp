@@ -39,18 +39,10 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Get the entity type
-	* @return The entity type
-	*/
-	const unsigned int IEntity::GetType() const {
-		return this->m_type;
-	}
-
-	/**
 	* Set the health
 	* @param health The health
 	*/
-	void IEntity::SetHealth(unsigned int health) {
+	void IEntity::SetHealth(const unsigned int health) {
 		this->m_health = health;
 	}
 
@@ -58,8 +50,36 @@ namespace SAMPLES {
 	* Set the max health
 	* @param health The max health
 	*/
-	void IEntity::SetMaxHealth(unsigned int health) {
+	void IEntity::SetMaxHealth(const unsigned int health) {
 		this->m_maxHealth = health;
+	}
+
+	/**
+	* Damage the entity
+	* @param damage The damage
+	*/
+	void IEntity::TakeDamage(const unsigned int damage) {
+		if(this->m_health <= damage) {
+			this->m_health = 0;
+		} else {
+			this->m_health -= damage;
+		}
+	}
+
+	/**
+	* Get the collision state
+	* @return The collision state
+	*/
+	const bool IEntity::GetCollisionState() const {
+		return false;
+	}
+
+	/**
+	* Get the entity type
+	* @return The entity type
+	*/
+	const unsigned int IEntity::GetType() const {
+		return this->m_type;
 	}
 
 	/**
@@ -76,5 +96,13 @@ namespace SAMPLES {
 	*/
 	const unsigned int IEntity::GetMaxHealth() const {
 		return this->m_maxHealth;
+	}
+
+	/**
+	* Get the entity collision shape
+	* @return The entity collision shape
+	*/
+	DE::IShape3DF * IEntity::GetCollisionShape() {
+		return nullptr;
 	}
 }

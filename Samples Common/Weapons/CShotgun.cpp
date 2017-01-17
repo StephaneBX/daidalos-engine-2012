@@ -33,10 +33,10 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
+	* @param parent The parent
 	* @param meshNode The weapon mesh node
-	* @param scene The 3D scene
 	*/
-	CShotgun::CShotgun(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene) : IWeapon(meshNode, scene) {
+	CShotgun::CShotgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : IWeapon(parent, meshNode) {
 		this->m_damage = 12;
 		this->m_magazineSize = 7;
 		this->m_maxMagazineSize = 7;
@@ -64,7 +64,7 @@ namespace SAMPLES {
 	*/
 	void CShotgun::InitializeParticleEmitters() {
 		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
-			DE::CParticleEmitter * emitter = this->m_scene->GetParticleSystem().InstanciateEmitter();
+			DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter();
 			emitter->SetTextureId(1);
 			emitter->SetBlendMode(1);
 			emitter->SetActive(false);

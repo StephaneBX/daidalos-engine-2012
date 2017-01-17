@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Medias/CSound.h>
 #include <Scene/3D/C3DScene.h>
+#include "../Level/ILevel.h"
 
 namespace SAMPLES {
 
@@ -70,7 +71,7 @@ namespace SAMPLES {
 		DE::CSound m_fireSound;
 		DE::CSound m_reloadSound;
 		DE::CAnimatedMeshSceneNode * m_meshNode;
-		DE::C3DScene * m_scene;
+		ILevel * m_parent;
 		std::vector<DE::CParticleEmitter*> m_bulletImpactParticle;
 
 		std::vector<int> m_activeProjectiles;
@@ -79,10 +80,10 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
+		* @param parent The parent
 		* @param meshNode The weapon mesh node
-		* @param scene The 3D scene
 		*/
-		IWeapon(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene);
+		IWeapon(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Fire the weapon

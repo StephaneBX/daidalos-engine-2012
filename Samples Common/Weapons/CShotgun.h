@@ -40,10 +40,10 @@ namespace SAMPLES {
 	public:
 		/**
 		* Constructor
+		* @param parent The parent
 		* @param meshNode The weapon mesh node
-		* @param scene The 3D scene
 		*/
-		CShotgun(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene);
+		CShotgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 	protected:
 		/**

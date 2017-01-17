@@ -92,6 +92,7 @@ namespace SAMPLES {
 
 	/**
 	* Get the scene graph
+	* @return The scene graph
 	*/
 	DE::C3DScene * ILevel::GetScene() {
 		return this->m_scene.get();
@@ -99,6 +100,7 @@ namespace SAMPLES {
 
 	/**
 	* Get the hud
+	* @return The hud
 	*/
 	DE::C2DScene * ILevel::GetHud() {
 		return this->m_hud.get();
@@ -106,6 +108,7 @@ namespace SAMPLES {
 
 	/**
 	* Get the active camera
+	* @return The active camera
 	*/
 	DE::ICameraSceneNode * ILevel::GetActiveCamera() {
 		return this->m_activeCamera;
@@ -113,8 +116,17 @@ namespace SAMPLES {
 
 	/**
 	* Get the player
+	* @return The player
 	*/
 	IPlayer * ILevel::GetPlayer() {
 		return this->m_player.get();
+	}
+
+	/**
+	* Get the entities
+	* @return The entities
+	*/
+	std::vector<std::unique_ptr<IEntity> > & ILevel::GetEntities() {
+		return this->m_entities;
 	}
 }

@@ -6371,7 +6371,7 @@
         </node>
 		<!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
-            <position>0:1:75</position>
+            <position>0:2:75</position>
             <rotation>0:0:0</rotation>
             <scale>0.24:0.24:0.24</scale>
             <diffuse_texture>zombie_d.png</diffuse_texture>
@@ -6379,9 +6379,39 @@
             <meshShading>1</meshShading>
             <material>default.mtl</material>
 			<attributes>
-				<health>10</health>
-				<max_health>10</max_health>
+				<health>50</health>
+				<max_health>50</max_health>
 				<patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
+			</attributes>
+        </node>
+		<!-- Animated Mesh Node -->
+        <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <position>105:-35:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<health>50</health>
+				<max_health>50</max_health>
+				<patrol_waypoints>-7:0:0|7:0:0</patrol_waypoints>
+			</attributes>
+        </node>
+		<!-- Animated Mesh Node -->
+        <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <position>130:10:225</position>
+            <rotation>0:0:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<health>50</health>
+				<max_health>50</max_health>
+				<patrol_waypoints></patrol_waypoints>
 			</attributes>
         </node>
     </node>

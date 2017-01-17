@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __IENTITY_H
 
 #include <set>
+#include <Scene/3D/IShape3D.h>
 
 namespace SAMPLES {
 	class ILevel;
@@ -54,13 +55,25 @@ namespace SAMPLES {
 		* Set the health
 		* @param health The health
 		*/
-		virtual void SetHealth(unsigned int health);
+		virtual void SetHealth(const unsigned int health);
 
 		/**
 		* Set the max health
 		* @param health The max health
 		*/
-		virtual void SetMaxHealth(unsigned int health);
+		virtual void SetMaxHealth(const unsigned int health);
+
+		/**
+		* Damage the entity
+		* @param damage The damage
+		*/
+		virtual void TakeDamage(const unsigned int damage);
+
+		/**
+		* Get the collision state
+		* @return The collision state
+		*/
+		virtual const bool GetCollisionState() const;
 
 		/**
 		* Get the entity type
@@ -79,6 +92,12 @@ namespace SAMPLES {
 		* @return The max health
 		*/
 		virtual const unsigned int GetMaxHealth() const;
+
+		/**
+		* Get the entity collision shape
+		* @return The entity collision shape
+		*/
+		virtual DE::IShape3DF * GetCollisionShape();
 
 		/**
 		* Update the entity

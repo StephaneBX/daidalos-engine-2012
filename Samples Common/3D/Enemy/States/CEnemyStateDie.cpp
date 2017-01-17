@@ -61,6 +61,7 @@ namespace SAMPLES {
 		if(!this->m_dead) {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			entity->SetCollisionState(false);
 			this->m_dead = true;
 		}
 

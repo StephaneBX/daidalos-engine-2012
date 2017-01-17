@@ -70,6 +70,13 @@ namespace DE {
 		virtual void SetPosition(const CVector3<T> & position);
 
 		/**
+		* Check for a point collision
+		* @param point The point
+		* @return The collision result
+		*/
+		virtual const bool IsCollision(const CVector3<T> & point) const;
+
+		/**
 		* Check for a plane collision
 		* @param plane The plane
 		* @return The collision result
@@ -113,6 +120,34 @@ namespace DE {
 
 	template <class T> void IShape3D<T>::SetPosition(const CVector3<T> & position) {
 		this->m_position = position;
+	}
+
+	template <class T> const bool IShape3D<T>::IsCollision(const CVector3<T> & point) const {
+
+		// Special case when the shapes are at the same exact spot
+		if(this->m_position == point) {
+			return true;
+		}
+
+		// Get the plane perpendicular to the shapes position in order to get the inner depth
+
+		// Get the z axis vector for the plane
+		CVector3F zAxis = point - this->m_position;
+		CVector3F tmpYAxis = CVector3F(0, 1, 0);
+
+		// Get the x axis vector for the plane
+		CVector3F xAxis = tmpYAxis.CrossProduct(zAxis);
+
+		// Get the y axis vector for the plane
+		CVector3F yAxis = zAxis.CrossProduct(xAxis);
+
+		CVector3F vertex[] = { (this->m_position + xAxis), this->m_position, (this->m_position + yAxis) };
+		CPlane3DF plane(vertex);
+
+		// Get the distance between the two centers
+		float distance = this->m_position.Distance(point);
+
+		return distance <= GetInnerDepth(plane);
 	}
 
 	template <class T> const bool IShape3D<T>::IsCollision(const CPlane3D<T> & plane) const {

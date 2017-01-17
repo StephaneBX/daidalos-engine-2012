@@ -33,10 +33,10 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
+	* @param parent The parent
 	* @param meshNode The weapon mesh node
-	* @param scene The 3D scene
 	*/
-	CHandgun::CHandgun(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene) : IWeapon(meshNode, scene) {
+	CHandgun::CHandgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : IWeapon(parent, meshNode) {
 		this->m_damage = 10;
 		this->m_magazineSize = 12;
 		this->m_maxMagazineSize = 12;
@@ -64,7 +64,7 @@ namespace SAMPLES {
 	*/
 	void CHandgun::InitializeParticleEmitters() {
 		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
-			DE::CParticleEmitter * emitter = this->m_scene->GetParticleSystem().InstanciateEmitter();
+			DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter();
 			emitter->SetTextureId(1);
 			emitter->SetBlendMode(1);
 			emitter->SetActive(false);

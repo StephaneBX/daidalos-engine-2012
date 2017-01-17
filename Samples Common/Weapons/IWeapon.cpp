@@ -36,10 +36,10 @@ namespace SAMPLES {
 
 	/**
 	* Constructor
+	* @param parent The parent
 	* @param meshNode The weapon mesh node
-	* @param scene The 3D scene
 	*/
-	IWeapon::IWeapon(DE::CAnimatedMeshSceneNode * meshNode, DE::C3DScene * scene) {
+	IWeapon::IWeapon(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) {
 		this->m_state = WEAPON_STATE_NONE;
 		this->m_damage = 0;
 		this->m_magazineSize = 0;
@@ -55,7 +55,7 @@ namespace SAMPLES {
 		this->m_range = 100;
 
 		this->m_meshNode = meshNode;
-		this->m_scene = scene;
+		this->m_parent = parent;
 	}
 
 	/**
@@ -82,7 +82,7 @@ namespace SAMPLES {
 				if(projectileIndex > -1) {
 
 					// Add a direction variation
-					DE::CVector3F directionAltered = this->m_scene->GetActiveCamera()->GetForwardVector();
+					DE::CVector3F directionAltered = this->m_parent->GetScene()->GetActiveCamera()->GetForwardVector();
 					directionAltered.x += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
 					directionAltered.y += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
 					directionAltered.z += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
@@ -93,7 +93,7 @@ namespace SAMPLES {
 					projectile.damage = this->m_damage;
 					projectile.direction = directionAltered;
 					projectile.distance = this->m_range;
-					projectile.position = this->m_scene->GetActiveCamera()->GetAbsolutePosition();
+					projectile.position = this->m_parent->GetScene()->GetActiveCamera()->GetAbsolutePosition();
 					this->m_activeProjectiles.push_back(projectileIndex);
 				}
 				
@@ -157,11 +157,45 @@ namespace SAMPLES {
 		for(auto it = this->m_activeProjectiles.begin(); it != this->m_activeProjectiles.end(); ) {
 			SProjectile & projectile = this->m_projectiles.GetReferenceAt((*it));
 
+			bool hit = false;
 			DE::CVector3F collisionPoint;
 			DE::CVector3F movement = projectile.direction * 200.0f * timeSecond;
 
-			// If an impact is detected
-			if(this->m_scene->GetCollisionPoint(projectile.position, movement, collisionPoint)) {
+			// Check for impact on the entities
+			for(auto it2 = this->m_parent->GetEntities().begin(); it2 != this->m_parent->GetEntities().end() && !hit; ++it2) {
+				if((*it2)->GetCollisionState() && (*it2)->GetCollisionShape() != nullptr) {
+
+					for(int i = 1; i < (int)movement.Length() + 1 && !hit; i++) {
+						DE::CVector3F movementStep = (movement * (float)i) / movement.Length();
+
+						if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {
+
+							(*it2)->TakeDamage(projectile.damage);
+							hit = true;
+
+							// Generate a particle
+							bool freeParticleEmitterFound = false;
+							for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
+								if(!this->m_bulletImpactParticle[index]->IsActive()) {
+									freeParticleEmitterFound = true;
+									this->m_bulletImpactParticle[index]->SetLife(0);
+									this->m_bulletImpactParticle[index]->SetLifeMax(PARTICLE_LIFE);
+									this->m_bulletImpactParticle[index]->SetActive(true);
+									this->m_bulletImpactParticle[index]->SetPosition(projectile.position + movementStep - (projectile.direction * PARTICLE_DIRECTION_DECAL));
+								}
+							}
+
+							// Kill the projectile
+							this->m_projectiles.Delete((*it));
+							it = this->m_activeProjectiles.erase(it);
+						}
+					}
+				}
+			}
+
+			// If an impact is detected on the static part
+			if(!hit && this->m_parent->GetScene()->GetCollisionPoint(projectile.position, movement, collisionPoint)) {
+				hit = true;
 				// Generate a particle
 				bool freeParticleEmitterFound = false;
 				for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
@@ -178,7 +212,9 @@ namespace SAMPLES {
 				this->m_projectiles.Delete((*it));
 				it = this->m_activeProjectiles.erase(it);
 
-			} else {
+			}
+
+			if(!hit) {
 				// The projectile is moving
 				projectile.position += movement;
 				projectile.distance -= movement.Length();

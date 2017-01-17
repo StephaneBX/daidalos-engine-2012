@@ -75,23 +75,33 @@ namespace SAMPLES {
 
 		/**
 		* Get the scene graph
+		* @return The scene graph
 		*/
 		DE::C3DScene * GetScene();
 
 		/**
 		* Get the hud
+		* @return The hud
 		*/
 		DE::C2DScene * GetHud();
 
 		/**
 		* Get the active camera
+		* @eturn The active camera
 		*/
 		DE::ICameraSceneNode * GetActiveCamera();
 
 		/**
 		* Get the player
+		* @return The player
 		*/
 		IPlayer * GetPlayer();
+
+		/**
+		* Get the entities
+		* @return The entities
+		*/
+		std::vector<std::unique_ptr<IEntity> > & GetEntities();
 
 	protected:
 		/**
