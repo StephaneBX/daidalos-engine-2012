@@ -69,4 +69,12 @@ namespace DE {
 	const float CRotationParticleInitializer::GetRotationMax() const {
 		return this->m_rotationMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CRotationParticleInitializer::Clone() {
+		return new CRotationParticleInitializer(this->m_rotationMin, this->m_rotationMax);
+	}
 }

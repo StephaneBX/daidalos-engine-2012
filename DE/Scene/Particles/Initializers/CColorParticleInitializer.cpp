@@ -70,4 +70,12 @@ namespace DE {
 	const CColor & CColorParticleInitializer::GetColorMax() const {
 		return this->m_colorMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CColorParticleInitializer::Clone() {
+		return new CColorParticleInitializer(this->m_colorMin, this->m_colorMax);
+	}
 }

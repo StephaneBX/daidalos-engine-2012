@@ -82,6 +82,12 @@ namespace DE {
 		* @return The direction
 		*/
 		const CVector3F & GetDirection() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

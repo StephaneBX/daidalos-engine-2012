@@ -66,6 +66,12 @@ namespace DE {
 		* @return The color max
 		*/
 		const CColor & GetColorMax() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

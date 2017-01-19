@@ -79,6 +79,14 @@ namespace DE {
 	}
 
 	/**
+	* Load an emittersTemplate file
+	* @param filename The filename
+	*/
+	void CParticleSystem::LoadEmittersTemplate(const std::string & filename) {
+		this->m_particleEmittersTemplates.LoadFromFile(filename);
+	}
+
+	/**
 	* Set the atlas texture
 	* @param filename The filename
 	* @param size The number of columns and rows
@@ -232,6 +240,23 @@ namespace DE {
 	*/
 	CParticleEmitter * CParticleSystem::InstanciateEmitter() {
 		CParticleEmitter * emitter = new CParticleEmitter();
+		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
+		return emitter;
+	}
+
+	/**
+	* Create a particle emitter from a template and return it
+	* @param templateName The template name
+	* @param emitterName The emitter name
+	* @return The emitter
+	*/
+	CParticleEmitter * CParticleSystem::InstanciateEmitter(const std::string templateName, const std::string emitterName) {
+
+		CParticleEmitter * emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
+		if(emitter == nullptr) {
+			emitter = new CParticleEmitter();
+		}
+
 		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
 		return emitter;
 	}

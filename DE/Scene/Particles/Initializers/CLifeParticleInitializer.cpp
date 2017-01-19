@@ -70,4 +70,12 @@ namespace DE {
 	const float CLifeParticleInitializer::GetLifeMax() const {
 		return this->m_lifeMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CLifeParticleInitializer::Clone() {
+		return new CLifeParticleInitializer(this->m_lifeMin, this->m_lifeMax);
+	}
 }

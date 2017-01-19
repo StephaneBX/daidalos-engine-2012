@@ -59,4 +59,12 @@ namespace DE {
 	const CVector3F & CGravityParticleUpdater::GetGravity() const {
 		return this->m_gravity;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CGravityParticleUpdater::Clone() {
+		return new CGravityParticleUpdater(this->m_gravity);
+	}
 }

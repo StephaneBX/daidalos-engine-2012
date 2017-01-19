@@ -42,6 +42,7 @@ namespace SAMPLES {
 		unsigned int m_type;
 		unsigned int m_health;
 		unsigned int m_maxHealth;
+		DE::CVector3F m_visiblePosition;
 		ILevel * m_parent;
 
 	public:
@@ -92,6 +93,12 @@ namespace SAMPLES {
 		* @return The max health
 		*/
 		virtual const unsigned int GetMaxHealth() const;
+
+		/**
+		* Get the visible position
+		* @return The visible position
+		*/
+		virtual const DE::CVector3F & GetVisiblePosition() const;
 
 		/**
 		* Get the entity collision shape

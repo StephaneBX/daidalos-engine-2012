@@ -54,4 +54,12 @@ namespace DE {
 			}
 		}
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CLifeParticleUpdater::Clone() {
+		return new CLifeParticleUpdater();
+	}
 }

@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Medias/CShaderProgram.h"
 #include "../../Core/Utility/CVector2.h"
 #include "../../Core/Memory/CMemoryAllocator.h"
+#include "../../Scene/Particles/CParticleEmittersTemplates.h"
 #include "../../Scene/Particles/CParticleEntity.h"
 #include "../../Scene/Particles/CParticleEmitter.h"
 #include "../../Scene/3D/ICameraSceneNode.h"
@@ -58,6 +59,7 @@ namespace DE {
 		CVector2I m_atlasSize;
 		CMemoryAllocator<CParticleEntity> m_particleBuffer;
 		std::vector<std::unique_ptr<CParticleEmitter> > m_emitters;
+		CParticleEmittersTemplates m_particleEmittersTemplates;
 
 		// Data used to sort the particles
 		std::unique_ptr<float> m_particleDistance;
@@ -84,6 +86,12 @@ namespace DE {
 		* @param maxSize The maximum particle system size
 		*/
 		void InitializeSystem(const int maxSize);
+
+		/**
+		* Load an emittersTemplate file
+		* @param filename The filename
+		*/
+		void LoadEmittersTemplate(const std::string & filename);
 
 		/**
 		* Set the atlas texture
@@ -139,10 +147,18 @@ namespace DE {
 		const CVector2I & GetAtlasTextureSize() const;
 
 		/**
-		* Create a particle emitter and return it
+		* Create a basic particle emitter and return it
 		* @return The emitter
 		*/
 		CParticleEmitter * InstanciateEmitter();
+
+		/**
+		* Create a particle emitter from a template and return it
+		* @param templateName The template name
+		* @param emitterName The emitter name
+		* @return The emitter
+		*/
+		CParticleEmitter * InstanciateEmitter(const std::string templateName, const std::string emitterName);
 
 	private:
 		/**

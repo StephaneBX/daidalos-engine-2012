@@ -66,6 +66,12 @@ namespace DE {
 		* @return The life max
 		*/
 		const float GetLifeMax() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

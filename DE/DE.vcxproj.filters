@@ -582,6 +582,18 @@
     <ClInclude Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
+    <ClInclude Include="Loaders\CParticleEmittersTemplateLoader.h">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleEmittersTemplate.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEmittersTemplates.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IClonable.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -954,6 +966,15 @@
       <Filter>Fichiers sources\Scene\Particles</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Particles\IParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Loaders\CParticleEmittersTemplateLoader.cpp">
+      <Filter>Fichiers sources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\IParticleEmittersTemplate.cpp">
+      <Filter>Fichiers sources\Scene\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\CParticleEmittersTemplates.cpp">
       <Filter>Fichiers sources\Scene\Particles</Filter>
     </ClCompile>
   </ItemGroup>

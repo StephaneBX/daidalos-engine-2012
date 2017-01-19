@@ -66,6 +66,12 @@ namespace DE {
 		* @return The velocity max
 		*/
 		const float GetVelocityMax() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

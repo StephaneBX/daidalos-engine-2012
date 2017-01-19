@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IPARTICLEUPDATER_H
 #define __IPARTICLEUPDATER_H
 
+#include "../../Core/IClonable.h"
 #include "../../Core/Memory/CMemoryAllocator.h"
 #include "../../Scene/Particles/CParticleEntity.h"
 
@@ -45,7 +46,7 @@ namespace DE {
 	/**
 	* The particle updater abstract class
 	*/
-	class IParticleUpdater {
+	class IParticleUpdater : public IClonable {
 
 	protected:
 		EParticleUpdaterType m_type;
@@ -64,6 +65,12 @@ namespace DE {
 		* @return The updater type
 		*/
 		const EParticleUpdaterType GetType() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		virtual IClonable * Clone() = 0;
 	};
 }
 

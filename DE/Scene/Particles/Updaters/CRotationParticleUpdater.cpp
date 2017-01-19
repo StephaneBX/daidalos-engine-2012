@@ -50,4 +50,12 @@ namespace DE {
 			particle->SetRotation(particle->GetRotation() + particle->GetRotationSpeed() * timeSecond);
 		}
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CRotationParticleUpdater::Clone() {
+		return new CRotationParticleUpdater();
+	}
 }

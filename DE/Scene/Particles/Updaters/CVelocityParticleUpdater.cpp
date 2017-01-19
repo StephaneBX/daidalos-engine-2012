@@ -65,4 +65,12 @@ namespace DE {
 	const float CVelocityParticleUpdater::GetDamping() const {
 		return this->m_damping;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CVelocityParticleUpdater::Clone() {
+		return new CVelocityParticleUpdater(this->m_damping);
+	}
 }

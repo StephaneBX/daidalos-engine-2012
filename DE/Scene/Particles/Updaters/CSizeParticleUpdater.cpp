@@ -49,4 +49,12 @@ namespace DE {
 			particle->SetSize(particle->GetSizeMin() + (particle->GetSizeMax() - particle->GetSizeMin()) * particle->GetLifeNormalized());
 		}
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CSizeParticleUpdater::Clone() {
+		return new CSizeParticleUpdater();
+	}
 }

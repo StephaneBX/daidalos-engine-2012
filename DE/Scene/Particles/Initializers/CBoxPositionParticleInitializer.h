@@ -66,6 +66,12 @@ namespace DE {
 		* @return The max position
 		*/
 		const CVector3F & GetPositionMax() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

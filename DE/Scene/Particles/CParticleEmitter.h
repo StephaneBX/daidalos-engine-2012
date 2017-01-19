@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <vector>
 #include <memory>
+#include "../../Core/IClonable.h"
 #include "../../Core/Utility/CVector3.h"
 #include "../../Scene/3D/CSphere.h"
 #include "../../Scene/Particles/IParticleInitializer.h"
@@ -55,7 +56,7 @@ namespace DE {
 	/**
 	* A particle emitter
 	*/
-	class CParticleEmitter {
+	class CParticleEmitter : IClonable {
 	protected:
 		bool m_active;
 		bool m_reusable;
@@ -209,6 +210,12 @@ namespace DE {
 		* @return The particle updaters
 		*/
 		const std::vector<std::unique_ptr<IParticleUpdater> > & GetUpdaters() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

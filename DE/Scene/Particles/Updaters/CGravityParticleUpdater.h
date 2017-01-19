@@ -58,6 +58,12 @@ namespace DE {
 		* @return The gravity
 		*/
 		const CVector3F & GetGravity() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

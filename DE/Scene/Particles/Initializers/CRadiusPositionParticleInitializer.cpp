@@ -60,4 +60,12 @@ namespace DE {
 	const float CRadiusPositionParticleInitializer::GetRadius() const {
 		return this->m_radius;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CRadiusPositionParticleInitializer::Clone() {
+		return new CRadiusPositionParticleInitializer(this->m_radius);
+	}
 }

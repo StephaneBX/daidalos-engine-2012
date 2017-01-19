@@ -71,4 +71,12 @@ namespace DE {
 	const CVector3F & CBoxPositionParticleInitializer::GetPositionMax() const {
 		return this->m_positionMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CBoxPositionParticleInitializer::Clone() {
+		return new CBoxPositionParticleInitializer(this->m_positionMin, this->m_positionMax);
+	}
 }

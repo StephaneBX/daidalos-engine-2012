@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CStaticSoundLoader.h"
 #include "../Loaders/CStreamSoundLoader.h"
 #include "../Loaders/CFontLoader.h"
+#include "../Loaders/CParticleEmittersTemplateLoader.h"
 #include "../Core/IRenderer.h"
 #include "../Core/Logger/CLoggerFile.h"
 #include "../Core/CMediaManager.h"
@@ -84,6 +85,7 @@ namespace DE {
 		CMediaManager::GetInstance()->AddLoader(new CStaticSoundLoader(), "wav ogg flac");
 		CMediaManager::GetInstance()->AddLoader(new CStreamSoundLoader(), "wav ogg flac");
 		CMediaManager::GetInstance()->AddLoader(new CFontLoader(), "fnt");
+		CMediaManager::GetInstance()->AddLoader(new CParticleEmittersTemplateLoader(), "dept");
 
 		// Default search path
 		CMediaManager::GetInstance()->AddSearchPath("");
@@ -96,6 +98,7 @@ namespace DE {
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Sounds/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Scenes/");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Fonts/");
+		CMediaManager::GetInstance()->AddSearchPath("Resources/Particles/");
 	}
 
 	IApplication::~IApplication() {
@@ -110,6 +113,7 @@ namespace DE {
 		CMediaManager::GetInstance()->RemoveLoader<IStaticSoundBase>();
 		CMediaManager::GetInstance()->RemoveLoader<IStreamSoundBase>();
 		CMediaManager::GetInstance()->RemoveLoader<IFontBase>();
+		CMediaManager::GetInstance()->RemoveLoader<IParticleEmittersTemplate>();
 		CConfigurationManager::Kill();
 		CInputDevice::Kill();
 		CSoundContextManager::Kill();

@@ -165,29 +165,32 @@ namespace SAMPLES {
 			for(auto it2 = this->m_parent->GetEntities().begin(); it2 != this->m_parent->GetEntities().end() && !hit; ++it2) {
 				if((*it2)->GetCollisionState() && (*it2)->GetCollisionShape() != nullptr) {
 
-					for(int i = 1; i < (int)movement.Length() + 1 && !hit; i++) {
-						DE::CVector3F movementStep = (movement * (float)i) / movement.Length();
+					// If the projectile movement is greater or equal than the projectile/entity distance
+					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {
+						for(int i = 1; i < (int)movement.Length() + 1 && !hit; i++) {
+							DE::CVector3F movementStep = (movement * (float)i) / movement.Length();
 
-						if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {
+							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {
 
-							(*it2)->TakeDamage(projectile.damage);
-							hit = true;
+								(*it2)->TakeDamage(projectile.damage);
+								hit = true;
 
-							// Generate a particle
-							bool freeParticleEmitterFound = false;
-							for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
-								if(!this->m_bulletImpactParticle[index]->IsActive()) {
-									freeParticleEmitterFound = true;
-									this->m_bulletImpactParticle[index]->SetLife(0);
-									this->m_bulletImpactParticle[index]->SetLifeMax(PARTICLE_LIFE);
-									this->m_bulletImpactParticle[index]->SetActive(true);
-									this->m_bulletImpactParticle[index]->SetPosition(projectile.position + movementStep - (projectile.direction * PARTICLE_DIRECTION_DECAL));
+								// Generate a particle
+								bool freeParticleEmitterFound = false;
+								for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
+									if(!this->m_bulletImpactParticle[index]->IsActive()) {
+										freeParticleEmitterFound = true;
+										this->m_bulletImpactParticle[index]->SetLife(0);
+										this->m_bulletImpactParticle[index]->SetLifeMax(PARTICLE_LIFE);
+										this->m_bulletImpactParticle[index]->SetActive(true);
+										this->m_bulletImpactParticle[index]->SetPosition(projectile.position + movementStep - (projectile.direction * PARTICLE_DIRECTION_DECAL));
+									}
 								}
-							}
 
-							// Kill the projectile
-							this->m_projectiles.Delete((*it));
-							it = this->m_activeProjectiles.erase(it);
+								// Kill the projectile
+								this->m_projectiles.Delete((*it));
+								it = this->m_activeProjectiles.erase(it);
+							}
 						}
 					}
 				}

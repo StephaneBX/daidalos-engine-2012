@@ -99,6 +99,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Get the visible position
+	* @return The visible position
+	*/
+	const DE::CVector3F & IEntity::GetVisiblePosition() const {
+		return this->m_visiblePosition;
+	}
+
+	/**
 	* Get the entity collision shape
 	* @return The entity collision shape
 	*/

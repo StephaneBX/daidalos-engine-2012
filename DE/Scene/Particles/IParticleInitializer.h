@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IPARTICLEINITIALIZER_H
 #define __IPARTICLEINITIALIZER_H
 
+#include "../../Core/IClonable.h"
 #include "../../Core/Memory/CMemoryAllocator.h"
 #include "../../Scene/Particles/CParticleEntity.h"
 
@@ -47,7 +48,7 @@ namespace DE {
 	/**
 	* The particle initializer abstract class
 	*/
-	class IParticleInitializer {
+	class IParticleInitializer : public IClonable {
 
 	protected:
 		EParticleInitializerType m_type;
@@ -65,6 +66,12 @@ namespace DE {
 		* @return The initializer type
 		*/
 		const EParticleInitializerType GetType() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		virtual IClonable * Clone() = 0;
 	};
 }
 

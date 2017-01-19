@@ -66,6 +66,12 @@ namespace DE {
 		* @return The size max
 		*/
 		const float GetSizeMax();
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

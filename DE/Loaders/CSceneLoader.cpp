@@ -437,7 +437,7 @@ namespace DE {
 		LOG_TRACE();
 
 		int particleSystemSize;
-		std::string atlasTexture;
+		std::string atlasTexture, templateName;
 		CVector2I atlasSize;
 
 		// Read the system size
@@ -446,6 +446,24 @@ namespace DE {
 		// Read the atlas texture
 		GetNodeData(handle, "atlasTextureFile", atlasTexture, "particleAtlas.tga");
 		GetNodeData(handle, "atlasTextureSize", atlasSize, CVector2I(1, 1));
+
+		// Read the emitters templates
+		tinyxml2::XMLElement * emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
+		if(emittersTemplates != nullptr) {
+			// Read the templates
+			tinyxml2::XMLHandle & templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
+			tinyxml2::XMLElement * templateElement = templatesHandle.FirstChildElement("template").ToElement();
+
+			if(templateElement != nullptr) {
+				for(templateElement; templateElement; templateElement = templateElement->NextSiblingElement()) {
+					tinyxml2::XMLHandle & templateHandle = tinyxml2::XMLHandle(templateElement);
+					tinyxml2::XMLText * text = templateHandle.FirstChild().ToText();
+					if(text != nullptr) {
+						scene->GetParticleSystem().LoadEmittersTemplate(text->Value());
+					}
+				}
+			}
+		}
 
 		scene->GetParticleSystem().InitializeSystem(particleSystemSize);
 		scene->GetParticleSystem().SetAtlasTexture(atlasTexture, atlasSize);
@@ -737,17 +755,29 @@ namespace DE {
 		CColor emitterParticleColorMin, emitterParticleColorMax;
 		CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
 
+		// Template attributes
+		std::string templateName = "";
+		if(handle.ToElement()->Attribute("templateName") != nullptr) {
+			templateName = handle.ToElement()->Attribute("templateName");
+		}
+		std::string emitterName = "";
+		if(handle.ToElement()->Attribute("emitterName") != nullptr) {
+			emitterName = handle.ToElement()->Attribute("emitterName");
+		}
+
+		// Create the emitter with an optional template
+		CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter(templateName, emitterName);
+
 		// Basic values
-		GetNodeData(handle, "active", emitterActive, true);
+		GetNodeData(handle, "active", emitterActive, emitter->IsActive());
 		GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
 		GetNodeData(handle, "textureId", emitterTextureId, 0);
 		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
-		GetNodeData(handle, "life", emitterLife, -1);
-		GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
-		GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
+		GetNodeData(handle, "life", emitterLife, emitter->GetLife());
+		GetNodeData(handle, "lifeMax", emitterLifeMax, emitter->GetLifeMax());
+		GetNodeData(handle, "emissionRate", emitterEmissionRate, emitter->GetEmissionRate());
 
-		// Create the emitter
-		CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter();
+		// Replace the values
 		emitter->SetActive(emitterActive);
 		emitter->SetTextureId(emitterTextureId);
 		emitter->SetBlendMode(emitterBlendMode);
@@ -757,94 +787,99 @@ namespace DE {
 
 		// Look for initializers
 		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
-		for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-			std::string childName = std::string(child->Name());
-			tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+		if(initializersElement != nullptr) {
+			for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				std::string childName = std::string(child->Name());
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
-			if(childName.compare("minMaxColor") == 0) {
-				GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-				GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-				CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
-				emitter->AddInitializer(initializer);
+				if(childName.compare("minMaxColor") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("minMaxSize") == 0) {
-				GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
-				GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
-				CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxSize") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
+					GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
+					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("minMaxLife") == 0) {
-				GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
-				GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
-				CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxLife") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
+					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("minMaxRotation") == 0) {
-				GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
-				GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
-				CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxRotation") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
+					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("minMaxSphereVelocity") == 0) {
-				GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-				GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-				CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxSphereVelocity") == 0) {
+					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("linearVelocity") == 0) {
-				GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
-				GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
-				GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-				GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-				CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("linearVelocity") == 0) {
+					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
+					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
+					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
+					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
+					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("minMaxBoxPosition") == 0) {
-				GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
-				GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
-				CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("minMaxBoxPosition") == 0) {
+					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
+					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
+					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
+					emitter->AddInitializer(initializer);
 
-			} else if(childName.compare("radiusPosition") == 0) {
-				GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
-				CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
-				emitter->AddInitializer(initializer);
+				} else if(childName.compare("radiusPosition") == 0) {
+					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
+					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
+					emitter->AddInitializer(initializer);
+				}
 			}
 		}
 
 		// Look for updaters
 		tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
-		for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-			std::string childName = std::string(child->Name());
-			tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+		if(updatersElement != nullptr) {
+			for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				std::string childName = std::string(child->Name());
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
-			if(childName.compare("color") == 0) {
-				CColorParticleUpdater * updater = new CColorParticleUpdater();
-				emitter->AddUpdater(updater);
+				if(childName.compare("color") == 0) {
+					CColorParticleUpdater * updater = new CColorParticleUpdater();
+					emitter->AddUpdater(updater);
 
-			} else if(childName.compare("gravity") == 0) {
-				GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
-				CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
-				emitter->AddUpdater(updater);
+				} else if(childName.compare("gravity") == 0) {
+					GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
+					CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
+					emitter->AddUpdater(updater);
 
-			} else if(childName.compare("life") == 0) {
-				CLifeParticleUpdater * updater = new CLifeParticleUpdater();
-				emitter->AddUpdater(updater);
+				} else if(childName.compare("life") == 0) {
+					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
+					emitter->AddUpdater(updater);
 
-			} else if(childName.compare("rotation") == 0) {
-				CRotationParticleUpdater * updater = new CRotationParticleUpdater();
-				emitter->AddUpdater(updater);
+				} else if(childName.compare("rotation") == 0) {
+					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
+					emitter->AddUpdater(updater);
 
-			} else if(childName.compare("size") == 0) {
-				CSizeParticleUpdater * updater = new CSizeParticleUpdater();
-				emitter->AddUpdater(updater);
+				} else if(childName.compare("size") == 0) {
+					CSizeParticleUpdater * updater = new CSizeParticleUpdater();
+					emitter->AddUpdater(updater);
 
-			} else if(childName.compare("velocity") == 0) {
-				GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
-				CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
-				emitter->AddUpdater(updater);
+				} else if(childName.compare("velocity") == 0) {
+					GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
+					CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
+					emitter->AddUpdater(updater);
+				}
 			}
 		}
+		
 		node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
 		static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
 	}

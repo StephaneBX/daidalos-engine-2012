@@ -70,5 +70,13 @@ namespace DE {
 	const float CSizeParticleInitializer::GetSizeMax() {
 		return this->m_sizeMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CSizeParticleInitializer::Clone() {
+		return new CSizeParticleInitializer(this->m_sizeMin, this->m_sizeMax);
+	}
 }
 

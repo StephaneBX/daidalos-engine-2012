@@ -46,7 +46,6 @@ namespace SAMPLES {
 		float m_collisionUpdateFrequency;
 		float m_lastCollisionUpdateTimer;
 		DE::CVector3F m_gravity;
-		DE::CVector3F m_visiblePosition;
 		std::unique_ptr<DE::IShape3DF> m_collisionShape;
 
 	public:
@@ -103,12 +102,6 @@ namespace SAMPLES {
 		* @return The gravity
 		*/
 		const DE::CVector3F & GetGravity() const;
-
-		/**
-		* Get the visible position
-		* @return The visible position
-		*/
-		const DE::CVector3F & GetVisiblePosition() const;
 
 		/**
 		* Get the entity collision shape

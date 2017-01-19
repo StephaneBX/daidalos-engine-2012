@@ -4,6 +4,9 @@
         <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
         <atlasTextureSize>4:4</atlasTextureSize>
         <systemSize>5000</systemSize>
+		<particleEmittersTemplates>
+			<template>default.dept</template>
+		</particleEmittersTemplates>
     </particleSystem>
     <!-- BSP Level Node -->
     <node type="0" name="level" ambientColor="1:1:1:1" skyName="sky1" skyAmbientColor="0:0:0:1">
@@ -6085,48 +6088,10 @@
             <boundingBox>wall_1.obj</boundingBox>
         </node>
         <!-- Particle Emitter Node -->
-        <node type="9" name="smokeLeakEmitter">
+        <node type="9" name="smokeLeakEmitter" templateName="default.dept" emitterName="smokeLeakEmitter">
             <active>1</active>
             <position>110:12:75</position>
             <textureId>0</textureId>
-            <blendMode>5</blendMode>
-            <life>349254</life>
-            <lifeMax>-1</lifeMax>
-            <emissionRate>80</emissionRate>
-            <initializers>
-                <minMaxColor>
-                    <min>0.3:0.3:0.3:0.2</min>
-                    <max>0.3:0.3:0.3:0</max>
-                </minMaxColor>
-                <minMaxSize>
-                    <min>2</min>
-                    <max>6</max>
-                </minMaxSize>
-                <minMaxLife>
-                    <min>0</min>
-                    <max>8000</max>
-                </minMaxLife>
-                <minMaxRotation>
-                    <min>-45</min>
-                    <max>45</max>
-                </minMaxRotation>
-                <minMaxSphereVelocity>
-                    <min>1</min>
-                    <max>1.5</max>
-                </minMaxSphereVelocity>
-            </initializers>
-            <updaters>
-                <color/>
-                <gravity>
-                    <vector>0:0:0.8</vector>
-                </gravity>
-                <life/>
-                <rotation/>
-                <size/>
-                <velocity>
-                    <damping>0.05</damping>
-                </velocity>
-            </updaters>
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="alarm_entity" file="alarm.obj">
@@ -6287,45 +6252,10 @@
             <file>enter_the_maze.wav</file>
         </node>
         <!-- Particle Emitter Node -->
-        <node type="9" name="smokeGreenEmitter">
+        <node type="9" name="smokeGreenEmitter" templateName="default.dept" emitterName="smokeGreenEmitter">
             <active>1</active>
             <position>105:-40:110</position>
             <textureId>0</textureId>
-            <blendMode>5</blendMode>
-            <life>176245</life>
-            <lifeMax>-1</lifeMax>
-            <emissionRate>100</emissionRate>
-            <initializers>
-                <minMaxColor>
-                    <min>0.2:0.4:0.2:0.2</min>
-                    <max>0.2:0.4:0.2:0</max>
-                </minMaxColor>
-                <minMaxSize>
-                    <min>4</min>
-                    <max>8</max>
-                </minMaxSize>
-                <minMaxLife>
-                    <min>0</min>
-                    <max>5000</max>
-                </minMaxLife>
-                <minMaxRotation>
-                    <min>-45</min>
-                    <max>45</max>
-                </minMaxRotation>
-                <minMaxBoxPosition>
-                    <min>-10:0:-5</min>
-                    <max>10:0:5</max>
-                </minMaxBoxPosition>
-            </initializers>
-            <updaters>
-                <color/>
-                <gravity>
-                    <vector>0:3:0</vector>
-                </gravity>
-                <life/>
-                <rotation/>
-                <size/>
-            </updaters>
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="security_camera_entity" file="security_camera_root.obj">

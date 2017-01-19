@@ -52,4 +52,12 @@ namespace DE {
 			particle->SetColor(CColor(color.x, color.y, color.z, color.w));
 		}
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CColorParticleUpdater::Clone() {
+		return new CColorParticleUpdater();
+	}
 }

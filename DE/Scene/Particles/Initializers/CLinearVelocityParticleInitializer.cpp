@@ -101,4 +101,12 @@ namespace DE {
 	const CVector3F & CLinearVelocityParticleInitializer::GetDirection() const {
 		return this->m_direction;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CLinearVelocityParticleInitializer::Clone() {
+		return new CLinearVelocityParticleInitializer(this->m_direction, this->m_variationFactor, this->m_velocityMin, this->m_velocityMax);
+	}
 }

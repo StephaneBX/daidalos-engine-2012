@@ -16,6 +16,7 @@
     <ClInclude Include="Core\CSoundContextManager.h" />
     <ClInclude Include="Core\Enums.h" />
     <ClInclude Include="Core\IApplication.h" />
+    <ClInclude Include="Core\IClonable.h" />
     <ClInclude Include="Core\IDeclaration.h" />
     <ClInclude Include="Core\CInputDevice.h" />
     <ClInclude Include="Core\ILoader.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="Loaders\CMD2Loader.h" />
     <ClInclude Include="Loaders\CMS3DLoader.h" />
     <ClInclude Include="Loaders\COBJLoader.h" />
+    <ClInclude Include="Loaders\CParticleEmittersTemplateLoader.h" />
     <ClInclude Include="Loaders\CSceneLoader.h" />
     <ClInclude Include="Loaders\CStaticSoundLoader.h" />
     <ClInclude Include="Loaders\CStreamSoundLoader.h" />
@@ -143,6 +145,7 @@
     <ClInclude Include="Scene\3D\Structure\BSP\CBSPTriangle.h" />
     <ClInclude Include="Scene\3D\Structure\Simple\CSimpleSceneNode.h" />
     <ClInclude Include="Scene\Particles\CParticleEmitter.h" />
+    <ClInclude Include="Scene\Particles\CParticleEmittersTemplates.h" />
     <ClInclude Include="Scene\Particles\CParticleEntity.h" />
     <ClInclude Include="Scene\Particles\CParticleSystem.h" />
     <ClInclude Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\IParticleEmittersTemplate.h" />
     <ClInclude Include="Scene\Particles\IParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\IParticleUpdater.h" />
     <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.h" />
@@ -192,6 +196,7 @@
     <ClCompile Include="Loaders\CMD2Loader.cpp" />
     <ClCompile Include="Loaders\CMS3DLoader.cpp" />
     <ClCompile Include="Loaders\COBJLoader.cpp" />
+    <ClCompile Include="Loaders\CParticleEmittersTemplateLoader.cpp" />
     <ClCompile Include="Loaders\CSceneLoader.cpp" />
     <ClCompile Include="Loaders\CStaticSoundLoader.cpp" />
     <ClCompile Include="Loaders\CStreamSoundLoader.cpp" />
@@ -269,6 +274,7 @@
     <ClCompile Include="Scene\3D\Structure\BSP\CBSPTriangle.cpp" />
     <ClCompile Include="Scene\3D\Structure\Simple\CSimpleSceneNode.cpp" />
     <ClCompile Include="Scene\Particles\CParticleEmitter.cpp" />
+    <ClCompile Include="Scene\Particles\CParticleEmittersTemplates.cpp" />
     <ClCompile Include="Scene\Particles\CParticleEntity.cpp" />
     <ClCompile Include="Scene\Particles\CParticleSystem.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.cpp" />
@@ -280,6 +286,7 @@
     <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSizeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\IParticleEmittersTemplate.cpp" />
     <ClCompile Include="Scene\Particles\IParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\IParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CColorParticleUpdater.cpp" />

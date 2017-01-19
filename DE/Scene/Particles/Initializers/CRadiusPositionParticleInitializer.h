@@ -58,6 +58,12 @@ namespace DE {
 		* @return The radius
 		*/
 		const float GetRadius() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

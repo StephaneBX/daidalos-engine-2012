@@ -77,5 +77,13 @@ namespace DE {
 	const float CSphereVelocityParticleInitializer::GetVelocityMax() const {
 		return this->m_velocityMax;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CSphereVelocityParticleInitializer::Clone() {
+		return new CSphereVelocityParticleInitializer(this->m_velocityMin, this->m_velocityMax);
+	}
 }
 

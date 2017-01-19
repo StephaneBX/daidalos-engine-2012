@@ -59,6 +59,12 @@ namespace DE {
 		* @return The damping
 		*/
 		const float GetDamping() const;
+
+		/**
+		* Clone the class
+		* @return The cloned class
+		*/
+		IClonable * Clone();
 	};
 }
 

@@ -283,4 +283,32 @@ namespace DE {
 	const std::vector<std::unique_ptr<IParticleUpdater> > & CParticleEmitter::GetUpdaters() const {
 		return this->m_updaters;
 	}
+
+	/**
+	* Clone the class
+	* @return The cloned class
+	*/
+	IClonable * CParticleEmitter::Clone() {
+		CParticleEmitter * emitter = new CParticleEmitter();
+		emitter->SetActive(this->m_active);
+		emitter->SetReusable(this->m_reusable);
+		emitter->SetTextureId(this->m_textureId);
+		emitter->SetBlendMode(this->m_blendMode);
+		emitter->SetLife(this->m_life);
+		emitter->SetLifeMax(this->m_lifeMax);
+		emitter->SetEmissionRate(this->m_emissionRate);
+		emitter->SetPosition(this->m_position);
+
+		// Clone the initializers
+		for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); ++it) {
+			emitter->AddInitializer((IParticleInitializer*)(*it)->Clone());
+		}
+
+		// Clone the updaters
+		for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); ++it) {
+			emitter->AddUpdater((IParticleUpdater*)(*it)->Clone());
+		}
+
+		return emitter;
+	}
 }
