@@ -147,6 +147,12 @@ namespace DE {
 		const CVector2I & GetAtlasTextureSize() const;
 
 		/**
+		* Get a vector containing the templates names
+		* @return The templates names in a vector
+		*/
+		const std::vector<std::string> GetEmittersTemplatesName() const;
+
+		/**
 		* Create a basic particle emitter and return it
 		* @return The emitter
 		*/

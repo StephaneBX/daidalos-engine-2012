@@ -76,4 +76,64 @@
 			<size/>
 		</updaters>
 	</emitter>
+	<emitter name="activeTeleporterEmitter">
+		<blendMode>1</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>80</emissionRate>
+		<initializers>
+			<minMaxColor>
+				<min>0.0:0.7:0.0:0.2</min>
+				<max>0.0:0.7:0.0:0.2</max>
+			</minMaxColor>
+			<minMaxSize>
+				<min>0.4</min>
+				<max>0.4</max>
+			</minMaxSize>
+			<minMaxLife>
+				<min>2000</min>
+				<max>2000</max>
+			</minMaxLife>
+			<radiusPosition>
+				<radius>1</radius>
+			</radiusPosition>
+		</initializers>
+		<updaters>
+			<color/>
+			<life/>
+			<velocity>
+				<damping>0</damping>
+			</velocity>
+		</updaters>
+	</emitter>
+	<emitter name="inactiveTeleporterEmitter">
+		<blendMode>1</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>80</emissionRate>
+		<initializers>
+			<minMaxColor>
+				<min>0.7:0.0:0.0:0.2</min>
+				<max>0.7:0.0:0.0:0.2</max>
+			</minMaxColor>
+			<minMaxSize>
+				<min>0.4</min>
+				<max>0.4</max>
+			</minMaxSize>
+			<minMaxLife>
+				<min>2000</min>
+				<max>2000</max>
+			</minMaxLife>
+			<radiusPosition>
+				<radius>1</radius>
+			</radiusPosition>
+		</initializers>
+		<updaters>
+			<color/>
+			<life/>
+			<velocity>
+				<damping>0</damping>
+			</velocity>
+		</updaters>
+	</emitter>
 </emitters>

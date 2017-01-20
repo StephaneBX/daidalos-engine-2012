@@ -45,49 +45,27 @@ namespace SAMPLES {
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters
-		DE::CParticleEmitter * emitter1 = parent->GetScene()->GetParticleSystem().InstanciateEmitter();
+		DE::CParticleEmitter * emitter1 = nullptr;
+		DE::CParticleEmitter * emitter2 = nullptr;
+
+		// Active of inactive effect
+		if(this->m_levelName != "") {
+			emitter1 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "activeTeleporterEmitter");
+			emitter2 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "activeTeleporterEmitter");
+		} else {
+			emitter1 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "inactiveTeleporterEmitter");
+			emitter2 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "inactiveTeleporterEmitter");
+		}
+
+		// Lower emitter
 		emitter1->SetPosition(this->m_node->GetAbsolutePosition());
 		emitter1->SetTextureId(1);
-		emitter1->SetBlendMode(1);
-		emitter1->SetLife(-1);
-		emitter1->SetLifeMax(-1);
-		emitter1->SetEmissionRate(80);
-		
-		if(this->m_levelName != "") {
-			emitter1->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.0f, 0.7f, 0.0f, 0.2f), DE::CColor(0.0f, 0.7f, 0.0f, 0.2f)));
-		} else {
-			emitter1->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.7f, 0.0f, 0.0f, 0.2f), DE::CColor(0.7f, 0.0f, 0.0f, 0.2f)));
-		}
-		emitter1->AddInitializer(new DE::CSizeParticleInitializer(0.4f, 0.4f));
-		emitter1->AddInitializer(new DE::CLifeParticleInitializer(2000, 2000));
-		emitter1->AddInitializer(new DE::CRadiusPositionParticleInitializer(1));
-		emitter1->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0,1,0), 0, 2, 4));
+		emitter1->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, 1, 0), 0, 2, 4));
 
-		emitter1->AddUpdater(new DE::CColorParticleUpdater());
-		emitter1->AddUpdater(new DE::CLifeParticleUpdater());
-		emitter1->AddUpdater(new DE::CVelocityParticleUpdater(0));
-
-		DE::CParticleEmitter * emitter2 = parent->GetScene()->GetParticleSystem().InstanciateEmitter();
+		// Upper emitter
 		emitter2->SetPosition(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 8, 0));
 		emitter2->SetTextureId(1);
-		emitter2->SetBlendMode(1);
-		emitter2->SetLife(-1);
-		emitter2->SetLifeMax(-1);
-		emitter2->SetEmissionRate(80);
-
-		if(this->m_levelName != "") {
-			emitter2->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.0f, 0.7f, 0.0f, 0.2f), DE::CColor(0.0f, 0.7f, 0.0f, 0.2f)));
-		} else {
-			emitter2->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.7f, 0.0f, 0.0f, 0.2f), DE::CColor(0.7f, 0.0f, 0.0f, 0.2f)));
-		}
-		emitter2->AddInitializer(new DE::CSizeParticleInitializer(0.4f, 0.4f));
-		emitter2->AddInitializer(new DE::CLifeParticleInitializer(2000, 2000));
-		emitter2->AddInitializer(new DE::CRadiusPositionParticleInitializer(1));
 		emitter2->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, -1, 0), 0, 2, 4));
-
-		emitter2->AddUpdater(new DE::CColorParticleUpdater());
-		emitter2->AddUpdater(new DE::CLifeParticleUpdater());
-		emitter2->AddUpdater(new DE::CVelocityParticleUpdater(0));
 	}
 
 	/**

@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CArraySorter.h"
 #include "../../Scene/Particles/CParticleSystem.h"
 
@@ -34,6 +35,8 @@ namespace DE {
 	* The constructor
 	*/
 	CParticleSystem::CParticleSystem() {
+		LOG_TRACE();
+
 		this->m_renderer = IRenderer::GetRenderer();
 		
 		// Create the particle vertex declaration used by both particle vertex buffers
@@ -68,6 +71,8 @@ namespace DE {
 	* @param maxSize The maximum particle system size
 	*/
 	void CParticleSystem::InitializeSystem(const int maxSize) {
+		LOG_TRACE();
+
 		this->m_particleBuffer.Allocate(maxSize);
 
 		// Create the sorting data
@@ -83,6 +88,8 @@ namespace DE {
 	* @param filename The filename
 	*/
 	void CParticleSystem::LoadEmittersTemplate(const std::string & filename) {
+		LOG_TRACE();
+
 		this->m_particleEmittersTemplates.LoadFromFile(filename);
 	}
 
@@ -92,6 +99,8 @@ namespace DE {
 	* @param size The number of columns and rows
 	*/
 	void CParticleSystem::SetAtlasTexture(const std::string & filename, const CVector2I & size) {
+		LOG_TRACE();
+
 		this->m_atlasTexture.CreateFromFile(filename, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		this->m_atlasSize = size;
 	}
@@ -101,6 +110,8 @@ namespace DE {
 	* @param camera The active camera
 	*/
 	void CParticleSystem::SetActiveCamera(ICameraSceneNode * camera) {
+		LOG_TRACE();
+
 		this->m_activeCamera = camera;
 	}
 
@@ -108,6 +119,7 @@ namespace DE {
 	* Destroy and remove an emitter
 	*/
 	void CParticleSystem::RemoveEmitter(CParticleEmitter * emitter) {
+		LOG_TRACE();
 
 		bool found = false;
 		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end() && !found; it++) {
@@ -123,6 +135,7 @@ namespace DE {
 	* @param time The elapsed time
 	*/
 	void CParticleSystem::Update(const float time) {
+		LOG_TRACE();
 
 		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end();) {
 
@@ -146,6 +159,7 @@ namespace DE {
 	* Render the particle system
 	*/
 	void CParticleSystem::RenderAll() {
+		LOG_TRACE();
 
 		// Set the render states
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -207,6 +221,8 @@ namespace DE {
 	* @return The system size
 	*/
 	const int CParticleSystem::GetSystemSize() const {
+		LOG_TRACE();
+
 		return this->m_particleBuffer.GetSize();
 	}
 
@@ -215,6 +231,8 @@ namespace DE {
 	* @return The number of emitters
 	*/
 	const int CParticleSystem::GetNumberOfEmitters() const {
+		LOG_TRACE();
+
 		return this->m_emitters.size();
 	}
 
@@ -223,6 +241,8 @@ namespace DE {
 	* @return The atlas texture name
 	*/
 	const std::string CParticleSystem::GetAtlasTextureName() const {
+		LOG_TRACE();
+
 		return this->m_atlasTexture.GetTexture()->GetName();
 	}
 
@@ -231,7 +251,19 @@ namespace DE {
 	* @return The atlas texture size
 	*/
 	const CVector2I & CParticleSystem::GetAtlasTextureSize() const {
+		LOG_TRACE();
+
 		return this->m_atlasSize;
+	}
+
+	/**
+	* Get a vector containing the templates names
+	* @return The templates names in a vector
+	*/
+	const std::vector<std::string> CParticleSystem::GetEmittersTemplatesName() const {
+		LOG_TRACE();
+
+		return this->m_particleEmittersTemplates.GetTemplatesName();
 	}
 
 	/**
@@ -239,6 +271,8 @@ namespace DE {
 	* @return The emitter
 	*/
 	CParticleEmitter * CParticleSystem::InstanciateEmitter() {
+		LOG_TRACE();
+
 		CParticleEmitter * emitter = new CParticleEmitter();
 		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
 		return emitter;
@@ -251,6 +285,7 @@ namespace DE {
 	* @return The emitter
 	*/
 	CParticleEmitter * CParticleSystem::InstanciateEmitter(const std::string templateName, const std::string emitterName) {
+		LOG_TRACE();
 
 		CParticleEmitter * emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
 		if(emitter == nullptr) {
@@ -266,6 +301,7 @@ namespace DE {
 	* @param blendMode The blend mode
 	*/
 	void CParticleSystem::FillParticlesData(const int blendMode) {
+		LOG_TRACE();
 
 		// Get the live particles for each visible emitter
 		this->m_particleSize = 0;

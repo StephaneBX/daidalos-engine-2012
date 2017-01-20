@@ -40,7 +40,7 @@ namespace DE {
 	* @param emitters The emitters
 	*/
 	CParticleEmittersTemplates::CParticleEmittersTemplates() {
-		
+		LOG_TRACE();
 	}
 
 	/**
@@ -74,12 +74,28 @@ namespace DE {
 	}
 
 	/**
+	* Get a vector containing the templates names
+	* @return The templates names in a vector
+	*/
+	const std::vector<std::string> CParticleEmittersTemplates::GetTemplatesName() const {
+		LOG_TRACE();
+
+		std::vector<std::string> templateNames;
+		for(auto it = this->m_particleEmittersTemplates.begin(); it != this->m_particleEmittersTemplates.end(); ++it) {
+			templateNames.push_back((*it).first);
+		}
+
+		return templateNames;
+	}
+
+	/**
 	* Instanciate a particle emitter from a given template and with a given name
 	* @param templateName The template name
 	* @param emitterName The emitter name
 	* @return The emitter or nullptr if no match found
 	*/
 	CParticleEmitter * CParticleEmittersTemplates::InstanciateEmitter(const std::string & templateName, const std::string & emitterName) {
+		LOG_TRACE();
 
 		// Check for the template
 		IParticleEmittersTemplate * emitterTemplate = this->m_particleEmittersTemplates[templateName];

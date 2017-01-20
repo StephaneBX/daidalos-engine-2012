@@ -1157,6 +1157,20 @@ namespace DE {
 		systemSizeNode->InsertEndChild(document.NewText((ss.str().c_str())));
 		particleSystemNode->InsertEndChild(systemSizeNode);
 
+		std::vector<std::string> emitterTemplates = scene->GetParticleSystem().GetEmittersTemplatesName();
+		if(emitterTemplates.size() > 0) {
+			// Templates
+			tinyxml2::XMLElement * particleSystemEmitterTemplatesNode = document.NewElement("particleEmittersTemplates");
+			particleSystemNode->InsertEndChild(particleSystemEmitterTemplatesNode);
+
+			// Template
+			for(auto it = emitterTemplates.begin(); it != emitterTemplates.end(); ++it) {
+				tinyxml2::XMLElement * templateNode = document.NewElement("template");
+				templateNode->InsertEndChild(document.NewText((*it).c_str()));
+				particleSystemEmitterTemplatesNode->InsertEndChild(atlasTextureFileNode);
+			}
+		}
+
 		parent->InsertEndChild(particleSystemNode);
 	}
 
