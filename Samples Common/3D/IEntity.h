@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <set>
 #include <Scene/3D/IShape3D.h>
+#include <Scene/Particles/CParticleEmitter.h>
 
 namespace SAMPLES {
 	class ILevel;
@@ -44,6 +45,7 @@ namespace SAMPLES {
 		unsigned int m_maxHealth;
 		DE::CVector3F m_visiblePosition;
 		ILevel * m_parent;
+		std::vector<DE::CParticleEmitter*> m_impactParticleEmitters;
 
 	public:
 		/**
@@ -69,6 +71,12 @@ namespace SAMPLES {
 		* @param damage The damage
 		*/
 		virtual void TakeDamage(const unsigned int damage);
+
+		/**
+		* Generate impact particles from a position
+		* @param position The emitter position
+		*/
+		virtual void GenerateImpactParticles(const DE::CVector3F & position);
 
 		/**
 		* Get the collision state

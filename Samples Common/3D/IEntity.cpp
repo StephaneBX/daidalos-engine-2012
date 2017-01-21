@@ -67,6 +67,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Generate impact particles from a position
+	* @param position The emitter position
+	*/
+	void IEntity::GenerateImpactParticles(const DE::CVector3F & position) {
+
+	}
+
+	/**
 	* Get the collision state
 	* @return The collision state
 	*/

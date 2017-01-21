@@ -34,35 +34,39 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "States/CEnemyStateAttack.h"
 #include "States/CEnemyStateDie.h"
 
+#define GRAVITY -20.0f
+#define COLLISION_SHAPE_WIDTH 1.0f
+#define COLLISION_SHAPE_HEIGHT 2.0f
+#define VIEW_ANGLE 30.0f
+#define VIEW_DISTANCE 35.0f
+#define ATTACK_RANGE 4.0f
+#define ATTACK_POWER 12
+
+#define ANIMATION_WALK_START 22
+#define ANIMATION_WALK_END 36
+#define ANIMATION_WALK_SPEED 8.0f
+#define WALK_SPEED 2.0f
+#define ROTATION_SPEED 30.0f
+
+#define ANIMATION_WAIT_START 137
+#define ANIMATION_WAIT_END 168
+#define ANIMATION_WAIT_SPEED 10.0f
+#define WAIT_TIME 6000.0f
+
+#define ANIMATION_DIE_START 91
+#define ANIMATION_DIE_END 103
+#define ANIMATION_DIE_SPEED 9.0f
+
+#define ANIMATION_ATTACK_START 116
+#define ANIMATION_ATTACK_END 128
+#define ANIMATION_ATTACK_SPEED 8.0f
+
+#define FOLLOW_SEARCH_TIME 9000.0f
+
+#define IMPACT_PARTICLE_LIFE 50
+#define IMPACT_PARTICLE_EMITTERS 15
+
 namespace SAMPLES {
-	#define GRAVITY -20.0f
-	#define COLLISION_SHAPE_WIDTH 1.0f
-	#define COLLISION_SHAPE_HEIGHT 2.0f
-	#define VIEW_ANGLE 30.0f
-	#define VIEW_DISTANCE 35.0f
-	#define ATTACK_RANGE 4.0f
-	#define ATTACK_POWER 12
-
-	#define ANIMATION_WALK_START 22
-	#define ANIMATION_WALK_END 36
-	#define ANIMATION_WALK_SPEED 8.0f
-	#define WALK_SPEED 2.0f
-	#define ROTATION_SPEED 30.0f
-
-	#define ANIMATION_WAIT_START 137
-	#define ANIMATION_WAIT_END 168
-	#define ANIMATION_WAIT_SPEED 10.0f
-	#define WAIT_TIME 6000.0f
-
-	#define ANIMATION_DIE_START 91
-	#define ANIMATION_DIE_END 103
-	#define ANIMATION_DIE_SPEED 9.0f
-
-	#define ANIMATION_ATTACK_START 116
-	#define ANIMATION_ATTACK_END 128
-	#define ANIMATION_ATTACK_SPEED 8.0f
-
-	#define FOLLOW_SEARCH_TIME 9000.0f
 
 	/**
 	* Constructor
@@ -102,6 +106,16 @@ namespace SAMPLES {
 		this->m_cameraNode->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
 		this->m_cameraNode->SetPosition(DE::CVector3F(0, 4, 0));
 		this->m_cameraNode->SetFarDistance(VIEW_DISTANCE);
+
+		// Initialize the impact particle emitters
+		for(int i = 0; i < IMPACT_PARTICLE_EMITTERS; i++) {
+			DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
+			emitter->SetTextureId(1);
+			emitter->SetActive(false);
+			emitter->SetReusable(true);
+
+			this->m_impactParticleEmitters.push_back(emitter);
+		}
 	}
 
 	/**
@@ -135,8 +149,23 @@ namespace SAMPLES {
 				this->m_currentActionState = nextState;
 				this->m_currentActionState->Reset(this);
 			}
+		}
+	}
 
-			
+	/**
+	* Generate impact particles from a position
+	* @param position The emitter position
+	*/
+	void CZombieEntity::GenerateImpactParticles(const DE::CVector3F & position) {
+		bool freeParticleEmitterFound = false;
+		for(unsigned int index = 0; index < this->m_impactParticleEmitters.size() && !freeParticleEmitterFound; index++) {
+			if(!this->m_impactParticleEmitters[index]->IsActive()) {
+				freeParticleEmitterFound = true;
+				this->m_impactParticleEmitters[index]->SetLife(0);
+				this->m_impactParticleEmitters[index]->SetLifeMax(IMPACT_PARTICLE_LIFE);
+				this->m_impactParticleEmitters[index]->SetActive(true);
+				this->m_impactParticleEmitters[index]->SetPosition(position);
+			}
 		}
 	}
 

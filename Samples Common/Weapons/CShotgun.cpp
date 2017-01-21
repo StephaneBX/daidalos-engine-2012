@@ -64,23 +64,10 @@ namespace SAMPLES {
 	*/
 	void CShotgun::InitializeParticleEmitters() {
 		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
-			DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter();
+			DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "environmentImpactEmitter");
 			emitter->SetTextureId(1);
-			emitter->SetBlendMode(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
-			emitter->SetLife(0);
-			emitter->SetLifeMax(50);
-			emitter->SetEmissionRate(500);
-			emitter->AddInitializer(new DE::CColorParticleInitializer(DE::CColor(0.5f, 0.5f, 0.2f, 0.4f), DE::CColor(0.5f, 0.5f, 0.2f, 0.0f)));
-			emitter->AddInitializer(new DE::CSizeParticleInitializer(0.1f, 0.1f));
-			emitter->AddInitializer(new DE::CLifeParticleInitializer(50, 200));
-			emitter->AddInitializer(new DE::CRadiusPositionParticleInitializer(0.1f));
-			emitter->AddInitializer(new DE::CSphereVelocityParticleInitializer(2, 10));
-
-			emitter->AddUpdater(new DE::CColorParticleUpdater());
-			emitter->AddUpdater(new DE::CLifeParticleUpdater());
-			emitter->AddUpdater(new DE::CVelocityParticleUpdater(0.2f));
 
 			this->m_bulletImpactParticle.push_back(emitter);
 		}

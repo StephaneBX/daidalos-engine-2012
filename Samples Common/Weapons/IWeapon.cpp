@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IWeapon.h"
 
 #define PARTICLE_LIFE 50
-#define PARTICLE_DIRECTION_DECAL 0.05f
+#define PARTICLE_DIRECTION_DECAL 0.08f
 
 namespace SAMPLES {
 
@@ -170,22 +170,13 @@ namespace SAMPLES {
 						for(int i = 1; i < (int)movement.Length() + 1 && !hit; i++) {
 							DE::CVector3F movementStep = (movement * (float)i) / movement.Length();
 
+							// Collision check
 							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {
 
+								// Take damage and generate entity specific particles
 								(*it2)->TakeDamage(projectile.damage);
+								(*it2)->GenerateImpactParticles(projectile.position + movementStep - (projectile.direction * PARTICLE_DIRECTION_DECAL));
 								hit = true;
-
-								// Generate a particle
-								bool freeParticleEmitterFound = false;
-								for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
-									if(!this->m_bulletImpactParticle[index]->IsActive()) {
-										freeParticleEmitterFound = true;
-										this->m_bulletImpactParticle[index]->SetLife(0);
-										this->m_bulletImpactParticle[index]->SetLifeMax(PARTICLE_LIFE);
-										this->m_bulletImpactParticle[index]->SetActive(true);
-										this->m_bulletImpactParticle[index]->SetPosition(projectile.position + movementStep - (projectile.direction * PARTICLE_DIRECTION_DECAL));
-									}
-								}
 
 								// Kill the projectile
 								this->m_projectiles.Delete((*it));
@@ -199,7 +190,7 @@ namespace SAMPLES {
 			// If an impact is detected on the static part
 			if(!hit && this->m_parent->GetScene()->GetCollisionPoint(projectile.position, movement, collisionPoint)) {
 				hit = true;
-				// Generate a particle
+				// Generate a default impact particle
 				bool freeParticleEmitterFound = false;
 				for(unsigned int index = 0; index < this->m_bulletImpactParticle.size() && !freeParticleEmitterFound; index++) {
 					if(!this->m_bulletImpactParticle[index]->IsActive()) {

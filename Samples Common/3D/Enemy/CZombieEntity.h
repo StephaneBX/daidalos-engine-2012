@@ -54,6 +54,12 @@ namespace SAMPLES {
 		*/
 		void SelectNextActionState();
 
+		/**
+		* Generate impact particles from a position
+		* @param position The emitter position
+		*/
+		void GenerateImpactParticles(const DE::CVector3F & position);
+
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
