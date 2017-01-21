@@ -73,12 +73,14 @@ namespace SAMPLES {
 	*/
 	void IEnemyEntity::Update(float const time) {
 
-		// Select the next action
-		SelectNextActionState();
+		if(this->m_meshNode->IsEnabled()) {
+			// Select the next action
+			SelectNextActionState();
 
-		// Update the action state and perform collision state
-		if(this->m_currentActionState != nullptr) {
-			this->m_currentActionState->Update(this, time);
+			// Update the action state and perform collision state
+			if(this->m_currentActionState != nullptr) {
+				this->m_currentActionState->Update(this, time);
+			}
 		}
 	}
 

@@ -27,18 +27,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "CDaidalosLevel.h"
 #include "../Enums.h"
+#include "../3D/Trigger/CAreaTriggerEntity.h"
 #include "../3D/Trigger/CDoorEntity.h"
 #include "../3D/Trigger/CFanEntity.h"
 #include "../3D/Trigger/CSwitchEntity.h"
 #include "../3D/Trigger/CTeleporterEntity.h"
-#include "../3D/Misc/CAlarmEntity.h"
 #include "../3D/Trigger/CArmorBonusEntity.h"
 #include "../3D/Trigger/CHealthBonusEntity.h"
 #include "../3D/Trigger/CHandgunAmmoEntity.h"
 #include "../3D/Trigger/CShotgunAmmoEntity.h"
 #include "../3D/Trigger/CFlashlightEntity.h"
-#include "../3D/Misc/CSecurityCameraEntity.h"
 #include "../3D/Trigger/CLadderEntity.h"
+#include "../3D/Misc/CSecurityCameraEntity.h"
+#include "../3D/Misc/CAlarmEntity.h"
 #include "../3D/Enemy/CZombieEntity.h"
 #include "../CFPSCamera.h"
 #include <Core/IRenderer.h>
@@ -181,6 +182,13 @@ namespace SAMPLES {
 		for(auto it = zombieNode.begin(); it != zombieNode.end(); it++) {
 			SAMPLES::CZombieEntity * zombieEntity = new SAMPLES::CZombieEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CZombieEntity>(zombieEntity));
+		}
+
+		// Load the area triggers
+		std::vector<DE::ISceneNode*> areaTriggerNode = this->m_scene->GetNodeArray("area_trigger_entity");
+		for(auto it = areaTriggerNode.begin(); it != areaTriggerNode.end(); it++) {
+			SAMPLES::CAreaTriggerEntity * areaTriggerEntity = new SAMPLES::CAreaTriggerEntity(this, (*it));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CAreaTriggerEntity>(areaTriggerEntity));
 		}
 
 		// Load the hud

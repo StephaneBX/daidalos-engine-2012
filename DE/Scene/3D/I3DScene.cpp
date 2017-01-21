@@ -408,7 +408,7 @@ namespace DE {
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
-		FindAllNodes(m_root, name, nodes);
+		FindAllNodes(this->m_root, name, nodes);
 
 		return nodes;
 	}
@@ -419,7 +419,18 @@ namespace DE {
 		Assert(this->m_root != nullptr);
 
 		std::vector<ISceneNode*> nodes;
-		FindAllNodes(m_root, nodeType, nodes);
+		FindAllNodes(this->m_root, nodeType, nodes);
+
+		return nodes;
+	}
+	
+	std::vector<ISceneNode*> I3DScene::GetNodeArray(const int id) const {
+		LOG_TRACE();
+
+		Assert(this->m_root != nullptr);
+
+		std::vector<ISceneNode*> nodes;
+		FindAllNodes(this->m_root, id, nodes);
 
 		return nodes;
 	}
@@ -517,6 +528,18 @@ namespace DE {
 
 		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
 			FindAllNodes(*it, nodeType, vector);
+		}
+	}
+
+	void I3DScene::FindAllNodes(ISceneNode * currentNode, const int id, std::vector<ISceneNode*> & vector) const {
+		LOG_TRACE();
+
+		if(currentNode->GetId() == id) {
+			vector.push_back(currentNode);
+		}
+
+		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
+			FindAllNodes(*it, id, vector);
 		}
 	}
 

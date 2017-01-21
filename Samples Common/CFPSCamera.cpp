@@ -27,7 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define FPS_CAMERA_MOVEMENT_SPEED 10.0f
 #define FPS_CAMERA_ROTATION_SPEED 90.0f
-#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 1.5f
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 0.25f
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.15f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 #define FPS_CAMERA_COLLISION_UPDATE 16
@@ -467,45 +468,70 @@ namespace SAMPLES {
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
 		}
 
-		// Keyboard view
+		// Keyboard view and gamepad
+
+		// Camera up action
 		if((this->m_actionState & FPS_CAMERA_LOOKUP) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP)));
+				this->m_previousGamepadViewMovement.y = -factor;
 			}
-
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
+
+		} else if(this->m_previousGamepadViewMovement.y < 0) {
+			// Gamepad smooth factor
+			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.y;
 		}
 
+		// Camera down action
 		if((this->m_actionState & FPS_CAMERA_LOOKDOWN) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN)));
+				this->m_previousGamepadViewMovement.y = factor;
 			}
-
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
+
+		} else if(this->m_previousGamepadViewMovement.y > 0) {
+			// Gamepad smooth factor
+			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.y;
 		}
 
+		// Camera left action
 		if((this->m_actionState & FPS_CAMERA_LOOKLEFT) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT)));
+				this->m_previousGamepadViewMovement.x = -factor;
 			}
-
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
+
+		} else if(this->m_previousGamepadViewMovement.x < 0) {
+			// Gamepad smooth factor
+			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.x;
 		}
 
+		// Camera right action
 		if((this->m_actionState & FPS_CAMERA_LOOKRIGHT) != 0) {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
-				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT) * FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR;
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT)));
+				this->m_previousGamepadViewMovement.x = factor;
 			}
-
 			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
+
+		} else if(this->m_previousGamepadViewMovement.x > 0) {
+			// Gamepad smooth factor
+			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.x;
 		}
 
 

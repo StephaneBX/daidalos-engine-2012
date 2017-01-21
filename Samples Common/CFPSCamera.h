@@ -77,6 +77,7 @@ namespace SAMPLES {
 		int m_armor;
 		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
+		DE::CVector2F m_previousGamepadViewMovement;
 		DE::CVector3F m_rotation;
 		DE::ICameraSceneNode * m_node;
 		DE::ISceneNode * m_flashlightNode;

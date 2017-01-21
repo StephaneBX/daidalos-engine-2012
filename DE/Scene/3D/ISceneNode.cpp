@@ -213,6 +213,12 @@ namespace DE {
 				(*it)->Render();
 			}
 		}
+
+		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
+			if((*it)->GetType() == SCENE_NODE_EMPTY) {
+				(*it)->Render();
+			}
+		}
 	}
 
 	void ISceneNode::RenderSkyboxMask() {}

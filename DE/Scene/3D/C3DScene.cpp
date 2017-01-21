@@ -261,6 +261,13 @@ namespace DE {
 		return this->m_scene->GetNodeArray(name);
 	}
 
+	std::vector<ISceneNode*> C3DScene::GetNodeArray(const int id) const {
+		LOG_TRACE();
+
+		Assert(this->m_scene != nullptr);
+		return this->m_scene->GetNodeArray(id);
+	}
+
 	std::vector<ISceneNode*> C3DScene::GetNodeArray(ESceneNodeType nodeType) const {
 		LOG_TRACE();
 

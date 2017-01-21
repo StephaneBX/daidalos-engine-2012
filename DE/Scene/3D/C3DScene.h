@@ -248,6 +248,13 @@ namespace DE {
 		std::vector<ISceneNode*> GetNodeArray(ESceneNodeType nodeType) const;
 
 		/**
+		* Get all the nodes with the given id
+		* @param id The node id
+		* @return A vector containing all the nodes with the given type
+		*/
+		std::vector<ISceneNode*> GetNodeArray(const int id) const;
+
+		/**
 		* Get the root node
 		@return The root node
 		*/

@@ -605,13 +605,13 @@ namespace DE {
 	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool visible;
+		bool enabled;
 		int meshShading;
 		std::string diffuseTexture, normalTexture, material, file, boundingBox;
 		CVector3F position, rotation, scale, nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
-		GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IStaticMeshSceneNode", "visible", true));
+		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
@@ -625,6 +625,7 @@ namespace DE {
 
 		// Create the node
 		node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+		node->SetEnabled(enabled);
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
@@ -643,13 +644,13 @@ namespace DE {
 	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool visible;
+		bool enabled;
 		int meshShading;
 		std::string diffuseTexture, normalTexture, material, file, boundingBox;
 		CVector3F position, rotation, scale, nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
-		GetNodeData(handle, "visible", visible, this->m_nodesConf.GetValueBool("IAnimatedMeshSceneNode", "visible", true));
+		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
@@ -663,6 +664,7 @@ namespace DE {
 
 		// Create the node
 		node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
+		node->SetEnabled(enabled);
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
@@ -1516,8 +1518,13 @@ namespace DE {
 		// File
 		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
 
+		// Enabled
+		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
+		meshNode->InsertEndChild(child);
+
 		// Position
-		tinyxml2::XMLElement * child = document.NewElement("position");
+		child = document.NewElement("position");
 		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
 		meshNode->InsertEndChild(child);
 
@@ -1601,8 +1608,13 @@ namespace DE {
 		// File
 		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
 
+		// Enabled
+		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
+		meshNode->InsertEndChild(child);
+
 		// Position
-		tinyxml2::XMLElement * child = document.NewElement("position");
+		child = document.NewElement("position");
 		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
 		meshNode->InsertEndChild(child);
 

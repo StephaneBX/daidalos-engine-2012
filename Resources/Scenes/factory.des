@@ -6299,21 +6299,24 @@
                 <boundingBox_size>0.5:8:0.25</boundingBox_size>
             </attributes>
         </node>
+		
 		<!-- Animated Mesh Node -->
-        <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
-            <position>0:2:75</position>
-            <rotation>0:0:0</rotation>
-            <scale>0.24:0.24:0.24</scale>
-            <diffuse_texture>zombie_d.png</diffuse_texture>
-            <normal_texture>zombie_n.png</normal_texture>
-            <meshShading>1</meshShading>
-            <material>default.mtl</material>
+		<node id="50" type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+			<enabled>false</enabled>
+			<position>0:2:75</position>
+			<rotation>0:0:0</rotation>
+			<scale>0.24:0.24:0.24</scale>
+			<diffuse_texture>zombie_d.png</diffuse_texture>
+			<normal_texture>zombie_n.png</normal_texture>
+			<meshShading>1</meshShading>
+			<material>default.mtl</material>
 			<attributes>
 				<health>50</health>
 				<max_health>50</max_health>
 				<patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
 			</attributes>
-        </node>
+		</node>
+		
 		<!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
             <position>105:-35:110</position>
@@ -6329,6 +6332,7 @@
 				<patrol_waypoints>-7:0:0|7:0:0</patrol_waypoints>
 			</attributes>
         </node>
+		
 		<!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
             <position>130:10:225</position>
@@ -6344,5 +6348,28 @@
 				<patrol_waypoints></patrol_waypoints>
 			</attributes>
         </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="magetic_card_entity" file="magnetic_card.obj">
+            <position>143:8:232</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>magnetic_card_red_d.png</diffuse_texture>
+            <normal_texture>magnetic_card_red_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+            </attributes>
+        </node>
+		
+		<!-- Empty Node -->
+        <node type="8" name="area_trigger_entity">
+			<position>130:8:230</position>
+            <rotation>0:0:0</rotation>
+			<attributes>
+				<triggerRadius>20</triggerRadius>
+				<triggerNodeIds>50</triggerNodeIds>
+			</attributes>
+		</node>
     </node>
 </scene>

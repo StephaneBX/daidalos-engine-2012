@@ -337,6 +337,13 @@ namespace DE {
 		std::vector<ISceneNode*> GetNodeArray(ESceneNodeType nodeType) const;
 
 		/**
+		* Get all the nodes with the given id
+		* @param id The node id
+		* @return A vector containing all the nodes with the given type
+		*/
+		std::vector<ISceneNode*> GetNodeArray(const int id) const;
+
+		/**
 		* Get the root node
 		@return The root node
 		*/
@@ -392,6 +399,14 @@ namespace DE {
 		* @param vector The vector to store the nodes into
 		*/
 		void FindAllNodes(ISceneNode * currentNode, ESceneNodeType nodeType, std::vector<ISceneNode*> & vector) const;
+
+		/**
+		* Find all the nodes with a given id and store them in a vector
+		* @param currentNode The current node
+		* @param id The node id
+		* @param vector The vector to store the nodes into
+		*/
+		void FindAllNodes(ISceneNode * currentNode, const int id, std::vector<ISceneNode*> & vector) const;
 
 		/**
 		* Find a node with the given name
