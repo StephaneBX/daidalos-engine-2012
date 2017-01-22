@@ -65,6 +65,11 @@ namespace SAMPLES {
 		virtual void Reset(IEnemyEntity * entity);
 
 		/**
+		* Callback when the entity take damage
+		*/
+		virtual void OnEntityTakeDamage();
+
+		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time

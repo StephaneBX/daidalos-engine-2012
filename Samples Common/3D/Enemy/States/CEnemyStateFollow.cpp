@@ -62,6 +62,13 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Callback when the entity take damage
+	*/
+	void CEnemyStateFollow::OnEntityTakeDamage() {
+		this->m_searched = this->m_searchTimer;
+	}
+
+	/**
 	* Update the entity
 	* @param entity The entity
 	* @param time Elapsed time

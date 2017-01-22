@@ -83,6 +83,11 @@ namespace SAMPLES {
 	void IEnemyState::OnStateDismissed(IEnemyState * state) {}
 
 	/**
+	* Callback when the entity take damage
+	*/
+	void IEnemyState::OnEntityTakeDamage() {}
+
+	/**
 	* Get the priority
 	* @return The priority
 	*/

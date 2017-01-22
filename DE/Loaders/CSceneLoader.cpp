@@ -713,6 +713,7 @@ namespace DE {
 		static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
 		if(playOnStartup) {
 			static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
+			static_cast<CSoundSceneNode*>(node)->Update();
 			static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
 		}
 	}

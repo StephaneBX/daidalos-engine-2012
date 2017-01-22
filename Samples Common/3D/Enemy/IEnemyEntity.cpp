@@ -68,6 +68,19 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Damage the entity
+	* @param damage The damage
+	*/
+	void IEnemyEntity::TakeDamage(const unsigned int damage) {
+		IEntity::TakeDamage(damage);
+
+		// Entity states callback
+		for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
+			(*it)->OnEntityTakeDamage();
+		}
+	}
+
+	/**
 	* Update the enemy entity
 	* @param time Elapsed time
 	*/

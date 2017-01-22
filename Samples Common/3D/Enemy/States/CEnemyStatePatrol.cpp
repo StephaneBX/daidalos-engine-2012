@@ -81,6 +81,11 @@ namespace SAMPLES {
 
 			// Update the rotation
 			UpdateRotation(entity, time);
+		} else {
+			// Interrupted
+			for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+				(*it)->OnStateInterrupted(this);
+			}
 		}
 
 		PerformEnemyLevelCollisions(entity, movement, time);

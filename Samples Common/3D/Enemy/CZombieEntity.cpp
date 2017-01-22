@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CEllipse.h>
 #include "../../Level/ILevel.h"
 #include "CZombieEntity.h"
-#include "States/CEnemyStateWait.h"
+#include "States/CZombieStateWait.h"
 #include "States/CEnemyStatePatrol.h"
 #include "States/CEnemyStateFollow.h"
 #include "States/CEnemyStateAttack.h"
@@ -37,7 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define GRAVITY -20.0f
 #define COLLISION_SHAPE_WIDTH 1.0f
 #define COLLISION_SHAPE_HEIGHT 2.0f
-#define VIEW_ANGLE 30.0f
+#define VIEW_ANGLE 35.0f
 #define VIEW_DISTANCE 35.0f
 #define ATTACK_RANGE 4.0f
 #define ATTACK_POWER 12
@@ -46,7 +46,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ANIMATION_WALK_END 36
 #define ANIMATION_WALK_SPEED 8.0f
 #define WALK_SPEED 2.0f
-#define ROTATION_SPEED 30.0f
+#define ROTATION_SPEED 50.0f
 
 #define ANIMATION_WAIT_START 137
 #define ANIMATION_WAIT_END 168
@@ -91,7 +91,7 @@ namespace SAMPLES {
 		}
 		
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_parent->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_parent->GetPlayer(), ATTACK_POWER, ATTACK_RANGE)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));

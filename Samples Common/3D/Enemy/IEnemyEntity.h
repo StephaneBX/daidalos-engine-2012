@@ -57,6 +57,12 @@ namespace SAMPLES {
 		IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
+		* Damage the entity
+		* @param damage The damage
+		*/
+		virtual void TakeDamage(const unsigned int damage);
+
+		/**
 		* Update the enemy entity
 		* @param time Elapsed time
 		*/

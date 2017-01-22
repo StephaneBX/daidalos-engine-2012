@@ -89,6 +89,11 @@ namespace SAMPLES {
 		virtual void OnStateDismissed(IEnemyState * state);
 
 		/**
+		* Callback when the entity take damage
+		*/
+		virtual void OnEntityTakeDamage();
+
+		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
