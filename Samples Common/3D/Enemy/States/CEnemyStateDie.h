@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CENEMYSTATEDIE_H
 #define __CENEMYSTATEDIE_H
 
+#include <Medias/CSound.h>
 #include "../IEnemyState.h"
 
 namespace SAMPLES {
@@ -37,6 +38,7 @@ namespace SAMPLES {
 	class CEnemyStateDie : public IEnemyState {
 	protected:
 		bool m_dead;
+		DE::CSound m_fallSound;
 
 	public:
 		/**

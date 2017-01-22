@@ -30,12 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CSoundSceneNode.h"
 
 namespace DE {
-	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
+	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ESoundCategory category, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_SOUND;
 		this->m_autoStart = false;
-		this->m_sound.LoadFromFile(filename, type);
+		this->m_sound.LoadFromFile(filename, type, category);
 	}
 
 	CSoundSceneNode::~CSoundSceneNode() {

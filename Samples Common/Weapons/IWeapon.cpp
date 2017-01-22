@@ -163,7 +163,7 @@ namespace SAMPLES {
 
 			// Check for impact on the entities
 			for(auto it2 = this->m_parent->GetEntities().begin(); it2 != this->m_parent->GetEntities().end() && !hit; ++it2) {
-				if((*it2)->GetCollisionState() && (*it2)->GetCollisionShape() != nullptr) {
+				if((*it2)->IsEnabled() && (*it2)->GetCollisionState() && (*it2)->GetCollisionShape() != nullptr) {
 
 					// If the projectile movement is greater or equal than the projectile/entity distance
 					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {

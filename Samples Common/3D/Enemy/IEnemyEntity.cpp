@@ -85,6 +85,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Check if the entity is enabled
+	* @return True if the entity is enabled
+	*/
+	const bool IEnemyEntity::IsEnabled() const {
+		return this->m_meshNode != nullptr && this->m_meshNode->IsEnabled();
+	}
+
+	/**
 	* Get the entity camera node
 	* @return The entity camera node
 	*/

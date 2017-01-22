@@ -41,6 +41,8 @@ namespace SAMPLES {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
+
+		this->m_fallSound.LoadFromFile("body_fall.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 	}
 
 	/**
@@ -62,10 +64,14 @@ namespace SAMPLES {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
 			entity->SetCollisionState(false);
+			this->m_fallSound.SetStatus(DE::SOUND_STATUS_PLAY);
 			this->m_dead = true;
 		}
 
 		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+
+		// Update the sound
+		this->m_fallSound.SetPosition(entity->GetVisiblePosition());
 	}
 
 	/**

@@ -44,7 +44,7 @@ namespace SAMPLES {
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 		
-		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC);
+		this->m_sound.LoadFromFile("health_bonus.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_sound.SetRelativeToListener(true);
 	}
 

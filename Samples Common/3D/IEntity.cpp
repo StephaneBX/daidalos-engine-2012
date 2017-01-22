@@ -83,6 +83,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Check if the entity is enabled
+	* @return True if the entity is enabled
+	*/
+	const bool IEntity::IsEnabled() const {
+		return true;
+	}
+
+	/**
 	* Get the entity type
 	* @return The entity type
 	*/

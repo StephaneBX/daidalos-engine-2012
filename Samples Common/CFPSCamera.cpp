@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_MOVEMENT_SPEED 10.0f
 #define FPS_CAMERA_ROTATION_SPEED 90.0f
 #define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 0.25f
-#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.15f
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.20f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 #define FPS_CAMERA_COLLISION_UPDATE 16
@@ -38,6 +38,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS 1.0f
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND 2.7f
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0f
+#define FPS_CAMERA_STEP_DISTANCE 7.0f
+#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -10.0f
+#define FPS_CAMERA_LADDER_DISTANCE 3.0f
 
 #include <limits>
 #include <Core/CInputDevice.h>
@@ -56,6 +59,8 @@ namespace SAMPLES {
 		this->m_flashlightNode = flashlightNode;
 		this->m_health = 80;
 		this->m_armor = 0;
+		this->m_stepDistance = 0;
+		this->m_ladderDistance = 0;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
@@ -128,8 +133,23 @@ namespace SAMPLES {
 		this->m_rotation = this->m_node->GetRotation();
 		this->m_visiblePosition = this->m_node->GetPosition();
 
-		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC);
+		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_weaponChangeSound.SetRelativeToListener(true);
+
+		// Initialize the step sounds
+		for(int i = 1; i <= 4; ++i) {
+			this->m_stepSounds.push_back(std::unique_ptr<DE::CSound>(new DE::CSound()));
+			this->m_stepSounds[i - 1]->LoadFromFile("footstep" + std::to_string(i) + ".wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+			this->m_stepSounds[i - 1]->SetRelativeToListener(true);
+		}
+
+		// Initialize the fall sound
+		this->m_stepFallSound.LoadFromFile("footstep_fall.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_stepFallSound.SetRelativeToListener(true);
+
+		// Initialize the ladder
+		this->m_ladderSound.LoadFromFile("ladder.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_ladderSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
 		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, nullptr)));
@@ -264,6 +284,11 @@ namespace SAMPLES {
 	*/
 	void CFPSCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
 		this->m_actionState &= ~FPS_CAMERA_JUMP;
+
+		// Fall sound at a minimal hight
+		if(gravity.y <= FPS_CAMERA_FALL_STEP_MIN_GRAVITY) {
+			this->m_stepFallSound.SetStatus(DE::SOUND_STATUS_PLAY);
+		}
 	}
 
 	void CFPSCamera::UpdateState() {
@@ -448,7 +473,31 @@ namespace SAMPLES {
 		}
 
 		// Collision test
+		DE::CVector3F previousVisiblePosition = this->m_visiblePosition;
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
+
+		// Step sounds
+		if(this->m_gravityState) {
+			if(this->m_gravity.y == 0) {
+				this->m_stepDistance += (this->m_visiblePosition - previousVisiblePosition).Length();
+				if(this->m_stepDistance >= FPS_CAMERA_STEP_DISTANCE) {
+					// Play a random step sound
+					this->m_stepSounds[DE::RandomNumber<int>(0, this->m_stepSounds.size() - 1)]->SetStatus(DE::SOUND_STATUS_PLAY);
+					this->m_stepDistance = 0;
+				}
+			} else {
+				// Reset the step and ladder distance counter
+				this->m_stepDistance = 0;
+				this->m_ladderDistance = 0;
+			}
+		} else {
+			this->m_ladderDistance += fabsf(this->m_visiblePosition.y - previousVisiblePosition.y);
+			if(this->m_ladderDistance >= FPS_CAMERA_LADDER_DISTANCE) {
+				// Play the ladder sound
+				this->m_ladderSound.SetStatus(DE::SOUND_STATUS_PLAY);
+				this->m_ladderDistance = 0;
+			}
+		}
 	}
 
 	void CFPSCamera::UpdateView(const float timeSecond) {

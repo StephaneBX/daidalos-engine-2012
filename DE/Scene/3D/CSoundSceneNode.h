@@ -47,10 +47,11 @@ namespace DE {
 		* @param scene The associated scene
 		* @param filename The sound filename
 		* @param type The sound type
+		* @param category The sound category
 		* @param parent The node parent
 		* @param name The node name
 		*/
-		CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ISceneNode * parent = nullptr, const std::string & name = "");
+		CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ESoundCategory category, ISceneNode * parent = nullptr, const std::string & name = "");
 
 		/**
 		* Destructor

@@ -49,9 +49,9 @@ namespace SAMPLES {
 		this->m_reloadDelay = 800.0f;
 		this->m_range = 100;
 
-		this->m_fireSound.LoadFromFile("handgun_fire.wav", DE::SOUND_TYPE_STATIC);
+		this->m_fireSound.LoadFromFile("handgun_fire.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_fireSound.SetRelativeToListener(true);
-		this->m_reloadSound.LoadFromFile("handgun_reload.wav", DE::SOUND_TYPE_STATIC);
+		this->m_reloadSound.LoadFromFile("handgun_reload.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_reloadSound.SetRelativeToListener(true);
 
 		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);

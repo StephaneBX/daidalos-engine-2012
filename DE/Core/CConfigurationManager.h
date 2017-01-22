@@ -37,6 +37,7 @@ namespace DE {
 	#define APPLICATION_OPTION_SECTION_LIGHTENING "lightening"
 	#define APPLICATION_OPTION_SECTION_GAMEPAD "gamepad"
 	#define APPLICATION_OPTION_SECTION_MOUSE "mouse"
+	#define APPLICATION_OPTION_SECTION_SOUND "sound"
 
 	#define APPLICATION_OPTION_GENERAL_RENDERER "renderer"
 	#define APPLICATION_OPTION_GENERAL_RESOLUTION_X "resolution_x"
@@ -62,6 +63,10 @@ namespace DE {
 
 	#define APPLICATION_OPTION_MOUSE_SENSIBILITY "sensibility"
 	#define APPLICATION_OPTION_MOUSE_SMOOTHING "smoothing"
+
+	#define APPLICATION_OPTION_SOUND_MUSIC "music"
+	#define APPLICATION_OPTION_SOUND_ENVIRONMENT "environment"
+	#define APPLICATION_OPTION_SOUND_DIALOGUE "dialogue"
 
 	/**
 	* Handle the ini configuration files of the engine

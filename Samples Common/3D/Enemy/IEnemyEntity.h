@@ -68,10 +68,10 @@ namespace SAMPLES {
 		virtual void SelectNextActionState() = 0;
 
 		/**
-		* Get the reaction time
-		* @return The reaction time
+		* Check if the entity is enabled
+		* @return True if the entity is enabled
 		*/
-		const float GetReactionTime() const;
+		virtual const bool IsEnabled() const;
 
 		/**
 		* Get the entity camera node

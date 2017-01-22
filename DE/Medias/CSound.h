@@ -39,6 +39,7 @@ namespace DE {
 	class CSound {
 	private:
 		ESoundType m_type;
+		ESoundCategory m_category;
 		std::unique_ptr<ISoundBase> m_sound;
 
 	public:
@@ -51,8 +52,9 @@ namespace DE {
 		* Constructor
 		* @param filename The filename
 		* @param type The sound type
+		* @param category The sound category
 		*/
-		CSound(const std::string & filename, ESoundType type);
+		CSound(const std::string & filename, ESoundType type, ESoundCategory category);
 
 		/**
 		* Destructor
@@ -63,8 +65,9 @@ namespace DE {
 		* Load a sound
 		* @param filename The filename
 		* @param type The sound type
+		* @param category The sound category
 		*/
-		void LoadFromFile(const std::string & filename, ESoundType type);
+		void LoadFromFile(const std::string & filename, ESoundType type, ESoundCategory category);
 
 		/**
 		* Set the sound status

@@ -25,9 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <SiniP/SiniP.h>
 #include "../Core/CMediaManager.h"
 #include "../Core/Logger/ILogger.h"
 #include "../Core/Memory/CExceptionAssert.h"
+#include "../Core/CConfigurationManager.h"
 #include "../Medias/IStaticSoundBase.h"
 #include "../Medias/IStreamSoundBase.h"
 #include "../Medias/CSound.h"
@@ -35,20 +37,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 	CSound::CSound() {}
 
-	CSound::CSound(const std::string & filename, ESoundType type) {
+	CSound::CSound(const std::string & filename, ESoundType type, ESoundCategory category) {
 		LOG_TRACE();
 
-		LoadFromFile(filename, type);
+		LoadFromFile(filename, type, category);
 	}
 
 	CSound::~CSound() {
 		LOG_TRACE();
 	}
 
-	void CSound::LoadFromFile(const std::string & filename, ESoundType type) {
+	void CSound::LoadFromFile(const std::string & filename, ESoundType type, ESoundCategory category) {
 		LOG_TRACE();
 
 		this->m_type = type;
+		this->m_category = category;
+
+		// Load the sound
 		switch(type) {
 		case SOUND_TYPE_STATIC:
 			this->m_sound = std::unique_ptr<IStaticSoundBase>(CMediaManager::GetInstance()->LoadMediaFromFile<IStaticSoundBase>(filename));
@@ -56,6 +61,22 @@ namespace DE {
 
 		case SOUND_TYPE_STREAM:
 			this->m_sound = std::unique_ptr<IStreamSoundBase>(CMediaManager::GetInstance()->LoadMediaFromFile<IStreamSoundBase>(filename));
+			break;
+		}
+
+		// Set the gain
+		SiniP options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		switch(category) {
+		case SOUND_CATEGORY_MUSIC:
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0f));
+			break;
+
+		case SOUND_CATEGORY_ENVIRONMENT:
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_ENVIRONMENT, 1.0f));
+			break;
+
+		case SOUND_CATEGORY_DIALOGUE:
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_DIALOGUE, 1.0f));
 			break;
 		}
 	}

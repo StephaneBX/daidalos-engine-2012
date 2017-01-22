@@ -684,15 +684,15 @@ namespace DE {
 		LOG_TRACE();
 
 		bool relativeToListener, looped, playOnStartup;
-		int soundType;
-		float gain, coneInnerAngle, coneOuterAngle, referenceDistance, maxDistance;
+		int soundType, soundCategory;
+		float coneInnerAngle, coneOuterAngle, referenceDistance, maxDistance;
 		std::string file;
 		CVector3F position, rotation;
 		
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 		GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", 0));
-		GetNodeData(handle, "gain", gain, this->m_nodesConf.GetValueBool("ISoundSceneNode", "gain", 1));
+		GetNodeData(handle, "category", soundCategory, this->m_nodesConf.GetValueBool("ISoundSceneNode", "category", 0));
 		GetNodeData(handle, "cone_inner_angle", coneInnerAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_inner_angle", 360.0f));
 		GetNodeData(handle, "cone_outer_angle", coneOuterAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_outer_angle", 360.0f));
 		GetNodeData(handle, "reference_distance", referenceDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "reference_distance", 2));
@@ -702,10 +702,9 @@ namespace DE {
 		GetNodeData(handle, "play_on_startup", playOnStartup, this->m_nodesConf.GetValueBool("ISoundSceneNode", "play_on_startup", false));
 		GetNodeData(handle, "file", file, "");
 
-		node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), parent, name);
+		node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), static_cast<ESoundCategory>(soundCategory), parent, name);
 		static_cast<CSoundSceneNode*>(node)->SetPosition(position);
 		static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
-		static_cast<CSoundSceneNode*>(node)->SetSoundGain(gain);
 		static_cast<CSoundSceneNode*>(node)->SetSoundConeInnerAngle(coneInnerAngle);
 		static_cast<CSoundSceneNode*>(node)->SetSoundConeOuterAngle(coneInnerAngle);
 		static_cast<CSoundSceneNode*>(node)->SetSoundReferenceDistance(referenceDistance);

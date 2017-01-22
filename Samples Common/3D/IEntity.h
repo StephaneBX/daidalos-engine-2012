@@ -85,6 +85,12 @@ namespace SAMPLES {
 		virtual const bool GetCollisionState() const;
 
 		/**
+		* Check if the entity is enabled
+		* @return True if the entity is enabled
+		*/
+		virtual const bool IsEnabled() const;
+
+		/**
 		* Get the entity type
 		* @return The entity type
 		*/

@@ -75,6 +75,8 @@ namespace SAMPLES {
 	private:
 		unsigned int m_actionState;
 		int m_armor;
+		float m_stepDistance;
+		float m_ladderDistance;
 		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector2F m_previousGamepadViewMovement;
@@ -85,6 +87,12 @@ namespace SAMPLES {
 		DE::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
+		// Sounds
+		std::vector<std::unique_ptr<DE::CSound>> m_stepSounds;
+		DE::CSound m_stepFallSound;
+		DE::CSound m_ladderSound;
+
+		// Weapons
 		IWeapon * m_currentWeapon;
 		int m_currentWeaponIndex;
 		std::vector<std::unique_ptr<IWeapon> > m_weapons;

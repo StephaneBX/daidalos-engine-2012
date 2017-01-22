@@ -52,11 +52,11 @@ namespace SAMPLES {
 		this->m_triggerRadius = TRIGGER_RADIUS;
 		this->m_timer = 0;
 
-		this->m_startSound.LoadFromFile("door_start.wav", DE::SOUND_TYPE_STATIC);
+		this->m_startSound.LoadFromFile("door_start.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_startSound.SetRelativeToListener(false);
 		this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 
-		this->m_stopSound.LoadFromFile("door_stop.wav", DE::SOUND_TYPE_STATIC);
+		this->m_stopSound.LoadFromFile("door_stop.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_stopSound.SetRelativeToListener(false);
 		this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 

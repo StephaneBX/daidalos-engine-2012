@@ -6226,6 +6226,7 @@
             <position>0:20:120</position>
             <rotation>0:0:0</rotation>
             <type>1</type>
+			<category>1</category>
             <gain>0.02</gain>
             <cone_inner_angle>360</cone_inner_angle>
             <cone_outer_angle>360</cone_outer_angle>
@@ -6241,7 +6242,7 @@
             <position>0:0:0</position>
             <rotation>0:0:0</rotation>
             <type>1</type>
-            <gain>0.1</gain>
+			<category>0</category>
             <cone_inner_angle>360</cone_inner_angle>
             <cone_outer_angle>360</cone_outer_angle>
             <reference_distance>4</reference_distance>
@@ -6316,6 +6317,23 @@
 				<patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
 			</attributes>
 		</node>
+		
+		<!-- Animated Mesh Node -->
+        <node id="50" type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+			<enabled>false</enabled>
+            <position>105:2:110</position>
+            <rotation>0:0:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<health>50</health>
+				<max_health>50</max_health>
+				<patrol_waypoints>-12:0:0|12:0:0</patrol_waypoints>
+			</attributes>
+        </node>
 		
 		<!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
