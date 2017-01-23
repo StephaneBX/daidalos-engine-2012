@@ -81,6 +81,7 @@
     <ClInclude Include="3D\IEntity.h" />
     <ClInclude Include="3D\Misc\CAlarmEntity.h" />
     <ClInclude Include="3D\Misc\CSecurityCameraEntity.h" />
+    <ClInclude Include="3D\Misc\CSpotEntity.h" />
     <ClInclude Include="3D\Trigger\CAreaTriggerEntity.h" />
     <ClInclude Include="3D\Trigger\CArmorBonusEntity.h" />
     <ClInclude Include="3D\Trigger\CDoorEntity.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="3D\IEntity.cpp" />
     <ClCompile Include="3D\Misc\CAlarmEntity.cpp" />
     <ClCompile Include="3D\Misc\CSecurityCameraEntity.cpp" />
+    <ClCompile Include="3D\Misc\CSpotEntity.cpp" />
     <ClCompile Include="3D\Trigger\CAreaTriggerEntity.cpp" />
     <ClCompile Include="3D\Trigger\CArmorBonusEntity.cpp" />
     <ClCompile Include="3D\Trigger\CDoorEntity.cpp" />

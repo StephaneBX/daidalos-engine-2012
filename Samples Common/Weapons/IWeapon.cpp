@@ -167,8 +167,8 @@ namespace SAMPLES {
 
 					// If the projectile movement is greater or equal than the projectile/entity distance
 					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {
-						for(int i = 1; i < (int)movement.Length() + 1 && !hit; i++) {
-							DE::CVector3F movementStep = (movement * (float)i) / movement.Length();
+						for(int i = 1; i < ((int)movement.Length() + 1) * 4 && !hit; i++) {
+							DE::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0f);
 
 							// Collision check
 							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {

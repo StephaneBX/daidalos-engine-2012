@@ -1712,13 +1712,6 @@ namespace DE {
 		child->InsertEndChild(document.NewText(ss.str().c_str()));
 		soundNode->InsertEndChild(child);
 
-		// Gain
-		ss.str("");
-		child = document.NewElement("gain");
-		ss << sceneNode->GetSoundGain();
-		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		soundNode->InsertEndChild(child);
-
 		// Cone inner angle
 		ss.str("");
 		child = document.NewElement("cone_inner_angle");

@@ -40,6 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/Trigger/CLadderEntity.h"
 #include "../3D/Misc/CSecurityCameraEntity.h"
 #include "../3D/Misc/CAlarmEntity.h"
+#include "../3D/Misc/CSpotEntity.h"
 #include "../3D/Enemy/CZombieEntity.h"
 #include "../CFPSCamera.h"
 #include <Core/IRenderer.h>
@@ -189,6 +190,13 @@ namespace SAMPLES {
 		for(auto it = areaTriggerNode.begin(); it != areaTriggerNode.end(); it++) {
 			SAMPLES::CAreaTriggerEntity * areaTriggerEntity = new SAMPLES::CAreaTriggerEntity(this, (*it));
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CAreaTriggerEntity>(areaTriggerEntity));
+		}
+
+		// Load the spots
+		std::vector<DE::ISceneNode*> spotNode = this->m_scene->GetNodeArray("spot_entity");
+		for(auto it = spotNode.begin(); it != spotNode.end(); it++) {
+			SAMPLES::CSpotEntity * spotEntity = new SAMPLES::CSpotEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSpotEntity>(spotEntity));
 		}
 
 		// Load the hud

@@ -6380,6 +6380,111 @@
             </attributes>
         </node>
 		
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <position>0:8:15</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_off_d.png</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<lightDecalY>-0.8</lightDecalY>
+				<lightEnabled>false</lightEnabled>
+                <lightShadow_caster>false</lightShadow_caster>
+                <lightColor>0.6:0.6:0.6:1</lightColor>
+                <lightRange>20</lightRange>
+                <lightRadius>25</lightRadius>
+                <lightFalloff>0.7</lightFalloff>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <position>90:16:165</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<lightDecalY>-0.8</lightDecalY>
+				<lightEnabled>true</lightEnabled>
+                <lightShadow_caster>true</lightShadow_caster>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightRange>20</lightRange>
+                <lightRadius>25</lightRadius>
+                <lightFalloff>0.7</lightFalloff>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <position>132:16:170</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<lightDecalY>-0.8</lightDecalY>
+				<lightEnabled>true</lightEnabled>
+                <lightShadow_caster>false</lightShadow_caster>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightRange>20</lightRange>
+                <lightRadius>28</lightRadius>
+                <lightFalloff>0.7</lightFalloff>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <position>132:16:192</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<lightDecalY>-0.8</lightDecalY>
+				<lightEnabled>true</lightEnabled>
+                <lightShadow_caster>false</lightShadow_caster>
+                <lightColor>0.6:0.4:0.4:1</lightColor>
+                <lightRange>20</lightRange>
+                <lightRadius>25</lightRadius>
+                <lightFalloff>0.7</lightFalloff>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <position>130:16:227</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_off_d.png</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<attributes>
+				<lightDecalY>-0.8</lightDecalY>
+				<lightEnabled>false</lightEnabled>
+                <lightShadow_caster>false</lightShadow_caster>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightRange>20</lightRange>
+                <lightRadius>25</lightRadius>
+                <lightFalloff>0.7</lightFalloff>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		
 		<!-- Empty Node -->
         <node type="8" name="area_trigger_entity">
 			<position>130:8:230</position>

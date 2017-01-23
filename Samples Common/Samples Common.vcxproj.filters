@@ -180,6 +180,9 @@
     <ClInclude Include="3D\Enemy\States\CZombieStateWait.h">
       <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Misc\CSpotEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="3D\Enemy\States\CZombieStateWait.cpp">
       <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CSpotEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
