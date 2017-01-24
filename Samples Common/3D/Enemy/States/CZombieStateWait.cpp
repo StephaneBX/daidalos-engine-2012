@@ -37,7 +37,7 @@ namespace SAMPLES {
 	* @param animationSpeed The animation speed
 	* @param waitTime The wait time
 	*/
-	CZombieStateWait::CZombieStateWait(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float waitTime) : CEnemyStateWait(priority, startAnimation, endAnimation, animationSpeed, waitTime) {
+	CZombieStateWait::CZombieStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime) : CEnemyStateWait(priority, startAnimation, endAnimation, animationSpeed, waitTime) {
 		this->m_moanSound.LoadFromFile("zombie_moan.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_moanSound.SetRelativeToListener(false);
 	}
@@ -47,7 +47,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CZombieStateWait::Update(IEnemyEntity * entity, float const time) {
+	void CZombieStateWait::Update(IEnemyEntity * entity, const float time) {
 
 		// Play the moan sound (33% chance)
 		if(entity->GetMeshNode()->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED && DE::RandomNumber<int>(1, 3) == 1) {

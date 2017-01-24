@@ -99,7 +99,7 @@ namespace SAMPLES
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		void Update(float const time = 0);
+		void Update(const float time = 0);
 
 		/**
 		* Check if the player can see a shape

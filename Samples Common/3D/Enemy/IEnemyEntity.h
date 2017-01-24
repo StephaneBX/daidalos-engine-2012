@@ -66,7 +66,7 @@ namespace SAMPLES {
 		* Update the enemy entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(float const time);
+		virtual void Update(const float time);
 
 		/**
 		* Determine the next active state

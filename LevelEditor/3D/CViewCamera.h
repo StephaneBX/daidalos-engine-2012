@@ -81,7 +81,7 @@ namespace EDITOR {
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		void Update(float const time = 0);
+		void Update(const float time = 0);
 
 		/**
 		* Get the camera node

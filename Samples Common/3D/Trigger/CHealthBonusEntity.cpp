@@ -52,7 +52,7 @@ namespace SAMPLES {
 	* Update the health bonus
 	* @param time Elapsed time
 	*/
-	void CHealthBonusEntity::Update(float const time) {
+	void CHealthBonusEntity::Update(const float time) {
 
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {

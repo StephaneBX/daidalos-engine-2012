@@ -113,7 +113,7 @@ namespace SAMPLES {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformLevelCollisions(DE::CVector3F movement, float const time) {
+	void ICollidableEntity::PerformLevelCollisions(DE::CVector3F movement, const float time) {
 
 		const float timeSecond = time / 1000.0f;
 		this->m_visiblePosition += movement * timeSecond;
@@ -162,7 +162,7 @@ namespace SAMPLES {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformEntityCollisions(DE::CVector3F movement, float const time) {
+	void ICollidableEntity::PerformEntityCollisions(DE::CVector3F movement, const float time) {
 
 	}
 }

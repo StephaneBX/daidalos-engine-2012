@@ -53,7 +53,7 @@ namespace SAMPLES {
 	* Update the handgun ammo
 	* @param time Elapsed time
 	*/
-	void CHandgunAmmoEntity::Update(float const time) {
+	void CHandgunAmmoEntity::Update(const float time) {
 		
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {

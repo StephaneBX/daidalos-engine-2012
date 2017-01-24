@@ -59,7 +59,7 @@ namespace SAMPLES {
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(float const time) = 0;
+		virtual void Update(const float time) = 0;
 
 		/**
 		* Set the gravity state
@@ -122,7 +122,7 @@ namespace SAMPLES {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformLevelCollisions(DE::CVector3F movement, float const time);
+		void PerformLevelCollisions(DE::CVector3F movement, const float time);
 
 		/**
 		* Process the entity collisions (movement + gravity) based on the shape.
@@ -130,7 +130,7 @@ namespace SAMPLES {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEntityCollisions(DE::CVector3F movement, float const time);
+		void PerformEntityCollisions(DE::CVector3F movement, const float time);
 	};
 }
 

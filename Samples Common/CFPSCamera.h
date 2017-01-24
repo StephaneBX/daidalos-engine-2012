@@ -91,6 +91,9 @@ namespace SAMPLES {
 		std::vector<std::unique_ptr<DE::CSound>> m_stepSounds;
 		DE::CSound m_stepFallSound;
 		DE::CSound m_ladderSound;
+		DE::CSound m_jumpSound;
+		DE::CSound m_hurtSound;
+		DE::CSound m_dieSound;
 
 		// Weapons
 		IWeapon * m_currentWeapon;
@@ -106,6 +109,12 @@ namespace SAMPLES {
 		* @param flashlightNode The flashlight node
 		*/
 		CFPSCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
+
+		/**
+		* Damage the entity
+		* @param damage The damage
+		*/
+		void TakeDamage(const unsigned int damage);
 
 		/**
 		* Set the player armor
@@ -130,7 +139,7 @@ namespace SAMPLES {
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		void Update(float const time = 0);
+		void Update(const float time = 0);
 
 		/**
 		* Check if the player can see a shape
@@ -144,6 +153,12 @@ namespace SAMPLES {
 		* @return True if the player interaction action is active
 		*/
 		const bool IsInteracting() const;
+
+		/**
+		* Check if the entity is enabled
+		* @return True if the entity is enabled
+		*/
+		const bool IsEnabled() const;
 
 		/**
 		* Get the player health

@@ -39,13 +39,15 @@ namespace SAMPLES {
 	* @param damage The damage
 	* @param The range
 	*/
-	CEnemyStateAttack::CEnemyStateAttack(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, unsigned int damage, float range) : IEnemyState(priority) {
+	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : IEnemyState(priority) {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
 		this->m_damage = damage;
 		this->m_range = range;
 		this->m_target = target;
+		this->m_attackTimer = 0;
+		this->m_attackDelay = attackDelay;
 	}
 
 	/**
@@ -61,12 +63,18 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateAttack::Update(IEnemyEntity * entity, float const time) {
+	void CEnemyStateAttack::Update(IEnemyEntity * entity, const float time) {
 
-		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING && this->m_attackTimer == 0) {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
-			this->m_target->SetHealth(this->m_target->GetHealth() - this->m_damage);
+			this->m_target->TakeDamage(this->m_damage);
+			this->m_attackTimer = this->m_attackDelay;
+		} else {
+			this->m_attackTimer -= time;
+			if(this->m_attackTimer < 0) {
+				this->m_attackTimer = 0;
+			}
 		}
 
 		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
@@ -78,7 +86,7 @@ namespace SAMPLES {
 	* @return True if candidate
 	*/
 	const bool CEnemyStateAttack::IsCandidateForNextAction(IEnemyEntity * entity) {
-		return !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && (entity->GetVisiblePosition() - this->m_target->GetVisiblePosition()).Length() <= this->m_range;
+		return  this->m_attackTimer > 0 || (this->m_target->IsEnabled() && !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && (entity->GetVisiblePosition() - this->m_target->GetVisiblePosition()).Length() <= this->m_range);
 	}
 }
 

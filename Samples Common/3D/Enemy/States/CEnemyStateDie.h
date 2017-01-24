@@ -48,7 +48,7 @@ namespace SAMPLES {
 		* @param endAnimation The end animation frame
 		* @param animationSpeed The animation speed
 		*/
-		CEnemyStateDie(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed);
+		CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed);
 
 		/**
 		* Reset the state
@@ -61,7 +61,7 @@ namespace SAMPLES {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(IEnemyEntity * entity, float const time);
+		virtual void Update(IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action

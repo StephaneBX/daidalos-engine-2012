@@ -124,7 +124,7 @@ namespace SAMPLES {
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(float const time) = 0;
+		virtual void Update(const float time) = 0;
 	};
 }
 

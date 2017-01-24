@@ -91,7 +91,7 @@ namespace SAMPLES {
 	* Update the door
 	* @param time Elapsed time
 	*/
-	void CSpotEntity::Update(float const time) {}
+	void CSpotEntity::Update(const float time) {}
 
 	/**
 	* Trigger the entity action

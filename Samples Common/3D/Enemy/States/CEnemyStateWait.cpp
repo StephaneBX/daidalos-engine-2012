@@ -37,7 +37,7 @@ namespace SAMPLES {
 	* @param animationSpeed The animation speed
 	* @param waitTime The wait time
 	*/
-	CEnemyStateWait::CEnemyStateWait(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float waitTime) : IEnemyState(priority) {
+	CEnemyStateWait::CEnemyStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime) : IEnemyState(priority) {
 		this->m_active = false;
 		this->m_waitTime = waitTime;
 		this->m_waited = 0;
@@ -67,7 +67,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateWait::Update(IEnemyEntity * entity, float const time) {
+	void CEnemyStateWait::Update(IEnemyEntity * entity, const float time) {
 
 		this->m_waited += time;
 

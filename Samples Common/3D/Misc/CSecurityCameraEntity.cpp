@@ -99,7 +99,7 @@ namespace SAMPLES {
 	* Update the door
 	* @param time Elapsed time
 	*/
-	void CSecurityCameraEntity::Update(float const time) {
+	void CSecurityCameraEntity::Update(const float time) {
 		UpdateHorizontalRotation(time);
 		UpdateVerticalRotation(time);
 	}
@@ -120,7 +120,7 @@ namespace SAMPLES {
 	/**
 	* Update the security camera horizontal rotation
 	*/
-	void CSecurityCameraEntity::UpdateHorizontalRotation(float const time) {
+	void CSecurityCameraEntity::UpdateHorizontalRotation(const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		// Update the camera rotation so that it follows the player
@@ -157,7 +157,7 @@ namespace SAMPLES {
 	/**
 	* Update the security camera vertical rotation
 	*/
-	void CSecurityCameraEntity::UpdateVerticalRotation(float const time) {
+	void CSecurityCameraEntity::UpdateVerticalRotation(const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		// Update the camera rotation so that it follows the player

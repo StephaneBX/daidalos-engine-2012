@@ -38,8 +38,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS 1.0f
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND 2.7f
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0f
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD 0.5f
 #define FPS_CAMERA_STEP_DISTANCE 7.0f
-#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -10.0f
+#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -14.0f
 #define FPS_CAMERA_LADDER_DISTANCE 3.0f
 
 #include <limits>
@@ -151,11 +152,41 @@ namespace SAMPLES {
 		this->m_ladderSound.LoadFromFile("ladder.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_ladderSound.SetRelativeToListener(true);
 
+		// Initialize the jump sound
+		this->m_jumpSound.LoadFromFile("jump.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_jumpSound.SetRelativeToListener(true);
+
+		// Initialize the hurt sound
+		this->m_hurtSound.LoadFromFile("hurt.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_hurtSound.SetRelativeToListener(true);
+
+		// Initialize the die sound
+		this->m_dieSound.LoadFromFile("die.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_dieSound.SetRelativeToListener(true);
+
 		// Initialize the weapons
 		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, nullptr)));
 		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(this->m_parent, nullptr)));
 		this->m_currentWeaponIndex = 0;
 		this->m_currentWeapon = this->m_weapons[0].get();
+	}
+
+	/**
+	* Damage the entity
+	* @param damage The damage
+	*/
+	void CFPSCamera::TakeDamage(const unsigned int damage) {
+		IPlayer::TakeDamage(damage);
+
+		if(this->m_health > 0) {
+			this->m_hurtSound.SetStatus(DE::SOUND_STATUS_PLAY);
+		} else {
+			DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
+			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
+
+			this->m_dieSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_node->SetEnabled(false);
+		}
 	}
 
 	/**
@@ -204,13 +235,16 @@ namespace SAMPLES {
 	void CFPSCamera::Update(const float time) {
 		float timeSecond = time / 1000.0f;
 
-		this->m_currentWeapon->Update(time);
+		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
+		if(IsEnabled()) {
+			this->m_currentWeapon->Update(time);
 
-		UpdateState();
-		UpdateView(timeSecond);
+			UpdateState();
+			UpdateView(timeSecond);
+			UpdateAction();
+		}
 		UpdateMovement(timeSecond, time);
-		UpdateAction();
-
+		
 		// Update the node
 		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
@@ -236,6 +270,14 @@ namespace SAMPLES {
 	*/
 	const bool CFPSCamera::IsInteracting() const {
 		return this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT);
+	}
+
+	/**
+	* Check if the entity is enabled
+	* @return True if the entity is enabled
+	*/
+	const bool CFPSCamera::IsEnabled() const {
+		return this->m_health > 0;
 	}
 
 	/**
@@ -292,7 +334,6 @@ namespace SAMPLES {
 	}
 
 	void CFPSCamera::UpdateState() {
-		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
 			this->m_actionState |= FPS_CAMERA_STRAFELEFT;
@@ -331,6 +372,7 @@ namespace SAMPLES {
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
+			this->m_jumpSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
 		if(this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {

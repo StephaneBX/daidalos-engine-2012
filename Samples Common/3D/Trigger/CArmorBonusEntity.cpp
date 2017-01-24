@@ -53,7 +53,7 @@ namespace SAMPLES {
 	* Update the armor bonus
 	* @param time Elapsed time
 	*/
-	void CArmorBonusEntity::Update(float const time) {
+	void CArmorBonusEntity::Update(const float time) {
 		
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {

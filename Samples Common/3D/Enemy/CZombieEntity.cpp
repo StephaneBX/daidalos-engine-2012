@@ -41,6 +41,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define VIEW_DISTANCE 35.0f
 #define ATTACK_RANGE 4.0f
 #define ATTACK_POWER 12
+#define ATTACK_DELAY 800
 
 #define ANIMATION_WALK_START 22
 #define ANIMATION_WALK_END 36
@@ -93,7 +94,7 @@ namespace SAMPLES {
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->m_parent->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_parent->GetPlayer(), ATTACK_POWER, ATTACK_RANGE)));
+		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->m_parent->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
 		this->m_actionStates.push_back(std::unique_ptr<IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
@@ -122,7 +123,7 @@ namespace SAMPLES {
 	* Update the enemy entity
 	* @param time Elapsed time
 	*/
-	void CZombieEntity::Update(float const time) {
+	void CZombieEntity::Update(const float time) {
 		IEnemyEntity::Update(time);
 
 		this->m_meshNode->SetPosition(this->m_visiblePosition - DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));

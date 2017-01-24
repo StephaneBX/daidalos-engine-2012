@@ -36,7 +36,7 @@ namespace SAMPLES {
 	* @param endAnimation The end animation frame
 	* @param animationSpeed The animation speed
 	*/
-	CEnemyStateDie::CEnemyStateDie(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed) : IEnemyState(priority) {
+	CEnemyStateDie::CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed) : IEnemyState(priority) {
 		this->m_dead = false;
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
@@ -58,7 +58,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateDie::Update(IEnemyEntity * entity, float const time) {
+	void CEnemyStateDie::Update(IEnemyEntity * entity, const float time) {
 
 		if(!this->m_dead) {
 			entity->GetMeshNode()->SetLooped(false);

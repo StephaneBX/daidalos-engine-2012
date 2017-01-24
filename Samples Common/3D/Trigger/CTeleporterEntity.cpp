@@ -72,7 +72,7 @@ namespace SAMPLES {
 	* Update the teleporter
 	* @param time Elapsed time
 	*/
-	void CTeleporterEntity::Update(float const time) {
+	void CTeleporterEntity::Update(const float time) {
 
 	}
 

@@ -51,7 +51,7 @@ namespace SAMPLE3 {
 	* Update the health
 	* @param time Elapsed time
 	*/
-	void CHealthEntity::Update(float const time) {
+	void CHealthEntity::Update(const float time) {
 		ITriggerEntity::Update(time);
 
 		DE::CVector3F rotation = this->m_node->GetRotation();

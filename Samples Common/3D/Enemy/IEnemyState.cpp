@@ -33,7 +33,7 @@ namespace SAMPLES {
 	* Constructor
 	* @param priority The priority
 	*/
-	IEnemyState::IEnemyState(unsigned int priority) {
+	IEnemyState::IEnemyState(const unsigned int priority) {
 		this->m_priority = priority;
 	}
 
@@ -102,7 +102,7 @@ namespace SAMPLES {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, float const time) {
+	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time) {
 		entity->PerformLevelCollisions(movement, time);
 	}
 
@@ -113,7 +113,7 @@ namespace SAMPLES {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, float const time) {
+	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time) {
 		entity->PerformEntityCollisions(movement, time);
 	}
 }

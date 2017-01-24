@@ -84,7 +84,7 @@ namespace SAMPLES {
 	* Update the enemy entity
 	* @param time Elapsed time
 	*/
-	void IEnemyEntity::Update(float const time) {
+	void IEnemyEntity::Update(const float time) {
 
 		if(this->m_meshNode->IsEnabled()) {
 			// Select the next action

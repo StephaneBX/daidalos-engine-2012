@@ -41,7 +41,7 @@ namespace SAMPLES {
 	* @param rotationSpeed The rotation speed
 	* @param wayPoints The way points
 	*/
-	CEnemyStatePatrol::CEnemyStatePatrol(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState(priority) {
+	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState(priority) {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
@@ -56,7 +56,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStatePatrol::Update(IEnemyEntity * entity, float const time) {
+	void CEnemyStatePatrol::Update(IEnemyEntity * entity, const float time) {
 
 		DE::CVector3F movement = DE::CVector3F();
 		if(this->m_wayPoints.size() > 0) {
@@ -105,7 +105,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStatePatrol::UpdateRotation(IEnemyEntity * entity, float const time) {
+	void CEnemyStatePatrol::UpdateRotation(IEnemyEntity * entity, const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		// Update the entity rotation so that it follows the waypoint during the walk

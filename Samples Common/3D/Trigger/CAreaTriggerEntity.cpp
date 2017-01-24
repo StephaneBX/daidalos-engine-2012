@@ -63,7 +63,7 @@ namespace SAMPLES {
 	* Update the armor bonus
 	* @param time Elapsed time
 	*/
-	void CAreaTriggerEntity::Update(float const time) {
+	void CAreaTriggerEntity::Update(const float time) {
 
 		ITriggerEntity::Update(time);
 	}

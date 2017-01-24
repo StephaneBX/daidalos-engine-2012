@@ -61,7 +61,7 @@ namespace SAMPLES {
 	* Update the door
 	* @param time Elapsed time
 	*/
-	void CAlarmEntity::Update(float const time) {
+	void CAlarmEntity::Update(const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		float rotation = this->m_node->GetRotation().y + this->m_speed * timePerSecond;

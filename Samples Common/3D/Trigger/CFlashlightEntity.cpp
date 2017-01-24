@@ -48,7 +48,7 @@ namespace SAMPLES {
 		this->m_sound.SetRelativeToListener(true);
 	}
 
-	void CFlashlightEntity::Update(float const time) {
+	void CFlashlightEntity::Update(const float time) {
 
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {

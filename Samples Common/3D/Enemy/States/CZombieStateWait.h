@@ -48,14 +48,14 @@ namespace SAMPLES {
 		* @param animationSpeed The animation speed
 		* @param waitTime The wait time
 		*/
-		CZombieStateWait(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float waitTime);
+		CZombieStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(IEnemyEntity * entity, float const time);
+		virtual void Update(IEnemyEntity * entity, const float time);
 	};
 }
 

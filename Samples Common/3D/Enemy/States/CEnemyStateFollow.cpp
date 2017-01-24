@@ -41,7 +41,7 @@ namespace SAMPLES {
 	* @param stopDistance the stop distance
 	* @param searchTime Time the entity search if the target is lost
 	*/
-	CEnemyStateFollow::CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance, float searchTime) : IEnemyState(priority) {
+	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : IEnemyState(priority) {
 		this->m_animationFrames.x = startAnimation;
 		this->m_animationFrames.y = endAnimation;
 		this->m_animationSpeed = animationSpeed;
@@ -73,7 +73,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateFollow::Update(IEnemyEntity * entity, float const time) {
+	void CEnemyStateFollow::Update(IEnemyEntity * entity, const float time) {
 
 		// If the entity is in search mode, update the search timer
 		if(this->m_searched > 0) {
@@ -106,7 +106,7 @@ namespace SAMPLES {
 	* @return True if candidate
 	*/
 	const bool CEnemyStateFollow::IsCandidateForNextAction(IEnemyEntity * entity) {
-		return !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0);
+		return this->m_target->IsEnabled() && (!entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0));
 	}
 
 	/**
@@ -114,7 +114,7 @@ namespace SAMPLES {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateFollow::UpdateRotation(IEnemyEntity * entity, float const time) {
+	void CEnemyStateFollow::UpdateRotation(IEnemyEntity * entity, const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		// Update the entity rotation so that it follows the waypoint during the walk

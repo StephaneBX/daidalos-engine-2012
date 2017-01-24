@@ -62,7 +62,7 @@ namespace SAMPLES {
 		* Update the security camera
 		* @param time Elapsed time
 		*/
-		void Update(float const time = 0);
+		void Update(const float time = 0);
 
 		/**
 		* Trigger the entity action
@@ -79,12 +79,12 @@ namespace SAMPLES {
 		/**
 		* Update the security camera horizontal rotation
 		*/
-		void UpdateHorizontalRotation(float const time = 0);
+		void UpdateHorizontalRotation(const float time = 0);
 
 		/**
 		* Update the security camera vertical rotation
 		*/
-		void UpdateVerticalRotation(float const time = 0);
+		void UpdateVerticalRotation(const float time = 0);
 	};
 }
 

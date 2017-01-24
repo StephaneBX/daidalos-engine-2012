@@ -52,7 +52,7 @@ namespace SAMPLES {
 		this->m_node->SetCurrentFrame(1);
 	}
 
-	void CFanEntity::Update(float const time) {
+	void CFanEntity::Update(const float time) {
 		const float timePerSecond = time / 1000.0f;
 
 		switch(this->m_state) {

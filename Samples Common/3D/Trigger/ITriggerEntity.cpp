@@ -56,7 +56,7 @@ namespace SAMPLES {
 	* Update the entity
 	* @param time Elapsed time
 	*/
-	void ITriggerEntity::Update(float const time) {
+	void ITriggerEntity::Update(const float time) {
 		if(CanDoAction()) {
 			DoAction();
 		}

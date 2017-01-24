@@ -47,7 +47,7 @@ namespace SAMPLES {
 		this->m_state = SWITCH_STATE_OFF;
 	}
 
-	void CSwitchEntity::Update(float const time) {
+	void CSwitchEntity::Update(const float time) {
 
 		if(CanDoAction()) {
 

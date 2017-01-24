@@ -56,7 +56,7 @@ namespace SAMPLES {
 		* @param stopDistance the stop distance
 		* @param searchTime Time the entity search if the target is lost
 		*/
-		CEnemyStateFollow(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, ICollidableEntity * target, float moveSpeed, float rotationSpeed, float stopDistance, float searchTime);
+		CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
 
 		/**
 		* Reset the state
@@ -74,7 +74,7 @@ namespace SAMPLES {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(IEnemyEntity * entity, float const time);
+		virtual void Update(IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
@@ -89,7 +89,7 @@ namespace SAMPLES {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		void UpdateRotation(IEnemyEntity * entity, float const time);
+		void UpdateRotation(IEnemyEntity * entity, const float time);
 	};
 }
 

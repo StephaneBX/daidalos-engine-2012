@@ -64,7 +64,7 @@ namespace SAMPLES {
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(float const time);
+		virtual void Update(const float time);
 
 		/**
 		* Trigger the entity action

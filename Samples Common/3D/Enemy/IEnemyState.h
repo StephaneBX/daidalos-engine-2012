@@ -50,7 +50,7 @@ namespace SAMPLES {
 		* Constructor
 		* @param priority The priority
 		*/
-		IEnemyState(unsigned int priority);
+		IEnemyState(const unsigned int priority);
 
 		/**
 		* Add a listener
@@ -98,7 +98,7 @@ namespace SAMPLES {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(IEnemyEntity * entity, float const time) = 0;
+		virtual void Update(IEnemyEntity * entity, const float time) = 0;
 
 		/**
 		* If the state is candidate for the next action
@@ -121,7 +121,7 @@ namespace SAMPLES {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, float const time);
+		void PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time);
 
 		/**
 		* Process the entity collisions (movement + gravity) based on the shape.
@@ -130,7 +130,7 @@ namespace SAMPLES {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, float const time);
+		void PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time);
 	};
 }
 

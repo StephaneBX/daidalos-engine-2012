@@ -51,14 +51,14 @@ namespace SAMPLES {
 		* @param rotationSpeed The rotation speed
 		* @param wayPoints The way points
 		*/
-		CEnemyStatePatrol(unsigned int priority, float startAnimation, float endAnimation, float animationSpeed, float walkSpeed, float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
+		CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(IEnemyEntity * entity, float const time);
+		virtual void Update(IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
@@ -73,7 +73,7 @@ namespace SAMPLES {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		void UpdateRotation(IEnemyEntity * entity, float const time);
+		void UpdateRotation(IEnemyEntity * entity, const float time);
 	};
 }
 
