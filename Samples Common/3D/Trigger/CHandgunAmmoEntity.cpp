@@ -41,7 +41,7 @@ namespace SAMPLES {
 	*/
 	CHandgunAmmoEntity::CHandgunAmmoEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_type = ENTITY_TYPE_HEALTH;
+		this->m_type = ENTITY_TYPE_HANDGUN_AMMO;
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
@@ -50,7 +50,7 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Update the handgun ammo
+	* Update the entity
 	* @param time Elapsed time
 	*/
 	void CHandgunAmmoEntity::Update(const float time) {
@@ -60,12 +60,6 @@ namespace SAMPLES {
 			const float timePerSecond = time / 1000.0f;
 
 			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-			if(rotation > 360.0f) {
-				rotation -= 360.0f;
-			}
-			if(rotation < 0) {
-				rotation += 360.0f;
-			}
 			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
 		}
 	}

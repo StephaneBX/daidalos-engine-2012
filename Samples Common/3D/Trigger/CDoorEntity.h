@@ -69,7 +69,7 @@ namespace SAMPLES {
 		CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
-		* Update the door
+		* Update the entity
 		* @param time Elapsed time
 		*/
 		void Update(const float time = 0);

@@ -53,7 +53,7 @@ namespace SAMPLES {
 		CHandgunAmmoEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
 
 		/**
-		* Update the health
+		* Update the entity
 		* @param time Elapsed time
 		*/
 		void Update(const float time = 0);

@@ -52,6 +52,10 @@ namespace SAMPLES {
 		this->m_node->SetCurrentFrame(1);
 	}
 
+	/**
+	* Update the entity
+	* @param time Elapsed time
+	*/
 	void CFanEntity::Update(const float time) {
 		const float timePerSecond = time / 1000.0f;
 
@@ -80,6 +84,9 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Trigger the entity action
+	*/
 	void CFanEntity::DoAction() {
 		switch(this->m_state) {
 		case FAN_STATE_STARTED:
@@ -95,10 +102,17 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
 	const bool CFanEntity::CanDoAction() {
 		return this->m_state == FAN_STATE_STARTED || this->m_state == FAN_STATE_STOPPED;
 	}
 
+	/**
+	* Start the fan
+	*/
 	void CFanEntity::Start() {
 		this->m_speed = 0;
 		this->m_state = FAN_STATE_STARTING;
@@ -106,6 +120,9 @@ namespace SAMPLES {
 		this->m_node->ResumeAnimation();
 	}
 
+	/**
+	* Stop the fan
+	*/
 	void CFanEntity::Stop() {
 		this->m_speed = ANIMATION_SPEED;
 		this->m_state = FAN_STATE_STOPPING;

@@ -183,6 +183,9 @@
     <ClInclude Include="3D\Misc\CSpotEntity.h">
       <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Trigger\CMagneticCardEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -298,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="3D\Misc\CSpotEntity.cpp">
       <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CMagneticCardEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

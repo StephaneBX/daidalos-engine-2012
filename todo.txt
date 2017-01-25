@@ -51,12 +51,6 @@
 - Optimisation du scale des éléments
 - ICheckboxListener
 
-===============================================================
-                          C3DScene
-===============================================================
-- Permettre la transition entre deux scenes
-- Demande une gestion threadée du chargement + vue loading
-
 
 ===============================================================
                      Intéractions / Collisions
@@ -145,5 +139,5 @@ Implémentation de scripts lua pour définir le comportement des nodes
 ===============================================================
 						Optimisations
 ===============================================================
-- Collisions toute les 5 frames
+- Collisions toute les x ms
 - Mise à jour des lumières toute les x ms

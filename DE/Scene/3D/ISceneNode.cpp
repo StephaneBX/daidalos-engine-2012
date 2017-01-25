@@ -142,6 +142,16 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_localRotation = rotation;
+
+		// Boundary check
+		for(int i = 0; i < 3; ++i) {
+			if(this->m_localRotation[i] < 0) {
+				this->m_localRotation[i] += 360.0f;
+			}
+			if(this->m_localRotation[i] > 360.0f) {
+				this->m_localRotation[i] -= 360.0f;
+			}
+		}
 	}
 
 	void ISceneNode::SetScale(const CVector3F & scale) {

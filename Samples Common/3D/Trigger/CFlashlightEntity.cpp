@@ -48,6 +48,10 @@ namespace SAMPLES {
 		this->m_sound.SetRelativeToListener(true);
 	}
 
+	/**
+	* Update the entity
+	* @param time Elapsed time
+	*/
 	void CFlashlightEntity::Update(const float time) {
 
 		ITriggerEntity::Update(time);

@@ -53,7 +53,7 @@ namespace SAMPLES
 		CFlashlightEntity(ILevel * parent, DE::ISceneNode * meshNode);
 
 		/**
-		* Update the flashlight
+		* Update the entity
 		* @param time Elapsed time
 		*/
 		void Update(const float time = 0);

@@ -47,6 +47,10 @@ namespace SAMPLES {
 		this->m_state = SWITCH_STATE_OFF;
 	}
 
+	/**
+	* Update the entity
+	* @param time Elapsed time
+	*/
 	void CSwitchEntity::Update(const float time) {
 
 		if(CanDoAction()) {
@@ -88,6 +92,9 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Trigger the entity action
+	*/
 	void CSwitchEntity::DoAction() {
 		switch(this->m_state) {
 		case SWITCH_STATE_OFF:
@@ -103,6 +110,10 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Check if the action can be triggered
+	* @return True if the action can be triggered, false otherwise
+	*/
 	const bool CSwitchEntity::CanDoAction() {
 
 		bool targetsOk = true;
@@ -113,6 +124,9 @@ namespace SAMPLES {
 		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
+	/**
+	* Set the switch on
+	*/
 	void CSwitchEntity::SetOn() {
 		this->m_state = SWITCH_STATE_ACTIVATING;
 		this->m_node->StartAnimation(1, 10, ANIMATION_SPEED);
@@ -120,6 +134,9 @@ namespace SAMPLES {
 		this->m_highlighted = false;
 	}
 
+	/**
+	* Set the switch off
+	*/
 	void CSwitchEntity::SetOff() {
 		this->m_state = SWITCH_STATE_DEACTIVATING;
 		this->m_node->StartAnimation(10, 20, ANIMATION_SPEED);

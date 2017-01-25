@@ -49,7 +49,7 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Update the health bonus
+	* Update the entity
 	* @param time Elapsed time
 	*/
 	void CHealthBonusEntity::Update(const float time) {
@@ -59,12 +59,6 @@ namespace SAMPLES {
 			const float timePerSecond = time / 1000.0f;
 
 			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-			if(rotation > 360.0f) {
-				rotation -= 360.0f;
-			}
-			if(rotation < 0) {
-				rotation += 360.0f;
-			}
 			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
 		}
 	}

@@ -38,6 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/Trigger/CShotgunAmmoEntity.h"
 #include "../3D/Trigger/CFlashlightEntity.h"
 #include "../3D/Trigger/CLadderEntity.h"
+#include "../3D/Trigger/CMagneticCardEntity.h"
 #include "../3D/Misc/CSecurityCameraEntity.h"
 #include "../3D/Misc/CAlarmEntity.h"
 #include "../3D/Misc/CSpotEntity.h"
@@ -198,6 +199,14 @@ namespace SAMPLES {
 			SAMPLES::CSpotEntity * spotEntity = new SAMPLES::CSpotEntity(this, (DE::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CSpotEntity>(spotEntity));
 		}
+
+		// Load the magnetic cards
+		std::vector<DE::ISceneNode*> magneticCardNode = this->m_scene->GetNodeArray("magetic_card_entity");
+		for(auto it = magneticCardNode.begin(); it != magneticCardNode.end(); it++) {
+			SAMPLES::CMagneticCardEntity * magneticCardEntity = new SAMPLES::CMagneticCardEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CMagneticCardEntity>(magneticCardEntity));
+		}
+
 
 		// Load the hud
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();

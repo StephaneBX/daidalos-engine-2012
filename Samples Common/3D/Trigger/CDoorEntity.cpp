@@ -77,6 +77,10 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Update the entity
+	* @param time Elapsed time
+	*/
 	void CDoorEntity::Update(const float time) {
 
 		ITriggerEntity::Update(time);

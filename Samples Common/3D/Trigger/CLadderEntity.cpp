@@ -57,7 +57,7 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Update the armor bonus
+	* Update the entity
 	* @param time Elapsed time
 	*/
 	void CLadderEntity::Update(const float time) {

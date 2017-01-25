@@ -51,7 +51,7 @@ namespace SAMPLES {
 		CAreaTriggerEntity(ILevel * parent, DE::ISceneNode * node);
 
 		/**
-		* Update the armor
+		* Update the entity
 		* @param time Elapsed time
 		*/
 		void Update(const float time = 0);

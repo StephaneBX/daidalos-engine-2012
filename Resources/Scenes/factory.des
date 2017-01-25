@@ -6368,7 +6368,7 @@
         </node>
 		
 		<!-- Static Mesh Node -->
-        <node type="5" name="magetic_card_entity" file="magnetic_card.obj">
+        <node type="6" name="magetic_card_entity" file="magnetic_card.md2">
             <position>143:8:232</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6377,6 +6377,7 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
             <attributes>
+				<color>red</color>
             </attributes>
         </node>
 		

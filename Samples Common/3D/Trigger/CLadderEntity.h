@@ -53,7 +53,7 @@ namespace SAMPLES {
 		CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
 
 		/**
-		* Update the armor
+		* Update the entity
 		* @param time Elapsed time
 		*/
 		void Update(const float time = 0);
