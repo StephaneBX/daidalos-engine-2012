@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CENEMYSTATEFOLLOW_H
 #define __CENEMYSTATEFOLLOW_H
 
+#include "../../ICollidableEntity.h"
 #include "../IEnemyState.h"
 
 namespace SAMPLES {

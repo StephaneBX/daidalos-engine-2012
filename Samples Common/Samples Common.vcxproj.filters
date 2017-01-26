@@ -186,6 +186,9 @@
     <ClInclude Include="3D\Trigger\CMagneticCardEntity.h">
       <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CZombieStateFollow.h">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="3D\Trigger\CMagneticCardEntity.cpp">
       <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CZombieStateFollow.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

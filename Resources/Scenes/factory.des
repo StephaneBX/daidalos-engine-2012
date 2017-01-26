@@ -6438,7 +6438,7 @@
                 <lightShadow_caster>false</lightShadow_caster>
                 <lightColor>0.4:0.4:0.4:1</lightColor>
                 <lightRange>20</lightRange>
-                <lightRadius>28</lightRadius>
+                <lightRadius>35</lightRadius>
                 <lightFalloff>0.7</lightFalloff>
                 <lightTightness>0.5</lightTightness>
             </attributes>
@@ -6456,10 +6456,10 @@
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>true</lightEnabled>
-                <lightShadow_caster>false</lightShadow_caster>
+                <lightShadow_caster>true</lightShadow_caster>
                 <lightColor>0.6:0.4:0.4:1</lightColor>
                 <lightRange>20</lightRange>
-                <lightRadius>25</lightRadius>
+                <lightRadius>35</lightRadius>
                 <lightFalloff>0.7</lightFalloff>
                 <lightTightness>0.5</lightTightness>
             </attributes>

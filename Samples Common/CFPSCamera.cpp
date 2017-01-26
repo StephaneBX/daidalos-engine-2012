@@ -40,7 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0f
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD 0.5f
 #define FPS_CAMERA_STEP_DISTANCE 7.0f
-#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -14.0f
+#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0f
 #define FPS_CAMERA_LADDER_DISTANCE 3.0f
 
 #include <limits>

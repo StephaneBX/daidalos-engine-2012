@@ -76,6 +76,7 @@
     <ClInclude Include="3D\Enemy\States\CEnemyStateFollow.h" />
     <ClInclude Include="3D\Enemy\States\CEnemyStateWait.h" />
     <ClInclude Include="3D\Enemy\States\CEnemyStatePatrol.h" />
+    <ClInclude Include="3D\Enemy\States\CZombieStateFollow.h" />
     <ClInclude Include="3D\Enemy\States\CZombieStateWait.h" />
     <ClInclude Include="3D\ICollidableEntity.h" />
     <ClInclude Include="3D\IEntity.h" />
@@ -119,6 +120,7 @@
     <ClCompile Include="3D\Enemy\States\CEnemyStateFollow.cpp" />
     <ClCompile Include="3D\Enemy\States\CEnemyStateWait.cpp" />
     <ClCompile Include="3D\Enemy\States\CEnemyStatePatrol.cpp" />
+    <ClCompile Include="3D\Enemy\States\CZombieStateFollow.cpp" />
     <ClCompile Include="3D\Enemy\States\CZombieStateWait.cpp" />
     <ClCompile Include="3D\ICollidableEntity.cpp" />
     <ClCompile Include="3D\IEntity.cpp" />
