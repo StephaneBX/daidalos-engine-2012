@@ -77,6 +77,7 @@ namespace SAMPLES {
 		int m_armor;
 		float m_stepDistance;
 		float m_ladderDistance;
+		float m_jumpTimer;
 		EFPSCameraState m_state;
 		DE::CVector2F m_previousMouseMovement;
 		DE::CVector2F m_previousGamepadViewMovement;

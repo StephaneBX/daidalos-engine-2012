@@ -6486,6 +6486,30 @@
             </attributes>
         </node>
 		
+		<!-- Static Mesh Node -->
+        <node type="5" name="vent_slab" file="vent_slab.obj">
+            <position>125:8:190</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>vent_slab_d.png</diffuse_texture>
+            <normal_texture>vent_slab_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<boundingBox>vent_slab_bbox.obj</boundingBox>
+        </node>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="vent_slab" file="vent_slab.obj">
+            <position>124:8:222</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>vent_slab_d.png</diffuse_texture>
+            <normal_texture>vent_slab_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+			<boundingBox>vent_slab_bbox.obj</boundingBox>
+        </node>
+		
 		<!-- Empty Node -->
         <node type="8" name="area_trigger_entity">
 			<position>130:8:230</position>

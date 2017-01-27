@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.20f
 #define FPS_CAMERA_GRAVITY -20.0f
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
+#define FPS_CAMERA_JUMP_DELAY 500
 #define FPS_CAMERA_COLLISION_UPDATE 16
 #define FPS_CAMERA_WALK_FACTOR 1.0f
 #define FPS_CAMERA_RUN_FACTOR 1.7f
@@ -62,6 +63,7 @@ namespace SAMPLES {
 		this->m_armor = 0;
 		this->m_stepDistance = 0;
 		this->m_ladderDistance = 0;
+		this->m_jumpTimer = 0;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
@@ -325,6 +327,11 @@ namespace SAMPLES {
 	* @param gravity The gravity value before touching the ground
 	*/
 	void CFPSCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+
+		// Add a delay after a jump
+		if((this->m_actionState & FPS_CAMERA_JUMP) != 0) {
+			this->m_jumpTimer = FPS_CAMERA_JUMP_DELAY;
+		}
 		this->m_actionState &= ~FPS_CAMERA_JUMP;
 
 		// Fall sound at a minimal hight
@@ -333,6 +340,9 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Update the state
+	*/
 	void CFPSCamera::UpdateState() {
 
 		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
@@ -367,7 +377,7 @@ namespace SAMPLES {
 			this->m_actionState |= FPS_CAMERA_LOOKRIGHT;
 		}
 
-		if(this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
+		if(this->m_jumpTimer <= 0 && this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
 			this->m_actionState |= FPS_CAMERA_JUMP;
 			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
@@ -411,9 +421,18 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Update the movement
+	* @param timeSecond Elapsed time
+	*/
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		DE::CVector3F movement;
 		DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
+
+		this->m_jumpTimer -= time;
+		if(this->m_jumpTimer < 0) {
+			this->m_jumpTimer = 0;
+		}
 
 		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->m_gravity.y == 0) {
 			this->m_state = FPS_CAMERA_STATE_CROUCH;
@@ -542,6 +561,10 @@ namespace SAMPLES {
 		}
 	}
 
+	/**
+	* Update the view
+	* @param timeSecond Elapsed time
+	*/
 	void CFPSCamera::UpdateView(const float timeSecond) {
 		// Mouse view
 		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0) {
