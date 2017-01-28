@@ -6390,6 +6390,7 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
+			<boundingBox>spot_bbox.obj</boundingBox>
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>false</lightEnabled>
@@ -6411,6 +6412,7 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
+			<boundingBox>spot_bbox.obj</boundingBox>
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>true</lightEnabled>
@@ -6432,6 +6434,7 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
+			<boundingBox>spot_bbox.obj</boundingBox>
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>true</lightEnabled>
@@ -6453,6 +6456,7 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
+			<boundingBox>spot_bbox.obj</boundingBox>
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>true</lightEnabled>
@@ -6474,6 +6478,7 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
+			<boundingBox>spot_bbox.obj</boundingBox>
 			<attributes>
 				<lightDecalY>-0.8</lightDecalY>
 				<lightEnabled>false</lightEnabled>
