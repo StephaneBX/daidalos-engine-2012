@@ -143,6 +143,12 @@ namespace DE {
 		ESoundType GetSoundType() const;
 
 		/**
+		* Get the sound category
+		* @return The sound category
+		*/
+		ESoundCategory GetSoundCategory() const;
+
+		/**
 		* Get the looped status
 		* @return The looped status
 		*/

@@ -41,20 +41,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Scene/3D/CEmptySceneNode.h"
 #include "../Scene/3D/CParticleEmitterSceneNode.h"
 #include "../Scene/3D/CPlane3D.h"
-#include "../Scene/Particles/Initializers/CColorParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CLifeParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CLinearVelocityParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CRotationParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CSizeParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CSphereVelocityParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CBoxPositionParticleInitializer.h"
-#include "../Scene/Particles/Initializers/CRadiusPositionParticleInitializer.h"
-#include "../Scene/Particles/Updaters/CColorParticleUpdater.h"
-#include "../Scene/Particles/Updaters/CGravityParticleUpdater.h"
-#include "../Scene/Particles/Updaters/CLifeParticleUpdater.h"
-#include "../Scene/Particles/Updaters/CRotationParticleUpdater.h"
-#include "../Scene/Particles/Updaters/CSizeParticleUpdater.h"
-#include "../Scene/Particles/Updaters/CVelocityParticleUpdater.h"
 #include "../Medias/CTexture2D.h"
 #include "../Medias/CMaterial.h"
 #include "../Loaders/CSceneLoader.h"
@@ -752,10 +738,8 @@ namespace DE {
 		LOG_TRACE();
 
 		bool emitterActive;
-		int emitterTextureId, emitterBlendMode;
-		float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation, emitterParticleRadiusPosition;
-		CColor emitterParticleColorMin, emitterParticleColorMax;
-		CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
+		int emitterTextureId;
+		CVector3F emitterPosition;
 
 		// Template attributes
 		std::string templateName = "";
@@ -767,123 +751,18 @@ namespace DE {
 			emitterName = handle.ToElement()->Attribute("emitterName");
 		}
 
-		// Create the emitter with an optional template
+		// Create the emitter with a template
 		CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter(templateName, emitterName);
 
 		// Basic values
 		GetNodeData(handle, "active", emitterActive, emitter->IsActive());
 		GetNodeData(handle, "position", emitterPosition, CVector3F(0, 0, 0));
 		GetNodeData(handle, "textureId", emitterTextureId, 0);
-		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
-		GetNodeData(handle, "life", emitterLife, emitter->GetLife());
-		GetNodeData(handle, "lifeMax", emitterLifeMax, emitter->GetLifeMax());
-		GetNodeData(handle, "emissionRate", emitterEmissionRate, emitter->GetEmissionRate());
-
-		// Replace the values
-		emitter->SetActive(emitterActive);
-		emitter->SetTextureId(emitterTextureId);
-		emitter->SetBlendMode(emitterBlendMode);
-		emitter->SetLife(emitterLife);
-		emitter->SetLifeMax(emitterLifeMax);
-		emitter->SetEmissionRate(emitterEmissionRate);
-
-		// Look for initializers
-		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
-		if(initializersElement != nullptr) {
-			for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
-
-				if(childName.compare("minMaxColor") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxSize") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
-					GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
-					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxLife") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
-					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxRotation") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
-					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxSphereVelocity") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("linearVelocity") == 0) {
-					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
-					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
-					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
-					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("minMaxBoxPosition") == 0) {
-					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
-					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
-					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
-					emitter->AddInitializer(initializer);
-
-				} else if(childName.compare("radiusPosition") == 0) {
-					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
-					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
-					emitter->AddInitializer(initializer);
-				}
-			}
-		}
-
-		// Look for updaters
-		tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
-		if(updatersElement != nullptr) {
-			for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
-
-				if(childName.compare("color") == 0) {
-					CColorParticleUpdater * updater = new CColorParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("gravity") == 0) {
-					GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
-					CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("life") == 0) {
-					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("rotation") == 0) {
-					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("size") == 0) {
-					CSizeParticleUpdater * updater = new CSizeParticleUpdater();
-					emitter->AddUpdater(updater);
-
-				} else if(childName.compare("velocity") == 0) {
-					GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
-					CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
-					emitter->AddUpdater(updater);
-				}
-			}
-		}
 		
 		node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
 		static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
+		static_cast<CParticleEmitterSceneNode*>(node)->SetTemplateName(templateName);
+		static_cast<CParticleEmitterSceneNode*>(node)->SetEmitterName(emitterName);
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
@@ -1142,8 +1021,6 @@ namespace DE {
 
 		parent->InsertEndChild(document.NewComment(" Particle System Parameters "));
 
-		std::stringstream ss;
-
 		tinyxml2::XMLElement * particleSystemNode = document.NewElement("particleSystem");
 
 		tinyxml2::XMLElement * atlasTextureFileNode = document.NewElement("atlasTextureFile");
@@ -1151,26 +1028,25 @@ namespace DE {
 		particleSystemNode->InsertEndChild(atlasTextureFileNode);
 
 		tinyxml2::XMLElement * atlasTextureSizeNode = document.NewElement("atlasTextureSize");
-		atlasTextureSizeNode->InsertEndChild(document.NewText((scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str())));
+		atlasTextureSizeNode->InsertEndChild(document.NewText(scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str()));
 		particleSystemNode->InsertEndChild(atlasTextureSizeNode);
 
 		tinyxml2::XMLElement * systemSizeNode = document.NewElement("systemSize");
-		ss << scene->GetParticleSystem().GetSystemSize();
-		systemSizeNode->InsertEndChild(document.NewText((ss.str().c_str())));
+		systemSizeNode->InsertEndChild(document.NewText(std::to_string(scene->GetParticleSystem().GetSystemSize()).c_str()));
 		particleSystemNode->InsertEndChild(systemSizeNode);
 
 		std::vector<std::string> emitterTemplates = scene->GetParticleSystem().GetEmittersTemplatesName();
 		if(emitterTemplates.size() > 0) {
 			// Templates
 			tinyxml2::XMLElement * particleSystemEmitterTemplatesNode = document.NewElement("particleEmittersTemplates");
-			particleSystemNode->InsertEndChild(particleSystemEmitterTemplatesNode);
-
+			
 			// Template
 			for(auto it = emitterTemplates.begin(); it != emitterTemplates.end(); ++it) {
 				tinyxml2::XMLElement * templateNode = document.NewElement("template");
 				templateNode->InsertEndChild(document.NewText((*it).c_str()));
-				particleSystemEmitterTemplatesNode->InsertEndChild(atlasTextureFileNode);
+				particleSystemEmitterTemplatesNode->InsertEndChild(templateNode);
 			}
+			particleSystemNode->InsertEndChild(particleSystemEmitterTemplatesNode);
 		}
 
 		parent->InsertEndChild(particleSystemNode);
@@ -1712,6 +1588,13 @@ namespace DE {
 		child->InsertEndChild(document.NewText(ss.str().c_str()));
 		soundNode->InsertEndChild(child);
 
+		// Category
+		ss.str("");
+		child = document.NewElement("category");
+		ss << sceneNode->GetSoundCategory();
+		child->InsertEndChild(document.NewText(ss.str().c_str()));
+		soundNode->InsertEndChild(child);
+
 		// Cone inner angle
 		ss.str("");
 		child = document.NewElement("cone_inner_angle");
@@ -1844,6 +1727,16 @@ namespace DE {
 		// Name
 		emitterNode->SetAttribute("name", sceneNode->GetName().c_str());
 
+		// Template name
+		if(sceneNode->GetTemplateName() != "") {
+			emitterNode->SetAttribute("templateName", sceneNode->GetTemplateName().c_str());
+		}
+
+		// Emitter name
+		if(sceneNode->GetEmitterName() != "") {
+			emitterNode->SetAttribute("emitterName", sceneNode->GetEmitterName().c_str());
+		}
+
 		// Active
 		ss.str("");
 		tinyxml2::XMLElement * child = document.NewElement("active");
@@ -1861,274 +1754,6 @@ namespace DE {
 		child = document.NewElement("textureId");
 		ss << sceneNode->GetEmitter()->GetTextureId();
 		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		emitterNode->InsertEndChild(child);
-
-		// Blend mode
-		ss.str("");
-		child = document.NewElement("blendMode");
-		ss << sceneNode->GetEmitter()->GetBlendMode();
-		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		emitterNode->InsertEndChild(child);
-
-		// Life
-		ss.str("");
-		child = document.NewElement("life");
-		ss << sceneNode->GetEmitter()->GetLife();
-		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		emitterNode->InsertEndChild(child);
-
-		// Life max
-		ss.str("");
-		child = document.NewElement("lifeMax");
-		ss << sceneNode->GetEmitter()->GetLifeMax();
-		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		emitterNode->InsertEndChild(child);
-
-		// Emission rate
-		ss.str("");
-		child = document.NewElement("emissionRate");
-		ss << sceneNode->GetEmitter()->GetEmissionRate();
-		child->InsertEndChild(document.NewText(ss.str().c_str()));
-		emitterNode->InsertEndChild(child);
-
-		// Initializers
-		child = document.NewElement("initializers");
-		for(auto it = sceneNode->GetEmitter()->GetInitializers().begin(); it != sceneNode->GetEmitter()->GetInitializers().end(); it++) {
-			switch((*it)->GetType()) {
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR: {
-				CColorParticleInitializer* initializer = static_cast<CColorParticleInitializer*>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxColor");
-
-				// Min
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				child2->InsertEndChild(document.NewText(initializer->GetColorMin().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				child2 = document.NewElement("max");
-				child2->InsertEndChild(document.NewText(initializer->GetColorMax().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE: {
-				CSizeParticleInitializer* initializer = static_cast<CSizeParticleInitializer*>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxSize");
-
-				// Min
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				ss << initializer->GetSizeMin();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				ss.str("");
-				child2 = document.NewElement("max");
-				ss << initializer->GetSizeMax();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE: {
-				CLifeParticleInitializer* initializer = static_cast<CLifeParticleInitializer*>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxLife");
-
-				// Min
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				ss << initializer->GetLifeMin();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				ss.str("");
-				child2 = document.NewElement("max");
-				ss << initializer->GetLifeMax();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION: {
-				CBoxPositionParticleInitializer * initializer = static_cast<CBoxPositionParticleInitializer*>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxBoxPosition");
-
-				// Min
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				child2->InsertEndChild(document.NewText(initializer->GetPositionMin().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				child2 = document.NewElement("max");
-				child2->InsertEndChild(document.NewText(initializer->GetPositionMax().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION: {
-				CRotationParticleInitializer * initializer = static_cast<CRotationParticleInitializer*>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxRotation");
-
-				// Min
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				ss << initializer->GetRotationMin();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				ss.str("");
-				child2 = document.NewElement("max");
-				ss << initializer->GetRotationMax();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY: {
-				CSphereVelocityParticleInitializer * initializer = static_cast<CSphereVelocityParticleInitializer *>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("minMaxSphereVelocity");
-
-				// Min
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("min");
-				ss << initializer->GetVelocityMin();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				ss.str("");
-				child2 = document.NewElement("max");
-				ss << initializer->GetVelocityMax();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_LINEAR_VELOCITY: {
-				CLinearVelocityParticleInitializer * initializer = static_cast<CLinearVelocityParticleInitializer *>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("linearVelocity");
-
-				// Direction
-				tinyxml2::XMLElement * child2 = document.NewElement("direction");
-				child2->InsertEndChild(document.NewText(initializer->GetDirection().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				// Variation factor
-				ss.str("");
-				child2 = document.NewElement("variationFactor");
-				ss << initializer->GetVariationFactor();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Min
-				ss.str("");
-				child2 = document.NewElement("min");
-				ss << initializer->GetVelocityMin();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				// Max
-				ss.str("");
-				child2 = document.NewElement("max");
-				ss << initializer->GetVelocityMax();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION: {
-				CRadiusPositionParticleInitializer * initializer = static_cast<CRadiusPositionParticleInitializer *>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("radiusPosition");
-
-				// Radius
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("radius");
-				ss << initializer->GetRadius();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-			}
-		}
-		emitterNode->InsertEndChild(child);
-
-		// Updaters
-		child = document.NewElement("updaters");
-		for(auto it = sceneNode->GetEmitter()->GetUpdaters().begin(); it != sceneNode->GetEmitter()->GetUpdaters().end(); it++) {
-			switch((*it)->GetType()) {
-
-			case PARTICLE_UPDATER_TYPE_COLOR: {
-				tinyxml2::XMLElement * element = document.NewElement("color");
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_UPDATER_TYPE_GRAVITY:{
-				CGravityParticleUpdater * updater = static_cast<CGravityParticleUpdater *>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("gravity");
-
-				// Vector
-				tinyxml2::XMLElement * child2 = document.NewElement("vector");
-				child2->InsertEndChild(document.NewText(updater->GetGravity().ToString().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_UPDATER_TYPE_ROTATION: {
-				tinyxml2::XMLElement * element = document.NewElement("rotation");
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_UPDATER_TYPE_SIZE: {
-				tinyxml2::XMLElement * element = document.NewElement("size");
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_UPDATER_TYPE_LIFE: {
-				tinyxml2::XMLElement * element = document.NewElement("life");
-				child->InsertEndChild(element);
-				}
-				break;
-
-			case PARTICLE_UPDATER_TYPE_VELOCITY: {
-				CVelocityParticleUpdater * updater = static_cast<CVelocityParticleUpdater *>((*it).get());
-				tinyxml2::XMLElement * element = document.NewElement("velocity");
-
-				// Damping
-				ss.str("");
-				tinyxml2::XMLElement * child2 = document.NewElement("damping");
-				ss << updater->GetDamping();
-				child2->InsertEndChild(document.NewText(ss.str().c_str()));
-				element->InsertEndChild(child2);
-
-				child->InsertEndChild(element);
-				}
-				break;
-			}
-		}
 		emitterNode->InsertEndChild(child);
 
 		// Attributes

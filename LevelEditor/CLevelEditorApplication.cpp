@@ -474,10 +474,9 @@ namespace EDITOR {
 	}
 
 	/**
-	* Get the node atching the position, the laer and the name
+	* Get the node matching the position and the layer
 	* @param position The position
 	* @param layer The layer
-	* @param name The name
 	* @return A vector of nodes
 	*/
 	std::vector<DE::ISceneNode*> CLevelEditorApplication::GetNodesOnBlock(DE::CVector2I position, int layer) {

@@ -68,7 +68,9 @@ namespace SAMPLES {
 	* Trigger the entity action
 	*/
 	void CLadderEntity::DoAction() {
-		this->m_parent->GetPlayer()->SetGravityState(this->m_triggerParam == 0);
+		if(this->m_triggerParam != 0) {
+			this->m_parent->GetPlayer()->SetGravityState(false);
+		}
 	}
 
 	/**

@@ -125,6 +125,14 @@ namespace SAMPLES {
 		this->m_shaderScreenBlur.LoadFromFile("ScreenBlur");
 		this->m_shaderScreenGlow.LoadFromFile("ScreenGlow");
 
+		// Create the fps label
+		this->m_fpsLabel.SetBounds(DE::CRectangleI(10, 10, 200, 30));
+		this->m_fpsLabel.SetSize(25);
+		this->m_fpsLabel.SetColor(DE::CColor(255, 255, 102, 255));
+		this->m_fpsLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_fpsLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_fpsLabel.SetText("FPS");
+
 		// ------------------------------------------------------------------------------------------------
 		// The loading scene
 		// --------------------------------------------------------------------------------------------------
@@ -137,7 +145,12 @@ namespace SAMPLES {
 	}
 
 	void IForwardSampleApplication::Update(const float time) {
+		this->m_fpsCounter.Update(time);
 
+		if(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_SHOW_FPS, false)) {
+			this->m_fpsLabel.SetText(this->m_fpsCounter.GetText());
+			this->m_fpsLabel.Update(time);
+		}
 	}
 
 	void IForwardSampleApplication::Render() {
@@ -155,6 +168,7 @@ namespace SAMPLES {
 			this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
 			Render2DScene(this->m_loadingScene);
 		}
+		this->m_fpsLabel.Render();
 		
 		// ------------------------------
 		// Cleanup

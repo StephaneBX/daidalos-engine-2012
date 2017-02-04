@@ -152,7 +152,7 @@ namespace EDITOR {
 		void Render3DScene(DE::C3DScene * scene3D);
 
 		/**
-		* Get the node atching the position, the laer and the name
+		* Get the node matching the position and the layer
 		* @param position The position
 		* @param layer The layer
 		* @return A vector of nodes

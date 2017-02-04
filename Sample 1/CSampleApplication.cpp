@@ -52,6 +52,7 @@ namespace SAMPLE1 {
 
 	void CSampleApplication::Update(const float time) {
 
+		IForwardSampleApplication::Update(time);
 		if(!this->m_loading) {
 			this->m_fpsCounter.Update(time);
 
@@ -70,10 +71,6 @@ namespace SAMPLE1 {
 			if(this->m_dwarfNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 				this->m_dwarfNode->StartAnimation(0.0f, (float)this->m_dwarfNode->GetNumberOfFrames(), 20.0f);
 			}
-
-			// Update the hud
-			//this->m_hud->SetFPS(this->m_fpsCounter.GetText());
-			//this->m_hud->SetPosition(this->m_camera->GetCameraNode()->GetAbsolutePosition());
 
 			this->m_cursor.Update(time);
 

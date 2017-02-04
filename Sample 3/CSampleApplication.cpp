@@ -52,21 +52,13 @@ namespace SAMPLE3 {
 
 	void CSampleApplication::Update(const float time) {
 		
+		IForwardSampleApplication::Update(time);
 		if(!this->m_loading) {
 			if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
 				this->m_alive = false;
 			}
 
 			this->m_currentLevel->Update(time);
-
-			// Update the hud
-			/*this->m_fpsCounter.Update(time);
-			this->m_hud->SetFlashlight(this->m_player->GetObjectValue(SAMPLES::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
-			this->m_hud->SetFPS(this->m_fpsCounter.GetText());
-			this->m_hud->SetPosition(this->m_player->GetVisiblePosition());
-			this->m_hud->SetGravity(this->m_player->GetGravity().y);
-			this->m_hud->SetHealth(this->m_player->GetHealth());*/
-
 			this->m_cursor.Update(time);
 		} else {
 			this->m_loadingScene->Update(time);

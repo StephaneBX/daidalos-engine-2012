@@ -255,6 +255,9 @@ namespace SAMPLES {
 		this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
 		float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
 		this->m_soundContext->SetListenerOrientation(orientation);
+
+		// Reset the gravity state
+		this->m_gravityState = true;
 	}
 
 	/**

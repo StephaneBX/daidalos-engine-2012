@@ -65,6 +65,46 @@ namespace DE {
 	}
 
 	/**
+	* Set the template name
+	* @param templateName The template name
+	*/
+	void CParticleEmitterSceneNode::SetTemplateName(const std::string & templateName) {
+		LOG_TRACE();
+
+		this->m_templateName = templateName;
+	}
+
+	/**
+	* Set the emitter name
+	* @param emitterName The emitter name
+	*/
+	void CParticleEmitterSceneNode::SetEmitterName(const std::string & emitterName) {
+		LOG_TRACE();
+
+		this->m_emitterName = emitterName;
+	}
+
+	/**
+	* Get the template name
+	* @return The template name
+	*/
+	const std::string & CParticleEmitterSceneNode::GetTemplateName() const {
+		LOG_TRACE();
+
+		return this->m_templateName;
+	}
+
+	/**
+	* Get the emitter name
+	* @return The emitter name
+	*/
+	const std::string & CParticleEmitterSceneNode::GetEmitterName() const {
+		LOG_TRACE();
+
+		return this->m_emitterName;
+	}
+
+	/**
 	* Get the particle emitter
 	* @return The particle emitter
 	*/

@@ -4,9 +4,9 @@
         <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
         <atlasTextureSize>4:4</atlasTextureSize>
         <systemSize>5000</systemSize>
-		<particleEmittersTemplates>
-			<template>default.dept</template>
-		</particleEmittersTemplates>
+        <particleEmittersTemplates>
+            <template>default.dept</template>
+        </particleEmittersTemplates>
     </particleSystem>
     <!-- BSP Level Node -->
     <node type="0" name="level" ambientColor="1:1:1:1" skyName="sky1" skyAmbientColor="0:0:0:1">
@@ -4834,6 +4834,517 @@
                 <diffuse_texture>ceiling_2d.png</diffuse_texture>
                 <normal_texture>ceiling_1n.png</normal_texture>
             </brush>
+            <brush file="ceiling_1.obj">
+                <position>-70:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-80:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-90:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-120:0:110</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-80:0:110</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-90:0:110</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-120:0:110</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-110:0:110</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:0:110</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-100:0:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_5.obj">
+                <position>-100:-8:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_5.obj">
+                <position>-100:-16:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-100:-24:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:0:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-80:0:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-90:0:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:0:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:0:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-120:0:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:100</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:130</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:130</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:140</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:140</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-110:-24:160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-100:-24:160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:130</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:140</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-100:-24:160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:140</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:130</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-110:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:110</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:120</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:130</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:140</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:150</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-100:-24:160</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-120:-24:120</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-120:-24:150</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-110:-24:110</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-110:-24:110</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-120:-24:120</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-120:-24:120</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-120:-24:150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-110:-24:140</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-110:-24:130</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-120:-24:150</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-130:-24:150</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-130:-24:120</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-110:-24:160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-130:-24:150</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-130:-24:120</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-120:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-130:-24:150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-130:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-120:-24:120</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_2d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-130:-24:120</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-130:-24:150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_2d.png</diffuse_texture>
+                <normal_texture>wall_2n.png</normal_texture>
+            </brush>
         </multi_brush>
         <brush file="slope_high.obj">
             <position>0:-8:150</position>
@@ -5094,35 +5605,35 @@
             <diffuse_texture>crate_3d.png</diffuse_texture>
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
-		<brush file="crate.obj">
+        <brush file="crate.obj">
             <position>130:8:236</position>
             <rotation>0:0:0</rotation>
             <scale>2:2:2</scale>
             <diffuse_texture>crate_3d.png</diffuse_texture>
             <normal_texture>crate_3n.png</normal_texture>
         </brush>
-		<brush file="crate.obj">
+        <brush file="crate.obj">
             <position>127:8:236</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_1d.png</diffuse_texture>
             <normal_texture>crate_1n.png</normal_texture>
         </brush>
-		<brush file="crate.obj">
+        <brush file="crate.obj">
             <position>126:10:236</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_1d.png</diffuse_texture>
             <normal_texture>crate_1n.png</normal_texture>
         </brush>
-		<brush file="crate.obj">
+        <brush file="crate.obj">
             <position>133.5:8:236</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>crate_1d.png</diffuse_texture>
             <normal_texture>crate_1n.png</normal_texture>
         </brush>
-		<brush file="crate.obj">
+        <brush file="crate.obj">
             <position>133.5:10:236</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5409,14 +5920,14 @@
             <diffuse_texture>lockers_d.png</diffuse_texture>
             <normal_texture>lockers_n.png</normal_texture>
         </brush>
-		<brush file="lockers.obj">
+        <brush file="lockers.obj">
             <position>123:8:216</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>lockers_d.png</diffuse_texture>
             <normal_texture>lockers_n.png</normal_texture>
         </brush>
-		<brush file="lockers.obj">
+        <brush file="lockers.obj">
             <position>136:8:216</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5479,8 +5990,7 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
-		
-		<brush file="pillar_top.obj">
+        <brush file="pillar_top.obj">
             <position>130:8:240</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5501,7 +6011,6 @@
             <diffuse_texture>wall_2d.png</diffuse_texture>
             <normal_texture>wall_2n.png</normal_texture>
         </brush>
-		
         <brush file="lockers.obj">
             <position>125:8:176</position>
             <rotation>0:0:0</rotation>
@@ -5574,6 +6083,7 @@
         </brush>
         <!-- Animated Mesh Node -->
         <node type="6" name="teleporter_entity" file="teleporter.ms3d">
+            <enabled>true</enabled>
             <position>0:0:0</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5584,6 +6094,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-6" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>0:0:36</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5595,6 +6106,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:0:36</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5605,6 +6117,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:0:36</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5615,6 +6128,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-2" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5626,6 +6140,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5636,6 +6151,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:0:180</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5646,6 +6162,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-3" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>0:-16:110</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5657,6 +6174,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:-16:110</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5667,6 +6185,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>0:-16:110</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5677,6 +6196,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-4" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5688,6 +6208,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5698,6 +6219,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5708,6 +6230,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-5" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>-70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5719,6 +6242,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>-70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5729,6 +6253,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>-70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5739,6 +6264,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-7" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>140:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5753,6 +6279,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>140:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5763,6 +6290,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-8" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>90:8:150</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5774,6 +6302,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-9" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>110:8:170</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5785,6 +6314,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>110:8:170</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5795,6 +6325,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>110:8:170</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5805,6 +6336,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" id="-10" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>160:8:180</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5817,8 +6349,9 @@
                 <triggerRadius>-1.0</triggerRadius>
             </attributes>
         </node>
-		<!-- Animated Mesh Node -->
+        <!-- Animated Mesh Node -->
         <node type="6" id="-11" name="door_entity" file="door.ms3d">
+            <enabled>true</enabled>
             <position>130:8:240</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5831,8 +6364,9 @@
                 <triggerRadius>-1.0</triggerRadius>
             </attributes>
         </node>
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>130:8:240</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5843,6 +6377,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>160:8:180</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -5853,6 +6388,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>90:8:150</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -5863,6 +6399,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
+            <enabled>true</enabled>
             <position>90:8:150</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -5894,6 +6431,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:160</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5905,6 +6443,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:150</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5916,6 +6455,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:140</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5927,6 +6467,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:130</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5938,6 +6479,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:120</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5949,6 +6491,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-20:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5960,6 +6503,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:160</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5971,6 +6515,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:150</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5982,6 +6527,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:140</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -5993,6 +6539,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:130</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6004,6 +6551,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:120</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6015,6 +6563,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>20:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6026,6 +6575,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-15:0:105</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -6037,6 +6587,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>-5:0:105</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -6048,6 +6599,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>5:0:105</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -6059,6 +6611,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
             <position>15:0:105</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -6068,16 +6621,9 @@
             <material>default.mtl</material>
             <boundingBox>bars_bbox.obj</boundingBox>
         </node>
-        <!-- DirectionalLight Node -->
-        <node type="4" name="directionalLight">
-            <enabled>true</enabled>
-            <shadow_caster>false</shadow_caster>
-            <position>79.8617:-5.46178:200.742</position>
-            <rotation>40:180:0</rotation>
-            <color>0.1:0.1:0.1:1</color>
-        </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>true</enabled>
             <position>110:8:80</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -6095,6 +6641,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="alarm_entity" file="alarm.obj">
+            <enabled>true</enabled>
             <position>30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6108,6 +6655,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="alarm_entity" file="alarm.obj">
+            <enabled>true</enabled>
             <position>-30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6121,6 +6669,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
             <position>-40:0:80</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6131,6 +6680,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
             <position>40:0:80</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6141,6 +6691,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="switch.obj">
+            <enabled>true</enabled>
             <position>95:0:130</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -6152,6 +6703,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="switch.obj">
+            <enabled>true</enabled>
             <position>95:8:136</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -6163,6 +6715,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="flashlight_entity" file="flashlight.md2">
+            <enabled>true</enabled>
             <position>0:0:15</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6173,6 +6726,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="health_bonus_entity" file="health_bonus.md2">
+            <enabled>true</enabled>
             <position>140:8:100</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6183,6 +6737,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+            <enabled>true</enabled>
             <position>110:8:140</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6193,6 +6748,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="handgun_ammo_entity" file="handgun_ammo.md2">
+            <enabled>true</enabled>
             <position>105:8:140</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6203,6 +6759,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="armor_bonus_entity" file="armor_bonus.md2">
+            <enabled>true</enabled>
             <position>-45:0:145</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6213,6 +6770,7 @@
         </node>
         <!-- Animated Mesh Node -->
         <node type="6" name="shotgun_ammo_entity" file="shotgun_ammo.md2">
+            <enabled>true</enabled>
             <position>0:0:30</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6226,8 +6784,7 @@
             <position>0:20:120</position>
             <rotation>0:0:0</rotation>
             <type>1</type>
-			<category>1</category>
-            <gain>0.02</gain>
+            <category>1</category>
             <cone_inner_angle>360</cone_inner_angle>
             <cone_outer_angle>360</cone_outer_angle>
             <reference_distance>4</reference_distance>
@@ -6242,7 +6799,7 @@
             <position>0:0:0</position>
             <rotation>0:0:0</rotation>
             <type>1</type>
-			<category>0</category>
+            <category>0</category>
             <cone_inner_angle>360</cone_inner_angle>
             <cone_outer_angle>360</cone_outer_angle>
             <reference_distance>4</reference_distance>
@@ -6260,6 +6817,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="security_camera_entity" file="security_camera_root.obj">
+            <enabled>true</enabled>
             <position>78:16:85</position>
             <rotation>0:45:0</rotation>
             <scale>1:1:1</scale>
@@ -6277,6 +6835,7 @@
             </attributes>
             <!-- Static Mesh Node -->
             <node type="5" name="security_camera" file="security_camera.obj">
+                <enabled>true</enabled>
                 <position>-0.6:-2:0</position>
                 <rotation>15:0:0</rotation>
                 <scale>1:1:1</scale>
@@ -6288,6 +6847,7 @@
         </node>
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
+            <enabled>true</enabled>
             <position>120:0:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6300,27 +6860,25 @@
                 <boundingBox_size>0.5:8:0.25</boundingBox_size>
             </attributes>
         </node>
-		
-		<!-- Animated Mesh Node -->
-		<node id="50" type="6" name="zombie_enemy_entity" file="zombie.ms3d">
-			<enabled>false</enabled>
-			<position>0:2:75</position>
-			<rotation>0:0:0</rotation>
-			<scale>0.24:0.24:0.24</scale>
-			<diffuse_texture>zombie_d.png</diffuse_texture>
-			<normal_texture>zombie_n.png</normal_texture>
-			<meshShading>1</meshShading>
-			<material>default.mtl</material>
-			<attributes>
-				<health>50</health>
-				<max_health>50</max_health>
-				<patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
-			</attributes>
-		</node>
-		
-		<!-- Animated Mesh Node -->
-        <node id="50" type="6" name="zombie_enemy_entity" file="zombie.ms3d">
-			<enabled>false</enabled>
+        <!-- Animated Mesh Node -->
+        <node type="6" id="50" name="zombie_enemy_entity" file="zombie.ms3d">
+            <enabled>false</enabled>
+            <position>0:2:75</position>
+            <rotation>0:0:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+                <health>50</health>
+                <max_health>50</max_health>
+                <patrol_waypoints>-10:0:10|10:0:10|10:0:-10|-10:0:-10</patrol_waypoints>
+            </attributes>
+        </node>
+        <!-- Animated Mesh Node -->
+        <node type="6" id="50" name="zombie_enemy_entity" file="zombie.ms3d">
+            <enabled>false</enabled>
             <position>105:2:110</position>
             <rotation>0:0:0</rotation>
             <scale>0.24:0.24:0.24</scale>
@@ -6328,15 +6886,15 @@
             <normal_texture>zombie_n.png</normal_texture>
             <meshShading>1</meshShading>
             <material>default.mtl</material>
-			<attributes>
-				<health>50</health>
-				<max_health>50</max_health>
-				<patrol_waypoints>-12:0:0|12:0:0</patrol_waypoints>
-			</attributes>
+            <attributes>
+                <health>50</health>
+                <max_health>50</max_health>
+                <patrol_waypoints>-12:0:0|12:0:0</patrol_waypoints>
+            </attributes>
         </node>
-		
-		<!-- Animated Mesh Node -->
+        <!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <enabled>true</enabled>
             <position>105:-35:110</position>
             <rotation>0:0:0</rotation>
             <scale>0.24:0.24:0.24</scale>
@@ -6344,15 +6902,15 @@
             <normal_texture>zombie_n.png</normal_texture>
             <meshShading>1</meshShading>
             <material>default.mtl</material>
-			<attributes>
-				<health>50</health>
-				<max_health>50</max_health>
-				<patrol_waypoints>-7:0:0|7:0:0</patrol_waypoints>
-			</attributes>
+            <attributes>
+                <health>50</health>
+                <max_health>50</max_health>
+                <patrol_waypoints>-7:0:0|7:0:0</patrol_waypoints>
+            </attributes>
         </node>
-		
-		<!-- Animated Mesh Node -->
+        <!-- Animated Mesh Node -->
         <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <enabled>true</enabled>
             <position>130:10:225</position>
             <rotation>0:0:0</rotation>
             <scale>0.24:0.24:0.24</scale>
@@ -6360,15 +6918,14 @@
             <normal_texture>zombie_n.png</normal_texture>
             <meshShading>1</meshShading>
             <material>default.mtl</material>
-			<attributes>
-				<health>50</health>
-				<max_health>50</max_health>
-				<patrol_waypoints></patrol_waypoints>
-			</attributes>
+            <attributes>
+                <health>50</health>
+                <max_health>50</max_health>
+            </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Animated Mesh Node -->
         <node type="6" name="magetic_card_entity" file="magnetic_card.md2">
+            <enabled>true</enabled>
             <position>143:8:232</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6377,12 +6934,12 @@
             <meshShading>0</meshShading>
             <material>default.mtl</material>
             <attributes>
-				<color>red</color>
+                <color>red</color>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
             <position>0:8:15</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6390,21 +6947,21 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>spot_bbox.obj</boundingBox>
-			<attributes>
-				<lightDecalY>-0.8</lightDecalY>
-				<lightEnabled>false</lightEnabled>
-                <lightShadow_caster>false</lightShadow_caster>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
                 <lightColor>0.6:0.6:0.6:1</lightColor>
-                <lightRange>20</lightRange>
-                <lightRadius>25</lightRadius>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>false</lightEnabled>
                 <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>false</lightShadow_caster>
                 <lightTightness>0.5</lightTightness>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
             <position>90:16:165</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6412,21 +6969,21 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>spot_bbox.obj</boundingBox>
-			<attributes>
-				<lightDecalY>-0.8</lightDecalY>
-				<lightEnabled>true</lightEnabled>
-                <lightShadow_caster>true</lightShadow_caster>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
                 <lightColor>0.4:0.4:0.4:1</lightColor>
-                <lightRange>20</lightRange>
-                <lightRadius>25</lightRadius>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
                 <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>true</lightShadow_caster>
                 <lightTightness>0.5</lightTightness>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
             <position>132:16:170</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6434,21 +6991,21 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>spot_bbox.obj</boundingBox>
-			<attributes>
-				<lightDecalY>-0.8</lightDecalY>
-				<lightEnabled>true</lightEnabled>
-                <lightShadow_caster>false</lightShadow_caster>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
                 <lightColor>0.4:0.4:0.4:1</lightColor>
-                <lightRange>20</lightRange>
-                <lightRadius>35</lightRadius>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
                 <lightFalloff>0.7</lightFalloff>
+                <lightRadius>35</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>false</lightShadow_caster>
                 <lightTightness>0.5</lightTightness>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
             <position>132:16:192</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6456,21 +7013,21 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>spot_bbox.obj</boundingBox>
-			<attributes>
-				<lightDecalY>-0.8</lightDecalY>
-				<lightEnabled>true</lightEnabled>
-                <lightShadow_caster>true</lightShadow_caster>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
                 <lightColor>0.6:0.4:0.4:1</lightColor>
-                <lightRange>20</lightRange>
-                <lightRadius>35</lightRadius>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
                 <lightFalloff>0.7</lightFalloff>
+                <lightRadius>35</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>true</lightShadow_caster>
                 <lightTightness>0.5</lightTightness>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
             <position>130:16:227</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6478,21 +7035,21 @@
             <normal_texture>black.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>spot_bbox.obj</boundingBox>
-			<attributes>
-				<lightDecalY>-0.8</lightDecalY>
-				<lightEnabled>false</lightEnabled>
-                <lightShadow_caster>false</lightShadow_caster>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
                 <lightColor>0.4:0.4:0.4:1</lightColor>
-                <lightRange>20</lightRange>
-                <lightRadius>25</lightRadius>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>false</lightEnabled>
                 <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>false</lightShadow_caster>
                 <lightTightness>0.5</lightTightness>
             </attributes>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="vent_slab" file="vent_slab.obj">
+            <enabled>true</enabled>
             <position>125:8:190</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -6500,11 +7057,11 @@
             <normal_texture>vent_slab_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>vent_slab_bbox.obj</boundingBox>
+            <boundingBox>vent_slab_bbox.obj</boundingBox>
         </node>
-		
-		<!-- Static Mesh Node -->
+        <!-- Static Mesh Node -->
         <node type="5" name="vent_slab" file="vent_slab.obj">
+            <enabled>true</enabled>
             <position>124:8:222</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -6512,17 +7069,193 @@
             <normal_texture>vent_slab_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
-			<boundingBox>vent_slab_bbox.obj</boundingBox>
+            <boundingBox>vent_slab_bbox.obj</boundingBox>
         </node>
-		
-		<!-- Empty Node -->
+        <!-- Empty Node -->
         <node type="8" name="area_trigger_entity">
-			<position>130:8:230</position>
+            <position>130:8:230</position>
             <rotation>0:0:0</rotation>
-			<attributes>
-				<triggerRadius>20</triggerRadius>
-				<triggerNodeIds>50</triggerNodeIds>
-			</attributes>
+            <attributes>
+                <triggerNodeIds>50</triggerNodeIds>
+                <triggerRadius>20</triggerRadius>
+            </attributes>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="ladder_entity" file="ladder.obj">
+            <enabled>true</enabled>
+            <position>-95:-8:103</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>ladder_d.png</diffuse_texture>
+            <normal_texture>ladder_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+                <boundingBox_position>0:4:0</boundingBox_position>
+                <boundingBox_size>0.5:8:0.25</boundingBox_size>
+            </attributes>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="ladder_entity" file="ladder.obj">
+            <enabled>true</enabled>
+            <position>-95:-16:103</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>ladder_d.png</diffuse_texture>
+            <normal_texture>ladder_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+                <boundingBox_position>0:4:0</boundingBox_position>
+                <boundingBox_size>0.5:8:0.25</boundingBox_size>
+            </attributes>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="ladder_entity" file="ladder.obj">
+            <enabled>true</enabled>
+            <position>-95:-24:103</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>ladder_d.png</diffuse_texture>
+            <normal_texture>ladder_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+                <boundingBox_position>0:4:0</boundingBox_position>
+                <boundingBox_size>0.5:8:0.25</boundingBox_size>
+            </attributes>
+        </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="fogGreenEmitter" templateName="default.dept" emitterName="fogGreenEmitter">
+            <active>1</active>
+            <position>-105:-24:105</position>
+            <textureId>0</textureId>
+        </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="fogGreenEmitter" templateName="default.dept" emitterName="fogGreenEmitter">
+            <active>1</active>
+            <position>-105:-24:125</position>
+            <textureId>0</textureId>
+        </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="fogGreenEmitter" templateName="default.dept" emitterName="fogGreenEmitter">
+            <active>1</active>
+            <position>-105:-24:145</position>
+            <textureId>0</textureId>
+        </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="fogGreenEmitter" templateName="default.dept" emitterName="fogGreenEmitter">
+            <active>1</active>
+            <position>-105:-24:165</position>
+            <textureId>0</textureId>
+        </node>
+		<!-- Animated Mesh Node -->
+		<node type="6" name="fan_entity" file="fan.ms3d">
+			<position>-122:-20:120</position>
+			<rotation>0:0:90</rotation>
+			<scale>2:2:2</scale>
+			<diffuse_texture>black.png</diffuse_texture>
+			<normal_texture>white.png</normal_texture>
 		</node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
+            <position>-116:-24:120</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+		<!-- SpotLight Node -->
+		<node type="2" name="spotlight">
+			<enabled>true</enabled>
+			<shadow_caster>true</shadow_caster>
+			<position>-134:-20:120</position>
+			<rotation>0:90:0</rotation>
+			<color>0.3:0.3:0.3:1</color>
+			<range>60</range>
+			<radius>17</radius>
+			<falloff>0.5</falloff>
+			<tightness>0.5</tightness>
+		</node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bar_light.obj">
+            <enabled>true</enabled>
+            <position>-110:-24:110</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>glow_blue.tga</diffuse_texture>
+            <normal_texture>white.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bar_light.obj">
+            <enabled>true</enabled>
+            <position>-110:-24:130</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>glow_blue.tga</diffuse_texture>
+            <normal_texture>white.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bar_light.obj">
+            <enabled>true</enabled>
+            <position>-110:-24:140</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>glow_blue.tga</diffuse_texture>
+            <normal_texture>white.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		<!-- Animated Mesh Node -->
+		<node type="6" name="fan_entity" file="fan.ms3d">
+			<position>-122:-20:150</position>
+			<rotation>0:0:90</rotation>
+			<scale>2:2:2</scale>
+			<diffuse_texture>black.png</diffuse_texture>
+			<normal_texture>white.png</normal_texture>
+		</node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bars.obj">
+            <enabled>true</enabled>
+            <position>-116:-24:150</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>default.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>bars_bbox.obj</boundingBox>
+        </node>
+		<!-- SpotLight Node -->
+		<node type="2" name="spotlight">
+			<enabled>true</enabled>
+			<shadow_caster>true</shadow_caster>
+			<position>-134:-20:150</position>
+			<rotation>0:90:0</rotation>
+			<color>0.3:0.3:0.3:1</color>
+			<range>60</range>
+			<radius>17</radius>
+			<falloff>0.5</falloff>
+			<tightness>0.5</tightness>
+		</node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="bar_light.obj">
+            <enabled>true</enabled>
+            <position>-110:-24:160</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>glow_blue.tga</diffuse_texture>
+            <normal_texture>white.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
     </node>
 </scene>

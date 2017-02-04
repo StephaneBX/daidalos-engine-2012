@@ -186,6 +186,13 @@ namespace DE {
 		return this->m_type;
 	}
 
+	ESoundCategory CSound::GetCategory() const {
+		LOG_TRACE();
+
+		Assert(this->m_sound != nullptr);
+		return this->m_category;
+	}
+
 	const bool CSound::IsRelativeToListener() const {
 		LOG_TRACE();
 

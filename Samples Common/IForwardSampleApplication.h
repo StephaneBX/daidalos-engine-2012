@@ -82,6 +82,7 @@ namespace SAMPLES {
 
 		// Hud
 		DE::CFPSCounter m_fpsCounter;
+		DE::CLabel m_fpsLabel;
 		CLoadingView * m_loadingView;
 
 	public:
@@ -101,7 +102,7 @@ namespace SAMPLES {
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time) = 0;
+		virtual void Update(const float time);
 
 		/**
 		* Render the application

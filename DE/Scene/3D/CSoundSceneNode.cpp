@@ -139,6 +139,12 @@ namespace DE {
 		return this->m_sound.GetType();
 	}
 
+	ESoundCategory CSoundSceneNode::GetSoundCategory() const {
+		LOG_TRACE();
+
+		return this->m_sound.GetCategory();
+	}
+
 	const bool CSoundSceneNode::IsSoundLooped() const {
 		LOG_TRACE();
 

@@ -159,6 +159,12 @@ namespace DE {
 		ESoundType GetType() const;
 
 		/**
+		* Get the sound category
+		* @return The sound category
+		*/
+		ESoundCategory GetCategory() const;
+
+		/**
 		* Check if the position is relative to the listener
 		* @return The relative position state
 		*/

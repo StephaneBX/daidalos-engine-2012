@@ -76,6 +76,43 @@
 			<size/>
 		</updaters>
 	</emitter>
+	<emitter name="fogGreenEmitter">
+		<blendMode>5</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>150</emissionRate>
+		<initializers>
+			<minMaxColor>
+				<min>0.2:0.4:0.2:0.2</min>
+				<max>0.2:0.4:0.2:0</max>
+			</minMaxColor>
+			<minMaxSize>
+				<min>6</min>
+				<max>8</max>
+			</minMaxSize>
+			<minMaxLife>
+				<min>0</min>
+				<max>5000</max>
+			</minMaxLife>
+			<minMaxRotation>
+				<min>-45</min>
+				<max>45</max>
+			</minMaxRotation>
+			<minMaxBoxPosition>
+				<min>-10:0:-10</min>
+				<max>10:0:10</max>
+			</minMaxBoxPosition>
+		</initializers>
+		<updaters>
+			<color/>
+			<gravity>
+				<vector>0:0.1:0</vector>
+			</gravity>
+			<life/>
+			<rotation/>
+			<size/>
+		</updaters>
+	</emitter>
 	<emitter name="activeTeleporterEmitter">
 		<blendMode>1</blendMode>
 		<life>-1</life>

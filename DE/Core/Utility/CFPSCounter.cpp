@@ -69,7 +69,7 @@ namespace DE {
 			this->m_fpsUpdateRateTimer = 0;
 			this->m_frameCountRate = 0;
 			this->m_fpsStream.str("");
-			this->m_fpsStream << "FPS: " << this->m_fps;
+			this->m_fpsStream << this->m_fps;
 		}
 	}
 
@@ -83,7 +83,7 @@ namespace DE {
 		this->m_frameCountRate = 0;
 		this->m_executionTime = 0;
 		this->m_fpsUpdateRateTimer = 0;
-		this->m_fpsStream << "FPS: 0";
+		this->m_fpsStream << "0";
 	}
 
 	/**

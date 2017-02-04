@@ -39,7 +39,6 @@ namespace SAMPLES {
 	class CHudView : public DE::IView {
 	private:
 		bool m_debugMode;
-		DE::CLabel m_fpsLabel;
 		DE::CLabel m_positionLabel;
 		DE::CLabel m_gravityLabel;
 		DE::CSprite m_armorSprite;
@@ -69,12 +68,6 @@ namespace SAMPLES {
 		* @param flashlight The flashlight state
 		*/
 		void SetFlashlight(const bool flashlight);
-
-		/**
-		* Set the fps value
-		* @param fps Set the fps value
-		*/
-		void SetFPS(const std::string fps);
 
 		/**
 		* Set the player's position

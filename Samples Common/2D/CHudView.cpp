@@ -33,15 +33,6 @@ namespace SAMPLES {
 	CHudView::CHudView(const DE::CRectangleI & bounds) : IView() {
 
 		SetBounds(bounds);
-		
-		// Create the fps label
-		this->m_fpsLabel.SetBounds(DE::CRectangleI((int)(this->m_preferredsize.x - 200), 0, 200, 30));
-		this->m_fpsLabel.SetSize(30);
-		this->m_fpsLabel.SetColor(DE::CColor(255, 255, 102, 255));
-		this->m_fpsLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_fpsLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
-		this->m_fpsLabel.SetText("FPS");
-		AddSubview(&this->m_fpsLabel);
 
 		// Create the position label
 		this->m_positionLabel.SetBounds(DE::CRectangleI(5, 0, 400, 30));
@@ -121,7 +112,6 @@ namespace SAMPLES {
 	*/
 	void CHudView::SetDebugMode(const bool debugMode) {
 		this->m_debugMode = debugMode;
-		this->m_fpsLabel.SetVisible(this->m_debugMode);
 		this->m_positionLabel.SetVisible(this->m_debugMode);
 		this->m_gravityLabel.SetVisible(this->m_debugMode);
 	}
@@ -132,14 +122,6 @@ namespace SAMPLES {
 	*/
 	void CHudView::SetFlashlight(const bool flashlight) {
 		this->m_flashlightSprite.SetVisible(flashlight);
-	}
-
-	/**
-	* Set the fps value
-	* @param fps Set the fps value
-	*/
-	void CHudView::SetFPS(const std::string fps) {
-		this->m_fpsLabel.SetText(fps);
 	}
 
 	/**

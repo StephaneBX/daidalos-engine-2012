@@ -37,6 +37,8 @@ namespace DE {
 	*/
 	class CParticleEmitterSceneNode : public ISceneNode {
 	protected:
+		std::string m_templateName;
+		std::string m_emitterName;
 		CParticleEmitter * m_emitter;
 
 	public:
@@ -60,6 +62,30 @@ namespace DE {
 		* @param time The elapsed time
 		*/
 		void Update(const float time = 0);
+
+		/**
+		* Set the template name
+		* @param templateName The template name
+		*/
+		void SetTemplateName(const std::string & templateName);
+
+		/**
+		* Set the emitter name
+		* @param emitterName The emitter name
+		*/
+		void SetEmitterName(const std::string & emitterName);
+
+		/**
+		* Get the template name
+		* @return The template name
+		*/
+		const std::string & GetTemplateName() const;
+
+		/**
+		* Get the emitter name
+		* @return The emitter name
+		*/
+		const std::string & GetEmitterName() const;
 
 		/**
 		* Get the particle emitter
