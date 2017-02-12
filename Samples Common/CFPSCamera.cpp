@@ -323,7 +323,7 @@ namespace SAMPLES {
 			return (this->m_flashlightNode != nullptr && this->m_flashlightNode->IsEnabled()) ? 1 : 0;
 
 		default:
-			// CHeck for a misc object
+			// Check for a misc object
 			auto it = this->m_objects.find(object);
 			if(it != this->m_objects.end()) {
 				return (*it).second;

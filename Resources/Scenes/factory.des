@@ -7855,13 +7855,13 @@
             </attributes>
         </node>
 		<!-- Static Mesh Node -->
-        <node type="5" id="-5" name="magnetic_card_reader_entity" file="cube.obj">
+        <node type="5" id="-5" name="magnetic_card_reader_entity" file="magnetic_card_reader.obj">
             <enabled>true</enabled>
             <position>-69:3:114</position>
-            <rotation>0:90:0</rotation>
+            <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
-            <diffuse_texture>default.png</diffuse_texture>
-            <normal_texture>default.png</normal_texture>
+            <diffuse_texture>magnetic_card_reader_d.png</diffuse_texture>
+            <normal_texture>magnetic_card_reader_n.png</normal_texture>
             <meshShading>0</meshShading>
             <material>default.mtl</material>
 			<attributes>
@@ -8832,7 +8832,7 @@
             <shadow_caster>true</shadow_caster>
             <position>-134:-20:120</position>
             <rotation>0:90:0</rotation>
-            <color>0.3:0.3:0.3:1</color>
+            <color>0.35:0.35:0.35:1</color>
             <range>60</range>
             <radius>17</radius>
             <falloff>0.5</falloff>
@@ -8900,7 +8900,7 @@
             <shadow_caster>true</shadow_caster>
             <position>-134:-20:150</position>
             <rotation>0:90:0</rotation>
-            <color>0.3:0.3:0.3:1</color>
+            <color>0.35:0.35:0.35:1</color>
             <range>60</range>
             <radius>17</radius>
             <falloff>0.5</falloff>
