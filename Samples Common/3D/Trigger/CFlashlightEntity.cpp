@@ -41,6 +41,7 @@ namespace SAMPLES {
 	*/
 	CFlashlightEntity::CFlashlightEntity(ILevel * parent, DE::ISceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_FLASHLIGHT;
 		this->m_node = meshNode;
 

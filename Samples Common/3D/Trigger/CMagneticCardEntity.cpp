@@ -31,7 +31,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define ROTATION_SPEED 70.0f
 #define TRIGGER_RADIUS 5
-#define AMMO_QUANTITY 12
 
 namespace SAMPLES {
 	/**
@@ -41,6 +40,7 @@ namespace SAMPLES {
 	*/
 	CMagneticCardEntity::CMagneticCardEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_MAGNETIC_CARD;
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
@@ -78,7 +78,7 @@ namespace SAMPLES {
 	void CMagneticCardEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_parent->GetPlayer()->SetObject(this->m_playerObject, AMMO_QUANTITY);
+		this->m_parent->GetPlayer()->SetObject(this->m_playerObject, 1);
 	}
 
 	/**

@@ -92,6 +92,7 @@
     <ClInclude Include="3D\Trigger\CHealthBonusEntity.h" />
     <ClInclude Include="3D\Trigger\CLadderEntity.h" />
     <ClInclude Include="3D\Trigger\CMagneticCardEntity.h" />
+    <ClInclude Include="3D\Trigger\CMagneticCardReaderEntity.h" />
     <ClInclude Include="3D\Trigger\CShotgunAmmoEntity.h" />
     <ClInclude Include="3D\Trigger\CSwitchEntity.h" />
     <ClInclude Include="3D\Trigger\CTeleporterEntity.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="3D\Trigger\CHealthBonusEntity.cpp" />
     <ClCompile Include="3D\Trigger\CLadderEntity.cpp" />
     <ClCompile Include="3D\Trigger\CMagneticCardEntity.cpp" />
+    <ClCompile Include="3D\Trigger\CMagneticCardReaderEntity.cpp" />
     <ClCompile Include="3D\Trigger\CShotgunAmmoEntity.cpp" />
     <ClCompile Include="3D\Trigger\CSwitchEntity.cpp" />
     <ClCompile Include="3D\Trigger\CTeleporterEntity.cpp" />

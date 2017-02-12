@@ -39,6 +39,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/Trigger/CFlashlightEntity.h"
 #include "../3D/Trigger/CLadderEntity.h"
 #include "../3D/Trigger/CMagneticCardEntity.h"
+#include "../3D/Trigger/CMagneticCardReaderEntity.h"
 #include "../3D/Misc/CSecurityCameraEntity.h"
 #include "../3D/Misc/CAlarmEntity.h"
 #include "../3D/Misc/CSpotEntity.h"
@@ -201,12 +202,19 @@ namespace SAMPLES {
 		}
 
 		// Load the magnetic cards
-		std::vector<DE::ISceneNode*> magneticCardNode = this->m_scene->GetNodeArray("magetic_card_entity");
+		std::vector<DE::ISceneNode*> magneticCardNode = this->m_scene->GetNodeArray("magnetic_card_entity");
 		for(auto it = magneticCardNode.begin(); it != magneticCardNode.end(); it++) {
 			SAMPLES::CMagneticCardEntity * magneticCardEntity = new SAMPLES::CMagneticCardEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CMagneticCardEntity>(magneticCardEntity));
 		}
 
+		// Load the magnetic card readers
+		std::vector<DE::ISceneNode*> magneticCardReaderNode = this->m_scene->GetNodeArray("magnetic_card_reader_entity");
+		for(auto it = magneticCardReaderNode.begin(); it != magneticCardReaderNode.end(); it++) {
+			SAMPLES::CMagneticCardReaderEntity * magneticCardReaderEntity = new SAMPLES::CMagneticCardReaderEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CMagneticCardReaderEntity>(magneticCardReaderEntity));
+		}
+		
 
 		// Load the hud
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();

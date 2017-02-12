@@ -40,6 +40,7 @@ namespace SAMPLES {
 	*/
 	CFanEntity::CFanEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_FAN;
 		this->m_node = meshNode;
 

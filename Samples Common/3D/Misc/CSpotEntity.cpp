@@ -38,6 +38,7 @@ namespace SAMPLES {
 	*/
 	CSpotEntity::CSpotEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_SPOT;
 		this->m_node = meshNode;
 

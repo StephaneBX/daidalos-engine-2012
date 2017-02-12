@@ -36,6 +36,8 @@ namespace SAMPLES {
 	*/
 	IEntity::IEntity(ILevel * parent) {
 		this->m_parent = parent;
+		this->m_id = 0;
+		this->m_flag = 0;
 	}
 
 	/**
@@ -88,6 +90,22 @@ namespace SAMPLES {
 	*/
 	const bool IEntity::IsEnabled() const {
 		return true;
+	}
+
+	/**
+	* Get the entity id
+	* @return The entity id
+	*/
+	const int IEntity::GetId() const {
+		return this->m_id;
+	}
+
+	/**
+	* Get the entity flag
+	* @return The entity flag
+	*/
+	const int IEntity::GetFlag() const {
+		return this->m_flag;
 	}
 
 	/**

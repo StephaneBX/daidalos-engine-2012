@@ -42,6 +42,7 @@ namespace SAMPLES {
 	*/
 	CDoorEntity::CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_DOOR;
 		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;

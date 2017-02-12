@@ -40,6 +40,8 @@ namespace SAMPLES {
 	*/
 	class IEntity {
 	protected:
+		int m_id;
+		int m_flag;
 		unsigned int m_type;
 		unsigned int m_health;
 		unsigned int m_maxHealth;
@@ -89,6 +91,18 @@ namespace SAMPLES {
 		* @return True if the entity is enabled
 		*/
 		virtual const bool IsEnabled() const;
+
+		/**
+		* Get the entity id
+		* @return The entity id
+		*/
+		const int GetId() const;
+
+		/**
+		* Get the entity flag
+		* @return The entity flag
+		*/
+		const int GetFlag() const;
 
 		/**
 		* Get the entity type

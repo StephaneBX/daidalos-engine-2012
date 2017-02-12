@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_COLLISION_UPDATE_FREQUENCY 16
 
+#include "../Enums.h"
 #include "../Level/ILevel.h"
 #include "ICollidableEntity.h"
 
@@ -36,6 +37,7 @@ namespace SAMPLES {
 	* @param parent The parent
 	*/
 	ICollidableEntity::ICollidableEntity(ILevel * parent) : IEntity(parent) {
+		this->m_flag |= ENTITY_FLAG_COLLIDABLE;
 		this->m_gravityState = true;
 		this->m_collisionState = true;
 		this->m_collisionUpdateFrequency = DEFAULT_COLLISION_UPDATE_FREQUENCY;

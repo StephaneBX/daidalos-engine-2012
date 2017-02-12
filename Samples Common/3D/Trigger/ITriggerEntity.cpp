@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Enums.h"
 #include "ITriggerEntity.h"
 
 namespace SAMPLES {
@@ -33,7 +34,7 @@ namespace SAMPLES {
 	* @param parent The parent
 	*/
 	ITriggerEntity::ITriggerEntity(ILevel * parent) : IEntity(parent) {
-
+		this->m_flag |= ENTITY_FLAG_TRIGGER;
 	}
 
 	/**

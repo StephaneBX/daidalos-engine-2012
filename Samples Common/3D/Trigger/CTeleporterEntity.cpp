@@ -40,6 +40,7 @@ namespace SAMPLES {
 	*/
 	CTeleporterEntity::CTeleporterEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_TELEPORTER;
 		this->m_node = meshNode;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");

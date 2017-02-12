@@ -40,6 +40,7 @@ namespace SAMPLES {
 	*/
 	CSwitchEntity::CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_SWITCH;
 		this->m_node = meshNode;
 

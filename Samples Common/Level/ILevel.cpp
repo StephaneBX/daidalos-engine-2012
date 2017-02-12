@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../Enums.h"
 #include "ILevel.h"
 
 namespace SAMPLES {
@@ -128,5 +129,35 @@ namespace SAMPLES {
 	*/
 	std::vector<std::unique_ptr<IEntity> > & ILevel::GetEntities() {
 		return this->m_entities;
+	}
+
+	/**
+	* Get the entities with a given id
+	* @return The entities with the given id
+	*/
+	std::vector<IEntity*> ILevel::GetEntities(const int id) const {
+		std::vector<IEntity*> entities;
+
+		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); ++it) {
+			if((*it)->GetId() == id) {
+				entities.push_back((*it).get());
+			}
+		}
+		return entities;
+	}
+
+	/**
+	* Get the trigger entities with a given id
+	* @return The entities with the given id
+	*/
+	std::vector<ITriggerEntity*> ILevel::GetTriggerEntities(const int id) const {
+		std::vector<ITriggerEntity*> entities;
+
+		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); ++it) {
+			if((*it)->GetId() == id && ((*it)->GetFlag() & ENTITY_FLAG_TRIGGER) != 0) {
+				entities.push_back((ITriggerEntity*)(*it).get());
+			}
+		}
+		return entities;
 	}
 }

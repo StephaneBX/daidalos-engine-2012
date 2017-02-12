@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ILevelListener.h"
 #include "../IPlayer.h"
 #include "../3D/IEntity.h"
+#include "../3D/Trigger/ITriggerEntity.h"
 
 namespace SAMPLES {
 	/**
@@ -102,6 +103,18 @@ namespace SAMPLES {
 		* @return The entities
 		*/
 		std::vector<std::unique_ptr<IEntity> > & GetEntities();
+
+		/**
+		* Get the entities with a given id
+		* @return The entities with the given id
+		*/
+		std::vector<IEntity*> GetEntities(const int id) const;
+
+		/**
+		* Get the trigger entities with a given id
+		* @return The entities with the given id
+		*/
+		std::vector<ITriggerEntity*> GetTriggerEntities(const int id) const;
 
 	protected:
 		/**

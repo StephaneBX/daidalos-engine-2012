@@ -41,6 +41,7 @@ namespace SAMPLES {
 	*/
 	CHandgunAmmoEntity::CHandgunAmmoEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_HANDGUN_AMMO;
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);

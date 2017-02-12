@@ -37,6 +37,7 @@ namespace SAMPLES {
 	*/
 	CLadderEntity::CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
+		this->m_id = meshNode->GetId();
 		this->m_type = ENTITY_TYPE_LADDER;
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);

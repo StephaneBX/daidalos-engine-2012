@@ -30,6 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 
+	enum EEntityFlag {
+		ENTITY_FLAG_COLLIDABLE = 1 << 1,
+		ENTITY_FLAG_TRIGGER = 1 << 2,
+		ENTITY_FLAG_ENEMY = 1 << 3,
+	};
+
 	enum EEntityType {
 		ENTITY_TYPE_ALARM,
 		ENTITY_TYPE_DOOR,
@@ -42,6 +48,7 @@ namespace SAMPLES {
 		ENTITY_TYPE_HANDGUN_AMMO,
 		ENTITY_TYPE_FLASHLIGHT,
 		ENTITY_TYPE_MAGNETIC_CARD,
+		ENTITY_TYPE_MAGNETIC_CARD_READER,
 		ENTITY_TYPE_SECURITY_CAMERA,
 		ENTITY_TYPE_LADDER,
 		ENTITY_TYPE_AREA_TRIGGER,

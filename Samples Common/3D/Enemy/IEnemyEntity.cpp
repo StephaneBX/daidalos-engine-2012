@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "IEnemyEntity.h"
+#include "../../Enums.h"
 #include "../../Level/ILevel.h"
 
 namespace SAMPLES {
@@ -45,6 +46,9 @@ namespace SAMPLES {
 	* @param meshNode The mesh node
 	*/
 	IEnemyEntity::IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
+		this->m_id = meshNode->GetId();
+		this->m_flag |= ENTITY_FLAG_ENEMY;
+
 		this->m_health = DEFAULT_HEALTH;
 		this->m_maxHealth = DEFAULT_HEALTH;
 

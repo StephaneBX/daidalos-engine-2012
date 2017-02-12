@@ -37,6 +37,7 @@ namespace SAMPLES {
 	*/
 	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
 
+		this->m_id = node->GetId();
 		this->m_type = ENTITY_TYPE_AREA_TRIGGER;
 		this->m_node = node;
 		
