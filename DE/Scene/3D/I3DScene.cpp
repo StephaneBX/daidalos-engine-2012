@@ -489,19 +489,19 @@ namespace DE {
 		LOG_TRACE();
 
 		// Check the number of active spot light versus the maximum allowed in the options
-		int maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
+		int maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
 		if(maxSpotLight < this->m_activeSpotLights->numberOfLights) {
 			this->m_activeSpotLights->numberOfLights = maxSpotLight;
 		}
 
 		// Check the number of active point light versus the maximum allowed in the options
-		int maxPointLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_MAX_POINTLIGHT_SOURCES, this->m_activePointLights->numberOfLights);
+		int maxPointLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_POINTLIGHT_SOURCES, this->m_activePointLights->numberOfLights);
 		if(maxPointLight < this->m_activePointLights->numberOfLights) {
 			this->m_activePointLights->numberOfLights = maxPointLight;
 		}
 
 		// Check the number of active directional light versus the maximum allowed in the options
-		int maxDirectionalLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTENING, APPLICATION_OPTION_LIGHTENING_MAX_DIRECTIONALLIGHT_SOURCES, this->m_activeDirectionalLights->numberOfLights);
+		int maxDirectionalLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_DIRECTIONALLIGHT_SOURCES, this->m_activeDirectionalLights->numberOfLights);
 		if(maxDirectionalLight < this->m_activeDirectionalLights->numberOfLights) {
 			this->m_activeDirectionalLights->numberOfLights = maxDirectionalLight;
 		}

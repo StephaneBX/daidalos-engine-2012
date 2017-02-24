@@ -65,7 +65,7 @@ namespace DE {
 		this->m_fpsUpdateRateTimer += time;
 
 		if(this->m_fpsUpdateRateTimer >= FPS_UPDATE_RATE) {
-			this->m_fps = ((int)((this->m_frameCountRate / (this->m_fpsUpdateRateTimer / 1000.0f)) * 100)) / 100.0f;
+			this->m_fps = (int)(this->m_frameCountRate / (this->m_fpsUpdateRateTimer / 1000.0f));
 			this->m_fpsUpdateRateTimer = 0;
 			this->m_frameCountRate = 0;
 			this->m_fpsStream.str("");
@@ -90,7 +90,7 @@ namespace DE {
 	* Get the current fps
 	* @return The current fps
 	*/
-	const float CFPSCounter::GetFPS() const {
+	const int CFPSCounter::GetFPS() const {
 		LOG_TRACE();
 		return this->m_fps;
 	}

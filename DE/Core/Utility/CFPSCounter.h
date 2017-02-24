@@ -43,7 +43,7 @@ namespace DE {
 		int m_frameCountRate;
 		float m_executionTime;
 		float m_fpsUpdateRateTimer;
-		float m_fps;
+		int m_fps;
 		std::stringstream m_fpsStream;
 
 	public:
@@ -77,7 +77,7 @@ namespace DE {
 		* Get the current fps
 		* @return The current fps
 		*/
-		const float GetFPS() const;
+		const int GetFPS() const;
 
 		/**
 		* Get the current fps as a string
