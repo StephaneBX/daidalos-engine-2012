@@ -39,6 +39,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 
 	#define MESHSCENE_ALL_GROUPS -1
+	#define SCENE_DEFAULT_ID 0
+	#define SCENE_SKYBOX_ID -9999
+	#define SCENE_TRANSPARENT_ID -9998
+	#define SCENE_TOP_LAYER_ID -9997
 
 	class I3DScene;
 	/**
@@ -189,8 +193,9 @@ namespace DE {
 
 		/**
 		* Render the node
+		* @param filterId The filter id to apply the select the rendered nodes
 		*/
-		virtual void Render();
+		virtual void Render(const int filterId = SCENE_DEFAULT_ID);
 
 		/**
 		* Render the node transparent parts
@@ -201,6 +206,11 @@ namespace DE {
 		* Render the geometry that will let the skybox pass through
 		*/
 		virtual void RenderSkyboxMask();
+
+		/**
+		* Render debug information
+		*/
+		virtual void RenderDebugInformation();
 
 		/**
 		* Get the type

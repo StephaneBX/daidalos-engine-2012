@@ -98,8 +98,9 @@ namespace DE {
 
 		/**
 		* Render all the nodes
+		* @param filterId The filter id to apply the select the rendered nodes
 		*/
-		void RenderAll();
+		void Render(const int filterId = SCENE_DEFAULT_ID);
 
 		/**
 		* Render all the transparent nodes

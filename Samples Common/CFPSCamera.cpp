@@ -44,6 +44,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0f
 #define FPS_CAMERA_LADDER_DISTANCE 3.0f
 
+#define FPS_CAMERA_WEAPON_INDEX_HANDGUN 0
+#define FPS_CAMERA_WEAPON_INDEX_SHOTGUN 1
+
 #include <limits>
 #include <Core/CInputDevice.h>
 #include <Core/CSoundContextManager.h>
@@ -55,6 +58,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	CFPSCamera::CFPSCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) : IPlayer(parent) {
+		this->m_hasMoved = false;
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
 		this->m_node = cameraNode;
@@ -167,8 +171,8 @@ namespace SAMPLES {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, nullptr)));
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(this->m_parent, nullptr)));
+		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node)));
+		//this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(this->m_parent, nullptr)));
 		this->m_currentWeaponIndex = 0;
 		this->m_currentWeapon = this->m_weapons[0].get();
 	}
@@ -214,11 +218,11 @@ namespace SAMPLES {
 			break;
 
 		case PLAYER_OBJECT_HANDGUN_AMMO:
-			this->m_weapons[0]->AddAmmo(value);
+			this->m_weapons[FPS_CAMERA_WEAPON_INDEX_HANDGUN]->AddAmmo(value);
 			break;
 
 		case PLAYER_OBJECT_SHOTGUN_AMMO:
-			this->m_weapons[1]->AddAmmo(value);
+			this->m_weapons[FPS_CAMERA_WEAPON_INDEX_SHOTGUN]->AddAmmo(value);
 			break;
 
 		default:
@@ -277,6 +281,14 @@ namespace SAMPLES {
 	*/
 	const bool CFPSCamera::IsInteracting() const {
 		return this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT);
+	}
+
+	/**
+	* If the player has moved during the current frame
+	* return True if the player has moved during the current frame
+	*/
+	const bool CFPSCamera::HasMoved() {
+		return this->m_hasMoved;
 	}
 
 	/**
@@ -569,6 +581,8 @@ namespace SAMPLES {
 				this->m_ladderDistance = 0;
 			}
 		}
+
+		this->m_hasMoved = movement.x != 0 || movement.z != 0;
 	}
 
 	/**

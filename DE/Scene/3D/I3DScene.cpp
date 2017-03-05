@@ -185,7 +185,7 @@ namespace DE {
 		}
 	}
 
-	void I3DScene::RenderAll() {
+	void I3DScene::Render(const int filterId) {
 		LOG_TRACE();
 
 		Assert(this->m_root != nullptr);
@@ -198,7 +198,7 @@ namespace DE {
 		// Global parameters of the scene
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
-		this->m_root->Render();
+		this->m_root->Render(filterId);
 	}
 
 	/**
@@ -247,12 +247,7 @@ namespace DE {
 		// Global parameters of the scene
 		this->m_debugShader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
-		const std::vector<ISceneNode*> cameras = GetNodeArray(SCENE_NODE_CAMERA);
-		for(unsigned int i = 0; i < cameras.size(); ++i) {
-			if(cameras[i] != this->m_activeCamera) {
-				cameras[i]->Render();
-			}
-		}
+		this->m_root->RenderDebugInformation();
 	}
 
 	void I3DScene::SetMeshFormat(const int format) {

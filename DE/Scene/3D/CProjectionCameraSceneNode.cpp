@@ -58,7 +58,7 @@ namespace DE {
 		LOG_TRACE();
 
 		// Update the camera information
-		ICameraSceneNode::Update();
+		ICameraSceneNode::Update(time);
 
 		// Update the projection information
 		this->m_projMatrix.PerspectiveFOV(this->m_angle, this->m_ratio, this->m_nearDistance, this->m_farDistance);

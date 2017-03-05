@@ -79,6 +79,6 @@ namespace SAMPLES {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CShotgunAmmoEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && this->m_parent->GetPlayer()->GetObjectValue(PLAYER_OBJECT_SHOTGUN_WEAPON) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

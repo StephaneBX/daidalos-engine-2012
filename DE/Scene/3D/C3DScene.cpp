@@ -100,11 +100,11 @@ namespace DE {
 		this->m_scene->RenderSkybox();
 	}
 
-	void C3DScene::RenderAll() {
+	void C3DScene::Render(const int filterId) {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
-		this->m_scene->RenderAll();
+		this->m_scene->Render(filterId);
 	}
 
 	void C3DScene::RenderTransparent() {

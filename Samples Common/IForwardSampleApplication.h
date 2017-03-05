@@ -148,6 +148,12 @@ namespace SAMPLES {
 		virtual void DiffuseRendering(DE::C3DScene * scene3D);
 
 		/**
+		* Render the diffuse top layer part
+		* @param scene3D The scene
+		*/
+		virtual void DiffuseTopLayerRendering(DE::C3DScene * scene3D);
+
+		/**
 		* Render the transparent part
 		* @param scene3D The scene
 		*/

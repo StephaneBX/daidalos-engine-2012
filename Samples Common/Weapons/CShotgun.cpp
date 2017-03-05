@@ -34,9 +34,9 @@ namespace SAMPLES {
 	/**
 	* Constructor
 	* @param parent The parent
-	* @param meshNode The weapon mesh node
+	* @param meshNode The player node
 	*/
-	CShotgun::CShotgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : IWeapon(parent, meshNode) {
+	CShotgun::CShotgun(ILevel * parent, DE::ISceneNode * playerNode) : IWeapon(parent) {
 		this->m_damage = 12;
 		this->m_magazineSize = 7;
 		this->m_maxMagazineSize = 7;
@@ -56,7 +56,16 @@ namespace SAMPLES {
 
 		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);
 
+		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
+	}
+
+	/**
+	* Initialize the weapon node
+	* @param playerNode The player node to attach the weapon node to
+	*/
+	void CShotgun::InitializeWeaponNode(DE::ISceneNode * playerNode) {
+	
 	}
 
 	/**

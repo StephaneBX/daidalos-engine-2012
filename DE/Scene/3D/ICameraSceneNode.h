@@ -90,9 +90,9 @@ namespace DE {
 		virtual void Update(const float time = 0);
 
 		/**
-		* Render the debug lines
+		* Render debug information
 		*/
-		virtual void Render();
+		virtual void RenderDebugInformation() override;
 
 		/**
 		* Perform a frustum culling test with the shape to determine if it need to be discarded for the rendering process

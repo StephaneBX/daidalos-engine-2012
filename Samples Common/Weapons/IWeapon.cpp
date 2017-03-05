@@ -31,6 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define PARTICLE_LIFE 50
 #define PARTICLE_DIRECTION_DECAL 0.08f
+#define WOBBLE_SPEED 9.0f
+#define WOBBLE_IMPULSE_ATTENUATION 50.0f
 
 namespace SAMPLES {
 
@@ -39,7 +41,7 @@ namespace SAMPLES {
 	* @param parent The parent
 	* @param meshNode The weapon mesh node
 	*/
-	IWeapon::IWeapon(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) {
+	IWeapon::IWeapon(ILevel * parent) {
 		this->m_state = WEAPON_STATE_NONE;
 		this->m_damage = 0;
 		this->m_magazineSize = 0;
@@ -52,9 +54,8 @@ namespace SAMPLES {
 		this->m_fireDelay = 0;
 		this->m_reloadDelay = 0;
 		this->m_remainingDelay = 0;
+		this->m_wobblePositionTime = 0;
 		this->m_range = 100;
-
-		this->m_meshNode = meshNode;
 		this->m_parent = parent;
 	}
 
@@ -135,6 +136,12 @@ namespace SAMPLES {
 	void IWeapon::Update(const float time) {
 
 		const float timeSecond = time / 1000.0f;
+
+		// Apply vertical movement
+		if(this->m_state == WEAPON_STATE_NONE && this->m_parent->GetPlayer()->HasMoved()) {
+			this->m_wobblePositionTime += timeSecond * WOBBLE_SPEED;
+			this->m_meshNode->SetPosition(DE::CVector3F(this->m_meshNode->GetPosition().x, -1.3f - (cosf(this->m_wobblePositionTime) / WOBBLE_IMPULSE_ATTENUATION), this->m_meshNode->GetPosition().z));
+		}
 
 		if(this->m_state == WEAPON_STATE_FIRE || this->m_state == WEAPON_STATE_RELOAD) {
 			this->m_remainingDelay -= time;

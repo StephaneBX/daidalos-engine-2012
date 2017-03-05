@@ -255,7 +255,7 @@ namespace SAMPLES {
 		this->m_renderer->SetShaderProgram(this->m_DSFill.GetShaderProgram());
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		this->m_scene->RenderAll();
+		this->m_scene->Render();
 
 		// ------------------------------
 		// Deferred Shading : Lights
@@ -370,7 +370,7 @@ namespace SAMPLES {
 				this->m_renderer->SetShaderProgram(this->m_DSShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-				this->m_scene->RenderAll();
+				this->m_scene->Render();
 			}
 
 			// Add the light effect to the lightRT
@@ -453,7 +453,7 @@ namespace SAMPLES {
 				this->m_renderer->SetShaderProgram(this->m_DSShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-				this->m_scene->RenderAll();
+				this->m_scene->Render();
 			}
 
 			// Add the light effect to the lightRT

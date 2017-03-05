@@ -51,7 +51,7 @@ namespace DE {
 		LOG_TRACE();
 
 		// Update the camera information
-		ICameraSceneNode::Update();
+		ICameraSceneNode::Update(time);
 
 		// Update the projection
 		UpdateProjection();

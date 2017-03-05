@@ -235,6 +235,11 @@ namespace SAMPLES {
 		TransparentRendering(scene3D);
 
 		// ------------------------------
+		// Diffuse - Top layer
+		// ------------------------------
+		DiffuseTopLayerRendering(scene3D);
+
+		// ------------------------------
 		// Debug
 		// ------------------------------
 		if(this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
@@ -324,7 +329,28 @@ namespace SAMPLES {
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		scene3D->RenderAll();
+		scene3D->Render();
+	}
+
+	/**
+	* Render the diffuse top layer part
+	* @param scene3D The scene
+	*/
+	void IForwardSampleApplication::DiffuseTopLayerRendering(DE::C3DScene * scene3D) {
+		// ------------------------------
+		// Forward rendering: diffuse top layer
+		// ------------------------------
+		this->m_renderer->Clear(DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, true);
+		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
+		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		scene3D->Render(SCENE_TOP_LAYER_ID);
 	}
 
 	/**
@@ -431,7 +457,7 @@ namespace SAMPLES {
 				this->m_renderer->SetShaderProgram(this->m_shaderShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_frameBufferShadowMap.GetFrameBuffer());
 				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
-				scene3D->RenderAll();
+				scene3D->Render();
 			}
 
 			// Add the light effect to the backbuffer
@@ -458,7 +484,7 @@ namespace SAMPLES {
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
 			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
-			scene3D->RenderAll();
+			scene3D->Render();
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, true);
 		}
 	}
@@ -491,7 +517,7 @@ namespace SAMPLES {
 		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
 			// Add the light effect to the backbuffer
 			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
-			scene3D->RenderAll();
+			scene3D->Render();
 		}
 	}
 
@@ -523,7 +549,7 @@ namespace SAMPLES {
 		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			// Add the light effect to the backbuffer
 			scene3D->SendDirectionalLightDataToShader(i);
-			scene3D->RenderAll();
+			scene3D->Render();
 		}
 	}
 }

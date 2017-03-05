@@ -68,14 +68,14 @@ namespace DE {
 		this->m_viewMatrix.LookAt(this->m_absolutePosition, this->m_absoluteLookAt, this->m_absoluteUp);
 	}
 
-	void ICameraSceneNode::Render() {
+	void ICameraSceneNode::RenderDebugInformation() {
 		LOG_TRACE();
 
-		/*IRenderer * renderer = IRenderer::GetRenderer();
+		IRenderer * renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_debugBuffer, DEBUG_LINES_STRIDE);
-		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);*/
+		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 
-		ISceneNode::Render();
+		ISceneNode::RenderDebugInformation();
 	}
 
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {

@@ -34,11 +34,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CAABoundingBox.h"
 
 namespace DE {
-	#define SCENE_DEFAULT_ID 0
-	#define SCENE_SKYBOX_ID -9999
-	#define SCENE_TRANSPARENT_ID -9998
-	#define SCENE_TOP_LAYER -9997
-
 	/**
 	* Base class for level nodes
 	*/
@@ -137,9 +132,10 @@ namespace DE {
 		const CAABoundingBoxF GetBoundingBox();
 
 		/**
-		* Render the level
+		* Render the node
+		* @param filterId The filter id to apply the select the rendered nodes
 		*/
-		virtual void Render() = 0;
+		virtual void Render(const int filterId = SCENE_DEFAULT_ID) override = 0;
 
 		/**
 		* Render the transparent elements of the level

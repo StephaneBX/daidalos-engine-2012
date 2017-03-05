@@ -115,6 +115,12 @@ namespace SAMPLES
 		const bool IsInteracting() const;
 
 		/**
+		* If the player has moved during the current frame
+		* return True if the player has moved during the current frame
+		*/
+		const bool HasMoved() override;
+
+		/**
 		* Get the player health
 		* @return The player health
 		*/

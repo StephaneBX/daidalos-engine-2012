@@ -167,13 +167,17 @@ namespace DE {
 		ISceneNode::SetMeshShadingType(shadingType);
 	}
 
-	void IMeshSceneNode::Render() {
+	/**
+	* Render the node
+	* @param filterId The filter id to apply the select the rendered nodes
+	*/
+	void IMeshSceneNode::Render(const int filterId) {
 		LOG_TRACE();
 
 		// Activation check
-		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape);
+		this->m_active = (filterId == SCENE_DEFAULT_ID && this->m_id != SCENE_TOP_LAYER_ID && !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape)) || (this->m_id == filterId && filterId == SCENE_TOP_LAYER_ID);
 
-		// If the camera is bound to a light, it means that the render is used for a lightning process.
+		// If the camera is bound to a light, it means that the render is used for a lightning shadow process.
 		// Render the mesh only if it's a shadow caster
 		if(this->m_active && this->m_scene->GetActiveCamera()->GetParent() != nullptr && (this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_SPOTLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_DIRECTIONALLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_POINTLIGHT)) {
 			if(!IsShadowCaster()) {
@@ -222,7 +226,7 @@ namespace DE {
 
 		}
 
-		ISceneNode::Render();
+		ISceneNode::Render(filterId);
 	}
 
 	const EMeshShadingType IMeshSceneNode::GetMeshShadingType() const {

@@ -73,6 +73,7 @@ namespace SAMPLES {
 	class CFPSCamera : public IPlayer
 	{
 	private:
+		bool m_hasMoved;
 		unsigned int m_actionState;
 		int m_armor;
 		float m_stepDistance;
@@ -155,6 +156,12 @@ namespace SAMPLES {
 		* @return True if the player interaction action is active
 		*/
 		const bool IsInteracting() const;
+
+		/**
+		* If the player has moved during the current frame
+		* return True if the player has moved during the current frame
+		*/
+		const bool HasMoved() override;
 
 		/**
 		* Check if the entity is enabled

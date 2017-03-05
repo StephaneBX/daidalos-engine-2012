@@ -7717,6 +7717,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:0:36</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -7728,6 +7729,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:0:36</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -7739,6 +7741,7 @@
         <!-- Animated Mesh Node -->
         <node type="6" id="-2" name="door_entity" file="door.ms3d">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -7751,6 +7754,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -7762,6 +7766,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:0:180</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -7785,6 +7790,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:-16:110</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -7796,6 +7802,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>0:-16:110</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -7819,6 +7826,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -7830,6 +7838,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -7857,6 +7866,7 @@
 		<!-- Static Mesh Node -->
         <node type="5" id="-5" name="magnetic_card_reader_entity" file="magnetic_card_reader.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-69:3:114</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -7871,6 +7881,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-70:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -7882,6 +7893,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-70:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -7908,6 +7920,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>140:0:110</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -7943,6 +7956,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>110:8:170</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -7954,6 +7968,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>110:8:170</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -7995,6 +8010,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>130:8:240</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8006,6 +8022,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>160:8:180</position>
             <rotation>0:180:0</rotation>
             <scale>1:1:1</scale>
@@ -8017,6 +8034,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>90:8:150</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8028,6 +8046,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>90:8:150</position>
             <rotation>0:270:0</rotation>
             <scale>1:1:1</scale>
@@ -8057,6 +8076,7 @@
                 <tightness>0.5</tightness>
             </node>
         </node>
+		
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bars.obj">
             <enabled>true</enabled>
@@ -8270,6 +8290,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="alarm_entity" file="alarm.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -8284,6 +8305,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="alarm_entity" file="alarm.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-30:24:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -8476,6 +8498,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>120:0:135</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -8726,6 +8749,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="door_light" file="door_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-120:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
@@ -8737,6 +8761,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-8:103</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8752,6 +8777,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-16:103</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8767,6 +8793,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-24:103</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8841,6 +8868,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bar_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-110:-24:110</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8852,6 +8880,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bar_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-110:-24:130</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8863,6 +8892,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bar_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-110:-24:140</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8909,6 +8939,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="undefined" file="bar_light.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-110:-24:160</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8920,6 +8951,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:0:170</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8935,6 +8967,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-8:170</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8950,6 +8983,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-16:170</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>
@@ -8965,6 +8999,7 @@
         <!-- Static Mesh Node -->
         <node type="5" name="ladder_entity" file="ladder.obj">
             <enabled>true</enabled>
+			<shadow_caster>false</shadow_caster>
             <position>-95:-24:170</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>

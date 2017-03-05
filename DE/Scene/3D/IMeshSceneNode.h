@@ -133,9 +133,10 @@ namespace DE {
 		virtual void SetMeshShadingType(EMeshShadingType shadingType);
 
 		/**
-		* Render the mesh
+		* Render the node
+		* @param filterId The filter id to apply the select the rendered nodes
 		*/
-		virtual void Render();
+		virtual void Render(const int filterId = SCENE_DEFAULT_ID) override;
 
 		/**
 		* Get the mesh name

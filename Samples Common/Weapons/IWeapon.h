@@ -66,6 +66,7 @@ namespace SAMPLES {
 		float m_reloadDelay;
 		float m_range;
 		float m_remainingDelay;
+		float m_wobblePositionTime;
 		std::pair<float, float> m_fireAnimation;
 		std::pair<float, float> m_reloadAnimation;
 		DE::CSound m_fireSound;
@@ -81,9 +82,8 @@ namespace SAMPLES {
 		/**
 		* Constructor
 		* @param parent The parent
-		* @param meshNode The weapon mesh node
 		*/
-		IWeapon(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		IWeapon(ILevel * parent);
 
 		/**
 		* Fire the weapon
@@ -120,6 +120,12 @@ namespace SAMPLES {
 		const unsigned int GetRemainingAmmo() const;
 
 	protected:
+		/**
+		* Initialize the weapon node
+		* @param playerNode The player node to attach the weapon node to
+		*/
+		virtual void InitializeWeaponNode(DE::ISceneNode * playerNode) = 0;
+
 		/**
 		* Initialize the particle emitters
 		*/

@@ -512,7 +512,7 @@ namespace EDITOR {
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
-		scene3D->RenderAll();
+		scene3D->Render();
 	}
 
 	/**

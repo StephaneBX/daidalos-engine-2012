@@ -231,18 +231,40 @@ namespace DE {
 		}
 	}
 
-	void ISceneNode::Render() {
+	/**
+	* Render the node
+	* @param filterId The filter id to apply the select the rendered nodes
+	*/
+	void ISceneNode::Render(const int filterId) {
 		LOG_TRACE();
 
 		// Render the children
 		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->Render();
+			(*it)->Render(filterId);
 		}
 	}
 
+	/**
+	* Render the geometry that will let the skybox pass through
+	*/
 	void ISceneNode::RenderSkyboxMask() {}
 
+	/**
+	* Render the node transparent parts
+	*/
 	void ISceneNode::RenderTransparent() {}
+
+	/**
+	* Render debug information
+	*/
+	void ISceneNode::RenderDebugInformation() {
+		LOG_TRACE();
+
+		// Render the children
+		for (auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
+			(*it)->RenderDebugInformation();
+		}
+	}
 
 	ESceneNodeType ISceneNode::GetType() const {
 		LOG_TRACE();

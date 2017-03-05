@@ -47,7 +47,6 @@
                                   GUI
 ===============================================================
 - Mettre en place CWindow
-- Mettre en place une classe CLoadingView qui hérite de CSprite
 - Optimisation du scale des éléments
 - ICheckboxListener
 
@@ -92,7 +91,8 @@ Anti-Penumbra
 ===============================================================
                              C++11
 ===============================================================
-- final, override
+- Classe et méthode final: Class Toto final | virtual void toto() final;
+- Override explicite: virtual void toto() override;
 - auto
 - for(int & var : int_array)
 - Suppression méthodes: () = delete;
@@ -127,14 +127,6 @@ CCinematicCameraDelegate
 	void cinematicCameraDidEndAtStep(const SCinematicCameraStep & step);
 
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
-
-
-===============================================================
-                           Lua
-===============================================================
-
-Implémentation de scripts lua pour définir le comportement des nodes
-
 
 ===============================================================
 						Optimisations

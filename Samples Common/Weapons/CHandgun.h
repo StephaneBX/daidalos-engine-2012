@@ -41,11 +41,17 @@ namespace SAMPLES {
 		/**
 		* Constructor
 		* @param parent The parent
-		* @param meshNode The weapon mesh node
+		* @param meshNode The player node
 		*/
-		CHandgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CHandgun(ILevel * parent, DE::ISceneNode * playerNode);
 
 	protected:
+		/**
+		* Initialize the weapon node
+		* @param playerNode The player node to attach the weapon node to
+		*/
+		void InitializeWeaponNode(DE::ISceneNode * playerNode) override;
+
 		/**
 		* Initialize the particle emitters
 		*/

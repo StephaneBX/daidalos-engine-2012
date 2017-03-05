@@ -34,9 +34,9 @@ namespace SAMPLES {
 	/**
 	* Constructor
 	* @param parent The parent
-	* @param meshNode The weapon mesh node
+	* @param meshNode The player node
 	*/
-	CHandgun::CHandgun(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : IWeapon(parent, meshNode) {
+	CHandgun::CHandgun(ILevel * parent, DE::ISceneNode * playerNode) : IWeapon(parent) {
 		this->m_damage = 10;
 		this->m_magazineSize = 12;
 		this->m_maxMagazineSize = 12;
@@ -56,7 +56,31 @@ namespace SAMPLES {
 
 		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);
 
+		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
+	}
+
+	/**
+	* Initialize the weapon node
+	* @param playerNode The player node to attach the weapon node to
+	*/
+	void CHandgun::InitializeWeaponNode(DE::ISceneNode * playerNode) {
+		this->m_meshNode = new DE::CAnimatedMeshSceneNode(this->m_parent->GetScene()->GetScene(), playerNode, "handgun", "handgun.ms3d", DE::CVector3F(0.38f, -1.3f, 2.5f), DE::CVector3F(), DE::CVector3F(3.0f, 3.0f, 3.0f));
+		this->m_meshNode->SetId(SCENE_TOP_LAYER_ID);
+		this->m_meshNode->SetSaved(false);
+		this->m_meshNode->SetEnabled(true);
+		this->m_meshNode->SetShadowCaster(false);
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, "handgun_d.png", DE::PIXEL_FORMAT_A8R8G8B8, DE::IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, "handgun_n.png", DE::PIXEL_FORMAT_A8R8G8B8, DE::IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_meshNode->SetMeshMaterial("default.mtl");
+		playerNode->AddChild(this->m_meshNode);
+
+		this->m_fireAnimation.first = 0;
+		this->m_fireAnimation.second = 0;
+
+		this->m_reloadAnimation.first = 0;
+		this->m_reloadAnimation.second = 0;
 	}
 
 	/**

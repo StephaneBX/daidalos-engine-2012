@@ -78,15 +78,15 @@ namespace DE {
 		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
-	void CSimpleSceneNode::Render() {
-		LOG_TRACE();
-
-		RenderWithOptions(SCENE_DEFAULT_ID);
-	}
-
 	/**
 	* Render the transparent elements of the level
 	*/
+	void CSimpleSceneNode::Render(const int filterId) {
+		LOG_TRACE();
+
+		RenderWithOptions(filterId);
+	}
+
 	void CSimpleSceneNode::RenderTransparent() {
 		LOG_TRACE();
 
@@ -203,7 +203,9 @@ namespace DE {
 			}
 		}
 
-		ISceneNode::Render();
+		if (filterId == SCENE_DEFAULT_ID || filterId == SCENE_TOP_LAYER_ID) {
+			ISceneNode::Render(filterId);
+		}
 	}
 
 	void CSimpleSceneNode::RegisterBrushesForRendering(const int filterId) {

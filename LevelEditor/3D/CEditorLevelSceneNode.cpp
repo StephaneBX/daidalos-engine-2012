@@ -35,9 +35,13 @@ namespace EDITOR {
 	}
 
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
-
-	void CEditorLevelSceneNode::Render() {
-		RenderWithOptions(SCENE_DEFAULT_ID);
+	
+	/**
+	* Render the node
+	* @param filterId The filter id to apply the select the rendered nodes
+	*/
+	void CEditorLevelSceneNode::Render(const int filterId) {
+		RenderWithOptions(filterId);
 	}
 
 	/**

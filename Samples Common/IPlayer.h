@@ -93,6 +93,12 @@ namespace SAMPLES {
 		virtual const bool IsInteracting() const = 0;
 
 		/**
+		* If the player has moved during the current frame
+		* return True if the player has moved during the current frame
+		*/
+		virtual const bool HasMoved() = 0;
+
+		/**
 		* Get the player health
 		* @return The player health
 		*/
