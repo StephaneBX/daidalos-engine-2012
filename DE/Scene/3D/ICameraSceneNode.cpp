@@ -71,9 +71,11 @@ namespace DE {
 	void ICameraSceneNode::Render() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		/*IRenderer * renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_debugBuffer, DEBUG_LINES_STRIDE);
-		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
+		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);*/
+
+		ISceneNode::Render();
 	}
 
 	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {

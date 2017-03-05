@@ -40,7 +40,6 @@ namespace DE {
 
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		this->m_visibilityShape = new CSphereF();
-		this->m_needVisibilityShapeUpdate = true;
 		this->m_needGeometryUpdate = true;
 	}
 
@@ -50,7 +49,6 @@ namespace DE {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
-		this->m_needVisibilityShapeUpdate = true;
 		this->m_needGeometryUpdate = true;
 	}
 
@@ -149,20 +147,6 @@ namespace DE {
 		ISceneNode::Update(time);
 	}
 
-	void IMeshSceneNode::SetPosition(const CVector3F & position) {
-		LOG_TRACE();
-
-		ISceneNode::SetPosition(position);
-		this->m_needVisibilityShapeUpdate = true;
-	}
-
-	void IMeshSceneNode::SetScale(const CVector3F & scale) {
-		LOG_TRACE();
-
-		ISceneNode::SetScale(scale);
-		this->m_needVisibilityShapeUpdate = true;
-	}
-
 	void IMeshSceneNode::SetMeshFormat(const int format) {
 		LOG_TRACE();
 
@@ -197,9 +181,10 @@ namespace DE {
 			}
 		}
 
-		if(this->m_active && this->m_enabled) {
-			if(this->m_needGeometryUpdate)
+		if (this->m_active && this->m_enabled) {
+			if (this->m_needGeometryUpdate) {
 				FinalizeGeometry();
+			}
 
 			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -39,6 +39,11 @@
     <ClInclude Include="Core\Memory\CExceptionLoad.h" />
     <ClInclude Include="Core\Memory\CExceptionSave.h" />
     <ClInclude Include="Core\Memory\CMemoryAllocator.h" />
+    <ClInclude Include="Core\Thread\CTaskFuture.hpp" />
+    <ClInclude Include="Core\Thread\CThreadPool.hpp" />
+    <ClInclude Include="Core\Thread\CThreadSafeQueue.hpp" />
+    <ClInclude Include="Core\Thread\CThreadTask.hpp" />
+    <ClInclude Include="Core\Thread\IThreadTask.hpp" />
     <ClInclude Include="Core\Utility\CArraySorter.h" />
     <ClInclude Include="Core\Utility\CColor.h" />
     <ClInclude Include="Core\Utility\CFile.h" />
@@ -310,14 +315,14 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

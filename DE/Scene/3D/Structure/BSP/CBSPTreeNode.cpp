@@ -159,8 +159,9 @@ namespace DE {
 	void CBSPTreeNode::ResetDraw() {
 		LOG_TRACE();
 
-		for(auto it = this->m_triangles.begin(); it != this->m_triangles.end(); ++it)
+		for(auto it = this->m_triangles.begin(); it != this->m_triangles.end(); ++it) {
 			(*it)->SetDrawn(false);
+		}
 
 		if(this->m_children[BSP_NODE_CHILD_FRONT] != nullptr)
 			this->m_children[BSP_NODE_CHILD_FRONT]->ResetDraw();

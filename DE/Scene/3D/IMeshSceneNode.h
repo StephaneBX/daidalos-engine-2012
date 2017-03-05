@@ -121,18 +121,6 @@ namespace DE {
 		virtual void Update(const float time = 0);
 
 		/**
-		* Set the local position
-		* @param position The local position
-		*/
-		virtual void SetPosition(const CVector3F & position);
-
-		/**
-		* Set the local scale
-		* @param scale The local scale
-		*/
-		virtual void SetScale(const CVector3F & scale);
-
-		/**
 		* Set the mesh format
 		* @param format The mesh format
 		*/

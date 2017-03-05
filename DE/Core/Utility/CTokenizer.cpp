@@ -66,6 +66,7 @@ namespace DE {
 			while(file.good()) {
 				// Get a line.
 				std::getline(file, tmpLine);
+				tmpLine = TrimString(tmpLine);
 
 				// Ignore it if it start with a comment.
 				if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0) {
@@ -111,6 +112,7 @@ namespace DE {
 		while(file.good()) {
 			// Get a line.
 			std::getline(file, tmpLine);
+			tmpLine = TrimString(tmpLine);
 
 			// If the line isn't a comment, add it to the tokens.
 			if(tmpLine.compare(0, strlen(TOKENIZER_COMMENT), TOKENIZER_COMMENT) != 0)
@@ -125,7 +127,7 @@ namespace DE {
 	*/
 	void CTokenizer::AddLine(const std::string & line) {
 		LOG_TRACE();
-		this->m_tokens.push_back(line);
+		this->m_tokens.push_back(TrimString(line));
 	}
 
 	/**

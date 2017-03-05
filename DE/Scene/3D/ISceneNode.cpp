@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Logger/ILogger.h"
 #include "../../Core/Core.h"
+#include "../../Core/Thread/CThreadPool.hpp"
 #include "../../Scene/3D/ISceneNode.h"
 
 namespace DE {
@@ -191,9 +192,25 @@ namespace DE {
 		}
 
 		// Update the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->Update(time);
-		}
+		/*if (this->m_type == SCENE_NODE_ROOT) {
+			// If the scene is a root, update its children with a thread pool
+			std::vector<CTaskFuture<void> > futures;
+			for (auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
+				DefaultThreadPool::SubmitJob([] (const float time, ISceneNode * child) {
+					child->Update(time);
+				}, time, (*it));
+			}
+
+			// Wait for completion
+			for (auto & future : futures) {
+				future.Get();
+			}
+		} else {*/
+			// If not, stay in the current thread
+			for (auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
+				(*it)->Update(time);
+			}
+		//}
 	}
 
 	void ISceneNode::SetMeshFormat(const int format) {
@@ -219,15 +236,7 @@ namespace DE {
 
 		// Render the children
 		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			if((*it)->GetType() == SCENE_NODE_ROOT || (*it)->GetType() == SCENE_NODE_STATICMESH || (*it)->GetType() == SCENE_NODE_ANIMATEDMESH) {
-				(*it)->Render();
-			}
-		}
-
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			if((*it)->GetType() == SCENE_NODE_EMPTY) {
-				(*it)->Render();
-			}
+			(*it)->Render();
 		}
 	}
 

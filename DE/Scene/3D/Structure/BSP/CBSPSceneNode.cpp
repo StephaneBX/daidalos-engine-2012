@@ -317,7 +317,7 @@ namespace DE {
 		// Reset the data
 		this->m_visibleTriangles.clear();
 		this->m_batchSize.clear();
-		this->m_bsp->ResetDraw();
+		//this->m_bsp->ResetDraw();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
@@ -327,6 +327,7 @@ namespace DE {
 		RegisterNodeForRendering(this->m_bsp.get(),filterId);
 		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
 		if(this->m_visibleTriangles.size() > 0) {
+
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
@@ -401,9 +402,9 @@ namespace DE {
 			if(!this->m_activeCamera->FrustumCull(&(*it)->GetVisibilitySphere())) {
 				// Loop through each triangle
 				for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
-					if((*it2)->IsVisible() && !(*it2)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
+					if((*it2)->IsVisible()/* && !(*it2)->IsDrawn()*/ && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
 						this->m_visibleTriangles.push_back((*it2).get());
-						(*it2)->SetDrawn(true);
+						//(*it2)->SetDrawn(true);
 					}
 				}
 			}	
@@ -421,9 +422,9 @@ namespace DE {
 
 		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF) {
 			for(auto it = node->GetTriangles().begin(); it != node->GetTriangles().end(); ++it) {
-				if((*it)->IsVisible() && !(*it)->IsDrawn() && !this->m_activeCamera->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
+				if((*it)->IsVisible()/* && !(*it)->IsDrawn()*/ && !this->m_activeCamera->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
 					this->m_visibleTriangles.push_back((*it).get());
-					(*it)->SetDrawn(true);
+					//(*it)->SetDrawn(true);
 				}
 			}
 		} else {

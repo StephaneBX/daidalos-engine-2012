@@ -37,6 +37,7 @@ namespace DE {
 	#define SCENE_DEFAULT_ID 0
 	#define SCENE_SKYBOX_ID -9999
 	#define SCENE_TRANSPARENT_ID -9998
+	#define SCENE_TOP_LAYER -9997
 
 	/**
 	* Base class for level nodes

@@ -170,13 +170,9 @@ namespace DE {
 		this->m_needGeometryUpdate = true;
 
 		// Update the activation shape
-		if(this->m_needVisibilityShapeUpdate) {
-			this->m_visibilityShape->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
-			CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-
-			this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
-			this->m_needVisibilityShapeUpdate = false;
-		}
+		this->m_visibilityShape->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
+		CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
+		this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 
 	const std::string CAnimatedMeshSceneNode::GetMeshName() const {

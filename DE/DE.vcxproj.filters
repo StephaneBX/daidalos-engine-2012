@@ -127,6 +127,9 @@
     <Filter Include="Fichiers sources\Scene\Particles\Updaters">
       <UniqueIdentifier>{41ffa39f-2bb2-4189-8520-a63008a0b963}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Thread">
+      <UniqueIdentifier>{883eeb08-d6a5-4079-8263-1de2182cfadb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Memory\CException.h">
@@ -593,6 +596,21 @@
     </ClInclude>
     <ClInclude Include="Core\IClonable.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread\CTaskFuture.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread\CThreadPool.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread\CThreadSafeQueue.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread\CThreadTask.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Thread\IThreadTask.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
