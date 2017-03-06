@@ -44,6 +44,10 @@ namespace DE {
 		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, DE::INPUT_KEY_MOUSE_BUTTON0);
 	}
 
+	CCursor::~CCursor() {
+
+	}
+
 	void CCursor::SetTexture(const std::string & texture) {
 		LOG_TRACE();
 

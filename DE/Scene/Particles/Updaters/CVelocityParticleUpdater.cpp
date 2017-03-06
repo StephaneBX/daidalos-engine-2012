@@ -39,6 +39,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CVelocityParticleUpdater::~CVelocityParticleUpdater() {
+
+	}
+
+	/**
 	* Update the particle
 	* @param time The elapsed time
 	* @param buffer The particle buffer

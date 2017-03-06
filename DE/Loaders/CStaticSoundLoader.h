@@ -45,14 +45,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CStaticSoundLoader();
+		virtual ~CStaticSoundLoader();
 
 		/**
 		* Load a static sound from a file
 		* @param filename The filename
 		* @return The static sound
 		*/
-		IStaticSoundBase * LoadFromFile(const std::string & filename);
+		virtual IStaticSoundBase * LoadFromFile(const std::string & filename) override;
 	};
 }
 

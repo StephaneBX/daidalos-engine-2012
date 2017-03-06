@@ -43,18 +43,23 @@ namespace DE {
 		CRotationParticleUpdater();
 
 		/**
+		* Destructor
+		*/
+		virtual ~CRotationParticleUpdater();
+
+		/**
 		* Update the particle
 		* @param time The elapsed time
 		* @param buffer The particle buffer
 		* @param particles The particles id to initialize
 		*/
-		void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
 		* Clone the class
 		* @return The cloned class
 		*/
-		IClonable * Clone();
+		virtual IClonable * Clone() override;
 	};
 }
 

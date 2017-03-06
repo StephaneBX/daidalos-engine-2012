@@ -37,6 +37,10 @@ namespace DE {
 		this->m_useGlobalAmbientColor = false;
 	}
 
+	ILevelSceneNode::~ILevelSceneNode() {
+
+	}
+
 	void ILevelSceneNode::SetUseGlobalAmbientColor(const bool useGlobalAmbientColor) {
 		this->m_useGlobalAmbientColor = useGlobalAmbientColor;
 	}

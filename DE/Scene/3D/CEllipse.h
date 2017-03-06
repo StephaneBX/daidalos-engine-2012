@@ -55,7 +55,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CEllipse();
+		virtual ~CEllipse();
 
 		/**
 		* Set the radius
@@ -68,7 +68,7 @@ namespace DE {
 		* @param plane The plane
 		* @return The offset
 		*/
-		const float GetInnerDepth(const CPlane3D<T> & plane) const;
+		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
 	};
 
 	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>() {

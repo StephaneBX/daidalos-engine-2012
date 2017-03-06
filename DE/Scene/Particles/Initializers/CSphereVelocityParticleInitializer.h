@@ -49,11 +49,16 @@ namespace DE {
 		CSphereVelocityParticleInitializer(float velocityMin, float velocityMax);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CSphereVelocityParticleInitializer();
+
+		/**
 		* Initialize the particle
 		* @param buffer The particle buffer
 		* @param particles The particles id to initialize
 		*/
-		void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles);
+		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
 		* Get the velocity min
@@ -71,7 +76,7 @@ namespace DE {
 		* Clone the class
 		* @return The cloned class
 		*/
-		IClonable * Clone();
+		virtual IClonable * Clone() override;
 	};
 }
 

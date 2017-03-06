@@ -54,7 +54,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~IMeshBase();
+		 virtual ~IMeshBase();
 
 		/**
 		* Finalize the geometry.

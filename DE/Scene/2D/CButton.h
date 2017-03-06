@@ -63,7 +63,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CButton();
+		virtual ~CButton();
 
 		/**
 		* Add a button listener
@@ -134,12 +134,12 @@ namespace DE {
 		* Update the state and the geometry
 		* @param time The elapsed time
 		*/
-		void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Render the button
 		*/
-		void Render();
+		virtual void Render() override;
 
 		/**
 		* Perform a hit test, checking if the point is inside in the the subview or in this view
@@ -147,7 +147,7 @@ namespace DE {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		const bool HitTest(const CVector2I & point);
+		virtual const bool HitTest(const CVector2I & point) override;
 
 		/**
 		* Check if the button is enabled

@@ -54,7 +54,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CSphere();
+		virtual ~CSphere();
 
 		/**
 		* Set the radius
@@ -67,7 +67,7 @@ namespace DE {
 		* @param plane The plane
 		* @return The offset
 		*/
-		const float GetInnerDepth(const CPlane3D<T> & plane) const;
+		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
 
 		/**
 		* Get the offset of the sphere with a plane

@@ -67,20 +67,20 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CDirectionalLightSceneNode();
+		virtual ~CDirectionalLightSceneNode();
 
 		/**
 		* Update the light
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Get a camera node
 		* @param id The camera id
 		* @return The camera
 		*/
-		ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const;
+		virtual ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const override;
 	};
 }
 

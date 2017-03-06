@@ -56,13 +56,13 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CSoundSceneNode();
+		virtual ~CSoundSceneNode();
 
 		/**
 		* Update the node
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Set the sound status

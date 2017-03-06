@@ -29,6 +29,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	/**
+	* Destructor
+	*/
+	IParticleInitializer::~IParticleInitializer() {
+
+	}
+
+	/**
 	* Get the initializer type
 	* @return The initializer type
 	*/

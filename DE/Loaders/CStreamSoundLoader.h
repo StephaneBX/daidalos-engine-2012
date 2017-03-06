@@ -45,14 +45,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CStreamSoundLoader();
+		virtual ~CStreamSoundLoader();
 
 		/**
 		* Load a static sound from a file
 		* @param filename The filename
 		* @return The static sound
 		*/
-		IStreamSoundBase * LoadFromFile(const std::string & filename);
+		IStreamSoundBase * LoadFromFile(const std::string & filename) override;
 	};
 }
 

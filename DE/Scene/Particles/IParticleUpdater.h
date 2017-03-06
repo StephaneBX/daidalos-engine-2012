@@ -53,6 +53,11 @@ namespace DE {
 
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IParticleUpdater();
+
+		/**
 		* Update the particles
 		* @param time The elapsed time
 		* @param buffer The particle buffer
@@ -70,7 +75,7 @@ namespace DE {
 		* Clone the class
 		* @return The cloned class
 		*/
-		virtual IClonable * Clone() = 0;
+		virtual IClonable * Clone() override = 0;
 	};
 }
 

@@ -68,7 +68,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CBSPSceneNode();
+		virtual ~CBSPSceneNode();
 
 		/**
 		* Load a geometry in the bsp tree
@@ -85,17 +85,17 @@ namespace DE {
 		/**
 		* Render the transparent elements of the level
 		*/
-		void RenderTransparent();
+		virtual void RenderTransparent() override;
 
 		/**
 		* Render the geometry that will let the skybox pass through
 		*/
-		void RenderSkyboxMask();
+		virtual void RenderSkyboxMask() override;
 
 		/**
 		* Set the collision state of a brush id
 		*/
-		void SetBrushCollision(const int brushId, const bool collision);
+		virtual void SetBrushCollision(const int brushId, const bool collision) override;
 
 		/**
 		* Slide a shape on the bsp
@@ -103,7 +103,7 @@ namespace DE {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		const bool Slide(IShape3DF & shape, const CVector3F & movement);
+		virtual const bool Slide(IShape3DF & shape, const CVector3F & movement) override;
 
 		/**
 		* Get the collision point of a moving shape
@@ -112,7 +112,7 @@ namespace DE {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point);
+		virtual const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) override;
 
 		/**
 		* Get the collision point of a moving point
@@ -121,7 +121,7 @@ namespace DE {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point);
+		virtual const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) override;
 
 	protected:
 		/**

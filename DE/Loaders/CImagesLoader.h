@@ -48,21 +48,21 @@ namespace DE {
 		* Destructor
 		* Free the resources used by the DevIL library
 		*/
-		~CImagesLoader();
+		virtual ~CImagesLoader();
 
 		/**
 		* Load an image from a file
 		* @param filename The filename
 		* @return The image
 		*/
-		CImage * LoadFromFile(const std::string & filename);
+		virtual CImage * LoadFromFile(const std::string & filename) override;
 
 		/**
 		* Save an image into a file
 		* @param object The image
 		* @param filename The output file
 		*/
-		void SaveToFile(CImage * object, const std::string & filename);
+		virtual void SaveToFile(CImage * object, const std::string & filename) override;
 	};
 }
 

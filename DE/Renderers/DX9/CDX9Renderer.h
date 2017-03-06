@@ -68,26 +68,26 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CDX9Renderer();
+		virtual ~CDX9Renderer();
 
 		/**
 		* Get the scissor rectangle for a given light
 		* @param positionRadius The light position and radius in view space
 		* @return The scissor rectangle
 		*/
-		const CRectangleI GetLightScissor(const CVector4F & positionRadius) const;
+		virtual const CRectangleI GetLightScissor(const CVector4F & positionRadius) const override;
 
 		/**
 		* Get the current viewport
 		* @return The viewport
 		*/
-		const CRectangleI GetViewport() const;
+		virtual const CRectangleI GetViewport() const override;
 
 		/**
 		* Get the DX9 device
 		* @return The DX9 device
 		*/
-		IDirect3DDevice9 * GetDevice() const;
+		virtual IDirect3DDevice9 * GetDevice() const;
 
 		/**
 		* Create a 2D texture
@@ -97,7 +97,7 @@ namespace DE {
 		* @param flags The texture flags
 		* @return The texture
 		*/
-		ITexture2DBase * CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags = 0) const;
+		virtual ITexture2DBase * CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags = 0) const override;
 
 		/**
 		* Create a frame buffer
@@ -107,14 +107,14 @@ namespace DE {
 		* @param size2 The number of elements
 		* @return The frame buffer
 		*/
-		IFrameBufferBase * CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const;
+		virtual IFrameBufferBase * CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const override;
 
 		/**
 		* Create a shader program
 		* @param name The shader program base name
 		* @return The shader program
 		*/
-		IShaderProgramBase * CreateShaderProgram(const std::string & name);
+		virtual IShaderProgramBase * CreateShaderProgram(const std::string & name) override;
 
 		/**
 		* Associate a vertex buffer to a stream
@@ -124,7 +124,7 @@ namespace DE {
 		* @param offset The offset
 		* @param count The number of elements in the buffer
 		*/
-		void SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset = 0, const unsigned long count = 0);
+		virtual void SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset = 0, const unsigned long count = 0) override;
 
 		/**
 		* Define a stream frequency
@@ -132,173 +132,173 @@ namespace DE {
 		* @param streamType the stream type
 		* @param frequency The frequency
 		*/
-		void SetStreamSourceFrequency(const int stream, EStreamSourceType streamType, const unsigned int frequency);
+		virtual void SetStreamSourceFrequency(const int stream, EStreamSourceType streamType, const unsigned int frequency) override;
 
 		/**
 		* Set the current index buffer
 		* @param buffer The index buffer
 		* @param stride The stride
 		*/
-		void SetIndexBuffer(const CBuffer & buffer, const unsigned long stride);
+		virtual void SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) override;
 
 		/**
 		* Set the shader program
 		* @param shaderProgram The shader program
 		*/
-		void SetShaderProgram(IShaderProgramBase * shaderProgram);
+		virtual void SetShaderProgram(IShaderProgramBase * shaderProgram) override;
 
 		/**
 		* Set the vertex declaration
 		* @param declaration The vertex declaration
 		*/
-		void SetVertexDeclaration(const IDeclaration * declaration);
+		virtual void SetVertexDeclaration(const IDeclaration * declaration) override;
 
 		/**
 		* Attach the texture to the unit
 		* @param unit The unit number
 		* @param texture The texture
 		*/
-		void SetTexture(const int unit, const ITexture2DBase * texture);
+		virtual void SetTexture(const int unit, const ITexture2DBase * texture) override;
 
 		/**
 		* Set the framebuffer
 		* @param frameBuffer The frame buffer
 		*/
-		void SetFrameBuffer(IFrameBufferBase * frameBuffer);
+		virtual void SetFrameBuffer(IFrameBufferBase * frameBuffer) override;
 
 		/**
 		* Change a render state
 		* @param state The state
 		* @param value The value
 		*/
-		void SetRenderState(ERenderStateType state, const bool value);
+		virtual void SetRenderState(ERenderStateType state, const bool value) override;
 
 		/**
 		* Set the depth function
 		* @param depth The depth function
 		*/
-		void SetDepthFunction(ECompare depth);
+		virtual void SetDepthFunction(ECompare depth) override;
 
 		/**
 		* Set the blend function
 		* @param src The source function
 		* @param dest The destination function
 		*/
-		void SetBlendFunction(ERenderStateBlendFunction src, ERenderStateBlendFunction dest);
+		virtual void SetBlendFunction(ERenderStateBlendFunction src, ERenderStateBlendFunction dest) override;
 
 		/**
 		* Set the blend operation
 		* @param operation The blend operation
 		*/
-		void SetBlendOperation(ERenderStateBlendOperation operation);
+		virtual void SetBlendOperation(ERenderStateBlendOperation operation) override;
 
 		/**
 		* Set the blend color
 		* @param color The blend color
 		*/
-		void SetBlendColor(const CColor & color);
+		virtual void SetBlendColor(const CColor & color) override;
 
 		/**
 		* Set the alpha reference value
 		* @param value The reference value
 		*/
-		void SetAlphaReference(const unsigned long value);
+		virtual void SetAlphaReference(const unsigned long value) override;
 
 		/**
 		* Set the alpha function
 		* @param function The alpha function
 		*/
-		void SetAlphaFunction(ECompare function);
+		virtual void SetAlphaFunction(ECompare function) override;
 
 		/**
 		* Set the cull type
 		* @param cullType The cull type
 		*/
-		void SetCullType(ERenderStateCullType cullType);
+		virtual void SetCullType(ERenderStateCullType cullType) override;
 
 		/**
 		* Set the fill mode
 		* @param fillMode The fill mode
 		*/
-		void SetFillMode(ERenderStateFillMode fillMode);
+		virtual void SetFillMode(ERenderStateFillMode fillMode) override;
 
 		/**
 		* Set the stencil buffer function
 		* @param function The function
 		*/
-		void SetStencilFunction(ECompare function);
+		virtual void SetStencilFunction(ECompare function) override;
 
 		/**
 		* Set the stencil buffer reference value
 		* @param ref The reference value
 		*/
-		void SetStencilRef(const int ref);
+		virtual void SetStencilRef(const int ref) override;
 
 		/**
 		* Set the stencil buffer mask value
 		* @param mask The mask value
 		*/
-		void SetStencilMask(const int mask);
+		virtual void SetStencilMask(const int mask) override;
 
 		/**
 		* The stencil operation to perform when the stencil test fail
 		* @param operation The operation
 		*/
-		void SetStencilFail(EStencilOperation operation);
+		virtual void SetStencilFail(EStencilOperation operation) override;
 
 		/**
 		* The stencil operation to perform when the stencil test succeed but the z-test failed
 		* @param operation The operation
 		*/
-		void SetStencilZFail(EStencilOperation operation);
+		virtual void SetStencilZFail(EStencilOperation operation) override;
 
 		/**
 		* The stencil operation to perform when the stencil test succeed
 		* @param operation The operation
 		*/
-		void SetStencilPass(EStencilOperation operation);
+		virtual void SetStencilPass(EStencilOperation operation) override;
 
 		/**
 		* Set the scissor
 		* @param rectangle The rectangle
 		*/
-		void SetScissor(const CRectangleI & rectangle);
+		virtual void SetScissor(const CRectangleI & rectangle) override;
 
 		/**
 		* Change the viewport
 		* @param viewport The viewport
 		*/
-		void SetViewport(const CRectangleI & viewport);
+		virtual void SetViewport(const CRectangleI & viewport) override;
 
 		/**
 		* Copy the back buffer to a texture
 		* @param texture2D The texture
 		*/
-		void CopyBackBufferToTexture(ITexture2DBase * texture2D);
+		virtual void CopyBackBufferToTexture(ITexture2DBase * texture2D) override;
 
 		/**
 		* Copy a texture to another one
 		* @param source The source texture
 		* @param destination The destination texture
 		*/
-		void CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination);
+		virtual void CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination) override;
 
 		/**
 		* Begin a rendering process
 		*/
-		void BeginScene();
+		virtual void BeginScene() override;
 
 		/**
 		* End a rendering process
 		*/
-		void EndScene();
+		virtual void EndScene() override;
 
 		/**
 		* Clear the surfaces
 		* @param surfaceFlags The surfaces flags
 		* @param color The clear color
 		*/
-		void Clear(const unsigned int surfaceFlags, const CColor & color);
+		virtual void Clear(const unsigned int surfaceFlags, const CColor & color) override;
 
 		/**
 		* Draw a primitive
@@ -306,7 +306,7 @@ namespace DE {
 		* @param offset The offset
 		* @param count The number of elements
 		*/
-		void DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const;
+		virtual void DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const override;
 
 		/**
 		* Draw an indexed primitive
@@ -314,7 +314,7 @@ namespace DE {
 		* @param offset The offset
 		* @param count The number of elements
 		*/
-		void DrawIndexedPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const;
+		virtual void DrawIndexedPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const override;
 
 	private:
 		/**
@@ -333,7 +333,7 @@ namespace DE {
 		* @param flags The flags
 		* @return The vertex buffer
 		*/
-		IBufferBase * CreateVB(const unsigned long stride, const unsigned long count, const unsigned long flags) const;
+		virtual IBufferBase * CreateVB(const unsigned long stride, const unsigned long count, const unsigned long flags) const override;
 
 		/**
 		* Create an Index Buffer
@@ -342,7 +342,7 @@ namespace DE {
 		* @param flags The flags
 		* @return The index buffer
 		*/
-		IBufferBase * CreateIB(const unsigned long stride, const unsigned long count, const unsigned long flags) const;
+		virtual IBufferBase * CreateIB(const unsigned long stride, const unsigned long count, const unsigned long flags) const override;
 
 		/**
 		* Create a vertex declaration
@@ -350,7 +350,7 @@ namespace DE {
 		* @param size The number of elements
 		* @return The vertex declaration
 		*/
-		DeclarationPtr CreateVD(const SDeclarationElement * elements, const std::size_t size) const;
+		virtual DeclarationPtr CreateVD(const SDeclarationElement * elements, const std::size_t size) const override;
 
 		/**
 		* Create a render target
@@ -358,12 +358,12 @@ namespace DE {
 		* @param format The format
 		* @return The render target
 		*/
-		IRenderTargetBase * CreateRT(const CVector2I & size, EPixelFormat format) const;
+		virtual IRenderTargetBase * CreateRT(const CVector2I & size, EPixelFormat format) const override;
 
 		/**
 		* Check the host capabilities
 		*/
-		void CheckCapabilities();
+		void CheckCapabilities() override;
 
 		/**
 		* Initialize the renderer

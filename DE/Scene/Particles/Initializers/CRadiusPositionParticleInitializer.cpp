@@ -39,6 +39,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CRadiusPositionParticleInitializer::~CRadiusPositionParticleInitializer() {
+
+	}
+
+	/**
 	* Initialize the particle
 	* @param buffer The particle buffer
 	* @param particles The particles id to initialize

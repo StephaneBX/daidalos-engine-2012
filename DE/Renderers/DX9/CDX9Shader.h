@@ -54,36 +54,28 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CDX9Shader();
+		virtual ~CDX9Shader();
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(const std::string & name, const bool value);
+		virtual void SetParameter(const std::string & name, const bool value) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(const std::string & name, const int value);
+		virtual void SetParameter(const std::string & name, const int value) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(const std::string & name, const float value);
-
-		/**
-		* Set a shader parameter
-		* @param name The parameter name
-		* @param value The value
-		* @param size The number of elements
-		*/
-		void SetParameter(const std::string & name, const bool * value, const int size);
+		virtual void SetParameter(const std::string & name, const float value) override;
 
 		/**
 		* Set a shader parameter
@@ -91,7 +83,7 @@ namespace DE {
 		* @param value The value
 		* @param size The number of elements
 		*/
-		void SetParameter(const std::string & name, const int * value, const int size);
+		virtual void SetParameter(const std::string & name, const bool * value, const int size) override;
 
 		/**
 		* Set a shader parameter
@@ -99,49 +91,57 @@ namespace DE {
 		* @param value The value
 		* @param size The number of elements
 		*/
-		void SetParameter(const std::string & name, const float * value, const int size);
+		virtual void SetParameter(const std::string & name, const int * value, const int size) override;
+
+		/**
+		* Set a shader parameter
+		* @param name The parameter name
+		* @param value The value
+		* @param size The number of elements
+		*/
+		virtual void SetParameter(const std::string & name, const float * value, const int size) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(const std::string & name, const CVector2F & vec);
+		virtual void SetParameter(const std::string & name, const CVector2F & vec) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(const std::string & name, const CVector2I & vec);
+		virtual void SetParameter(const std::string & name, const CVector2I & vec) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(const std::string & name, const CVector3F & vec);
+		virtual void SetParameter(const std::string & name, const CVector3F & vec) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(const std::string & name, const CVector4F & vec);
+		virtual void SetParameter(const std::string & name, const CVector4F & vec) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param color The value
 		*/
-		void SetParameter(const std::string & name, const CColor & color);
+		virtual void SetParameter(const std::string & name, const CColor & color) override;
 
 		/**
 		* Set a shader parameter
 		* @param name The parameter name
 		* @param mat The value
 		*/
-		void SetParameter(const std::string & name, const CMatrix & mat);
+		virtual void SetParameter(const std::string & name, const CMatrix & mat) override;
 
 		/**
 		* Set a shader parameter
@@ -149,7 +149,7 @@ namespace DE {
 		* @param vec The value
 		* @param size The number of elements
 		*/
-		void SetParameter(const std::string & name, const CVector4F * vec, const int size);
+		virtual void SetParameter(const std::string & name, const CVector4F * vec, const int size) override;
 
 		/**
 		* Set a shader parameter
@@ -157,7 +157,7 @@ namespace DE {
 		* @param mat The value
 		* @param size The number of elements
 		*/
-		void SetParameter(const std::string & name, const CMatrix * mat, const int size);
+		virtual void SetParameter(const std::string & name, const CMatrix * mat, const int size) override;
 
 	protected:
 		/**

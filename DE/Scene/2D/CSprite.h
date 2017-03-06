@@ -48,6 +48,11 @@ namespace DE {
 		CSprite();
 
 		/**
+		* Destructor
+		*/
+		virtual ~CSprite();
+
+		/**
 		* Set the rotation in degree
 		* @param rotation The rotation
 		*/
@@ -68,12 +73,12 @@ namespace DE {
 		* Update the state and the geometry
 		* @param time The elapsed time
 		*/
-		void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Render the button
 		*/
-		void Render();
+		virtual void Render() override;
 
 		/**
 		* Get the rotation

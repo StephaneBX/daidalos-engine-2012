@@ -38,6 +38,12 @@ namespace DE {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION;
 		this->m_rotationMin = rotationMin;
 		this->m_rotationMax = rotationMax;
+	}
+
+	/**
+	* Destructor
+	*/
+	CRotationParticleInitializer::~CRotationParticleInitializer() {
 
 	}
 

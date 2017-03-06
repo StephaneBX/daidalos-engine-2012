@@ -42,7 +42,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~IAnimatedMeshBase();
+		virtual ~IAnimatedMeshBase();
 
 		/**
 		* Animate the mesh
@@ -55,7 +55,7 @@ namespace DE {
 		* Copy the geometry to the output buffers.
 		* @param shadingType The shading type
 		*/
-		virtual void FinalizeGeometry(EMeshShadingType shadingType) = 0;
+		virtual void FinalizeGeometry(EMeshShadingType shadingType) override = 0;
 
 		/**
 		* Get the number of frames

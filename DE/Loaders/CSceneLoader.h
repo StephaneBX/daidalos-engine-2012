@@ -60,21 +60,21 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CSceneLoader();
+		virtual ~CSceneLoader();
 
 		/**
 		* Load a scene from a file
 		* @param filename The scene filename
 		* @return The scene
 		*/
-		virtual I3DScene * LoadFromFile(const std::string & filename);
+		virtual I3DScene * LoadFromFile(const std::string & filename) override;
 
 		/**
 		* Save a scene into a file
 		* @param object The scene
 		* @param filename The output file
 		*/
-		virtual void SaveToFile(I3DScene * object, const std::string & filename);
+		virtual void SaveToFile(I3DScene * object, const std::string & filename) override;
 
 	protected:
 		/**

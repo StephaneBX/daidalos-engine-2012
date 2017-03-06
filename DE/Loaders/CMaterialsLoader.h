@@ -46,14 +46,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CMaterialsLoader();
+		virtual ~CMaterialsLoader();
 
 		/**
 		* Load a material from a file
 		* @param filename The material file path
 		* @return The material
 		*/
-		IMaterialBase * LoadFromFile(const std::string & filename);
+		virtual IMaterialBase * LoadFromFile(const std::string & filename) override;
 	};
 }
 

@@ -41,6 +41,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CSizeParticleInitializer::~CSizeParticleInitializer() {
+
+	}
+
+	/**
 	* Initialize the particle
 	* @param buffer The particle buffer
 	* @param particles The particles id to initialize

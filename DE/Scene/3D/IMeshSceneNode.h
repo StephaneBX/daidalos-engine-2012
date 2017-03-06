@@ -118,7 +118,7 @@ namespace DE {
 		* Update the absolute position
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Set the mesh format

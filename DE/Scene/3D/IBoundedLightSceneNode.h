@@ -66,7 +66,7 @@ namespace DE {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Get the light range

@@ -43,6 +43,10 @@ namespace DE {
 		this->m_size = 12;
 	}
 
+	CLabel::~CLabel() {
+
+	}
+
 	void CLabel::SetFont(const std::string & font) {
 		LOG_TRACE();
 

@@ -29,6 +29,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace DE {
 	/**
+	* Destructor
+	*/
+	IParticleUpdater::~IParticleUpdater() {
+
+	}
+
+	/**
 	* Get the updater type
 	* @return The updater type
 	*/

@@ -38,6 +38,12 @@ namespace DE {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE;
 		this->m_lifeMin = lifeMin;
 		this->m_lifeMax = lifeMax;
+	}
+
+	/**
+	* Destructor
+	*/
+	CLifeParticleInitializer::~CLifeParticleInitializer() {
 
 	}
 

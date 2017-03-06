@@ -38,6 +38,12 @@ namespace DE {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION;
 		this->m_positionMin = positionMin;
 		this->m_positionMax = positionMax;
+	}
+
+	/**
+	* Destructor
+	*/
+	CBoxPositionParticleInitializer::~CBoxPositionParticleInitializer() {
 
 	}
 

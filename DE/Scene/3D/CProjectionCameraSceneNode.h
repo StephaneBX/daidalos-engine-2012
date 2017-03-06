@@ -59,7 +59,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CProjectionCameraSceneNode();
+		virtual ~CProjectionCameraSceneNode();
 
 		/**
 		* Set the angle in radian
@@ -77,7 +77,7 @@ namespace DE {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Get the angle

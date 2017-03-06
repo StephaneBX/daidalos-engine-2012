@@ -38,6 +38,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CGravityParticleUpdater::~CGravityParticleUpdater() {
+
+	}
+
+	/**
 	* Update the particle
 	* @param time The elapsed time
 	* @param buffer The particle buffer

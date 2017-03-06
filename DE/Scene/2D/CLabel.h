@@ -58,6 +58,11 @@ namespace DE {
 		CLabel(const std::string & text = "", const std::string & font = "arial.fnt");
 
 		/**
+		* Destructor
+		*/
+		virtual ~CLabel();
+
+		/**
 		* Set the font
 		* @param font The font name
 		*/
@@ -97,12 +102,12 @@ namespace DE {
 		* Update the state and the geometry
 		* @param time The elapsed time
 		*/
-		void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Render the text
 		*/
-		void Render();
+		virtual void Render() override;
 
 		/**
 		* Get the horizontal alignment

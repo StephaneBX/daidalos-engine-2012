@@ -56,7 +56,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CDX9Texture2D();
+		virtual ~CDX9Texture2D();
 
 		/**
 		* Get the DX9 texture
@@ -68,7 +68,7 @@ namespace DE {
 		* Update the texture
 		* @param rect The rectangle representing the surface to update
 		*/
-		void Update(const CRectangleI & rect);
+		virtual void Update(const CRectangleI & rect) override;
 
 	private:
 		/**

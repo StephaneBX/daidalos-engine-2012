@@ -55,6 +55,11 @@ namespace DE {
 
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IParticleInitializer();
+
+		/**
 		* Initialize the particles
 		* @param buffer The particle buffer
 		* @param particles The particles id to initialize
@@ -71,7 +76,7 @@ namespace DE {
 		* Clone the class
 		* @return The cloned class
 		*/
-		virtual IClonable * Clone() = 0;
+		virtual IClonable * Clone() override = 0;
 	};
 }
 

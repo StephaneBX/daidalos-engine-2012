@@ -38,6 +38,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CParticleEmitter::~CParticleEmitter() {
+
+	}
+
+	/**
 	* Set the active state
 	* @param active If the emitter is active
 	*/

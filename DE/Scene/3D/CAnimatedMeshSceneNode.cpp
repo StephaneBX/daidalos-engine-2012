@@ -72,6 +72,10 @@ namespace DE {
 		this->m_mesh.Animate(0);
 	}
 
+	CAnimatedMeshSceneNode::~CAnimatedMeshSceneNode() {
+
+	}
+
 	void CAnimatedMeshSceneNode::SetMesh(const std::string filename) {
 		LOG_TRACE();
 

@@ -75,7 +75,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CSpotLightSceneNode();
+		virtual ~CSpotLightSceneNode();
 
 		/**
 		* Set the radius
@@ -93,7 +93,7 @@ namespace DE {
 		* Update the light
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Get the radius
@@ -112,7 +112,7 @@ namespace DE {
 		* @param id The camera id
 		* @return The camera
 		*/
-		ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const;
+		virtual ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const override;
 	};
 }
 

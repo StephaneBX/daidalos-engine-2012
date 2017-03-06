@@ -60,6 +60,11 @@ namespace DE {
 		ILevelSceneNode(I3DScene * scene);
 
 		/**
+		* Destructor
+		*/
+		virtual ~ILevelSceneNode();
+
+		/**
 		* Set on/off the global ambient color
 		* @param useGlobalAmbientColor The global ambient color flag
 		*/
@@ -140,12 +145,12 @@ namespace DE {
 		/**
 		* Render the transparent elements of the level
 		*/
-		virtual void RenderTransparent() = 0;
+		virtual void RenderTransparent() override = 0;
 
 		/**
 		* Render the geometry that will let the skybox pass through
 		*/
-		virtual void RenderSkyboxMask() = 0;
+		virtual void RenderSkyboxMask() override = 0;
 
 		/**
 		* Set the collision state of a brush id

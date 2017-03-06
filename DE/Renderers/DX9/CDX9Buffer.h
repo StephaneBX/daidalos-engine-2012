@@ -51,7 +51,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CDX9Buffer();
+		virtual ~CDX9Buffer();
 
 		/**
 		* Get the buffer
@@ -67,12 +67,12 @@ namespace DE {
 		* @param flags The flags
 		* @return A pointer to the data
 		*/
-		void * Lock(const unsigned long offset, const unsigned long size, const unsigned long flags);
+		virtual void * Lock(const unsigned long offset, const unsigned long size, const unsigned long flags) override;
 
 		/**
 		* Unlock the buffer
 		*/
-		void Unlock();
+		virtual void Unlock() override;
 
 	private:
 		CDX9Buffer();

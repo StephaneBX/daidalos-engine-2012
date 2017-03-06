@@ -41,6 +41,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CColorParticleInitializer::~CColorParticleInitializer() {
+
+	}
+
+	/**
 	* Initialize the particles
 	* @param buffer The particle buffer
 	* @param particles The particles id to initialize

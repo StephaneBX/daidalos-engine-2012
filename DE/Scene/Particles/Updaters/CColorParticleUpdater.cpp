@@ -37,6 +37,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CColorParticleUpdater::~CColorParticleUpdater() {
+
+	}
+
+	/**
 	* Update the particle
 	* @param time The elapsed time
 	* @param buffer The particle buffer

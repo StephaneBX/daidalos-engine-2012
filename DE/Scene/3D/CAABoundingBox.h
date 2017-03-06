@@ -69,13 +69,13 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CAABoundingBox();
+		virtual ~CAABoundingBox();
 
 		/**
 		* Set the position
 		* @param position The new position
 		*/
-		void SetPosition(const CVector3<T> & position);
+		virtual void SetPosition(const CVector3<T> & position) override;
 
 		/**
 		* Set the size
@@ -100,7 +100,7 @@ namespace DE {
 		* @param plane The plane
 		* @return The offset
 		*/
-		const float GetInnerDepth(const CPlane3D<T> & plane) const;
+		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
 
 		/**
 		* Get the min coordinate

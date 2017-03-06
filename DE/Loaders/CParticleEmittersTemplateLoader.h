@@ -51,14 +51,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CParticleEmittersTemplateLoader();
+		virtual ~CParticleEmittersTemplateLoader();
 
 		/**
 		* Load an obj mesh from a file
 		* @param filename The obj file path
 		* @return The mesh
 		*/
-		IParticleEmittersTemplate * LoadFromFile(const std::string & filename);
+		IParticleEmittersTemplate * LoadFromFile(const std::string & filename) override;
 
 	private:
 		/**

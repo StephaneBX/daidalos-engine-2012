@@ -52,7 +52,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~IShaderProgramBase();
+		virtual ~IShaderProgramBase();
 
 		/**
 		* Set the shader

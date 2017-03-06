@@ -53,7 +53,7 @@ namespace DE {
 		* @param filename The pixel shader file path
 		* @return The shader
 		*/
-		IShaderBase * LoadFromFile(const std::string & filename);
+		virtual IShaderBase * LoadFromFile(const std::string & filename) override;
 	};
 }
 

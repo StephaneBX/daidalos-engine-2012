@@ -57,7 +57,7 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~COrthographicCameraSceneNode();
+		virtual ~COrthographicCameraSceneNode();
 
 		/**
 		* Set the view bounds
@@ -69,7 +69,7 @@ namespace DE {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Update The projection

@@ -57,6 +57,10 @@ namespace DE {
 		SetMeshMaterial("default.mtl");
 	}
 
+	CStaticMeshSceneNode::~CStaticMeshSceneNode() {
+
+	}
+
 	/**
 	* Set the mesh
 	* @param filename The mesh filename

@@ -45,6 +45,13 @@ namespace DE {
 	}
 
 	/**
+	* Destructor
+	*/
+	CLinearVelocityParticleInitializer::~CLinearVelocityParticleInitializer() {
+
+	}
+
+	/**
 	* Initialize the particle
 	* @param buffer The particle buffer
 	* @param particles The particles id to initialize

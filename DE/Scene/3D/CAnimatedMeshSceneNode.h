@@ -68,6 +68,11 @@ namespace DE {
 		CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CAnimatedMeshSceneNode();
+
+		/**
 		* Set the mesh
 		* @param filename The mesh filename
 		*/
@@ -130,7 +135,7 @@ namespace DE {
 		* Update the absolute position
 		* @param time The elapsed time
 		*/
-		void Update(const float time = 0);
+		virtual void Update(const float time = 0) override;
 
 		/**
 		* Get the number of frames
@@ -152,7 +157,7 @@ namespace DE {
 		/**
 		* Finalize the geometry before rendering the mesh
 		*/
-		void FinalizeGeometry();
+		virtual void FinalizeGeometry() override;
 	};
 }
 

@@ -50,14 +50,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~COBJLoader();
+		virtual ~COBJLoader();
 
 		/**
 		* Load an obj mesh from a file
 		* @param filename The obj file path
 		* @return The mesh
 		*/
-		IMeshBase * LoadFromFile(const std::string & filename);
+		virtual IMeshBase * LoadFromFile(const std::string & filename) override;
 
 	private:
 		/**

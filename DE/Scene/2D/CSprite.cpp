@@ -42,6 +42,10 @@ namespace DE {
 		this->m_rotation = 0;
 	}
 
+	CSprite::~CSprite() {
+
+	}
+
 	void CSprite::SetRotation(const float rotation) {
 		this->m_rotation = rotation;
 		this->m_changed = true;

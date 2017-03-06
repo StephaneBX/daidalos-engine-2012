@@ -79,6 +79,11 @@ namespace DE {
 		CParticleEmitter();
 
 		/**
+		* The destructor
+		*/
+		~CParticleEmitter();
+
+		/**
 		* Set the active state
 		* @param active If the emitter is active
 		*/
@@ -215,7 +220,7 @@ namespace DE {
 		* Clone the class
 		* @return The cloned class
 		*/
-		IClonable * Clone();
+		virtual IClonable * Clone() override;
 	};
 }
 

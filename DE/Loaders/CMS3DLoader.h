@@ -173,14 +173,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CMS3DLoader();
+		virtual ~CMS3DLoader();
 
 		/**
 		* Load a ms3d mesh from a file
 		* @param filename The ms3d file name
 		* @return The mesh
 		*/
-		IAnimatedMeshBase * LoadFromFile(const std::string & filename);
+		virtual IAnimatedMeshBase * LoadFromFile(const std::string & filename) override;
 
 	private:
 		/**

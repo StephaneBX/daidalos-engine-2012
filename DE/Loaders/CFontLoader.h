@@ -46,21 +46,21 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CFontLoader();
+		virtual ~CFontLoader();
 
 		/**
 		* Load a font from a file
 		* @param filename The filename
 		* @return The font
 		*/
-		IFontBase * LoadFromFile(const std::string & filename);
+		virtual IFontBase * LoadFromFile(const std::string & filename) override;
 
 		/**
 		* Save a font into a file
 		* @param object The font
 		* @param filename The output file
 		*/
-		void SaveToFile(IFontBase * object, const std::string & filename);
+		virtual void SaveToFile(IFontBase * object, const std::string & filename) override;
 	};
 }
 

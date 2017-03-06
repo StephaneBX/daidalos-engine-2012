@@ -41,6 +41,10 @@ namespace DE {
 		this->m_type = SCENE_NODE_PARTICLE_EMITTER;
 	}
 
+	CParticleEmitterSceneNode::~CParticleEmitterSceneNode() {
+
+	}
+
 	/**
 	* Set the particle emitter active state
 	* @param active The active state

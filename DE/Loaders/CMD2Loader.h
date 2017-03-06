@@ -50,14 +50,14 @@ namespace DE {
 		/**
 		* Destructor
 		*/
-		~CMD2Loader();
+		virtual ~CMD2Loader();
 
 		/**
 		* Load an obj mesh from a file
 		* @param filename The obj file name
 		* @return The mesh
 		*/
-		IAnimatedMeshBase * LoadFromFile(const std::string & filename);
+		virtual IAnimatedMeshBase * LoadFromFile(const std::string & filename) override;
 
 	private:
 		/**
