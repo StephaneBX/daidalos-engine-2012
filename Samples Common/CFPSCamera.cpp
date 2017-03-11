@@ -44,8 +44,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0f
 #define FPS_CAMERA_LADDER_DISTANCE 3.0f
 
-#define FPS_CAMERA_WEAPON_INDEX_HANDGUN 0
-#define FPS_CAMERA_WEAPON_INDEX_SHOTGUN 1
+#define FIRST_WEAPON PLAYER_OBJECT_HANDGUN_WEAPON
+#define LAST_WEAPON PLAYER_OBJECT_SHOTGUN_WEAPON
 
 #include <limits>
 #include <Core/CInputDevice.h>
@@ -171,10 +171,10 @@ namespace SAMPLES {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node)));
-		//this->m_weapons.push_back(std::unique_ptr<IWeapon>(new CShotgun(this->m_parent, nullptr)));
-		this->m_currentWeaponIndex = 0;
-		this->m_currentWeapon = this->m_weapons[0].get();
+		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
+		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
+		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
+		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
 	}
 
 	/**
@@ -218,11 +218,11 @@ namespace SAMPLES {
 			break;
 
 		case PLAYER_OBJECT_HANDGUN_AMMO:
-			this->m_weapons[FPS_CAMERA_WEAPON_INDEX_HANDGUN]->AddAmmo(value);
+			this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON]->AddAmmo(value);
 			break;
 
 		case PLAYER_OBJECT_SHOTGUN_AMMO:
-			this->m_weapons[FPS_CAMERA_WEAPON_INDEX_SHOTGUN]->AddAmmo(value);
+			this->m_weapons[PLAYER_OBJECT_SHOTGUN_WEAPON]->AddAmmo(value);
 			break;
 
 		default:
@@ -698,14 +698,14 @@ namespace SAMPLES {
 			this->m_currentWeapon->Reload();
 		}
 
-		if((this->m_actionState & FPS_CAMERA_NEXT_WEAPON) != 0) {
-			this->m_currentWeaponIndex = (this->m_currentWeaponIndex + 1) % this->m_weapons.size();
+		if((this->m_actionState & FPS_CAMERA_NEXT_WEAPON) != 0 && this->m_weaponsOrder.size() > 1) {
+			this->m_currentWeaponIndex = this->m_weaponsOrder[(this->m_currentWeaponIndex + 1) % this->m_weaponsOrder.size()];
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
 			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
-		if((this->m_actionState & FPS_CAMERA_PREVIOUS_WEAPON) != 0) {
-			this->m_currentWeaponIndex = (this->m_currentWeaponIndex - 1) % this->m_weapons.size();
+		if((this->m_actionState & FPS_CAMERA_PREVIOUS_WEAPON) != 0 && this->m_weaponsOrder.size() > 1) {
+			this->m_currentWeaponIndex = this->m_weaponsOrder[(this->m_currentWeaponIndex - 1) % this->m_weaponsOrder.size()];
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
 			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}

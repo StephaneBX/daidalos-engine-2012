@@ -7741,7 +7741,7 @@
         <!-- Animated Mesh Node -->
         <node type="6" id="-2" name="door_entity" file="door.ms3d">
             <enabled>true</enabled>
-			<shadow_caster>false</shadow_caster>
+			<shadow_caster>true</shadow_caster>
             <position>0:0:180</position>
             <rotation>0:90:0</rotation>
             <scale>1:1:1</scale>

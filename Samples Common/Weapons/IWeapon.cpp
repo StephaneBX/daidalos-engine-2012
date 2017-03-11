@@ -33,6 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define PARTICLE_DIRECTION_DECAL 0.08f
 #define WOBBLE_SPEED 9.0f
 #define WOBBLE_IMPULSE_ATTENUATION 50.0f
+#define FIRE_LIGHT_TIMER 80.0f
+#define SMOKE_TIMER 3000.0f
 
 namespace SAMPLES {
 
@@ -54,9 +56,11 @@ namespace SAMPLES {
 		this->m_fireDelay = 0;
 		this->m_reloadDelay = 0;
 		this->m_remainingDelay = 0;
+		this->m_smokeRemainingDelay = 0;
 		this->m_wobblePositionTime = 0;
 		this->m_range = 100;
 		this->m_parent = parent;
+		this->m_fireLight = nullptr;
 	}
 
 	/**
@@ -103,6 +107,15 @@ namespace SAMPLES {
 			// Update the state and the delay
 			this->m_state = WEAPON_STATE_FIRE;
 			this->m_remainingDelay = this->m_fireDelay;
+
+			// Enable the fire light
+			if(this->m_fireLight != nullptr) {
+				this->m_fireLight->SetEnabled(true);
+			}
+
+			// Stop the smoke emitter
+			this->m_smokeEmitter->SetActive(false);
+			this->m_smokeRemainingDelay = 0;
 		}
 	}
 
@@ -145,11 +158,20 @@ namespace SAMPLES {
 
 		if(this->m_state == WEAPON_STATE_FIRE || this->m_state == WEAPON_STATE_RELOAD) {
 			this->m_remainingDelay -= time;
+
+			// Update the fire light
+			if ((this->m_fireDelay - this->m_remainingDelay) > FIRE_LIGHT_TIMER && this->m_fireLight != nullptr) {
+				this->m_fireLight->SetEnabled(false);
+			}
 		}
 
 		// Update the state
 		if(this->m_state == WEAPON_STATE_FIRE && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
+
+			// Start the smoke effect
+			this->m_smokeEmitter->SetActive(true);
+			this->m_smokeRemainingDelay = SMOKE_TIMER;
 
 		} else if(this->m_state == WEAPON_STATE_RELOAD && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
@@ -158,6 +180,15 @@ namespace SAMPLES {
 			unsigned int ammoToShift = std::min(this->m_maxMagazineSize - this->m_magazineSize, this->m_remainingAmmo);
 			this->m_magazineSize += ammoToShift;
 			this->m_remainingAmmo -= ammoToShift;
+		}
+
+		// Update the smoke emitter
+		if(this->m_smokeEmitter->IsActive()) {
+			this->m_smokeRemainingDelay -= time;
+			if(this->m_smokeRemainingDelay <= 0) {
+				this->m_smokeRemainingDelay = 0;
+				this->m_smokeEmitter->SetActive(false);
+			}
 		}
 
 		// Update the live projectiles

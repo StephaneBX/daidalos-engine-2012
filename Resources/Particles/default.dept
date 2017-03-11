@@ -208,7 +208,6 @@
 			</velocity>
 		</updaters>
 	</emitter>
-	
 	<emitter name="environmentImpactEmitter">
 		<blendMode>1</blendMode>
 		<life>0</life>
@@ -240,6 +239,45 @@
 			<life/>
 			<velocity>
 				<damping>0.2</damping>
+			</velocity>
+		</updaters>
+	</emitter>
+	<emitter name="weaponSmokeEmitter">
+		<blendMode>5</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>35</emissionRate>
+		<initializers>
+			<minMaxColor>
+				<min>0.3:0.3:0.3:0.1</min>
+				<max>0.3:0.3:0.3:0</max>
+			</minMaxColor>
+			<minMaxSize>
+				<min>0.4</min>
+				<max>0.8</max>
+			</minMaxSize>
+			<minMaxLife>
+				<min>0</min>
+				<max>3000</max>
+			</minMaxLife>
+			<minMaxRotation>
+				<min>-45</min>
+				<max>45</max>
+			</minMaxRotation>
+			<radiusPosition>
+				<radius>0.1</radius>
+			</radiusPosition>
+		</initializers>
+		<updaters>
+			<color/>
+			<gravity>
+				<vector>0:0.3:0</vector>
+			</gravity>
+			<life/>
+			<rotation/>
+			<size/>
+			<velocity>
+				<damping>0.05</damping>
 			</velocity>
 		</updaters>
 	</emitter>

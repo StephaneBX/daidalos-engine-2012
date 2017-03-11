@@ -50,12 +50,17 @@ namespace SAMPLES {
 		* Initialize the weapon node
 		* @param playerNode The player node to attach the weapon node to
 		*/
-		void InitializeWeaponNode(DE::ISceneNode * playerNode) override;
+		virtual void InitializeWeaponNode(DE::ISceneNode * playerNode) override;
 
 		/**
 		* Initialize the particle emitters
 		*/
-		void InitializeParticleEmitters();
+		virtual void InitializeParticleEmitters() override;
+
+		/**
+		* Initialize the smoke emitter
+		*/
+		virtual void InitializeFireSmokeEmitter() override;
 	};
 }
 

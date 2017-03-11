@@ -30,6 +30,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Medias/CSound.h>
 #include <Scene/3D/C3DScene.h>
+#include <Scene/3D/CSpotLightSceneNode.h>
+#include <Scene/3D/CParticleEmitterSceneNode.h>
 #include "../Level/ILevel.h"
 
 namespace SAMPLES {
@@ -67,6 +69,7 @@ namespace SAMPLES {
 		float m_range;
 		float m_remainingDelay;
 		float m_wobblePositionTime;
+		float m_smokeRemainingDelay;
 		std::pair<float, float> m_fireAnimation;
 		std::pair<float, float> m_reloadAnimation;
 		DE::CSound m_fireSound;
@@ -77,6 +80,9 @@ namespace SAMPLES {
 
 		std::vector<int> m_activeProjectiles;
 		DE::CMemoryAllocator<SProjectile> m_projectiles;
+
+		DE::CSpotLightSceneNode * m_fireLight;
+		DE::CParticleEmitterSceneNode * m_smokeEmitter;
 
 	public:
 		/**
@@ -130,6 +136,11 @@ namespace SAMPLES {
 		* Initialize the particle emitters
 		*/
 		virtual void InitializeParticleEmitters() = 0;
+
+		/**
+		* Initialize the smoke emitter
+		*/
+		virtual void InitializeFireSmokeEmitter() = 0;
 	};
 }
 

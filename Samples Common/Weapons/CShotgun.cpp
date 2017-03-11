@@ -58,6 +58,7 @@ namespace SAMPLES {
 
 		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
+		InitializeFireSmokeEmitter();
 	}
 
 	/**
@@ -80,6 +81,20 @@ namespace SAMPLES {
 
 			this->m_bulletImpactParticle.push_back(emitter);
 		}
+	}
+
+	/**
+	* Initialize the smoke emitter
+	*/
+	void CShotgun::InitializeFireSmokeEmitter() {
+		DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
+		emitter->SetTextureId(1);
+		emitter->SetReusable(true);
+
+		this->m_smokeEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
+		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 2.0f));
+		this->m_smokeEmitter->SetActive(false);
+		this->m_meshNode->AddChild(this->m_smokeEmitter);
 	}
 }
 

@@ -97,11 +97,12 @@ namespace SAMPLES {
 		DE::CSound m_hurtSound;
 		DE::CSound m_dieSound;
 
-		// Weapons
+		// Weapons and objects
 		std::map<EPlayerObject, unsigned int> m_objects;
 		IWeapon * m_currentWeapon;
-		int m_currentWeaponIndex;
-		std::vector<std::unique_ptr<IWeapon> > m_weapons;
+		EPlayerObject m_currentWeaponIndex;
+		std::map<EPlayerObject, std::unique_ptr<IWeapon> > m_weapons;
+		std::vector<EPlayerObject> m_weaponsOrder;
 		DE::CSound m_weaponChangeSound;
 
 	public:

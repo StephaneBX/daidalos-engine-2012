@@ -56,6 +56,11 @@ namespace SAMPLES {
 		* Initialize the particle emitters
 		*/
 		void InitializeParticleEmitters();
+
+		/**
+		* Initialize the smoke emitter
+		*/
+		virtual void InitializeFireSmokeEmitter() override;
 	};
 }
 

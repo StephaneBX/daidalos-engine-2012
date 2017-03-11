@@ -58,6 +58,7 @@ namespace SAMPLES {
 
 		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
+		InitializeFireSmokeEmitter();
 	}
 
 	/**
@@ -81,6 +82,11 @@ namespace SAMPLES {
 
 		this->m_reloadAnimation.first = 0;
 		this->m_reloadAnimation.second = 0;
+
+		// Initialize the light effect
+		this->m_fireLight = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "handgun_light", DE::CVector3F(0, 0, 2), DE::CVector3F(), DE::CColor(0.7f, 0.7f, 0.7f), 20.0f, 45.0f, 0.3f, 0.3f, false, false);
+		this->m_fireLight->SetSaved(false);
+		this->m_meshNode->AddChild(this->m_fireLight);
 	}
 
 	/**
@@ -95,6 +101,20 @@ namespace SAMPLES {
 
 			this->m_bulletImpactParticle.push_back(emitter);
 		}
+	}
+
+	/**
+	* Initialize the smoke emitter
+	*/
+	void CHandgun::InitializeFireSmokeEmitter() {
+		DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
+		emitter->SetTextureId(1);
+		emitter->SetReusable(true);
+
+		this->m_smokeEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
+		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 1.4f));
+		this->m_smokeEmitter->SetActive(false);
+		this->m_meshNode->AddChild(this->m_smokeEmitter);
 	}
 }
 
