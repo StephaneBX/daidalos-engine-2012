@@ -334,6 +334,10 @@ namespace SAMPLES {
 		case PLAYER_OBJECT_FLASHLIGHT:
 			return (this->m_flashlightNode != nullptr && this->m_flashlightNode->IsEnabled()) ? 1 : 0;
 
+		case PLAYER_OBJECT_HANDGUN_WEAPON:
+		case PLAYER_OBJECT_SHOTGUN_WEAPON:
+			return this->m_weapons.find(object) != this->m_weapons.end();
+
 		default:
 			// Check for a misc object
 			auto it = this->m_objects.find(object);
