@@ -52,7 +52,8 @@ namespace SAMPLES {
 		this->m_maxAmmo = 0;
 		this->m_precision = 90;
 		this->m_hitCount = 1;
-		this->m_fireRate = 1.0f;
+		this->m_fireAnimationRate = 1.0f;
+		this->m_reloadAnimationRate = 1.0f;
 		this->m_fireDelay = 0;
 		this->m_reloadDelay = 0;
 		this->m_remainingDelay = 0;
@@ -77,7 +78,7 @@ namespace SAMPLES {
 
 			// Start the animation
 			if(this->m_meshNode != nullptr) {
-				this->m_meshNode->StartAnimation(this->m_fireAnimation.first, this->m_fireAnimation.second, this->m_fireRate);
+				this->m_meshNode->StartAnimation(this->m_fireAnimation.first, this->m_fireAnimation.second, this->m_fireAnimationRate);
 			}
 
 			// Generate the bullets
@@ -116,6 +117,9 @@ namespace SAMPLES {
 			// Stop the smoke emitter
 			this->m_smokeEmitter->SetActive(false);
 			this->m_smokeRemainingDelay = 0;
+
+			// Start the flash emitter
+			this->m_flashEmitter->SetActive(true);
 		}
 	}
 
@@ -125,9 +129,22 @@ namespace SAMPLES {
 	void IWeapon::Reload() {
 		// Start the animation
 		if(this->m_state == WEAPON_STATE_NONE && this->m_magazineSize < this->m_maxMagazineSize && this->m_remainingAmmo > 0) {
+
+			// Start the animation
+			if (this->m_meshNode != nullptr) {
+				this->m_meshNode->StartAnimation(this->m_reloadAnimation.first, this->m_reloadAnimation.second, this->m_reloadAnimationRate);
+			}
+
+			// Update the state and the delay
 			this->m_state = WEAPON_STATE_RELOAD;
 			this->m_remainingDelay = this->m_reloadDelay;
+
+			// Play the sound
 			this->m_reloadSound.SetStatus(DE::SOUND_STATUS_PLAY);
+
+			// Stop the smoke emitter
+			this->m_smokeEmitter->SetActive(false);
+			this->m_smokeRemainingDelay = 0;
 		}
 	}
 

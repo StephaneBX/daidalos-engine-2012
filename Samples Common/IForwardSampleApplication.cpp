@@ -224,15 +224,15 @@ namespace SAMPLES {
 		DirectionalLightsRendering(scene3D);
 
 		// ------------------------------
+		// Transparent
+		// ------------------------------
+		TransparentRendering(scene3D);
+
+		// ------------------------------
 		// Particle System
 		// ------------------------------
 		scene3D->GetParticleSystem().SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->GetParticleSystem().RenderAll();
-
-		// ------------------------------
-		// Transparent
-		// ------------------------------
-		TransparentRendering(scene3D);
 
 		// ------------------------------
 		// Diffuse - Top layer

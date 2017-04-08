@@ -44,7 +44,8 @@ namespace SAMPLES {
 		this->m_maxAmmo = 108;
 		this->m_precision = 90;
 		this->m_hitCount = 1;
-		this->m_fireRate = 1.0f;
+		this->m_fireAnimationRate = 5.0f;
+		this->m_reloadAnimationRate = 1.0f;
 		this->m_fireDelay = 350.0f;
 		this->m_reloadDelay = 800.0f;
 		this->m_range = 100;
@@ -59,6 +60,7 @@ namespace SAMPLES {
 		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
 		InitializeFireSmokeEmitter();
+		InitializeFireFlashEmitter();
 	}
 
 	/**
@@ -77,11 +79,11 @@ namespace SAMPLES {
 		this->m_meshNode->SetMeshMaterial("default.mtl");
 		playerNode->AddChild(this->m_meshNode);
 
-		this->m_fireAnimation.first = 0;
-		this->m_fireAnimation.second = 0;
+		this->m_fireAnimation.first = 1;
+		this->m_fireAnimation.second = 3;
 
-		this->m_reloadAnimation.first = 0;
-		this->m_reloadAnimation.second = 0;
+		this->m_reloadAnimation.first = 4;
+		this->m_reloadAnimation.second = 6;
 
 		// Initialize the light effect
 		this->m_fireLight = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "handgun_light", DE::CVector3F(0, 0, 2), DE::CVector3F(), DE::CColor(0.7f, 0.7f, 0.7f), 20.0f, 45.0f, 0.3f, 0.3f, false, false);
@@ -115,6 +117,20 @@ namespace SAMPLES {
 		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 1.4f));
 		this->m_smokeEmitter->SetActive(false);
 		this->m_meshNode->AddChild(this->m_smokeEmitter);
+	}
+
+	/**
+	* Initialize the flash emitter
+	*/
+	void CHandgun::InitializeFireFlashEmitter() {
+		DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponFlashEmitter");
+		emitter->SetTextureId(1);
+		emitter->SetReusable(true);
+
+		this->m_flashEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponFlashEmitter", emitter);
+		this->m_flashEmitter->SetPosition(DE::CVector3F(0, 0, 1.4f));
+		this->m_flashEmitter->SetActive(false);
+		this->m_meshNode->AddChild(this->m_flashEmitter);
 	}
 }
 

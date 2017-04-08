@@ -281,4 +281,31 @@
 			</velocity>
 		</updaters>
 	</emitter>
+	<emitter name="weaponFlashEmitter">
+		<blendMode>1</blendMode>
+		<life>0</life>
+		<lifeMax>100</lifeMax>
+		<emissionRate>250</emissionRate>
+		<initializers>
+			<minMaxColor>
+				<min>0.5:0.5:0.2:0.2</min>
+				<max>0.5:0.5:0.2:0.0</max>
+			</minMaxColor>
+			<minMaxSize>
+				<min>0.7</min>
+				<max>1.2</max>
+			</minMaxSize>
+			<minMaxLife>
+				<min>100</min>
+				<max>100</max>
+			</minMaxLife>
+			<radiusPosition>
+				<radius>0.05</radius>
+			</radiusPosition>
+		</initializers>
+		<updaters>
+			<color/>
+			<life/>
+		</updaters>
+	</emitter>
 </emitters>

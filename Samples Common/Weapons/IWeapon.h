@@ -63,7 +63,8 @@ namespace SAMPLES {
 		unsigned int m_maxAmmo;
 		unsigned int m_precision;
 		unsigned int m_hitCount;
-		float m_fireRate;
+		float m_fireAnimationRate;
+		float m_reloadAnimationRate;
 		float m_fireDelay;
 		float m_reloadDelay;
 		float m_range;
@@ -83,6 +84,7 @@ namespace SAMPLES {
 
 		DE::CSpotLightSceneNode * m_fireLight;
 		DE::CParticleEmitterSceneNode * m_smokeEmitter;
+		DE::CParticleEmitterSceneNode * m_flashEmitter;
 
 	public:
 		/**
@@ -141,6 +143,11 @@ namespace SAMPLES {
 		* Initialize the smoke emitter
 		*/
 		virtual void InitializeFireSmokeEmitter() = 0;
+
+		/**
+		* Initialize the flash emitter
+		*/
+		virtual void InitializeFireFlashEmitter() = 0;
 	};
 }
 

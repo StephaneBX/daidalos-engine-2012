@@ -3,7 +3,7 @@
     <particleSystem>
         <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
         <atlasTextureSize>4:4</atlasTextureSize>
-        <systemSize>5000</systemSize>
+        <systemSize>8000</systemSize>
         <particleEmittersTemplates>
             <template>default.dept</template>
         </particleEmittersTemplates>
