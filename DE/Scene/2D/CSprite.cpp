@@ -37,6 +37,7 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_changed = true;
+		this->m_coordinates = CRectangleF(0, 0, 1, 1);
 		this->m_backgroundColor = CColor(1.0f, 1.0f, 1.0f, 1.0f);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 		this->m_rotation = 0;
@@ -47,6 +48,8 @@ namespace DE {
 	}
 
 	void CSprite::SetRotation(const float rotation) {
+		LOG_TRACE();
+
 		this->m_rotation = rotation;
 		this->m_changed = true;
 	}
@@ -55,6 +58,12 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
+	}
+
+	void CSprite::SetCoordinates(const CRectangleF & coordinates) {
+		LOG_TRACE();
+
+		this->m_coordinates = coordinates;
 	}
 
 	void CSprite::SetBackgroundColor(const CColor & color) {
@@ -69,7 +78,7 @@ namespace DE {
 		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
-			this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1), this->m_rotation);
+			this->m_data = GenerateQuad(this->m_boundingRectangle, this->m_coordinates, this->m_rotation);
 
 			if(this->m_data.size() > 0) {
 				// Create a new buffer if the current one is too small

@@ -53,7 +53,8 @@ namespace SAMPLES {
 		AddSubview(&this->m_gravityLabel);
 
 		// Create the health sprite
-		this->m_healthSprite.SetTexture("health.png");
+		this->m_healthSprite.SetTexture("hud.png");
+		this->m_healthSprite.SetCoordinates(DE::CRectangleF(0, 0.281f, 0.125f, 0.125f));
 		this->m_healthSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 110, 32, 32));
 		AddSubview(&this->m_healthSprite);
 
@@ -67,7 +68,8 @@ namespace SAMPLES {
 		AddSubview(&this->m_healthLabel);
 
 		// Create the armor sprite
-		this->m_armorSprite.SetTexture("armor.png");
+		this->m_armorSprite.SetTexture("hud.png");
+		this->m_armorSprite.SetCoordinates(DE::CRectangleF(0, 0.141f, 0.125f, 0.125f));
 		this->m_armorSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 55, 32, 32));
 		AddSubview(&this->m_armorSprite);
 
@@ -81,7 +83,8 @@ namespace SAMPLES {
 		AddSubview(&this->m_armorLabel);
 
 		// Create the ammo sprite
-		this->m_ammoSprite.SetTexture("ammo.png");
+		this->m_ammoSprite.SetTexture("hud.png");
+		this->m_ammoSprite.SetCoordinates(DE::CRectangleF(0, 0, 0.125f, 0.125f));
 		this->m_ammoSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, this->m_preferredsize.y - 55, 32, 32));
 		AddSubview(&this->m_ammoSprite);
 
@@ -95,7 +98,8 @@ namespace SAMPLES {
 		AddSubview(&this->m_ammoLabel);
 
 		// Create the flashlight sprite
-		this->m_flashlightSprite.SetTexture("flashlight.png");
+		this->m_flashlightSprite.SetTexture("hud.png");
+		this->m_flashlightSprite.SetCoordinates(DE::CRectangleF(0.141f, 0, 0.250f, 0.250f));
 		this->m_flashlightSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, 20, 32, 32));
 		this->m_flashlightSprite.SetVisible(false);
 		AddSubview(&this->m_flashlightSprite);

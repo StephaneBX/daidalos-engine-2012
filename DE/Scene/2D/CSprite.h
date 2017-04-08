@@ -40,6 +40,7 @@ namespace DE {
 		float m_rotation;
 		CColor m_backgroundColor;
 		CTexture2D m_texture;
+		CRectangleF m_coordinates;
 
 	public:
 		/**
@@ -63,6 +64,12 @@ namespace DE {
 		* @param texture The texture name
 		*/
 		void SetTexture(const std::string texture);
+
+		/**
+		* Set the coordinates
+		* @param coordinates The coordinates
+		*/
+		void SetCoordinates(const CRectangleF & coordinates);
 
 		/**
 		* Set the background color

@@ -128,8 +128,3 @@ CCinematicCameraDelegate
 
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
 
-===============================================================
-						Optimisations
-===============================================================
-- Collisions toute les x ms
-- Mise à jour des lumières toute les x ms
