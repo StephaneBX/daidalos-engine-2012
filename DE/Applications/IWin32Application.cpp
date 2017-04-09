@@ -460,7 +460,7 @@ namespace DE {
 
 				// Update the axis
 				const float axisCenter = 32767;
-				const float axisThreshold = 1.0f - (GAMEPAD_AXIS_THRESHOLD);
+				const float axisThreshold = 1.0f - (this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1f));
 				float axisFactor = 0;
 
 				// X

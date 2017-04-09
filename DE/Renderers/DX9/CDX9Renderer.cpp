@@ -648,6 +648,9 @@ namespace DE {
 	void CDX9Renderer::Initialize() {
 		LOG_TRACE();
 
+		// Options
+		SiniP options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+
 		CMediaManager::GetInstance()->AddLoader(new CDX9PixelShadersLoader(), "psh");
 		CMediaManager::GetInstance()->AddLoader(new CDX9VertexShadersLoader(), "vsh");
 		CMediaManager::GetInstance()->AddSearchPath("Resources/Shaders/DX9/");
@@ -666,10 +669,11 @@ namespace DE {
 		this->m_d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 		this->m_d3dpp.BackBufferWidth = rect.right - rect.left;
 		this->m_d3dpp.BackBufferHeight = rect.bottom - rect.top;
+		this->m_d3dpp.BackBufferCount = options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_BACKBUFFERS, 2);
 		this->m_d3dpp.EnableAutoDepthStencil = true;
 		this->m_d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 
-		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 
 		if(this->m_verticalSynchro)
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
@@ -728,9 +732,6 @@ namespace DE {
 		CRectangleI viewport = GetViewport();
 		this->m_resolution.x = viewport.GetWidth();
 		this->m_resolution.y = viewport.GetHeight();
-
-		// Internal resolution
-		SiniP options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		// Screen quad information
 		SScreenQuadElement sq[] =

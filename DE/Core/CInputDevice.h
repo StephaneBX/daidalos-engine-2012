@@ -40,7 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace DE {
 #define INPUT_NO_LINKED_ACTION -1
 #define MAX_GAMEPADS 4
-#define GAMEPAD_AXIS_THRESHOLD 0.3f
+#define GAMEPAD_AXIS_THRESHOLD 0.25f
 
 	enum EInputKey {
 		INPUT_KEY_UNDEFINED,

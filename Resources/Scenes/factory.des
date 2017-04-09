@@ -3,7 +3,7 @@
     <particleSystem>
         <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
         <atlasTextureSize>4:4</atlasTextureSize>
-        <systemSize>8000</systemSize>
+        <systemSize>5000</systemSize>
         <particleEmittersTemplates>
             <template>default.dept</template>
         </particleEmittersTemplates>
@@ -8366,7 +8366,7 @@
         <!-- Animated Mesh Node -->
         <node type="6" name="flashlight_entity" file="flashlight.md2">
             <enabled>true</enabled>
-            <position>0:0:15</position>
+            <position>50:0:110</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>flashlight_d.png</diffuse_texture>
@@ -8421,7 +8421,7 @@
         <!-- Animated Mesh Node -->
         <node type="6" name="shotgun_ammo_entity" file="shotgun_ammo.md2">
             <enabled>true</enabled>
-            <position>0:0:30</position>
+            <position>-40:0:60</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>shotgun_ammo_d.png</diffuse_texture>

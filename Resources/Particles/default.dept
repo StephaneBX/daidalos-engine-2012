@@ -80,7 +80,7 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>150</emissionRate>
+		<emissionRate>120</emissionRate>
 		<initializers>
 			<minMaxColor>
 				<min>0.2:0.4:0.2:0.2</min>
@@ -92,7 +92,7 @@
 			</minMaxSize>
 			<minMaxLife>
 				<min>0</min>
-				<max>5000</max>
+				<max>4000</max>
 			</minMaxLife>
 			<minMaxRotation>
 				<min>-45</min>
