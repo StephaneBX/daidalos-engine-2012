@@ -68,9 +68,13 @@ PS_OUTPUT main(PS_INPUT IN)
 		{
 			float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
 			float4 specularNs = tex2D(specularSampler, IN.texcoord);
+			float3 L = directionalLightDirection.xyz;
+			float3 R = reflect(-L, normal);
+			float3 E = normalize(cameraPositionDistance.xyz - currentPosition.xyz);
+			float3 V = normalize(-E);
 			
-			float3 diffuse = directionalLightColor.xyz * saturate(dot(-directionalLightDirection, normal));
-			float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(normalize(reflect(-directionalLightDirection, normal)), normalize(currentPosition.xyz - cameraPositionDistance.xyz))), specularNs.w * 128.0f);
+			float3 diffuse = directionalLightColor.xyz * saturate(dot(normal, -L));
+			float3 specular = specularNs.xyz * directionalLightColor.xyz * pow(saturate(dot(R, V)), specularNs.w * 128.0f);
 			
 			OUT.color.xyz = saturate(diffuse + specular);
 		}

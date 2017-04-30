@@ -43,7 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSampleApplication.h"
 
 namespace SAMPLE2 {
-	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IForwardSampleApplication(hInstance, nCmdShow) {
+	CSampleApplication::CSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : SAMPLES::IDeferredSampleApplication(hInstance, nCmdShow) {
 
 		this->m_loading = true;
 		std::thread(&CSampleApplication::LoadLevel, this, "factory.des").detach();
@@ -66,7 +66,7 @@ namespace SAMPLE2 {
 
 	void CSampleApplication::Update(const float time) {
 
-		IForwardSampleApplication::Update(time);
+		IDeferredSampleApplication::Update(time);
 		if(!this->m_loading) {
 			if(this->m_input->IsActionActive(SAMPLES::FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, SAMPLES::FPS_CAMERA_EXIT)) {
 				this->m_alive = false;

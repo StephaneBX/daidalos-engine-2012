@@ -284,6 +284,12 @@ namespace DE {
 		virtual void CopyTextureToTexture(ITexture2DBase * source, ITexture2DBase * destination) override;
 
 		/**
+		* Copy the frame buffer depth to the backbuffer
+		* @param frameBuffer the source frame buffer
+		*/
+		virtual void CopyDepthBufferToBackBuffer(IFrameBufferBase * frameBuffer) override;
+
+		/**
 		* Begin a rendering process
 		*/
 		virtual void BeginScene() override;

@@ -128,3 +128,13 @@ CCinematicCameraDelegate
 
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
 
+
+===============================================================
+                          Deferred Rendering
+===============================================================
+- Revoir Frame Buffers -> Ambient color des materials -> Pas assez the RT en simultané, valeur globale par scène
+- Particules & z-buffer -> Passer par postProcessRT & depthRT
+- Skybox
+- Objets transparents -> Passer par postProcessRT & depthRT
+- Glow
+- Objets au premier plan -> Passer par postProcessRT & depthRT

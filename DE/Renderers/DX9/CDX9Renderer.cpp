@@ -458,6 +458,21 @@ namespace DE {
 	}
 
 	/**
+	* Copy the frame buffer depth to the backbuffer
+	* @param frameBuffer the source frame buffer
+	*/
+	void CDX9Renderer::CopyDepthBufferToBackBuffer(IFrameBufferBase * frameBuffer) {
+		LOG_TRACE();
+
+		if (frameBuffer != nullptr) {
+			CDX9RenderTarget * mainBufferDepth = static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
+			const CDX9RenderTarget * frameBufferDepth = static_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
+
+			this->m_device->StretchRect(frameBufferDepth->GetRenderTarget(), nullptr, mainBufferDepth->GetRenderTarget(), nullptr, D3DTEXF_LINEAR);
+		}
+	}
+
+	/**
 	* Copy a texture to another one
 	* @param source The source texture
 	* @param destination The destination texture

@@ -1,4 +1,4 @@
-#define EPSILON 0.0005f
+#define EPSILON 0.0001f
 
 uniform float4x4 spotLightViewProj;
 uniform float4 cameraPositionDistance;
@@ -68,7 +68,6 @@ PS_OUTPUT main(PS_INPUT IN)
 	if(angle >= 0 && angle < spotLightRRFT.y && distance(currentPosition, spotLightPosition.xyz) <= spotLightRRFT.x)
 	{
 		float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
-		float3 lightDir = normalize(currentPosition - spotLightPosition.xyz);
 		
 		float shadowTerm = 0.0f;
 		if(shadowCaster)
@@ -103,13 +102,14 @@ PS_OUTPUT main(PS_INPUT IN)
 		
 		if(shadowTerm > 0.0f)
 		{
-			
 			float4 specularNs = tex2D(specularSampler, IN.texcoord);
-			float3 L = -lightDir;
-			float3 H = normalize(normalize(cameraPositionDistance.xyz - currentPosition.xyz) - lightDir);
+			float3 L = normalize(currentPosition.xyz - spotLightPosition.xyz);
+			float3 R = reflect(-L, normal);
+			float3 E = normalize(cameraPositionDistance.xyz - currentPosition.xyz);
+			float3 V = normalize(-E);
 			
-			float3 diffuse = spotLightColor.xyz * saturate(dot(normal, L)) * spotDistanceFactor(distance(currentPosition, spotLightPosition.xyz)) * spotTightnessFactor(angle);
-			float3 specular = specularNs.xyz * spotLightColor.xyz * pow(saturate(dot(H, normal)), specularNs.w * 128.0f) * spotDistanceFactor(distance(currentPosition, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			float3 diffuse = spotLightColor.xyz * saturate(dot(normal, -L)) * spotDistanceFactor(distance(currentPosition.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			float3 specular = specularNs.xyz * spotLightColor.xyz * pow(saturate(dot(R, V)), specularNs * 128.0f) * spotDistanceFactor(distance(currentPosition.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
 			
 			OUT.color.xyz = saturate(diffuse + specular) * shadowTerm;
 		}

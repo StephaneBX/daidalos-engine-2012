@@ -47,7 +47,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace SAMPLES {
 	/**
-	* Test application implementation
+	* Test application implementation with forward rendering
 	*/
 	class IForwardSampleApplication : public DE::IWin32Application, public SAMPLES::ILevelListener {
 	protected:

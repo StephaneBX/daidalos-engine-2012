@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CSAMPLEAPPLICATION_H
 
 #include <IForwardSampleApplication.h>
+#include <IDeferredSampleApplication.h>
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include "CFPSCamera.h"
 #include "3D/IEntity.h"
@@ -38,7 +39,7 @@ namespace SAMPLE2
 	/**
 	* Test application implementation
 	*/
-	class CSampleApplication : public SAMPLES::IForwardSampleApplication
+	class CSampleApplication : public SAMPLES::IDeferredSampleApplication
 	{
 	private:
 

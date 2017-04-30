@@ -102,7 +102,7 @@
     <ClInclude Include="Enums.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
     <ClInclude Include="IPlayer.h" />
-    <ClInclude Include="ISampleApplication.h" />
+    <ClInclude Include="IDeferredSampleApplication.h" />
     <ClInclude Include="Level\CDaidalosLevel.h" />
     <ClInclude Include="Level\ILevel.h" />
     <ClInclude Include="Level\ILevelListener.h" />
@@ -146,7 +146,7 @@
     <ClCompile Include="CFreeCamera.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="IPlayer.cpp" />
-    <ClCompile Include="ISampleApplication.cpp" />
+    <ClCompile Include="IDeferredSampleApplication.cpp" />
     <ClCompile Include="Level\CDaidalosLevel.cpp" />
     <ClCompile Include="Level\ILevel.cpp" />
     <ClCompile Include="Weapons\CHandgun.cpp" />

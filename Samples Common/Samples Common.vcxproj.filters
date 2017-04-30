@@ -69,9 +69,6 @@
     <ClInclude Include="CFreeCamera.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="ISampleApplication.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="IForwardSampleApplication.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -192,15 +189,15 @@
     <ClInclude Include="3D\Trigger\CMagneticCardReaderEntity.h">
       <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
     </ClInclude>
+    <ClInclude Include="IDeferredSampleApplication.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CFreeCamera.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="ISampleApplication.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="IForwardSampleApplication.cpp">
@@ -316,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="3D\Trigger\CMagneticCardReaderEntity.cpp">
       <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="IDeferredSampleApplication.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

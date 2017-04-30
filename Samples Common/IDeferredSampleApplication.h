@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __ISAMPLEAPPLICATION_H
-#define __ISAMPLEAPPLICATION_H
+#ifndef __IDEFERREDSAMPLEAPPLICATION_H
+#define __IDEFERREDSAMPLEAPPLICATION_H
 
 #include <Scene/3D/C3DScene.h>
 #include <Scene/3D/CStaticMeshSceneNode.h>
@@ -47,25 +47,31 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/IRenderer.h>
 #include <Core/IDeclaration.h>
 #include <Applications/IWin32Application.h>
+#include "2D/CHudView.h"
+#include "2D/CLoadingView.h"
+#include "3D/IEntity.h"
+#include "IPlayer.h"
+#include "Level/ILevel.h"
 
 namespace SAMPLES
 {
 	/**
-	* Test application implementation
+	* Test application implementation with deferred rendering
 	*/
-	class ISampleApplication : public DE::IWin32Application  {
+	class IDeferredSampleApplication : public DE::IWin32Application, public SAMPLES::ILevelListener {
 	protected:
-		DE::C3DScene * m_scene;
-		DE::C2DScene * m_menu;
-		DE::ICameraSceneNode * m_activeCamera;
+		bool m_loading;
+		std::unique_ptr<ILevel> m_currentLevel;
+		DE::C2DScene * m_loadingScene;
 		DE::CCursor m_cursor;
 
 		// 2D Rendering 
 		DE::DeclarationPtr m_declaration2D;
-		DE::CShaderProgram m_shaderProgram2D;
+		DE::CShaderProgram m_shader2D;
 
 		// Deferred Shading
 		DE::DeclarationPtr m_declaration;
+		DE::DeclarationPtr m_declarationDiffuse;
 		DE::CFrameBuffer m_DSFB;
 		DE::CBuffer m_screenQuadLightVB;
 		DE::CBuffer m_screenQuadFinalVB;
@@ -79,13 +85,14 @@ namespace SAMPLES
 		DE::CShaderProgram m_DSPointLight;
 		DE::CShaderProgram m_DSDirectionalLight;
 		DE::CShaderProgram m_DSFinal;
+		DE::CShaderProgram m_DSPostProcessFinal;
+		DE::CShaderProgram m_shaderTransparent;
+		DE::CShaderProgram m_shaderDiffuse;
 
-		DE::CLabel m_fpsText;
-		DE::CLabel m_positionText;
-		DE::CButton m_button;
-		DE::CCheckbox m_checkbox;
-
+		// Hud
 		DE::CFPSCounter m_fpsCounter;
+		DE::CLabel m_fpsLabel;
+		CLoadingView * m_loadingView;
 
 	public:
 		/**
@@ -93,39 +100,130 @@ namespace SAMPLES
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		ISampleApplication(const HINSTANCE hInstance, const int nCmdShow);
+		IDeferredSampleApplication(const HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor
 		*/
-		virtual ~ISampleApplication();
+		virtual ~IDeferredSampleApplication();
 
 		/**
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time) = 0;
+		virtual void Update(const float time);
 
 		/**
 		* Render the application
 		*/
-		void Render();
+		virtual void Render();
 
 	protected:
 		/**
-		* Render the spot lights in the light RT
+		* Load a level and show a loading screen
+		* Should be called from a new thread
+		* @param filename The level filename
 		*/
-		void SpotLightsRendering();
+		virtual void LoadLevel(const std::string & filename) = 0;
 
 		/**
-		* Render the point lights in the light RT
+		* Render a 3D scene
+		* @param scene3D The scene
 		*/
-		void PointLightsRendering();
+		virtual void Render3DScene(DE::C3DScene * scene3D);
 
 		/**
-		* Render the directional lights in the light RT
+		* Render a 2D scene
+		* @param scene2D The scene
 		*/
-		void DirectionalLightsRendering();
+		virtual void Render2DScene(DE::C2DScene * scene2D);
+
+		/**
+		* Do initialization before rendering anything
+		* @param scene3D The scene
+		*/
+		virtual void InitializeRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the skybox
+		* @param scene3D The scene
+		*/
+		virtual void SkyboxRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the diffuse part
+		* @param scene3D The scene
+		*/
+		virtual void DiffuseRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the diffuse top layer part
+		* @param scene3D The scene
+		*/
+		virtual void DiffuseTopLayerRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the transparent part
+		* @param scene3D The scene
+		*/
+		virtual void TransparentRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the spot lights in the RT
+		* @param scene3D The scene
+		*/
+		virtual void SpotLightsRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the point lights in the RT
+		* @param scene3D The scene
+		*/
+		virtual void PointLightsRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the directional lights in the RT
+		* @param scene3D The scene
+		*/
+		virtual void DirectionalLightsRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Do the post process rendering
+		*/
+		virtual void PostProcessRendering();
+
+		/**
+		* Callback when the level is fully loaded
+		*/
+		virtual void OnLevelLoaded() = 0;
+
+		/**
+		* Callback when the next level is triggered
+		*/
+		virtual void OnTriggerNextLevel(const std::string & nextLevel) = 0;
+
+		/**
+		* Prepare for light rendering
+		* @param scene3D The scene
+		*/
+		void PreLightRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Post light rendering
+		* @param scene3D The scene
+		*/
+		void PostLightRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Render the particle system
+		* @param scene3D The scene
+		*/
+		void ParticleSystemRendering(DE::C3DScene * scene3D);
+
+		/**
+		* Finalize the deferred rendering by drawing the RTs the the backbuffer
+		* @param scene3D The scene
+		*/
+		void FinalizeDeferredRendering(DE::C3DScene * scene3D);
 	};
 }
 

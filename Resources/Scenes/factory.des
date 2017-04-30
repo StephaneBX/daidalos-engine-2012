@@ -9,7 +9,7 @@
         </particleEmittersTemplates>
     </particleSystem>
     <!-- BSP Level Node -->
-    <node type="0" name="level" ambientColor="1:1:1:1" skyName="sky1" skyAmbientColor="0:0:0:1">
+    <node type="0" name="level" ambientColor="0.2:0.2:0.2" skyName="sky1" skyAmbientColor="0:0:0">
         <multi_brush>
             <brush file="ground_1.obj">
                 <position>-10:0:10</position>
