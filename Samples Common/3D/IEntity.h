@@ -57,6 +57,12 @@ namespace SAMPLES {
 		IEntity(ILevel * parent);
 
 		/**
+		* Set the player active state
+		* @param enabled The player active state
+		*/
+		virtual void SetEnabled(const bool enabled);
+
+		/**
 		* Set the health
 		* @param health The health
 		*/

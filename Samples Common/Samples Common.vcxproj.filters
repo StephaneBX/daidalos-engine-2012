@@ -61,6 +61,12 @@
     <Filter Include="Fichiers sources\Level">
       <UniqueIdentifier>{82c32a4b-9cc3-4d4d-8c38-94917bb3d5f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Event">
+      <UniqueIdentifier>{1a572e03-1a9e-4f8f-bb01-dfcc2f457292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Event">
+      <UniqueIdentifier>{3b207f58-5d58-4d73-ae98-cb15dcf8d292}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -192,6 +198,21 @@
     <ClInclude Include="IDeferredSampleApplication.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="3D\Trigger\CCinematicEntity.h">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\CCinematicEvent.h">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\ICinematicEvent.h">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\ICinematicEventListener.h">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\CCinematicCamera.h">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -316,6 +337,18 @@
     </ClCompile>
     <ClCompile Include="IDeferredSampleApplication.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CCinematicEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\CCinematicEvent.cpp">
+      <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\ICinematicEvent.cpp">
+      <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\CCinematicCamera.cpp">
+      <Filter>Fichiers sources\Event</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

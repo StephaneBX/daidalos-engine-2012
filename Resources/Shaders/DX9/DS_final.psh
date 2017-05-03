@@ -22,8 +22,8 @@ PS_OUTPUT main(PS_INPUT IN)
 	float4 diffuseAmbient = tex2D(diffuseSampler, IN.texcoord);
 	float4 light = tex2D(lightSamper, IN.texcoord);
 	
-	OUT.color.xyz = saturate(diffuseAmbient.xyz * light.xyz + diffuseAmbient.xyz * ambientColor.xyz) * diffuseAmbient.w;
-	OUT.color.w = 1.0f;
+	OUT.color.xyz = saturate(diffuseAmbient.xyz * light.xyz + diffuseAmbient.xyz * ambientColor.xyz);
+	OUT.color.w = diffuseAmbient.w;
 	
 	return OUT;
 }

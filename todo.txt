@@ -118,13 +118,18 @@ struct SCinematicCameraStep
 	float speed;
 };
 
-CCinematicCamera
+CCinematicCamera => Retirer héritage IPlayer
 private:
 	CProjectionCameraSceneNode * node;
 	std::vector<SCinematicCameraStep> steps;
 	
-CCinematicCameraDelegate
-	void cinematicCameraDidEndAtStep(const SCinematicCameraStep & step);
+CCinematicEntity : ITriggerEntity
+	m_triggered
+	actif: Immobilise joueur(SetEnabled), retire hud(SetVisible)
+	fini: réactive joueur et hud
+	
+Nouveau type fichier, CinematicLoader dans GameEngine GE
+=> Refactoring des samples
 
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
 
@@ -133,8 +138,6 @@ CCinematicCameraDelegate
                           Deferred Rendering
 ===============================================================
 - Revoir Frame Buffers -> Ambient color des materials -> Pas assez the RT en simultané, valeur globale par scène
-- Particules & z-buffer -> Passer par postProcessRT & depthRT
-- Skybox
-- Objets transparents -> Passer par postProcessRT & depthRT
-- Glow
-- Objets au premier plan -> Passer par postProcessRT & depthRT
+- Objets en surbrillance avec ambient color
+- Specular
+

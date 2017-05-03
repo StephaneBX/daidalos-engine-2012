@@ -32,6 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.h>
 #include <Scene/2D/C2DScene.h>
 #include "ILevelListener.h"
+#include "../Event/ICinematicEventListener.h"
 #include "../IPlayer.h"
 #include "../3D/IEntity.h"
 #include "../3D/Trigger/ITriggerEntity.h"
@@ -40,10 +41,10 @@ namespace SAMPLES {
 	/**
 	* The level abstract class
 	*/
-	class ILevel {
+	class ILevel : public ICinematicEventListener {
 	protected:
 		std::unique_ptr<DE::C3DScene> m_scene;
-		std::unique_ptr<DE::C2DScene> m_hud;
+		std::unique_ptr<DE::C2DScene> m_view;
 		std::vector<std::unique_ptr<IEntity> > m_entities;
 		std::vector<ILevelListener *> m_listeners;
 		std::unique_ptr<IPlayer> m_player;
@@ -81,10 +82,10 @@ namespace SAMPLES {
 		DE::C3DScene * GetScene();
 
 		/**
-		* Get the hud
-		* @return The hud
+		* Get the 2d view
+		* @return The 2d view
 		*/
-		DE::C2DScene * GetHud();
+		DE::C2DScene * GetView();
 
 		/**
 		* Get the active camera
@@ -115,6 +116,30 @@ namespace SAMPLES {
 		* @return The entities with the given id
 		*/
 		std::vector<ITriggerEntity*> GetTriggerEntities(const int id) const;
+
+		/**
+		* Callback when the cinematic event started
+		* @param cinematicEvent The event
+		*/
+		virtual void OnCinematicEventStarted(CCinematicEvent * cinematicEvent) override;
+
+		/**
+		* Callback when the cinematic event paused
+		* @param cinematicEvent The event
+		*/
+		virtual void OnCinematicEventPaused(CCinematicEvent * cinematicEvent) override;
+
+		/**
+		* Callback when the cinematic event stopped
+		* @param cinematicEvent The event
+		*/
+		virtual void OnCinematicEventStopped(CCinematicEvent * cinematicEvent) override;
+
+		/**
+		* Callback when the cinematic event ended
+		* @param cinematicEvent The event
+		*/
+		virtual void OnCinematicEventEnded(CCinematicEvent * cinematicEvent) override;
 
 	protected:
 		/**

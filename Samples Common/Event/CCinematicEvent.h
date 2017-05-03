@@ -1,0 +1,94 @@
+/*
+==============================================================================================================================================================
+
+Author: Stephane Baudoux
+Attribution-Noncommercial-Share Alike 3.0 Unported
+
+You are free:
+to Share - to copy, distribute and transmit the work
+to Remix - to adapt the work
+
+Under the following conditions:
+Attribution - You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+Noncommercial - You may not use this work for commercial purposes.
+Share Alike - If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
+
+With the understanding that:
+Waiver - Any of the above conditions can be waived if you get permission from the copyright holder.
+Public Domain - Where the work or any of its elements is in the public domain under applicable law, that status is in no way affected by the license.
+Other Rights - In no way are any of the following rights affected by the license:
+Your fair dealing or fair use rights, or other applicable copyright exceptions and limitations;
+The author's moral rights;
+Rights other persons may have either in the work itself or in how the work is used, such as publicity or privacy rights.
+Notice - For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+==============================================================================================================================================================
+*/
+
+#ifndef __CCINEMATICEVENT_H
+#define __CCINEMATICEVENT_H
+
+#include <memory>
+#include <vector>
+#include <Core/IResource.h>
+#include "../Level/ILevel.h"
+#include "CCinematicCamera.h"
+#include "ICinematicEvent.h"
+#include "ICinematicEventListener.h"
+
+namespace SAMPLES {
+
+	/**
+	* Cinematic event
+	*/
+	class CCinematicEvent : public DE::IResource {
+	private:
+		bool m_enabled;
+		bool m_done;
+		ICinematicEvent * m_cinematicEventData;
+		std::vector<ICinematicEventListener*> m_listeners;
+		std::unique_ptr<CCinematicCamera> m_camera;
+
+	public:
+		/**
+		* @param parent The parent
+		* @param data The name
+		*/
+		CCinematicEvent(ILevel * parent, const std::string & name);
+
+		/**
+		* Update the event
+		* @param time The elapsed time
+		*/
+		void Update(const float time = 0);
+
+		/**
+		* Start the cinematic
+		*/
+		void Start();
+
+		/**
+		* Pause the Cinematic
+		*/
+		void Pause();
+
+		/**
+		* Stop the Cinematic
+		*/
+		void Stop();
+
+		/**
+		* If the event is done
+		* @return True if the event is done
+		*/
+		const bool IsDone() const;
+
+		/** 
+		* Get the camera node
+		* @return The camera node
+		*/
+		DE::ICameraSceneNode * GetCameraNode();
+	};
+}
+
+#endif

@@ -85,6 +85,7 @@
     <ClInclude Include="3D\Misc\CSpotEntity.h" />
     <ClInclude Include="3D\Trigger\CAreaTriggerEntity.h" />
     <ClInclude Include="3D\Trigger\CArmorBonusEntity.h" />
+    <ClInclude Include="3D\Trigger\CCinematicEntity.h" />
     <ClInclude Include="3D\Trigger\CDoorEntity.h" />
     <ClInclude Include="3D\Trigger\CFanEntity.h" />
     <ClInclude Include="3D\Trigger\CFlashlightEntity.h" />
@@ -100,6 +101,10 @@
     <ClInclude Include="CFPSCamera.h" />
     <ClInclude Include="CFreeCamera.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="Event\CCinematicCamera.h" />
+    <ClInclude Include="Event\CCinematicEvent.h" />
+    <ClInclude Include="Event\ICinematicEvent.h" />
+    <ClInclude Include="Event\ICinematicEventListener.h" />
     <ClInclude Include="IForwardSampleApplication.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IDeferredSampleApplication.h" />
@@ -130,6 +135,7 @@
     <ClCompile Include="3D\Misc\CSpotEntity.cpp" />
     <ClCompile Include="3D\Trigger\CAreaTriggerEntity.cpp" />
     <ClCompile Include="3D\Trigger\CArmorBonusEntity.cpp" />
+    <ClCompile Include="3D\Trigger\CCinematicEntity.cpp" />
     <ClCompile Include="3D\Trigger\CDoorEntity.cpp" />
     <ClCompile Include="3D\Trigger\CFanEntity.cpp" />
     <ClCompile Include="3D\Trigger\CFlashlightEntity.cpp" />
@@ -144,6 +150,9 @@
     <ClCompile Include="3D\Trigger\ITriggerEntity.cpp" />
     <ClCompile Include="CFPSCamera.cpp" />
     <ClCompile Include="CFreeCamera.cpp" />
+    <ClCompile Include="Event\CCinematicCamera.cpp" />
+    <ClCompile Include="Event\CCinematicEvent.cpp" />
+    <ClCompile Include="Event\ICinematicEvent.cpp" />
     <ClCompile Include="IForwardSampleApplication.cpp" />
     <ClCompile Include="IPlayer.cpp" />
     <ClCompile Include="IDeferredSampleApplication.cpp" />

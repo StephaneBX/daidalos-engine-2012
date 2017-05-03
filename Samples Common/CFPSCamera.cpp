@@ -196,6 +196,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Set the player active state
+	* @param enabled The player active state
+	*/
+	void CFPSCamera::SetEnabled(const bool enabled) {
+		this->m_node->SetEnabled(enabled);
+	}
+
+	/**
 	* Set the player armor
 	* @param health The player armor
 	*/
@@ -258,10 +266,12 @@ namespace SAMPLES {
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
-		this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
-		float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
-		this->m_soundContext->SetListenerOrientation(orientation);
-
+		if (IsEnabled()) {
+			this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
+			float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
+			this->m_soundContext->SetListenerOrientation(orientation);
+		}
+		
 		// Reset the gravity state
 		this->m_gravityState = true;
 	}
@@ -296,7 +306,7 @@ namespace SAMPLES {
 	* @return True if the entity is enabled
 	*/
 	const bool CFPSCamera::IsEnabled() const {
-		return this->m_health > 0;
+		return this->m_health > 0 && this->m_node->IsEnabled();
 	}
 
 	/**
@@ -346,6 +356,14 @@ namespace SAMPLES {
 			}
 			return 0;
 		}
+	}
+
+	/**
+	* Get the camera node
+	* @return The camera node
+	*/
+	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
+		return this->m_node;
 	}
 
 	/**

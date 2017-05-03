@@ -41,6 +41,12 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Set the entity active state
+	* @param enabled The player active state
+	*/
+	void IEntity::SetEnabled(const bool enabled) {}
+
+	/**
 	* Set the health
 	* @param health The health
 	*/

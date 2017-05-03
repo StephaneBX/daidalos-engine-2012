@@ -37,7 +37,7 @@ namespace SAMPLES {
 	* @param filename The filename
 	*/
 	void ILevel::LoadLevel(const std::string & filename) {
-		this->m_hud = std::unique_ptr<DE::C2DScene>(new DE::C2DScene());
+		this->m_view = std::unique_ptr<DE::C2DScene>(new DE::C2DScene());
 
 		this->m_scene = std::unique_ptr<DE::C3DScene>(new DE::C3DScene());
 		this->m_scene->LoadScene(filename);
@@ -83,7 +83,7 @@ namespace SAMPLES {
 		this->m_scene->UpdateAll(time);
 
 		// Update the hud
-		this->m_hud->Update(time);
+		this->m_view->Update(time);
 
 		// Update the entities
 		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
@@ -100,11 +100,11 @@ namespace SAMPLES {
 	}
 
 	/**
-	* Get the hud
-	* @return The hud
+	* Get the 2d view
+	* @return The 2d view
 	*/
-	DE::C2DScene * ILevel::GetHud() {
-		return this->m_hud.get();
+	DE::C2DScene * ILevel::GetView() {
+		return this->m_view.get();
 	}
 
 	/**
@@ -159,5 +159,37 @@ namespace SAMPLES {
 			}
 		}
 		return entities;
+	}
+
+	/**
+	* Callback when the cinematic event started
+	* @param cinematicEvent The event
+	*/
+	void ILevel::OnCinematicEventStarted(CCinematicEvent * cinematicEvent) {
+		
+	}
+
+	/**
+	* Callback when the cinematic event paused
+	* @param cinematicEvent The event
+	*/
+	void ILevel::OnCinematicEventPaused(CCinematicEvent * cinematicEvent) {
+
+	}
+
+	/**
+	* Callback when the cinematic event stopped
+	* @param cinematicEvent The event
+	*/
+	void ILevel::OnCinematicEventStopped(CCinematicEvent * cinematicEvent) {
+
+	}
+
+	/**
+	* Callback when the cinematic event ended
+	* @param cinematicEvent The event
+	*/
+	void ILevel::OnCinematicEventEnded(CCinematicEvent * cinematicEvent) {
+
 	}
 }

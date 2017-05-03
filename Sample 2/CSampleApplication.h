@@ -39,7 +39,7 @@ namespace SAMPLE2
 	/**
 	* Test application implementation
 	*/
-	class CSampleApplication : public SAMPLES::IDeferredSampleApplication
+	class CSampleApplication : public SAMPLES::IForwardSampleApplication
 	{
 	private:
 

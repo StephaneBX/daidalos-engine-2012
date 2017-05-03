@@ -9028,5 +9028,14 @@
                 <patrol_waypoints>0:0:20|0:0:-20</patrol_waypoints>
             </attributes>
         </node>
+		<!-- Empty Node -->
+        <node type="8" name="cinematic_trigger_entity">
+            <position>0:0:0</position>
+            <rotation>0:0:0</rotation>
+            <attributes>
+                <triggerRadius>20</triggerRadius>
+				<cinematic>intro.dec</cinematic>
+            </attributes>
+        </node>
     </node>
 </scene>

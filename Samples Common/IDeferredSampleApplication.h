@@ -89,6 +89,11 @@ namespace SAMPLES
 		DE::CShaderProgram m_shaderTransparent;
 		DE::CShaderProgram m_shaderDiffuse;
 
+		// Post process
+		DE::CTexture2D m_texture2DPostProcess;
+		DE::CShaderProgram m_shaderScreenBlur;
+		DE::CShaderProgram m_shaderScreenGlow;
+
 		// Hud
 		DE::CFPSCounter m_fpsCounter;
 		DE::CLabel m_fpsLabel;

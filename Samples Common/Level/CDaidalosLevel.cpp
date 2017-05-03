@@ -40,6 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/Trigger/CLadderEntity.h"
 #include "../3D/Trigger/CMagneticCardEntity.h"
 #include "../3D/Trigger/CMagneticCardReaderEntity.h"
+#include "../3D/Trigger/CCinematicEntity.h"
 #include "../3D/Misc/CSecurityCameraEntity.h"
 #include "../3D/Misc/CAlarmEntity.h"
 #include "../3D/Misc/CSpotEntity.h"
@@ -73,6 +74,22 @@ namespace SAMPLES {
 				}
 			}
 		}
+	}
+
+	/**
+	* Callback when the cinematic event started
+	* @param cinematicEvent The event
+	*/
+	void CDaidalosLevel::OnCinematicEventStarted(CCinematicEvent * cinematicEvent) {
+		this->m_hudView->SetVisible(false);
+	}
+
+	/**
+	* Callback when the cinematic event ended
+	* @param cinematicEvent The event
+	*/
+	void CDaidalosLevel::OnCinematicEventEnded(CCinematicEvent * cinematicEvent) {
+		this->m_hudView->SetVisible(true);
 	}
 
 	/**
@@ -214,13 +231,20 @@ namespace SAMPLES {
 			SAMPLES::CMagneticCardReaderEntity * magneticCardReaderEntity = new SAMPLES::CMagneticCardReaderEntity(this, (DE::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<SAMPLES::CMagneticCardReaderEntity>(magneticCardReaderEntity));
 		}
+
+		// Load the cinematic triggers
+		std::vector<DE::ISceneNode*> cinematicTriggerNode = this->m_scene->GetNodeArray("cinematic_trigger_entity");
+		for (auto it = cinematicTriggerNode.begin(); it != cinematicTriggerNode.end(); it++) {
+			SAMPLES::CCinematicEntity * cinematicTriggerEntity = new SAMPLES::CCinematicEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<SAMPLES::CCinematicEntity>(cinematicTriggerEntity));
+		}
 		
 
 		// Load the hud
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
 		this->m_hudView = new CHudView(DE::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
-		this->m_hud->AddToMainView(this->m_hudView);
+		this->m_view->AddToMainView(this->m_hudView);
 
 
 		// End of loading callback

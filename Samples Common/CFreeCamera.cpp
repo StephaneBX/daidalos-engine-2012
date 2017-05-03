@@ -92,6 +92,14 @@ namespace SAMPLES {
 	}
 
 	/**
+	* Set the player active state
+	* @param enabled The player active state
+	*/
+	void CFreeCamera::SetEnabled(const bool enabled) {
+		this->m_node->SetEnabled(enabled);
+	}
+
+	/**
 	* Set the player armor
 	* @param health The player armor
 	*/

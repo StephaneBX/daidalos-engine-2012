@@ -158,7 +158,7 @@ namespace SAMPLES {
 
 		if(!this->m_loading) {
 			Render3DScene(this->m_currentLevel->GetScene());
-			Render2DScene(this->m_currentLevel->GetHud());
+			Render2DScene(this->m_currentLevel->GetView());
 
 			if(this->m_cursor.IsVisible()) {
 				this->m_cursor.Render();

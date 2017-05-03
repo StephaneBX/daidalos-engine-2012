@@ -48,6 +48,18 @@ namespace SAMPLES {
 		*/
 		void Update(const float time);
 
+		/**
+		* Callback when the cinematic event started
+		* @param cinematicEvent The event
+		*/
+		void OnCinematicEventStarted(CCinematicEvent * cinematicEvent) override;
+
+		/**
+		* Callback when the cinematic event ended
+		* @param cinematicEvent The event
+		*/
+		void OnCinematicEventEnded(CCinematicEvent * cinematicEvent) override;
+
 	protected:
 		/**
 		* Do pre level loading process

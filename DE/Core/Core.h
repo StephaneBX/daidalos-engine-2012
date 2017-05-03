@@ -131,6 +131,27 @@ namespace DE {
 	}
 
 	/**
+	* Do a Catmull-Rom interpolation
+	* @param y0 The previous value
+	* @param y1 The current value to interpolate
+	* @param y2 The current value to interpolate
+	* @param y3 The next value
+	* @param mu The factor
+	*/
+	template<typename T> inline T CubicInterpolate(const T y0, const T y1, const T y2, const T y3, float mu) {
+		T a0, a1, a2, a3;
+		float mu2;
+
+		mu2 = mu * mu;
+		a0 = -0.5f * y0 + 1.5f * y1 - 1.5f * y2 + 0.5f * y3;
+		a1 = y0 - 2.5f * y1 + 2.0f * y2 - 0.5f * y3;
+		a2 = -0.5f * y0 + 0.5f * y2;
+		a3 = y1;
+
+		return (a0 * mu * mu2 + a1 * mu2 + a2 * mu + a3);
+	}
+
+	/**
 	* Get the size (in Bytes) of the given pixel format
 	* @param format The pixel format
 	* @return The size in Bytes

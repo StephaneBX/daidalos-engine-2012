@@ -176,6 +176,11 @@ namespace SAMPLES {
 		};
 		this->m_declaration = this->m_renderer->CreateVertexDeclaration(decl);
 
+		// Post process
+		this->m_texture2DPostProcess.CreateEmpty("postProcessTexture2D", this->m_renderer->GetResolution(), DE::PIXEL_FORMAT_A8R8G8B8, &textureFilter2, DE::TEXTURE_FLAG_FRAMEBUFFER_TYPE);
+		this->m_shaderScreenBlur.LoadFromFile("ScreenBlur");
+		this->m_shaderScreenGlow.LoadFromFile("ScreenGlow");
+
 		// Create the fps label
 		this->m_fpsLabel.SetBounds(DE::CRectangleI(10, 10, 200, 30));
 		this->m_fpsLabel.SetSize(25);
@@ -209,7 +214,7 @@ namespace SAMPLES {
 
 		if (!this->m_loading) {
 			Render3DScene(this->m_currentLevel->GetScene());
-			Render2DScene(this->m_currentLevel->GetHud());
+			Render2DScene(this->m_currentLevel->GetView());
 
 			if (this->m_cursor.IsVisible()) {
 				this->m_cursor.Render();
@@ -253,11 +258,6 @@ namespace SAMPLES {
 		DiffuseRendering(scene3D);
 
 		// ------------------------------
-		// Post processing
-		// ------------------------------
-		//PostProcessRendering();
-
-		// ------------------------------
 		// Prepare the light rendering
 		// ------------------------------
 		PreLightRendering(scene3D);
@@ -283,12 +283,14 @@ namespace SAMPLES {
 		PostLightRendering(scene3D);
 
 		// ------------------------------
+		// Post processing
+		// ------------------------------
+		PostProcessRendering();
+
+		// ------------------------------
 		// Sky box mask + rendering
 		// ------------------------------
 		SkyboxRendering(scene3D);
-
-
-		// Post process part
 
 		// ------------------------------
 		// Transparent
@@ -459,7 +461,51 @@ namespace SAMPLES {
 	* Do the post process rendering
 	*/
 	void IDeferredSampleApplication::PostProcessRendering() {
+		this->m_renderer->CopyTextureToTexture(this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
 
+		// Draw a quad with alpha blending and alpha test
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
+
+		this->m_renderer->SetAlphaReference(0x00000001);
+		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
+		this->m_renderer->SetVertexDeclaration(this->m_screenQuadFinalVD.get());
+		
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetTexture(0, this->m_texture2DPostProcess.GetTexture());
+		this->m_renderer->SetTexture(1, nullptr);
+
+		this->m_DSFB.DetachAllElements();
+		this->m_DSFB.AttachElement("postProcessRT", 0);
+		this->m_DSFB.AttachDepth("depth");
+		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
+
+		// Glow
+		this->m_renderer->SetShaderProgram(this->m_shaderScreenGlow.GetShaderProgram());
+		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 4.5f);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		// Blur
+		this->m_renderer->SetShaderProgram(this->m_shaderScreenBlur.GetShaderProgram());
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_RESOLUTION), DE::CVector2F((float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y));
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 10);
+
+		// Horizontal convolution
+		this->m_renderer->CopyTextureToTexture(this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 0);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		// Vertical convolution
+		this->m_renderer->CopyTextureToTexture(this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 1);
+		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 
 	/**

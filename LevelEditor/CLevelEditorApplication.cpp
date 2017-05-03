@@ -135,7 +135,7 @@ namespace EDITOR {
 					std::thread(&CLevelEditorApplication::LoadLevel, this, this->m_currentLevel->GetScene()->GetFilename()).detach();
 				}
 			} else {
-				this->m_currentLevel->GetHud()->Update(time);
+				this->m_currentLevel->GetView()->Update(time);
 			}
 
 		} else {
@@ -557,7 +557,7 @@ namespace EDITOR {
 
 		this->m_activeCamera = viewCameraNode;
 		this->m_consoleView->SetVisible(false);
-		this->m_currentLevel->GetHud()->AddToMainView(this->m_consoleView);
+		this->m_currentLevel->GetView()->AddToMainView(this->m_consoleView);
 		this->m_meshNode = nullptr;
 
 		this->m_loading = false;

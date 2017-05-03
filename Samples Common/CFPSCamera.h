@@ -115,48 +115,54 @@ namespace SAMPLES {
 		CFPSCamera(ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
 
 		/**
+		* Set the player active state
+		* @param enabled The player active state
+		*/
+		void SetEnabled(const bool enabled) override;
+
+		/**
 		* Damage the entity
 		* @param damage The damage
 		*/
-		void TakeDamage(const unsigned int damage);
+		void TakeDamage(const unsigned int damage) override;
 
 		/**
 		* Set the player armor
 		* @param health The player armor
 		*/
-		void SetArmor(const int armor);
+		void SetArmor(const int armor) override;
 
 		/**
 		* Set a player object
 		* @param object The player object id
 		* @param value The object value
 		*/
-		void SetObject(EPlayerObject object, const unsigned int value);
+		void SetObject(EPlayerObject object, const unsigned int value) override;
 
 		/**
 		* Set the player position
 		* @param position The position
 		*/
-		void SetPosition(const DE::CVector3F position);
+		void SetPosition(const DE::CVector3F position) override;
 
 		/**
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		void Update(const float time = 0);
+		void Update(const float time = 0) override;
 
 		/**
 		* Check if the player can see a shape
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(DE::IShape3DF * shape);
+		const bool IsShapeVisible(DE::IShape3DF * shape) override;
 
 		/**
 		* If the player interaction action is active
 		* @return True if the player interaction action is active
 		*/
-		const bool IsInteracting() const;
+		const bool IsInteracting() const override;
 
 		/**
 		* If the player has moved during the current frame
@@ -168,39 +174,45 @@ namespace SAMPLES {
 		* Check if the entity is enabled
 		* @return True if the entity is enabled
 		*/
-		const bool IsEnabled() const;
+		const bool IsEnabled() const override;
 
 		/**
 		* Get the player health
 		* @return The player health
 		*/
-		const int GetArmor() const;
+		const int GetArmor() const override;
 
 		/**
 		* Get the player magazine ammo for the current weapon
 		* @return The current magazine ammo
 		*/
-		const unsigned int GetCurrentWeaponMagazineAmmo() const;
+		const unsigned int GetCurrentWeaponMagazineAmmo() const override;
 
 		/**
 		* Get the player stock ammo for the current weapon
 		* @return The current stock ammo
 		*/
-		const unsigned int GetCurrentWeaponStockAmmo() const;
+		const unsigned int GetCurrentWeaponStockAmmo() const override;
 
 		/**
 		* Get the player's object value
 		* @param object The object id
 		* @return The object value
 		*/
-		const unsigned int GetObjectValue(EPlayerObject object) const;
+		const unsigned int GetObjectValue(EPlayerObject object) const override;
+
+		/**
+		* Get the camera node
+		* @return The camera node
+		*/
+		DE::ICameraSceneNode * GetCameraNode() const override;
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const DE::CVector3F gravity);
+		void OnEntityTouchedGround(const DE::CVector3F gravity) override;
 
 	private:
 		/**

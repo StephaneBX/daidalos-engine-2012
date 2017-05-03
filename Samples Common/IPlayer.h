@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Core/Utility/CVector3.h>
 #include <Scene/3D/IShape3D.h>
+#include <Scene/3D/ICameraSceneNode.h>
 #include "3D/ICollidableEntity.h"
 
 namespace SAMPLES {
@@ -122,6 +123,12 @@ namespace SAMPLES {
 		* @return The object value
 		*/
 		virtual const unsigned int GetObjectValue(EPlayerObject object) const = 0;
+
+		/**
+		* Get the camera node
+		* @return The camera node
+		*/
+		virtual DE::ICameraSceneNode * GetCameraNode() const = 0;
 
 	protected:
 		/**

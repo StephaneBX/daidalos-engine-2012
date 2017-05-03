@@ -101,8 +101,11 @@ namespace SAMPLES {
 	* @param time Elapsed time
 	*/
 	void CSecurityCameraEntity::Update(const float time) {
-		UpdateHorizontalRotation(time);
-		UpdateVerticalRotation(time);
+
+		if (this->m_parent->GetPlayer()->IsEnabled()) {
+			UpdateHorizontalRotation(time);
+			UpdateVerticalRotation(time);
+		}
 	}
 
 	/**
