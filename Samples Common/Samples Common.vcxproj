@@ -57,6 +57,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>..\Dependencies\Includes;..\DE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LOG_LEVEL=4;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -111,6 +112,7 @@
     <ClInclude Include="Level\CDaidalosLevel.h" />
     <ClInclude Include="Level\ILevel.h" />
     <ClInclude Include="Level\ILevelListener.h" />
+    <ClInclude Include="Loaders\CCinematicEventLoader.h" />
     <ClInclude Include="Weapons\CHandgun.h" />
     <ClInclude Include="Weapons\CShotgun.h" />
     <ClInclude Include="Weapons\IWeapon.h" />
@@ -158,6 +160,7 @@
     <ClCompile Include="IDeferredSampleApplication.cpp" />
     <ClCompile Include="Level\CDaidalosLevel.cpp" />
     <ClCompile Include="Level\ILevel.cpp" />
+    <ClCompile Include="Loaders\CCinematicEventLoader.cpp" />
     <ClCompile Include="Weapons\CHandgun.cpp" />
     <ClCompile Include="Weapons\CShotgun.cpp" />
     <ClCompile Include="Weapons\IWeapon.cpp" />

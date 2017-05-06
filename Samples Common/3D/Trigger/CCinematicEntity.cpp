@@ -37,18 +37,24 @@ namespace SAMPLES {
 	*/
 	CCinematicEntity::CCinematicEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
 
+		this->m_triggered = false;
 		this->m_id = node->GetId();
 		this->m_type = ENTITY_TYPE_AREA_TRIGGER;
 		this->m_node = node;
-		
+		std::string cinematicFile;
 
 		// Read the attributes
 		if (this->m_node->GetAttribute("triggerRadius") != "") {
 			std::istringstream ss(m_node->GetAttribute("triggerRadius"));
 			ss >> this->m_triggerRadius;
 		}
+		if (this->m_node->GetAttribute("cinematic") != "") {
+			std::istringstream ss(m_node->GetAttribute("cinematic"));
+			ss >> cinematicFile;
+		}
 
-		this->m_cinematicEvent = std::auto_ptr<CCinematicEvent>(new CCinematicEvent(parent, ""));
+		this->m_cinematicEvent = std::auto_ptr<CCinematicEvent>(new CCinematicEvent(parent));
+		this->m_cinematicEvent->LoadFromFile(cinematicFile);
 	}
 
 	/**
@@ -59,12 +65,15 @@ namespace SAMPLES {
 
 		ITriggerEntity::Update(time);
 
-		// If over, enable back the player
-		if (this->m_cinematicEvent->IsDone()) {
-			this->m_parent->GetPlayer()->SetEnabled(true);
-			this->m_parent->SetActiveCamera(this->m_parent->GetPlayer()->GetCameraNode());
-		} else {
-			this->m_cinematicEvent->Update(time);
+		if (this->m_triggered) {
+			// If over, enable back the player
+			if (this->m_cinematicEvent->IsDone()) {
+				this->m_triggered = false;
+				this->m_parent->GetPlayer()->SetEnabled(true);
+				this->m_parent->SetActiveCamera(this->m_parent->GetPlayer()->GetCameraNode());
+			} else {
+				this->m_cinematicEvent->Update(time);
+			}
 		}
 	}
 
@@ -72,6 +81,7 @@ namespace SAMPLES {
 	* Trigger the entity action
 	*/
 	void CCinematicEntity::DoAction() {
+		this->m_triggered = true;
 		this->m_node->SetEnabled(false);
 
 		// Disable the player

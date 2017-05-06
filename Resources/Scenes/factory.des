@@ -8469,7 +8469,7 @@
         <node type="5" name="security_camera_entity" file="security_camera_root.obj">
             <enabled>true</enabled>
             <position>78:16:85</position>
-            <rotation>0:45:0</rotation>
+            <rotation>10:45:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>security_camera_d.tga</diffuse_texture>
             <normal_texture>security_camera_d.tga</normal_texture>
@@ -9030,12 +9030,113 @@
         </node>
 		<!-- Empty Node -->
         <node type="8" name="cinematic_trigger_entity">
+			<enabled>true</enabled>
             <position>0:0:0</position>
             <rotation>0:0:0</rotation>
             <attributes>
                 <triggerRadius>20</triggerRadius>
-				<cinematic>intro.dec</cinematic>
+				<cinematic>intro.dgc</cinematic>
             </attributes>
         </node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
+            <position>-100:16:200</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
+                <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>true</lightShadow_caster>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		<!-- Animated Mesh Node -->
+        <node type="6" name="zombie_enemy_entity" file="zombie.ms3d">
+            <enabled>true</enabled>
+            <position>-60:10:220</position>
+            <rotation>0:90:0</rotation>
+            <scale>0.24:0.24:0.24</scale>
+            <diffuse_texture>zombie_d.png</diffuse_texture>
+            <normal_texture>zombie_n.png</normal_texture>
+            <meshShading>1</meshShading>
+            <material>default.mtl</material>
+            <attributes>
+                <health>50</health>
+                <max_health>50</max_health>
+                <patrol_waypoints>-40:0:0|0:0:0|0:0:30|0:0:0</patrol_waypoints>
+            </attributes>
+        </node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
+            <position>-80:16:220</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
+                <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>true</lightShadow_caster>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		<!-- Static Mesh Node -->
+        <node type="5" name="spot_entity" file="spot.obj">
+            <enabled>true</enabled>
+            <position>-60:16:240</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>spot_white_d.tga</diffuse_texture>
+            <normal_texture>black.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>spot_bbox.obj</boundingBox>
+            <attributes>
+                <lightColor>0.4:0.4:0.4:1</lightColor>
+                <lightDecalY>-0.8</lightDecalY>
+                <lightEnabled>true</lightEnabled>
+                <lightFalloff>0.7</lightFalloff>
+                <lightRadius>25</lightRadius>
+                <lightRange>20</lightRange>
+                <lightShadow_caster>true</lightShadow_caster>
+                <lightTightness>0.5</lightTightness>
+            </attributes>
+        </node>
+		<brush file="bridge.obj">
+			<diffuse_texture>ground_1d.png</diffuse_texture>
+			<normal_texture>ground_1n.png</normal_texture>
+			<position>-30:8.0:250</position>
+			<rotation>0.0:90.0:0.0</rotation>
+		</brush>
+		<brush file="bridge.obj">
+			<diffuse_texture>ground_1d.png</diffuse_texture>
+			<normal_texture>ground_1n.png</normal_texture>
+			<position>-20:8.0:250</position>
+			<rotation>0.0:90.0:0.0</rotation>
+		</brush>
+		<brush file="bridge.obj">
+			<diffuse_texture>ground_1d.png</diffuse_texture>
+			<normal_texture>ground_1n.png</normal_texture>
+			<position>-10:8.0:250</position>
+			<rotation>0.0:90.0:0.0</rotation>
+		</brush>
     </node>
 </scene>

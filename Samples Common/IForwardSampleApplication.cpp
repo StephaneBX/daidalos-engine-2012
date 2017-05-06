@@ -26,11 +26,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Core/Core.h>
+#include <Core/CMediaManager.h>
 #include "IForwardSampleApplication.h"
+#include "Loaders/CCinematicEventLoader.h"
+#include "Event/ICinematicEvent.h"
 
 namespace SAMPLES {
 
 	IForwardSampleApplication::IForwardSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+		// Cinematic loader
+		DE::CMediaManager::GetInstance()->AddLoader(new CCinematicEventLoader(), "dgc");
+		DE::CMediaManager::GetInstance()->AddSearchPath("Resources/Cinematics/");
+
 		this->m_loading = false;
 		this->m_loadingScene = new DE::C2DScene();
 
@@ -141,6 +148,9 @@ namespace SAMPLES {
 	}
 
 	IForwardSampleApplication::~IForwardSampleApplication() {
+		// Remove the cinematic loader
+		DE::CMediaManager::GetInstance()->RemoveLoader<ICinematicEvent>();
+
 		delete this->m_loadingScene;
 	}
 

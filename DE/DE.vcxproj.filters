@@ -612,6 +612,9 @@
     <ClInclude Include="Core\Thread\IThreadTask.hpp">
       <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
     </ClInclude>
+    <ClInclude Include="Loaders\IXmlLoader.h">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">

@@ -30,7 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <memory>
 #include <vector>
-#include <Core/IResource.h>
 #include "../Level/ILevel.h"
 #include "CCinematicCamera.h"
 #include "ICinematicEvent.h"
@@ -41,10 +40,11 @@ namespace SAMPLES {
 	/**
 	* Cinematic event
 	*/
-	class CCinematicEvent : public DE::IResource {
+	class CCinematicEvent {
 	private:
 		bool m_enabled;
 		bool m_done;
+		ILevel * m_parent;
 		ICinematicEvent * m_cinematicEventData;
 		std::vector<ICinematicEventListener*> m_listeners;
 		std::unique_ptr<CCinematicCamera> m_camera;
@@ -52,9 +52,19 @@ namespace SAMPLES {
 	public:
 		/**
 		* @param parent The parent
-		* @param data The name
 		*/
-		CCinematicEvent(ILevel * parent, const std::string & name);
+		CCinematicEvent(ILevel * parent);
+
+		/**
+		* Destructor
+		*/
+		~CCinematicEvent();
+
+		/**
+		* Load a font file
+		* @param filename The font file name
+		*/
+		void LoadFromFile(const std::string & filename);
 
 		/**
 		* Update the event

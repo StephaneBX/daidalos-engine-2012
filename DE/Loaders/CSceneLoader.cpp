@@ -719,14 +719,17 @@ namespace DE {
 	void CSceneLoader::LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
+		bool enabled;
 		CVector3F position, rotation;
 
 		// Search for defined values in the element or use default values
+		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 
 		// Create the node
 		node = new CEmptySceneNode(scene, parent, name, position);
+		node->SetEnabled(enabled);
 		static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 	}
 

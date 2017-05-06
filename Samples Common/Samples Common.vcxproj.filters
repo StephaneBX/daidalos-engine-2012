@@ -67,6 +67,12 @@
     <Filter Include="Fichiers sources\Event">
       <UniqueIdentifier>{3b207f58-5d58-4d73-ae98-cb15dcf8d292}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Loaders">
+      <UniqueIdentifier>{b5fd3315-fc35-491d-b4de-c4fc4f2ccc7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Loaders">
+      <UniqueIdentifier>{3e454674-d9ee-4a04-af2f-6d9cc6a32e73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CFPSCamera.h">
@@ -213,6 +219,9 @@
     <ClInclude Include="Event\CCinematicCamera.h">
       <Filter>Fichiers d%27en-tête\Event</Filter>
     </ClInclude>
+    <ClInclude Include="Loaders\CCinematicEventLoader.h">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CFPSCamera.cpp">
@@ -349,6 +358,9 @@
     </ClCompile>
     <ClCompile Include="Event\CCinematicCamera.cpp">
       <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Loaders\CCinematicEventLoader.cpp">
+      <Filter>Fichiers sources\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

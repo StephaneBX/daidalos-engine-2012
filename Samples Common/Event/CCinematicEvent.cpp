@@ -25,6 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <Core/CResourceManager.h>
+#include <Core/CMediaManager.h>
 #include "CCinematicEvent.h"
 
 namespace SAMPLES {
@@ -32,72 +34,46 @@ namespace SAMPLES {
 	* @param parent The parent
 	* @param data The name
 	*/
-	CCinematicEvent::CCinematicEvent(ILevel * parent, const std::string & name) {
+	CCinematicEvent::CCinematicEvent(ILevel * parent) {
 
 		this->m_enabled = false;
 		this->m_done = false;
-
-		// Load the data
-
-		// Read the steps - Tmp
-		std::vector<SCinematicCameraStep> steps;
-		SCinematicCameraStep step;
-		step.position = DE::CVector3F(0, 6, 0);
-		step.rotation = DE::CVector3F();
-		step.speed = 0.15f;
-		steps.push_back(step);
-
-		SCinematicCameraStep step2;
-		step2.position = DE::CVector3F(0, 6, 80);
-		step2.rotation = DE::CVector3F();
-		step2.speed = 0.15f;
-		steps.push_back(step2);
-
-		SCinematicCameraStep step3;
-		step3.position = DE::CVector3F(40, 14, 80);
-		step3.rotation = DE::CVector3F(20, -40, 0);
-		step3.speed = 0.15f;
-		steps.push_back(step3);
-
-		SCinematicCameraStep step4;
-		step4.position = DE::CVector3F(40, 18, 130);
-		step4.rotation = DE::CVector3F(20, -70, 0);
-		step4.speed = 0.15f;
-		steps.push_back(step4);
-
-		SCinematicCameraStep step5;
-		step5.position = DE::CVector3F(-50, 14, 130);
-		step5.rotation = DE::CVector3F(20, -180, 0);
-		step5.speed = 0.15f;
-		steps.push_back(step5);
-
-		SCinematicCameraStep step6;
-		step6.position = DE::CVector3F(00, 10, 100);
-		step6.rotation = DE::CVector3F(10, -220, 0);
-		step6.speed = 0.15f;
-		steps.push_back(step6);
-
-		SCinematicCameraStep step7;
-		step7.position = DE::CVector3F(50, 5, 110);
-		step7.rotation = DE::CVector3F(10, -270, 0);
-		step7.speed = 0.15f;
-		steps.push_back(step7);
-
-		SCinematicCameraStep step8;
-		step8.position = DE::CVector3F(100, 8, 110);
-		step8.rotation = DE::CVector3F(-10, -160, 0);
-		step8.speed = 0.15f;
-		steps.push_back(step8);
-
-		SCinematicCameraStep step9;
-		step9.position = DE::CVector3F(100, 8, 110);
-		step9.rotation = DE::CVector3F(10, 0, 0);
-		step9.speed = 0.15f;
-		steps.push_back(step9);
-
-		this->m_camera = std::auto_ptr<CCinematicCamera>(new CCinematicCamera(parent, steps));
-
+		this->m_parent = parent;
+		this->m_cinematicEventData = nullptr;
 		this->m_listeners.push_back(parent);
+	}
+
+	/**
+	* Destructor
+	*/
+	CCinematicEvent::~CCinematicEvent() {
+		if (this->m_cinematicEventData != nullptr) {
+			DE::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
+		}
+	}
+
+	/**
+	* Load a font file
+	* @param filename The font file name
+	*/
+	void CCinematicEvent::LoadFromFile(const std::string & filename) {
+		// Release previously used resource
+		if (this->m_cinematicEventData != nullptr) {
+			DE::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
+		}
+
+		// Check the existence of the resource and load it if necessary
+		ICinematicEvent * tmp = DE::CResourceManager::GetInstance()->GetResource<ICinematicEvent>(filename);
+
+		if (tmp == nullptr) {
+			this->m_cinematicEventData = DE::CMediaManager::GetInstance()->LoadMediaFromFile<ICinematicEvent>(filename);
+			DE::CResourceManager::GetInstance()->AddResource(filename, this->m_cinematicEventData);
+		} else {
+			this->m_cinematicEventData = tmp;
+		}
+
+		// Create the camera from the loaded data
+		this->m_camera = std::auto_ptr<CCinematicCamera>(new CCinematicCamera(this->m_parent, this->m_cinematicEventData->GetData()->cameraSteps));
 	}
 
 	/**
@@ -106,7 +82,7 @@ namespace SAMPLES {
 	*/
 	void CCinematicEvent::Update(const float time) {
 
-		if (this->m_enabled) {
+		if (this->m_cinematicEventData != nullptr && this->m_enabled) {
 
 			// Update the cinematic elements
 			this->m_camera->Update(time);
@@ -128,12 +104,14 @@ namespace SAMPLES {
 	* Start the cinematic
 	*/
 	void CCinematicEvent::Start() {
-		this->m_camera->Start();
-		this->m_enabled = true;
+		if (this->m_cinematicEventData != nullptr) {
+			this->m_camera->Start();
+			this->m_enabled = true;
 
-		// Call the listeners
-		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnCinematicEventStarted(this);
+			// Call the listeners
+			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+				(*it)->OnCinematicEventStarted(this);
+			}
 		}
 	}
 
@@ -141,12 +119,14 @@ namespace SAMPLES {
 	* Pause the Cinematic
 	*/
 	void CCinematicEvent::Pause() {
-		this->m_camera->Pause();
-		this->m_enabled = false;
+		if (this->m_cinematicEventData != nullptr) {
+			this->m_camera->Pause();
+			this->m_enabled = false;
 
-		// Call the listeners
-		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnCinematicEventPaused(this);
+			// Call the listeners
+			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+				(*it)->OnCinematicEventPaused(this);
+			}
 		}
 	}
 
@@ -154,12 +134,14 @@ namespace SAMPLES {
 	* Stop the Cinematic
 	*/
 	void CCinematicEvent::Stop() {
-		this->m_camera->Stop();
-		this->m_enabled = false;
+		if (this->m_cinematicEventData != nullptr) {
+			this->m_camera->Stop();
+			this->m_enabled = false;
 
-		// Call the listeners
-		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnCinematicEventStopped(this);
+			// Call the listeners
+			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+				(*it)->OnCinematicEventStopped(this);
+			}
 		}
 	}
 

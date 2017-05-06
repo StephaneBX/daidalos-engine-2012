@@ -30,12 +30,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include <Scene/3D/IMeshSceneNode.h>
 #include <Core/Core.h>
+#include <Core/CMediaManager.h>
 #include <Core/Logger/CLoggerFile.h>
 #include <Core/Utility/CMatrix.h>
 #include <Medias/CMaterial.h>
 #include <Medias/CStaticMesh.h>
 #include <Medias/CFont.h>
 #include "IDeferredSampleApplication.h"
+#include "Loaders/CCinematicEventLoader.h"
+#include "Event/ICinematicEvent.h"
 
 namespace SAMPLES {
 	/**
@@ -60,6 +63,11 @@ namespace SAMPLES {
 	};
 
 	IDeferredSampleApplication::IDeferredSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+
+		// Cinematic loader
+		DE::CMediaManager::GetInstance()->AddLoader(new CCinematicEventLoader(), "dgc");
+		DE::CMediaManager::GetInstance()->AddSearchPath("Resources/Cinematics/");
+
 		this->m_loading = false;
 		this->m_loadingScene = new DE::C2DScene();
 
@@ -197,6 +205,9 @@ namespace SAMPLES {
 	}
 
 	IDeferredSampleApplication::~IDeferredSampleApplication() {
+		// Remove the cinematic loader
+		DE::CMediaManager::GetInstance()->RemoveLoader<ICinematicEvent>();
+
 		delete this->m_loadingScene;
 	}
 

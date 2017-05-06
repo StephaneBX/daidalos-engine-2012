@@ -68,6 +68,7 @@
     <ClInclude Include="Loaders\CSceneLoader.h" />
     <ClInclude Include="Loaders\CStaticSoundLoader.h" />
     <ClInclude Include="Loaders\CStreamSoundLoader.h" />
+    <ClInclude Include="Loaders\IXmlLoader.h" />
     <ClInclude Include="Medias\CAnimatedMesh.h" />
     <ClInclude Include="Medias\CBuffer.h" />
     <ClInclude Include="Medias\CFont.h" />
