@@ -9028,16 +9028,6 @@
                 <patrol_waypoints>0:0:20|0:0:-20</patrol_waypoints>
             </attributes>
         </node>
-		<!-- Empty Node -->
-        <node type="8" name="cinematic_trigger_entity">
-			<enabled>true</enabled>
-            <position>0:0:0</position>
-            <rotation>0:0:0</rotation>
-            <attributes>
-                <triggerRadius>20</triggerRadius>
-				<cinematic>intro.dgc</cinematic>
-            </attributes>
-        </node>
 		<!-- Static Mesh Node -->
         <node type="5" name="spot_entity" file="spot.obj">
             <enabled>true</enabled>
@@ -9138,5 +9128,15 @@
 			<position>-10:8.0:250</position>
 			<rotation>0.0:90.0:0.0</rotation>
 		</brush>
+		<!-- Empty Node -->
+        <node type="8" name="cinematic_trigger_entity">
+			<enabled>true</enabled>
+            <position>0:0:0</position>
+            <rotation>0:0:0</rotation>
+            <attributes>
+                <triggerRadius>20</triggerRadius>
+				<cinematic>intro.dgc</cinematic>
+            </attributes>
+        </node>
     </node>
 </scene>

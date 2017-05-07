@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\2D">
+      <UniqueIdentifier>{dd7178bd-0ea1-422c-acf1-727365429c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D">
+      <UniqueIdentifier>{d0603e7b-5c25-44ef-a0c1-47271eb358f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Level">
+      <UniqueIdentifier>{f873f26b-bc8d-46bc-a7e6-b715cce5a08a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Weapons">
+      <UniqueIdentifier>{f66bc525-eb1a-4153-855c-0c0bda39a5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Enemy">
+      <UniqueIdentifier>{b6758865-a8ec-4279-9ba7-0d12425b29a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Misc">
+      <UniqueIdentifier>{fe6af411-9c52-4fb6-a39e-9e087d4ee54b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Trigger">
+      <UniqueIdentifier>{8fad6998-ed1d-4bdb-a9b8-803ac2d07f2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\2D">
+      <UniqueIdentifier>{00bc94d8-7857-4658-a925-8e0b9b40084e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D">
+      <UniqueIdentifier>{770ae87f-6dd2-4df7-9bf5-17db0bc41558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Level">
+      <UniqueIdentifier>{8c9829db-f97b-422e-b800-2d85dc88f4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Weapons">
+      <UniqueIdentifier>{7b2aa79d-62da-4ecc-82ba-3f9f29ad3c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Enemy">
+      <UniqueIdentifier>{ff413dda-70cc-4e31-9ac1-30d3f69c57d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Misc">
+      <UniqueIdentifier>{f266a8f2-8db8-4ef0-8570-a05e64156087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Trigger">
+      <UniqueIdentifier>{aaef8b37-c3f7-4b0b-a132-5d99de1da5b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Enemy\States">
+      <UniqueIdentifier>{bbda11cb-d482-42a1-bcad-0198ce163203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Enemy\States">
+      <UniqueIdentifier>{62abcfad-1f06-4c7a-bd32-3d512c747c06}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CDaidalosApplication.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="CFPSCamera.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="2D\CCrosshairView.hpp">
+      <Filter>Fichiers d%27en-tête\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="2D\CHudView.hpp">
+      <Filter>Fichiers d%27en-tête\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\CZombieEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateAttack.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateDie.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateFollow.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStatePatrol.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CEnemyStateWait.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CZombieStateFollow.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\States\CZombieStateWait.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy\States</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Misc\CAlarmEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Misc\CSecurityCameraEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Misc\CSpotEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CArmorBonusEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CFanEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CFlashlightEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CHandgunAmmoEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CHealthBonusEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CMagneticCardEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CMagneticCardReaderEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CShotgunAmmoEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CTeleporterEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\CDaidalosLevel.hpp">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\CHandgun.hpp">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\CShotgun.hpp">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons\IWeapon.hpp">
+      <Filter>Fichiers d%27en-tête\Weapons</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDaidalosApplication.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="CFPSCamera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="daidalos.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="2D\CCrosshairView.cpp">
+      <Filter>Fichiers sources\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="2D\CHudView.cpp">
+      <Filter>Fichiers sources\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\CZombieEntity.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateAttack.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateDie.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateFollow.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStatePatrol.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CEnemyStateWait.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CZombieStateFollow.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\States\CZombieStateWait.cpp">
+      <Filter>Fichiers sources\3D\Enemy\States</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CAlarmEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CSecurityCameraEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Misc\CSpotEntity.cpp">
+      <Filter>Fichiers sources\3D\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CArmorBonusEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CFanEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CFlashlightEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CHandgunAmmoEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CHealthBonusEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CMagneticCardEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CMagneticCardReaderEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CShotgunAmmoEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CTeleporterEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\CDaidalosLevel.cpp">
+      <Filter>Fichiers sources\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\CHandgun.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\CShotgun.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapons\IWeapon.cpp">
+      <Filter>Fichiers sources\Weapons</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

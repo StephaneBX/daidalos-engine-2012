@@ -8,7 +8,7 @@
 
 #pragma comment(lib, "cppunit_dll.lib")
 #pragma comment(lib, "TestRunner.lib")
-#pragma comment(lib, "Daidalos Engine.lib")
+#pragma comment(lib, "DaidalosEngine.lib")
 
 int main(int argc, char* argv[]) {
 	// Retrieve test path from command line first argument. Default to "" which resolve

@@ -60,6 +60,9 @@
     <ClCompile Include="CEditorLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CFreeCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2D\CConsoleView.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files\2D</Filter>
     </ClInclude>
     <ClInclude Include="CEditorLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CFreeCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\2D">
+      <UniqueIdentifier>{2668a9a9-483f-4b17-9ea1-4adc3474ecc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D">
+      <UniqueIdentifier>{8f10e0a6-ba80-4ef7-b846-3e7c05fa0593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Event">
+      <UniqueIdentifier>{f541d026-8d50-4d8a-86bd-851132e1139d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Level">
+      <UniqueIdentifier>{4dea63e0-6c2a-49c8-a337-7385132b7b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Loaders">
+      <UniqueIdentifier>{1e1425bb-4ad6-449b-bfc7-1cbb855108a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\2D">
+      <UniqueIdentifier>{7f2c7fdb-1885-404e-829d-18b6e651c03e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D">
+      <UniqueIdentifier>{68c8a288-ce55-4eba-bffd-7c3d5aaacc70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Event">
+      <UniqueIdentifier>{87d1f327-98b8-4318-aa6c-e8fafefa8e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Level">
+      <UniqueIdentifier>{911b0696-3651-4775-a13e-f45e6caa5053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Loaders">
+      <UniqueIdentifier>{8f415974-daef-4a71-9666-69952b542191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Enemy">
+      <UniqueIdentifier>{be89e439-6275-427a-8b7c-7f37c17c7853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\3D\Trigger">
+      <UniqueIdentifier>{9f857825-6625-4074-b79e-023d35d189a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Enemy">
+      <UniqueIdentifier>{3f17d1aa-ef6d-4905-92a9-51894eb7bdcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\3D\Trigger">
+      <UniqueIdentifier>{bfb0c363-60e2-4ccd-bc46-de3eba7041c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IDeferredSampleApplication.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="IForwardSampleApplication.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\CCinematicCamera.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\CCinematicEvent.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\ICinematicEvent.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\ICollidableEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\IEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\ILevel.hpp">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level\ILevelListener.hpp">
+      <Filter>Fichiers d%27en-tête\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\ICinematicEventListener.hpp">
+      <Filter>Fichiers d%27en-tête\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="2D\CLoadingView.hpp">
+      <Filter>Fichiers d%27en-tête\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CCinematicEventLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayer.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\IEnemyEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Enemy\IEnemyState.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CAreaTriggerEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CCinematicEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CDoorEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CLadderEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\CSwitchEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\Trigger\ITriggerEntity.hpp">
+      <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="IDeferredSampleApplication.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="IForwardSampleApplication.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\ICollidableEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\IEntity.cpp">
+      <Filter>Fichiers sources\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Level\ILevel.cpp">
+      <Filter>Fichiers sources\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="2D\CLoadingView.cpp">
+      <Filter>Fichiers sources\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\CCinematicCamera.cpp">
+      <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\CCinematicEvent.cpp">
+      <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\ICinematicEvent.cpp">
+      <Filter>Fichiers sources\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Loaders\CCinematicEventLoader.cpp">
+      <Filter>Fichiers sources\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="IPlayer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\IEnemyEntity.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Enemy\IEnemyState.cpp">
+      <Filter>Fichiers sources\3D\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CAreaTriggerEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CCinematicEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CDoorEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CLadderEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\CSwitchEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="3D\Trigger\ITriggerEntity.cpp">
+      <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

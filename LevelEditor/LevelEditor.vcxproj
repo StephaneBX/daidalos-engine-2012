@@ -13,7 +13,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B015B381-07E9-4A7A-A5CD-2F4851DA2570}</ProjectGuid>
     <RootNamespace>LevelEditor</RootNamespace>
-    <ProjectName>LevelEditor</ProjectName>
+    <ProjectName>3 - Level Editor</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,6 +42,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(DXSDK_DIR)LIB\x86;$(LibraryPath)</LibraryPath>
+    <TargetName>LevelEditor</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(DXSDK_DIR)LIB\x86;$(LibraryPath)</LibraryPath>
@@ -65,7 +67,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\Samples Common;..\DE;..\Dependencies\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Game Engine;..\DE;..\Dependencies\Includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -81,6 +83,7 @@
     <ClCompile Include="3D\CViewCamera.cpp" />
     <ClCompile Include="CEditorConfiguration.cpp" />
     <ClCompile Include="CEditorLevel.cpp" />
+    <ClCompile Include="CFreeCamera.cpp" />
     <ClCompile Include="CLevelEditorApplication.cpp" />
     <ClCompile Include="Loaders\CEditorSceneLoader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -93,6 +96,7 @@
     <ClInclude Include="3D\CViewCamera.h" />
     <ClInclude Include="CEditorConfiguration.h" />
     <ClInclude Include="CEditorLevel.h" />
+    <ClInclude Include="CFreeCamera.h" />
     <ClInclude Include="CLevelEditorApplication.h" />
     <ClInclude Include="Loaders\CEditorSceneLoader.h" />
   </ItemGroup>

@@ -309,7 +309,8 @@
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ClosedEngine</RootNamespace>
-    <ProjectName>Daidalos Engine</ProjectName>
+    <ProjectName>0 - Daidalos Engine</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -337,6 +338,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <TargetName>DaidalosEngine</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

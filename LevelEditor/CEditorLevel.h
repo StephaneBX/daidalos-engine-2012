@@ -28,14 +28,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CEDITORLEVEL_H
 #define __CEDITORLEVEL_H
 
-#include "Level/ILevel.h"
+#include <Level/ILevel.hpp>
 #include "2D/CConsoleView.h"
 
 namespace EDITOR {
 	/**
 	* The editor level
 	*/
-	class CEditorLevel : public SAMPLES::ILevel {
+	class CEditorLevel : public GE::ILevel {
 	private:
 		CConsoleView * m_consoleView;
 

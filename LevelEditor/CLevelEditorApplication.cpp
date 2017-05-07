@@ -73,7 +73,7 @@ namespace EDITOR {
 	* @param filename The level filename
 	*/
 	void CLevelEditorApplication::LoadLevel(const std::string & filename) {
-		this->m_currentLevel = std::unique_ptr<SAMPLES::ILevel>(new CEditorLevel());
+		this->m_currentLevel = std::unique_ptr<GE::ILevel>(new CEditorLevel());
 		this->m_currentLevel->AddListener(this);
 		this->m_currentLevel->LoadLevel(filename);
 	}

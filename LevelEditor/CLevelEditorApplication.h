@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CLEVELEDITORAPPLICATION_H
 #define __CLEVELEDITORAPPLICATION_H
 
-#include <IForwardSampleApplication.h>
+#include <IForwardSampleApplication.hpp>
 #include <Scene/3D/CProjectionCameraSceneNode.h>
 #include "CEditorConfiguration.h"
 #include "3D/CViewCamera.h"
@@ -40,7 +40,7 @@ namespace EDITOR {
 	/**
 	* Level editor application implementation
 	*/
-	class CLevelEditorApplication : public SAMPLES::IForwardSampleApplication, IConsoleListener {
+	class CLevelEditorApplication : public GE::IForwardSampleApplication, IConsoleListener {
 	private:
 		bool m_viewMode;
 		bool m_drawSkybox;

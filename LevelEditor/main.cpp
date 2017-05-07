@@ -1,7 +1,7 @@
 #include "CLevelEditorApplication.h"
 
-#pragma comment(lib, "Daidalos Engine.lib")
-#pragma comment(lib, "Samples Common.lib")
+#pragma comment(lib, "DaidalosEngine.lib")
+#pragma comment(lib, "GameEngine.lib")
 
 void mainTest(HINSTANCE hInstance, int nCmdShow) {
 	EDITOR::CLevelEditorApplication app(hInstance, nCmdShow);
