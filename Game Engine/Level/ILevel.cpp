@@ -37,6 +37,8 @@ namespace GE {
 	* @param filename The filename
 	*/
 	void ILevel::LoadLevel(const std::string & filename) {
+
+		this->m_brightness = 0.0f;
 		this->m_view = std::unique_ptr<DE::C2DScene>(new DE::C2DScene());
 
 		this->m_scene = std::unique_ptr<DE::C3DScene>(new DE::C3DScene());
@@ -50,6 +52,14 @@ namespace GE {
 		this->m_player = nullptr;
 
 		PostLoadLevel();
+	}
+
+	/**
+	* Set the level brightness
+	* @param brightness The brightness
+	*/
+	void ILevel::SetBrightness(const float brightness) {
+		this->m_brightness = brightness;
 	}
 
 	/**
@@ -89,6 +99,14 @@ namespace GE {
 		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
 			(*it)->Update(time);
 		}
+	}
+
+	/**
+	* Return the level brightness
+	* @return The level brightness
+	*/
+	const float ILevel::GetBrightness() const {
+		return this->m_brightness;
 	}
 
 	/**

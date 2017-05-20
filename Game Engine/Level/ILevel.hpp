@@ -43,6 +43,7 @@ namespace GE {
 	*/
 	class ILevel : public ICinematicEventListener {
 	protected:
+		float m_brightness;
 		std::unique_ptr<DE::C3DScene> m_scene;
 		std::unique_ptr<DE::C2DScene> m_view;
 		std::vector<std::unique_ptr<IEntity> > m_entities;
@@ -56,6 +57,12 @@ namespace GE {
 		* @param filename The filename
 		*/
 		void LoadLevel(const std::string & filename);
+
+		/**
+		* Set the level brightness
+		* @param brightness The brightness
+		*/
+		void SetBrightness(const float brightness);
 
 		/**
 		* Add a listener
@@ -74,6 +81,12 @@ namespace GE {
 		* @param time The elapsed time
 		*/
 		virtual void Update(const float time);
+
+		/**
+		* Return the level brightness
+		* @return The level brightness
+		*/
+		const float GetBrightness() const;
 
 		/**
 		* Get the scene graph

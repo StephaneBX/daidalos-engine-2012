@@ -98,29 +98,57 @@ namespace GE {
 			if (this->m_currentStep >= this->m_steps.size() - 1) {
 				position = this->m_steps.back().position;
 				rotation = this->m_steps.back().rotation;
-				this->m_done = true;
-				this->m_enabled = false;
+
+				if (this->m_currentStep >= this->m_steps.size()) {
+					this->m_done = true;
+					this->m_enabled = false;
+				}
 
 			} else {
+
+				// Depending on the transition type
+				if (this->m_steps[(int)this->m_currentStep].transition == TRANSITION_NONE) {
+					position = this->m_steps[(int)this->m_currentStep].position;
+					rotation = this->m_steps[(int)this->m_currentStep].rotation;
+
+				} else if (this->m_steps[(int)this->m_currentStep].transition == TRANSITION_INTERPOLATE) {
+					float diff = this->m_currentStep - (int)this->m_currentStep;
+
+					// Position interpolation - Splines
+					DE::CVector3F y0 = this->m_steps[(int)this->m_currentStep].position;
+					DE::CVector3F y1 = this->m_steps[(int)this->m_currentStep].position;
+					DE::CVector3F y2 = this->m_steps[(int)this->m_currentStep + 1].position;
+					DE::CVector3F y3 = this->m_steps[(int)this->m_currentStep + 1].position;
+
+					if (this->m_currentStep >= 1) {
+						y0 = this->m_steps[(int)this->m_currentStep - 1].position;
+					}
+					if ((this->m_currentStep + 2) <= this->m_steps.size() - 1) {
+						y3 = this->m_steps[(int)this->m_currentStep + 2].position;
+					}
+					position = DE::CubicInterpolate<DE::CVector3F>(y0, y1, y2, y3, diff);
+
+					// Rotation interpolation - Cosine
+					float interpolation = (1 - cos(diff * PI)) / 2.0f;
+					rotation = (this->m_steps[(int)this->m_currentStep].rotation * (1 - interpolation) + this->m_steps[(int)this->m_currentStep + 1].rotation * interpolation);
+				}
+			}
+
+			// Update the fade value
+			this->m_parent->SetBrightness(0);
+			if (this->m_steps[(int)this->m_currentStep].fade != FADE_NONE) {
 				float diff = this->m_currentStep - (int)this->m_currentStep;
+				float fadeDiff = this->m_steps[(int)this->m_currentStep].speed * (this->m_steps[(int)this->m_currentStep].fadeDuration / 1000.0f);
 
-				// Position interpolation - Splines
-				DE::CVector3F y0 = this->m_steps[(int)this->m_currentStep].position;
-				DE::CVector3F y1 = this->m_steps[(int)this->m_currentStep].position;
-				DE::CVector3F y2 = this->m_steps[(int)this->m_currentStep + 1].position;
-				DE::CVector3F y3 = this->m_steps[(int)this->m_currentStep + 1].position;
-
-				if (this->m_currentStep >= 1) {
-					y0 = this->m_steps[(int)this->m_currentStep - 1].position;
+				if (diff < fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_IN || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
+					// Fade in
+					this->m_parent->SetBrightness(-1.0f + (diff / fadeDiff));
 				}
-				if ((this->m_currentStep + 2) <= this->m_steps.size() - 1) {
-					y3 = this->m_steps[(int)this->m_currentStep + 2].position;
-				}
-				position = DE::CubicInterpolate<DE::CVector3F>(y0, y1, y2, y3, diff);
 
-				// Rotation interpolation - Cosine
-				float interpolation = (1 - cos(diff * PI)) / 2.0f;
-				rotation = (this->m_steps[(int)this->m_currentStep].rotation * (1 - interpolation) + this->m_steps[(int)this->m_currentStep + 1].rotation * interpolation);
+				if (diff >= 1.0f - fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_OUT || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
+					// Fade out
+					this->m_parent->SetBrightness(-(diff - (1.0f - fadeDiff)) / fadeDiff);
+				}
 			}
 
 			// Update the node

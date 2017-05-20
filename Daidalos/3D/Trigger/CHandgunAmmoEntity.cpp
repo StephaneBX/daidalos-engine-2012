@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
+#include "../../Enums.hpp"
 #include "CHandgunAmmoEntity.hpp"
 
 #define ROTATION_SPEED 70.0f
@@ -71,7 +72,7 @@ namespace DAIDALOS {
 	void CHandgunAmmoEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_parent->GetPlayer()->SetObject(GE::PLAYER_OBJECT_HANDGUN_AMMO, AMMO_QUANTITY);
+		this->m_parent->GetPlayer()->SetObject(PLAYER_OBJECT_HANDGUN_AMMO, AMMO_QUANTITY);
 	}
 
 	/**
@@ -79,6 +80,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CHandgunAmmoEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && this->m_parent->GetPlayer()->GetObjectValue(GE::PLAYER_OBJECT_HANDGUN_WEAPON) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && this->m_parent->GetPlayer()->GetObjectValue(PLAYER_OBJECT_HANDGUN_WEAPON) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

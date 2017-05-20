@@ -37,9 +37,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace GE {
 
+	enum ETransitionType {
+		TRANSITION_NONE,
+		TRANSITION_INTERPOLATE
+	};
+
+	enum EFadeType {
+		FADE_NONE,
+		FADE_IN,
+		FADE_OUT,
+		FADE_BOTH
+	};
+
 	struct SCinematicCameraStep {
 		DE::CVector3F position;
 		DE::CVector3F rotation;
+		unsigned int transition;
+		unsigned int fade;
+		float fadeDuration;
 		float speed;
 	};
 

@@ -109,7 +109,7 @@ PS_OUTPUT main(PS_INPUT IN)
 			float3 V = normalize(-E);
 			
 			float3 diffuse = spotLightColor.xyz * saturate(dot(normal, -L)) * spotDistanceFactor(distance(currentPosition.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
-			float3 specular = specularNs.xyz * spotLightColor.xyz * pow(saturate(dot(R, V)), specularNs * 128.0f) * spotDistanceFactor(distance(currentPosition.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
+			float3 specular = specularNs.xyz * spotLightColor.xyz * pow(saturate(dot(R, V)), specularNs.w * 128.0f) * spotDistanceFactor(distance(currentPosition.xyz, spotLightPosition.xyz)) * spotTightnessFactor(angle);
 			
 			OUT.color.xyz = saturate(diffuse + specular) * shadowTerm;
 		}

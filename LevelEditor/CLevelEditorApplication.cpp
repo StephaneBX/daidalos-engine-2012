@@ -40,10 +40,13 @@ namespace EDITOR {
 		MESH_CATEGORY_SELECTION_MODE_CEILING
 	};
 
-	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardSampleApplication(hInstance, nCmdShow) {
+	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardApplication(hInstance, nCmdShow) {
 
 		// Replace the default level loader
 		DE::CMediaManager::GetInstance()->AddLoader(new CEditorSceneLoader(), "des");
+
+		// Tmp
+		DE::CMediaManager::GetInstance()->AddSearchPath("Resources/Textures/Tank/");
 
 		this->m_viewMode = true;
 		this->m_drawSkybox = true;

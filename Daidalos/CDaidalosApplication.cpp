@@ -43,7 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CDaidalosApplication.hpp"
 
 namespace DAIDALOS {
-	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow) : GE::IForwardSampleApplication(hInstance, nCmdShow) {
+	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow) : GE::IDeferredApplication(hInstance, nCmdShow) {
 
 		this->m_loading = true;
 		std::thread(&CDaidalosApplication::LoadLevel, this, "factory.des").detach();
@@ -66,7 +66,7 @@ namespace DAIDALOS {
 
 	void CDaidalosApplication::Update(const float time) {
 
-		GE::IForwardSampleApplication::Update(time);
+		GE::IDeferredApplication::Update(time);
 		if(!this->m_loading) {
 			if(this->m_input->IsActionActive(FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, FPS_CAMERA_EXIT)) {
 				this->m_alive = false;

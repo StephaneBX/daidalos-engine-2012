@@ -115,8 +115,11 @@ struct SCinematicCameraStep
 {
 	DE::CVector3F position;
 	DE::CVector3F rotation;
+	unsigned int transition;
 	float speed;
 };
+
+Transitions: None, Interpolate, Fade, InterpolateAndFade
 
 CCinematicCamera => Retirer héritage IPlayer
 private:

@@ -33,6 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.h>
 #include <3D/Trigger/ITriggerEntity.hpp>
 #include <IPlayer.hpp>
+#include "../../Enums.hpp"
 
 namespace DAIDALOS {
 
@@ -43,7 +44,7 @@ namespace DAIDALOS {
 	private:
 		DE::CAnimatedMeshSceneNode * m_node;
 		DE::CSound m_sound;
-		GE::EPlayerObject m_playerObject;
+		EPlayerObject m_playerObject;
 
 	public:
 		/**

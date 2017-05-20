@@ -80,7 +80,9 @@ namespace DE {
 		"convolutionMode",
 		"blurRadius",
 
-		"glowFactor"
+		"glowFactor",
+
+		"alphaFactor"
 	};
 
 	IRenderer::~IRenderer() {

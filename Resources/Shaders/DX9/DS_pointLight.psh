@@ -42,17 +42,18 @@ PS_OUTPUT main(PS_INPUT IN)
 	PS_OUTPUT OUT;
 	OUT.color = float4(0,0,0,1);
 	
-	float3 currentPosition = cameraPositionDistance.xyz + (tex2D(depthSampler, IN.texcoord).r * IN.viewDistance);
 	float3 normal = (tex2D(normalSampler, IN.texcoord).xyz * 2) - 1;
+	float3 currentPosition = cameraPositionDistance.xyz + (tex2D(depthSampler, IN.texcoord).r * IN.viewDistance);
 	float4 specularNs = tex2D(specularSampler, IN.texcoord);
-	float3 L = normalize(currentPosition - pointLightPositionRange.xyz);
+
+	float3 L = normalize(currentPosition.xyz - pointLightPositionRange.xyz);
 	float3 R = reflect(-L, normal);
-	float3 E = normalize(cameraPositionDistance.xyz - currentPosition);
+	float3 E = normalize(cameraPositionDistance.xyz - currentPosition.xyz);
 	float3 V = normalize(-E);
 	
-	float3 diffuse = pointLightColorFalloff.xyz * saturate(dot(normal, -L)) * pointDistanceFactor(distance(currentPosition, pointLightPositionRange.xyz));
-	float3 specular = specularNs.xyz * pointLightColorFalloff.xyz * pow(saturate(dot(R, V)), specularNs.w * 128.0f) * pointDistanceFactor(distance(currentPosition, pointLightPositionRange.xyz));
-	
+	float3 diffuse = pointLightColorFalloff.xyz * saturate(dot(normal, -L));// * pointDistanceFactor(distance(currentPosition.xyz, pointLightPositionRange.xyz));
+	float3 specular = specularNs.xyz * pointLightColorFalloff.xyz * pow(saturate(dot(R, V)), specularNs.w * 128.0f);// * pointDistanceFactor(distance(currentPosition.xyz, pointLightPositionRange.xyz));
+
 	OUT.color.xyz = saturate(diffuse + specular);
 
 	return OUT;

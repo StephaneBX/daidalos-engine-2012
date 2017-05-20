@@ -139,8 +139,8 @@
     <ClInclude Include="Event\CCinematicEvent.hpp" />
     <ClInclude Include="Event\ICinematicEvent.hpp" />
     <ClInclude Include="Event\ICinematicEventListener.hpp" />
-    <ClInclude Include="IDeferredSampleApplication.hpp" />
-    <ClInclude Include="IForwardSampleApplication.hpp" />
+    <ClInclude Include="IDeferredApplication.hpp" />
+    <ClInclude Include="IForwardApplication.hpp" />
     <ClInclude Include="IPlayer.hpp" />
     <ClInclude Include="Level\ILevel.hpp" />
     <ClInclude Include="Level\ILevelListener.hpp" />
@@ -161,8 +161,8 @@
     <ClCompile Include="Event\CCinematicCamera.cpp" />
     <ClCompile Include="Event\CCinematicEvent.cpp" />
     <ClCompile Include="Event\ICinematicEvent.cpp" />
-    <ClCompile Include="IDeferredSampleApplication.cpp" />
-    <ClCompile Include="IForwardSampleApplication.cpp" />
+    <ClCompile Include="IDeferredApplication.cpp" />
+    <ClCompile Include="IForwardApplication.cpp" />
     <ClCompile Include="IPlayer.cpp" />
     <ClCompile Include="Level\ILevel.cpp" />
     <ClCompile Include="Loaders\CCinematicEventLoader.cpp" />

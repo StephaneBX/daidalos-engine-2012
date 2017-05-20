@@ -29,6 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
+#include "../../Enums.hpp"
 #include "CMagneticCardReaderEntity.hpp"
 
 namespace DAIDALOS {
@@ -50,7 +51,7 @@ namespace DAIDALOS {
 		if(this->m_node->GetAttribute("color") != "") {
 			const std::string color = this->m_node->GetAttribute("color");
 			if(color == "red") {
-				this->m_magneticCard = GE::PLAYER_OBJECT_MAGNETIC_CARD_RED;
+				this->m_magneticCard = PLAYER_OBJECT_MAGNETIC_CARD_RED;
 			}
 		}
 	}

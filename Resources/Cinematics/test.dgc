@@ -1,0 +1,34 @@
+<cinematic>
+	<camera>
+		<!-- Lift Room -->
+		<step>
+			<position>100:8:110</position>
+			<rotation>10:0:0</rotation>
+			<duration>6000</duration>
+			<transition>none</transition>
+			<fade>out</fade>
+		</step>
+		<step>
+			<position>90:11:150</position>
+			<rotation>0:0:0</rotation>
+			<duration>5000</duration>
+			<transition>none</transition>
+			<fade>both</fade>
+		</step>
+		<step>
+			<position>90:11:170</position>
+			<rotation>0:90:0</rotation>
+			<duration>6000</duration>
+			<transition>none</transition>
+			<fade>in</fade>
+		</step>
+
+	</camera>
+	<dialogue>
+		<label>
+			<start></start>
+			<end></end>
+			<text></text>
+		</label>
+	</dialogue>
+</cinematic>

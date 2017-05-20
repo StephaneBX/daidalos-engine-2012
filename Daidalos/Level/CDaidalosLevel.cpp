@@ -57,7 +57,7 @@ namespace DAIDALOS {
 		ILevel::Update(time);
 
 		// Update the hud
-		this->m_hudView->SetFlashlight(this->m_player->GetObjectValue(GE::PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
+		this->m_hudView->SetFlashlight(this->m_player->GetObjectValue(PLAYER_OBJECT_FLASHLIGHT) >= 1 ? true : false);
 		this->m_hudView->SetPosition(this->m_player->GetVisiblePosition());
 		this->m_hudView->SetGravity(this->m_player->GetGravity().y);
 		this->m_hudView->SetHealth(this->m_player->GetHealth());

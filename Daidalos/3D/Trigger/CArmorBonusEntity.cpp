@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
+#include "../../Enums.hpp"
 #include "CArmorBonusEntity.hpp"
 
 #define ROTATION_SPEED 70.0f

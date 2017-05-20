@@ -28,8 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CDAIDALOSAPPLICATION_HPP
 #define __DAIDALOS_CDAIDALOSAPPLICATION_HPP
 
-#include <IForwardSampleApplication.hpp>
-#include <IDeferredSampleApplication.hpp>
+#include <IForwardApplication.hpp>
+#include <IDeferredApplication.hpp>
 #include <Scene/3D/CSpotLightSceneNode.h>
 #include <3D/IEntity.hpp>
 #include "CFPSCamera.hpp"
@@ -39,7 +39,7 @@ namespace DAIDALOS
 	/**
 	* Test application implementation
 	*/
-	class CDaidalosApplication : public GE::IForwardSampleApplication
+	class CDaidalosApplication : public GE::IDeferredApplication
 	{
 	private:
 

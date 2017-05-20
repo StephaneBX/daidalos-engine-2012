@@ -45,7 +45,7 @@ namespace DAIDALOS {
 		bool m_activated;
 		DE::CStaticMeshSceneNode * m_node;
 		DE::CSound m_sound;
-		GE::EPlayerObject m_magneticCard;
+		EPlayerObject m_magneticCard;
 
 	public:
 		/**

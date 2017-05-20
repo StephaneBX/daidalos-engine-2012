@@ -76,16 +76,39 @@ namespace GE {
 
 	void CCinematicEventLoader::LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle & handle) {
 		DE::CVector3F position, rotation;
-		float duration;
+		std::string transition, fade;
+		float duration, fadeDuration;
 
 		GetNodeData(handle, "position", position, DE::CVector3F());
 		GetNodeData(handle, "rotation", rotation, DE::CVector3F());
 		GetNodeData(handle, "duration", duration, 1.0f);
+		GetNodeData(handle, "transition", transition, "none");
+		GetNodeData(handle, "fade", fade, "none");
+		GetNodeData(handle, "fadeDuration", fadeDuration, 500.0f);
 
 		SCinematicCameraStep step;
 		step.position = position;
 		step.rotation = rotation;
 		step.speed = 1000.0f / duration;
+		step.transition = TRANSITION_NONE;
+		step.fade = FADE_NONE;
+		step.fadeDuration = fadeDuration;
+
+		// Transition
+		if (transition == "interpolate") {
+			step.transition = TRANSITION_INTERPOLATE;
+		}
+
+		// Fade
+		if (fade == "in") {
+			step.fade = FADE_IN;
+
+		} else if (fade == "out") {
+			step.fade = FADE_OUT;
+
+		} else if ("both") {
+			step.fade = FADE_BOTH;
+		}
 
 		data->cameraSteps.push_back(step);
 	}

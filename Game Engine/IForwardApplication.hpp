@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_IFORWARDSAMPLEAPPLICATION_HPP
-#define __GAMEENGINE_IFORWARDSAMPLEAPPLICATION_HPP
+#ifndef __GAMEENGINE_IFORWARDAPPLICATION_HPP
+#define __GAMEENGINE_IFORWARDAPPLICATION_HPP
 
 #include <thread>
 #include <Scene/3D/C3DScene.h>
@@ -46,9 +46,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace GE {
 	/**
-	* Test application implementation with forward rendering
+	* Forward rendering application
 	*/
-	class IForwardSampleApplication : public DE::IWin32Application, public GE::ILevelListener {
+	class IForwardApplication : public DE::IWin32Application, public GE::ILevelListener {
 	protected:
 		bool m_loading;
 		std::unique_ptr<ILevel> m_currentLevel;
@@ -79,6 +79,11 @@ namespace GE {
 		DE::CShaderProgram m_shaderScreenBlur;
 		DE::CShaderProgram m_shaderScreenGlow;
 
+		// Misc
+		DE::CTexture2D m_texture2DWhite;
+		DE::CTexture2D m_texture2DBlack;
+		DE::CShaderProgram m_shaderScreen;
+
 		// Hud
 		DE::CFPSCounter m_fpsCounter;
 		DE::CLabel m_fpsLabel;
@@ -90,12 +95,12 @@ namespace GE {
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		IForwardSampleApplication(const HINSTANCE hInstance, const int nCmdShow);
+		IForwardApplication(const HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor
 		*/
-		virtual ~IForwardSampleApplication();
+		virtual ~IForwardApplication();
 
 		/**
 		* Update the application
@@ -180,6 +185,11 @@ namespace GE {
 		* Do the post process rendering
 		*/
 		virtual void PostProcessRendering();
+
+		/**
+		* Apply the brightness
+		*/
+		virtual void ApplyBrightness();
 
 		/**
 		* Callback when the level is fully loaded

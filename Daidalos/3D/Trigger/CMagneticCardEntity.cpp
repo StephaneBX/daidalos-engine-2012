@@ -52,7 +52,7 @@ namespace DAIDALOS {
 		if(this->m_node->GetAttribute("color") != "") {
 			const std::string color = this->m_node->GetAttribute("color");
 			if(color == "red") {
-				this->m_playerObject = GE::PLAYER_OBJECT_MAGNETIC_CARD_RED;
+				this->m_playerObject = PLAYER_OBJECT_MAGNETIC_CARD_RED;
 			}
 		}
 	}

@@ -1,0 +1,138 @@
+<scene structure="1">
+    <!-- Particle System Parameters -->
+    <particleSystem>
+        <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
+        <atlasTextureSize>4:4</atlasTextureSize>
+        <systemSize>5000</systemSize>
+        <particleEmittersTemplates>
+            <template>default.dept</template>
+        </particleEmittersTemplates>
+    </particleSystem>
+    <!-- BSP Level Node -->
+    <node type="0" name="level" ambientColor="0.2:0.2:0.2" skyName="sky1" skyAmbientColor="0:0:0">
+		<multi_brush>
+			<brush file="ground_1.obj">
+                <position>0:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_1d.png</diffuse_texture>
+                <normal_texture>tank_ground_1n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>10:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_2d.png</diffuse_texture>
+                <normal_texture>tank_ground_2n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>20:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_1d.png</diffuse_texture>
+                <normal_texture>tank_ground_1n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>30:0:00</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_4d.png</diffuse_texture>
+                <normal_texture>tank_ground_4n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>0:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_3d.png</diffuse_texture>
+                <normal_texture>tank_ground_3n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>10:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_2d.png</diffuse_texture>
+                <normal_texture>tank_ground_2n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>20:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_3d.png</diffuse_texture>
+                <normal_texture>tank_ground_3n.png</normal_texture>
+            </brush>
+			<brush file="ground_1.obj">
+                <position>30:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>tank_ground_4d.png</diffuse_texture>
+                <normal_texture>tank_ground_4n.png</normal_texture>
+            </brush>
+		</multi_brush>
+		
+		<!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="tank_wall.obj">
+            <enabled>true</enabled>
+            <position>0:0:10</position>
+            <rotation>0:-90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>tank_wall_d.png</diffuse_texture>
+            <normal_texture>tank_wall_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+		<brush file="tank_wall.obj">
+            <position>0:0:0</position>
+			<rotation>0:-90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>tank_wall_d.png</diffuse_texture>
+            <normal_texture>tank_wall_n.png</normal_texture>
+        </brush>
+		<brush file="tank_wall.obj">
+            <position>0:0:10</position>
+            <scale>1:1:1</scale>
+            <diffuse_texture>tank_wall_d.png</diffuse_texture>
+            <normal_texture>tank_wall_n.png</normal_texture>
+        </brush>
+		<brush file="tank_wall.obj">
+            <position>10:0:10</position>
+            <scale>1:1:1</scale>
+            <diffuse_texture>tank_wall_d.png</diffuse_texture>
+            <normal_texture>tank_wall_n.png</normal_texture>
+        </brush>
+		<brush file="tank_wall.obj">
+            <position>20:0:10</position>
+            <scale>1:1:1</scale>
+            <diffuse_texture>tank_wall_d.png</diffuse_texture>
+            <normal_texture>tank_wall_n.png</normal_texture>
+        </brush>
+		
+		<node type="3" name="pointLight1">
+			<position>0:4:10</position>
+			<color>0.8:0.5:0.5:1</color>
+			<range>15</range>
+			<falloff>0.7</falloff>
+		</node>
+		
+		<!-- Projection Camera Node -->
+        <node type="1" name="player">
+            <position>0:4:0</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <fov>55</fov>
+            <near>0.1</near>
+            <far>100</far>
+            <!-- SpotLight Node -->
+            <node type="2" name="flashlight">
+                <enabled>false</enabled>
+                <shadow_caster>true</shadow_caster>
+                <position>0.5:-0.8:0</position>
+                <rotation>0:0:0</rotation>
+                <color>0.4:0.4:0.4:1</color>
+                <range>60</range>
+                <radius>17</radius>
+                <falloff>0.5</falloff>
+                <tightness>0.5</tightness>
+            </node>
+        </node>
+	</node>
+</scene>

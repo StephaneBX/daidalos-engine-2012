@@ -39,6 +39,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Weapons/IWeapon.hpp"
 
 namespace DAIDALOS {
+
 	enum EFPSCameraAction {
 		FPS_CAMERA_EXIT				= 1 << 1,
 		FPS_CAMERA_STRAFELEFT		= 1 << 2,
@@ -98,11 +99,11 @@ namespace DAIDALOS {
 		DE::CSound m_dieSound;
 
 		// Weapons and objects
-		std::map<GE::EPlayerObject, unsigned int> m_objects;
+		std::map<unsigned int, unsigned int> m_objects;
 		IWeapon * m_currentWeapon;
-		GE::EPlayerObject m_currentWeaponIndex;
-		std::map<GE::EPlayerObject, std::unique_ptr<IWeapon> > m_weapons;
-		std::vector<GE::EPlayerObject> m_weaponsOrder;
+		unsigned int m_currentWeaponIndex;
+		std::map<unsigned int, std::unique_ptr<IWeapon> > m_weapons;
+		std::vector<unsigned int> m_weaponsOrder;
 		DE::CSound m_weaponChangeSound;
 
 	public:
@@ -137,7 +138,7 @@ namespace DAIDALOS {
 		* @param object The player object id
 		* @param value The object value
 		*/
-		void SetObject(GE::EPlayerObject object, const unsigned int value) override;
+		void SetObject(unsigned int object, const unsigned int value) override;
 
 		/**
 		* Set the player position
@@ -199,7 +200,7 @@ namespace DAIDALOS {
 		* @param object The object id
 		* @return The object value
 		*/
-		const unsigned int GetObjectValue(GE::EPlayerObject object) const override;
+		const unsigned int GetObjectValue(unsigned int object) const override;
 
 		/**
 		* Get the camera node

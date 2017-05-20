@@ -272,7 +272,7 @@ namespace DE {
 		if(this->m_fullscreen) {
 			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
 		} else {
-			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_POPUP | WS_VISIBLE, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
+			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
 		}
 		ShowWindow(this->m_hWnd, this->m_nCmdShow);
 

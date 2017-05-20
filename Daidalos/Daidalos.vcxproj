@@ -146,6 +146,7 @@
     <ClInclude Include="3D\Trigger\CTeleporterEntity.hpp" />
     <ClInclude Include="CDaidalosApplication.hpp" />
     <ClInclude Include="CFPSCamera.hpp" />
+    <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Level\CDaidalosLevel.hpp" />
     <ClInclude Include="Weapons\CHandgun.hpp" />
     <ClInclude Include="Weapons\CShotgun.hpp" />

@@ -57,12 +57,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IDeferredSampleApplication.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="IForwardSampleApplication.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Event\CCinematicCamera.hpp">
       <Filter>Fichiers d%27en-tête\Event</Filter>
     </ClInclude>
@@ -123,14 +117,14 @@
     <ClInclude Include="3D\Trigger\ITriggerEntity.hpp">
       <Filter>Fichiers d%27en-tête\3D\Trigger</Filter>
     </ClInclude>
+    <ClInclude Include="IDeferredApplication.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="IForwardApplication.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IDeferredSampleApplication.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="IForwardSampleApplication.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="3D\ICollidableEntity.cpp">
       <Filter>Fichiers sources\3D</Filter>
     </ClCompile>
@@ -181,6 +175,12 @@
     </ClCompile>
     <ClCompile Include="3D\Trigger\ITriggerEntity.cpp">
       <Filter>Fichiers sources\3D\Trigger</Filter>
+    </ClCompile>
+    <ClCompile Include="IDeferredApplication.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="IForwardApplication.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

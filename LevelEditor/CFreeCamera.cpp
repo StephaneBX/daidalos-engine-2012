@@ -111,7 +111,7 @@ namespace SAMPLES {
 	* @param object The player object id
 	* @param value The object value
 	*/
-	void CFreeCamera::SetObject(GE::EPlayerObject object, const unsigned int value) {
+	void CFreeCamera::SetObject(unsigned int object, const unsigned int value) {
 	}
 
 	/**
@@ -196,7 +196,7 @@ namespace SAMPLES {
 	* @param object The object id
 	* @return The object value
 	*/
-	const unsigned int CFreeCamera::GetObjectValue(GE::EPlayerObject object) const {
+	const unsigned int CFreeCamera::GetObjectValue(unsigned int object) const {
 		return 0;
 	}
 

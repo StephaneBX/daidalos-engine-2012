@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CMaterial.h>
 #include <Medias/CStaticMesh.h>
 #include <Medias/CFont.h>
-#include "IDeferredSampleApplication.hpp"
+#include "IDeferredApplication.hpp"
 #include "Loaders/CCinematicEventLoader.hpp"
 #include "Event/ICinematicEvent.hpp"
 
@@ -62,7 +62,7 @@ namespace GE {
 		DE::CVector3F vertex;
 	};
 
-	IDeferredSampleApplication::IDeferredSampleApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+	IDeferredApplication::IDeferredApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 
 		// Cinematic loader
 		DE::CMediaManager::GetInstance()->AddLoader(new CCinematicEventLoader(), "dgc");
@@ -189,6 +189,11 @@ namespace GE {
 		this->m_shaderScreenBlur.LoadFromFile("ScreenBlur");
 		this->m_shaderScreenGlow.LoadFromFile("ScreenGlow");
 
+		// Misc
+		this->m_texture2DBlack.CreateFromFile("black.png", DE::PIXEL_FORMAT_A8R8G8B8, &textureFilter2);
+		this->m_texture2DWhite.CreateFromFile("white.png", DE::PIXEL_FORMAT_A8R8G8B8, &textureFilter2);
+		this->m_shaderScreen.LoadFromFile("Screen");
+
 		// Create the fps label
 		this->m_fpsLabel.SetBounds(DE::CRectangleI(10, 10, 200, 30));
 		this->m_fpsLabel.SetSize(25);
@@ -204,14 +209,14 @@ namespace GE {
 		this->m_loadingScene->AddToMainView(this->m_loadingView);
 	}
 
-	IDeferredSampleApplication::~IDeferredSampleApplication() {
+	IDeferredApplication::~IDeferredApplication() {
 		// Remove the cinematic loader
 		DE::CMediaManager::GetInstance()->RemoveLoader<ICinematicEvent>();
 
 		delete this->m_loadingScene;
 	}
 
-	void IDeferredSampleApplication::Update(const float time) {
+	void IDeferredApplication::Update(const float time) {
 		this->m_fpsCounter.Update(time);
 
 		if (this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_SHOW_FPS, false)) {
@@ -220,7 +225,7 @@ namespace GE {
 		}
 	}
 
-	void IDeferredSampleApplication::Render() {
+	void IDeferredApplication::Render() {
 		this->m_renderer->BeginScene();
 
 		if (!this->m_loading) {
@@ -256,7 +261,7 @@ namespace GE {
 	/**
 	* Render a 3D scene
 	*/
-	void IDeferredSampleApplication::Render3DScene(DE::C3DScene * scene3D) {
+	void IDeferredApplication::Render3DScene(DE::C3DScene * scene3D) {
 
 		// ------------------------------
 		// Initialization
@@ -324,6 +329,11 @@ namespace GE {
 		DiffuseTopLayerRendering(scene3D);
 
 		// ------------------------------
+		// Brightness factor
+		// ------------------------------
+		//ApplyBrightness();
+
+		// ------------------------------
 		// Debug
 		// ------------------------------
 		if (this->m_options.GetValueBool(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_DEBUG, false)) {
@@ -335,7 +345,7 @@ namespace GE {
 	/**
 	* Render a 2D scene
 	*/
-	void IDeferredSampleApplication::Render2DScene(DE::C2DScene * scene2D) {
+	void IDeferredApplication::Render2DScene(DE::C2DScene * scene2D) {
 		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
 		// ------------------------------
@@ -356,7 +366,7 @@ namespace GE {
 	* Do initialization before rendering anything
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::InitializeRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::InitializeRendering(DE::C3DScene * scene3D) {
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
@@ -366,7 +376,7 @@ namespace GE {
 	* Render the skybox
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::SkyboxRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::SkyboxRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Sky box mask
 		// ------------------------------
@@ -403,7 +413,7 @@ namespace GE {
 	* Render the diffuse part
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::DiffuseRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::DiffuseRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Deferred Shading : Fill
 		// ------------------------------
@@ -430,7 +440,7 @@ namespace GE {
 	* Render the diffuse top layer part
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::DiffuseTopLayerRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::DiffuseTopLayerRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Forward rendering: diffuse top layer
 		// ------------------------------
@@ -450,7 +460,7 @@ namespace GE {
 	* Render the transparent part
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::TransparentRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::TransparentRendering(DE::C3DScene * scene3D) {
 		this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
@@ -471,7 +481,7 @@ namespace GE {
 	/**
 	* Do the post process rendering
 	*/
-	void IDeferredSampleApplication::PostProcessRendering() {
+	void IDeferredApplication::PostProcessRendering() {
 		this->m_renderer->CopyTextureToTexture(this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
 
 		// Draw a quad with alpha blending and alpha test
@@ -520,10 +530,42 @@ namespace GE {
 	}
 
 	/**
+	* Apply the brightness
+	*/
+	void IDeferredApplication::ApplyBrightness() {
+
+		// Level brightness factor
+		if (this->m_currentLevel->GetBrightness() != 0) {
+			DE::CColor color;
+			if (this->m_currentLevel->GetBrightness() > 0) {
+				this->m_renderer->SetTexture(0, this->m_texture2DWhite.GetTexture());
+				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness());
+			} else {
+				this->m_renderer->SetTexture(0, this->m_texture2DBlack.GetTexture());
+				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness() * -1.0f);
+			}
+
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_SCISSORTEST, false);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
+			this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+			this->m_renderer->SetShaderProgram(this->m_shaderScreen.GetShaderProgram());
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+			this->m_renderer->SetFrameBuffer(nullptr);
+			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
+			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
+		}
+	}
+
+	/**
 	* Render the spot lights in the RT
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::SpotLightsRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::SpotLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
@@ -581,7 +623,7 @@ namespace GE {
 	* Render the point lights in the RT
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::PointLightsRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::PointLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		// Add the light effect to the lightRT
@@ -614,7 +656,7 @@ namespace GE {
 	* Render the directional lights in the RT
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::DirectionalLightsRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::DirectionalLightsRendering(DE::C3DScene * scene3D) {
 		DE::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
@@ -672,7 +714,7 @@ namespace GE {
 	* Prepare for light rendering
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::PreLightRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::PreLightRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Deferred Shading : Lights
 		// ------------------------------
@@ -700,7 +742,7 @@ namespace GE {
 	* Post light rendering
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::PostLightRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::PostLightRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Deferred Shading: Draw
 		// ------------------------------
@@ -737,7 +779,7 @@ namespace GE {
 	* Render the particle system
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::ParticleSystemRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::ParticleSystemRendering(DE::C3DScene * scene3D) {
 
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("postProcessRT", 0);
@@ -752,7 +794,7 @@ namespace GE {
 	* Finalize the deferred rendering by drawing the RTs the the backbuffer
 	* @param scene3D The scene
 	*/
-	void IDeferredSampleApplication::FinalizeDeferredRendering(DE::C3DScene * scene3D) {
+	void IDeferredApplication::FinalizeDeferredRendering(DE::C3DScene * scene3D) {
 		// ------------------------------
 		// Deferred Shading: Draw the post process
 		// ------------------------------

@@ -93,7 +93,7 @@ namespace SAMPLES
 		* @param object The player object id
 		* @param value The object value
 		*/
-		void SetObject(GE::EPlayerObject object, const unsigned int value) override;
+		void SetObject(unsigned int object, const unsigned int value) override;
 
 		/**
 		* Set the player position
@@ -149,7 +149,7 @@ namespace SAMPLES
 		* @param object The object id
 		* @return The object value
 		*/
-		const unsigned int GetObjectValue(GE::EPlayerObject object) const override;
+		const unsigned int GetObjectValue(unsigned int object) const override;
 
 		/**
 		* Get the camera node

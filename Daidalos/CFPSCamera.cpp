@@ -52,6 +52,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CSoundContextManager.h>
 #include <Core/CConfigurationManager.h>
 #include <Level/ILevel.hpp>
+#include "Enums.hpp"
 #include "CFPSCamera.hpp"
 #include "Weapons/CHandgun.hpp"
 #include "Weapons/CShotgun.hpp"
@@ -171,10 +172,10 @@ namespace DAIDALOS {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons[GE::PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
-		this->m_currentWeaponIndex = GE::PLAYER_OBJECT_HANDGUN_WEAPON;
-		this->m_currentWeapon = this->m_weapons[GE::PLAYER_OBJECT_HANDGUN_WEAPON].get();
-		this->m_weaponsOrder.push_back(GE::PLAYER_OBJECT_HANDGUN_WEAPON);
+		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
+		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
+		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
+		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
 	}
 
 	/**
@@ -216,21 +217,21 @@ namespace DAIDALOS {
 	* @param object The player object id
 	* @param value The object value
 	*/
-	void CFPSCamera::SetObject(GE::EPlayerObject object, const unsigned int value) {
+	void CFPSCamera::SetObject(unsigned int object, const unsigned int value) {
 
 		switch(object) {
-		case GE::PLAYER_OBJECT_FLASHLIGHT:
+		case PLAYER_OBJECT_FLASHLIGHT:
 			if(this->m_flashlightNode != nullptr) {
 				this->m_flashlightNode->SetEnabled(value >= 1 ? true : false);
 			}
 			break;
 
-		case GE::PLAYER_OBJECT_HANDGUN_AMMO:
-			this->m_weapons[GE::PLAYER_OBJECT_HANDGUN_WEAPON]->AddAmmo(value);
+		case PLAYER_OBJECT_HANDGUN_AMMO:
+			this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON]->AddAmmo(value);
 			break;
 
-		case GE::PLAYER_OBJECT_SHOTGUN_AMMO:
-			this->m_weapons[GE::PLAYER_OBJECT_SHOTGUN_WEAPON]->AddAmmo(value);
+		case PLAYER_OBJECT_SHOTGUN_AMMO:
+			this->m_weapons[PLAYER_OBJECT_SHOTGUN_WEAPON]->AddAmmo(value);
 			break;
 
 		default:
@@ -338,14 +339,14 @@ namespace DAIDALOS {
 	* @param object The object id
 	* @return The object value
 	*/
-	const unsigned int CFPSCamera::GetObjectValue(GE::EPlayerObject object) const {
+	const unsigned int CFPSCamera::GetObjectValue(unsigned int object) const {
 
 		switch(object) {
-		case GE::PLAYER_OBJECT_FLASHLIGHT:
+		case PLAYER_OBJECT_FLASHLIGHT:
 			return (this->m_flashlightNode != nullptr && this->m_flashlightNode->IsEnabled()) ? 1 : 0;
 
-		case GE::PLAYER_OBJECT_HANDGUN_WEAPON:
-		case GE::PLAYER_OBJECT_SHOTGUN_WEAPON:
+		case PLAYER_OBJECT_HANDGUN_WEAPON:
+		case PLAYER_OBJECT_SHOTGUN_WEAPON:
 			return this->m_weapons.find(object) != this->m_weapons.end();
 
 		default:

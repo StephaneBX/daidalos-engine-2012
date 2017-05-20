@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CVector3.h>
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
+#include "../../Enums.hpp"
 #include "CFlashlightEntity.hpp"
 
 namespace DAIDALOS {
@@ -71,7 +72,7 @@ namespace DAIDALOS {
 	*/
 	void CFlashlightEntity::DoAction() {
 		this->m_node->SetEnabled(false);
-		this->m_parent->GetPlayer()->SetObject(GE::PLAYER_OBJECT_FLASHLIGHT, 1);
+		this->m_parent->GetPlayer()->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 	}
 
