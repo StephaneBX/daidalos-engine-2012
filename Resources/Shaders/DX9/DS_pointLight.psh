@@ -2,15 +2,13 @@ uniform float4 cameraPositionDistance;
 uniform float4 pointLightPositionRange;
 uniform float4 pointLightColorFalloff;
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position 	: POSITION;
 	float2 texcoord		: TEXCOORD0;
 	float3 viewDistance	: TEXCOORD1;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color : COLOR;
 };
 
@@ -18,27 +16,22 @@ sampler2D normalSampler;
 sampler2D specularSampler;
 sampler2D depthSampler;
 
-float pointDistanceFactor(float distance)
-{
+float pointDistanceFactor(float distance) {
 	float result;
 	
-	if(distance >= pointLightPositionRange.w)
-	{
+	if(distance >= pointLightPositionRange.w) {
 		result = 0;
-	}
-	else
-	{
-		if(distance > pointLightPositionRange.w * pointLightColorFalloff.w)
+	} else {
+		if(distance > pointLightPositionRange.w * pointLightColorFalloff.w) {
 			result = 1 - ((distance - (pointLightPositionRange.w * pointLightColorFalloff.w)) / ((1 - pointLightColorFalloff.w) * pointLightPositionRange.w));
-		else 
+		} else { 
 			result = 1;
+		}
 	}
-		
 	return result;
 }
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	OUT.color = float4(0,0,0,1);
 	

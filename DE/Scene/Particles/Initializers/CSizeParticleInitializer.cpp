@@ -34,10 +34,9 @@ namespace DE {
 	* @param sizeMin The size min
 	* @param sizeMax The size max
 	*/
-	CSizeParticleInitializer::CSizeParticleInitializer(float sizeMin, float sizeMax) {
+	CSizeParticleInitializer::CSizeParticleInitializer(float size) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE;
-		this->m_sizeMin = sizeMin;
-		this->m_sizeMax = sizeMax;
+		this->m_size = size;
 	}
 
 	/**
@@ -56,26 +55,16 @@ namespace DE {
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
-			particle->SetSizeMin(this->m_sizeMin);
-			particle->SetSizeMax(this->m_sizeMax);
-			particle->SetSize(RandomNumber<float>(this->m_sizeMin, this->m_sizeMax));
+			particle->SetSize(this->m_size);
 		}
 	}
 
 	/**
-	* Get the size min
-	* @return The size min
+	* Get the size
+	* @return The size
 	*/
-	const float CSizeParticleInitializer::GetSizeMin() {
-		return this->m_sizeMin;
-	}
-
-	/**
-	* Get the size max
-	* @return The size max
-	*/
-	const float CSizeParticleInitializer::GetSizeMax() {
-		return this->m_sizeMax;
+	const float CSizeParticleInitializer::GetSize() {
+		return this->m_size;
 	}
 
 	/**
@@ -83,7 +72,7 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CSizeParticleInitializer::Clone() {
-		return new CSizeParticleInitializer(this->m_sizeMin, this->m_sizeMax);
+		return new CSizeParticleInitializer(this->m_size);
 	}
 }
 

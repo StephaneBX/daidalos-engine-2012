@@ -6,8 +6,7 @@ uniform float3 materialAmbient;
 uniform float3 materialSpecular;
 uniform float3 materialEmission;
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position 	: POSITION;
 	float2 texcoord		: TEXCOORD0;
 	float3 normal 		: TEXCOORD1;
@@ -16,8 +15,7 @@ struct PS_INPUT
 	float  depth		: TEXCOORD4;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 diffuse 	: COLOR0; // Diffuse + Glow Factor
 	float4 normal 	: COLOR1; // Normal
 	float4 specular : COLOR2; // Specular + Ns
@@ -27,8 +25,7 @@ struct PS_OUTPUT
 sampler2D diffuseSampler;
 sampler2D normalSampler;
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	
 	float3x3 tangentToSpace = transpose(float3x3(IN.tangent, IN.binormal, IN.normal));

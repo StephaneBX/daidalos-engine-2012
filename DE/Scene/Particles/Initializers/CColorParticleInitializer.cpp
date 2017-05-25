@@ -31,13 +31,11 @@ namespace DE {
 
 	/**
 	* Constructor
-	* @param colorMin The color min
-	* @param colorMax The color max
+	* @param colorMin The color
 	*/
-	CColorParticleInitializer::CColorParticleInitializer(CColor colorMin, CColor colorMax) {
+	CColorParticleInitializer::CColorParticleInitializer(CColor color) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR;
-		this->m_colorMin = colorMin;
-		this->m_colorMax = colorMax;
+		this->m_color = color;
 	}
 
 	/**
@@ -57,25 +55,16 @@ namespace DE {
 		for (auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
-			particle->SetColorMin(this->m_colorMin);
-			particle->SetColorMax(this->m_colorMax);
+			particle->SetColor(this->m_color);
 		}
 	}
 
 	/**
-	* Get the color min
-	* @return The color min
+	* Get the color
+	* @return The color
 	*/
-	const CColor & CColorParticleInitializer::GetColorMin() const {
-		return this->m_colorMin;
-	}
-
-	/**
-	* Get the color max
-	* @return The color max
-	*/
-	const CColor & CColorParticleInitializer::GetColorMax() const {
-		return this->m_colorMax;
+	const CColor & CColorParticleInitializer::GetColor() const {
+		return this->m_color;
 	}
 
 	/**
@@ -83,6 +72,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CColorParticleInitializer::Clone() {
-		return new CColorParticleInitializer(this->m_colorMin, this->m_colorMax);
+		return new CColorParticleInitializer(this->m_color);
 	}
 }

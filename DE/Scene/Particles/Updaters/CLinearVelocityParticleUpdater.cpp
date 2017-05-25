@@ -25,23 +25,25 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../Scene/Particles/Updaters/CVelocityParticleUpdater.h"
+#include "../../../Scene/Particles/Updaters/CLinearVelocityParticleUpdater.h"
 
 namespace DE {
 
 	/**
 	* Constructor
+	* @param linearVelocityChanges The linear velocity changes definition
 	* @param damping The damping factor
 	*/
-	CVelocityParticleUpdater::CVelocityParticleUpdater(const float damping) {
+	CLinearVelocityParticleUpdater::CLinearVelocityParticleUpdater(const std::vector<SLinearVelocityParticleChangeUpdater> & linearVelocityChanges, const float damping) {
 		this->m_type = PARTICLE_UPDATER_TYPE_VELOCITY;
 		this->m_damping = damping;
+		this->m_linearVelocityChanges = linearVelocityChanges;
 	}
 
 	/**
 	* Destructor
 	*/
-	CVelocityParticleUpdater::~CVelocityParticleUpdater() {
+	CLinearVelocityParticleUpdater::~CLinearVelocityParticleUpdater() {
 
 	}
 
@@ -51,17 +53,41 @@ namespace DE {
 	* @param buffer The particle buffer
 	* @param particles The particles id to initialize
 	*/
-	void CVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
+	void CLinearVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 		const float timeSecond = time / 1000.0f;
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
+			// Next normalized life
+			float nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
+
+			// Check if a new linear velocity must be applied
+			for (auto it = this->m_linearVelocityChanges.begin(); it != this->m_linearVelocityChanges.end(); ++it) {
+				if ((*it).time >= particle->GetLifeNormalized() && (*it).time < nextNormalizedLife) {
+					// A new linear velocity must be add to the current particle's velocity
+					float factor = RandomNumber<float>(0, (*it).variationFactor);
+
+					// Create the altered direction
+					CVector3F velocity = (*it).direction.Normalize();
+					velocity.x *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+					velocity.y *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+					velocity.z *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+
+					// Apply the velocity value
+					float velocityForce = RandomNumber<float>((*it).velocityMin, (*it).velocityMax);
+					velocity *= velocityForce;
+
+					// Add the linear velocity
+					particle->SetLinearVelocity(particle->GetLinearVelocity() + velocity);
+				}
+			}
+
 			// Update the particle position
-			particle->SetPosition(particle->GetPosition() + particle->GetVelocity() * timeSecond);
+			particle->SetPosition(particle->GetPosition() + particle->GetLinearVelocity() * timeSecond);
 
 			// Apply damping factor
-			particle->SetVelocity(particle->GetVelocity() - (particle->GetVelocity() * (this->m_damping * timeSecond)));
+			particle->SetLinearVelocity(particle->GetLinearVelocity() - (particle->GetLinearVelocity() * (this->m_damping * timeSecond)));
 		}
 	}
 
@@ -69,15 +95,23 @@ namespace DE {
 	* Get the damping
 	* @return The damping
 	*/
-	const float CVelocityParticleUpdater::GetDamping() const {
+	const float CLinearVelocityParticleUpdater::GetDamping() const {
 		return this->m_damping;
+	}
+
+	/**
+	* Get the linear velocity changes definition
+	* @return The linear velocity changes definition
+	*/
+	const std::vector<SLinearVelocityParticleChangeUpdater> & CLinearVelocityParticleUpdater::GetLinearVelocityChanges() const {
+		return this->m_linearVelocityChanges;
 	}
 
 	/**
 	* Clone the class
 	* @return The cloned class
 	*/
-	IClonable * CVelocityParticleUpdater::Clone() {
-		return new CVelocityParticleUpdater(this->m_damping);
+	IClonable * CLinearVelocityParticleUpdater::Clone() {
+		return new CLinearVelocityParticleUpdater(this->m_linearVelocityChanges, this->m_damping);
 	}
 }

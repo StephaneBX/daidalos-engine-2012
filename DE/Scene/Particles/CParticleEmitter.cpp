@@ -156,6 +156,7 @@ namespace DE {
 						// Set the initial position and the texture id
 						CParticleEntity * entity = buffer.GetAt(newParticleId);
 						entity->SetPosition(this->m_position);
+						entity->SetEmitterPosition(this->m_position);
 						entity->SetTextureId((float)this->m_textureId);
 					}
 				}

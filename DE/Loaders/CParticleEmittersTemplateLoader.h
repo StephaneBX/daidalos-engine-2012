@@ -65,7 +65,21 @@ namespace DE {
 		* Load the particle emitter template
 		* @param handle The handle
 		*/
-		void CParticleEmittersTemplateLoader::LoadParticleEmitterNode(tinyxml2::XMLHandle & handle);
+		void LoadParticleEmitterNode(tinyxml2::XMLHandle & handle);
+
+		/**
+		* Load a particle emitter initializers
+		* @param emitter The emitter 
+		* @param initializersElement The initializers
+		*/
+		void LoadParticleEmitterInitializers(CParticleEmitter * emitter, tinyxml2::XMLElement * initializersElement);
+
+		/**
+		* Load a particle emitter initializers
+		* @param emitter The emitter
+		* @param updatersElement The initializers
+		*/
+		void LoadParticleEmitterUpdaters(CParticleEmitter * emitter, tinyxml2::XMLElement * updatersElement);
 
 		/**
 		* Get a node data
@@ -93,6 +107,15 @@ namespace DE {
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
 		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue);
+
+		/**
+		* Get a node data
+		* @param handle The handle for the node
+		* @param name The data name
+		* @param data The data type
+		* @param defaultValue The default value to use if no data is found in the node
+		*/
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue);
 
 		/**
 		* Get a node data

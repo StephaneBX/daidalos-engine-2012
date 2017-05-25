@@ -11,68 +11,57 @@ uniform float4 spotLightRRFT[MAX_NUMBER_OF_LIGHTS];
 uniform float4 spotLightColor[MAX_NUMBER_OF_LIGHTS];
 uniform int spotLightEnabled[MAX_NUMBER_OF_LIGHTS];
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position 	: POSITION;
 	float2 texcoord		: TEXCOORD0;
 	float3 normal 		: TEXCOORD1;
 	float3 pos		: TEXCOORD2;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color : COLOR;
 };
 
 sampler2D diffuseSampler;
 
-float spotDistanceFactor(int i, float distance)
-{
+float spotDistanceFactor(int i, float distance) {
 	float result;
 	
-	if(distance >= spotLightRRFT[i].x)
-	{
+	if(distance >= spotLightRRFT[i].x) {
 		result = 0;
-	}
-	else
-	{
-		if(distance > spotLightRRFT[i].x * spotLightRRFT[i].z)
-		{
+	} else {
+		if(distance > spotLightRRFT[i].x * spotLightRRFT[i].z) {
 			result = 0.5f;
-		}
-		else 
+		} else { 
 			result = 1;
+		}
 	}
-		
 	return result;
 }
 
-float spotTightnessFactor(int i, float angle)
-{	
+float spotTightnessFactor(int i, float angle) {	
 	float result;
 	
-	if(angle > spotLightRRFT[i].y * spotLightRRFT[i].w)
+	if(angle > spotLightRRFT[i].y * spotLightRRFT[i].w) {
 		result = 0.5f;
-	else
+	} else {
 		result = 1;
-	
+	}
 	return result;
 }
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	
 	float4 diffuseColorAngle = float4(materialAmbient,0);
 	
-	for(int i = 0 ; i < MAX_NUMBER_OF_LIGHTS ; ++i)
-	{
-		if(spotLightEnabled[i])
-		{
+	for(int i = 0 ; i < MAX_NUMBER_OF_LIGHTS ; ++i) {
+		if(spotLightEnabled[i]) {
 			diffuseColorAngle.w = degrees(acos(dot(normalize(spotLightPosition[i] - IN.pos), -spotLightDirection[i])));
 			
-			if(diffuseColorAngle.w >= 0 && diffuseColorAngle.w < spotLightRRFT[i].y)
+			if(diffuseColorAngle.w >= 0 && diffuseColorAngle.w < spotLightRRFT[i].y) {
 				diffuseColorAngle.xyz += spotLightColor[i].xyz * dot(-spotLightDirection[i].xyz, IN.normal) * spotDistanceFactor(i, distance(IN.pos, spotLightPosition[i].xyz)) * spotTightnessFactor(i, diffuseColorAngle.w);
+			}
 		}
 	}
 	

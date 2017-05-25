@@ -1,16 +1,12 @@
-
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position	: POSITION;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color 	: COLOR;
 };
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	OUT.color = float4(0,1,0,1);
 	return OUT;

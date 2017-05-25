@@ -37,16 +37,14 @@ namespace DE {
 	class CColorParticleInitializer : public IParticleInitializer {
 
 	private:
-		CColor m_colorMin;
-		CColor m_colorMax;
+		CColor m_color;
 
 	public:
 		/**
 		* Constructor
-		* @param colorMin The color min
-		* @param colorMax The color max
+		* @param color The color
 		*/
-		CColorParticleInitializer(CColor colorMin, CColor colorMax);
+		CColorParticleInitializer(CColor color);
 
 		/**
 		* Destructor
@@ -61,16 +59,10 @@ namespace DE {
 		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
-		* Get the color min
-		* @return The color min
+		* Get the color
+		* @return The color
 		*/
-		const CColor & GetColorMin() const;
-
-		/**
-		* Get the color max
-		* @return The color max
-		*/
-		const CColor & GetColorMax() const;
+		const CColor & GetColor() const;
 
 		/**
 		* Clone the class

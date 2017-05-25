@@ -14,12 +14,10 @@ struct PS_OUTPUT {
 
 sampler2D albedo;
 
-PS_OUTPUT main(VS_OUTPUT IN)
-{
+PS_OUTPUT main(VS_OUTPUT IN) {
 	PS_OUTPUT OUT;
 	
 	float fogFactor = IN.depth >= (viewDistance * fogFalloff) ? saturate(1.0f - (((IN.depth / viewDistance) - fogFalloff) / (1.0f - fogFalloff))) : 1.0f;
-
 	float4 currentDiffuse = tex2D(albedo, IN.texcoord.xy) * IN.color * fogFactor;
 
 	OUT.color = currentDiffuse;

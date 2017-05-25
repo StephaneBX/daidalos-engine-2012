@@ -36,12 +36,11 @@ namespace DE {
 		this->m_life = 0;
 		this->m_lifeMax = 0;
 		this->m_color = CColor(0, 0, 0, 0);
-		this->m_colorMin = CColor(0, 0, 0, 0);
-		this->m_colorMax = CColor(0, 0, 0, 0);
-		this->m_sizeMin = 1;
-		this->m_sizeMax = 1;
 		this->m_rotationSpeed = 0;
 		this->m_textureId = 0;
+		this->m_linearVelocity = CVector3F();
+		this->m_sphereVelocity = CVector3F();
+		this->m_circularVelocity = 0;
 	}
 
 	/**
@@ -77,22 +76,6 @@ namespace DE {
 	}
 
 	/**
-	* Set the min size
-	* @param sizeMin The min size
-	*/
-	void CParticleEntity::SetSizeMin(const float sizeMin) {
-		this->m_sizeMin = sizeMin;
-	}
-
-	/**
-	* Set the max size
-	* @param sizeMax The max size
-	*/
-	void CParticleEntity::SetSizeMax(const float sizeMax) {
-		this->m_sizeMax = sizeMax;
-	}
-
-	/**
 	* Set the rotation
 	* @param rotation The rotation
 	*/
@@ -117,12 +100,28 @@ namespace DE {
 	}
 
 	/**
+	* Set the circular velocity
+	* @param velocity The circular velocity
+	*/
+	void CParticleEntity::SetCircularVelocity(const float velocity) {
+		this->m_circularVelocity = velocity;
+	}
+
+	/**
 	* Set the position
 	* @param position The position
 	*/
 	void CParticleEntity::SetPosition(const CVector3F & position) {
 		this->m_position = position;
 		this->m_data.positionRotation = CVector4F(position, this->m_data.positionRotation.w);
+	}
+
+	/**
+	* Set the emitter position
+	* @param position The emitter position
+	*/
+	void CParticleEntity::SetEmitterPosition(const CVector3F & position) {
+		this->m_emitterPosition = position;
 	}
 
 	/**
@@ -135,27 +134,19 @@ namespace DE {
 	}
 
 	/**
-	* Set the min color
-	* @param colorMin The min color
+	* Set the linear velocity
+	* @param velocity The linear velocity
 	*/
-	void CParticleEntity::SetColorMin(const CColor & colorMin) {
-		this->m_colorMin = colorMin;
+	void CParticleEntity::SetLinearVelocity(const CVector3F & velocity) {
+		this->m_linearVelocity = velocity;
 	}
 
 	/**
-	* Set the max color
-	* @param colorMax The max color
+	* Set the sphere velocity
+	* @param velocity The sphere velocity
 	*/
-	void CParticleEntity::SetColorMax(const CColor & colorMax) {
-		this->m_colorMax = colorMax;
-	}
-
-	/**
-	* Set the velocity
-	* @param velocity The velocity
-	*/
-	void CParticleEntity::SetVelocity(const CVector3F velocity) {
-		this->m_velocity = velocity;
+	void CParticleEntity::SetSphereVelocity(const CVector3F & velocity) {
+		this->m_sphereVelocity = velocity;
 	}
 
 	/**
@@ -201,20 +192,6 @@ namespace DE {
 	}
 
 	/**
-	* Get the min size
-	*/
-	const float CParticleEntity::GetSizeMin() const {
-		return this->m_sizeMin;
-	}
-
-	/**
-	* Get the max size
-	*/
-	const float CParticleEntity::GetSizeMax() const {
-		return this->m_sizeMax;
-	}
-
-	/**
 	* Get the rotation
 	*/
 	const float CParticleEntity::GetRotation() const {
@@ -229,10 +206,24 @@ namespace DE {
 	}
 
 	/**
+	* Get the circular velocity
+	*/
+	const float CParticleEntity::GetCircularVelocity() const {
+		return this->m_circularVelocity;
+	}
+
+	/**
 	* Get the position
 	*/
 	const CVector3F & CParticleEntity::GetPosition() const {
 		return this->m_position;
+	}
+
+	/**
+	* Get the emitter position
+	*/
+	const CVector3F & CParticleEntity::GetEmitterPosition() const {
+		return this->m_emitterPosition;
 	}
 
 	/**
@@ -243,24 +234,17 @@ namespace DE {
 	}
 
 	/**
-	* Get the min color
+	* Get the linear velocity
 	*/
-	const CColor & CParticleEntity::GetColorMin() const {
-		return this->m_colorMin;
+	const CVector3F & CParticleEntity::GetLinearVelocity() const {
+		return this->m_linearVelocity;
 	}
 
 	/**
-	* Get the max color
+	* Get the sphere velocity
 	*/
-	const CColor & CParticleEntity::GetColorMax() const {
-		return this->m_colorMax;
-	}
-
-	/**
-	* Get the velocity
-	*/
-	const CVector3F & CParticleEntity::GetVelocity() const {
-		return this->m_velocity;
+	const CVector3F & CParticleEntity::GetSphereVelocity() const {
+		return this->m_sphereVelocity;
 	}
 
 	/**

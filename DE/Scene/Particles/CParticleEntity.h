@@ -50,15 +50,14 @@ namespace DE {
 		bool m_visible;
 		float m_life;
 		float m_lifeMax;
-		float m_sizeMin;
-		float m_sizeMax;
 		float m_rotationSpeed;
 		float m_textureId;
 		CColor m_color;
-		CColor m_colorMin;
-		CColor m_colorMax;
 		CVector3F m_position;
-		CVector3F m_velocity;
+		CVector3F m_emitterPosition;
+		CVector3F m_linearVelocity;
+		CVector3F m_sphereVelocity;
+		float m_circularVelocity;
 		SParticleData m_data;
 
 	public:
@@ -92,18 +91,6 @@ namespace DE {
 		void SetSize(const float size);
 
 		/**
-		* Set the min size
-		* @param sizeMin The min size
-		*/
-		void SetSizeMin(const float sizeMin);
-
-		/**
-		* Set the max size
-		* @param sizeMax The max size
-		*/
-		void SetSizeMax(const float sizeMax);
-
-		/**
 		* Set the rotation
 		* @param rotation The rotation
 		*/
@@ -122,10 +109,22 @@ namespace DE {
 		void SetTextureId(const float textureId);
 
 		/**
+		* Set the circular velocity
+		* @param velocity The circular velocity
+		*/
+		void SetCircularVelocity(const float velocity);
+
+		/**
 		* Set the position
 		* @param position The position
 		*/
 		void SetPosition(const CVector3F & position);
+
+		/**
+		* Set the emitter position
+		* @param position The emitter position
+		*/
+		void SetEmitterPosition(const CVector3F & position);
 
 		/**
 		* Set the color
@@ -134,22 +133,16 @@ namespace DE {
 		void SetColor(const CColor & color);
 
 		/**
-		* Set the min color
-		* @param colorMin The min color
+		* Set the linear velocity
+		* @param velocity The linear velocity
 		*/
-		void SetColorMin(const CColor & colorMin);
+		void SetLinearVelocity(const CVector3F & velocity);
 
 		/**
-		* Set the max color
-		* @param colorMax The max color
+		* Set the sphere velocity
+		* @param velocity The sphere velocity
 		*/
-		void SetColorMax(const CColor & colorMax);
-
-		/**
-		* Set the velocity
-		* @param velocity The velocity
-		*/
-		void SetVelocity(const CVector3F velocity);
+		void SetSphereVelocity(const CVector3F & velocity);
 
 		/**
 		* Get the visibility state
@@ -181,16 +174,6 @@ namespace DE {
 		const float GetSize() const;
 
 		/**
-		* Get the min size
-		*/
-		const float GetSizeMin() const;
-
-		/**
-		* Get the max size
-		*/
-		const float GetSizeMax() const;
-
-		/**
 		* Get the rotation
 		*/
 		const float GetRotation() const;
@@ -201,9 +184,19 @@ namespace DE {
 		const float GetRotationSpeed() const;
 
 		/**
+		* Get the circular velocity
+		*/
+		const float GetCircularVelocity() const;
+
+		/**
 		* Get the position
 		*/
 		const CVector3F & GetPosition() const;
+
+		/**
+		* Get the emitter position
+		*/
+		const CVector3F & GetEmitterPosition() const;
 
 		/**
 		* Get the color
@@ -211,19 +204,14 @@ namespace DE {
 		const CColor & GetColor() const;
 
 		/**
-		* Get the min color
+		* Get the linear velocity
 		*/
-		const CColor & GetColorMin() const;
+		const CVector3F & GetLinearVelocity() const;
 
 		/**
-		* Get the max color
+		* Get the sphere velocity
 		*/
-		const CColor & GetColorMax() const;
-
-		/**
-		* Get the velocity
-		*/
-		const CVector3F & GetVelocity() const;
+		const CVector3F & GetSphereVelocity() const;
 
 		/**
 		* Get the data used for rendering

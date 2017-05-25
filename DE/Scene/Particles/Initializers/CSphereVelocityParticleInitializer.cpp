@@ -65,7 +65,7 @@ namespace DE {
 			float velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
 			velocity = velocity * velocityForce;
 
-			particle->SetVelocity(velocity);
+			particle->SetLinearVelocity(velocity);
 		}
 	}
 

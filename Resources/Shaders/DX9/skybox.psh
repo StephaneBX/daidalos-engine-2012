@@ -1,19 +1,16 @@
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position	: POSITION;
 	float2 texcoord : TEXCOORD0;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 diffuse 	: COLOR0; // Diffuse + Fog factor
 	float4 normal 	: COLOR1; // Normal
 };
 
 sampler2D diffuseSampler;
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	OUT.diffuse = float4(tex2D(diffuseSampler, IN.texcoord).xyz, 0);
 	OUT.normal = float4(0,0,0,0);

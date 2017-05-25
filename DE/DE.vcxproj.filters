@@ -570,9 +570,6 @@
     <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CVelocityParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
@@ -614,6 +611,15 @@
     </ClInclude>
     <ClInclude Include="Loaders\IXmlLoader.h">
       <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.h">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -968,9 +974,6 @@
     <ClCompile Include="Scene\Particles\Updaters\CSizeParticleUpdater.cpp">
       <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Particles\Updaters\CVelocityParticleUpdater.cpp">
-      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp">
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
@@ -998,8 +1001,14 @@
     <ClCompile Include="Scene\Particles\CParticleEmittersTemplates.cpp">
       <Filter>Fichiers sources\Scene\Particles</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClCompile Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

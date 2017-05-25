@@ -37,16 +37,14 @@ namespace DE {
 	class CSizeParticleInitializer : public IParticleInitializer {
 
 	private:
-		float m_sizeMin;
-		float m_sizeMax;
+		float m_size;
 
 	public:
 		/**
 		* Constructor
-		* @param sizeMin The size min
-		* @param sizeMax The size max
+		* @param sizeMin The size
 		*/
-		CSizeParticleInitializer(float sizeMin, float sizeMax);
+		CSizeParticleInitializer(float size);
 
 		/**
 		* Destructor
@@ -61,16 +59,10 @@ namespace DE {
 		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
-		* Get the size min
-		* @return The size min
+		* Get the size
+		* @return The size
 		*/
-		const float GetSizeMin();
-
-		/**
-		* Get the size max
-		* @return The size max
-		*/
-		const float GetSizeMax();
+		const float GetSize();
 
 		/**
 		* Clone the class

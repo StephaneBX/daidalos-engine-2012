@@ -54,9 +54,12 @@ namespace DE {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
-			CVector3F position = CVector3F(RandomNumber<float>(-this->m_radius, this->m_radius), 0, RandomNumber<float>(-this->m_radius, this->m_radius));
+
+			// Randomized direction
+			CVector3F direction = CVector3F(RandomNumber<float>(-1, 1), 0, RandomNumber<float>(-1, 1)).Normalize();
+
 			// Keep the current position that hold the emitter's position
-			particle->SetPosition(particle->GetPosition() + position);
+			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(-this->m_radius, this->m_radius)));
 		}
 	}
 

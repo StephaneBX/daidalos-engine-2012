@@ -1,22 +1,19 @@
 uniform float4 ambientColor;
 uniform float4 skyAmbientColor;
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position 	: POSITION;
 	float2 texcoord		: TEXCOORD0;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color 	: COLOR;
 };
 
 sampler2D diffuseSampler;
 sampler2D lightSamper;
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	
 	float4 diffuseAmbient = tex2D(diffuseSampler, IN.texcoord);

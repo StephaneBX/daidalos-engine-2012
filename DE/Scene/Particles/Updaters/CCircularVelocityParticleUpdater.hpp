@@ -25,31 +25,40 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CVELOCITYPARTICLEUPDATER_H
-#define __CVELOCITYPARTICLEUPDATER_H
+#ifndef __CCIRCULARVELOCITYPARTICLEUPDATER_HPP
+#define __CCIRCULARVELOCITYPARTICLEUPDATER_HPP
 
 #include "../../../Scene/Particles/IParticleUpdater.h"
 
 namespace DE {
+
+	struct SCircularVelocityParticleChangeUpdater {
+		float time;
+		float velocityMin;
+		float velocityMax;
+	};
+
 	/**
-	* The particle velocity updater class
+	* The particle circular velocity updater class
 	*/
-	class CVelocityParticleUpdater : public IParticleUpdater {
+	class CCircularVelocityParticleUpdater : public IParticleUpdater {
 
 	private:
 		float m_damping;
+		std::vector<SCircularVelocityParticleChangeUpdater> m_circularVelocityChanges;
 
 	public:
 		/**
 		* Constructor
+		* @param circularVelocityChanges The circular velocity changes definition
 		* @param damping The damping factor
 		*/
-		CVelocityParticleUpdater(const float damping);
+		CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const float damping);
 
 		/**
 		* Destructor
 		*/
-		virtual ~CVelocityParticleUpdater();
+		virtual ~CCircularVelocityParticleUpdater();
 
 		/**
 		* Update the particle
@@ -64,6 +73,12 @@ namespace DE {
 		* @return The damping
 		*/
 		const float GetDamping() const;
+
+		/**
+		* Get the circular velocity changes definition
+		* @return The circular velocity changes definition
+		*/
+		const std::vector<SCircularVelocityParticleChangeUpdater> & GetCircularVelocityChanges() const;
 
 		/**
 		* Clone the class

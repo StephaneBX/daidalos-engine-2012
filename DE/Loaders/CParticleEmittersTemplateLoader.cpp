@@ -87,9 +87,8 @@ namespace DE {
 
 		std::string emitterName = handle.ToElement()->Attribute("name");
 		int emitterBlendMode;
-		float emitterEmissionRate, emitterLife, emitterLifeMax, emitterParticleSizeMin, emitterParticleSizeMax, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleVelocityDamping, emitterParticleLinearVelocityVariation, emitterParticleRadiusPosition;
-		CColor emitterParticleColorMin, emitterParticleColorMax;
-		CVector3F emitterPosition, emitterParticleGravity, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax;
+		float emitterEmissionRate, emitterLife, emitterLifeMax;
+		CVector3F emitterPosition;
 
 		// Basic values
 		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
@@ -108,42 +107,60 @@ namespace DE {
 
 		// Look for initializers
 		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
-		if(initializersElement != nullptr) {
-			for(tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+		LoadParticleEmitterInitializers(emitter, initializersElement);
+
+		// Look for updaters
+		tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
+		LoadParticleEmitterUpdaters(emitter, updatersElement);
+
+		this->m_emittersTemplate[emitterName] = emitter;
+	}
+
+	/**
+	* Load a particle emitter initializers
+	* @param emitter The emitter
+	* @param initializersElement The initializers
+	*/
+	void CParticleEmittersTemplateLoader::LoadParticleEmitterInitializers(CParticleEmitter * emitter, tinyxml2::XMLElement * initializersElement) {
+		if (initializersElement != nullptr) {
+			tinyxml2::XMLHandle initializersHandle = tinyxml2::XMLHandle(initializersElement);
+			float emitterParticleSize, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleLinearVelocityVariation;
+			CVector3F emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax, emitterParticleRadiusPosition;
+			CColor emitterParticleColor;
+
+			for (tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
 				std::string childName = std::string(child->Name());
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
-				if(childName.compare("minMaxColor") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleColorMin, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					GetNodeData(childHandle, "max", emitterParticleColorMax, CColor(1.0f, 1.0f, 1.0f, 1.0f));
-					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColorMin, emitterParticleColorMax);
+				if (childName.compare("color") == 0) {
+					GetNodeData(initializersHandle, "color", emitterParticleColor, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColor);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("minMaxSize") == 0) {
-					GetNodeData(childHandle, "min", emitterParticleSizeMin, 1);
-					GetNodeData(childHandle, "max", emitterParticleSizeMax, 1);
-					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSizeMin, emitterParticleSizeMax);
+				} else if (childName.compare("size") == 0) {
+					GetNodeData(initializersHandle, "size", emitterParticleSize, 1);
+					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSize);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("minMaxLife") == 0) {
+				} else if (childName.compare("minMaxLife") == 0) {
 					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
 					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("minMaxRotation") == 0) {
+				} else if (childName.compare("minMaxRotation") == 0) {
 					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
 					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("minMaxSphereVelocity") == 0) {
+				} else if (childName.compare("sphereVelocity") == 0) {
 					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
 					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("linearVelocity") == 0) {
+				} else if (childName.compare("linearVelocity") == 0) {
 					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
 					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
 					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
@@ -151,57 +168,182 @@ namespace DE {
 					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("minMaxBoxPosition") == 0) {
+				} else if (childName.compare("minMaxBoxPosition") == 0) {
 					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
 					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
 					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
 					emitter->AddInitializer(initializer);
 
-				} else if(childName.compare("radiusPosition") == 0) {
+				} else if (childName.compare("radiusPosition") == 0) {
+					float emitterParticleRadiusPosition;
 					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
 					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
 					emitter->AddInitializer(initializer);
 				}
 			}
 		}
+	}
 
-		// Look for updaters
-		tinyxml2::XMLElement * updatersElement = handle.FirstChildElement("updaters").ToElement();
-		if(updatersElement != nullptr) {
-			for(tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+	/**
+	* Load a particle emitter initializers
+	* @param emitter The emitter
+	* @param updatersElement The initializers
+	*/
+	void CParticleEmittersTemplateLoader::LoadParticleEmitterUpdaters(CParticleEmitter * emitter, tinyxml2::XMLElement * updatersElement) {
+		if (updatersElement != nullptr) {
+			tinyxml2::XMLHandle updatersHandle = tinyxml2::XMLHandle(updatersElement);
+
+			for (tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
 				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);	
 
-				if(childName.compare("color") == 0) {
-					CColorParticleUpdater * updater = new CColorParticleUpdater();
-					emitter->AddUpdater(updater);
+				if (childName.compare("colorChange") == 0) {
+					float updaterTime;
+					CVector4F updaterColor;
 
-				} else if(childName.compare("gravity") == 0) {
-					GetNodeData(childHandle, "vector", emitterParticleGravity, CVector3F());
-					CGravityParticleUpdater * updater = new CGravityParticleUpdater(emitterParticleGravity);
-					emitter->AddUpdater(updater);
+					// Read each step
+					std::vector<SColorParticleChangeUpdater> colorChangeVector;
+					tinyxml2::XMLElement * colorElement = childHandle.FirstChildElement("color").ToElement();
+					for (colorElement; colorElement; colorElement = colorElement->NextSiblingElement()) {
+						tinyxml2::XMLHandle colorChangeHandle = tinyxml2::XMLHandle(colorElement);
+						GetNodeData(colorChangeHandle, "time", updaterTime, 0);
+						GetNodeData(colorChangeHandle, "value", updaterColor, CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
 
-				} else if(childName.compare("life") == 0) {
+						SColorParticleChangeUpdater colorChange;
+						colorChange.time = updaterTime;
+						colorChange.color = updaterColor;
+						colorChangeVector.push_back(colorChange);
+					}
+
+					// Add the updater if the definition is not empty
+					if (colorChangeVector.size() > 0) {
+						CColorParticleUpdater * updater = new CColorParticleUpdater(colorChangeVector);
+						emitter->AddUpdater(updater);
+					}
+
+				} else if (childName.compare("life") == 0) {
 					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
 					emitter->AddUpdater(updater);
 
-				} else if(childName.compare("rotation") == 0) {
+				} else if (childName.compare("rotation") == 0) {
 					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
 					emitter->AddUpdater(updater);
 
-				} else if(childName.compare("size") == 0) {
-					CSizeParticleUpdater * updater = new CSizeParticleUpdater();
-					emitter->AddUpdater(updater);
+				} else if (childName.compare("sizeChange") == 0) {
+					float updaterTime, updaterSize;
 
-				} else if(childName.compare("velocity") == 0) {
-					GetNodeData(childHandle, "damping", emitterParticleVelocityDamping, 0);
-					CVelocityParticleUpdater * updater = new CVelocityParticleUpdater(emitterParticleVelocityDamping);
-					emitter->AddUpdater(updater);
+					// Read each step
+					std::vector<SSizeParticleChangeUpdater> sizeChangeVector;
+					tinyxml2::XMLElement * sizeElement = childHandle.FirstChildElement("size").ToElement();
+					for (sizeElement; sizeElement; sizeElement = sizeElement->NextSiblingElement()) {
+						tinyxml2::XMLHandle sizeChangeHandle = tinyxml2::XMLHandle(sizeElement);
+						GetNodeData(sizeChangeHandle, "time", updaterTime, 0);
+						GetNodeData(sizeChangeHandle, "value", updaterSize, 1);
+
+						SSizeParticleChangeUpdater sizeChange;
+						sizeChange.time = updaterTime;
+						sizeChange.size = updaterSize;
+						sizeChangeVector.push_back(sizeChange);
+					}
+
+					// Add the updater if the definition is not empty
+					if (sizeChangeVector.size() > 0) {
+						CSizeParticleUpdater * updater = new CSizeParticleUpdater(sizeChangeVector);
+						emitter->AddUpdater(updater);
+					}
+
+				} else if (childName.compare("linearVelocityChange") == 0) {
+					float updaterDamping, updaterTime, updaterVariationFactor, updaterVelocityMin, updaterVelocityMax;
+					CVector3F updaterDirection;
+
+					// Read the damping
+					GetNodeData(childHandle, "damping", updaterDamping, 0);
+
+					// Read each step
+					std::vector<SLinearVelocityParticleChangeUpdater> velocityChangeVector;
+					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (velocityElement; velocityElement; velocityElement = velocityElement->NextSiblingElement()) {
+						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElement);
+						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
+						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0f, 1.0f, 0.0f));
+						GetNodeData(velocityChangeHandle, "variationFactor", updaterVariationFactor, 0);
+						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
+						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
+
+						SLinearVelocityParticleChangeUpdater velocityChange;
+						velocityChange.time = updaterTime;
+						velocityChange.direction = updaterDirection;
+						velocityChange.variationFactor = updaterVariationFactor;
+						velocityChange.velocityMin = updaterVelocityMin;
+						velocityChange.velocityMax = updaterVelocityMax;
+						velocityChangeVector.push_back(velocityChange);
+					}
+
+					// Add the updater if the definition is not empty
+					if (velocityChangeVector.size() > 0) {
+						CLinearVelocityParticleUpdater * updater = new CLinearVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+						emitter->AddUpdater(updater);
+					}
+
+				} else if (childName.compare("sphereVelocityChange") == 0) {
+					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
+
+					// Read the damping
+					GetNodeData(childHandle, "damping", updaterDamping, 0);
+
+					// Read each step
+					std::vector<SSphereVelocityParticleChangeUpdater> velocityChangeVector;
+					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (velocityElement; velocityElement; velocityElement = velocityElement->NextSiblingElement()) {
+						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElement);
+						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
+						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
+						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
+
+						SSphereVelocityParticleChangeUpdater velocityChange;
+						velocityChange.time = updaterTime;
+						velocityChange.velocityMin = updaterVelocityMin;
+						velocityChange.velocityMax = updaterVelocityMax;
+						velocityChangeVector.push_back(velocityChange);
+					}
+
+					// Add the updater if the definition is not empty
+					if (velocityChangeVector.size() > 0) {
+						CSphereVelocityParticleUpdater * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+						emitter->AddUpdater(updater);
+					}
+					
+
+				} else if (childName.compare("circularVelocityChange") == 0) {
+					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
+
+					// Read the damping
+					GetNodeData(childHandle, "damping", updaterDamping, 0);
+
+					// Read each step
+					std::vector<SCircularVelocityParticleChangeUpdater> velocityChangeVector;
+					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (velocityElement; velocityElement; velocityElement = velocityElement->NextSiblingElement()) {
+						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElement);
+						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
+						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
+						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
+
+						SCircularVelocityParticleChangeUpdater velocityChange;
+						velocityChange.time = updaterTime;
+						velocityChange.velocityMin = updaterVelocityMin;
+						velocityChange.velocityMax = updaterVelocityMax;
+						velocityChangeVector.push_back(velocityChange);
+					}
+
+					// Add the updater if the definition is not empty
+					if (velocityChangeVector.size() > 0) {
+						CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+						emitter->AddUpdater(updater);
+					}
 				}
 			}
 		}
-
-		this->m_emittersTemplate[emitterName] = emitter;
 	}
 
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
@@ -241,6 +383,17 @@ namespace DE {
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector2I::GetFrom(std::string(text->Value()), defaultValue);
+		}
+	}
+
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) {
+		LOG_TRACE();
+
+		CTokenizer tokenizer;
+		data = defaultValue;
+		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		if (text != nullptr) {
+			data = CVector2F::GetFrom(std::string(text->Value()), defaultValue);
 		}
 	}
 

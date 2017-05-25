@@ -166,12 +166,14 @@
     <ClInclude Include="Scene\Particles\IParticleEmittersTemplate.h" />
     <ClInclude Include="Scene\Particles\IParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\IParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.hpp" />
     <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.h" />
     <ClInclude Include="Scene\Particles\Updaters\CGravityParticleUpdater.h" />
     <ClInclude Include="Scene\Particles\Updaters\CLifeParticleUpdater.h" />
     <ClInclude Include="Scene\Particles\Updaters\CRotationParticleUpdater.h" />
     <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.h" />
-    <ClInclude Include="Scene\Particles\Updaters\CVelocityParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.h" />
+    <ClInclude Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Applications\IWin32Application.cpp" />
@@ -295,15 +297,14 @@
     <ClCompile Include="Scene\Particles\IParticleEmittersTemplate.cpp" />
     <ClCompile Include="Scene\Particles\IParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\IParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CColorParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CGravityParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CLifeParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CRotationParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CSizeParticleUpdater.cpp" />
-    <ClCompile Include="Scene\Particles\Updaters\CVelocityParticleUpdater.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClCompile Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.cpp" />
+    <ClCompile Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>

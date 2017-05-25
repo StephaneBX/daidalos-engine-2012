@@ -50,7 +50,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/Updaters/CLifeParticleUpdater.h"
 #include "../../Scene/Particles/Updaters/CRotationParticleUpdater.h"
 #include "../../Scene/Particles/Updaters/CSizeParticleUpdater.h"
-#include "../../Scene/Particles/Updaters/CVelocityParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CLinearVelocityParticleUpdater.h"
+#include "../../Scene/Particles/Updaters/CSphereVelocityParticleUpdater.hpp"
+#include "../../Scene/Particles/Updaters/CCircularVelocityParticleUpdater.hpp"
 
 namespace DE {
 	/**

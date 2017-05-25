@@ -2,8 +2,7 @@ uniform float4x4 worldMatrix;
 uniform float4x4 rotationMatrix;
 uniform float4x4 viewProjMatrix;
 
-struct VS_INPUT
-{
+struct VS_INPUT {
 	float3 position 	: POSITION0;
 	float2 texcoord		: TEXCOORD0;
 	float3 normal 		: NORMAL0;
@@ -11,8 +10,7 @@ struct VS_INPUT
 	float3 binormal		: NORMAL2;
 };
 
-struct VS_OUTPUT
-{
+struct VS_OUTPUT {
 	float4 position 	: POSITION;
 	float4 world 		: TEXCOORD0;
 	float2 texcoord		: TEXCOORD1;
@@ -22,8 +20,7 @@ struct VS_OUTPUT
 	float  depth		: TEXCOORD5;
 };
 
-VS_OUTPUT main(VS_INPUT IN)
-{
+VS_OUTPUT main(VS_INPUT IN) {
 	VS_OUTPUT OUT;
 	float4 worldVertex = mul(float4(IN.position, 1.0f), worldMatrix);
 	

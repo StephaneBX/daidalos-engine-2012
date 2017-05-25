@@ -31,16 +31,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../Scene/Particles/IParticleUpdater.h"
 
 namespace DE {
+
+	struct SColorParticleChangeUpdater {
+		float time;
+		CVector4F color;
+	};
+
 	/**
 	* The particle color updater class
 	*/
 	class CColorParticleUpdater : public IParticleUpdater {
 
+	private:
+		std::vector<SColorParticleChangeUpdater> m_colorChanges;
+
 	public:
 		/**
 		* Constructor
+		* @param colorChanges The color changes definition
 		*/
-		CColorParticleUpdater();
+		CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges);
 
 		/**
 		* Destructor
@@ -54,6 +64,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
+
+		/**
+		* Get the color changes definition
+		* @return The color changes definition
+		*/
+		const std::vector<SColorParticleChangeUpdater> & GetColorChanges() const;
 
 		/**
 		* Clone the class

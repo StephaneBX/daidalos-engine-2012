@@ -31,9 +31,11 @@ namespace DE {
 
 	/**
 	* Constructor
+	* @param sizeChanges The size changes definbitions
 	*/
-	CSizeParticleUpdater::CSizeParticleUpdater() {
+	CSizeParticleUpdater::CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_SIZE;
+		this->m_sizeChanges = sizeChanges;
 	}
 
 	/**
@@ -53,7 +55,36 @@ namespace DE {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
-			particle->SetSize(particle->GetSizeMin() + (particle->GetSizeMax() - particle->GetSizeMin()) * particle->GetLifeNormalized());
+
+			float * currentSize = nullptr;
+			float * targetSize = nullptr;
+
+			// Search for the right sizes
+			for (auto it = this->m_sizeChanges.begin(); it != this->m_sizeChanges.end(); ++it) {
+
+				if (currentSize != nullptr && targetSize != nullptr) {
+					break;
+				}
+
+				// Current size
+				if ((*it).time <= particle->GetLifeNormalized()) {
+					currentSize = &((*it).size);
+				}
+
+				// Target size
+				if ((*it).time >= particle->GetLifeNormalized()) {
+					targetSize = &((*it).size);
+				}
+			}
+
+			// Set the interpolated size
+			if (currentSize != nullptr && targetSize != nullptr) {
+				float size = (*currentSize) + ((*targetSize) - (*currentSize)) * particle->GetLifeNormalized();
+				particle->SetSize(size);
+			} else if (currentSize != nullptr) {
+				// Current size
+				particle->SetSize(*currentSize);
+			}
 		}
 	}
 
@@ -62,6 +93,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CSizeParticleUpdater::Clone() {
-		return new CSizeParticleUpdater();
+		return new CSizeParticleUpdater(this->m_sizeChanges);
 	}
 }

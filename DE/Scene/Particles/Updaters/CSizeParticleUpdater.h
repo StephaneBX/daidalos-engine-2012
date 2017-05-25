@@ -31,16 +31,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../Scene/Particles/IParticleUpdater.h"
 
 namespace DE {
+
+	struct SSizeParticleChangeUpdater {
+		float time;
+		float size;
+	};
+
 	/**
 	* The particle size updater class
 	*/
 	class CSizeParticleUpdater : public IParticleUpdater {
 
+	private:
+		std::vector<SSizeParticleChangeUpdater> m_sizeChanges;
+
 	public:
 		/**
 		* Constructor
+		* @param sizeChanges The size changes definition
 		*/
-		CSizeParticleUpdater();
+		CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges);
 
 		/**
 		* Destructor
@@ -54,6 +64,12 @@ namespace DE {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
+
+		/**
+		* Get the size changes definition
+		* @return The size changes definition
+		*/
+		const std::vector<SSizeParticleChangeUpdater> & GetSizeChanges() const;
 
 		/**
 		* Clone the class

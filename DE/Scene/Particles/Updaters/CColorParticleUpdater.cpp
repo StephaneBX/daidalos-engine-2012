@@ -31,9 +31,11 @@ namespace DE {
 	
 	/**
 	* Constructor
+	* @param colorChanges The color changes definition
 	*/
-	CColorParticleUpdater::CColorParticleUpdater() {
+	CColorParticleUpdater::CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_COLOR;
+		this->m_colorChanges = colorChanges;
 	}
 
 	/**
@@ -54,9 +56,35 @@ namespace DE {
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
-			// CColor can't handle negative color, convert to CVector4 for this purpose
-			CVector4F color = particle->GetColorMin().ToRGBAVector() + (particle->GetColorMax().ToRGBAVector() - particle->GetColorMin().ToRGBAVector()) * particle->GetLifeNormalized();
-			particle->SetColor(CColor(color.x, color.y, color.z, color.w));
+			CVector4F * currentColor = nullptr;
+			CVector4F * targetColor = nullptr;
+
+			// Search for the right colors
+			for (auto it = this->m_colorChanges.begin(); it != this->m_colorChanges.end(); ++it) {
+
+				if (currentColor != nullptr && targetColor != nullptr) {
+					break;
+				}
+
+				// Current color
+				if ((*it).time <= particle->GetLifeNormalized()) {
+					currentColor = &((*it).color);
+				}
+
+				// Target color
+				if ((*it).time >= particle->GetLifeNormalized()) {
+					targetColor = &((*it).color);
+				}
+			}
+
+			// Set the interpolated color
+			if (currentColor != nullptr && targetColor != nullptr) {
+				CVector4F color = (*currentColor) + ((*targetColor) - (*currentColor)) * particle->GetLifeNormalized();
+				particle->SetColor(CColor(color.x, color.y, color.z, color.w));
+			} else if (currentColor != nullptr) {
+				// Current color
+				particle->SetColor(CColor(currentColor->x, currentColor->y, currentColor->z, currentColor->w));
+			}
 		}
 	}
 
@@ -65,6 +93,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CColorParticleUpdater::Clone() {
-		return new CColorParticleUpdater();
+		return new CColorParticleUpdater(this->m_colorChanges);
 	}
 }

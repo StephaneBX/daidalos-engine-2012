@@ -1,20 +1,17 @@
 uniform float4 textColor;
 
-struct PS_INPUT
-{
+struct PS_INPUT {
 	float4 position	: POSITION;
 	float2 texcoord : TEXCOORD0;
 };
 
-struct PS_OUTPUT
-{
+struct PS_OUTPUT {
 	float4 color 	: COLOR;
 };
 
 sampler2D diffuseSampler;
 
-PS_OUTPUT main(PS_INPUT IN)
-{
+PS_OUTPUT main(PS_INPUT IN) {
 	PS_OUTPUT OUT;
 	OUT.color = tex2D(diffuseSampler, IN.texcoord) * textColor;
 	return OUT;
