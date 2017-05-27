@@ -156,6 +156,18 @@
             <position>50:0:0</position>
             <textureId>0</textureId>
         </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="fountainEmitter" templateName="test.dept" emitterName="fountainEmitter">
+            <active>1</active>
+            <position>70:0:0</position>
+            <textureId>0</textureId>
+        </node>
+		<!-- Particle Emitter Node -->
+        <node type="9" name="tornadoEmitter" templateName="test.dept" emitterName="tornadoEmitter">
+            <active>1</active>
+            <position>130:0:0</position>
+            <textureId>0</textureId>
+        </node>
 		
 		
 		<!-- Projection Camera Node -->

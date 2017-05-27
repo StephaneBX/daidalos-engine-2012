@@ -56,34 +56,30 @@ namespace DE {
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
-			float * currentSize = nullptr;
-			float * targetSize = nullptr;
+			SSizeParticleChangeUpdater * currentSize = nullptr;
+			SSizeParticleChangeUpdater * targetSize = nullptr;
 
 			// Search for the right sizes
 			for (auto it = this->m_sizeChanges.begin(); it != this->m_sizeChanges.end(); ++it) {
 
-				if (currentSize != nullptr && targetSize != nullptr) {
-					break;
-				}
-
 				// Current size
 				if ((*it).time <= particle->GetLifeNormalized()) {
-					currentSize = &((*it).size);
+					currentSize = &(*it);
 				}
 
 				// Target size
-				if ((*it).time >= particle->GetLifeNormalized()) {
-					targetSize = &((*it).size);
+				if (targetSize == nullptr && (*it).time > particle->GetLifeNormalized()) {
+					targetSize = &(*it);
 				}
 			}
 
 			// Set the interpolated size
 			if (currentSize != nullptr && targetSize != nullptr) {
-				float size = (*currentSize) + ((*targetSize) - (*currentSize)) * particle->GetLifeNormalized();
+				float size = currentSize->size + (targetSize->size - currentSize->size) * (particle->GetLifeNormalized() - currentSize->time) / (targetSize->time - currentSize->time);
 				particle->SetSize(size);
 			} else if (currentSize != nullptr) {
 				// Current size
-				particle->SetSize(*currentSize);
+				particle->SetSize(currentSize->size);
 			}
 		}
 	}

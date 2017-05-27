@@ -56,34 +56,30 @@ namespace DE {
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
-			CVector4F * currentColor = nullptr;
-			CVector4F * targetColor = nullptr;
+			SColorParticleChangeUpdater * currentColor = nullptr;
+			SColorParticleChangeUpdater * targetColor = nullptr;
 
 			// Search for the right colors
 			for (auto it = this->m_colorChanges.begin(); it != this->m_colorChanges.end(); ++it) {
 
-				if (currentColor != nullptr && targetColor != nullptr) {
-					break;
-				}
-
 				// Current color
 				if ((*it).time <= particle->GetLifeNormalized()) {
-					currentColor = &((*it).color);
+					currentColor = &(*it);
 				}
 
 				// Target color
-				if ((*it).time >= particle->GetLifeNormalized()) {
-					targetColor = &((*it).color);
+				if (targetColor == nullptr && (*it).time > particle->GetLifeNormalized()) {
+					targetColor = &(*it);
 				}
 			}
 
 			// Set the interpolated color
 			if (currentColor != nullptr && targetColor != nullptr) {
-				CVector4F color = (*currentColor) + ((*targetColor) - (*currentColor)) * particle->GetLifeNormalized();
+				CVector4F color = currentColor->color + (targetColor->color - currentColor->color) * (particle->GetLifeNormalized() - currentColor->time) / (targetColor->time - currentColor->time);
 				particle->SetColor(CColor(color.x, color.y, color.z, color.w));
 			} else if (currentColor != nullptr) {
 				// Current color
-				particle->SetColor(CColor(currentColor->x, currentColor->y, currentColor->z, currentColor->w));
+				particle->SetColor(CColor(currentColor->color.x, currentColor->color.y, currentColor->color.z, currentColor->color.w));
 			}
 		}
 	}
