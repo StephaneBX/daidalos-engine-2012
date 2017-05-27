@@ -60,13 +60,15 @@ namespace DAIDALOS {
 
 		// Lower emitter
 		emitter1->SetPosition(this->m_node->GetAbsolutePosition());
-		emitter1->SetTextureId(1);
+		emitter1->SetTextureId(0);
 		emitter1->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, 1, 0), 0, 2, 4));
+		emitter1->AddUpdater(new DE::CLinearVelocityParticleUpdater(std::vector<DE::SLinearVelocityParticleChangeUpdater>(), 0));
 
 		// Upper emitter
 		emitter2->SetPosition(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 8, 0));
-		emitter2->SetTextureId(1);
+		emitter2->SetTextureId(0);
 		emitter2->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, -1, 0), 0, 2, 4));
+		emitter2->AddUpdater(new DE::CLinearVelocityParticleUpdater(std::vector<DE::SLinearVelocityParticleChangeUpdater>(), 0));
 	}
 
 	/**

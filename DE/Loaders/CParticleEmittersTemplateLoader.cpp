@@ -283,10 +283,8 @@ namespace DE {
 					}
 
 					// Add the updater if the definition is not empty
-					if (velocityChangeVector.size() > 0) {
-						CLinearVelocityParticleUpdater * updater = new CLinearVelocityParticleUpdater(velocityChangeVector, updaterDamping);
-						emitter->AddUpdater(updater);
-					}
+					CLinearVelocityParticleUpdater * updater = new CLinearVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("sphereVelocityChange") == 0) {
 					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
@@ -311,11 +309,8 @@ namespace DE {
 					}
 
 					// Add the updater if the definition is not empty
-					if (velocityChangeVector.size() > 0) {
-						CSphereVelocityParticleUpdater * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
-						emitter->AddUpdater(updater);
-					}
-					
+					CSphereVelocityParticleUpdater * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("circularVelocityChange") == 0) {
 					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
@@ -340,10 +335,8 @@ namespace DE {
 					}
 
 					// Add the updater if the definition is not empty
-					if (velocityChangeVector.size() > 0) {
-						CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterDamping);
-						emitter->AddUpdater(updater);
-					}
+					CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					emitter->AddUpdater(updater);
 				}
 			}
 		}
