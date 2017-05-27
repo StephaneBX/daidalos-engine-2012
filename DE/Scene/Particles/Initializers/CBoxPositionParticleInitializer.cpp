@@ -34,7 +34,7 @@ namespace DE {
 	* @param positionMin The min position
 	* @param positionMax The max position
 	*/
-	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(CVector3F positionMin, CVector3F positionMax) {
+	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(const CVector3F & positionMin, const CVector3F & positionMax) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION;
 		this->m_positionMin = positionMin;
 		this->m_positionMax = positionMax;

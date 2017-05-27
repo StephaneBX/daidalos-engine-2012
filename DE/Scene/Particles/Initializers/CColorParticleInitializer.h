@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param color The color
 		*/
-		CColorParticleInitializer(CColor color);
+		CColorParticleInitializer(const CColor & color);
 
 		/**
 		* Destructor

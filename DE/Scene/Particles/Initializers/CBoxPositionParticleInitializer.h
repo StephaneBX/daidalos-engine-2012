@@ -46,7 +46,7 @@ namespace DE {
 		* @param positionMin The min position
 		* @param positionMax The max position
 		*/
-		CBoxPositionParticleInitializer(CVector3F positionMin, CVector3F positionMax);
+		CBoxPositionParticleInitializer(const CVector3F & positionMin, const CVector3F & positionMax);
 
 		/**
 		* Destructor

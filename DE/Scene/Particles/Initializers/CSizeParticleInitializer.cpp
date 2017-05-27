@@ -35,7 +35,7 @@ namespace DE {
 	* @param sizeMax The size max
 	*/
 	CSizeParticleInitializer::CSizeParticleInitializer(float size) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_SIZE;
+		this->m_type = PARTICLE_INITIALIZER_TYPE_SIZE;
 		this->m_size = size;
 	}
 

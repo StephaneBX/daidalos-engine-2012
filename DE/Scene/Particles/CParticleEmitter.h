@@ -62,6 +62,7 @@ namespace DE {
 	protected:
 		bool m_active;
 		bool m_reusable;
+		bool m_ignoreGravity;
 		int m_textureId;
 		int m_blendMode;
 		float m_life;
@@ -96,6 +97,12 @@ namespace DE {
 		* @param reusable If the emitter is reusable
 		*/
 		void SetReusable(const bool reusable);
+
+		/**
+		* Set the ignore gravity state
+		* @param ignoreGravity If the emitter ignore gravity
+		*/
+		void SetIgnoreGravity(const bool ignoreGravity);
 
 		/**
 		* Set the texture id
@@ -163,6 +170,12 @@ namespace DE {
 		* @return If the emitter is reusable
 		*/
 		const bool IsReusable() const;
+
+		/**
+		* If the emitter ignore gravity
+		* @return If the emitter ignore gravity
+		*/
+		const bool IsIgnoreGravity() const;
 
 		/**
 		* Get the texture id

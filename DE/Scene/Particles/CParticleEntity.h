@@ -57,6 +57,7 @@ namespace DE {
 		CVector3F m_emitterPosition;
 		CVector3F m_linearVelocity;
 		CVector3F m_sphereVelocity;
+		CVector3F m_gravityVelocity;
 		float m_circularVelocity;
 		SParticleData m_data;
 
@@ -145,6 +146,12 @@ namespace DE {
 		void SetSphereVelocity(const CVector3F & velocity);
 
 		/**
+		* Set the gravity velocity
+		* @param velocity The gravity velocity
+		*/
+		void SetGravityVelocity(const CVector3F & velocity);
+
+		/**
 		* Get the visibility state
 		* @return The visibility state
 		*/
@@ -212,6 +219,11 @@ namespace DE {
 		* Get the sphere velocity
 		*/
 		const CVector3F & GetSphereVelocity() const;
+
+		/**
+		* Get the sphere velocity
+		*/
+		const CVector3F & GetGravityVelocity() const;
 
 		/**
 		* Get the data used for rendering

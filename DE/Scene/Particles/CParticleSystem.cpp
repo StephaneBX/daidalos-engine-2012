@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Logger/ILogger.h"
 #include "../../Core/Utility/CArraySorter.h"
+#include "../../Scene/Particles/Updaters/CGravityParticleUpdater.h"
 #include "../../Scene/Particles/CParticleSystem.h"
 
 namespace DE {
@@ -103,6 +104,16 @@ namespace DE {
 
 		this->m_atlasTexture.CreateFromFile(filename, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 		this->m_atlasSize = size;
+	}
+
+	/**
+	* Set the system gravity
+	* @param gravity The gravity
+	*/
+	void CParticleSystem::SetGravity(const CVector3F & gravity) {
+		LOG_TRACE();
+
+		this->m_gravity = gravity;
 	}
 
 	/**
@@ -274,6 +285,13 @@ namespace DE {
 		LOG_TRACE();
 
 		CParticleEmitter * emitter = new CParticleEmitter();
+
+		// Add the gravity updater
+		if (!emitter->IsIgnoreGravity()) {
+			CGravityParticleUpdater * updater = new CGravityParticleUpdater(this->m_gravity);
+			emitter->AddUpdater(updater);
+		}
+
 		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));
 		return emitter;
 	}
@@ -290,6 +308,12 @@ namespace DE {
 		CParticleEmitter * emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
 		if(emitter == nullptr) {
 			emitter = new CParticleEmitter();
+		}
+
+		// Add the gravity updater
+		if (!emitter->IsIgnoreGravity()) {
+			CGravityParticleUpdater * updater = new CGravityParticleUpdater(this->m_gravity);
+			emitter->AddUpdater(updater);
 		}
 
 		this->m_emitters.push_back(std::unique_ptr<CParticleEmitter>(emitter));

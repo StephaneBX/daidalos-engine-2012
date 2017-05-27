@@ -40,6 +40,7 @@ namespace DE {
 		this->m_textureId = 0;
 		this->m_linearVelocity = CVector3F();
 		this->m_sphereVelocity = CVector3F();
+		this->m_gravityVelocity = CVector3F();
 		this->m_circularVelocity = 0;
 	}
 
@@ -150,6 +151,14 @@ namespace DE {
 	}
 
 	/**
+	* Set the gravity velocity
+	* @param velocity The gravity velocity
+	*/
+	void CParticleEntity::SetGravityVelocity(const CVector3F & velocity) {
+		this->m_gravityVelocity = velocity;
+	}
+
+	/**
 	* Get the visibility state
 	* @return The visibility state
 	*/
@@ -245,6 +254,13 @@ namespace DE {
 	*/
 	const CVector3F & CParticleEntity::GetSphereVelocity() const {
 		return this->m_sphereVelocity;
+	}
+
+	/**
+	* Get the sphere velocity
+	*/
+	const CVector3F & CParticleEntity::GetGravityVelocity() const {
+		return this->m_gravityVelocity;
 	}
 
 	/**

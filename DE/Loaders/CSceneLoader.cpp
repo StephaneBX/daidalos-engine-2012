@@ -425,6 +425,7 @@ namespace DE {
 		int particleSystemSize;
 		std::string atlasTexture, templateName;
 		CVector2I atlasSize;
+		CVector3F gravity;
 
 		// Read the system size
 		GetNodeData(handle, "systemSize", particleSystemSize, 0);
@@ -432,6 +433,9 @@ namespace DE {
 		// Read the atlas texture
 		GetNodeData(handle, "atlasTextureFile", atlasTexture, "particleAtlas.tga");
 		GetNodeData(handle, "atlasTextureSize", atlasSize, CVector2I(1, 1));
+
+		// Read the gravity
+		GetNodeData(handle, "gravity", gravity, CVector3F());
 
 		// Read the emitters templates
 		tinyxml2::XMLElement * emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
@@ -453,6 +457,7 @@ namespace DE {
 
 		scene->GetParticleSystem().InitializeSystem(particleSystemSize);
 		scene->GetParticleSystem().SetAtlasTexture(atlasTexture, atlasSize);
+		scene->GetParticleSystem().SetGravity(gravity);
 	}
 
 	void CSceneLoader::LoadDefaultParticleSystem(I3DScene * scene) {

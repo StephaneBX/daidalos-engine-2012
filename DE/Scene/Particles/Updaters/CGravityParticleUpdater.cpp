@@ -32,7 +32,7 @@ namespace DE {
 	/**
 	* Constructor
 	*/
-	CGravityParticleUpdater::CGravityParticleUpdater(CVector3F gravity) {
+	CGravityParticleUpdater::CGravityParticleUpdater(const CVector3F & gravity) {
 		this->m_type = PARTICLE_UPDATER_TYPE_GRAVITY;
 		this->m_gravity = gravity;
 	}
@@ -55,7 +55,8 @@ namespace DE {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
-			particle->SetPosition(particle->GetPosition() + (this->m_gravity * timeSecond));
+			particle->SetGravityVelocity(particle->GetGravityVelocity() + (this->m_gravity * timeSecond));
+			particle->SetPosition(particle->GetPosition() + (particle->GetGravityVelocity() * timeSecond));
 		}
 	}
 

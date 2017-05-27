@@ -35,6 +35,7 @@ namespace DE {
 	CParticleEmitter::CParticleEmitter() {
 		this->m_pendingTime = 0;
 		this->m_reusable = false;
+		this->m_ignoreGravity = false;
 	}
 
 	/**
@@ -58,6 +59,14 @@ namespace DE {
 	*/
 	void CParticleEmitter::SetReusable(const bool reusable) {
 		this->m_reusable = reusable;
+	}
+
+	/**
+	* Set the ignore gravity state
+	* @param ignoreGravity If the emitter ignore gravity
+	*/
+	void CParticleEmitter::SetIgnoreGravity(const bool ignoreGravity) {
+		this->m_ignoreGravity = ignoreGravity;
 	}
 
 	/**
@@ -221,6 +230,14 @@ namespace DE {
 	}
 
 	/**
+	* If the emitter ignore gravity
+	* @return If the emitter ignore gravity
+	*/
+	const bool CParticleEmitter::IsIgnoreGravity() const {
+		return this->m_ignoreGravity;
+	}
+
+	/**
 	* Get the texture id
 	* @return The texture id
 	*/
@@ -305,6 +322,7 @@ namespace DE {
 		emitter->SetLife(this->m_life);
 		emitter->SetLifeMax(this->m_lifeMax);
 		emitter->SetEmissionRate(this->m_emissionRate);
+		emitter->SetIgnoreGravity(this->m_ignoreGravity);
 		emitter->SetPosition(this->m_position);
 
 		// Clone the initializers

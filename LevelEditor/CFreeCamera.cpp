@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CConfigurationManager.h>
 #include "CFreeCamera.h"
 
-namespace SAMPLES {
+namespace EDITOR {
 	/**
 	* Constructor
 	* @param parent The parent

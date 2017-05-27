@@ -37,7 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 #include <IPlayer.hpp>
 
-namespace SAMPLES
+namespace EDITOR
 {
 	enum EFPSCameraMovement
 	{

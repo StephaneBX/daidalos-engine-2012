@@ -85,6 +85,7 @@ namespace DE {
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterNode(tinyxml2::XMLHandle & handle) {
 		LOG_TRACE();
 
+		bool ignoreGravity;
 		std::string emitterName = handle.ToElement()->Attribute("name");
 		int emitterBlendMode;
 		float emitterEmissionRate, emitterLife, emitterLifeMax;
@@ -95,6 +96,7 @@ namespace DE {
 		GetNodeData(handle, "life", emitterLife, -1);
 		GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
 		GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
+		GetNodeData(handle, "ignoreGravity", ignoreGravity, false);
 
 		// Create the emitter
 		CParticleEmitter * emitter = new CParticleEmitter();
@@ -104,6 +106,7 @@ namespace DE {
 		emitter->SetLife(emitterLife);
 		emitter->SetLifeMax(emitterLifeMax);
 		emitter->SetEmissionRate(emitterEmissionRate);
+		emitter->SetIgnoreGravity(ignoreGravity);
 
 		// Look for initializers
 		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();

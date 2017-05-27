@@ -57,6 +57,7 @@ namespace DE {
 		// Particle system data
 		CTexture2D m_atlasTexture;
 		CVector2I m_atlasSize;
+		CVector3F m_gravity;
 		CMemoryAllocator<CParticleEntity> m_particleBuffer;
 		std::vector<std::unique_ptr<CParticleEmitter> > m_emitters;
 		CParticleEmittersTemplates m_particleEmittersTemplates;
@@ -99,6 +100,12 @@ namespace DE {
 		* @param size The number of columns and rows
 		*/
 		void SetAtlasTexture(const std::string & filename, const CVector2I & size);
+
+		/**
+		* Set the system gravity
+		* @param gravity The gravity
+		*/
+		void SetGravity(const CVector3F & gravity);
 
 		/**
 		* Set the active camera

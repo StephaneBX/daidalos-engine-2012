@@ -621,6 +621,9 @@
     <ClInclude Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.hpp">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CDefaultParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -1009,6 +1012,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Particles\Updaters\CCircularVelocityParticleUpdater.cpp">
       <Filter>Fichiers sources\Scene\Particles\Updaters</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CDefaultParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -50,7 +50,7 @@ namespace DE {
 		* @param velocityMin The velocity min
 		* @param velocityMax The velocity max
 		*/
-		CLinearVelocityParticleInitializer(CVector3F direction, float variationFactor, float velocityMin, float velocityMax);
+		CLinearVelocityParticleInitializer(const CVector3F & direction, float variationFactor, float velocityMin, float velocityMax);
 
 		/**
 		* Destructor

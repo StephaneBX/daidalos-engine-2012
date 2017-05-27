@@ -33,8 +33,8 @@ namespace DE {
 	* Constructor
 	* @param colorMin The color
 	*/
-	CColorParticleInitializer::CColorParticleInitializer(CColor color) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_COLOR;
+	CColorParticleInitializer::CColorParticleInitializer(const CColor & color) {
+		this->m_type = PARTICLE_INITIALIZER_TYPE_COLOR;
 		this->m_color = color;
 	}
 

@@ -4,6 +4,7 @@
         <atlasTextureFile>particleAtlas.tga</atlasTextureFile>
         <atlasTextureSize>4:4</atlasTextureSize>
         <systemSize>50000</systemSize>
+		<gravity>0:-10:0</gravity>
         <particleEmittersTemplates>
 			<template>test.dept</template>
         </particleEmittersTemplates>
