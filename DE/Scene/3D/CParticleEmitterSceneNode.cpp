@@ -56,6 +56,14 @@ namespace DE {
 	}
 
 	/**
+	* Set the particle emitter texture id
+	* @param textureId The texture id
+	*/
+	void CParticleEmitterSceneNode::SetTextureId(const int textureId) {
+		this->m_emitter->SetTextureId(textureId);
+	}
+
+	/**
 	* Update the absolute position
 	* @param time The elapsed time
 	*/

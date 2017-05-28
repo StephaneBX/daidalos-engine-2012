@@ -167,7 +167,8 @@
 				<max>2000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>1</radius>
+				<innerRadius>1</innerRadius>
+				<outerRadius>1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -202,7 +203,8 @@
 				<max>2000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>1</radius>
+				<innerRadius>1</innerRadius>
+				<outerRadius>1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -236,7 +238,8 @@
 				<max>200</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.1</radius>
+				<innerRadius>0.1</innerRadius>
+				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -284,7 +287,8 @@
 				<max>200</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.1</radius>
+				<innerRadius>0.1</innerRadius>
+				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -325,7 +329,8 @@
 				<max>45</max>
 			</minMaxRotation>
 			<radiusPosition>
-				<radius>0.1</radius>
+				<innerRadius>0.1</innerRadius>
+				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -376,7 +381,8 @@
 				<max>100</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.05</radius>
+				<innerRadius>0.05</innerRadius>
+				<outerRadius>0.05</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>

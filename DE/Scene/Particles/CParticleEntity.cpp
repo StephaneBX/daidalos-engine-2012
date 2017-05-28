@@ -93,11 +93,12 @@ namespace DE {
 	}
 
 	/**
-	* Set the texure id
+	* Set the texture id
 	* @param textureId The texture id
 	*/
 	void CParticleEntity::SetTextureId(const float textureId) {
 		this->m_textureId = textureId;
+		this->m_data.sizeTextureId.y = textureId;
 	}
 
 	/**

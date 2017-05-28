@@ -63,6 +63,12 @@ namespace DE {
 		void SetActive(const bool active);
 
 		/**
+		* Set the particle emitter texture id
+		* @param textureId The texture id
+		*/
+		void SetTextureId(const int textureId);
+
+		/**
 		* Update the absolute position
 		* @param time The elapsed time
 		*/

@@ -51,7 +51,7 @@ VS_OUTPUT main(VS_INPUT IN) {
 	// Texture coordinate translation
 	float2 step = 1.0f / textureAtlasSize.xy;
 	OUT.texcoord.x = (IN.texcoord.x * step.x) + (step.x * (IN.instSizeId.y % (int)textureAtlasSize.x));
-	OUT.texcoord.y = (IN.texcoord.y * step.y) + (step.y * (IN.instSizeId.y / textureAtlasSize.x));
+	OUT.texcoord.y = (IN.texcoord.y * step.y) + (step.y * (int)(IN.instSizeId.y / (int)textureAtlasSize.y));
 	
 	OUT.depth = OUT.position.z;
 

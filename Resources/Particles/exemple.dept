@@ -8,6 +8,7 @@
 		<initializers>
 			<color>0.6:0.1:0.1:0.3</color>
 			<size>0.1</size>
+			<position>1:0:0</position>
 			<minMaxLife>
 				<min>50</min>
 				<max>200</max>
@@ -17,7 +18,8 @@
 				<max>45</max>
 			</minMaxRotation>
 			<radiusPosition>
-				<radius>0.1</radius>
+				<innerRadius>0.1</innerRadius>
+				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 			<minMaxBoxPosition>
 				<min>-10:0:-10</min>
@@ -79,10 +81,12 @@
 					<time>0</time>
 					<velocityMin>2.0</velocityMin>
 					<velocityMax>2.0</velocityMax>
+					<axis>0:1:0</axis>
 				</velocity>
 				<damping>0.2</damping>
 			</circularVelocityChange>
 			<life/>
+			<rotation/>
 		</updaters>
 	</emitter>
 </emitters>

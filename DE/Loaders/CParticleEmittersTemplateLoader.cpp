@@ -128,7 +128,7 @@ namespace DE {
 		if (initializersElement != nullptr) {
 			tinyxml2::XMLHandle initializersHandle = tinyxml2::XMLHandle(initializersElement);
 			float emitterParticleSize, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleLinearVelocityVariation;
-			CVector3F emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax, emitterParticleRadiusPosition;
+			CVector3F emitterParticlePosition, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax, emitterParticleRadiusPosition;
 			CColor emitterParticleColor;
 
 			for (tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
@@ -178,9 +178,15 @@ namespace DE {
 					emitter->AddInitializer(initializer);
 
 				} else if (childName.compare("radiusPosition") == 0) {
-					float emitterParticleRadiusPosition;
-					GetNodeData(childHandle, "radius", emitterParticleRadiusPosition, 0);
-					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleRadiusPosition);
+					float emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition;
+					GetNodeData(childHandle, "innerRadius", emitterParticleInnerRadiusPosition, 0);
+					GetNodeData(childHandle, "outerRadius", emitterParticleOuterRadiusPosition, 0);
+					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition);
+					emitter->AddInitializer(initializer);
+
+				} else if (childName.compare("position") == 0) {
+					GetNodeData(initializersHandle, "position", emitterParticlePosition, CVector3F());
+					CPositionParticleInitializer * initializer = new CPositionParticleInitializer(emitterParticlePosition);
 					emitter->AddInitializer(initializer);
 				}
 			}

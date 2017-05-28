@@ -776,6 +776,7 @@ namespace DE {
 		static_cast<CParticleEmitterSceneNode*>(node)->SetTemplateName(templateName);
 		static_cast<CParticleEmitterSceneNode*>(node)->SetEmitterName(emitterName);
 		static_cast<CParticleEmitterSceneNode*>(node)->SetActive(emitterActive);
+		static_cast<CParticleEmitterSceneNode*>(node)->SetTextureId(emitterTextureId);
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {

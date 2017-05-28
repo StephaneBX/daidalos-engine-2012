@@ -31,11 +31,13 @@ namespace DE {
 
 	/**
 	* Constructor
-	* @param radius The radius
+	* @param innerRadius The inner radius
+	* @param outerRadius The outer radius
 	*/
-	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(float radius) {
+	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION;
-		this->m_radius = radius;
+		this->m_innerRadius = innerRadius;
+		this->m_outerRadius = outerRadius;
 	}
 
 	/**
@@ -59,16 +61,24 @@ namespace DE {
 			CVector3F direction = CVector3F(RandomNumber<float>(-1, 1), 0, RandomNumber<float>(-1, 1)).Normalize();
 
 			// Keep the current position that hold the emitter's position
-			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(-this->m_radius, this->m_radius)));
+			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(-this->m_innerRadius, this->m_outerRadius)));
 		}
 	}
 
 	/**
-	* Get the radius
-	* @return The radius
+	* Get the inner radius
+	* @return The inner radius
 	*/
-	const float CRadiusPositionParticleInitializer::GetRadius() const {
-		return this->m_radius;
+	const float CRadiusPositionParticleInitializer::GetInnerRadius() const {
+		return this->m_innerRadius;
+	}
+
+	/**
+	* Get the outer radius
+	* @return The outer radius
+	*/
+	const float CRadiusPositionParticleInitializer::GetOuterRadius() const {
+		return this->m_outerRadius;
 	}
 
 	/**
@@ -76,6 +86,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CRadiusPositionParticleInitializer::Clone() {
-		return new CRadiusPositionParticleInitializer(this->m_radius);
+		return new CRadiusPositionParticleInitializer(this->m_innerRadius, this->m_outerRadius);
 	}
 }

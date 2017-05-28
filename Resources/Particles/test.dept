@@ -8,10 +8,11 @@
 		<initializers>
 			<minMaxLife>
 				<min>500</min>
-				<max>3000</max>
+				<max>5000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.1</radius>
+				<innerRadius>0.1</innerRadius>
+				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -59,7 +60,8 @@
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>2.5</radius>
+				<innerRadius>2.5</innerRadius>
+				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -101,7 +103,7 @@
 		<blendMode>1</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>1300</emissionRate>
+		<emissionRate>1000</emissionRate>
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<minMaxLife>
@@ -109,7 +111,8 @@
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>2.5</radius>
+				<innerRadius>2.5</innerRadius>
+				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -167,7 +170,8 @@
 				<max>6000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.5</radius>
+				<innerRadius>0.5</innerRadius>
+				<outerRadius>0.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -248,7 +252,8 @@
 				<max>8000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>1.5</radius>
+				<innerRadius>1.5</innerRadius>
+				<outerRadius>1.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -306,7 +311,8 @@
 				<max>5000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.4</radius>
+				<innerRadius>0.4</innerRadius>
+				<outerRadius>0.4</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -368,7 +374,8 @@
 				<max>9000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.8</radius>
+				<innerRadius>0.8</innerRadius>
+				<outerRadius>0.8</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -417,19 +424,24 @@
 		<emissionRate>300</emissionRate>
 		<ignoreGravity>false</ignoreGravity>
 		<initializers>
+			<minMaxRotation>
+				<min>25</min>
+				<max>65</max>
+			</minMaxRotation>
 			<minMaxLife>
 				<min>2000</min>
 				<max>4000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>0.5</radius>
+				<innerRadius>0.5</innerRadius>
+				<outerRadius>0.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.6:0.6:0.8:0.2</value>
+					<value>0.6:0.6:0.9:0.04</value>
 				</color>
 				<color>
 					<time>1.0</time>
@@ -457,6 +469,7 @@
 				<damping>0.3</damping>
 			</linearVelocityChange>
 			<life/>
+			<rotation/>
 		</updaters>
 	</emitter>
 	
@@ -464,36 +477,45 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>50</emissionRate>
+		<emissionRate>30</emissionRate>
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
+			<minMaxRotation>
+				<min>-65</min>
+				<max>65</max>
+			</minMaxRotation>
 			<minMaxLife>
 				<min>10000</min>
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<radius>2.5</radius>
+				<innerRadius>2.5</innerRadius>
+				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.4:0.4:0.4:0.0</value>
+					<value>0.6:0.6:0.6:0.0</value>
 				</color>
 				<color>
 					<time>0.05</time>
-					<value>0.4:0.4:0.4:0.3</value>
+					<value>0.6:0.6:0.6:0.08</value>
+				</color>
+				<color>
+					<time>0.6</time>
+					<value>0.6:0.6:0.6:0.05</value>
 				</color>
 				<color>
 					<time>1.0</time>
-					<value>0.4:0.4:0.4:0.0</value>
+					<value>0.6:0.6:0.6:0.0</value>
 				</color>
 			</colorChange>
 			<sizeChange>
 				<size>
 					<time>0.0</time>
-					<value>1.5</value>
+					<value>3.5</value>
 				</size>
 				<size>
 					<time>0.6</time>
@@ -501,11 +523,11 @@
 				</size>
 				<size>
 					<time>0.8</time>
-					<value>35</value>
+					<value>40</value>
 				</size>
 				<size>
 					<time>1.0</time>
-					<value>75</value>
+					<value>85</value>
 				</size>
 			</sizeChange>
 			<linearVelocityChange>
@@ -527,6 +549,7 @@
 				<damping>0.0</damping>
 			</circularVelocityChange>
 			<life/>
+			<rotation/>
 		</updaters>
 	</emitter>
 </emitters>

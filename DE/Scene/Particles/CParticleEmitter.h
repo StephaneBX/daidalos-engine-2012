@@ -36,6 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/IParticleInitializer.h"
 #include "../../Scene/Particles/IParticleUpdater.h"
 
+#include "../../Scene/Particles/Initializers/CPositionParticleInitializer.hpp"
 #include "../../Scene/Particles/Initializers/CBoxPositionParticleInitializer.h"
 #include "../../Scene/Particles/Initializers/CColorParticleInitializer.h"
 #include "../../Scene/Particles/Initializers/CLifeParticleInitializer.h"

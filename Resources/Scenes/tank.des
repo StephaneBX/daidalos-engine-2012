@@ -118,19 +118,19 @@
         <node type="9" name="fireSmokeEmitter" templateName="test.dept" emitterName="fireSmokeEmitter">
             <active>1</active>
             <position>10:2:0</position>
-            <textureId>4</textureId>
+            <textureId>0</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="fireEffectEmitter" templateName="test.dept" emitterName="fireEffectEmitter">
             <active>1</active>
             <position>10:0:0</position>
-            <textureId>4</textureId>
+            <textureId>0</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="fireEffect2Emitter" templateName="test.dept" emitterName="fireEffect2Emitter">
             <active>1</active>
             <position>10:0:0</position>
-            <textureId>4</textureId>
+            <textureId>0</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="sphereEmitter" templateName="test.dept" emitterName="sphereEmitter">
@@ -142,13 +142,13 @@
         <node type="9" name="liftEmitter" templateName="test.dept" emitterName="liftEmitter">
             <active>1</active>
             <position>30:0:0</position>
-            <textureId>0</textureId>
+            <textureId>1</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="circularEmitter" templateName="test.dept" emitterName="circularEmitter">
             <active>1</active>
             <position>40:0:0</position>
-            <textureId>0</textureId>
+            <textureId>1</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="fireworkEmitter" templateName="test.dept" emitterName="fireworkEmitter">
@@ -160,13 +160,13 @@
         <node type="9" name="fountainEmitter" templateName="test.dept" emitterName="fountainEmitter">
             <active>1</active>
             <position>70:0:0</position>
-            <textureId>0</textureId>
+            <textureId>3</textureId>
         </node>
 		<!-- Particle Emitter Node -->
         <node type="9" name="tornadoEmitter" templateName="test.dept" emitterName="tornadoEmitter">
             <active>1</active>
             <position>130:0:0</position>
-            <textureId>0</textureId>
+            <textureId>2</textureId>
         </node>
 		
 		

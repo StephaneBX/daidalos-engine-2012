@@ -37,14 +37,16 @@ namespace DE {
 	class CRadiusPositionParticleInitializer : public IParticleInitializer {
 
 	private:
-		float m_radius;
+		float m_innerRadius;
+		float m_outerRadius;
 
 	public:
 		/**
 		* Constructor
-		* @param radius The radius
+		* @param innerRadius The inner radius
+		* @param outerRadius The outer radius
 		*/
-		CRadiusPositionParticleInitializer(float radius);
+		CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius);
 
 		/**
 		* Destructor
@@ -59,10 +61,16 @@ namespace DE {
 		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
-		* Get the radius
-		* @return The radius
+		* Get the inner radius
+		* @return The inner radius
 		*/
-		const float GetRadius() const;
+		const float GetInnerRadius() const;
+
+		/**
+		* Get the outer radius
+		* @return The outer radius
+		*/
+		const float GetOuterRadius() const;
 
 		/**
 		* Clone the class
