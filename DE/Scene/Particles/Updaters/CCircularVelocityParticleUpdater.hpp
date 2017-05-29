@@ -45,15 +45,17 @@ namespace DE {
 
 	private:
 		float m_damping;
+		CVector3F m_axis;
 		std::vector<SCircularVelocityParticleChangeUpdater> m_circularVelocityChanges;
 
 	public:
 		/**
 		* Constructor
 		* @param circularVelocityChanges The circular velocity changes definition
+		* @param axis The rotation axis
 		* @param damping The damping factor
 		*/
-		CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const float damping);
+		CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping);
 
 		/**
 		* Destructor

@@ -61,7 +61,7 @@ namespace DE {
 			CVector3F direction = CVector3F(RandomNumber<float>(-1, 1), 0, RandomNumber<float>(-1, 1)).Normalize();
 
 			// Keep the current position that hold the emitter's position
-			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(-this->m_innerRadius, this->m_outerRadius)));
+			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(this->m_innerRadius, this->m_outerRadius)));
 		}
 	}
 

@@ -11,7 +11,7 @@
 				<max>5000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>0.1</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>0.1</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -60,7 +60,7 @@
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>2.5</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -111,7 +111,7 @@
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>2.5</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -153,6 +153,7 @@
 					<velocityMax>1</velocityMax>
 				</velocity>
 				<damping>0.0</damping>
+				<axis>0:1:0</axis>
 			</circularVelocityChange>
 			<life/>
 		</updaters>
@@ -170,7 +171,7 @@
 				<max>6000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>0.5</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>0.5</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -252,7 +253,7 @@
 				<max>8000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>1.5</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>1.5</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -311,7 +312,7 @@
 				<max>5000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>0.4</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>0.4</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -374,7 +375,7 @@
 				<max>9000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>0.8</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>0.8</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -433,8 +434,8 @@
 				<max>4000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>0.5</innerRadius>
-				<outerRadius>0.5</outerRadius>
+				<innerRadius>0.0</innerRadius>
+				<outerRadius>1.5</outerRadius>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -451,7 +452,7 @@
 			<sizeChange>
 				<size>
 					<time>0.0</time>
-					<value>1</value>
+					<value>1.5</value>
 				</size>
 				<size>
 					<time>0.7</time>
@@ -477,7 +478,7 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>30</emissionRate>
+		<emissionRate>90</emissionRate>
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<minMaxRotation>
@@ -489,7 +490,7 @@
 				<max>10000</max>
 			</minMaxLife>
 			<radiusPosition>
-				<innerRadius>2.5</innerRadius>
+				<innerRadius>0</innerRadius>
 				<outerRadius>2.5</outerRadius>
 			</radiusPosition>
 		</initializers>
@@ -518,24 +519,16 @@
 					<value>3.5</value>
 				</size>
 				<size>
-					<time>0.6</time>
-					<value>25</value>
-				</size>
-				<size>
-					<time>0.8</time>
-					<value>40</value>
-				</size>
-				<size>
 					<time>1.0</time>
-					<value>85</value>
+					<value>15</value>
 				</size>
 			</sizeChange>
 			<linearVelocityChange>
 				<velocity>
 					<time>0</time>
-					<direction>0.2:0.8:0</direction>
-					<velocityMin>5</velocityMin>
-					<velocityMax>5</velocityMax>
+					<direction>0:1.0:0</direction>
+					<velocityMin>8</velocityMin>
+					<velocityMax>8</velocityMax>
 					<variationFactor>0</variationFactor>
 				</velocity>
 				<damping>0.0</damping>
@@ -548,6 +541,14 @@
 				</velocity>
 				<damping>0.0</damping>
 			</circularVelocityChange>
+			<sphereVelocityChange>
+				<velocity>
+					<time>0.5</time>
+					<velocityMin>7</velocityMin>
+					<velocityMax>11</velocityMax>
+				</velocity>
+				<damping>0.2</damping>
+			</sphereVelocityChange>
 			<life/>
 			<rotation/>
 		</updaters>

@@ -320,9 +320,13 @@ namespace DE {
 
 				} else if (childName.compare("circularVelocityChange") == 0) {
 					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
+					CVector3F updaterAxis;
 
 					// Read the damping
 					GetNodeData(childHandle, "damping", updaterDamping, 0);
+
+					// Read the rotation axis
+					GetNodeData(childHandle, "axis", updaterAxis, CVector3F(0,1,0));
 
 					// Read each step
 					std::vector<SCircularVelocityParticleChangeUpdater> velocityChangeVector;
@@ -341,7 +345,7 @@ namespace DE {
 					}
 
 					// Add the updater if the definition is not empty
-					CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterAxis, updaterDamping);
 					emitter->AddUpdater(updater);
 				}
 			}

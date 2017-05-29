@@ -32,11 +32,13 @@ namespace DE {
 	/**
 	* Constructor
 	* @param linearVelocityChanges The linear velocity changes definition
+	* @param axis The rotation axis
 	* @param damping The damping factor
 	*/
-	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const float damping) {
+	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping) {
 		this->m_type = PARTICLE_UPDATER_TYPE_VELOCITY;
 		this->m_damping = damping;
+		this->m_axis = axis;
 		this->m_circularVelocityChanges = circularVelocityChanges;
 	}
 
@@ -75,12 +77,19 @@ namespace DE {
 			if (particle->GetCircularVelocity() != 0) {
 				// Calculate the emitter - particle distance
 				CVector3F distance = particle->GetPosition() - particle->GetEmitterPosition();
-				distance.y = 0;
+
+				// Axis bound check
+				if (this->m_axis.Length() == 1) {
+					for (int i = 0; i < 3; ++i) {
+						if (this->m_axis[i] == 1) {
+							distance[i] = 0;
+						}
+					}
+				}
 				distance = distance.Normalize();
 
-				// Calculate the velocity direction
-				CVector3F up = CVector3F(0.0f, 1.0f, 0.0f);
-				CVector3F circularVelocity = up.CrossProduct(distance).Normalize() * particle->GetCircularVelocity();
+				// Calculate the velocity direction (tangent to the up vector and the distance)
+				CVector3F circularVelocity = this->m_axis.CrossProduct(distance).Normalize() * particle->GetCircularVelocity();
 
 				// Update the particle position
 				particle->SetPosition(particle->GetPosition() + circularVelocity * timeSecond);
@@ -112,6 +121,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CCircularVelocityParticleUpdater::Clone() {
-		return new CCircularVelocityParticleUpdater(this->m_circularVelocityChanges, this->m_damping);
+		return new CCircularVelocityParticleUpdater(this->m_circularVelocityChanges, this->m_axis, this->m_damping);
 	}
 }

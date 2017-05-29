@@ -81,9 +81,9 @@
 					<time>0</time>
 					<velocityMin>2.0</velocityMin>
 					<velocityMax>2.0</velocityMax>
-					<axis>0:1:0</axis>
 				</velocity>
 				<damping>0.2</damping>
+				<axis>0:1:0</axis>
 			</circularVelocityChange>
 			<life/>
 			<rotation/>
