@@ -179,9 +179,11 @@ namespace DE {
 
 				} else if (childName.compare("radiusPosition") == 0) {
 					float emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition;
+					CVector3F emitterParticleAxis;
 					GetNodeData(childHandle, "innerRadius", emitterParticleInnerRadiusPosition, 0);
 					GetNodeData(childHandle, "outerRadius", emitterParticleOuterRadiusPosition, 0);
-					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition);
+					GetNodeData(childHandle, "axis", emitterParticleAxis, CVector3F());
+					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition, emitterParticleAxis);
 					emitter->AddInitializer(initializer);
 
 				} else if (childName.compare("position") == 0) {
@@ -274,7 +276,7 @@ namespace DE {
 					for (velocityElement; velocityElement; velocityElement = velocityElement->NextSiblingElement()) {
 						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElement);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
-						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0f, 1.0f, 0.0f));
+						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0f, 0.0f, 0.0f));
 						GetNodeData(velocityChangeHandle, "variationFactor", updaterVariationFactor, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);

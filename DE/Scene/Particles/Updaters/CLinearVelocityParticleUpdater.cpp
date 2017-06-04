@@ -69,10 +69,12 @@ namespace DE {
 					float factor = RandomNumber<float>(0, (*it).variationFactor);
 
 					// Create the altered direction
-					CVector3F velocity = (*it).direction.Normalize();
-					velocity.x *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
-					velocity.y *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
-					velocity.z *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+					CVector3F velocity = (*it).direction;
+					if ((*it).variationFactor > 0) {
+						velocity.x *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+						velocity.y *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+						velocity.z *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+					}
 
 					// Apply the velocity value
 					float velocityForce = RandomNumber<float>((*it).velocityMin, (*it).velocityMax);

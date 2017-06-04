@@ -39,14 +39,16 @@ namespace DE {
 	private:
 		float m_innerRadius;
 		float m_outerRadius;
+		CVector3F m_axis;
 
 	public:
 		/**
 		* Constructor
 		* @param innerRadius The inner radius
 		* @param outerRadius The outer radius
+		* @param axis The axis
 		*/
-		CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius);
+		CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis);
 
 		/**
 		* Destructor

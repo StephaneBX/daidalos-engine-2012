@@ -33,11 +33,13 @@ namespace DE {
 	* Constructor
 	* @param innerRadius The inner radius
 	* @param outerRadius The outer radius
+	* @param axis The axis
 	*/
-	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius) {
+	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION;
 		this->m_innerRadius = innerRadius;
 		this->m_outerRadius = outerRadius;
+		this->m_axis = axis;
 	}
 
 	/**
@@ -58,7 +60,13 @@ namespace DE {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
 			// Randomized direction
-			CVector3F direction = CVector3F(RandomNumber<float>(-1, 1), 0, RandomNumber<float>(-1, 1)).Normalize();
+			CVector3F direction;
+			for (int i = 0; i < 3; ++i) {
+				if (this->m_axis[i] == 1) {
+					direction[i] = RandomNumber<float>(-1, 1);
+				}
+			}
+			direction = direction.Normalize();
 
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + (direction * RandomNumber<float>(this->m_innerRadius, this->m_outerRadius)));
@@ -86,6 +94,6 @@ namespace DE {
 	* @return The cloned class
 	*/
 	IClonable * CRadiusPositionParticleInitializer::Clone() {
-		return new CRadiusPositionParticleInitializer(this->m_innerRadius, this->m_outerRadius);
+		return new CRadiusPositionParticleInitializer(this->m_innerRadius, this->m_outerRadius, this->m_axis);
 	}
 }

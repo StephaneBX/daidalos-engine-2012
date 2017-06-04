@@ -81,18 +81,29 @@ namespace DE {
 				// Axis bound check
 				if (this->m_axis.Length() == 1) {
 					for (int i = 0; i < 3; ++i) {
-						if (this->m_axis[i] == 1) {
+						if (this->m_axis[i] == 1 || this->m_axis[i] == -1) {
 							distance[i] = 0;
 						}
 					}
 				}
-				distance = distance.Normalize();
+				CVector3F distanceNormalized = distance.Normalize();
 
 				// Calculate the velocity direction (tangent to the up vector and the distance)
-				CVector3F circularVelocity = this->m_axis.CrossProduct(distance).Normalize() * particle->GetCircularVelocity();
+				CVector3F circularVelocity = this->m_axis.CrossProduct(distanceNormalized).Normalize() * particle->GetCircularVelocity();
 
 				// Update the particle position
 				particle->SetPosition(particle->GetPosition() + circularVelocity * timeSecond);
+
+				// Put back the particle in the correct radius
+				CVector3F distance2 = particle->GetPosition() - particle->GetEmitterPosition();
+				if (this->m_axis.Length() == 1) {
+					for (int i = 0; i < 3; ++i) {
+						if (this->m_axis[i] == 1 || this->m_axis[i] == -1) {
+							distance2[i] = 0;
+						}
+					}
+				}
+				particle->SetPosition(particle->GetPosition() - distance2.Normalize() * (distance2.Length() - distance.Length()));
 
 				// Apply damping factor
 				particle->SetCircularVelocity(particle->GetCircularVelocity() - (particle->GetCircularVelocity() * (this->m_damping * timeSecond)));

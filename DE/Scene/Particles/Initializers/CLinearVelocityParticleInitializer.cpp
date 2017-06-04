@@ -61,13 +61,13 @@ namespace DE {
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
-			float factor = RandomNumber<float>(0, this->m_variationFactor);
-
 			// Create the altered direction
-			CVector3F velocity = this->m_direction.Normalize();
-			velocity.x *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
-			velocity.y *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
-			velocity.z *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
+			CVector3F velocity = this->m_direction;
+			if (this->m_variationFactor > 0) {
+				velocity.x *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
+				velocity.y *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
+				velocity.z *= (1.0f - RandomNumber<float>(0, this->m_variationFactor));
+			}
 
 			// Apply the velocity value
 			float velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
