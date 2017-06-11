@@ -2434,13 +2434,6 @@
                 <normal_texture>wall_1n.png</normal_texture>
             </brush>
             <brush file="wall_1.obj">
-                <position>290:8:30</position>
-                <rotation>0:90:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
                 <position>300:8:30</position>
                 <rotation>0:90:0</rotation>
                 <scale>1:1:1</scale>
@@ -2491,13 +2484,6 @@
             </brush>
             <brush file="wall_1.obj">
                 <position>280:8:-10</position>
-                <rotation>0:270:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
-                <position>290:8:-10</position>
                 <rotation>0:270:0</rotation>
                 <scale>1:1:1</scale>
                 <diffuse_texture>wall_1d.png</diffuse_texture>
@@ -3288,13 +3274,6 @@
                 <normal_texture>wall_1n.png</normal_texture>
             </brush>
             <brush file="wall_1.obj">
-                <position>230:-16:30</position>
-                <rotation>0:90:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
                 <position>240:-16:30</position>
                 <rotation>0:90:0</rotation>
                 <scale>1:1:1</scale>
@@ -3303,13 +3282,6 @@
             </brush>
             <brush file="wall_1.obj">
                 <position>250:-16:30</position>
-                <rotation>0:90:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
-                <position>260:-16:30</position>
                 <rotation>0:90:0</rotation>
                 <scale>1:1:1</scale>
                 <diffuse_texture>wall_1d.png</diffuse_texture>
@@ -3540,13 +3512,6 @@
                 <normal_texture>wall_1n.png</normal_texture>
             </brush>
             <brush file="wall_1.obj">
-                <position>230:-16:-10</position>
-                <rotation>0:270:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
                 <position>240:-16:-10</position>
                 <rotation>0:270:0</rotation>
                 <scale>1:1:1</scale>
@@ -3555,13 +3520,6 @@
             </brush>
             <brush file="wall_1.obj">
                 <position>250:-16:-10</position>
-                <rotation>0:270:0</rotation>
-                <scale>1:1:1</scale>
-                <diffuse_texture>wall_1d.png</diffuse_texture>
-                <normal_texture>wall_1n.png</normal_texture>
-            </brush>
-            <brush file="wall_1.obj">
-                <position>260:-16:-10</position>
                 <rotation>0:270:0</rotation>
                 <scale>1:1:1</scale>
                 <diffuse_texture>wall_1d.png</diffuse_texture>
@@ -4253,6 +4211,1476 @@
                 <diffuse_texture>ceiling_1d.png</diffuse_texture>
                 <normal_texture>ceiling_1n.png</normal_texture>
             </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-210:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-150:0:-40</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-210:0:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-210:0:0</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-210:0:10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-210:0:-20</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-210:0:-30</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-210:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-150:0:20</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-150:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-210:0:-40</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-200:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-190:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-180:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-170:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-160:0:-40</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-150:0:-30</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-150:0:-20</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-150:0:-10</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-150:0:0</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-150:0:10</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-160:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-170:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-180:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-190:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-200:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:-10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-150:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:-40</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:-10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-210:0:10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:0</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:-20</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-190:8:-10</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-180:8:0</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-170:8:-10</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-180:8:-20</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:8:-10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:8:0</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:8:-10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:8:-20</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_5.obj">
+                <position>-180:16:-10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush id="-9998" file="ground_1.obj">
+                <position>-200:0:-30</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
+            </brush>
+            <brush id="-9998" file="ground_1.obj">
+                <position>-200:0:10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
+            </brush>
+            <brush id="-9998" file="ground_1.obj">
+                <position>-160:0:10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
+            </brush>
+            <brush id="-9998" file="ground_1.obj">
+                <position>-160:0:-30</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>grid_2d.png</diffuse_texture>
+                <normal_texture>grid_2d.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:10</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-30</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-30</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_5.obj">
+                <position>-180:24:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-180:24:-10</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-200:0:-130</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-190:0:-130</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-130</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-130</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-130</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-160:0:-170</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-200:0:-160</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-200:0:-150</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-200:0:-140</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-190:0:-130</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-180:0:-130</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-170:0:-130</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-160:0:-150</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-160:0:-140</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-160:0:-160</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-170:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-190:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-200:0:-170</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-200:0:-130</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-160:0:-130</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-160:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-130</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:-130</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-130</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-130</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-130</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-140</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-160:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-190:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-170</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-200:0:-140</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-190:8:-160</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-190:8:-140</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-170:8:-140</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-170:8:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-190:8:-150</position>
+                <rotation>0:360:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-180:8:-140</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-170:8:-150</position>
+                <rotation>0:180:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_1.obj">
+                <position>-180:8:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-190:8:-140</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-180:8:-140</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-170:8:-140</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-170:8:-150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-170:8:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-180:8:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-190:8:-160</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-190:8:-150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush id="-9999" file="ceiling_1.obj">
+                <position>-180:8:-150</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>sky_d.png</diffuse_texture>
+                <normal_texture>sky_d.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-170:0:-190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_2.obj">
+                <position>-180:0:-180</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_3.obj">
+                <position>-180:0:-190</position>
+                <rotation>0:0:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="wall_4.obj">
+                <position>-170:0:-190</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>wall_1d.png</diffuse_texture>
+                <normal_texture>wall_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-180</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-190</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-170:0:-190</position>
+                <rotation>0:270:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
+            <brush file="ground_1.obj">
+                <position>-180:0:-170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ground_1d.png</diffuse_texture>
+                <normal_texture>ground_1n.png</normal_texture>
+            </brush>
+            <brush file="ceiling_1.obj">
+                <position>-180:0:-170</position>
+                <rotation>0:90:0</rotation>
+                <scale>1:1:1</scale>
+                <diffuse_texture>ceiling_1d.png</diffuse_texture>
+                <normal_texture>ceiling_1n.png</normal_texture>
+            </brush>
         </multi_brush>
         <brush file="crate.obj">
             <position>-10:0:10</position>
@@ -4291,6 +5719,377 @@
         </brush>
         <brush file="pillar_simple.obj">
             <position>-4:0:140</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="bridge.obj">
+            <position>210:0:10</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>ground_1d.png</diffuse_texture>
+            <normal_texture>ground_1n.png</normal_texture>
+        </brush>
+        <brush file="bridge.obj">
+            <position>310:0:10</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>ground_1d.png</diffuse_texture>
+            <normal_texture>ground_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>225:-10:-5</position>
+            <rotation>0:0:0</rotation>
+            <scale>3:3:3</scale>
+            <diffuse_texture>teleporter_d.png</diffuse_texture>
+            <normal_texture>teleporter_n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>250:5:25</position>
+            <rotation>0:0:0</rotation>
+            <scale>3:3:3</scale>
+            <diffuse_texture>teleporter_d.png</diffuse_texture>
+            <normal_texture>teleporter_n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>270:-5:15</position>
+            <rotation>0:0:0</rotation>
+            <scale>3:3:3</scale>
+            <diffuse_texture>teleporter_d.png</diffuse_texture>
+            <normal_texture>teleporter_n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>300:5:0</position>
+            <rotation>0:0:0</rotation>
+            <scale>3:3:3</scale>
+            <diffuse_texture>teleporter_d.png</diffuse_texture>
+            <normal_texture>teleporter_n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-184:0:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-176:0:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:0:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-182:0:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-178:0:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:0:-8</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:0:-12</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:0:-14</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-182:0:-12</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-178:0:-12</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-178:0:-8</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-182:0:-8</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:0:-6</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:2:-8</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:2:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:2:-12</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_3d.png</diffuse_texture>
+            <normal_texture>crate_3n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-182:2:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_1d.png</diffuse_texture>
+            <normal_texture>crate_1n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-178:2:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="crate.obj">
+            <position>-180:4:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>crate_2d.png</diffuse_texture>
+            <normal_texture>crate_2n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-15</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-13</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-11</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-9</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-7</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-187:0:-5</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-187:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-185:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-183:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-181:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-179:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-177:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-175:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-173:0:-3</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-5</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-7</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-9</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-11</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-13</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-173:0:-15</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-173:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-175:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-177:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-179:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-181:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-183:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="dike.obj">
+            <position>-185:0:-17</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+        </brush>
+        <brush file="pillar.obj">
+            <position>-187:0:-17</position>
             <rotation>0:0:0</rotation>
             <scale>1:1:1</scale>
             <diffuse_texture>wall_1d.png</diffuse_texture>
@@ -4484,6 +6283,232 @@
             <position>155:10:125</position>
             <rotation>0:0:0</rotation>
             <color>0.4:0.4:0.4:1</color>
+            <range>20</range>
+            <falloff>0.7</falloff>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="bridgeEmitter" templateName="test.dept" emitterName="bridgeEmitter">
+            <active>1</active>
+            <position>260:-0.2:10</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="bridge2Emitter" templateName="test.dept" emitterName="bridge2Emitter">
+            <active>1</active>
+            <position>260:-0.4:10</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="circularHorizontalEmitter" templateName="test.dept" emitterName="circularHorizontalEmitter">
+            <active>1</active>
+            <position>290:12:35</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="circularHorizontalEmitter" templateName="test.dept" emitterName="circularHorizontalEmitter">
+            <active>1</active>
+            <position>260:-12:35</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="circularHorizontal2Emitter" templateName="test.dept" emitterName="circularHorizontal2Emitter">
+            <active>1</active>
+            <position>230:-12:35</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- SpotLight Node -->
+        <node type="2" name="spotlight">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>220:20:10</position>
+            <rotation>20:90:0</rotation>
+            <color>0.4:0.4:0.5:1</color>
+            <range>100</range>
+            <radius>35</radius>
+            <falloff>0.8</falloff>
+            <tightness>0.8</tightness>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>false</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>230:-16:30</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>false</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>230:-16:-10</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>false</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>260:-16:30</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>false</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>260:-16:-10</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>290:8:30</position>
+            <rotation>0:90:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="leaked_wall.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>290:8:-10</position>
+            <rotation>0:270:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>wall_1d.png</diffuse_texture>
+            <normal_texture>wall_1n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+            <boundingBox>wall_1.obj</boundingBox>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-200:0:-30</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-200:0:10</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-160:0:10</position>
+            <rotation>0:180:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- Static Mesh Node -->
+        <node type="5" name="undefined" file="pipe_floor.obj">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-160:0:-30</position>
+            <rotation>0:0:0</rotation>
+            <scale>1:1:1</scale>
+            <diffuse_texture>pipe_floor_d.png</diffuse_texture>
+            <normal_texture>pipe_floor_n.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- SpotLight Node -->
+        <node type="2" name="spotlight">
+            <enabled>true</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-180:30:-6</position>
+            <rotation>70:180:0</rotation>
+            <color>0.4:0.3:0.3:1</color>
+            <range>40</range>
+            <radius>30</radius>
+            <falloff>0.8</falloff>
+            <tightness>0.8</tightness>
+        </node>
+        <!-- Animated Mesh Node -->
+        <node type="6" name="fan_entity" file="fan.ms3d">
+            <enabled>false</enabled>
+            <shadow_caster>true</shadow_caster>
+            <position>-180:21:-10</position>
+            <rotation>0:0:0</rotation>
+            <scale>2:2:2</scale>
+            <diffuse_texture>black.png</diffuse_texture>
+            <normal_texture>white.png</normal_texture>
+            <meshShading>0</meshShading>
+            <material>default.mtl</material>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="redSmokeEmitter" templateName="test.dept" emitterName="redSmokeEmitter">
+            <active>1</active>
+            <position>-180:25:-10</position>
+            <textureId>0</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="verticalSmokeEmitter" templateName="test.dept" emitterName="verticalSmokeEmitter">
+            <active>1</active>
+            <position>-200:0:-28</position>
+            <textureId>3</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="verticalSmokeEmitter" templateName="test.dept" emitterName="verticalSmokeEmitter">
+            <active>1</active>
+            <position>-157:0:8</position>
+            <textureId>3</textureId>
+        </node>
+        <!-- Particle Emitter Node -->
+        <node type="9" name="mistEmitter" templateName="test.dept" emitterName="mistEmitter">
+            <active>1</active>
+            <position>-180:10:-150</position>
+            <textureId>5</textureId>
+        </node>
+        <!-- PointLight Node -->
+        <node type="3" name="pointLight4">
+            <enabled>true</enabled>
+            <shadow_caster>false</shadow_caster>
+            <position>-180:10:-150</position>
+            <rotation>0:0:0</rotation>
+            <color>0.2:0.2:0.1:1</color>
             <range>20</range>
             <falloff>0.7</falloff>
         </node>

@@ -738,7 +738,7 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>700</emissionRate>
+		<emissionRate>1200</emissionRate>
 		<ignoreGravity>false</ignoreGravity>
 		<initializers>
 			<minMaxLife>
@@ -754,15 +754,15 @@
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.5:0.5:0.9:0.0</value>
+					<value>0.5:0.5:0.7:0.0</value>
 				</color>
 				<color>
 					<time>0.1</time>
-					<value>0.5:0.5:0.9:0.1</value>
+					<value>0.5:0.5:0.7:0.07</value>
 				</color>
 				<color>
 					<time>1.0</time>
-					<value>0.5:0.5:0.9:0.0</value>
+					<value>0.5:0.5:0.7:0.0</value>
 				</color>
 			</colorChange>
 			<sizeChange>
@@ -780,7 +780,7 @@
 					<time>0</time>
 					<direction>0.0:-1.0:0</direction>
 					<velocityMin>8</velocityMin>
-					<velocityMax>12</velocityMax>
+					<velocityMax>15</velocityMax>
 					<variationFactor>0.0</variationFactor>
 				</velocity>
 				<damping>0.3</damping>
@@ -810,15 +810,15 @@
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.5:0.5:0.9:0.0</value>
+					<value>0.5:0.5:0.7:0.0</value>
 				</color>
 				<color>
 					<time>0.1</time>
-					<value>0.5:0.5:0.9:0.1</value>
+					<value>0.5:0.5:0.7:0.05</value>
 				</color>
 				<color>
 					<time>1.0</time>
-					<value>0.5:0.5:0.9:0.0</value>
+					<value>0.5:0.5:0.7:0.0</value>
 				</color>
 			</colorChange>
 			<sizeChange>
@@ -1061,6 +1061,163 @@
 				</velocity>
 				<damping>0.0</damping>
 				<axis>0:0:1</axis>
+			</circularVelocityChange>
+			<life/>
+		</updaters>
+	</emitter>
+	
+	<emitter name="redSmokeEmitter">
+		<blendMode>5</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>100</emissionRate>
+		<ignoreGravity>true</ignoreGravity>
+		<initializers>
+			<minMaxRotation>
+				<min>25</min>
+				<max>65</max>
+			</minMaxRotation>
+			<minMaxLife>
+				<min>5000</min>
+				<max>8000</max>
+			</minMaxLife>
+			<minMaxBoxPosition>
+				<min>-5:0:-5</min>
+				<max>5:0:5</max>
+			</minMaxBoxPosition>
+		</initializers>
+		<updaters>
+			<colorChange>
+				<color>
+					<time>0.0</time>
+					<value>0.5:0.4:0.4:0.1</value>
+				</color>
+				<color>
+					<time>1.0</time>
+					<value>0.5:0.4:0.4:0.0</value>
+				</color>
+			</colorChange>
+			<sizeChange>
+				<size>
+					<time>0.0</time>
+					<value>5</value>
+				</size>
+			</sizeChange>
+			<linearVelocityChange>
+				<velocity>
+					<time>0</time>
+					<direction>0:-1:0</direction>
+					<velocityMin>4</velocityMin>
+					<velocityMax>6</velocityMax>
+					<variationFactor>0.3</variationFactor>
+				</velocity>
+				<damping>0.3</damping>
+			</linearVelocityChange>
+			<life/>
+			<rotation/>
+		</updaters>
+	</emitter>
+	<emitter name="verticalSmokeEmitter">
+		<blendMode>5</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>20</emissionRate>
+		<ignoreGravity>true</ignoreGravity>
+		<initializers>
+			<minMaxRotation>
+				<min>25</min>
+				<max>65</max>
+			</minMaxRotation>
+			<minMaxLife>
+				<min>3000</min>
+				<max>3000</max>
+			</minMaxLife>
+			<radiusPosition>
+				<innerRadius>0</innerRadius>
+				<outerRadius>0.1</outerRadius>
+				<axis>1:0:1</axis>
+			</radiusPosition>
+		</initializers>
+		<updaters>
+			<colorChange>
+				<color>
+					<time>0.0</time>
+					<value>0.4:0.4:0.4:0.04</value>
+				</color>
+				<color>
+					<time>1.0</time>
+					<value>0.4:0.4:0.4:0.0</value>
+				</color>
+			</colorChange>
+			<sizeChange>
+				<size>
+					<time>0.0</time>
+					<value>0.2</value>
+				</size>
+				<size>
+					<time>1</time>
+					<value>5</value>
+				</size>
+			</sizeChange>
+			<linearVelocityChange>
+				<velocity>
+					<time>0</time>
+					<direction>0:1:0</direction>
+					<velocityMin>6</velocityMin>
+					<velocityMax>6</velocityMax>
+					<variationFactor>0.0</variationFactor>
+				</velocity>
+				<damping>0.9</damping>
+			</linearVelocityChange>
+			<life/>
+			<rotation/>
+		</updaters>
+	</emitter>
+	<emitter name="mistEmitter">
+		<blendMode>5</blendMode>
+		<life>-1</life>
+		<lifeMax>-1</lifeMax>
+		<emissionRate>700</emissionRate>
+		<ignoreGravity>true</ignoreGravity>
+		<initializers>
+			<minMaxLife>
+				<min>5000</min>
+				<max>10000</max>
+			</minMaxLife>
+			<minMaxBoxPosition>
+				<min>-25:-8:-25</min>
+				<max>25:8:25</max>
+			</minMaxBoxPosition>
+		</initializers>
+		<updaters>
+			<colorChange>
+				<color>
+					<time>0.0</time>
+					<value>0.4:0.4:0.4:0.0</value>
+				</color>
+				<color>
+					<time>0.1</time>
+					<value>0.4:0.4:0.4:0.02</value>
+				</color>
+				<color>
+					<time>1.0</time>
+					<value>0.4:0.4:0.4:0.0</value>
+				</color>
+			</colorChange>
+			<sizeChange>
+				<size>
+					<time>0.0</time>
+					<value>4</value>
+				</size>
+			</sizeChange>
+			<circularVelocityChange>
+				<velocity>
+					<time>0</time>
+					<velocityMin>0.2</velocityMin>
+					<velocityMax>0.4</velocityMax>
+				</velocity>
+				<damping>0.0</damping>
+				<axis>1:1:1</axis>
 			</circularVelocityChange>
 			<life/>
 		</updaters>
