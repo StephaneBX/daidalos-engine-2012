@@ -169,6 +169,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>1</outerRadius>
+				<axis>1:0:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -205,6 +206,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>1</outerRadius>
+				<axis>1:0:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -240,6 +242,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>0.1</outerRadius>
+				<axis>1:1:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -289,6 +292,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>0.1</outerRadius>
+				<axis>1:1:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -331,6 +335,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>0.1</outerRadius>
+				<axis>1:0:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>
@@ -383,6 +388,7 @@
 			<radiusPosition>
 				<innerRadius>0</innerRadius>
 				<outerRadius>0.05</outerRadius>
+				<axis>1:1:1</axis>
 			</radiusPosition>
 		</initializers>
 		<updaters>

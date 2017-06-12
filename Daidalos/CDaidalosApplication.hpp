@@ -39,7 +39,7 @@ namespace DAIDALOS
 	/**
 	* Test application implementation
 	*/
-	class CDaidalosApplication : public GE::IDeferredApplication
+	class CDaidalosApplication : public GE::IForwardApplication
 	{
 	private:
 
@@ -48,8 +48,9 @@ namespace DAIDALOS
 		* Constructor
 		* @param hInstance Instance
 		* @param nCmdShow Commands
+		* @param levelName The level name to start
 		*/
-		CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow);
+		CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName);
 
 		/**
 		* Destructor
