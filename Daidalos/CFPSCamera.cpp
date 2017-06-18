@@ -69,6 +69,7 @@ namespace DAIDALOS {
 		this->m_stepDistance = 0;
 		this->m_ladderDistance = 0;
 		this->m_jumpTimer = 0;
+		this->m_currentWeapon = nullptr;
 
 		this->m_inputDevice = DE::CInputDevice::GetInstance();
 		this->m_soundContext = DE::CSoundContextManager::GetInstance();
@@ -172,10 +173,10 @@ namespace DAIDALOS {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
-		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
-		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
-		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
+		//this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
+		//this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
+		//this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
+		//this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
 	}
 
 	/**
@@ -254,8 +255,10 @@ namespace DAIDALOS {
 
 		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
 		if(IsEnabled()) {
-			this->m_currentWeapon->Update(time);
-
+			if (this->m_currentWeapon != nullptr) {
+				this->m_currentWeapon->Update(time);
+			}
+			
 			UpdateState();
 			UpdateView(timeSecond);
 			UpdateAction();
@@ -713,11 +716,11 @@ namespace DAIDALOS {
 	* Update the action
 	*/
 	void CFPSCamera::UpdateAction() {
-		if((this->m_actionState & FPS_CAMERA_FIRE) != 0) {
+		if((this->m_actionState & FPS_CAMERA_FIRE) != 0 && this->m_currentWeapon != nullptr) {
 			this->m_currentWeapon->Fire();
 		}
 
-		if((this->m_actionState & FPS_CAMERA_RELOAD) != 0) {
+		if((this->m_actionState & FPS_CAMERA_RELOAD) != 0 && this->m_currentWeapon != nullptr) {
 			this->m_currentWeapon->Reload();
 		}
 

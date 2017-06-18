@@ -6531,5 +6531,16 @@
             <near>0.1</near>
             <far>50</far>
         </node>
+		
+		<!-- Empty Node -->
+        <node type="8" name="cinematic_trigger_entity">
+			<enabled>true</enabled>
+            <position>0:0:0</position>
+            <rotation>0:0:0</rotation>
+            <attributes>
+                <triggerRadius>20</triggerRadius>
+				<cinematic>particles.dgc</cinematic>
+            </attributes>
+        </node>
     </node>
 </scene>

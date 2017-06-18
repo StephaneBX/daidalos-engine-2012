@@ -952,8 +952,8 @@
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<minMaxLife>
-				<min>10000</min>
-				<max>10000</max>
+				<min>13000</min>
+				<max>13000</max>
 			</minMaxLife>
 			<radiusPosition>
 				<innerRadius>2</innerRadius>
@@ -1013,8 +1013,8 @@
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<minMaxLife>
-				<min>10000</min>
-				<max>10000</max>
+				<min>13000</min>
+				<max>13000</max>
 			</minMaxLife>
 			<radiusPosition>
 				<innerRadius>2</innerRadius>

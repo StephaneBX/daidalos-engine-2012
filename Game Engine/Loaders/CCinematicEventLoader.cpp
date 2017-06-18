@@ -106,8 +106,11 @@ namespace GE {
 		} else if (fade == "out") {
 			step.fade = FADE_OUT;
 
-		} else if ("both") {
+		} else if (fade == "both") {
 			step.fade = FADE_BOTH;
+
+		} else {
+			step.fade = FADE_NONE;
 		}
 
 		data->cameraSteps.push_back(step);
