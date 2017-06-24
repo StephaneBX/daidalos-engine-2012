@@ -627,6 +627,9 @@
     <ClInclude Include="Scene\Particles\Initializers\CPositionParticleInitializer.hpp">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CMassParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -1020,6 +1023,9 @@
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Particles\Initializers\CPositionParticleInitializer.cpp">
+      <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Particles\Initializers\CMassParticleInitializer.cpp">
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
   </ItemGroup>

@@ -630,13 +630,14 @@
 		<emissionRate>100</emissionRate>
 		<ignoreGravity>false</ignoreGravity>
 		<initializers>
+			<mass>0.1</mass>
 			<minMaxRotation>
 				<min>25</min>
 				<max>65</max>
 			</minMaxRotation>
 			<minMaxLife>
-				<min>2000</min>
-				<max>4000</max>
+				<min>6000</min>
+				<max>8000</max>
 			</minMaxLife>
 			<radiusPosition>
 				<innerRadius>0.0</innerRadius>
@@ -673,8 +674,8 @@
 				<velocity>
 					<time>0</time>
 					<direction>0.0:0.0:-1</direction>
-					<velocityMin>2</velocityMin>
-					<velocityMax>3</velocityMax>
+					<velocityMin>1</velocityMin>
+					<velocityMax>2</velocityMax>
 					<variationFactor>0.0</variationFactor>
 				</velocity>
 				<damping>0.3</damping>
@@ -690,6 +691,28 @@
 		<lifeMax>-1</lifeMax>
 		<emissionRate>300</emissionRate>
 		<ignoreGravity>false</ignoreGravity>
+		<emissionRateChange>
+			<emissionRate>
+				<time>0</time>
+				<value>0</value>
+			</emissionRate>
+			<emissionRate>
+				<time>2000</time>
+				<value>50</value>
+			</emissionRate>
+			<emissionRate>
+				<time>3000</time>
+				<value>500</value>
+			</emissionRate>
+			<emissionRate>
+				<time>3200</time>
+				<value>10</value>
+			</emissionRate>
+			<emissionRate>
+				<time>5000</time>
+				<value>-1</value>
+			</emissionRate>
+		</emissionRateChange>
 		<initializers>
 			<minMaxLife>
 				<min>0</min>

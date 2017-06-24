@@ -74,7 +74,7 @@ namespace DE {
 					// Apply the velocity value
 					if ((*it).velocityMin != 0 && (*it).velocityMax != 0) {
 						float velocityForce = RandomNumber<float>((*it).velocityMin, (*it).velocityMax);
-						velocity *= velocityForce;
+						velocity *= velocityForce * particle->GetMass();
 
 						// Add the linear velocity
 						particle->SetSphereVelocity(particle->GetSphereVelocity() + velocity);

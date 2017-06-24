@@ -70,7 +70,7 @@ namespace DE {
 					// A new circular velocity must be add to the current particle's velocity
 
 					// Add the circular velocity
-					particle->SetCircularVelocity(particle->GetCircularVelocity() + RandomNumber<float>((*it).velocityMin, (*it).velocityMax));
+					particle->SetCircularVelocity(particle->GetCircularVelocity() + (RandomNumber<float>((*it).velocityMin, (*it).velocityMax) * particle->GetMass()));
 				}
 			}
 

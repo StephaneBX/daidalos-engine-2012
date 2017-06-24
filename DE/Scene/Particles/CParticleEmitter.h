@@ -45,6 +45,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/Initializers/CRotationParticleInitializer.h"
 #include "../../Scene/Particles/Initializers/CSizeParticleInitializer.h"
 #include "../../Scene/Particles/Initializers/CSphereVelocityParticleInitializer.h"
+#include "../../Scene/Particles/Initializers/CMassParticleInitializer.hpp"
 
 #include "../../Scene/Particles/Updaters/CColorParticleUpdater.h"
 #include "../../Scene/Particles/Updaters/CGravityParticleUpdater.h"

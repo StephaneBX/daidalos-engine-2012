@@ -52,6 +52,7 @@ namespace DE {
 		float m_lifeMax;
 		float m_rotationSpeed;
 		float m_textureId;
+		float m_mass;
 		CColor m_color;
 		CVector3F m_position;
 		CVector3F m_emitterPosition;
@@ -108,6 +109,12 @@ namespace DE {
 		* @param textureId The texture id
 		*/
 		void SetTextureId(const float textureId);
+
+		/**
+		* Set the mass
+		* @param mass The mass
+		*/
+		void SetMass(const float mass);
 
 		/**
 		* Set the circular velocity
@@ -189,6 +196,12 @@ namespace DE {
 		* Get the rotation speed
 		*/
 		const float GetRotationSpeed() const;
+
+		/**
+		* Get the mass
+		* @return The mass
+		*/
+		const float GetMass() const;
 
 		/**
 		* Get the circular velocity

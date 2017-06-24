@@ -160,6 +160,7 @@
     <ClInclude Include="Scene\Particles\Initializers\CDefaultParticleInitializer.hpp" />
     <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h" />
+    <ClInclude Include="Scene\Particles\Initializers\CMassParticleInitializer.hpp" />
     <ClInclude Include="Scene\Particles\Initializers\CPositionParticleInitializer.hpp" />
     <ClInclude Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.h" />
     <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h" />
@@ -293,6 +294,7 @@
     <ClCompile Include="Scene\Particles\Initializers\CDefaultParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CLifeParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.cpp" />
+    <ClCompile Include="Scene\Particles\Initializers\CMassParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CPositionParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.cpp" />
     <ClCompile Include="Scene\Particles\Initializers\CRotationParticleInitializer.cpp" />

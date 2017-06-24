@@ -55,7 +55,7 @@ namespace DE {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
-			particle->SetGravityVelocity(particle->GetGravityVelocity() + (this->m_gravity * timeSecond));
+			particle->SetGravityVelocity(particle->GetGravityVelocity() + (this->m_gravity * particle->GetMass() * timeSecond));
 			particle->SetPosition(particle->GetPosition() + (particle->GetGravityVelocity() * timeSecond));
 		}
 	}

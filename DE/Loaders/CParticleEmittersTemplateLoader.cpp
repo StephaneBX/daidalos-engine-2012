@@ -127,7 +127,7 @@ namespace DE {
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterInitializers(CParticleEmitter * emitter, tinyxml2::XMLElement * initializersElement) {
 		if (initializersElement != nullptr) {
 			tinyxml2::XMLHandle initializersHandle = tinyxml2::XMLHandle(initializersElement);
-			float emitterParticleSize, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleLinearVelocityVariation;
+			float emitterParticleSize, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleLinearVelocityVariation, emitterParticleMass;
 			CVector3F emitterParticlePosition, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax, emitterParticleRadiusPosition;
 			CColor emitterParticleColor;
 
@@ -189,6 +189,11 @@ namespace DE {
 				} else if (childName.compare("position") == 0) {
 					GetNodeData(initializersHandle, "position", emitterParticlePosition, CVector3F());
 					CPositionParticleInitializer * initializer = new CPositionParticleInitializer(emitterParticlePosition);
+					emitter->AddInitializer(initializer);
+
+				} else if (childName.compare("mass") == 0) {
+					GetNodeData(initializersHandle, "mass", emitterParticleMass, 1);
+					CMassParticleInitializer * initializer = new CMassParticleInitializer(emitterParticleMass);
 					emitter->AddInitializer(initializer);
 				}
 			}

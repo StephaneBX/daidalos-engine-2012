@@ -38,6 +38,7 @@ namespace DE {
 		this->m_color = CColor(0, 0, 0, 0);
 		this->m_rotationSpeed = 0;
 		this->m_textureId = 0;
+		this->m_mass = 1;
 		this->m_linearVelocity = CVector3F();
 		this->m_sphereVelocity = CVector3F();
 		this->m_gravityVelocity = CVector3F();
@@ -99,6 +100,14 @@ namespace DE {
 	void CParticleEntity::SetTextureId(const float textureId) {
 		this->m_textureId = textureId;
 		this->m_data.sizeTextureId.y = textureId;
+	}
+
+	/**
+	* Set the mass
+	* @param mass The mass
+	*/
+	void CParticleEntity::SetMass(const float mass) {
+		this->m_mass = mass;
 	}
 
 	/**
@@ -213,6 +222,14 @@ namespace DE {
 	*/
 	const float CParticleEntity::GetRotationSpeed() const {
 		return this->m_rotationSpeed;
+	}
+
+	/**
+	* Get the mass
+	* @return The mass
+	*/
+	const float CParticleEntity::GetMass() const {
+		return this->m_mass;
 	}
 
 	/**
