@@ -57,6 +57,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/Updaters/CCircularVelocityParticleUpdater.hpp"
 
 namespace DE {
+
+	struct SParticleEmitterEmissionRateChange {
+		float time;
+		float value;
+	};
+
 	/**
 	* A particle emitter
 	*/
@@ -74,6 +80,7 @@ namespace DE {
 		CVector3F m_position;
 		CSphereF m_visibilityShape;
 		std::vector<int> m_particleIndex;
+		std::vector<SParticleEmitterEmissionRateChange> m_emitterEmissionRatesChange;
 		std::vector<std::unique_ptr<IParticleInitializer> > m_initializers;
 		std::vector<std::unique_ptr<IParticleUpdater> > m_updaters;
 
@@ -141,6 +148,12 @@ namespace DE {
 		* @param position The position
 		*/
 		void SetPosition(const CVector3F & position);
+
+		/**
+		* Add an emission rate change
+		* @param emissionRateChange an emission rate declaration
+		*/
+		void AddEmissionRateChange(const SParticleEmitterEmissionRateChange & emissionRateChange);
 
 		/**
 		* Add an initializer to the emitter

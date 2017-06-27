@@ -1,10 +1,16 @@
 <emitters>
-	<emitter name="fleshImpactEmitter">
+	<emitter name="emitterName">
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
 		<emissionRate>500</emissionRate>
 		<ignoreGravity>true/false</ignoreGravity>
+		<emissionRateChange>
+			<emissionRate>
+				<time>1000</time>
+				<value>20</value>
+			</emissionRate>
+		</emissionRateChange>
 		<initializers>
 			<color>0.6:0.1:0.1:0.3</color>
 			<size>0.1</size>

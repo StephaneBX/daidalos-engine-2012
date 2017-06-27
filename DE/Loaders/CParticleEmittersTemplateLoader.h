@@ -68,6 +68,13 @@ namespace DE {
 		void LoadParticleEmitterNode(tinyxml2::XMLHandle & handle);
 
 		/**
+		* Load the particle emitter emission rate change
+		* @param emitter The emitter 
+		* @param emissionRateChangeElement The emission rate changes
+		*/
+		void LoadParticleEmitterEmissionRateChange(CParticleEmitter * emitter, tinyxml2::XMLElement * emissionRateChangeElement);
+
+		/**
 		* Load a particle emitter initializers
 		* @param emitter The emitter 
 		* @param initializersElement The initializers

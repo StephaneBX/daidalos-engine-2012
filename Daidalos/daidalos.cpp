@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// Debuging code
 #endif
 
-	std::string levelName = "factory.des";
+	std::string levelName = "particles.des";
 
 	// Read the command lines
 	if (__argc > 1) {

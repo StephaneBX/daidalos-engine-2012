@@ -108,6 +108,10 @@ namespace DE {
 		emitter->SetEmissionRate(emitterEmissionRate);
 		emitter->SetIgnoreGravity(ignoreGravity);
 
+		// Look for emission rate changes
+		tinyxml2::XMLElement * emissionRateChangeElement = handle.FirstChildElement("emissionRateChange").ToElement();
+		LoadParticleEmitterEmissionRateChange(emitter, emissionRateChangeElement);
+
 		// Look for initializers
 		tinyxml2::XMLElement * initializersElement = handle.FirstChildElement("initializers").ToElement();
 		LoadParticleEmitterInitializers(emitter, initializersElement);
@@ -117,6 +121,34 @@ namespace DE {
 		LoadParticleEmitterUpdaters(emitter, updatersElement);
 
 		this->m_emittersTemplate[emitterName] = emitter;
+	}
+
+	/**
+	* Load a particle emitter emission rate change
+	* @param emitter The emitter
+	* @param initializersElement The initializers
+	*/
+	void CParticleEmittersTemplateLoader::LoadParticleEmitterEmissionRateChange(CParticleEmitter * emitter, tinyxml2::XMLElement * emissionRateChangeElement) {
+		if (emissionRateChangeElement != nullptr) {
+			float emitterEmissionRateTime, emitterEmissionRateValue;
+
+			for (tinyxml2::XMLElement* child = emissionRateChangeElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				std::string childName = std::string(child->Name());
+				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+
+				// Read an emission rate
+				if (childName.compare("emissionRate") == 0) {
+					GetNodeData(childHandle, "time", emitterEmissionRateTime, 0);
+					GetNodeData(childHandle, "value", emitterEmissionRateValue, 0);
+
+					SParticleEmitterEmissionRateChange emissionRateCHange;
+					emissionRateCHange.time = emitterEmissionRateTime;
+					emissionRateCHange.value = emitterEmissionRateValue;
+
+					emitter->AddEmissionRateChange(emissionRateCHange);
+				}
+			}
+		}
 	}
 
 	/**

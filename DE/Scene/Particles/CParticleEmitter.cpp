@@ -118,6 +118,14 @@ namespace DE {
 	}
 
 	/**
+	* Add an emission rate change
+	* @param emissionRateChange an emission rate declaration
+	*/
+	void CParticleEmitter::AddEmissionRateChange(const SParticleEmitterEmissionRateChange & emissionRateChange) {
+		this->m_emitterEmissionRatesChange.push_back(emissionRateChange);
+	}
+
+	/**
 	* Add an initializer to the emitter
 	* @param initializer The initializer to add
 	*/
@@ -142,8 +150,24 @@ namespace DE {
 
 		// Create new particle only when active
 		if(this->m_active) {
+
 			// Update the emitter's life
 			this->m_life += time;
+
+			// Update the emitter emission rate
+			for (auto it = this->m_emitterEmissionRatesChange.begin(); it != this->m_emitterEmissionRatesChange.end(); ++it) {
+				if ((*it).time >= (this->m_life - time) && (*it).time < this->m_life) {
+
+					// For infinite emitters
+					if (this->m_lifeMax <= 0 && (*it).value == -1) {
+						this->m_emissionRate = 0;
+						this->m_life = 0;
+
+					} else {
+						this->m_emissionRate = (*it).value;
+					}
+				}
+			}
 
 			// New particle emission
 			this->m_pendingTime += time;
@@ -325,13 +349,18 @@ namespace DE {
 		emitter->SetIgnoreGravity(this->m_ignoreGravity);
 		emitter->SetPosition(this->m_position);
 
+		// Clone the emission rates
+		for (auto it = this->m_emitterEmissionRatesChange.begin(); it != this->m_emitterEmissionRatesChange.end(); ++it) {
+			emitter->AddEmissionRateChange(*it);
+		}
+
 		// Clone the initializers
-		for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); ++it) {
+		for (auto it = this->m_initializers.begin(); it != this->m_initializers.end(); ++it) {
 			emitter->AddInitializer((IParticleInitializer*)(*it)->Clone());
 		}
 
 		// Clone the updaters
-		for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); ++it) {
+		for (auto it = this->m_updaters.begin(); it != this->m_updaters.end(); ++it) {
 			emitter->AddUpdater((IParticleUpdater*)(*it)->Clone());
 		}
 

@@ -1,5 +1,139 @@
 <cinematic>
 	<camera>
+	
+		<!-- Burning Room -->
+		<step>
+			<position>55:12:-165</position>
+			<rotation>0:0:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>in</fade>
+		</step>
+		<step>
+			<position>55:12:-165</position>
+			<rotation>0:0:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>55:12:-145</position>
+			<rotation>0:-90:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>30:12:-145</position>
+			<rotation>0:-90:0</rotation>
+			<duration>5000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>5:17:-125</position>
+			<rotation>20:-150:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>-25:17:-125</position>
+			<rotation>20:-220:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>-25:22:-145</position>
+			<rotation>30:-270:0</rotation>
+			<duration>6000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>-15:5:-145</position>
+			<rotation>10:-270:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>0:5:-145</position>
+			<rotation>0:-270:0</rotation>
+			<duration>4000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>10:15:-145</position>
+			<rotation>0:-270:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>10:15:-145</position>
+			<rotation>0:-270:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>out</fade>
+		</step>
+		
+		
+	
+		<!-- Electric Surge Room -->
+		<step>
+			<position>-25:4:125</position>
+			<rotation>0:90:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>in</fade>
+		</step>
+		<step>
+			<position>-25:4:125</position>
+			<rotation>0:90:0</rotation>
+			<duration>3000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>-15:4:125</position>
+			<rotation>0:90:0</rotation>
+			<duration>8000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>5:4:125</position>
+			<rotation>0:0:0</rotation>
+			<duration>6000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>15:4:125</position>
+			<rotation>0:0:0</rotation>
+			<duration>5000</duration>
+			<transition>interpolate</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>20:4:125</position>
+			<rotation>0:90:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>none</fade>
+		</step>
+		<step>
+			<position>20:4:125</position>
+			<rotation>0:90:0</rotation>
+			<duration>1000</duration>
+			<transition>none</transition>
+			<fade>out</fade>
+		</step>
+	
+	
 		<!-- Smoke Room -->
 		<step>
 			<position>-160:4:25</position>
