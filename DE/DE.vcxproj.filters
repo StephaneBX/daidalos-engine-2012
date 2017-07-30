@@ -630,6 +630,9 @@
     <ClInclude Include="Scene\Particles\Initializers\CMassParticleInitializer.hpp">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.h">
+      <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">

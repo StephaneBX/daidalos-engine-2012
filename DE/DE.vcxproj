@@ -116,6 +116,7 @@
     <ClInclude Include="Scene\2D\CSprite.h" />
     <ClInclude Include="Scene\2D\IView.h" />
     <ClInclude Include="Scene\2D\Listeners\IButtonListener.h" />
+    <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.h" />
     <ClInclude Include="Scene\3D\C3DScene.h" />
     <ClInclude Include="Scene\3D\CAABoundingBox.h" />
     <ClInclude Include="Scene\3D\CAnimatedMeshSceneNode.h" />

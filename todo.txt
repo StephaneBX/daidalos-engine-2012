@@ -46,13 +46,12 @@
 ===============================================================
                                   GUI
 ===============================================================
-- Mettre en place CWindow
+- Mettre en place CWindow, CList, CScrollableView, CSlider
 - Optimisation du scale des éléments
-- ICheckboxListener
 
 
 ===============================================================
-                     Intéractions / Collisions
+                     Interactions / Collisions
 ===============================================================
 
 - ICollidableNode
@@ -89,7 +88,7 @@ Anti-Penumbra
 
 
 ===============================================================
-                             C++11
+                          C++11/C++14
 ===============================================================
 - Classe et méthode final: Class Toto final | virtual void toto() final;
 - Override explicite: virtual void toto() override;
@@ -110,30 +109,6 @@ Anti-Penumbra
 ===============================================================
                            Application
 ===============================================================
-
-struct SCinematicCameraStep
-{
-	DE::CVector3F position;
-	DE::CVector3F rotation;
-	unsigned int transition;
-	float speed;
-};
-
-Transitions: None, Interpolate, Fade, InterpolateAndFade
-
-CCinematicCamera => Retirer héritage IPlayer
-private:
-	CProjectionCameraSceneNode * node;
-	std::vector<SCinematicCameraStep> steps;
-	
-CCinematicEntity : ITriggerEntity
-	m_triggered
-	actif: Immobilise joueur(SetEnabled), retire hud(SetVisible)
-	fini: réactive joueur et hud
-	
-Nouveau type fichier, CinematicLoader dans GameEngine GE
-=> Refactoring des samples
-
 - Prefab pour Deferred Shading (avec / sans shadows - lumières)
 
 

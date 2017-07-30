@@ -52,6 +52,35 @@ namespace DE {
 		delete this->m_label;
 	}
 
+	/**
+	* Add a checkbox listener
+	* @param listener The checkbox listener
+	*/
+	void CCheckbox::AddCheckboxListener(ICheckboxListener * listener) {
+		LOG_TRACE();
+
+		this->m_checkboxListeners.insert(listener);
+	}
+
+	/**
+	* Remove a checkbox listener
+	* @param listener The checkbox listener
+	*/
+	void CCheckbox::RemoveCheckboxListener(ICheckboxListener * listener) {
+		LOG_TRACE();
+
+		this->m_checkboxListeners.erase(listener);
+	}
+
+	/**
+	* Remove all the listeners
+	*/
+	void CCheckbox::RemoveAllCheckboxListeners() {
+		LOG_TRACE();
+
+		this->m_checkboxListeners.clear();
+	}
+
 	void CCheckbox::SetEnabled(const bool enabled) {
 		LOG_TRACE();
 
@@ -173,6 +202,15 @@ namespace DE {
 			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest) {
 				this->m_clicked = false;
 				this->m_checked = !this->m_checked;
+
+				// Call the listeners
+				for (auto it = this->m_checkboxListeners.begin(); it != this->m_checkboxListeners.end(); ++it) {
+					if (this->m_checked) {
+						(*it)->OnCheckboxChecked(this);
+					} else {
+						(*it)->OnCheckboxUnchecked(this);
+					}
+				}
 			}
 		}
 

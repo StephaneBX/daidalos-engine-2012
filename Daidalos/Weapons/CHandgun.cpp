@@ -110,7 +110,7 @@ namespace DAIDALOS {
 	*/
 	void CHandgun::InitializeFireSmokeEmitter() {
 		DE::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
-		emitter->SetTextureId(1);
+		emitter->SetTextureId(3);
 		emitter->SetReusable(true);
 
 		this->m_smokeEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);

@@ -173,10 +173,10 @@ namespace DAIDALOS {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		//this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
-		//this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
-		//this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
-		//this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
+		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
+		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
+		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
+		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
 	}
 
 	/**

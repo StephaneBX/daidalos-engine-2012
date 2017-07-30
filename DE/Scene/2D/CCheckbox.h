@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <set>
 #include "../../Scene/2D/IView.h"
 #include "../../Scene/2D/CLabel.h"
-#include "../../Scene/2D/Listeners/IButtonListener.h"
+#include "../../Scene/2D/Listeners/ICheckboxListener.h"
 #include "../../Core/Utility/CInset.h"
 #include "../../Medias/CTexture2D.h"
 
@@ -48,6 +48,7 @@ namespace DE {
 		CTexture2D m_uncheckedTexture;
 		CTexture2D m_checkedTexture;
 		CTexture2D m_clickedTexture;
+		std::set<ICheckboxListener *> m_checkboxListeners;
 		CLabel * m_label;
 
 	public:
@@ -60,6 +61,23 @@ namespace DE {
 		* Destructor
 		*/
 		virtual ~CCheckbox();
+
+		/**
+		* Add a checkbox listener
+		* @param listener The checkbox listener
+		*/
+		void AddCheckboxListener(ICheckboxListener * listener);
+
+		/**
+		* Remove a checkbox listener
+		* @param listener The checkbox listener
+		*/
+		void RemoveCheckboxListener(ICheckboxListener * listener);
+
+		/**
+		* Remove all the listeners
+		*/
+		void RemoveAllCheckboxListeners();
 
 		/**
 		* Set the enabled state

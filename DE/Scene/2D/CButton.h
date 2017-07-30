@@ -48,7 +48,7 @@ namespace DE {
 		CTexture2D m_focusedTexture;
 		CTexture2D m_clickedTexture;
 		std::set<IButtonListener *> m_buttonListeners;
-		CLabel *  m_title;
+		CLabel * m_title;
 		CColor m_defaultTitleColor;
 		CColor m_clickedTitleColor;
 		CColor m_focusedTitleColor;

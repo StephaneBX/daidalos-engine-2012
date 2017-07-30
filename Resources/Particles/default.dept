@@ -3,14 +3,14 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>80</emissionRate>
+		<emissionRate>40</emissionRate>
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<color>0.3:0.3:0.3:0.2</color>
 			<size>2</size>
 			<minMaxLife>
 				<min>0</min>
-				<max>8000</max>
+				<max>9000</max>
 			</minMaxLife>
 			<minMaxRotation>
 				<min>-45</min>
@@ -27,7 +27,7 @@
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.3:0.3:0.3:0.2</value>
+					<value>0.3:0.3:0.3:0.1</value>
 				</color>
 				<color>
 					<time>1.0</time>
@@ -41,7 +41,7 @@
 				</size>
 				<size>
 					<time>1.0</time>
-					<value>8</value>
+					<value>10</value>
 				</size>
 			</sizeChange>
 			<linearVelocityChange/>
@@ -321,11 +321,11 @@
 		<blendMode>5</blendMode>
 		<life>-1</life>
 		<lifeMax>-1</lifeMax>
-		<emissionRate>55</emissionRate>
+		<emissionRate>75</emissionRate>
 		<ignoreGravity>true</ignoreGravity>
 		<initializers>
 			<minMaxLife>
-				<min>0</min>
+				<min>2000</min>
 				<max>3000</max>
 			</minMaxLife>
 			<minMaxRotation>
@@ -342,7 +342,7 @@
 			<colorChange>
 				<color>
 					<time>0.0</time>
-					<value>0.2:0.2:0.2:0.2</value>
+					<value>0.2:0.2:0.2:0.05</value>
 				</color>
 				<color>
 					<time>1.0</time>
@@ -356,7 +356,7 @@
 				</size>
 				<size>
 					<time>1.0</time>
-					<value>0.8</value>
+					<value>0.6</value>
 				</size>
 			</sizeChange>
 			<linearVelocityChange>
@@ -364,8 +364,8 @@
 					<time>0</time>
 					<direction>0:1:0</direction>
 					<variationFactor>0.0</variationFactor>
-					<velocityMin>0.1</velocityMin>
-					<velocityMax>0.2</velocityMax>
+					<velocityMin>0.4</velocityMin>
+					<velocityMax>0.8</velocityMax>
 				</velocity>
 				<damping>0.2</damping>
 			</linearVelocityChange>
