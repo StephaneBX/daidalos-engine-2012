@@ -28,8 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CSECURITYCAMERAENTITY_HPP
 #define __DAIDALOS_CSECURITYCAMERAENTITY_HPP
 
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/CStaticMeshSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
 #include <IPlayer.hpp>
 #include <3D/IEntity.hpp>
 

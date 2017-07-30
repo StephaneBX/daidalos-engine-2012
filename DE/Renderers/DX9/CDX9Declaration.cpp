@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <d3d9.h>
-#include "../../Core/Core.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Renderers/DX9/CDX9Declaration.h"
+#include "../../Core/Core.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Renderers/DX9/CDX9Declaration.hpp"
 
 namespace DE {
 	CDX9Declaration::CDX9Declaration(IDirect3DVertexDeclaration9 * declaration) {

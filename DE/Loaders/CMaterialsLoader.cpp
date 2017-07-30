@@ -26,11 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Utility/CFile.h"
-#include "../Core/Utility/CVector3.h"
-#include "../Core/Utility/CTokenizer.h"
-#include "../Loaders/CMaterialsLoader.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Utility/CFile.hpp"
+#include "../Core/Utility/CVector3.hpp"
+#include "../Core/Utility/CTokenizer.hpp"
+#include "../Loaders/CMaterialsLoader.hpp"
 
 namespace DE {
 	CMaterialsLoader::CMaterialsLoader() {

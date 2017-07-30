@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../Scene/Particles/Updaters/CRotationParticleUpdater.h"
+#include "../../../Scene/Particles/Updaters/CRotationParticleUpdater.hpp"
 
 namespace DE {
 

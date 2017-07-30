@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <memory>
 #include <vector>
-#include <Core/IResource.h>
+#include <Core/IResource.hpp>
 #include "CCinematicCamera.hpp"
 
 namespace GE {

@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #pragma once
  
-#ifndef CTHREADSAFEQUEUE_HPP
-#define CTHREADSAFEQUEUE_HPP
+#ifndef __CTHREADSAFEQUEUE_HPP
+#define __CTHREADSAFEQUEUE_HPP
  
 #include <atomic>
 #include <condition_variable>

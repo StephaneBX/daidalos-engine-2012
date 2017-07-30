@@ -26,13 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Core/IRenderer.h"
-#include "../../Core/CConfigurationManager.h"
-#include "../../Core/Memory/CExceptionAssert.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/CSphere.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/IMeshSceneNode.h"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/CConfigurationManager.hpp"
+#include "../../Core/Memory/CExceptionAssert.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/CSphere.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/IMeshSceneNode.hpp"
 
 namespace DE {
 	IMeshSceneNode::IMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {

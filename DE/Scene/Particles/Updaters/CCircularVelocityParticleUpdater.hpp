@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CCIRCULARVELOCITYPARTICLEUPDATER_HPP
 #define __CCIRCULARVELOCITYPARTICLEUPDATER_HPP
 
-#include "../../../Scene/Particles/IParticleUpdater.h"
+#include "../../../Scene/Particles/IParticleUpdater.hpp"
 
 namespace DE {
 

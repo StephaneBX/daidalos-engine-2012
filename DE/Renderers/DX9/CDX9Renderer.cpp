@@ -26,22 +26,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../../Core/CMediaManager.h"
-#include "../../Core/CConfigurationManager.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Renderers/DX9/DX9Global.h"
-#include "../../Renderers/DX9/CDX9Exception.h"
-#include "../../Renderers/DX9/CDX9Enums.h"
-#include "../../Renderers/DX9/CDX9VertexShader.h"
-#include "../../Renderers/DX9/CDX9PixelShader.h"
-#include "../../Renderers/DX9/CDX9PixelShadersLoader.h"
-#include "../../Renderers/DX9/CDX9VertexShadersLoader.h"
-#include "../../Renderers/DX9/CDX9Buffer.h"
-#include "../../Renderers/DX9/CDX9Declaration.h"
-#include "../../Renderers/DX9/CDX9Texture2D.h"
-#include "../../Renderers/DX9/CDX9FrameBuffer.h"
-#include "../../Renderers/DX9/CDX9RenderTarget.h"
-#include "../../Renderers/DX9/CDX9Renderer.h"
+#include "../../Core/CMediaManager.hpp"
+#include "../../Core/CConfigurationManager.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Renderers/DX9/DX9Global.hpp"
+#include "../../Renderers/DX9/CDX9Exception.hpp"
+#include "../../Renderers/DX9/CDX9Enums.hpp"
+#include "../../Renderers/DX9/CDX9VertexShader.hpp"
+#include "../../Renderers/DX9/CDX9PixelShader.hpp"
+#include "../../Renderers/DX9/CDX9PixelShadersLoader.hpp"
+#include "../../Renderers/DX9/CDX9VertexShadersLoader.hpp"
+#include "../../Renderers/DX9/CDX9Buffer.hpp"
+#include "../../Renderers/DX9/CDX9Declaration.hpp"
+#include "../../Renderers/DX9/CDX9Texture2D.hpp"
+#include "../../Renderers/DX9/CDX9FrameBuffer.hpp"
+#include "../../Renderers/DX9/CDX9RenderTarget.hpp"
+#include "../../Renderers/DX9/CDX9Renderer.hpp"
 
 using namespace std;
 

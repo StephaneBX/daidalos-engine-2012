@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Core/IRenderer.h>
-#include "../3D/CEditorLevelSceneNode.h"
+#include <Core/IRenderer.hpp>
+#include "../3D/CEditorLevelSceneNode.hpp"
 
 namespace EDITOR {
 	CEditorLevelSceneNode::CEditorLevelSceneNode(DE::I3DScene * scene) : ILevelSceneNode(scene) {

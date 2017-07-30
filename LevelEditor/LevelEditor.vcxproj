@@ -89,16 +89,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2D\CConsoleView.h" />
-    <ClInclude Include="2D\IConsoleListener.h" />
-    <ClInclude Include="3D\CEditCamera.h" />
-    <ClInclude Include="3D\CEditorLevelSceneNode.h" />
-    <ClInclude Include="3D\CViewCamera.h" />
-    <ClInclude Include="CEditorConfiguration.h" />
-    <ClInclude Include="CEditorLevel.h" />
-    <ClInclude Include="CFreeCamera.h" />
-    <ClInclude Include="CLevelEditorApplication.h" />
-    <ClInclude Include="Loaders\CEditorSceneLoader.h" />
+    <ClInclude Include="2D\CConsoleView.hpp" />
+    <ClInclude Include="2D\IConsoleListener.hpp" />
+    <ClInclude Include="3D\CEditCamera.hpp" />
+    <ClInclude Include="3D\CEditorLevelSceneNode.hpp" />
+    <ClInclude Include="3D\CViewCamera.hpp" />
+    <ClInclude Include="CEditorConfiguration.hpp" />
+    <ClInclude Include="CEditorLevel.hpp" />
+    <ClInclude Include="CFreeCamera.hpp" />
+    <ClInclude Include="CLevelEditorApplication.hpp" />
+    <ClInclude Include="Loaders\CEditorSceneLoader.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

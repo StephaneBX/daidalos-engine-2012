@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_IENEMYENTITY_H
-#define __GAMEENGINE_IENEMYENTITY_H
+#ifndef __GAMEENGINE_IENEMYENTITY_HPP
+#define __GAMEENGINE_IENEMYENTITY_HPP
 
-#include <Scene/3D/CFrustum.h>
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Scene/3D/CProjectionCameraSceneNode.h>
+#include <Scene/3D/CFrustum.hpp>
+#include <Scene/3D/CAnimatedMeshSceneNode.hpp>
+#include <Scene/3D/CProjectionCameraSceneNode.hpp>
 #include "IEnemyState.hpp"
 #include "../ICollidableEntity.hpp"
 #include "../../IPlayer.hpp"

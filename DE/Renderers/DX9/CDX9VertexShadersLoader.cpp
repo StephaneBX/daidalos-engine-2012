@@ -27,13 +27,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Utility/CFile.h"
-#include "../../Core/Memory/CExceptionLoad.h"
-#include "../../Medias/IShaderBase.h"
-#include "../../Renderers/DX9/CDX9Renderer.h"
-#include "../../Renderers/DX9/CDX9VertexShader.h"
-#include "../../Renderers/DX9/CDX9VertexShadersLoader.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Utility/CFile.hpp"
+#include "../../Core/Memory/CExceptionLoad.hpp"
+#include "../../Medias/IShaderBase.hpp"
+#include "../../Renderers/DX9/CDX9Renderer.hpp"
+#include "../../Renderers/DX9/CDX9VertexShader.hpp"
+#include "../../Renderers/DX9/CDX9VertexShadersLoader.hpp"
 
 namespace DE {
 	CDX9VertexShadersLoader::CDX9VertexShadersLoader() {

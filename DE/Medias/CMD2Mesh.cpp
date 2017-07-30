@@ -26,11 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../Core/Core.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Utility/CMatrix.h"
-#include "../Core/Utility/CVector3.h"
-#include "../Medias/CMD2Mesh.h"
+#include "../Core/Core.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Utility/CMatrix.hpp"
+#include "../Core/Utility/CVector3.hpp"
+#include "../Medias/CMD2Mesh.hpp"
 
 namespace DE {
 	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name) {

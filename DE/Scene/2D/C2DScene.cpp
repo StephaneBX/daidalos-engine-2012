@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/2D/IView.h"
-#include "../../Core/IRenderer.h"
-#include "../../Scene/2D/C2DScene.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/2D/IView.hpp"
+#include "../../Core/IRenderer.hpp"
+#include "../../Scene/2D/C2DScene.hpp"
 
 namespace DE {
 	/**

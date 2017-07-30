@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <set>
-#include <Scene/3D/CSphere.h>
+#include <Scene/3D/CSphere.hpp>
 #include "IWeapon.hpp"
 
 #define PARTICLE_LIFE 50

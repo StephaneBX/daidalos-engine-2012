@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../Core/Core.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/COBJMesh.h"
+#include "../Core/Core.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/COBJMesh.hpp"
 
 namespace DE {
 	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name) {

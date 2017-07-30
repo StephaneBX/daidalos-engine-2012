@@ -26,12 +26,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <TinyXML2/tinyxml2.h>
-#include "../Core/IRenderer.h"
-#include "../Core/Utility/CVector2.h"
-#include "../Core/Utility/CVector4.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionLoad.h"
-#include "../Loaders/CFontLoader.h"
+#include "../Core/IRenderer.hpp"
+#include "../Core/Utility/CVector2.hpp"
+#include "../Core/Utility/CVector4.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionLoad.hpp"
+#include "../Loaders/CFontLoader.hpp"
 
 namespace DE {
 	CFontLoader::CFontLoader() {

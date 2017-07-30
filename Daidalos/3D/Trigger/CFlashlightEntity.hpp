@@ -28,8 +28,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CFLASHLIGHTENTITY_HPP
 #define __DAIDALOS_CFLASHLIGHTENTITY_HPP
 
-#include <Scene/3D/ISceneNode.h>
-#include <Medias/CSound.h>
+#include <Scene/3D/ISceneNode.hpp>
+#include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
 namespace DAIDALOS

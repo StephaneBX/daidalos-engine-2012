@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CENEMYSTATEDIE_HPP
 #define __DAIDALOS_CENEMYSTATEDIE_HPP
 
-#include <Medias/CSound.h>
+#include <Medias/CSound.hpp>
 #include <3D/Enemy/IEnemyState.hpp>
 
 namespace DAIDALOS {

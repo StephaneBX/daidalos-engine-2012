@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ROTATION_SPEED 45
 #define TRIGGER_RADIUS 5
 
-#include <Core/Utility/CVector3.h>
+#include <Core/Utility/CVector3.hpp>
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
 #include "../../Enums.hpp"

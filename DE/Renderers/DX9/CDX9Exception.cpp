@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Renderers/DX9/CDX9Exception.h"
+#include "../../Renderers/DX9/CDX9Exception.hpp"
 
 namespace DE {
 	CDX9Exception::CDX9Exception(const std::string & function, const std::string & func) {

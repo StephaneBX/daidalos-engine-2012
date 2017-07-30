@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Core/Utility/CTokenizer.h>
-#include "../2D/CConsoleView.h"
+#include <Core/Utility/CTokenizer.hpp>
+#include "../2D/CConsoleView.hpp"
 
 namespace EDITOR {
 

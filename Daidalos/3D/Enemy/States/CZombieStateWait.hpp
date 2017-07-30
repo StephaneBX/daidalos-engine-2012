@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CZOMBIESTATEWAIT_HPP
 #define __DAIDALOS_CZOMBIESTATEWAIT_HPP
 
-#include <Medias/CSound.h>
+#include <Medias/CSound.hpp>
 #include "CEnemyStateWait.hpp"
 
 namespace DAIDALOS {

@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CAnimatedMeshSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CAnimatedMeshSceneNode.hpp"
 
 namespace DE {
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {

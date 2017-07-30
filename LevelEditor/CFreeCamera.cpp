@@ -31,10 +31,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_JUMP_IMPULSION 10.0f
 
 #include <limits>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
-#include <Core/CConfigurationManager.h>
-#include "CFreeCamera.h"
+#include <Core/CInputDevice.hpp>
+#include <Core/CSoundContextManager.hpp>
+#include <Core/CConfigurationManager.hpp>
+#include "CFreeCamera.hpp"
 
 namespace EDITOR {
 	/**

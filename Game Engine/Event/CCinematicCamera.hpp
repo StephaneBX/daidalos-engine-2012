@@ -28,10 +28,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_CCINEMATICCAMERA_HPP
 #define __GAMEENGINE_CCINEMATICCAMERA_HPP
 
-#include <Scene/3D/ICameraSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Core/CSoundContextManager.h>
-#include <Core/Utility/CVector3.h>
+#include <Scene/3D/ICameraSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Core/CSoundContextManager.hpp>
+#include <Core/Utility/CVector3.hpp>
 #include <SiniP/SiniP.h>
 #include "../3D/ICollidableEntity.hpp"
 

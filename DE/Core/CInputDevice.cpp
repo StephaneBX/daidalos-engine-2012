@@ -26,10 +26,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Core.h"
-#include "../Core/CInputDevice.h"
+#include "../Core/Memory/CExceptionAssert.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Core.hpp"
+#include "../Core/CInputDevice.hpp"
 
 namespace DE {
 	CInputDevice::CInputDevice() {

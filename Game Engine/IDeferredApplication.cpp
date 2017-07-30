@@ -26,16 +26,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <vector>
-#include <Scene/3D/ICameraSceneNode.h>
-#include <Scene/3D/CSpotLightSceneNode.h>
-#include <Scene/3D/IMeshSceneNode.h>
-#include <Core/Core.h>
-#include <Core/CMediaManager.h>
-#include <Core/Logger/CLoggerFile.h>
-#include <Core/Utility/CMatrix.h>
-#include <Medias/CMaterial.h>
-#include <Medias/CStaticMesh.h>
-#include <Medias/CFont.h>
+#include <Scene/3D/ICameraSceneNode.hpp>
+#include <Scene/3D/CSpotLightSceneNode.hpp>
+#include <Scene/3D/IMeshSceneNode.hpp>
+#include <Core/Core.hpp>
+#include <Core/CMediaManager.hpp>
+#include <Core/Logger/CLoggerFile.hpp>
+#include <Core/Utility/CMatrix.hpp>
+#include <Medias/CMaterial.hpp>
+#include <Medias/CStaticMesh.hpp>
+#include <Medias/CFont.hpp>
 #include "IDeferredApplication.hpp"
 #include "Loaders/CCinematicEventLoader.hpp"
 #include "Event/ICinematicEvent.hpp"

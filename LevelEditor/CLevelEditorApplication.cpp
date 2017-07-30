@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Core/CMediaManager.h>
-#include <Scene/3D/ISceneNode.h>
-#include "Loaders/CEditorSceneLoader.h"
-#include "CEditorLevel.h"
-#include "CLevelEditorApplication.h"
+#include <Core/CMediaManager.hpp>
+#include <Scene/3D/ISceneNode.hpp>
+#include "Loaders/CEditorSceneLoader.hpp"
+#include "CEditorLevel.hpp"
+#include "CLevelEditorApplication.hpp"
 
 namespace EDITOR {
 

@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #pragma once
  
-#ifndef ITHREADTASK_HPP
-#define ITHREADTASK_HPP
+#ifndef __ITHREADTASK_HPP
+#define __ITHREADTASK_HPP
 
 namespace DE {
 

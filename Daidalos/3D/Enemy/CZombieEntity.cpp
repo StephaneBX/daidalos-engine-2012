@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Scene/3D/CEllipse.h>
+#include <Scene/3D/CEllipse.hpp>
 #include <Level/ILevel.hpp>
 #include "CZombieEntity.hpp"
 #include "States/CZombieStateWait.hpp"

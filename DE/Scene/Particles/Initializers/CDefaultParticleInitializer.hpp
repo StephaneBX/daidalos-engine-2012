@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CDEFAULTPARTICLEINITIALIZER_HPP
 #define __CDEFAULTPARTICLEINITIALIZER_HPP
 
-#include "../../../Scene/Particles/IParticleInitializer.h"
+#include "../../../Scene/Particles/IParticleInitializer.hpp"
 
 namespace DE {
 	/**

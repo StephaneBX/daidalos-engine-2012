@@ -26,10 +26,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Scene/3D/CSkybox.h"
-#include "../../Core/IRenderer.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/I3DScene.h"
+#include "../../Scene/3D/CSkybox.hpp"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
 
 namespace DE {
 

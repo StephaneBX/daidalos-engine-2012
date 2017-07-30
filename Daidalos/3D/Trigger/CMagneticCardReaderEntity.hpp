@@ -28,9 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CMAGNERICCARDREADERENTITY_HPP
 #define __DAIDALOS_CMAGNETICCARDREADERENTITY_HPP
 
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Medias/CSound.h>
+#include <Scene/3D/CStaticMeshSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 #include <IPlayer.hpp>
 

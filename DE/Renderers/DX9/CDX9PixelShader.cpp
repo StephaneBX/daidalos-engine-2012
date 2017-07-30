@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Renderers/DX9/DX9Global.h"
-#include "../../Renderers/DX9/CDX9Renderer.h"
-#include "../../Renderers/DX9/CDX9PixelShader.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Renderers/DX9/DX9Global.hpp"
+#include "../../Renderers/DX9/CDX9Renderer.hpp"
+#include "../../Renderers/DX9/CDX9PixelShader.hpp"
 
 namespace DE {
 	CDX9PixelShader::CDX9PixelShader(const std::string & name, IDirect3DPixelShader9 * pixelShader, ID3DXConstantTable * constantTable) : CDX9Shader(name, constantTable) {

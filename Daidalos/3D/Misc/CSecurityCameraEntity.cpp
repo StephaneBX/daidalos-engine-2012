@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Scene/3D/CSpotLightSceneNode.h>
-#include <Core/Utility/CMatrix.h>
+#include <Scene/3D/CSpotLightSceneNode.hpp>
+#include <Core/Utility/CMatrix.hpp>
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
 #include "CSecurityCameraEntity.hpp"

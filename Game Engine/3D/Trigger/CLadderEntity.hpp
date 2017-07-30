@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CLADDERENTITY_H
-#define __GAMEENGINE_CLADDERENTITY_H
+#ifndef __GAMEENGINE_CLADDERENTITY_HPP
+#define __GAMEENGINE_CLADDERENTITY_HPP
 
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/CAABoundingBox.h>
-#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/CStaticMeshSceneNode.hpp>
+#include <Scene/3D/CAABoundingBox.hpp>
+#include <Scene/3D/C3DScene.hpp>
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 

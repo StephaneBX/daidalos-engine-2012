@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Memory/CExceptionAssert.h"
-#include "../../Core/CMediaManager.h"
-#include "../../Core/Utility/CArraySorter.h"
-#include "../../Scene/3D/ILevelSceneNode.h"
-#include "../../Scene/3D/I3DScene.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Memory/CExceptionAssert.hpp"
+#include "../../Core/CMediaManager.hpp"
+#include "../../Core/Utility/CArraySorter.hpp"
+#include "../../Scene/3D/ILevelSceneNode.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
 
 #define LIGHTNING_UPDATE_DELAY 20.0f
 

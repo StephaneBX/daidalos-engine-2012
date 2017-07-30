@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Core/Memory/CExceptionAssert.h"
+#include "../../Core/Memory/CExceptionAssert.hpp"
 
 namespace DE {
 	/**

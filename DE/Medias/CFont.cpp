@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Core/CMediaManager.h"
-#include "../Core/CResourceManager.h"
-#include "../Medias/CFont.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionAssert.hpp"
+#include "../Core/CMediaManager.hpp"
+#include "../Core/CResourceManager.hpp"
+#include "../Medias/CFont.hpp"
 
 namespace DE {
 	CFont::CFont() {

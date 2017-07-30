@@ -1,5 +1,5 @@
-#include "ColorTest.h"
-#include <Core/Utility/CColor.h>
+#include "ColorTest.hpp"
+#include <Core/Utility/CColor.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ColorTest);
 

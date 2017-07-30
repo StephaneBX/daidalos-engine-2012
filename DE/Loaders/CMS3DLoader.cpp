@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionLoad.h"
-#include "../Loaders/CMS3DLoader.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionLoad.hpp"
+#include "../Loaders/CMS3DLoader.hpp"
 
 namespace DE {
 	CMS3DLoader::CMS3DLoader() {

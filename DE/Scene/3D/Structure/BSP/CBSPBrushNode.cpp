@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../../Core/Logger/ILogger.h"
-#include "../../../../Scene/3D/Structure/BSP/CBSPBrushNode.h"
-#include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.h"
+#include "../../../../Core/Logger/ILogger.hpp"
+#include "../../../../Scene/3D/Structure/BSP/CBSPBrushNode.hpp"
+#include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.hpp"
 
 namespace DE {
 	CBSPBrushNode::CBSPBrushNode(CBSPTreeNode * root) {

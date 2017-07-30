@@ -1,5 +1,5 @@
-#include "QuaternionTest.h"
-#include <Core/Utility/CQuaternion.h>
+#include "QuaternionTest.hpp"
+#include <Core/Utility/CQuaternion.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(QuaternionTest);
 

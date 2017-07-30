@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/IResource.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/IResource.hpp"
 
 namespace DE {
 	IResource::IResource() {

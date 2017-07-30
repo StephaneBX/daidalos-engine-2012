@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CCINEMATICENTITY_H
-#define __GAMEENGINE_CCINEMATICENTITY_H
+#ifndef __GAMEENGINE_CCINEMATICENTITY_HPP
+#define __GAMEENGINE_CCINEMATICENTITY_HPP
 
-#include <Scene/3D/CProjectionCameraSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Medias/CSound.h>
+#include <Scene/3D/CProjectionCameraSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Medias/CSound.hpp>
 #include "ITriggerEntity.hpp"
 #include "../../Event/CCinematicEvent.hpp"
 

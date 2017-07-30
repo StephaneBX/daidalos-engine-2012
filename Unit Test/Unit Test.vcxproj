@@ -71,17 +71,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ColorTest.h" />
-    <ClInclude Include="FileTest.h" />
-    <ClInclude Include="MatrixTest.h" />
-    <ClInclude Include="MemoryAllocatorTest.h" />
-    <ClInclude Include="QuaternionTest.h" />
-    <ClInclude Include="RectangleTest.h" />
-    <ClInclude Include="Shape3DTest.h" />
-    <ClInclude Include="TokenizerTest.h" />
-    <ClInclude Include="Vector2Test.h" />
-    <ClInclude Include="Vector3Test.h" />
-    <ClInclude Include="Vector4Test.h" />
+    <ClInclude Include="ColorTest.hpp" />
+    <ClInclude Include="FileTest.hpp" />
+    <ClInclude Include="MatrixTest.hpp" />
+    <ClInclude Include="MemoryAllocatorTest.hpp" />
+    <ClInclude Include="QuaternionTest.hpp" />
+    <ClInclude Include="RectangleTest.hpp" />
+    <ClInclude Include="Shape3DTest.hpp" />
+    <ClInclude Include="TokenizerTest.hpp" />
+    <ClInclude Include="Vector2Test.hpp" />
+    <ClInclude Include="Vector3Test.hpp" />
+    <ClInclude Include="Vector4Test.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorTest.cpp" />

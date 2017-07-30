@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <limits>
-#include "../../../../Core/Core.h"
-#include "../../../../Core/Logger/ILogger.h"
-#include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.h"
+#include "../../../../Core/Core.hpp"
+#include "../../../../Core/Logger/ILogger.hpp"
+#include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.hpp"
 
 #define BSP_MIN_DISTANCE 0.01f
 

@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CCINEMATICEVENTLOADER_H
-#define __GAMEENGINE_CCINEMATICEVENTLOADER_H
+#ifndef __GAMEENGINE_CCINEMATICEVENTLOADER_HPP
+#define __GAMEENGINE_CCINEMATICEVENTLOADER_HPP
 
-#include <Loaders/IXmlLoader.h>
+#include <Loaders/IXmlLoader.hpp>
 #include "../Event/ICinematicEvent.hpp"
 
 namespace GE {

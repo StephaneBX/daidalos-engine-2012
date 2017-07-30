@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_ITRIGGERENTITY_H
-#define __GAMEENGINE_ITRIGGERENTITY_H
+#ifndef __GAMEENGINE_ITRIGGERENTITY_HPP
+#define __GAMEENGINE_ITRIGGERENTITY_HPP
 
 #include <set>
 #include "../IEntity.hpp"

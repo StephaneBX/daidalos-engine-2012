@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Core/CResourceManager.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/CResourceManager.hpp"
 
 namespace DE {
 	CResourceManager::CResourceManager() {

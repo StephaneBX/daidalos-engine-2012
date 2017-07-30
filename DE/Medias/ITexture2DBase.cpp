@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/ITexture2DBase.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/ITexture2DBase.hpp"
 
 namespace DE {
 	ITexture2DBase::~ITexture2DBase() {

@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <limits>
-#include <Core/IRenderer.h>
-#include <Scene/3D/CProjectionCameraSceneNode.h>
-#include <Scene/3D/CEllipse.h>
+#include <Core/IRenderer.hpp>
+#include <Scene/3D/CProjectionCameraSceneNode.hpp>
+#include <Scene/3D/CEllipse.hpp>
 #include "../Level/ILevel.hpp"
 #include "CCinematicCamera.hpp"
 

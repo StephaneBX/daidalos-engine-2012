@@ -48,9 +48,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define LAST_WEAPON PLAYER_OBJECT_SHOTGUN_WEAPON
 
 #include <limits>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
-#include <Core/CConfigurationManager.h>
+#include <Core/CInputDevice.hpp>
+#include <Core/CSoundContextManager.hpp>
+#include <Core/CConfigurationManager.hpp>
 #include <Level/ILevel.hpp>
 #include "Enums.hpp"
 #include "CFPSCamera.hpp"

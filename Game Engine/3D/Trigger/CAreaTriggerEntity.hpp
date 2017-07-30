@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CAREATRIGGERENTITY_H
-#define __GAMEENGINE_CAREATRIGGERENTITY_H
+#ifndef __GAMEENGINE_CAREATRIGGERENTITY_HPP
+#define __GAMEENGINE_CAREATRIGGERENTITY_HPP
 
-#include <Scene/3D/C3DScene.h>
+#include <Scene/3D/C3DScene.hpp>
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 

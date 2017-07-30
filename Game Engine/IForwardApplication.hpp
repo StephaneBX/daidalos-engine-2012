@@ -29,16 +29,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __GAMEENGINE_IFORWARDAPPLICATION_HPP
 
 #include <thread>
-#include <Scene/3D/C3DScene.h>
-#include <Scene/2D/C2DScene.h>
-#include <Scene/2D/CLabel.h>
-#include <Scene/Particles/CParticleSystem.h>
-#include <Medias/CShaderProgram.h>
-#include <Medias/CFrameBuffer.h>
-#include <Core/Utility/CFPSCounter.h>
-#include <Core/IRenderer.h>
-#include <Core/IDeclaration.h>
-#include <Applications/IWin32Application.h>
+#include <Scene/3D/C3DScene.hpp>
+#include <Scene/2D/C2DScene.hpp>
+#include <Scene/2D/CLabel.hpp>
+#include <Scene/Particles/CParticleSystem.hpp>
+#include <Medias/CShaderProgram.hpp>
+#include <Medias/CFrameBuffer.hpp>
+#include <Core/Utility/CFPSCounter.hpp>
+#include <Core/IRenderer.hpp>
+#include <Core/IDeclaration.hpp>
+#include <Applications/IWin32Application.hpp>
 #include "2D/CLoadingView.hpp"
 #include "3D/IEntity.hpp"
 #include "IPlayer.hpp"

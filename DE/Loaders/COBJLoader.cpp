@@ -26,10 +26,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionLoad.h"
-#include "../Core/Utility/CTokenizer.h"
-#include "../Loaders/COBJLoader.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionLoad.hpp"
+#include "../Core/Utility/CTokenizer.hpp"
+#include "../Loaders/COBJLoader.hpp"
 
 namespace DE {
 #define OBJ_LOADER_ELEMENT_PER_LINE 4

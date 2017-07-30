@@ -28,9 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CHUDVIEW_HPP
 #define __DAIDALOS_CHUDVIEW_HPP
 
-#include <Scene/2D/IView.h>
-#include <Scene/2D/CLabel.h>
-#include <Scene/2D/CSprite.h>
+#include <Scene/2D/IView.hpp>
+#include <Scene/2D/CLabel.hpp>
+#include <Scene/2D/CSprite.hpp>
 
 namespace DAIDALOS {
 	/**

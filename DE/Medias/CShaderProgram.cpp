@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/IRenderer.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Medias/CShaderProgram.h"
+#include "../Core/IRenderer.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionAssert.hpp"
+#include "../Medias/CShaderProgram.hpp"
 
 namespace DE {
 	CShaderProgram::CShaderProgram() {

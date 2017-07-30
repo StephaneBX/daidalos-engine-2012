@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CStaticMeshSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CStaticMeshSceneNode.hpp"
 
 namespace DE {
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {

@@ -25,15 +25,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Core/IRenderer.h"
-#include "../Core/Utility/CImage.h"
-#include "../Core/Utility/CVector2.h"
-#include "../Core/Utility/CFile.h"
-#include "../Core/Core.h"
-#include "../Core/CResourceManager.h"
-#include "../Core/CMediaManager.h"
-#include "../Medias/CTexture2D.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/IRenderer.hpp"
+#include "../Core/Utility/CImage.hpp"
+#include "../Core/Utility/CVector2.hpp"
+#include "../Core/Utility/CFile.hpp"
+#include "../Core/Core.hpp"
+#include "../Core/CResourceManager.hpp"
+#include "../Core/CMediaManager.hpp"
+#include "../Medias/CTexture2D.hpp"
 
 namespace DE {
 	CTexture2D::CTexture2D() {

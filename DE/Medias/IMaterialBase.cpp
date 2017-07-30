@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/IMaterialBase.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/IMaterialBase.hpp"
 
 namespace DE {
 	IMaterialBase::IMaterialBase(const std::string & name) : IResource(name) {

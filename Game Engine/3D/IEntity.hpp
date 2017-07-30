@@ -29,8 +29,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __GAMEENGINE_IENTITY_HPP
 
 #include <set>
-#include <Scene/3D/IShape3D.h>
-#include <Scene/Particles/CParticleEmitter.h>
+#include <Scene/3D/IShape3D.hpp>
+#include <Scene/Particles/CParticleEmitter.hpp>
 
 namespace GE {
 	class ILevel;

@@ -1,6 +1,6 @@
-#include "RectangleTest.h"
-#include <Core/Core.h>
-#include <Core/Utility/CRectangle.h>
+#include "RectangleTest.hpp"
+#include <Core/Core.hpp>
+#include <Core/Utility/CRectangle.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RectangleTest);
 

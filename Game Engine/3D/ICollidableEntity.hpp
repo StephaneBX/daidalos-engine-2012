@@ -30,8 +30,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <set>
 #include <memory>
-#include <Core/Utility/CVector3.h>
-#include <Scene/3D/IShape3D.h>
+#include <Core/Utility/CVector3.hpp>
+#include <Scene/3D/IShape3D.hpp>
 #include "IEntity.hpp"
 
 namespace GE {

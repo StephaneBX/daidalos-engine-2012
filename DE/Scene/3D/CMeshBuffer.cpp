@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/IRenderer.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Memory/CExceptionAssert.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CMeshBuffer.h"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Memory/CExceptionAssert.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CMeshBuffer.hpp"
 
 namespace DE {
 	CMeshBuffer::CMeshBuffer() {

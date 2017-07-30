@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <fstream>
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Utility/CTokenizer.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Utility/CTokenizer.hpp"
 
 namespace DE {
 	/**

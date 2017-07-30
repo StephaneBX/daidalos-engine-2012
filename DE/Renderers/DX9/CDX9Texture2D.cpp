@@ -26,12 +26,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../../Core/Core.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Renderers/DX9/CDX9Enums.h"
-#include "../../Renderers/DX9/CDX9Exception.h"
-#include "../../Renderers/DX9/DX9Global.h"
-#include "../../Renderers/DX9/CDX9Texture2D.h"
+#include "../../Core/Core.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Renderers/DX9/CDX9Enums.hpp"
+#include "../../Renderers/DX9/CDX9Exception.hpp"
+#include "../../Renderers/DX9/DX9Global.hpp"
+#include "../../Renderers/DX9/CDX9Texture2D.hpp"
 
 namespace DE {
 	CDX9Texture2D::CDX9Texture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap, IDirect3DTexture9 * texture) : ITexture2DBase(size, filter, format, mipmap, autoMipmap) {

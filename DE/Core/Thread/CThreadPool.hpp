@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #pragma once
  
-#ifndef CTHREADPOOL_HPP
-#define CTHREADPOOL_HPP
+#ifndef __CTHREADPOOL_HPP
+#define __CTHREADPOOL_HPP
  
 #include "../../Core/Thread/CThreadSafeQueue.hpp"
 #include "../../Core/Thread/CThreadTask.hpp"

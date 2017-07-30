@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Memory/CException.h"
+#include "../../Core/Memory/CException.hpp"
 
 namespace DE {
 	/**

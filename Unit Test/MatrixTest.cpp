@@ -1,5 +1,5 @@
-#include "MatrixTest.h"
-#include <Core/Utility/CMatrix.h>
+#include "MatrixTest.hpp"
+#include <Core/Utility/CMatrix.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(MatrixTest);
 

@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <d3d9.h>
-#include "../../Core/Logger/ILogger.h"
-#include "../../Renderers/DX9/CDX9Enums.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Renderers/DX9/CDX9Enums.hpp"
 
 namespace DE {
 	D3DPRIMITIVETYPE CDX9Enums::s_primitiveType[] = {

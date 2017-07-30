@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/IShaderBase.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/IShaderBase.hpp"
 
 namespace DE {
 	IShaderBase::IShaderBase(const std::string & name) : IResource(name) {

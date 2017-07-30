@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/IRenderer.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/COrthographicCameraSceneNode.h"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/COrthographicCameraSceneNode.hpp"
 
 namespace DE {
 	COrthographicCameraSceneNode::COrthographicCameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CRectangleF & bounds, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {

@@ -26,11 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <limits>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
-#include <Core/CConfigurationManager.h>
-#include "../CEditorConfiguration.h"
-#include "../3D/CEditCamera.h"
+#include <Core/CInputDevice.hpp>
+#include <Core/CSoundContextManager.hpp>
+#include <Core/CConfigurationManager.hpp>
+#include "../CEditorConfiguration.hpp"
+#include "../3D/CEditCamera.hpp"
 
 namespace EDITOR {
 	CEditCamera::CEditCamera(DE::ICameraSceneNode * cameraNode) {

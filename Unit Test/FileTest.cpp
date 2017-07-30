@@ -1,6 +1,6 @@
-#include "FileTest.h"
-#include <Core/Core.h>
-#include <Core/Utility/CFile.h>
+#include "FileTest.hpp"
+#include <Core/Core.hpp>
+#include <Core/Utility/CFile.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(FileTest);
 

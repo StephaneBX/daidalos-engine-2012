@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../../Core/Logger/ILogger.h"
-#include "../../../../Core/Memory/CExceptionAssert.h"
-#include "../../../../Scene/3D/Structure/BSP/CBSPPortal.h"
+#include "../../../../Core/Logger/ILogger.hpp"
+#include "../../../../Core/Memory/CExceptionAssert.hpp"
+#include "../../../../Scene/3D/Structure/BSP/CBSPPortal.hpp"
 
 namespace DE {
 	void CBSPPortal::SetTriangle(const CBSPTriangle & triangle, const unsigned int index) {

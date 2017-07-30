@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CSoundSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CSoundSceneNode.hpp"
 
 namespace DE {
 	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ESoundCategory category, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {

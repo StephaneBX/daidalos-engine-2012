@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/CSphere.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CDirectionalLightSceneNode.h"
-#include "../../Scene/3D/CAABoundingBox.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/CSphere.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CDirectionalLightSceneNode.hpp"
+#include "../../Scene/3D/CAABoundingBox.hpp"
 
 namespace DE {
 #define DISTANCE_FACTOR 2.0f

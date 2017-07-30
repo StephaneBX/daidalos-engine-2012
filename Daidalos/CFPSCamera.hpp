@@ -28,12 +28,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CFPSCAMERA_HPP
 #define __DAIDALOS_CFPSCAMERA_HPP
 
-#include <Scene/3D/ICameraSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Scene/3D/CEllipse.h>
-#include <Core/Utility/CVector3.h>
-#include <Core/CInputDevice.h>
-#include <Core/CSoundContextManager.h>
+#include <Scene/3D/ICameraSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Scene/3D/CEllipse.hpp>
+#include <Core/Utility/CVector3.hpp>
+#include <Core/CInputDevice.hpp>
+#include <Core/CSoundContextManager.hpp>
 #include <SiniP/SiniP.h>
 #include <IPlayer.hpp>
 #include "Weapons/IWeapon.hpp"

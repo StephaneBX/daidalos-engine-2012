@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #pragma once
  
-#ifndef CTASKFUTURE_HPP
-#define CTASKFUTURE_HPP
+#ifndef __CTASKFUTURE_HPP
+#define __CTASKFUTURE_HPP
 
 #include <future>
 

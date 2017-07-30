@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/CTriangle3D.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/CTriangle3D.hpp"
 
 namespace DE {
 	CTriangle3D::CTriangle3D() {

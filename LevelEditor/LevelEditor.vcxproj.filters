@@ -65,34 +65,34 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2D\CConsoleView.h">
+    <ClInclude Include="2D\CConsoleView.hpp">
       <Filter>Header Files\2D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CEditCamera.h">
+    <ClInclude Include="2D\IConsoleListener.hpp">
+      <Filter>Header Files\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="3D\CEditCamera.hpp">
       <Filter>Header Files\3D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CEditorLevelSceneNode.h">
+    <ClInclude Include="3D\CEditorLevelSceneNode.hpp">
       <Filter>Header Files\3D</Filter>
     </ClInclude>
-    <ClInclude Include="3D\CViewCamera.h">
+    <ClInclude Include="3D\CViewCamera.hpp">
       <Filter>Header Files\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Loaders\CEditorSceneLoader.h">
+    <ClInclude Include="Loaders\CEditorSceneLoader.hpp">
       <Filter>Header Files\Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="CEditorConfiguration.h">
+    <ClInclude Include="CEditorConfiguration.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CLevelEditorApplication.h">
+    <ClInclude Include="CEditorLevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="2D\IConsoleListener.h">
-      <Filter>Header Files\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="CEditorLevel.h">
+    <ClInclude Include="CFreeCamera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CFreeCamera.h">
+    <ClInclude Include="CLevelEditorApplication.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

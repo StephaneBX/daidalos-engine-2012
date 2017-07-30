@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Core/CResourceManager.h"
-#include "../Core/CMediaManager.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/CAnimatedMesh.h"
+#include "../Core/Memory/CExceptionAssert.hpp"
+#include "../Core/CResourceManager.hpp"
+#include "../Core/CMediaManager.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/CAnimatedMesh.hpp"
 
 namespace DE {
 	CAnimatedMesh::CAnimatedMesh() {

@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../Scene/Particles/Updaters/CSizeParticleUpdater.h"
+#include "../../../Scene/Particles/Updaters/CSizeParticleUpdater.hpp"
 
 namespace DE {
 

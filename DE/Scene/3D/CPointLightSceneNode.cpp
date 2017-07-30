@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/CSphere.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CPointLightSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/CSphere.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CPointLightSceneNode.hpp"
 
 namespace DE {
 	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {

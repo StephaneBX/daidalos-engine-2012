@@ -1,6 +1,6 @@
-#include "Vector3Test.h"
-#include <Core/Core.h>
-#include <Core/Utility/CVector3.h>
+#include "Vector3Test.hpp"
+#include <Core/Core.hpp>
+#include <Core/Utility/CVector3.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector3Test);
 

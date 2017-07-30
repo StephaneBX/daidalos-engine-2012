@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <Level/ILevel.hpp>
-#include "CEditorLevel.h"
-#include "CFreeCamera.h"
+#include "CEditorLevel.hpp"
+#include "CFreeCamera.hpp"
 
 namespace EDITOR {
 

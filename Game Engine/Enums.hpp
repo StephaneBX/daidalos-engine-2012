@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_ENUMS_H
-#define __GAMEENGINE_ENUMS_H
+#ifndef __GAMEENGINE_ENUMS_HPP
+#define __GAMEENGINE_ENUMS_HPP
 
 namespace GE {
 

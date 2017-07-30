@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/IFontBase.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/IFontBase.hpp"
 
 namespace DE {
 	IFontBase::IFontBase(const std::string & name, SFontInternalData * data) : IResource(name) {

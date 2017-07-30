@@ -25,13 +25,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CDOORENTITY_H
-#define __GAMEENGINE_CDOORENTITY_H
+#ifndef __GAMEENGINE_CDOORENTITY_HPP
+#define __GAMEENGINE_CDOORENTITY_HPP
 
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Scene/3D/CParticleEmitterSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Medias/CSound.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.hpp>
+#include <Scene/3D/CParticleEmitterSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Medias/CSound.hpp>
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 

@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Windows.h>
 #include <sstream>
-#include "../../Core/Logger/CLoggerMsgBox.h"
+#include "../../Core/Logger/CLoggerMsgBox.hpp"
 
 namespace DE {
 	/**

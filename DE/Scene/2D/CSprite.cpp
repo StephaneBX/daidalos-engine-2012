@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/IRenderer.h"
-#include "../../Core/Memory/CExceptionAssert.h"
-#include "../../Scene/2D//CSprite.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/Memory/CExceptionAssert.hpp"
+#include "../../Scene/2D//CSprite.hpp"
 
 namespace DE {
 #define PANEL_TEXTURE_NAME "white.png"

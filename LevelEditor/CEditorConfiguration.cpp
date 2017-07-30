@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Core/CConfigurationManager.h>
-#include <Core/Utility/CTokenizer.h>
-#include <Core/CInputDevice.h>
-#include "CEditorConfiguration.h"
+#include <Core/CConfigurationManager.hpp>
+#include <Core/Utility/CTokenizer.hpp>
+#include <Core/CInputDevice.hpp>
+#include "CEditorConfiguration.hpp"
 
 namespace EDITOR {
 	/**

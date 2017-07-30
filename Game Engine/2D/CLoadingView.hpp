@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_CLOADINGVIEW_H
-#define __GAMEENGINE_CLOADINGVIEW_H
+#ifndef __GAMEENGINE_CLOADINGVIEW_HPP
+#define __GAMEENGINE_CLOADINGVIEW_HPP
 
-#include <Scene/2D/IView.h>
-#include <Scene/2D/CLabel.h>
-#include <Scene/2D/CSprite.h>
+#include <Scene/2D/IView.hpp>
+#include <Scene/2D/CLabel.hpp>
+#include <Scene/2D/CSprite.hpp>
 
 namespace GE {
 	/**

@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/CMS3DMesh.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/CMS3DMesh.hpp"
 
 namespace DE {
 	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name) {

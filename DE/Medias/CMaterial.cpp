@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Core/CResourceManager.h"
-#include "../Core/CMediaManager.h"
-#include "../Medias/IMaterialBase.h"
-#include "../Medias/CMaterial.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/CResourceManager.hpp"
+#include "../Core/CMediaManager.hpp"
+#include "../Medias/IMaterialBase.hpp"
+#include "../Medias/CMaterial.hpp"
 
 namespace DE {
 	CMaterial::CMaterial() {

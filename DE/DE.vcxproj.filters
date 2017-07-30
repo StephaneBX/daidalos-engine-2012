@@ -132,468 +132,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Memory\CException.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Memory\CExceptionAssert.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Memory\CExceptionDelete.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Memory\CExceptionLoad.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Memory\CMemoryAllocator.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Logger\CLoggerFile.h">
-      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Logger\CLoggerMsgBox.h">
-      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CArraySorter.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CFile.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CFPSCounter.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CMatrix.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CQuaternion.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CTimer.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CTokenizer.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CVector2.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CVector3.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CVector4.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CSingletonManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CResourceManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CMediaManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CLoaderExtensions.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Core.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ILoader.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IMaterialBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CMaterial.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\IResource.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IShaderBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9VertexShader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9PixelShader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Renderer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\IApplication.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CBuffer.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IBufferBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Buffer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Enums.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Enums.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Exception.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\DX9Global.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\IRenderer.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\IDeclaration.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Declaration.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CColor.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CImage.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CMaterialsLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9PixelShadersLoader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9VertexShadersLoader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CImagesLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CRectangle.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\ITexture2DBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CTexture2D.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Texture2D.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CAnimatedMesh.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CStaticMesh.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IAnimatedMeshBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IMeshBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\COBJMesh.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CMD2Loader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CMS3DLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\COBJLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CMD2Mesh.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CMS3DMesh.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CFrameBuffer.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IFrameBufferBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IRenderTargetBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9FrameBuffer.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9RenderTarget.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Applications\IWin32Application.h">
-      <Filter>Fichiers d%27en-tête\Applications</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CInputDevice.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CSceneLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CConfigurationManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CSound.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\ISoundBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IStaticSoundBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IStreamSoundBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CSoundContextManager.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CStaticSoundLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CStreamSoundLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CFont.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IFontBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CFontLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderers\DX9\CDX9Shader.h">
-      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\CShaderProgram.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Medias\IShaderProgramBase.h">
-      <Filter>Fichiers d%27en-tête\Medias</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Listeners\IInputGamepadListener.h">
-      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Listeners\IInputKeyboardListener.h">
-      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Listeners\IInputMouseListener.h">
-      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Logger\ILogger.h">
-      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Memory\CExceptionSave.h">
-      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Utility\CInset.h">
-      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\C3DScene.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CAABoundingBox.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CAnimatedMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CDirectionalLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CEllipse.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CEmptySceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CFrustum.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CImpact.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CMeshBuffer.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\COrthographicCameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CPlane3D.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CPointLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CProjectionCameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CSkybox.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CSoundSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CSphere.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CSpotLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CStaticMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CTriangle3D.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\I3DScene.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\IBoundedLightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\ICameraSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\ILevelSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\ILightSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\IMeshSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\ISceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\IShape3D.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\BSP\CBSPBrushNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\BSP\CBSPPortal.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\BSP\CBSPSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTreeNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTriangle.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\Structure\Simple\CSimpleSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\Simple</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\CButton.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\CCheckbox.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\CCursor.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\CLabel.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\CSprite.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\IView.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\Listeners\IButtonListener.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\2D\C2DScene.h">
-      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\CParticleEmitter.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\CParticleEntity.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\CParticleSystem.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\IParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\IParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CGravityParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CLifeParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CRotationParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\3D\CParticleEmitterSceneNode.h">
-      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\CParticleEmittersTemplateLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\IParticleEmittersTemplate.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\CParticleEmittersTemplates.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\IClonable.h">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Thread\CTaskFuture.hpp">
       <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
     </ClInclude>
@@ -608,12 +146,6 @@
     </ClInclude>
     <ClInclude Include="Core\Thread\IThreadTask.hpp">
       <Filter>Fichiers d%27en-tête\Core\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="Loaders\IXmlLoader.h">
-      <Filter>Fichiers d%27en-tête\Loaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.h">
-      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
     </ClInclude>
     <ClInclude Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.hpp">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
@@ -630,8 +162,476 @@
     <ClInclude Include="Scene\Particles\Initializers\CMassParticleInitializer.hpp">
       <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.h">
+    <ClInclude Include="Core\Listeners\IInputGamepadListener.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Listeners\IInputKeyboardListener.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Listeners\IInputMouseListener.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger\CLoggerFile.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger\CLoggerMsgBox.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Logger\ILogger.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CException.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CExceptionAssert.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CExceptionDelete.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CExceptionLoad.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CExceptionSave.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Memory\CMemoryAllocator.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CArraySorter.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CColor.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CFile.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CFPSCounter.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CImage.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CInset.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CMatrix.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CQuaternion.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CRectangle.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CTimer.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CTokenizer.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CVector2.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CVector3.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Utility\CVector4.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CConfigurationManager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CInputDevice.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CLoaderExtensions.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CMediaManager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Core.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CResourceManager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CSingletonManager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CSoundContextManager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Enums.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IApplication.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IClonable.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IDeclaration.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ILoader.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IRenderer.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\IResource.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CFontLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CImagesLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CMaterialsLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CMD2Loader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CMS3DLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\COBJLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CParticleEmittersTemplateLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CSceneLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CStaticSoundLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\CStreamSoundLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders\IXmlLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CAnimatedMesh.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CBuffer.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CFont.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CFrameBuffer.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CMaterial.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CMD2Mesh.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CMS3DMesh.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\COBJMesh.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CShaderProgram.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CSound.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CStaticMesh.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\CTexture2D.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IAnimatedMeshBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IBufferBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IFontBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IFrameBufferBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IMaterialBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IMeshBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IRenderTargetBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IShaderBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IShaderProgramBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\ISoundBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IStaticSoundBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\IStreamSoundBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Medias\ITexture2DBase.hpp">
+      <Filter>Fichiers d%27en-tête\Medias</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Buffer.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Declaration.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Enums.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Exception.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9FrameBuffer.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9PixelShader.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9PixelShadersLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9RenderTarget.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Shader.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9Texture2D.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9VertexShader.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\CDX9VertexShadersLoader.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderers\DX9\DX9Global.hpp">
+      <Filter>Fichiers d%27en-tête\Renderers\DX9</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\Listeners\IButtonListener.hpp">
       <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\C2DScene.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CButton.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CCheckbox.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CCursor.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CLabel.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\CSprite.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\IView.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPBrushNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPPortal.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTreeNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\BSP\CBSPTriangle.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\Structure\Simple\CSimpleSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D\Structure\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\C3DScene.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CAABoundingBox.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CAnimatedMeshSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CDirectionalLightSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CEllipse.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CEmptySceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CFrustum.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CImpact.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CMeshBuffer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\COrthographicCameraSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CParticleEmitterSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CPlane3D.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CPointLightSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CProjectionCameraSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSkybox.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSoundSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSphere.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CSpotLightSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CStaticMeshSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\CTriangle3D.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\I3DScene.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IBoundedLightSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ICameraSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ILevelSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ILightSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IMeshSceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\ISceneNode.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\3D\IShape3D.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CBoxPositionParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CColorParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CCompositeParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CLifeParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CLinearVelocityParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CRadiusPositionParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CRotationParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CSizeParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Initializers\CSphereVelocityParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CColorParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CGravityParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CLifeParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CRotationParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\Updaters\CSizeParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles\Updaters</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEmitter.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEmittersTemplates.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleEntity.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\CParticleSystem.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleEmittersTemplate.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleInitializer.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Particles\IParticleUpdater.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\IWin32Application.hpp">
+      <Filter>Fichiers d%27en-tête\Applications</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

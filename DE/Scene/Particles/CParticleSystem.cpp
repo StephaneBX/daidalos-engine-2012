@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Utility/CArraySorter.h"
-#include "../../Scene/Particles/Updaters/CGravityParticleUpdater.h"
-#include "../../Scene/Particles/CParticleSystem.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Utility/CArraySorter.hpp"
+#include "../../Scene/Particles/Updaters/CGravityParticleUpdater.hpp"
+#include "../../Scene/Particles/CParticleSystem.hpp"
 
 namespace DE {
 

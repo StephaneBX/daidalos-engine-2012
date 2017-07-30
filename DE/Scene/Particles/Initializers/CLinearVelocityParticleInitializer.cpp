@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../../Scene/Particles/Initializers/CLinearVelocityParticleInitializer.h"
+#include "../../../Scene/Particles/Initializers/CLinearVelocityParticleInitializer.hpp"
 
 namespace DE {
 

@@ -1,6 +1,6 @@
-#include "Vector2Test.h"
-#include <Core/Core.h>
-#include <Core/Utility/CVector2.h>
+#include "Vector2Test.hpp"
+#include <Core/Core.hpp>
+#include <Core/Utility/CVector2.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Vector2Test);
 

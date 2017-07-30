@@ -26,13 +26,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <SiniP/SiniP.h>
-#include "../Core/CMediaManager.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionAssert.h"
-#include "../Core/CConfigurationManager.h"
-#include "../Medias/IStaticSoundBase.h"
-#include "../Medias/IStreamSoundBase.h"
-#include "../Medias/CSound.h"
+#include "../Core/CMediaManager.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionAssert.hpp"
+#include "../Core/CConfigurationManager.hpp"
+#include "../Medias/IStaticSoundBase.hpp"
+#include "../Medias/IStreamSoundBase.hpp"
+#include "../Medias/CSound.hpp"
 
 namespace DE {
 	CSound::CSound() {}

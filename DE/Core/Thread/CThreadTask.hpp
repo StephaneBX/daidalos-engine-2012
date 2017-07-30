@@ -26,8 +26,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 #pragma once
  
-#ifndef CTHREADTASK_HPP
-#define CTHREADTASK_HPP
+#ifndef __CTHREADTASK_HPP
+#define __CTHREADTASK_HPP
 
 #include "../../Core/Thread/IThreadTask.hpp"
 

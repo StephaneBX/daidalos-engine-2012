@@ -15,37 +15,37 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ColorTest.h">
+    <ClInclude Include="ColorTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="FileTest.h">
+    <ClInclude Include="FileTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="MatrixTest.h">
+    <ClInclude Include="MatrixTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="QuaternionTest.h">
+    <ClInclude Include="MemoryAllocatorTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="RectangleTest.h">
+    <ClInclude Include="QuaternionTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="TokenizerTest.h">
+    <ClInclude Include="RectangleTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2Test.h">
+    <ClInclude Include="Shape3DTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3Test.h">
+    <ClInclude Include="TokenizerTest.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Vector4Test.h">
+    <ClInclude Include="Vector2Test.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryAllocatorTest.h">
+    <ClInclude Include="Vector3Test.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Shape3DTest.h">
+    <ClInclude Include="Vector4Test.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

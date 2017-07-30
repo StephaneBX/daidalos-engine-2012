@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_IPLAYER_H
-#define __GAMEENGINE_IPLAYER_H
+#ifndef __GAMEENGINE_IPLAYER_HPP
+#define __GAMEENGINE_IPLAYER_HPP
 
-#include <Core/Utility/CVector3.h>
-#include <Scene/3D/IShape3D.h>
-#include <Scene/3D/ICameraSceneNode.h>
+#include <Core/Utility/CVector3.hpp>
+#include <Scene/3D/IShape3D.hpp>
+#include <Scene/3D/ICameraSceneNode.hpp>
 #include "3D/ICollidableEntity.hpp"
 
 namespace GE {

@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Loaders/CMD2Loader.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Loaders/CMD2Loader.hpp"
 
 namespace DE {
 	CMD2Loader::CMD2Loader() {

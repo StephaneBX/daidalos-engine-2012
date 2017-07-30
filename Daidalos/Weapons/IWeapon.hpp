@@ -28,10 +28,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_IWEAPON_HPP
 #define __DAIDALOS_IWEAPON_HPP
 
-#include <Medias/CSound.h>
-#include <Scene/3D/C3DScene.h>
-#include <Scene/3D/CSpotLightSceneNode.h>
-#include <Scene/3D/CParticleEmitterSceneNode.h>
+#include <Medias/CSound.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Scene/3D/CSpotLightSceneNode.hpp>
+#include <Scene/3D/CParticleEmitterSceneNode.hpp>
 #include <Level/ILevel.hpp>
 
 namespace DAIDALOS {

@@ -26,11 +26,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <IL/il.h>
-#include "../Core/Core.h"
-#include "../Core/Memory/CExceptionLoad.h"
-#include "../Core/Memory/CExceptionSave.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Loaders/CImagesLoader.h"
+#include "../Core/Core.hpp"
+#include "../Core/Memory/CExceptionLoad.hpp"
+#include "../Core/Memory/CExceptionSave.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Loaders/CImagesLoader.hpp"
 
 namespace DE {
 	CImagesLoader::CImagesLoader() {

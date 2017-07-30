@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/IRenderer.h"
-#include "../../Scene/3D/I3DScene.h"
-#include "../../Scene/3D/CProjectionCameraSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/IRenderer.hpp"
+#include "../../Scene/3D/I3DScene.hpp"
+#include "../../Scene/3D/CProjectionCameraSceneNode.hpp"
 
 namespace DE {
 	CProjectionCameraSceneNode::CProjectionCameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float angle, const float ratio, const float nearDistance, const float farDistance) : ICameraSceneNode(scene, parent, name, position, rotation, nearDistance, farDistance) {

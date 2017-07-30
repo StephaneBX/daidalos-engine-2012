@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/CBuffer.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/CBuffer.hpp"
 
 namespace DE {
 	CBuffer::CBuffer(IBufferBase * buffer) {

@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Core.h"
-#include "../Core/IRenderer.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/CFrameBuffer.h"
+#include "../Core/Core.hpp"
+#include "../Core/IRenderer.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/CFrameBuffer.hpp"
 
 namespace DE {
 	CFrameBuffer::CFrameBuffer() {

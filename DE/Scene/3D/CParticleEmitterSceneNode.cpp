@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Scene/3D/CParticleEmitterSceneNode.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Scene/3D/CParticleEmitterSceneNode.hpp"
 
 namespace DE {
 	/**

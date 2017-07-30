@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Scene/3D/CStaticMeshSceneNode.h>
-#include <Scene/3D/CSoundSceneNode.h>
-#include "../3D/CEditorLevelSceneNode.h"
-#include "../Loaders/CEditorSceneLoader.h"
-#include "../CEditorConfiguration.h"
+#include <Scene/3D/CStaticMeshSceneNode.hpp>
+#include <Scene/3D/CSoundSceneNode.hpp>
+#include "../3D/CEditorLevelSceneNode.hpp"
+#include "../Loaders/CEditorSceneLoader.hpp"
+#include "../CEditorConfiguration.hpp"
 
 namespace EDITOR {
 

@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __GAMEENGINE_IENEMYSTATE_H
-#define __GAMEENGINE_IENEMYSTATE_H
+#ifndef __GAMEENGINE_IENEMYSTATE_HPP
+#define __GAMEENGINE_IENEMYSTATE_HPP
 
-#include <Core/Utility/CVector2.h>
-#include <Core/Utility/CVector3.h>
+#include <Core/Utility/CVector2.hpp>
+#include <Core/Utility/CVector3.hpp>
 
 namespace GE {
 	class IEnemyEntity;

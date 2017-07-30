@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Core.h"
-#include "../../Core/Logger/ILogger.h"
+#include "../../Core/Core.hpp"
+#include "../../Core/Logger/ILogger.hpp"
 
 namespace DE {
 	ILogger * ILogger::s_logger = nullptr;

@@ -26,9 +26,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <string>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/Memory/CExceptionLoad.h"
-#include "../Loaders/CParticleEmittersTemplateLoader.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/Memory/CExceptionLoad.hpp"
+#include "../Loaders/CParticleEmittersTemplateLoader.hpp"
 
 namespace DE {
 	/**

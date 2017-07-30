@@ -27,13 +27,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Core/Utility/CFile.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Memory/CExceptionLoad.h"
-#include "../../Medias/IShaderBase.h"
-#include "../../Renderers/DX9/CDX9Renderer.h"
-#include "../../Renderers/DX9/CDX9PixelShader.h"
-#include "../../Renderers/DX9/CDX9PixelShadersLoader.h"
+#include "../../Core/Utility/CFile.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Memory/CExceptionLoad.hpp"
+#include "../../Medias/IShaderBase.hpp"
+#include "../../Renderers/DX9/CDX9Renderer.hpp"
+#include "../../Renderers/DX9/CDX9PixelShader.hpp"
+#include "../../Renderers/DX9/CDX9PixelShadersLoader.hpp"
 
 namespace DE {
 	CDX9PixelShadersLoader::CDX9PixelShadersLoader() {

@@ -1,7 +1,7 @@
-#include "Shape3DTest.h"
-#include <Scene/3D/CSphere.h>
-#include <Scene/3D/CAABoundingBox.h>
-#include <Scene/3D/CEllipse.h>
+#include "Shape3DTest.hpp"
+#include <Scene/3D/CSphere.hpp>
+#include <Scene/3D/CAABoundingBox.hpp>
+#include <Scene/3D/CEllipse.hpp>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Shape3DTest);
 

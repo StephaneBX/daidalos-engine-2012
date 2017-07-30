@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Core/Logger/CLoggerFile.h"
+#include "../../Core/Logger/CLoggerFile.hpp"
 
 namespace DE {
 	CLoggerFile::CLoggerFile(const std::string & filename) {

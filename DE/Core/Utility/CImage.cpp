@@ -26,10 +26,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
-#include "../../Core/Core.h"
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Utility/CVector2.h"
-#include "../../Core/Utility/CImage.h"
+#include "../../Core/Core.hpp"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Utility/CVector2.hpp"
+#include "../../Core/Utility/CImage.hpp"
 
 namespace DE {
 	/**

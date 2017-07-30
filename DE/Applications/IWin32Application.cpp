@@ -29,11 +29,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define NOMINMAX
 
-#include "../Renderers/DX9/CDX9Renderer.h"
-#include "../Core/Logger/ILogger.h"
-#include "../Core/IRenderer.h"
-#include "../Core/Utility/CTimer.h"
-#include "../Applications/IWin32Application.h"
+#include "../Renderers/DX9/CDX9Renderer.hpp"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/IRenderer.hpp"
+#include "../Core/Utility/CTimer.hpp"
+#include "../Applications/IWin32Application.hpp"
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"dinput8.lib")

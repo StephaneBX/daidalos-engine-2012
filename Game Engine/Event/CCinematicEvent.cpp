@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <Core/CResourceManager.h>
-#include <Core/CMediaManager.h>
+#include <Core/CResourceManager.hpp>
+#include <Core/CMediaManager.hpp>
 #include "CCinematicEvent.hpp"
 
 namespace GE {

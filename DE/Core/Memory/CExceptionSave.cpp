@@ -26,7 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <sstream>
-#include "../../Core/Memory/CExceptionSave.h"
+#include "../../Core/Memory/CExceptionSave.hpp"
 
 namespace DE {
 	/**

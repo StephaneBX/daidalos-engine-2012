@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/IRenderer.h"
-#include "../../Core/Memory/CExceptionAssert.h"
-#include "../../Scene/2D/CLabel.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/IRenderer.hpp"
+#include "../../Core/Memory/CExceptionAssert.hpp"
+#include "../../Scene/2D/CLabel.hpp"
 
 namespace DE {
 	CLabel::CLabel(const std::string & text, const std::string & font) {

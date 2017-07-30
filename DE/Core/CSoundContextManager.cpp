@@ -27,8 +27,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
-#include "../Core/Logger/ILogger.h"
-#include "../Core/CSoundContextManager.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Core/CSoundContextManager.hpp"
 
 namespace DE {
 	CSoundContextManager::CSoundContextManager() {

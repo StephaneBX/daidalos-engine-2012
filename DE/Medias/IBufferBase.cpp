@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../Core/Logger/ILogger.h"
-#include "../Medias/IBufferBase.h"
+#include "../Core/Logger/ILogger.hpp"
+#include "../Medias/IBufferBase.hpp"
 
 namespace DE {
 	IBufferBase::IBufferBase(const unsigned long size) : IResource() {

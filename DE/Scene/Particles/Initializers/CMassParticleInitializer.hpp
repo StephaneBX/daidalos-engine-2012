@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#ifndef __CMASSPARTICLEINITIALIZER_H
-#define __CMASSPARTICLEINITIALIZER_H
+#ifndef __CMASSPARTICLEINITIALIZER_HPP
+#define __CMASSPARTICLEINITIALIZER_HPP
 
-#include "../../../Scene/Particles/IParticleInitializer.h"
+#include "../../../Scene/Particles/IParticleInitializer.hpp"
 
 namespace DE {
 	/**

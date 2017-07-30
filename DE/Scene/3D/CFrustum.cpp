@@ -25,9 +25,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include "../../Core/Logger/ILogger.h"
-#include "../../Core/Core.h"
-#include "../../Scene/3D/CFrustum.h"
+#include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/Core.hpp"
+#include "../../Scene/3D/CFrustum.hpp"
 
 namespace DE
 {

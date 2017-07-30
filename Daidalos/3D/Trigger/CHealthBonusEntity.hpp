@@ -28,9 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CHEALTHBONUSENTITY_HPP
 #define __DAIDALOS_CHEALTHBONUSENTITY_HPP
 
-#include <Scene/3D/CAnimatedMeshSceneNode.h>
-#include <Scene/3D/C3DScene.h>
-#include <Medias/CSound.h>
+#include <Scene/3D/CAnimatedMeshSceneNode.hpp>
+#include <Scene/3D/C3DScene.hpp>
+#include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
 namespace DAIDALOS {
