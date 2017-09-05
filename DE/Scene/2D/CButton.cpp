@@ -162,13 +162,14 @@ namespace DE {
 		LOG_TRACE();
 
 		if(this->m_data.size() > 0) {
+			IRenderer * renderer = IRenderer::GetRenderer();
+
 			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
 			if(!this->m_enabled) {
 				color = CColor(0.5f, 0.5f, 0.5f, 1.0f);
 			}
 
-			IRenderer * renderer = IRenderer::GetRenderer();
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 

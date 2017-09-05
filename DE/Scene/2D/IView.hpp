@@ -37,7 +37,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Medias/CBuffer.hpp"
 
 namespace DE {
-#define GUI_VIEW_LEFT_CLICK 1 << 30
+#define GUI_VIEW_LEFT_CLICK 1 << 28
+#define GUI_VIEW_WHEEL_UP 1 << 29
+#define GUI_VIEW_WHEEL_DOWN 1 << 30
 
 	/**
 	* The GUI data structure for the shaders
@@ -82,7 +84,24 @@ namespace DE {
 		virtual void Render();
 
 		/**
-		* Perform a hit test, checking if the point is inside in the the subview or in this view
+		* Add a subview
+		* @param view The subview to add
+		*/
+		virtual void AddSubview(IView * view);
+
+		/**
+		* Remove a subview
+		* @param view The subview to remove
+		*/
+		virtual void RemoveSubview(IView * view);
+
+		/**
+		* Remove all the subviews
+		*/
+		virtual void RemoveAllSubviews();
+
+		/**
+		* Perform a hit test, checking if the point is inside one of the subview or in this view
 		* The test is exclusive, only 1 view can succeed in the hit test
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
@@ -126,26 +145,9 @@ namespace DE {
 		void SetParent(IView * parent);
 
 		/**
-		* Add a subview
-		* @param view The subview to add
-		*/
-		void AddSubview(IView * view);
-
-		/**
-		* Remove a subview
-		* @param view The subview to remove
-		*/
-		void RemoveSubview(IView * view);
-
-		/**
 		* Remove from the parent view
 		*/
 		void RemoveFromParentView();
-
-		/**
-		* Remove all the subviews
-		*/
-		void RemoveAllSubviews();
 
 		/**
 		* Get the changed value
@@ -171,6 +173,13 @@ namespace DE {
 		* @return True if the point is inside the gui
 		*/
 		const bool IsInside(const CVector2I & point) const;
+
+		/**
+		* Check if a rectangle is inside the gui
+		* @param rectangle The rectangle to test in screen coordinate
+		* @return True if the rectangle is inside the gui
+		*/
+		const bool IsInside(const CRectangleI & rectangle) const;
 
 		/**
 		* Get the position relative to the parent

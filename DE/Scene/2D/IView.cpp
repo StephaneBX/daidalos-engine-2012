@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include "../../Core/IRenderer.hpp"
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Core/Utility/CMatrix.hpp"
 #include "../../Scene/2D/IView.hpp"
@@ -51,11 +52,39 @@ namespace DE {
 	void IView::Render() {
 		LOG_TRACE();
 
+		IRenderer * renderer = IRenderer::GetRenderer();
+
 		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
 			if((*it)->IsVisible()) {
+				renderer->SetScissor(GetAbsoluteBoundingRectangle());
 				(*it)->Render();
 			}
 		}
+	}
+
+	void IView::AddSubview(IView * view) {
+		LOG_TRACE();
+
+		this->m_subviews.push_back(view);
+		view->SetParent(this);
+	}
+
+	void IView::RemoveSubview(IView * view) {
+		LOG_TRACE();
+
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if ((*it) == view) {
+				this->m_subviews.erase(it);
+				view->SetParent(nullptr);
+				return;
+			}
+		}
+	}
+
+	void IView::RemoveAllSubviews() {
+		LOG_TRACE();
+
+		this->m_subviews.clear();
 	}
 
 	const bool IView::HitTest(const CVector2I & point) {
@@ -63,8 +92,8 @@ namespace DE {
 
 		this->m_hitTest = false;
 
-		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if((*it)->HitTest(point)) {
+		for(auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
+			if(IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
 				return true;
 			}
 		}
@@ -89,12 +118,14 @@ namespace DE {
 		LOG_TRACE();
 
 		this->m_position = position;
+		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
 	void IView::SetPreferredSize(const CVector2I & size) {
 		LOG_TRACE();
 
 		this->m_preferredsize = size;
+		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
 	void IView::SetBounds(const CRectangleI & bounds) {
@@ -111,38 +142,12 @@ namespace DE {
 		this->m_parent = parent;
 	}
 
-	void IView::AddSubview(IView * view) {
-		LOG_TRACE();
-
-		this->m_subviews.push_back(view);
-		view->SetParent(this);
-	}
-
-	void IView::RemoveSubview(IView * view) {
-		LOG_TRACE();
-
-		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if((*it) == view) {
-				this->m_subviews.erase(it);
-				view->SetParent(nullptr);
-				return;
-			}
-		}
-
-	}
-
 	void IView::RemoveFromParentView() {
 		LOG_TRACE();
 
 		if(this->m_parent != nullptr) {
 			this->m_parent->RemoveSubview(this);
 		}
-	}
-
-	void IView::RemoveAllSubviews() {
-		LOG_TRACE();
-
-		this->m_subviews.clear();
 	}
 
 	const bool IView::IsChanged() const {
@@ -167,6 +172,12 @@ namespace DE {
 		LOG_TRACE();
 
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
+	}
+
+	const bool IView::IsInside(const CRectangleI & rectangle) const {
+		LOG_TRACE();
+
+		return GetAbsoluteBoundingRectangle().Intersect(rectangle) != RECTANGLE_INTERSECTION_OUTSIDE;
 	}
 
 	const CVector2I & IView::GetPosition() const {

@@ -114,6 +114,7 @@
     <ClInclude Include="Scene\2D\CCursor.hpp" />
     <ClInclude Include="Scene\2D\CLabel.hpp" />
     <ClInclude Include="Scene\2D\CSprite.hpp" />
+    <ClInclude Include="Scene\2D\CScrollableView.hpp" />
     <ClInclude Include="Scene\2D\IView.hpp" />
     <ClInclude Include="Scene\2D\Listeners\IButtonListener.hpp" />
     <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.hpp" />
@@ -255,6 +256,7 @@
     <ClCompile Include="Scene\2D\CCursor.cpp" />
     <ClCompile Include="Scene\2D\CLabel.cpp" />
     <ClCompile Include="Scene\2D\CSprite.cpp" />
+    <ClCompile Include="Scene\2D\CScrollableView.cpp" />
     <ClCompile Include="Scene\2D\IView.cpp" />
     <ClCompile Include="Scene\3D\C3DScene.cpp" />
     <ClCompile Include="Scene\3D\CAnimatedMeshSceneNode.cpp" />

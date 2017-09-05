@@ -77,7 +77,6 @@ namespace DE {
 
 		if(this->m_changed) {
 			IRenderer * renderer = IRenderer::GetRenderer();
-
 			this->m_data = GenerateQuad(this->m_boundingRectangle, this->m_coordinates, this->m_rotation);
 
 			if(this->m_data.size() > 0) {
@@ -101,6 +100,7 @@ namespace DE {
 
 		if(this->m_data.size() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
+
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 

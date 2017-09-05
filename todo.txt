@@ -41,14 +41,14 @@
 	OnMenuReturnAndCancel
 	OnMenuSelect
 	
-- ViewLoader -> IView*
+Créé depuis le level? (CDaidalosLevel)
 
 ===============================================================
                                   GUI
 ===============================================================
 - Mettre en place CWindow, CList, CScrollableView, CSlider
 - Optimisation du scale des éléments
-
+- Theme pour regrouper les textures (+ le curseur)
 
 ===============================================================
                      Interactions / Collisions
@@ -119,3 +119,29 @@ Anti-Penumbra
 - Objets en surbrillance avec ambient color
 - Specular
 
+
+
+===============================================================
+                           Projet SynK
+===============================================================
+- Plateforme/Puzzle alternance de couleurs
+- Niveau construits en blocs colorés
+- Actions: Sauter / Changer de couleur (avec delay)
+- Plateforme même couleur/joueur => OK
+- Interraction
+	- Piques
+	- Projectiles
+	- Portes fermées
+	- Ventilateurs (poussée vers le haut/bas)
+	- Ascenseurs (effet particules)
+
+- Bonus
+	- Boost vitesse
+	- Boost saut
+	- Delay couleur réduit
+
+- Malus
+	- Malus vitesse
+	- Malus saut
+	- Malus delay couleur
+	- Ordre séquence couleur inversé

@@ -368,7 +368,7 @@ namespace DE {
 					break;
 
 				case WM_MOUSEWHEEL:
-					if(HIWORD(msg.wParam) > 0) {
+					if(GET_WHEEL_DELTA_WPARAM(msg.wParam) > 0) {
 						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELUP);
 					} else {
 						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELDOWN);

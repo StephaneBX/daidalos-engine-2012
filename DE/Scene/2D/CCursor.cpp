@@ -37,11 +37,20 @@ namespace DE {
 
 		this->m_changed = true;
 
-		// Add the left click action
+		// Add the cursor actions
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
-		SInputActionDeclaration leftClickAction = { GUI_VIEW_LEFT_CLICK, -1 };
-		inputDevice->AddAction(leftClickAction);
+		SInputActionDeclaration cursorActions[] = { 
+			{ GUI_VIEW_LEFT_CLICK, -1 },
+			{ GUI_VIEW_WHEEL_UP, -1 },
+			{ GUI_VIEW_WHEEL_DOWN, -1 }
+		};
+		inputDevice->AddAction(cursorActions[0]);
+		inputDevice->AddAction(cursorActions[1]);
+		inputDevice->AddAction(cursorActions[2]);
+
 		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, DE::INPUT_KEY_MOUSE_BUTTON0);
+		inputDevice->SetActionKey(GUI_VIEW_WHEEL_UP, DE::INPUT_KEY_MOUSE_WHEELUP);
+		inputDevice->SetActionKey(GUI_VIEW_WHEEL_DOWN, DE::INPUT_KEY_MOUSE_WHEELDOWN);
 	}
 
 	CCursor::~CCursor() {
@@ -89,6 +98,7 @@ namespace DE {
 
 		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
+
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 

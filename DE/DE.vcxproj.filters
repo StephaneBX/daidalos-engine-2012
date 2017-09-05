@@ -633,6 +633,9 @@
     <ClInclude Include="Applications\IWin32Application.hpp">
       <Filter>Fichiers d%27en-tête\Applications</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\2D\CScrollableView.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -1030,6 +1033,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Particles\Initializers\CMassParticleInitializer.cpp">
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CScrollableView.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

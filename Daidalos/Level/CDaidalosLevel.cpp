@@ -31,6 +31,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Trigger/CDoorEntity.hpp>
 #include <3D/Trigger/CLadderEntity.hpp>
 #include <3D/Trigger/CCinematicEntity.hpp>
+#include <Scene/2D/CButton.hpp>
+#include <Scene/2D/CCheckbox.hpp>
+#include <Scene/2D/CScrollableView.hpp>
 #include "CDaidalosLevel.hpp"
 #include "../3D/Trigger/CFanEntity.hpp"
 #include "../3D/Trigger/CTeleporterEntity.hpp"
@@ -238,12 +241,41 @@ namespace DAIDALOS {
 			this->m_entities.push_back(std::unique_ptr<GE::CCinematicEntity>(cinematicTriggerEntity));
 		}
 		
-
 		// Load the hud
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
 		this->m_hudView = new CHudView(DE::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
 		this->m_view->AddToMainView(this->m_hudView);
+
+		// TMP load views
+
+		DE::CScrollableView * scroll = new DE::CScrollableView();
+		scroll->SetBounds(DE::CRectangleI(100, 100, 150, 80));
+		scroll->SetScrollBarThickness(5);
+		this->m_view->AddToMainView(scroll);
+
+		DE::CCheckbox * checkbox1 = new DE::CCheckbox();
+		checkbox1->SetBounds(DE::CRectangleI(0, 0, 32, 32));
+		checkbox1->SetUncheckedTexture("checkbox_off.png");
+		checkbox1->SetCheckedTexture("checkbox_on.png");
+		checkbox1->SetClickedTexture("checkbox_clicked.png");
+		scroll->AddSubview(checkbox1);
+
+		DE::CButton * button = new DE::CButton("button1.png");
+		button->SetBounds(DE::CRectangleI(0, 100, 120, 60));
+		button->SetDefaultTexture("button1.png");
+		button->SetClickedTexture("button2.png");
+		button->SetImageInset(DE::CInsetF(0.1f, 0.1f, 0.1f, 0.1f));
+		button->SetDefaultTitleColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		button->GetTitleElement()->SetText("Test");
+		scroll->AddSubview(button);
+
+		DE::CCheckbox * checkbox2 = new DE::CCheckbox();
+		checkbox2->SetBounds(DE::CRectangleI(0, 200, 32, 32));
+		checkbox2->SetUncheckedTexture("checkbox_off.png");
+		checkbox2->SetCheckedTexture("checkbox_on.png");
+		checkbox2->SetClickedTexture("checkbox_clicked.png");
+		scroll->AddSubview(checkbox2);
 
 
 		// End of loading callback

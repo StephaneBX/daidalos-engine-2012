@@ -119,6 +119,7 @@ namespace DE {
 
 		if(this->m_data.size() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
+
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 

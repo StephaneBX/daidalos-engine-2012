@@ -47,6 +47,7 @@ namespace DAIDALOS {
 	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : GE::IForwardApplication(hInstance, nCmdShow) {
 
 		this->m_loading = true;
+		this->m_cursor.SetVisible(true);
 		std::thread(&CDaidalosApplication::LoadLevel, this, levelName).detach();
 
 		MainLoop();
@@ -86,6 +87,7 @@ namespace DAIDALOS {
 	*/
 	void CDaidalosApplication::OnLevelLoaded() {
 		this->m_loading = false;
+		this->m_currentLevel->GetView()->SetCursor(&this->m_cursor);
 	}
 
 	/**

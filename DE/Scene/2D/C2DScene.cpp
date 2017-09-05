@@ -84,7 +84,12 @@ namespace DE {
 		}
 
 		// Draw all the elements
+		IRenderer * renderer = IRenderer::GetRenderer();
+		renderer->SetRenderState(RENDER_STATE_TYPE_SCISSORTEST, true);
+
 		this->m_mainView->Render();
+
+		renderer->SetRenderState(RENDER_STATE_TYPE_SCISSORTEST, false);
 	}
 
 	const CMatrix & C2DScene::GetProjMatrix() const {
