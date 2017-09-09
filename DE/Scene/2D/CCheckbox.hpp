@@ -49,7 +49,7 @@ namespace DE {
 		CTexture2D m_checkedTexture;
 		CTexture2D m_clickedTexture;
 		std::set<ICheckboxListener *> m_checkboxListeners;
-		CLabel * m_label;
+		CLabel m_label;
 
 	public:
 		/**

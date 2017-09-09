@@ -32,6 +32,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/2D/CCheckbox.hpp"
 
 namespace DE {
+	/**
+	* Constructor
+	*/
 	CCheckbox::CCheckbox() {
 		LOG_TRACE();
 
@@ -40,16 +43,18 @@ namespace DE {
 		this->m_changed = true;
 		this->m_clicked = false;
 
-		this->m_label = new CLabel();
-		this->m_label->SetVerticalAlignment(TEXT_VERTICAL_ALIGNMENT_CENTERED);
-		this->m_label->SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		AddSubview(this->m_label);
+		this->m_label.SetVerticalAlignment(TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_label.SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_labelInset = DE::CInsetI(5, 5, 5, 5);
+		AddSubview(&this->m_label);
 	}
 
+	/**
+	* Destructor
+	*/
 	CCheckbox::~CCheckbox() {
 		LOG_TRACE();
 
-		delete this->m_label;
 	}
 
 	/**
@@ -180,7 +185,11 @@ namespace DE {
 		}
 
 		// Render the subviews
-		IView::Render();
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if ((*it)->IsVisible()) {
+				(*it)->Render();
+			}
+		}
 	}
 
 	const bool CCheckbox::HitTest(const CVector2I & point) {
@@ -233,7 +242,7 @@ namespace DE {
 	CLabel * CCheckbox::GetLabelElement() {
 		LOG_TRACE();
 
-		return this->m_label;
+		return &this->m_label;
 	}
 
 	void CCheckbox::GenerateGeometry() {
@@ -244,7 +253,7 @@ namespace DE {
 		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1));
 
 		// Update the label position
-		this->m_label->SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), this->m_preferredsize.x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), this->m_preferredsize.y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
+		this->m_label.SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), this->m_preferredsize.x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), this->m_preferredsize.y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
 
 		this->m_changed = false;
 	}

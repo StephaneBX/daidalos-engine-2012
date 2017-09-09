@@ -636,6 +636,12 @@
     <ClInclude Include="Scene\2D\CScrollableView.hpp">
       <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\2D\CSelectionList.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\2D\Listeners\ISelectionListListener.hpp">
+      <Filter>Fichiers d%27en-tête\Scene\2D\Listeners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Utility\CFPSCounter.cpp">
@@ -1035,6 +1041,9 @@
       <Filter>Fichiers sources\Scene\Particles\Initializers</Filter>
     </ClCompile>
     <ClCompile Include="Scene\2D\CScrollableView.cpp">
+      <Filter>Fichiers sources\Scene\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\2D\CSelectionList.cpp">
       <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
   </ItemGroup>

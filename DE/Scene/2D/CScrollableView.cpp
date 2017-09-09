@@ -73,12 +73,18 @@ namespace DE {
 		// Update the content view
 		this->m_contentView.Update(time);
 
+		// Update the scroll view size to contain the content view and the scroll bar
+		SetPreferredSize(DE::CVector2I(this->m_contentView.GetPreferredSize().x + this->m_scrollBarView.GetPreferredSize().x, GetPreferredSize().y));
+
 		// Calculate the scroll bar new position and size
 		float sizeFactor = this->m_preferredsize.y / (float)this->m_contentView.GetPreferredSize().y;
 		this->m_scrollBarView.SetBounds(DE::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -(int)(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, (int)(GetPreferredSize().y * sizeFactor)));
 
 		// Update the scroll bar
 		this->m_scrollBarView.Update(time);
+
+		// Update the scroll bar visibility
+		this->m_scrollBarView.SetVisible(GetContentTopPosition() != 0 || GetContentBottomPosition() != 0);
 	}
 
 	/**
@@ -319,7 +325,7 @@ namespace DE {
 
 		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
 			if (this->m_parent->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
-				return true;
+				this->m_hitTest = true;
 			}
 		}
 		return this->m_hitTest;

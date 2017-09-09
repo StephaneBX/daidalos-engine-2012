@@ -113,11 +113,13 @@
     <ClInclude Include="Scene\2D\CCheckbox.hpp" />
     <ClInclude Include="Scene\2D\CCursor.hpp" />
     <ClInclude Include="Scene\2D\CLabel.hpp" />
+    <ClInclude Include="Scene\2D\CSelectionList.hpp" />
     <ClInclude Include="Scene\2D\CSprite.hpp" />
     <ClInclude Include="Scene\2D\CScrollableView.hpp" />
     <ClInclude Include="Scene\2D\IView.hpp" />
     <ClInclude Include="Scene\2D\Listeners\IButtonListener.hpp" />
     <ClInclude Include="Scene\2D\Listeners\ICheckboxListener.hpp" />
+    <ClInclude Include="Scene\2D\Listeners\ISelectionListListener.hpp" />
     <ClInclude Include="Scene\3D\C3DScene.hpp" />
     <ClInclude Include="Scene\3D\CAABoundingBox.hpp" />
     <ClInclude Include="Scene\3D\CAnimatedMeshSceneNode.hpp" />
@@ -255,6 +257,7 @@
     <ClCompile Include="Scene\2D\CCheckbox.cpp" />
     <ClCompile Include="Scene\2D\CCursor.cpp" />
     <ClCompile Include="Scene\2D\CLabel.cpp" />
+    <ClCompile Include="Scene\2D\CSelectionList.cpp" />
     <ClCompile Include="Scene\2D\CSprite.cpp" />
     <ClCompile Include="Scene\2D\CScrollableView.cpp" />
     <ClCompile Include="Scene\2D\IView.cpp" />

@@ -36,11 +36,11 @@ namespace DE {
 
 		SetText(text);
 		SetFont(font);
-		SetColor(CColor(0xFFFFFFFF));
+		SetColor(CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		SetSize(26);
 
 		this->m_horizontalAlignment = TEXT_HORIZONTAL_ALIGNMENT_CENTERED;
 		this->m_verticalAlignment = TEXT_VERTICAL_ALIGNMENT_TOP;
-		this->m_size = 12;
 	}
 
 	CLabel::~CLabel() {

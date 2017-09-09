@@ -34,6 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/2D/CButton.hpp>
 #include <Scene/2D/CCheckbox.hpp>
 #include <Scene/2D/CScrollableView.hpp>
+#include <Scene/2D/CSelectionList.hpp>
 #include "CDaidalosLevel.hpp"
 #include "../3D/Trigger/CFanEntity.hpp"
 #include "../3D/Trigger/CTeleporterEntity.hpp"
@@ -245,7 +246,7 @@ namespace DAIDALOS {
 		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
 		this->m_hudView = new CHudView(DE::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
-		this->m_view->AddToMainView(this->m_hudView);
+		//this->m_view->AddToMainView(this->m_hudView);
 
 		// TMP load views
 
@@ -259,6 +260,9 @@ namespace DAIDALOS {
 		checkbox1->SetUncheckedTexture("checkbox_off.png");
 		checkbox1->SetCheckedTexture("checkbox_on.png");
 		checkbox1->SetClickedTexture("checkbox_clicked.png");
+		checkbox1->GetLabelElement()->SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		checkbox1->GetLabelElement()->SetSize(26);
+		checkbox1->GetLabelElement()->SetText("TEST");
 		scroll->AddSubview(checkbox1);
 
 		DE::CButton * button = new DE::CButton("button1.png");
@@ -267,6 +271,7 @@ namespace DAIDALOS {
 		button->SetClickedTexture("button2.png");
 		button->SetImageInset(DE::CInsetF(0.1f, 0.1f, 0.1f, 0.1f));
 		button->SetDefaultTitleColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		button->GetTitleElement()->SetSize(26);
 		button->GetTitleElement()->SetText("Test");
 		scroll->AddSubview(button);
 
@@ -276,6 +281,18 @@ namespace DAIDALOS {
 		checkbox2->SetCheckedTexture("checkbox_on.png");
 		checkbox2->SetClickedTexture("checkbox_clicked.png");
 		scroll->AddSubview(checkbox2);
+
+
+		DE::CSelectionList * selectionList = new DE::CSelectionList();
+		selectionList->SetBounds(DE::CRectangleI(600, 100, 600, 200));
+		selectionList->SetSelectionListTitle("SELECTION LIST: ");
+		selectionList->AddSelection("VALUE 1");
+		selectionList->AddSelection("VALUE 2");
+		selectionList->AddSelection("VALUE 3");
+		selectionList->AddSelection("VALUE 4");
+		selectionList->AddSelection("VALUE 5");
+		selectionList->AddSelection("VALUE 6");
+		this->m_view->AddToMainView(selectionList);
 
 
 		// End of loading callback

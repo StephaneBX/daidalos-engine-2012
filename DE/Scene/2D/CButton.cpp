@@ -32,6 +32,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/2D/CButton.hpp"
 
 namespace DE {
+	/**
+	* Constructor
+	* @param texture The texture name
+	*/
 	CButton::CButton(const std::string & texture) {
 		LOG_TRACE();
 
@@ -40,40 +44,66 @@ namespace DE {
 		this->m_imageInset = CInsetF(0, 0, 0, 0);
 		this->m_changed = true;
 
-		this->m_title = new CLabel();
-		AddSubview(this->m_title);
+		this->m_title.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_defaultTitleColor = DE::CColor(1.0f, 1.0f, 1.0f, 1.0f);
+		this->m_clickedTitleColor = DE::CColor(1.0f, 1.0f, 1.0f, 1.0f);
+		this->m_focusedTitleColor = DE::CColor(1.0f, 1.0f, 1.0f, 1.0f);
+		SetDefaultTexture(texture);
+
+		AddSubview(&this->m_title);
 	}
 
+	/**
+	* Destructor
+	*/
 	CButton::~CButton() {
 		LOG_TRACE();
-
-		delete this->m_title;
 	}
 
+	/**
+	* Add a button listener
+	* @param listener The button listener
+	*/
 	void CButton::AddButtonListener(IButtonListener * listener) {
 		LOG_TRACE();
 
 		this->m_buttonListeners.insert(listener);
 	}
 
+	/**
+	* Remove a button listener
+	* @param listener The button listener
+	*/
 	void CButton::RemoveButtonListener(IButtonListener * listener) {
 		LOG_TRACE();
 
 		this->m_buttonListeners.erase(listener);
 	}
 
+	/**
+	* Remove all the listeners
+	*/
 	void CButton::RemoveAllButtonListeners() {
 		LOG_TRACE();
 
 		this->m_buttonListeners.clear();
 	}
 
+	/**
+	* Set the enabled state
+	* @param enabled The enabled state
+	*/
 	void CButton::SetEnabled(const bool enabled) {
 		LOG_TRACE();
 
 		this->m_enabled = enabled;
 	}
 
+	/**
+	* Set the image inset
+	* The inset represents the parts of the button that will not be resized with the button
+	* The values are between 0 and 1
+	*/
 	void CButton::SetImageInset(const CInsetF & inset) {
 		LOG_TRACE();
 
@@ -83,6 +113,10 @@ namespace DE {
 		}
 	}
 
+	/**
+	* Set the default texture
+	* @param texture The texture
+	*/
 	void CButton::SetDefaultTexture(const std::string & texture) {
 		LOG_TRACE();
 
@@ -93,6 +127,10 @@ namespace DE {
 		}
 	}
 
+	/**
+	* Set the clicked texture
+	* @param texture The texture
+	*/
 	void CButton::SetClickedTexture(const std::string & texture) {
 		LOG_TRACE();
 
@@ -103,6 +141,10 @@ namespace DE {
 		}
 	}
 
+	/**
+	* Set the focused texture
+	* @param texture The texture
+	*/
 	void CButton::SetFocusedTexture(const std::string & texture) {
 		LOG_TRACE();
 
@@ -113,30 +155,46 @@ namespace DE {
 		}
 	}
 
+	/**
+	* Set the default title color
+	* @param color The color
+	*/
 	void CButton::SetDefaultTitleColor(const CColor & color) {
 		LOG_TRACE();
 
 		this->m_defaultTitleColor = color;
 	}
 
+	/**
+	* Set the clicked title color
+	* @param color The color
+	*/
 	void CButton::SetClickedTitleColor(const CColor & color) {
 		LOG_TRACE();
 
 		this->m_clickedTitleColor = color;
 	}
 
+	/**
+	* Set the focused title color
+	* @param color The color
+	*/
 	void CButton::SetFocusedTitleColor(const CColor & color) {
 		LOG_TRACE();
 
 		this->m_focusedTitleColor = color;
 	}
 
+	/**
+	* Update the state and the geometry
+	* @param time The elapsed time
+	*/
 	void CButton::Update(const float time) {
 		LOG_TRACE();
 
 		if(this->m_changed) {
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
-			this->m_title->SetPreferredSize(this->m_preferredsize);
+			this->m_title.SetBounds(DE::CRectangleI(0, 0, this->m_preferredsize.x, this->m_preferredsize.y));
 
 			IRenderer * renderer = IRenderer::GetRenderer();
 
@@ -158,12 +216,16 @@ namespace DE {
 		IView::Update(time);
 	}
 
+	/**
+	* Render the button
+	*/
 	void CButton::Render() {
 		LOG_TRACE();
 
-		if(this->m_data.size() > 0) {
-			IRenderer * renderer = IRenderer::GetRenderer();
+		IRenderer * renderer = IRenderer::GetRenderer();
 
+		if(this->m_data.size() > 0) {
+			
 			// Handle the disabled gray color
 			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
 			if(!this->m_enabled) {
@@ -186,9 +248,19 @@ namespace DE {
 		SetTitleColor();
 
 		// Render the subviews
-		IView::Render();
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if ((*it)->IsVisible()) {
+				(*it)->Render();
+			}
+		}
 	}
 
+	/**
+	* Perform a hit test, checking if the point is inside in the the subview or in this view
+	* The test is exclusive, only 1 view can succeed in the hit test
+	* @param point The point to test in screen coordinate
+	* @return True if the point is inside the view on inside one of its subviews
+	*/
 	const bool CButton::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
@@ -218,18 +290,29 @@ namespace DE {
 		return this->m_hitTest;
 	}
 
+	/**
+	* Check if the button is enabled
+	* @return True if the button is enabled, false otherwise
+	*/
 	const bool CButton::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;
 	}
 
+	/**
+	* Get the title
+	* @return The title
+	*/
 	CLabel * CButton::GetTitleElement() {
 		LOG_TRACE();
 
-		return this->m_title;
+		return &this->m_title;
 	}
 
+	/**
+	* Generate the geometry
+	*/
 	void CButton::GenerateGeometry() {
 		LOG_TRACE();
 
@@ -299,20 +382,26 @@ namespace DE {
 		this->m_changed = false;
 	}
 
+	/**
+	* Set the title color
+	*/
 	void CButton::SetTitleColor() {
 		LOG_TRACE();
 
 		if(this->m_clicked) {
-			this->m_title->SetColor(this->m_clickedTitleColor);
+			this->m_title.SetColor(this->m_clickedTitleColor);
 		} else {
 			if(this->m_hitTest) {
-				this->m_title->SetColor(this->m_focusedTitleColor);
+				this->m_title.SetColor(this->m_focusedTitleColor);
 			} else {
-				this->m_title->SetColor(this->m_defaultTitleColor);
+				this->m_title.SetColor(this->m_defaultTitleColor);
 			}
 		}
 	}
 
+	/**
+	* Get the texture to used for rendering
+	*/
 	ITexture2DBase * CButton::GetTextureToRender() {
 		LOG_TRACE();
 
