@@ -23,3 +23,5 @@
 /Game Engine/Release
 /Daidalos/Release
 /Resources/RAW/Models/*.wings~
+/Daidalos/Debug
+/Game Engine/Debug
