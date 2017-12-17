@@ -1,3 +1,0 @@
-C:\Installation\Systeme\SonarCube\bin\SonarQube.Scanner.MSBuild.exe begin /k:"daidalosengine" /n:"Daidalos Engine" /v:"1.0" /o:"stapoli-bitbucket" /d:sonar.cfamily.build-wrapper-output="bw-output" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="1066b0d973366f82e5f339de2af2e0d53aa8744f"
-C:\Installation\Systeme\SonarCube\bin\build-wrapper-win-x86-64.exe --out-dir bw-output C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe /t:rebuild
-C:\Installation\Systeme\SonarCube\bin\SonarQube.Scanner.MSBuild.exe end /d:sonar.login="1066b0d973366f82e5f339de2af2e0d53aa8744f"
