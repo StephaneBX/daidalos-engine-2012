@@ -80,15 +80,8 @@ namespace DE {
 		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
 			switch((*it)->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_COPLANAR:
-				// We need to test if the triangle is in the same orientation as the plane
-				if((*it)->GetPlane().GetNormal().DotProduct(this->m_plane.GetNormal()) >= 0) {
-					// Goes to the front child
-					front.push_back((*it));
-				} else {
-					// Fix?
-					// Changed from back to front in order to correct collision problems with 2 coplanar plans with opposite normal
-					front.push_back((*it));
-				}
+				// Goes to the front child
+				front.push_back((*it));
 				break;
 
 			case BSP_TRIANGLE_ORIENTATION_FRONT:

@@ -80,16 +80,16 @@ namespace DE {
 			* Load the chars
 			*/
 			tinyxml2::XMLElement * character = hDoc.FirstChildElement("font").FirstChildElement("chars").FirstChildElement("char").ToElement();
-			for(character; character; character = character->NextSiblingElement()) {
+			for(auto characterIt = character; characterIt != nullptr; characterIt = characterIt->NextSiblingElement()) {
 				SCharData charData;
-				character->QueryUnsignedAttribute("id", &charData.id);
-				character->QueryIntAttribute("x", &charData.x);
-				character->QueryIntAttribute("y", &charData.y);
-				character->QueryIntAttribute("width", &charData.width);
-				character->QueryIntAttribute("height", &charData.height);
-				character->QueryIntAttribute("xoffset", &charData.xoffset);
-				character->QueryIntAttribute("yoffset", &charData.yoffset);
-				character->QueryIntAttribute("xadvance", &charData.xadvance);
+				characterIt->QueryUnsignedAttribute("id", &charData.id);
+				characterIt->QueryIntAttribute("x", &charData.x);
+				characterIt->QueryIntAttribute("y", &charData.y);
+				characterIt->QueryIntAttribute("width", &charData.width);
+				characterIt->QueryIntAttribute("height", &charData.height);
+				characterIt->QueryIntAttribute("xoffset", &charData.xoffset);
+				characterIt->QueryIntAttribute("yoffset", &charData.yoffset);
+				characterIt->QueryIntAttribute("xadvance", &charData.xadvance);
 
 				data->charData[charData.id] = charData;
 			}
@@ -98,11 +98,11 @@ namespace DE {
 			* Load the kernings
 			*/
 			tinyxml2::XMLElement * kerning = hDoc.FirstChildElement("font").FirstChildElement("kernings").FirstChildElement("kerning").ToElement();
-			for(kerning; kerning; kerning = kerning->NextSiblingElement()) {
+			for(auto kerningIt = kerning; kerningIt != nullptr; kerningIt = kerningIt->NextSiblingElement()) {
 				SKerningPair kerningData;
-				kerning->QueryUnsignedAttribute("first", &kerningData.first);
-				kerning->QueryUnsignedAttribute("second", &kerningData.second);
-				kerning->QueryIntAttribute("amount", &kerningData.amount);
+				kerningIt->QueryUnsignedAttribute("first", &kerningData.first);
+				kerningIt->QueryUnsignedAttribute("second", &kerningData.second);
+				kerningIt->QueryIntAttribute("amount", &kerningData.amount);
 
 				data->charData[kerningData.first].kerning[kerningData.second] = kerningData;
 			}

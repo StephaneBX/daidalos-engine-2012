@@ -234,7 +234,7 @@ namespace DE {
 
 		if(base != nullptr) {
 			const CDX9VertexBuffer * vertexBuffer = static_cast<const CDX9VertexBuffer *>(base);
-			this->m_device->SetStreamSource(stream, vertexBuffer ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
+			this->m_device->SetStreamSource(stream, vertexBuffer->GetBuffer() != nullptr ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
 		} else {
@@ -255,7 +255,7 @@ namespace DE {
 
 		if(base != nullptr) {
 			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(base);
-			this->m_device->SetIndices(indexBuffer ? indexBuffer->GetBuffer() : nullptr);
+			this->m_device->SetIndices(indexBuffer->GetBuffer() != nullptr ? indexBuffer->GetBuffer() : nullptr);
 		} else {
 			this->m_device->SetIndices(nullptr);
 		}
@@ -282,7 +282,7 @@ namespace DE {
 
 		if(declaration != nullptr) {
 			const CDX9Declaration * vertexDeclaration = static_cast<const CDX9Declaration *>(declaration);
-			this->m_device->SetVertexDeclaration(vertexDeclaration ? vertexDeclaration->GetDeclaration() : nullptr);
+			this->m_device->SetVertexDeclaration(vertexDeclaration->GetDeclaration() != nullptr ? vertexDeclaration->GetDeclaration() : nullptr);
 		} else {
 			this->m_device->SetVertexDeclaration(nullptr);
 		}

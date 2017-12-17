@@ -83,13 +83,17 @@ namespace DE {
 	const CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy) {
 		LOG_TRACE();
 
-		if(this->m_mesh != nullptr)
-			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+		if (this != &copy) {
+			if (this->m_mesh != nullptr) {
+				CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+			}
 
-		this->m_mesh = copy.GetMesh();
+			this->m_mesh = copy.GetMesh();
 
-		if(this->m_mesh != nullptr)
-			this->m_mesh->AddReference();
+			if (this->m_mesh != nullptr) {
+				this->m_mesh->AddReference();
+			}
+		}
 
 		return *this;
 	}

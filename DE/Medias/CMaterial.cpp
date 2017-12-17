@@ -78,13 +78,17 @@ namespace DE {
 	const CMaterial & CMaterial::operator=(const CMaterial & copy) {
 		LOG_TRACE();
 
-		if(this->m_material != nullptr)
-			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
+		if (this != &copy) {
+			if (this->m_material != nullptr) {
+				CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
+			}
 
-		this->m_material = copy.GetMaterial();
+			this->m_material = copy.GetMaterial();
 
-		if(this->m_material != nullptr)
-			this->m_material->AddReference();
+			if (this->m_material != nullptr) {
+				this->m_material->AddReference();
+			}
+		}
 
 		return *this;
 	}

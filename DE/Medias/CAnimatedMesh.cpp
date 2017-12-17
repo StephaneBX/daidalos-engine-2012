@@ -104,12 +104,15 @@ namespace DE {
 	const CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy) {
 		LOG_TRACE();
 
-		if(copy.GetMesh() != nullptr) {
-			LoadFromFile(CFile(copy.GetMesh()->GetName()).GetFilename());
-		} else {
-			if(this->m_mesh != nullptr)
-				CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
-			this->m_mesh = nullptr;
+		if (this != &copy) {
+			if (copy.GetMesh() != nullptr) {
+				LoadFromFile(CFile(copy.GetMesh()->GetName()).GetFilename());
+			} else {
+				if (this->m_mesh != nullptr) {
+					CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+				}
+				this->m_mesh = nullptr;
+			}
 		}
 
 		return *this;

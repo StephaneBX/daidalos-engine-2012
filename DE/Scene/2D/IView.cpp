@@ -242,12 +242,15 @@ namespace DE {
 	const IView & IView::operator=(const IView & copy) {
 		LOG_TRACE();
 
-		this->m_changed = copy.m_changed;
-		this->m_visible = copy.m_visible;
-		this->m_position = copy.m_position;
-		this->m_preferredsize = copy.m_preferredsize;
-		this->m_boundingRectangle = copy.m_boundingRectangle;
-		this->m_parent = nullptr;
+		if (this != &copy) {
+			this->m_changed = copy.m_changed;
+			this->m_visible = copy.m_visible;
+			this->m_position = copy.m_position;
+			this->m_preferredsize = copy.m_preferredsize;
+			this->m_boundingRectangle = copy.m_boundingRectangle;
+			this->m_parent = nullptr;
+		}
+
 		return *this;
 	}
 

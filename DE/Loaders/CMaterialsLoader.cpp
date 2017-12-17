@@ -64,85 +64,88 @@ namespace DE {
 		if(tokenizer.GetTokens().size() > 0) {
 			for(unsigned int i = 0; i < tokenizer.GetTokens().size();) {
 				if(tokenizer.GetTokens().at(i) == "newmtl") {
-					if(element != nullptr)
+					if (element != nullptr) {
 						material->AddElement(elementName, element);
+					}
 					elementName = tokenizer.GetTokens().at(i + 1);
 					element = new SMaterialElement();
 					i += 2;
 				} else {
-					if(tokenizer.GetTokens().at(i) == "Kd") {
-						// Diffuse modification
-						iss.clear();
-						iss.str(tokenizer.GetTokens().at(i + 1));
-						iss >> element->m_kDiffuse.x;
-
-						iss.clear();
-						iss.str(tokenizer.GetTokens().at(i + 2));
-						iss >> element->m_kDiffuse.y;
-
-						iss.clear();
-						iss.str(tokenizer.GetTokens().at(i + 3));
-						iss >> element->m_kDiffuse.z;
-
-						i += 4;
-					} else {
-						if(tokenizer.GetTokens().at(i) == "Ka") {
-							// Ambient modification
+					if (element != nullptr) {
+						if (tokenizer.GetTokens().at(i) == "Kd") {
+							// Diffuse modification
 							iss.clear();
 							iss.str(tokenizer.GetTokens().at(i + 1));
-							iss >> element->m_kAmbient.x;
+							iss >> element->m_kDiffuse.x;
 
 							iss.clear();
 							iss.str(tokenizer.GetTokens().at(i + 2));
-							iss >> element->m_kAmbient.y;
+							iss >> element->m_kDiffuse.y;
 
 							iss.clear();
 							iss.str(tokenizer.GetTokens().at(i + 3));
-							iss >> element->m_kAmbient.z;
+							iss >> element->m_kDiffuse.z;
 
 							i += 4;
 						} else {
-							if(tokenizer.GetTokens().at(i) == "Ks") {
-								// Specular modification
+							if (tokenizer.GetTokens().at(i) == "Ka") {
+								// Ambient modification
 								iss.clear();
 								iss.str(tokenizer.GetTokens().at(i + 1));
-								iss >> element->m_kSpecular.x;
+								iss >> element->m_kAmbient.x;
 
 								iss.clear();
 								iss.str(tokenizer.GetTokens().at(i + 2));
-								iss >> element->m_kSpecular.y;
+								iss >> element->m_kAmbient.y;
 
 								iss.clear();
 								iss.str(tokenizer.GetTokens().at(i + 3));
-								iss >> element->m_kSpecular.z;
+								iss >> element->m_kAmbient.z;
 
 								i += 4;
 							} else {
-								if(tokenizer.GetTokens().at(i) == "Ke") {
-									// Emission modification
+								if (tokenizer.GetTokens().at(i) == "Ks") {
+									// Specular modification
 									iss.clear();
 									iss.str(tokenizer.GetTokens().at(i + 1));
-									iss >> element->m_kEmission.x;
+									iss >> element->m_kSpecular.x;
 
 									iss.clear();
 									iss.str(tokenizer.GetTokens().at(i + 2));
-									iss >> element->m_kEmission.y;
+									iss >> element->m_kSpecular.y;
 
 									iss.clear();
 									iss.str(tokenizer.GetTokens().at(i + 3));
-									iss >> element->m_kEmission.z;
+									iss >> element->m_kSpecular.z;
 
 									i += 4;
 								} else {
-									if(tokenizer.GetTokens().at(i) == "Ns") {
-										// Specular factor modification
+									if (tokenizer.GetTokens().at(i) == "Ke") {
+										// Emission modification
 										iss.clear();
 										iss.str(tokenizer.GetTokens().at(i + 1));
-										iss >> element->m_ns;
+										iss >> element->m_kEmission.x;
 
-										i += 2;
-									} else
-										i++;
+										iss.clear();
+										iss.str(tokenizer.GetTokens().at(i + 2));
+										iss >> element->m_kEmission.y;
+
+										iss.clear();
+										iss.str(tokenizer.GetTokens().at(i + 3));
+										iss >> element->m_kEmission.z;
+
+										i += 4;
+									} else {
+										if (tokenizer.GetTokens().at(i) == "Ns") {
+											// Specular factor modification
+											iss.clear();
+											iss.str(tokenizer.GetTokens().at(i + 1));
+											iss >> element->m_ns;
+
+											i += 2;
+										} else
+											i++;
+									}
 								}
 							}
 						}
@@ -151,8 +154,9 @@ namespace DE {
 			}
 		}
 
-		if(element != nullptr)
+		if (element != nullptr) {
 			material->AddElement(elementName, element);
+		}
 
 		return material;
 	}

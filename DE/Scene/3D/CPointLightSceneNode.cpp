@@ -59,7 +59,7 @@ namespace DE {
 			SPointLightsShaderData * lights = this->m_scene->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
-			if(lights->numberOfLights <= MAX_LIGHTS_IN_SHADERS) {
+			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
 				lights->positionRange[lights->numberOfLights] = CVector4F(this->m_absolutePosition, this->m_range);
 				lights->colorFalloff[lights->numberOfLights] = CVector4F(this->m_color.ToRGBVector(), this->m_falloff);
 				lights->enabled[lights->numberOfLights] = 1;

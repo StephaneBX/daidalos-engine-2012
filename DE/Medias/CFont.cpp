@@ -134,13 +134,17 @@ namespace DE {
 	const CFont & CFont::operator=(const CFont & copy) {
 		LOG_TRACE();
 
-		if(this->m_font != nullptr)
-			CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
+		if (this != &copy) {
+			if (this->m_font != nullptr) {
+				CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
+			}
 
-		this->m_font = copy.GetFont();
+			this->m_font = copy.GetFont();
 
-		if(this->m_font != nullptr)
-			this->m_font->AddReference();
+			if (this->m_font != nullptr) {
+				this->m_font->AddReference();
+			}
+		}
 
 		return *this;
 	}

@@ -156,14 +156,14 @@ namespace EDITOR {
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(child; child; child = child->NextSiblingElement()) {
+		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
-			if(std::string(child->Name()) == "multi_brush") {
-				tinyxml2::XMLElement * child2 = tinyxml2::XMLHandle(child).FirstChildElement("brush").ToElement();
+			if(std::string(childIt->Name()) == "multi_brush") {
+				tinyxml2::XMLElement * child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
 
-				for(child2; child2; child2 = child2->NextSiblingElement()) {
-					if(std::string(child2->Name()) == "brush") {
-						tinyxml2::XMLHandle brushHandle(child2);
+				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+					if(std::string(child2It->Name()) == "brush") {
+						tinyxml2::XMLHandle brushHandle(child2It);
 
 						DE::CVector3F position, rotation, scale;
 						std::string diffuseTexture, normalTexture;
@@ -192,10 +192,10 @@ namespace EDITOR {
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(child; child; child = child->NextSiblingElement()) {
+		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
-			if(std::string(child->Name()) == "brush") {
-				tinyxml2::XMLHandle brushHandle(child);
+			if(std::string(childIt->Name()) == "brush") {
+				tinyxml2::XMLHandle brushHandle(childIt);
 
 				DE::CVector3F position, rotation, scale;
 				std::string diffuseTexture, normalTexture;
@@ -222,10 +222,10 @@ namespace EDITOR {
 		}
 
 		child = handle.FirstChildElement("node").ToElement();
-		for(child; child; child = child->NextSiblingElement()) {
+		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A node with a brush bounding box declared
-			if(std::string(child->Name()) == "node") {
-				tinyxml2::XMLHandle nodeHandle(child);
+			if(std::string(childIt->Name()) == "node") {
+				tinyxml2::XMLHandle nodeHandle(childIt);
 
 				DE::CVector3F position, rotation, scale;
 				std::string boundingBox;

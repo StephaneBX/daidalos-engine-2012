@@ -62,7 +62,7 @@ namespace GE {
 
 			// Read the camera steps
 			element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
-			for (element; element; element = element->NextSiblingElement()) {
+			for (auto elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadCameraStep(data, tinyxml2::XMLHandle(element));
 			}
 			

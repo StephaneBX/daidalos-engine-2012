@@ -25,3 +25,5 @@
 /Resources/RAW/Models/*.wings~
 /Daidalos/Debug
 /Game Engine/Debug
+/.sonarqube
+/bw-output

@@ -58,13 +58,17 @@ namespace DE {
 	const CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
 		LOG_TRACE();
 
-		if(this->m_texture != nullptr)
-			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+		if (this != &texture) {
+			if (this->m_texture != nullptr) {
+				CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+			}
 
-		this->m_texture = texture.GetTexture();
+			this->m_texture = texture.GetTexture();
 
-		if(this->m_texture != nullptr)
-			this->m_texture->AddReference();
+			if (this->m_texture != nullptr) {
+				this->m_texture->AddReference();
+			}
+		}
 
 		return *this;
 	}

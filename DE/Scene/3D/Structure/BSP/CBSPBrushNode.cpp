@@ -131,13 +131,8 @@ namespace DE {
 		}
 
 		// Visit in the right order
-		if(d1 > d2) {
-			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
-			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
-		} else {
-			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
-			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
-		}
+		this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(position, impact, iBrush);
+		this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(position, impact, iBrush);
 	}
 
 	void CBSPBrushNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
@@ -181,12 +176,7 @@ namespace DE {
 		}
 
 		// Visit in the right order
-		if(d1 > d2) {
-			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
-			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
-		} else {
-			this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
-			this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
-		}
+		this->m_children[BSP_NODE_CHILD_FRONT]->CollisionDetection(shape, impact, iBrush);
+		this->m_children[BSP_NODE_CHILD_BACK]->CollisionDetection(shape, impact, iBrush);
 	}
 }
