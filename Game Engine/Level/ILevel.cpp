@@ -28,10 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Enums.hpp"
 #include "ILevel.hpp"
 
-namespace GE {
-
 #define PLAYER_NODE_NAME "player"
 
+namespace GE {
 	/**
 	* Load the level. Should be called from a specific thread.
 	* @param filename The filename
@@ -184,7 +183,7 @@ namespace GE {
 	* @param cinematicEvent The event
 	*/
 	void ILevel::OnCinematicEventStarted(CCinematicEvent * cinematicEvent) {
-		
+		// Nothing to do
 	}
 
 	/**
@@ -192,7 +191,7 @@ namespace GE {
 	* @param cinematicEvent The event
 	*/
 	void ILevel::OnCinematicEventPaused(CCinematicEvent * cinematicEvent) {
-
+		// Nothing to do
 	}
 
 	/**
@@ -200,7 +199,7 @@ namespace GE {
 	* @param cinematicEvent The event
 	*/
 	void ILevel::OnCinematicEventStopped(CCinematicEvent * cinematicEvent) {
-
+		// Nothing to do
 	}
 
 	/**

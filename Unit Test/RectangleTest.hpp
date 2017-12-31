@@ -28,7 +28,9 @@ private:
 
 public:
 	void setUp();
-	void tearDown() {}
+	void tearDown() {
+		// Nothing to do
+	}
 
 	void TestConstructors();
 	void TestOperators();

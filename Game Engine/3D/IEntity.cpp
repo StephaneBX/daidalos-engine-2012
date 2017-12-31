@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Level/ILevel.hpp"
 
 namespace GE {
-
 	/**
 	* The constructor
 	* @param parent The parent
@@ -44,7 +43,9 @@ namespace GE {
 	* Set the entity active state
 	* @param enabled The player active state
 	*/
-	void IEntity::SetEnabled(const bool enabled) {}
+	void IEntity::SetEnabled(const bool enabled) {
+		// Nothing to do
+	}
 
 	/**
 	* Set the health
@@ -79,7 +80,7 @@ namespace GE {
 	* @param position The emitter position
 	*/
 	void IEntity::GenerateImpactParticles(const DE::CVector3F & position) {
-
+		// Nothing to do
 	}
 
 	/**

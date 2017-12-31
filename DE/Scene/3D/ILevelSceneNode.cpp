@@ -106,9 +106,9 @@ namespace DE {
 		return this->m_skyAmbientColor;
 	}
 
-	const CAABoundingBoxF ILevelSceneNode::GetBoundingBox() {
+	const CAABoundingBoxF ILevelSceneNode::GetLevelBoundingBox() {
 		LOG_TRACE();
 
-		return this->m_boundingBox;
+		return this->m_levelBoundingBox;
 	}
 }

@@ -247,12 +247,16 @@ namespace DE {
 	/**
 	* Render the geometry that will let the skybox pass through
 	*/
-	void ISceneNode::RenderSkyboxMask() {}
+	void ISceneNode::RenderSkyboxMask() {
+		// Nothing to do
+	}
 
 	/**
 	* Render the node transparent parts
 	*/
-	void ISceneNode::RenderTransparent() {}
+	void ISceneNode::RenderTransparent() {
+		// Nothing to do
+	}
 
 	/**
 	* Render debug information

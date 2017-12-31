@@ -29,10 +29,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CTeleporterEntity.hpp"
 
-namespace DAIDALOS {
-
 #define TRIGGER_RADIUS 3.0f
 
+namespace DAIDALOS {
 	/**
 	* Constructor
 	* @param parent The parent
@@ -76,14 +75,14 @@ namespace DAIDALOS {
 	* @param time Elapsed time
 	*/
 	void CTeleporterEntity::Update(const float time) {
-
+		// Nothing to do
 	}
 
 	/**
 	* Trigger the entity action
 	*/
 	void CTeleporterEntity::DoAction() {
-
+		// Nothing to do
 	}
 
 	/**

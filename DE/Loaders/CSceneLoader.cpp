@@ -1073,7 +1073,7 @@ namespace DE {
 	* @param parent The element parent
 	*/
 	void CSceneLoader::SaveSimpleStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
-
+		// Nothing to do
 	}
 
 	/**
@@ -1083,7 +1083,7 @@ namespace DE {
 	* @param parent The element parent
 	*/
 	void CSceneLoader::SaveBSPStructure(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
-
+		// Nothing to do
 	}
 
 	/**

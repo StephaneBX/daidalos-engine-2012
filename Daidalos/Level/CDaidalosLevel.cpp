@@ -24,6 +24,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 ==============================================================================================================================================================
 */
+
 #include <Core/IRenderer.hpp>
 #include <Enums.hpp>
 #include <3D/Trigger/CAreaTriggerEntity.hpp>
@@ -99,7 +100,7 @@ namespace DAIDALOS {
 	* Do pre level loading process
 	*/
 	void CDaidalosLevel::PreLoadLevel() {
-
+		// Nothing to do
 	}
 
 	/**

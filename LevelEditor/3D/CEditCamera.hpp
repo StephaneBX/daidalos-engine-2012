@@ -35,10 +35,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CSoundContextManager.hpp>
 #include <SiniP/SiniP.h>
 
-namespace EDITOR {
-	#define EDIT_CAMERA_LAYER_HEIGHT 8.0f
-	#define EDIT_CAMERA_STEP 10.0f
+#define EDIT_CAMERA_LAYER_HEIGHT 8.0f
+#define EDIT_CAMERA_STEP 10.0f
 
+namespace EDITOR {
 	/**
 	* Edit camera
 	*/

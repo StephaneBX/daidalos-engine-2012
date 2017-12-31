@@ -37,11 +37,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Listeners/IInputMouseListener.hpp"
 #include "../Core/Listeners/IInputGamepadListener.hpp"
 
-namespace DE {
 #define INPUT_NO_LINKED_ACTION -1
 #define MAX_GAMEPADS 4
 #define GAMEPAD_AXIS_THRESHOLD 0.25f
 
+namespace DE {
 	enum EInputKey {
 		INPUT_KEY_UNDEFINED,
 		INPUT_KEY_KEYBOARD_BEGINNING,

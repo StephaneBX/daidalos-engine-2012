@@ -68,24 +68,32 @@ namespace GE {
 	* Callback when an entity is elected as the active state
 	* @param state The state
 	*/
-	void IEnemyState::OnStateElected(IEnemyState * state) {}
+	void IEnemyState::OnStateElected(IEnemyState * state) {
+		// Nothing to do
+	}
 
 	/**
 	* Callback when an entity interrupt its process
 	* @param state The state
 	*/
-	void IEnemyState::OnStateInterrupted(IEnemyState * state) {}
+	void IEnemyState::OnStateInterrupted(IEnemyState * state) {
+		// Nothing to do
+	}
 
 	/**
 	* Callback when an entity is dismissed from the active state
 	* @param state The state
 	*/
-	void IEnemyState::OnStateDismissed(IEnemyState * state) {}
+	void IEnemyState::OnStateDismissed(IEnemyState * state) {
+		// Nothing to do
+	}
 
 	/**
 	* Callback when the entity take damage
 	*/
-	void IEnemyState::OnEntityTakeDamage() {}
+	void IEnemyState::OnEntityTakeDamage() {
+		// Nothing to do
+	}
 
 	/**
 	* Get the priority

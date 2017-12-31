@@ -92,12 +92,16 @@ namespace DAIDALOS {
 	* Update the door
 	* @param time Elapsed time
 	*/
-	void CSpotEntity::Update(const float time) {}
+	void CSpotEntity::Update(const float time) {
+		// Nothing to do
+	}
 
 	/**
 	* Trigger the entity action
 	*/
-	void CSpotEntity::DoAction() {}
+	void CSpotEntity::DoAction() {
+		// Nothing to do
+	}
 
 	/**
 	* Check if the action can be triggered

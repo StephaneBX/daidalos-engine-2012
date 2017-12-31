@@ -28,7 +28,9 @@ class MatrixTest : public CppUnit::TestFixture
 
 	public:
 		void setUp();
-		void tearDown() {}
+		void tearDown() {
+			// Nothing to do
+		}
 
 		void TestConstructors();
 		void TestOperators();

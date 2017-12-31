@@ -94,6 +94,6 @@ namespace DAIDALOS {
 	* Callback when the next level is triggered
 	*/
 	void CDaidalosApplication::OnTriggerNextLevel(const std::string & nextLevel) {
-
+		// Nothing to do
 	}
 }

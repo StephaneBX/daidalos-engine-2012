@@ -1,5 +1,5 @@
 #include "MemoryAllocatorTest.hpp"
-#include "Core\Memory\CMemoryAllocator.hpp"
+#include "Core/Memory/CMemoryAllocator.hpp"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(MemoryAllocatorTest);
 

@@ -34,13 +34,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <dinput.h>
 #include "../Core/IApplication.hpp"
 
-namespace DE
-{
+namespace DE {
 	/**
 	* Win32 implementation of an application
 	*/
-	class IWin32Application : public IApplication
-	{
+	class IWin32Application : public IApplication {
 	protected:
 		bool m_hasFocus;
 		int m_nCmdShow;

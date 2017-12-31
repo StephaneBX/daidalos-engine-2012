@@ -32,27 +32,27 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <time.h>
 #include "../Core/Enums.hpp"
 
+#define SAFE_DELETE(x){ if(x != nullptr){ delete x; x = nullptr; }}
+#define SAFE_DELETE_ARRAY(x){ if(x != nullptr){ delete[] x; x = nullptr; }}
+
+#ifdef WIN32
+#define SAFE_RELEASE(x){ if(x != nullptr){ x->Release(); x = nullptr; } }
+#endif
+
+#ifdef DE_DLL_EXPORTS
+#define DE_DLL_API __declspec(dllexport) 
+#else
+#define DE_DLL_API 
+#endif
+
+#define PI 3.14159265f
+#define PI_OVER_180 0.0174532925f
+#define EPSILON 0.001f
+#define APPLICATION_OPTIONS "Resources/Engine/engine.ini"
+#define APPLICATION_MATERIALS_CONFIGURATION "Resources/Engine/materials.ini"
+#define APPLICATION_NODES_CONFIGURATION "Resources/Engine/nodes.ini"
+
 namespace DE {
-	#define SAFE_DELETE(x){ if(x != nullptr){ delete x; x = nullptr; }}
-	#define SAFE_DELETE_ARRAY(x){ if(x != nullptr){ delete[] x; x = nullptr; }}
-
-	#ifdef WIN32
-	#define SAFE_RELEASE(x){ if(x != nullptr){ x->Release(); x = nullptr; } }
-	#endif
-
-	#ifdef DE_DLL_EXPORTS
-	#define DE_DLL_API __declspec(dllexport) 
-	#else
-	#define DE_DLL_API 
-	#endif
-
-	#define PI 3.14159265f
-	#define PI_OVER_180 0.0174532925f
-	#define EPSILON 0.001f
-	#define APPLICATION_OPTIONS "Resources/Engine/engine.ini"
-	#define APPLICATION_MATERIALS_CONFIGURATION "Resources/Engine/materials.ini"
-	#define APPLICATION_NODES_CONFIGURATION "Resources/Engine/nodes.ini"
-
 	inline const std::string GetCurrentTimeAsString() {
 		time_t     now = time(0);
 		struct tm  tstruct;

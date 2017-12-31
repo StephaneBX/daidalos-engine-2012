@@ -31,9 +31,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CDirectionalLightSceneNode.hpp"
 #include "../../Scene/3D/CAABoundingBox.hpp"
 
-namespace DE {
 #define DISTANCE_FACTOR 2.0f
 
+namespace DE {
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true) {
 		LOG_TRACE();
 

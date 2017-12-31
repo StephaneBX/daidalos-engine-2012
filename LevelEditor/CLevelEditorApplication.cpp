@@ -570,6 +570,6 @@ namespace EDITOR {
 	* Callback when the next level is triggered
 	*/
 	void CLevelEditorApplication::OnTriggerNextLevel(const std::string & nextLevel) {
-		
+		// Nothing to do
 	}
 }

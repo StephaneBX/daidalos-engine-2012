@@ -34,8 +34,8 @@ void QuaternionTest::TestConstructors() {
 	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
 	DE::CQuaternion quaternion4(vector, DE::DegreeToRadian(30));
 
-	float cosine = std::cosf(DE::DegreeToRadian(30) / 2.0f);
-	float sinus = std::sinf(DE::DegreeToRadian(30) / 2.0f);
+	float cosine = std::cosf(DE::DegreeToRadian(30) / 2.0F);
+	float sinus = std::sinf(DE::DegreeToRadian(30) / 2.0F);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(vector.x * sinus, quaternion4.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(vector.y * sinus, quaternion4.y, EPSILON);
@@ -60,7 +60,7 @@ void QuaternionTest::TestOperators() {
 	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
 
 	DE::CQuaternion tmp;
-	float factor = 2.3f;
+	float factor = 2.3F;
 
 	// Addition between two quaternions
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(quaternion1.x + quaternion2.x, (quaternion1 + quaternion2).x, EPSILON);
@@ -246,7 +246,7 @@ void QuaternionTest::TestExp() {
 void QuaternionTest::TestPower() {
 	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
 	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
-	float power = 3.27f;
+	float power = 3.27F;
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL((quaternion1.Log() * power).Exp().x, quaternion1.Power(power).x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL((quaternion1.Log() * power).Exp().y, quaternion1.Power(power).y, EPSILON);
@@ -278,7 +278,7 @@ void QuaternionTest::TestLerp() {
 	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
 	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
 
-	float factor = 0.72f;
+	float factor = 0.72F;
 
 	DE::CQuaternion result = (quaternion1 * (1 - factor) + quaternion2 * factor).Normalize();
 
@@ -295,7 +295,7 @@ void QuaternionTest::TestSlerp() {
 	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
 	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
 
-	float factor = 0.72f;
+	float factor = 0.72F;
 	DE::CQuaternion quaternion3;
 	float dot = quaternion1.DotProduct(quaternion2);
 
@@ -306,7 +306,7 @@ void QuaternionTest::TestSlerp() {
 		quaternion3 = -quaternion2;
 	} else quaternion3 = quaternion2;
 
-	if(dot < 0.95f) {
+	if(dot < 0.95F) {
 		float angle = acosf(dot);
 		result = (quaternion1 * sinf(angle * (1 - factor)) + quaternion3 * sinf(angle * factor)) / sinf(angle);
 	} else

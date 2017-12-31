@@ -25,12 +25,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define TRIGGER_RADIUS 4
-#define ANIMATION_SPEED 10.0f
-
 #include "../../Enums.hpp"
 #include "../../Level/ILevel.hpp"
 #include "CSwitchEntity.hpp"
+
+#define TRIGGER_RADIUS 4
+#define ANIMATION_SPEED 10.0f
 
 namespace GE {
 	/**

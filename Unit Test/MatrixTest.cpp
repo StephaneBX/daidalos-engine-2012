@@ -36,7 +36,7 @@ void MatrixTest::TestConstructors() {
 void MatrixTest::TestOperators() {
 	DE::CMatrix matrix1(DE::CVector3F(1, 2, 3), DE::CVector3F(DE::DegreeToRadian(30), DE::DegreeToRadian(40), DE::DegreeToRadian(50)), DE::CVector3F(10, 20, 30));
 	DE::CMatrix matrix2(DE::CVector3F(4, 5, 6), DE::CVector3F(DE::DegreeToRadian(10), DE::DegreeToRadian(20), DE::DegreeToRadian(15)), DE::CVector3F(-10, -15, 20));
-	float factor = 3.5f;
+	float factor = 3.5F;
 
 	// + operator
 	DE::CMatrix matrix3 = matrix1 + matrix2;

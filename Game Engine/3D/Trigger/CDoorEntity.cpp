@@ -25,14 +25,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define TRIGGER_RADIUS 10
-#define OPENED_TIME 6000
-#define ANIMATION_SPEED 1.0f
-
 #include <sstream>
 #include "../../Enums.hpp"
 #include "../../Level/ILevel.hpp"
 #include "CDoorEntity.hpp"
+
+#define TRIGGER_RADIUS 10
+#define OPENED_TIME 6000
+#define ANIMATION_SPEED 1.0f
 
 namespace GE {
 	/**

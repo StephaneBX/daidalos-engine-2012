@@ -30,13 +30,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IAnimatedMeshBase.hpp"
 
-namespace DE {
-	#define MD2_ID (('2' << 24) + ('P' << 16) + ('D' << 8) + 'I')
-	#define MD2_VERSION 8
-	#define MD2_SKIN_NAME_SIZE 68
-	#define MD2_FRAME_NAME_SIZE 16
-	#define MD2_NUMVERTEX_NORMALS 162
+#define MD2_ID (('2' << 24) + ('P' << 16) + ('D' << 8) + 'I')
+#define MD2_VERSION 8
+#define MD2_SKIN_NAME_SIZE 68
+#define MD2_FRAME_NAME_SIZE 16
+#define MD2_NUMVERTEX_NORMALS 162
 
+namespace DE {
 	/**
 	* MD2 header information structure
 	*/

@@ -78,7 +78,9 @@ namespace DAIDALOS {
 	/**
 	* Trigger the entity action
 	*/
-	void CAlarmEntity::DoAction() {}
+	void CAlarmEntity::DoAction() {
+		// Nothing to do
+	}
 
 	/**
 	* Check if the action can be triggered

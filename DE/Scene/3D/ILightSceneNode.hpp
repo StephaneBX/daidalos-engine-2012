@@ -31,16 +31,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <limits>
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 
-namespace DE {
-	#define LIGHT_DEFAULT_NEAR_DISTANCE 0.1f
-	#define LIGHT_DEFAULT_FAR_DISTANCE std::numeric_limits<float>::infinity()
+#define LIGHT_DEFAULT_NEAR_DISTANCE 0.1f
+#define LIGHT_DEFAULT_FAR_DISTANCE std::numeric_limits<float>::infinity()
 
+namespace DE {
+	
 	/**
 	* Basic class for all lights.
 	*/
 	class ILightSceneNode : public ISceneNode {
 	protected:
-		bool m_shadowCaster;
 		CColor m_color;
 
 	public:
@@ -50,22 +50,10 @@ namespace DE {
 		virtual ~ILightSceneNode();
 
 		/**
-		* Enable / disable the cast of shadows
-		* @param shadowCaster The shadows status
-		*/
-		void SetShadowCaster(const bool shadowCaster);
-
-		/**
 		* Set the color
 		* @param color The color
 		*/
 		void SetColor(const CColor & color);
-
-		/**
-		* Check if the light cast shadows
-		* @return True if the light cast shadows, false otherwise
-		*/
-		const bool IsShadowCaster() const;
 
 		/**
 		* Get the color

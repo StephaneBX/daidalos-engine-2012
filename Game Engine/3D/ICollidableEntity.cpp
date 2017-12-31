@@ -25,11 +25,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define DEFAULT_COLLISION_UPDATE_FREQUENCY 16
-
 #include "../Enums.hpp"
 #include "../Level/ILevel.hpp"
 #include "ICollidableEntity.hpp"
+
+#define DEFAULT_COLLISION_UPDATE_FREQUENCY 16
 
 namespace GE {
 	/**
@@ -165,6 +165,6 @@ namespace GE {
 	* @param time The elapsed time
 	*/
 	void ICollidableEntity::PerformEntityCollisions(DE::CVector3F movement, const float time) {
-
+		// Nothing to do
 	}
 }

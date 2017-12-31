@@ -28,10 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "CLoadingView.hpp"
 
-namespace GE {
-
 #define GEAR_ROTATION_SPEED 90.0f
 
+namespace GE {
 	/**
 	* Constructor
 	* @param bounds The view bounds

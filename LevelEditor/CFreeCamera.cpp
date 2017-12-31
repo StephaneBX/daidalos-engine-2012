@@ -104,6 +104,7 @@ namespace EDITOR {
 	* @param health The player armor
 	*/
 	void CFreeCamera::SetArmor(const int armor) {
+		// Nothing to do
 	}
 
 	/**
@@ -112,6 +113,7 @@ namespace EDITOR {
 	* @param value The object value
 	*/
 	void CFreeCamera::SetObject(unsigned int object, const unsigned int value) {
+		// Nothing to do
 	}
 
 	/**
@@ -205,7 +207,7 @@ namespace EDITOR {
 	* @param gravity The gravity value before touching the ground
 	*/
 	void CFreeCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
-		
+		// Nothing to do
 	}
 
 	void CFreeCamera::UpdateState() {

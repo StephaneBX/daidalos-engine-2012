@@ -63,5 +63,7 @@ namespace DE {
 	* Write a message
 	* @param message The message
 	*/
-	void ILogger::Write(const std::string & message) {}
+	void ILogger::Write(const std::string & message) {
+		// Nothing to do
+	}
 }

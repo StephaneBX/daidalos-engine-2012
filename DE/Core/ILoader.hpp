@@ -53,7 +53,9 @@ namespace DE {
 		* @param object The object to save
 		* @param filename The filename
 		*/
-		virtual void SaveToFile(T * object, const std::string & filename) {}
+		virtual void SaveToFile(T * object, const std::string & filename) {
+			// Nothing to do
+		}
 	};
 }
 

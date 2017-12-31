@@ -29,13 +29,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/IRenderer.hpp"
 #include "../../Scene/2D/CSelectionList.hpp"
 
+#define BUTTON_HEIGHT 32
+#define NUMBER_VISIBLE_CHOICES 3
+#define TRANSPARENT_TEXTURE "alpha.png"
+#define SELECTION_TEXTURE "blue.png"
+
 namespace DE {
-
-	#define BUTTON_HEIGHT 32
-	#define NUMBER_VISIBLE_CHOICES 3
-	#define TRANSPARENT_TEXTURE "alpha.png"
-	#define SELECTION_TEXTURE "blue.png"
-
 	/**
 	* Constructor
 	* @param texture The texture name

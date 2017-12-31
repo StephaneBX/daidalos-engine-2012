@@ -28,9 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStatePatrol.hpp"
 
-namespace DAIDALOS {
-	#define EPSILON_DISTANCE 1.0f
+#define EPSILON_DISTANCE 1.0f
 
+namespace DAIDALOS {
 	/**
 	* Constructor
 	* @param priority The priority

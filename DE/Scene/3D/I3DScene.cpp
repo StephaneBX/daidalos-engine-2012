@@ -374,7 +374,7 @@ namespace DE {
 	const CAABoundingBoxF I3DScene::GetSceneBoundingBox() {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetBoundingBox();
+		return static_cast<ILevelSceneNode*>(this->m_root)->GetLevelBoundingBox();
 	}
 
 	CParticleSystem & I3DScene::GetParticleSystem() {

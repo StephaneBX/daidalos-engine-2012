@@ -22,8 +22,13 @@ class QuaternionTest : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE_END();
 
 public:
-	void setUp() {}
-	void tearDown() {}
+	void setUp() {
+		// Nothing to do
+	}
+
+	void tearDown() {
+		// Nothing to do
+	}
 
 	void TestConstructors();
 	void TestOperators();

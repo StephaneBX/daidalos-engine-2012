@@ -119,7 +119,7 @@ namespace DE {
 		}
 
 		// Set the bounding box
-		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
+		this->m_levelBoundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
 	/**

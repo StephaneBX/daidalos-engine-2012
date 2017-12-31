@@ -43,7 +43,7 @@ namespace EDITOR {
 	* Do pre level loading process
 	*/
 	void CEditorLevel::PreLoadLevel() {
-
+		// Nothing to do
 	}
 
 	/**

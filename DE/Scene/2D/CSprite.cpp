@@ -30,9 +30,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Memory/CExceptionAssert.hpp"
 #include "../../Scene/2D//CSprite.hpp"
 
-namespace DE {
 #define PANEL_TEXTURE_NAME "white.png"
 
+namespace DE {
 	CSprite::CSprite() : IView() {
 		LOG_TRACE();
 

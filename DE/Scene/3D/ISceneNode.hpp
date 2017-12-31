@@ -36,13 +36,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CMatrix.hpp"
 
-namespace DE {
+#define MESHSCENE_ALL_GROUPS -1
+#define SCENE_DEFAULT_ID 0
+#define SCENE_SKYBOX_ID -9999
+#define SCENE_TRANSPARENT_ID -9998
+#define SCENE_TOP_LAYER_ID -9997
 
-	#define MESHSCENE_ALL_GROUPS -1
-	#define SCENE_DEFAULT_ID 0
-	#define SCENE_SKYBOX_ID -9999
-	#define SCENE_TRANSPARENT_ID -9998
-	#define SCENE_TOP_LAYER_ID -9997
+namespace DE {
 
 	class I3DScene;
 	/**

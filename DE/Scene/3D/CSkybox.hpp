@@ -34,9 +34,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/IDeclaration.hpp"
 #include "../../Medias/CShaderProgram.hpp"
 
-namespace DE {
-	#define SKYBOX_FACES 6
+#define SKYBOX_FACES 6
 
+namespace DE {
 	class I3DScene;
 
 	/**

@@ -33,22 +33,10 @@ namespace DE {
 		LOG_TRACE();
 	}
 
-	void ILightSceneNode::SetShadowCaster(const bool shadowCaster) {
-		LOG_TRACE();
-
-		this->m_shadowCaster = shadowCaster;
-	}
-
 	void ILightSceneNode::SetColor(const CColor & color) {
 		LOG_TRACE();
 
 		this->m_color = color;
-	}
-
-	const bool ILightSceneNode::IsShadowCaster() const {
-		LOG_TRACE();
-
-		return this->m_shadowCaster;
 	}
 
 	const CColor & ILightSceneNode::GetColor() const {

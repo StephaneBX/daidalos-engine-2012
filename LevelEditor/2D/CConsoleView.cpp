@@ -28,15 +28,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CTokenizer.hpp>
 #include "../2D/CConsoleView.hpp"
 
+#define LABEL_HEIGHT 20
+#define MARGIN 10
+#define CONSOLE_INPUT_TEXT ">"
+
+#define CONSOLE_INPUT_LOAD ">LOAD"
+#define CONSOLE_INPUT_SAVE ">SAVE"
+
 namespace EDITOR {
-
-	#define LABEL_HEIGHT 20
-	#define MARGIN 10
-	#define CONSOLE_INPUT_TEXT ">"
-
-	#define CONSOLE_INPUT_LOAD ">LOAD"
-	#define CONSOLE_INPUT_SAVE ">SAVE"
-
 	/**
 	* Constructor
 	* @param texture The view bounds
@@ -116,13 +115,17 @@ namespace EDITOR {
 	* Called when a keyboard action is started
 	* @param actionId The action id
 	*/
-	void CConsoleView::OnInputActionStarted(const unsigned int actionId) {}
+	void CConsoleView::OnInputActionStarted(const unsigned int actionId) {
+		// Nothing to do
+	}
 
 	/**
 	* Called when a keyboard action is stopped
 	* @param actionId The action id
 	*/
-	void CConsoleView::OnInputActionStopped(const unsigned int actionId) {}
+	void CConsoleView::OnInputActionStopped(const unsigned int actionId) {
+		// Nothing to do
+	}
 
 	/**
 	* Called when a key has been pressed

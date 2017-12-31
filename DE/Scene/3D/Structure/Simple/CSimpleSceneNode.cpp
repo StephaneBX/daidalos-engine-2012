@@ -75,7 +75,7 @@ namespace DE {
 		this->m_brushes = brushes;
 
 		// Set the bounding box
-		this->m_boundingBox.SetMinMax(minPosition, maxPosition);
+		this->m_levelBoundingBox.SetMinMax(minPosition, maxPosition);
 	}
 
 	/**
@@ -103,7 +103,7 @@ namespace DE {
 	}
 
 	void CSimpleSceneNode::SetBrushCollision(const int brushId, const bool collision) {
-
+		// Nothing to do
 	}
 
 	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {

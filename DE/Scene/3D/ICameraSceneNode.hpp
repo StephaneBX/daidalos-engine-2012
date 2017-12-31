@@ -33,10 +33,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/ISceneNode.hpp"
 #include "../../Medias/CBuffer.hpp"
 
-namespace DE {
-	#define DEBUG_LINES_COUNT 16
-	#define DEBUG_LINES_STRIDE sizeof(CVector3F)
+#define DEBUG_LINES_COUNT 16
+#define DEBUG_LINES_STRIDE sizeof(CVector3F)
 
+namespace DE {
 	/**
 	* Structure that hold view frustum information
 	*/

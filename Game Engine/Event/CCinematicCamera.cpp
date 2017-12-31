@@ -196,6 +196,6 @@ namespace GE {
 	* @param gravity The gravity value before touching the ground
 	*/
 	void CCinematicCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
-
+		// Nothing to do
 	}
 }

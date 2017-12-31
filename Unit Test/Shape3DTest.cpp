@@ -8,32 +8,32 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Shape3DTest);
 void Shape3DTest::TestCollisionBoundingBoxSphere() {
 	
 	DE::CAABoundingBoxF boundingBox(DE::CVector3F(0,0,0), DE::CVector3F(10,10,10));
-	DE::CSphereF sphere(DE::CVector3F(0, 0, 0), 2.0f);
+	DE::CSphereF sphere(DE::CVector3F(0, 0, 0), 2.0F);
 	
 	// No collision
-	sphere.SetPosition(DE::CVector3F(0,8.0f,0));
+	sphere.SetPosition(DE::CVector3F(0,8.0F,0));
 	CPPUNIT_ASSERT_EQUAL(false, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(false, sphere.IsCollision(&boundingBox));
 
-	sphere.SetPosition(DE::CVector3F(0, -2.0f, 0));
+	sphere.SetPosition(DE::CVector3F(0, -2.0F, 0));
 	CPPUNIT_ASSERT_EQUAL(false, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(false, sphere.IsCollision(&boundingBox));
 
-	sphere.SetPosition(DE::CVector3F(-8, 0.0f, 0));
+	sphere.SetPosition(DE::CVector3F(-8, 0.0F, 0));
 	CPPUNIT_ASSERT_EQUAL(false, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(false, sphere.IsCollision(&boundingBox));
 
-	sphere.SetPosition(DE::CVector3F(8, 0.0f, 0));
+	sphere.SetPosition(DE::CVector3F(8, 0.0F, 0));
 	CPPUNIT_ASSERT_EQUAL(false, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(false, sphere.IsCollision(&boundingBox));
 
 	// Collision
 	boundingBox.SetPosition(DE::CVector3F(4, 5, 6));
-	sphere.SetPosition(DE::CVector3F(2.5, 3, 0));
+	sphere.SetPosition(DE::CVector3F(2.5F, 3, 0));
 	CPPUNIT_ASSERT_EQUAL(true, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(true, sphere.IsCollision(&boundingBox));
 
-	sphere.SetPosition(DE::CVector3F(-2, 6.5, 12));
+	sphere.SetPosition(DE::CVector3F(-2, 6.5F, 12));
 	CPPUNIT_ASSERT_EQUAL(true, boundingBox.IsCollision(&sphere));
 	CPPUNIT_ASSERT_EQUAL(true, sphere.IsCollision(&boundingBox));
 
@@ -49,7 +49,7 @@ void Shape3DTest::TestCollisionBoundingBoxSphere() {
 void Shape3DTest::TestCollisionBoundingBoxEllipse() {
 
 	DE::CAABoundingBoxF boundingBox(DE::CVector3F(2, 2, 2), DE::CVector3F(10, 20, 10));
-	DE::CEllipseF ellipse(DE::CVector3F(0, 0, 0), DE::CVector2F(2.0f, 3.0f));
+	DE::CEllipseF ellipse(DE::CVector3F(0, 0, 0), DE::CVector2F(2.0F, 3.0F));
 
 	// No collision
 	ellipse.SetPosition(DE::CVector3F(-4, 13, 8));

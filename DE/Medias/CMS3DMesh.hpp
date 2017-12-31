@@ -33,10 +33,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CMatrix.hpp"
 #include "../Medias/IAnimatedMeshBase.hpp"
 
-namespace DE {
-	#define MS3D_ROOT_JOINT -1
-	#define MS3D_VERTEX_NO_BONES -1
+#define MS3D_ROOT_JOINT -1
+#define MS3D_VERTEX_NO_BONES -1
 
+namespace DE {
 	/**
 	* MS3D internal data structure for meshes
 	*/

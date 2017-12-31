@@ -31,9 +31,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <libsndfile/sndfile.h>
 #include "../Medias/ISoundBase.hpp"
 
-namespace DE {
-	#define STREAM_SOUND_BUFFER_SIZE 4
+#define STREAM_SOUND_BUFFER_SIZE 4
 
+namespace DE {
 	/**
 	* Basic class for stream sounds
 	*/

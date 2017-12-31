@@ -48,7 +48,7 @@ namespace DE {
 		std::vector<int> m_batchSize;
 		CMeshBuffer m_levelBuffer;
 		ICameraSceneNode * m_activeCamera;
-		CAABoundingBoxF m_boundingBox;
+		CAABoundingBoxF m_levelBoundingBox;
 
 		std::string m_skyName;
 		CVector4F m_skyAmbientColor;
@@ -131,10 +131,10 @@ namespace DE {
 		const CVector4F & GetSkyAmbientColor() const;
 
 		/**
-		* Get the bounding box
-		* @return The bounding box
+		* Get the level bounding box
+		* @return The level bounding box
 		*/
-		const CAABoundingBoxF GetBoundingBox();
+		const CAABoundingBoxF GetLevelBoundingBox();
 
 		/**
 		* Render the node

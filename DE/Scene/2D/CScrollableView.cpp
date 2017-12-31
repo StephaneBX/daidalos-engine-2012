@@ -30,11 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Scene/2D/CScrollableView.hpp"
 
-namespace DE {
-	#define DEFAULT_SCROLL_PITCH 20
-	#define DEFAULT_SCROLLBAR_THICKNESS 10
-	#define DEFAULT_SCROLLBAR_COLOR CColor(0.5f, 0.5f, 0.5f, 0.5f)
+#define DEFAULT_SCROLL_PITCH 20
+#define DEFAULT_SCROLLBAR_THICKNESS 10
+#define DEFAULT_SCROLLBAR_COLOR CColor(0.5f, 0.5f, 0.5f, 0.5f)
 
+namespace DE {
 	/**
 	* Constructor
 	*/

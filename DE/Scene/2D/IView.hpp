@@ -36,11 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Medias/CTexture2D.hpp"
 #include "../../Medias/CBuffer.hpp"
 
-namespace DE {
 #define GUI_VIEW_LEFT_CLICK 1 << 28
 #define GUI_VIEW_WHEEL_UP 1 << 29
 #define GUI_VIEW_WHEEL_DOWN 1 << 30
 
+namespace DE {
 	/**
 	* The GUI data structure for the shaders
 	*/

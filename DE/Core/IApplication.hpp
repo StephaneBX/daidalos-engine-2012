@@ -44,10 +44,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #pragma comment(lib, "DevIL.lib")
 #pragma comment(lib, "libsndfile-1.lib")
 
-namespace DE {
-	#define APPLICATION_NAME "Daidalos Engine"
-	#define MAXIMUM_FRAME_TIME 50
+#define APPLICATION_NAME "Daidalos Engine"
+#define MAXIMUM_FRAME_TIME 50
 
+namespace DE {
 	/**
 	* Basic class for the application
 	*/

@@ -175,6 +175,6 @@ namespace DAIDALOS {
 	* @param gravity The gravity value before touching the ground
 	*/
 	void CZombieEntity::OnEntityTouchedGround(const DE::CVector3F gravity) {
-
+		// Nothing to do
 	}
 }

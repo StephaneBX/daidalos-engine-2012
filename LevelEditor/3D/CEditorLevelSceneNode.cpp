@@ -61,7 +61,9 @@ namespace EDITOR {
 		RenderWithOptions(SCENE_SKYBOX_ID);
 	}
 
-	void CEditorLevelSceneNode::SetBrushCollision(const int brushId, const bool collision) {}
+	void CEditorLevelSceneNode::SetBrushCollision(const int brushId, const bool collision) {
+		// Nothing to do
+	}
 
 	const bool CEditorLevelSceneNode::Slide(DE::IShape3DF & shape, const DE::CVector3F & movement) {
 

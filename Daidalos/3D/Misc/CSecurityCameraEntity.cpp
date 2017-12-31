@@ -111,7 +111,9 @@ namespace DAIDALOS {
 	/**
 	* Trigger the entity action
 	*/
-	void CSecurityCameraEntity::DoAction() {}
+	void CSecurityCameraEntity::DoAction() {
+		// Nothing to do
+	}
 
 	/**
 	* Check if the action can be triggered
