@@ -64,7 +64,7 @@ namespace DAIDALOS {
 		this->m_state = FPS_CAMERA_STATE_STAND;
 		this->m_node = cameraNode;
 		this->m_flashlightNode = flashlightNode;
-		this->m_health = 80;
+		SetHealth(80);
 		this->m_armor = 0;
 		this->m_stepDistance = 0;
 		this->m_ladderDistance = 0;
@@ -140,7 +140,7 @@ namespace DAIDALOS {
 
 		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
 		this->m_rotation = this->m_node->GetRotation();
-		this->m_visiblePosition = this->m_node->GetPosition();
+		SetVisiblePosition(this->m_node->GetPosition());
 
 		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_weaponChangeSound.SetRelativeToListener(true);
@@ -173,7 +173,7 @@ namespace DAIDALOS {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(this->m_parent, this->m_node));
+		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(GetParent(), this->m_node));
 		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
 		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
 		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
@@ -186,7 +186,7 @@ namespace DAIDALOS {
 	void CFPSCamera::TakeDamage(const unsigned int damage) {
 		IPlayer::TakeDamage(damage);
 
-		if(this->m_health > 0) {
+		if(GetHealth() > 0) {
 			this->m_hurtSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		} else {
 			DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
@@ -247,7 +247,7 @@ namespace DAIDALOS {
 	* @param position The position
 	*/
 	void CFPSCamera::SetPosition(const DE::CVector3F position) {
-		this->m_visiblePosition = position;
+		SetVisiblePosition(position);
 	}
 
 	void CFPSCamera::Update(const float time) {
@@ -266,12 +266,12 @@ namespace DAIDALOS {
 		UpdateMovement(timeSecond, time);
 		
 		// Update the node
-		this->m_node->SetPosition(this->m_visiblePosition + DE::CVector3F(0, 1, 0));
+		this->m_node->SetPosition(GetVisiblePosition() + DE::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
 		if (IsEnabled()) {
-			this->m_soundContext->SetListenerPosition(this->m_visiblePosition);
+			this->m_soundContext->SetListenerPosition(GetVisiblePosition());
 			float orientation[] = { this->m_node->GetForwardVector().x, this->m_node->GetForwardVector().y, this->m_node->GetForwardVector().z, this->m_node->GetUpVector().x, this->m_node->GetUpVector().y, this->m_node->GetUpVector().z };
 			this->m_soundContext->SetListenerOrientation(orientation);
 		}
@@ -310,7 +310,7 @@ namespace DAIDALOS {
 	* @return True if the entity is enabled
 	*/
 	const bool CFPSCamera::IsEnabled() const {
-		return this->m_health > 0 && this->m_node->IsEnabled();
+		return GetHealth() > 0 && this->m_node->IsEnabled();
 	}
 
 	/**
@@ -493,7 +493,7 @@ namespace DAIDALOS {
 			DE::CVector3F collisionPoint;
 
 			// If no up collision detected at the standing position
-			if(!this->m_parent->GetScene()->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
+			if(!GetParent()->GetScene()->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
 				this->m_state = FPS_CAMERA_STATE_STAND;
 				collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
 				collisionShapeEllipse->SetPosition(collisionShapeEllipse->GetPosition() + movementUp);
@@ -582,13 +582,13 @@ namespace DAIDALOS {
 		}
 
 		// Collision test
-		DE::CVector3F previousVisiblePosition = this->m_visiblePosition;
+		DE::CVector3F previousVisiblePosition = GetVisiblePosition();
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 
 		// Step sounds
 		if(this->m_gravityState) {
 			if(this->m_gravity.y == 0) {
-				this->m_stepDistance += (this->m_visiblePosition - previousVisiblePosition).Length();
+				this->m_stepDistance += (GetVisiblePosition() - previousVisiblePosition).Length();
 				if(this->m_stepDistance >= FPS_CAMERA_STEP_DISTANCE) {
 					// Play a random step sound
 					this->m_stepSounds[DE::RandomNumber<int>(0, this->m_stepSounds.size() - 1)]->SetStatus(DE::SOUND_STATUS_PLAY);
@@ -600,7 +600,7 @@ namespace DAIDALOS {
 				this->m_ladderDistance = 0;
 			}
 		} else {
-			this->m_ladderDistance += fabsf(this->m_visiblePosition.y - previousVisiblePosition.y);
+			this->m_ladderDistance += fabsf(GetVisiblePosition().y - previousVisiblePosition.y);
 			if(this->m_ladderDistance >= FPS_CAMERA_LADDER_DISTANCE) {
 				// Play the ladder sound
 				this->m_ladderSound.SetStatus(DE::SOUND_STATUS_PLAY);

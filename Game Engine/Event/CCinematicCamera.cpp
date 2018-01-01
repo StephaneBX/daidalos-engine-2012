@@ -135,19 +135,19 @@ namespace GE {
 			}
 
 			// Update the fade value
-			this->m_parent->SetBrightness(0);
+			GetParent()->SetBrightness(0);
 			if (this->m_steps[(int)this->m_currentStep].fade != FADE_NONE) {
 				float diff = this->m_currentStep - (int)this->m_currentStep;
 				float fadeDiff = this->m_steps[(int)this->m_currentStep].speed * (this->m_steps[(int)this->m_currentStep].fadeDuration / 1000.0f);
 
 				if (diff < fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_IN || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
 					// Fade in
-					this->m_parent->SetBrightness(-1.0f + (diff / fadeDiff));
+					GetParent()->SetBrightness(-1.0f + (diff / fadeDiff));
 				}
 
 				if (diff >= 1.0f - fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_OUT || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
 					// Fade out
-					this->m_parent->SetBrightness(-(diff - (1.0f - fadeDiff)) / fadeDiff);
+					GetParent()->SetBrightness(-(diff - (1.0f - fadeDiff)) / fadeDiff);
 				}
 			}
 

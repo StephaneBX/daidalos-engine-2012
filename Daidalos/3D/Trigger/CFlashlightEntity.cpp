@@ -42,8 +42,8 @@ namespace DAIDALOS {
 	*/
 	CFlashlightEntity::CFlashlightEntity(GE::ILevel * parent, DE::ISceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_FLASHLIGHT;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_FLASHLIGHT);
 		this->m_node = meshNode;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
@@ -72,7 +72,7 @@ namespace DAIDALOS {
 	*/
 	void CFlashlightEntity::DoAction() {
 		this->m_node->SetEnabled(false);
-		this->m_parent->GetPlayer()->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
+		GetParent()->GetPlayer()->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
 	}
 
@@ -81,6 +81,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CFlashlightEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

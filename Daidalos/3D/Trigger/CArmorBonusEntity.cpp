@@ -42,8 +42,8 @@ namespace DAIDALOS {
 	*/
 	CArmorBonusEntity::CArmorBonusEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_ARMOR;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_ARMOR);
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
@@ -72,7 +72,7 @@ namespace DAIDALOS {
 	void CArmorBonusEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_parent->GetPlayer()->SetArmor(this->m_parent->GetPlayer()->GetArmor() < 150 ? this->m_parent->GetPlayer()->GetArmor() + ARMOR_BONUS : 200);
+		GetParent()->GetPlayer()->SetArmor(GetParent()->GetPlayer()->GetArmor() < 150 ? GetParent()->GetPlayer()->GetArmor() + ARMOR_BONUS : 200);
 	}
 
 	/**
@@ -80,6 +80,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CArmorBonusEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->GetArmor() < 200;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->GetArmor() < 200;
 	}
 }

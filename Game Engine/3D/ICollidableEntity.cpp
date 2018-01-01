@@ -37,7 +37,9 @@ namespace GE {
 	* @param parent The parent
 	*/
 	ICollidableEntity::ICollidableEntity(ILevel * parent) : IEntity(parent) {
-		this->m_flag |= ENTITY_FLAG_COLLIDABLE;
+
+		SetFlag(GetFlag() | ENTITY_FLAG_COLLIDABLE);
+
 		this->m_gravityState = true;
 		this->m_collisionState = true;
 		this->m_collisionUpdateFrequency = DEFAULT_COLLISION_UPDATE_FREQUENCY;
@@ -118,19 +120,19 @@ namespace GE {
 	void ICollidableEntity::PerformLevelCollisions(DE::CVector3F movement, const float time) {
 
 		const float timeSecond = time / 1000.0f;
-		this->m_visiblePosition += movement * timeSecond;
+		SetVisiblePosition(GetVisiblePosition() + movement * timeSecond);
 
 		// If a collision test is required 
 		this->m_lastCollisionUpdateTimer += time;
 		if(this->m_lastCollisionUpdateTimer >= this->m_collisionUpdateFrequency) {
 			// Collision test with only the movement
-			DE::CVector3F finalMovement = this->m_visiblePosition - this->m_collisionShape->GetPosition();
-			this->m_parent->GetScene()->Slide(*this->m_collisionShape.get(), finalMovement);
+			DE::CVector3F finalMovement = GetVisiblePosition() - this->m_collisionShape->GetPosition();
+			GetParent()->GetScene()->Slide(*this->m_collisionShape.get(), finalMovement);
 
 			// Collision test of the gravity
 			finalMovement = this->m_gravity * timeSecond;
 			DE::CVector3F finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
-			this->m_parent->GetScene()->Slide(*this->m_collisionShape, finalMovement);
+			GetParent()->GetScene()->Slide(*this->m_collisionShape, finalMovement);
 
 			// Reset gravity and state if the entity has touched the ground
 			if(this->m_gravityState && this->m_collisionShape->GetPosition().y > finalPosition.y) {
@@ -143,13 +145,13 @@ namespace GE {
 			}
 
 			// Update the visibility position
-			this->m_visiblePosition = this->m_collisionShape->GetPosition();
+			SetVisiblePosition(this->m_collisionShape->GetPosition());
 
 			// Reset the collision timer
 			this->m_lastCollisionUpdateTimer = 0;
 		} else {
 			// Add the gravity when a collision test is not needed
-			this->m_visiblePosition += this->m_gravity * timeSecond;
+			SetVisiblePosition(GetVisiblePosition() + this->m_gravity * timeSecond);
 		}
 
 		// Cancel the gravity if disabled

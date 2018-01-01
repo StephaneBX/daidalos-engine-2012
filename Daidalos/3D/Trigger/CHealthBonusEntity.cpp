@@ -40,8 +40,8 @@ namespace DAIDALOS {
 	*/
 	CHealthBonusEntity::CHealthBonusEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_HEALTH;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_HEALTH);
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 		
@@ -70,7 +70,7 @@ namespace DAIDALOS {
 	void CHealthBonusEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_parent->GetPlayer()->SetHealth(this->m_parent->GetPlayer()->GetHealth() < 80 ? this->m_parent->GetPlayer()->GetHealth() + 20 : 100);
+		GetParent()->GetPlayer()->SetHealth(GetParent()->GetPlayer()->GetHealth() < 80 ? GetParent()->GetPlayer()->GetHealth() + 20 : 100);
 	}
 
 	/**
@@ -78,6 +78,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CHealthBonusEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->GetHealth() < 100;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->GetHealth() < 100;
 	}
 }

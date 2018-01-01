@@ -42,8 +42,8 @@ namespace GE {
 	*/
 	CDoorEntity::CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = ENTITY_TYPE_DOOR;
+		SetId(meshNode->GetId());
+		SetType(ENTITY_TYPE_DOOR);
 		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;
 
@@ -70,7 +70,7 @@ namespace GE {
 			ss >> this->m_animationSpeed;
 		}
 		if(meshNode->GetAttribute("openingParticleEmitter") != "") {
-			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(this->m_parent->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
+			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
 		}
 		if(meshNode->GetAttribute("triggerRadius") != "") {
 			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));
@@ -93,7 +93,7 @@ namespace GE {
 				this->m_timer = 0;
 				this->m_state = DOOR_STATE_CLOSING;
 				this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
-				this->m_parent->GetScene()->SetBrushCollision(this->m_node->GetId(), true);
+				GetParent()->GetScene()->SetBrushCollision(this->m_node->GetId(), true);
 				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
 			}
@@ -103,7 +103,7 @@ namespace GE {
 		if(this->m_state == DOOR_STATE_OPENING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
-			this->m_parent->GetScene()->SetBrushCollision(this->m_node->GetId(), false);
+			GetParent()->GetScene()->SetBrushCollision(this->m_node->GetId(), false);
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
 			if(this->m_emitterNode != nullptr) {
@@ -148,6 +148,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CDoorEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

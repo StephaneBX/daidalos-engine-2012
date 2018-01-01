@@ -39,8 +39,8 @@ namespace DAIDALOS {
 	*/
 	CTeleporterEntity::CTeleporterEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_TELEPORTER;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_TELEPORTER);
 		this->m_node = meshNode;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
@@ -90,7 +90,7 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CTeleporterEntity::CanDoAction() {
-		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

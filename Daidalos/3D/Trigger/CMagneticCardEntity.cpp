@@ -40,8 +40,8 @@ namespace DAIDALOS {
 	*/
 	CMagneticCardEntity::CMagneticCardEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_MAGNETIC_CARD;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_MAGNETIC_CARD);
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
@@ -78,7 +78,7 @@ namespace DAIDALOS {
 	void CMagneticCardEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
-		this->m_parent->GetPlayer()->SetObject(this->m_playerObject, 1);
+		GetParent()->GetPlayer()->SetObject(this->m_playerObject, 1);
 	}
 
 	/**
@@ -86,6 +86,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CMagneticCardEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

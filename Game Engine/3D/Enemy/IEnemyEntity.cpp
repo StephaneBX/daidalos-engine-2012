@@ -45,28 +45,33 @@ namespace GE {
 	* @param meshNode The mesh node
 	*/
 	IEnemyEntity::IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
-		this->m_id = meshNode->GetId();
-		this->m_flag |= ENTITY_FLAG_ENEMY;
 
-		this->m_health = DEFAULT_HEALTH;
-		this->m_maxHealth = DEFAULT_HEALTH;
+		SetId(meshNode->GetId());
+		SetFlag(GetFlag() | ENTITY_FLAG_ENEMY);
+
+		SetHealth(DEFAULT_HEALTH);
+		SetMaxHealth(DEFAULT_HEALTH);
 
 		this->m_meshNode = meshNode;
 		this->m_currentActionState = nullptr;
 
 		// The camera node
-		this->m_cameraNode = new DE::CProjectionCameraSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
+		this->m_cameraNode = new DE::CProjectionCameraSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
 		this->m_cameraNode->SetSaved(false);
 		this->m_meshNode->AddChild(this->m_cameraNode);
 
 		// Read the attributes
 		if(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH) != "") {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH));
-			ss >> this->m_health;
+			int health = 0;
+			ss >> health;
+			SetHealth(health);
 		}
 		if(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH) != "") {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH));
-			ss >> this->m_maxHealth;
+			int maxHealth = 0;
+			ss >> maxHealth;
+			SetMaxHealth(maxHealth);
 		}
 	}
 
@@ -121,7 +126,7 @@ namespace GE {
 	* @return The player
 	*/
 	IPlayer * IEnemyEntity::GetPlayer() {
-		return this->m_parent->GetPlayer();
+		return GetParent()->GetPlayer();
 	}
 
 	/**

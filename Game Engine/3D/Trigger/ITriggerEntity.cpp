@@ -34,7 +34,7 @@ namespace GE {
 	* @param parent The parent
 	*/
 	ITriggerEntity::ITriggerEntity(ILevel * parent) : IEntity(parent) {
-		this->m_flag |= ENTITY_FLAG_TRIGGER;
+		SetFlag(GetFlag() | ENTITY_FLAG_TRIGGER);
 	}
 
 	/**

@@ -40,8 +40,8 @@ namespace GE {
 	*/
 	CSwitchEntity::CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = ENTITY_TYPE_SWITCH;
+		SetId(meshNode->GetId());
+		SetType(ENTITY_TYPE_SWITCH);
 		this->m_node = meshNode;
 
 		this->m_highlighted = false;
@@ -61,7 +61,7 @@ namespace GE {
 				this->m_highlighted = true;
 			}
 
-			if(this->m_parent->GetPlayer()->IsInteracting()) {
+			if(GetParent()->GetPlayer()->IsInteracting()) {
 				DoAction();
 			}
 		} else if(this->m_highlighted) {
@@ -122,7 +122,7 @@ namespace GE {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	/**

@@ -38,8 +38,8 @@ namespace GE {
 	CCinematicEntity::CCinematicEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
 
 		this->m_triggered = false;
-		this->m_id = node->GetId();
-		this->m_type = ENTITY_TYPE_AREA_TRIGGER;
+		SetId(node->GetId());
+		SetType(ENTITY_TYPE_AREA_TRIGGER);
 		this->m_node = node;
 		std::string cinematicFile;
 
@@ -69,8 +69,8 @@ namespace GE {
 			// If over, enable back the player
 			if (this->m_cinematicEvent->IsDone()) {
 				this->m_triggered = false;
-				this->m_parent->GetPlayer()->SetEnabled(true);
-				this->m_parent->SetActiveCamera(this->m_parent->GetPlayer()->GetCameraNode());
+				GetParent()->GetPlayer()->SetEnabled(true);
+				GetParent()->SetActiveCamera(GetParent()->GetPlayer()->GetCameraNode());
 			} else {
 				this->m_cinematicEvent->Update(time);
 			}
@@ -85,11 +85,11 @@ namespace GE {
 		this->m_node->SetEnabled(false);
 
 		// Disable the player
-		this->m_parent->GetPlayer()->SetEnabled(false);
+		GetParent()->GetPlayer()->SetEnabled(false);
 		//this->m_parent->GetHud()->
 
 		// Attach the camera
-		this->m_parent->SetActiveCamera(this->m_cinematicEvent->GetCameraNode());
+		GetParent()->SetActiveCamera(this->m_cinematicEvent->GetCameraNode());
 
 		// Start the cinematic
 		this->m_cinematicEvent->Start();
@@ -100,6 +100,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CCinematicEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

@@ -45,8 +45,8 @@ namespace DAIDALOS {
 	*/
 	CSecurityCameraEntity::CSecurityCameraEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_SECURITY_CAMERA;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_SECURITY_CAMERA);
 		this->m_meshRootNode = meshNode;
 		this->m_meshCameraNode = nullptr;
 		this->m_originalHorizontalRotation = this->m_meshRootNode->GetRotation().y;
@@ -91,7 +91,7 @@ namespace DAIDALOS {
 
 		// Add the light
 		if(this->m_meshCameraNode != nullptr) {
-			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7f, 0.8f, true, true);
+			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7f, 0.8f, true, true);
 			this->m_meshCameraNode->AddChild(spot);
 		}
 	}
@@ -102,7 +102,7 @@ namespace DAIDALOS {
 	*/
 	void CSecurityCameraEntity::Update(const float time) {
 
-		if (this->m_parent->GetPlayer()->IsEnabled()) {
+		if (GetParent()->GetPlayer()->IsEnabled()) {
 			UpdateHorizontalRotation(time);
 			UpdateVerticalRotation(time);
 		}
@@ -134,7 +134,7 @@ namespace DAIDALOS {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_parent->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
@@ -171,7 +171,7 @@ namespace DAIDALOS {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (this->m_parent->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way

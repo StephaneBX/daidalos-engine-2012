@@ -37,8 +37,8 @@ namespace GE {
 	*/
 	CLadderEntity::CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = ENTITY_TYPE_LADDER;
+		SetId(meshNode->GetId());
+		SetType(ENTITY_TYPE_LADDER);
 		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
 
@@ -70,7 +70,7 @@ namespace GE {
 	*/
 	void CLadderEntity::DoAction() {
 		if(this->m_triggerParam != 0) {
-			this->m_parent->GetPlayer()->SetGravityState(false);
+			GetParent()->GetPlayer()->SetGravityState(false);
 		}
 	}
 
@@ -80,7 +80,7 @@ namespace GE {
 	*/
 	const bool CLadderEntity::CanDoAction() {
 
-		this->m_triggerParam = this->m_boundingBox.IsCollision(this->m_parent->GetPlayer()->GetCollisionShape()) ? 1 : 0;
+		this->m_triggerParam = this->m_boundingBox.IsCollision(GetParent()->GetPlayer()->GetCollisionShape()) ? 1 : 0;
 		return true;
 	}
 }

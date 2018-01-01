@@ -37,8 +37,8 @@ namespace GE {
 	*/
 	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
 
-		this->m_id = node->GetId();
-		this->m_type = ENTITY_TYPE_AREA_TRIGGER;
+		SetId(node->GetId());
+		SetType(ENTITY_TYPE_AREA_TRIGGER);
 		this->m_node = node;
 		
 		// Read the attributes
@@ -77,7 +77,7 @@ namespace GE {
 
 		// Loop through the ids
 		for(auto it = this->m_triggerNodeIds.begin(); it != this->m_triggerNodeIds.end(); ++it) {
-			std::vector<DE::ISceneNode*> nodes = this->m_parent->GetScene()->GetNodeArray((*it));
+			std::vector<DE::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray((*it));
 
 			// Loop through the nodes
 			for(auto it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
@@ -91,6 +91,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CAreaTriggerEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

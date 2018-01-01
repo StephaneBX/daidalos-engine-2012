@@ -121,7 +121,7 @@ namespace EDITOR {
 	* @param position The position
 	*/
 	void CFreeCamera::SetPosition(const DE::CVector3F position) {
-		this->m_visiblePosition = position;
+		SetVisiblePosition(position);
 	}
 
 	void CFreeCamera::Update(const float time) {

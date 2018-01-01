@@ -40,8 +40,8 @@ namespace DAIDALOS {
 	*/
 	CMagneticCardReaderEntity::CMagneticCardReaderEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_MAGNETIC_CARD_READER;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_MAGNETIC_CARD_READER);
 		this->m_node = meshNode;
 
 		this->m_highlighted = false;
@@ -69,7 +69,7 @@ namespace DAIDALOS {
 				this->m_highlighted = true;
 			}
 
-			if(this->m_parent->GetPlayer()->IsInteracting()) {
+			if(GetParent()->GetPlayer()->IsInteracting()) {
 				DoAction();
 			}
 		} else if(this->m_highlighted) {
@@ -84,7 +84,7 @@ namespace DAIDALOS {
 	void CMagneticCardReaderEntity::DoAction() {
 		
 		// Activate the trigger entities with the same id
-		auto vector = this->m_parent->GetTriggerEntities(this->m_id);
+		auto vector = GetParent()->GetTriggerEntities(GetId());
 		for(auto it = vector.begin(); it != vector.end(); ++it) {
 			if((*it) != this) {
 				(*it)->DoAction();
@@ -99,6 +99,6 @@ namespace DAIDALOS {
 	*/
 	const bool CMagneticCardReaderEntity::CanDoAction() {
 
-		return !this->m_activated && this->m_parent->GetPlayer()->GetObjectValue(this->m_magneticCard) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), this->m_parent->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && this->m_parent->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return !this->m_activated && GetParent()->GetPlayer()->GetObjectValue(this->m_magneticCard) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 }

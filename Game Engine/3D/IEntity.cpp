@@ -40,6 +40,38 @@ namespace GE {
 	}
 
 	/**
+	* Set the id
+	* @param id The id
+	*/
+	void IEntity::SetId(const int id) {
+		this->m_id = id;
+	}
+
+	/**
+	* Set the flag
+	* @param flag The flag
+	*/
+	void IEntity::SetFlag(const int flag) {
+		this->m_flag = flag;
+	}
+
+	/**
+	* Set the type
+	* @param type The type
+	*/
+	void IEntity::SetType(const unsigned int type) {
+		this->m_type = type;
+	}
+
+	/**
+	* Set the visible position
+	* @param position The visible position
+	*/
+	void IEntity::SetVisiblePosition(const DE::CVector3F & position) {
+		this->m_visiblePosition = position;
+	}
+
+	/**
 	* Set the entity active state
 	* @param enabled The player active state
 	*/
@@ -121,6 +153,22 @@ namespace GE {
 	*/
 	const unsigned int IEntity::GetType() const {
 		return this->m_type;
+	}
+
+	/**
+	* Get the parent
+	* @return The parent
+	*/
+	ILevel * IEntity::GetParent() const {
+		return this->m_parent;
+	}
+
+	/**
+	* Get the impact particle emitters
+	* @return The impact particle emitters
+	*/
+	std::vector<DE::CParticleEmitter*> & IEntity::GetImpactParticleEmitters() {
+		return this->m_impactParticleEmitters;
 	}
 
 	/**

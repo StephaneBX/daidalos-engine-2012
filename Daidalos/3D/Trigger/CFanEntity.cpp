@@ -40,8 +40,8 @@ namespace DAIDALOS {
 	*/
 	CFanEntity::CFanEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
-		this->m_id = meshNode->GetId();
-		this->m_type = GE::ENTITY_TYPE_FAN;
+		SetId(meshNode->GetId());
+		SetType(GE::ENTITY_TYPE_FAN);
 		this->m_node = meshNode;
 
 		this->m_speed = 0;

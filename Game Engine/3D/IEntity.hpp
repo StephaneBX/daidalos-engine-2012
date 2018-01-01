@@ -39,7 +39,7 @@ namespace GE {
 	* Abstract entity
 	*/
 	class IEntity {
-	protected:
+	private:
 		int m_id;
 		int m_flag;
 		unsigned int m_type;
@@ -55,6 +55,30 @@ namespace GE {
 		* @param parent The parent
 		*/
 		IEntity(ILevel * parent);
+
+		/**
+		* Set the id
+		* @param id The id
+		*/
+		void SetId(const int id);
+
+		/**
+		* Set the flag
+		* @param flag The flag
+		*/
+		void SetFlag(const int flag);
+
+		/**
+		* Set the type
+		* @param type The type
+		*/
+		void SetType(const unsigned int type);
+
+		/**
+		* Set the visible position
+		* @param position The visible position
+		*/
+		void SetVisiblePosition(const DE::CVector3F & position);
 
 		/**
 		* Set the player active state
@@ -115,6 +139,18 @@ namespace GE {
 		* @return The entity type
 		*/
 		const unsigned int GetType() const;
+
+		/**
+		* Get the parent
+		* @return The parent
+		*/
+		ILevel * GetParent() const;
+
+		/**
+		* Get the impact particle emitters
+		* @return The impact particle emitters
+		*/
+		std::vector<DE::CParticleEmitter*> & GetImpactParticleEmitters();
 
 		/**
 		* Get the health
