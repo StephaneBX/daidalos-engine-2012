@@ -45,8 +45,8 @@ namespace DAIDALOS {
 	*/
 	CSecurityCameraEntity::CSecurityCameraEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
-		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_SECURITY_CAMERA);
+		this->SetId(meshNode->GetId());
+		this->SetType(GE::ENTITY_TYPE_SECURITY_CAMERA);
 		this->m_meshRootNode = meshNode;
 		this->m_meshCameraNode = nullptr;
 		this->m_originalHorizontalRotation = this->m_meshRootNode->GetRotation().y;
@@ -102,7 +102,7 @@ namespace DAIDALOS {
 	*/
 	void CSecurityCameraEntity::Update(const float time) {
 
-		if (GetParent()->GetPlayer()->IsEnabled()) {
+		if (this->GetParent()->GetPlayer()->IsEnabled()) {
 			UpdateHorizontalRotation(time);
 			UpdateVerticalRotation(time);
 		}
@@ -134,7 +134,7 @@ namespace DAIDALOS {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
@@ -171,7 +171,7 @@ namespace DAIDALOS {
 
 		// Check the camera - player angle
 		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
-		DE::CVector3F cameraToPlayer = (GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
+		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way

@@ -40,7 +40,7 @@ namespace GE {
 	* Abstract entity with collision properties
 	*/
 	class ICollidableEntity : public IEntity {
-	protected:
+	private:
 		bool m_gravityState;
 		bool m_collisionState;
 		float m_collisionUpdateFrequency;
@@ -78,6 +78,18 @@ namespace GE {
 		* @param frequency The collision frequency
 		*/
 		void SetCollisionUpdateFrequency(const float frequency);
+
+		/**
+		* Set the gravity.
+		* @param gravity The gravity
+		*/
+		void SetGravity(const DE::CVector3F & gravity);
+
+		/**
+		* Set the collision shape.
+		* @param shame The collision shape
+		*/
+		void SetCollisionShape(DE::IShape3DF * shape);
 
 		/**
 		* Get the gravity state

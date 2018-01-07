@@ -35,7 +35,7 @@ namespace DAIDALOS {
 	* Waiting enemy state 
 	*/
 	class CEnemyStateWait : public GE::IEnemyState {
-	protected:
+	private:
 		bool m_active;
 		float m_waitTime;
 		float m_waited;
@@ -50,6 +50,18 @@ namespace DAIDALOS {
 		* @param waitTime The wait time
 		*/
 		CEnemyStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime);
+
+		/**
+		* Set the active status.
+		* @param active The active status
+		*/
+		void SetActive(const bool active);
+
+		/**
+		* Set the wait time.
+		* @param waitTime The wait time
+		*/
+		void SetWaitTime(const float waitTime);
 
 		/**
 		* Reset the state
@@ -76,6 +88,18 @@ namespace DAIDALOS {
 		* @return True if candidate
 		*/
 		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+
+		/**
+		* Get the active status.
+		* @return The active status
+		*/
+		const bool GetActive();
+
+		/**
+		* Get the wait time.
+		* @return The wait time
+		*/
+		const float GetWaitTime();
 	};
 }
 

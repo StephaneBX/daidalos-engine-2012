@@ -41,9 +41,24 @@ namespace DAIDALOS {
 		this->m_active = false;
 		this->m_waitTime = waitTime;
 		this->m_waited = 0;
-		this->m_animationFrames.x = startAnimation;
-		this->m_animationFrames.y = endAnimation;
-		this->m_animationSpeed = animationSpeed;
+		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationSpeed(animationSpeed);
+	}
+
+	/**
+	* Set the active status.
+	* @param active The active status
+	*/
+	void CEnemyStateWait::SetActive(const bool active) {
+		this->m_active = active;
+	}
+
+	/**
+	* Set the wait time.
+	* @param waitTime The wait time
+	*/
+	void CEnemyStateWait::SetWaitTime(const float waitTime) {
+		this->m_waitTime = waitTime;
 	}
 
 	/**
@@ -73,7 +88,7 @@ namespace DAIDALOS {
 
 		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
-			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 		}
 
 		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
@@ -94,6 +109,22 @@ namespace DAIDALOS {
 	*/
 	const bool CEnemyStateWait::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
 		return this->m_active;
+	}
+
+	/**
+	* Get the active status.
+	* @return The active status
+	*/
+	const bool CEnemyStateWait::GetActive() {
+		return this->m_active;
+	}
+
+	/**
+	* Get the wait time.
+	* @return The wait time
+	*/
+	const float CEnemyStateWait::GetWaitTime() {
+		return this->m_waitTime;
 	}
 }
 

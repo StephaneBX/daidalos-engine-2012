@@ -75,47 +75,48 @@ namespace DAIDALOS {
 	* @param node The mesh node
 	*/
 	CZombieEntity::CZombieEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * node) : IEnemyEntity(parent, node) {
-		this->m_gravity = DE::CVector3F(0, GRAVITY, 0);
-		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_meshNode->GetPosition() + DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), DE::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
+
+		this->SetGravity(DE::CVector3F(0, GRAVITY, 0));
+		this->SetCollisionShape(new DE::CEllipseF(this->GetMeshNode()->GetPosition() + DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), DE::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
 
 		// Read the waypoints
-		std::string waypointsString = this->m_meshNode->GetAttribute("patrol_waypoints");
+		std::string waypointsString = this->GetMeshNode()->GetAttribute("patrol_waypoints");
 		std::vector<DE::CVector3F> wayPoints;
 		if(waypointsString != "") {
 			DE::CTokenizer tokenizer;
 			tokenizer.AddLine(waypointsString);
 			if(tokenizer.Tokenize("|")) {
 				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
-					wayPoints.push_back(DE::CVector3F(this->m_meshNode->GetAbsolutePosition() + DE::CVector3F::GetFrom(*it)));
+					wayPoints.push_back(DE::CVector3F(this->GetMeshNode()->GetAbsolutePosition() + DE::CVector3F::GetFrom(*it)));
 				}
 			}
 		}
 		
-		this->m_actionStates.push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
-		this->m_actionStates.push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
-		this->m_actionStates.push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
-		this->m_actionStates.push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
+		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
+		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
+		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
-		this->m_actionStates.front()->AddListener(this->m_actionStates[1].get());
+		this->GetActionStates().front()->AddListener(this->GetActionStates()[1].get());
 
-		this->m_currentActionState = this->m_actionStates.front().get();
-		SetVisiblePosition(this->m_collisionShape->GetPosition());
+		this->SetCurrentActionState(this->GetActionStates().front().get());
+		this->SetVisiblePosition(this->GetCollisionShape()->GetPosition());
 
 		// Change the default camera settings
-		this->m_cameraNode->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
-		this->m_cameraNode->SetPosition(DE::CVector3F(0, 4, 0));
-		this->m_cameraNode->SetFarDistance(VIEW_DISTANCE);
+		this->GetCameraNode()->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
+		this->GetCameraNode()->SetPosition(DE::CVector3F(0, 4, 0));
+		this->GetCameraNode()->SetFarDistance(VIEW_DISTANCE);
 
 		// Initialize the impact particle emitters
 		for(int i = 0; i < IMPACT_PARTICLE_EMITTERS; i++) {
-			DE::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
+			DE::CParticleEmitter * emitter = this->GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
 			emitter->SetTextureId(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
 
-			GetImpactParticleEmitters().push_back(emitter);
+			this->GetImpactParticleEmitters().push_back(emitter);
 		}
 	}
 
@@ -126,17 +127,17 @@ namespace DAIDALOS {
 	void CZombieEntity::Update(const float time) {
 		IEnemyEntity::Update(time);
 
-		this->m_meshNode->SetPosition(GetVisiblePosition() - DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));
+		this->GetMeshNode()->SetPosition(GetVisiblePosition() - DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));
 	}
 
 	/**
 	* Determine the next active state
 	*/
 	void CZombieEntity::SelectNextActionState() {
-		if(this->m_currentActionState != nullptr) {
+		if(this->GetCurrentActionState() != nullptr) {
 
 			GE::IEnemyState * nextState = nullptr;
-			for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
+			for(auto it = this->GetActionStates().begin(); it != this->GetActionStates().end(); ++it) {
 				if((*it)->IsCandidateForNextAction(this)) {
 
 					if(nextState == nullptr || (*it)->GetPriority() > nextState->GetPriority()) {
@@ -145,10 +146,10 @@ namespace DAIDALOS {
 				}
 			}
 
-			if(this->m_currentActionState != nextState) {
+			if(this->GetCurrentActionState() != nextState) {
 				// Get the next available state
-				this->m_currentActionState = nextState;
-				this->m_currentActionState->Reset(this);
+				this->SetCurrentActionState(nextState);
+				this->GetCurrentActionState()->Reset(this);
 			}
 		}
 	}

@@ -36,7 +36,7 @@ namespace DAIDALOS {
 	* Die enemy state
 	*/
 	class CEnemyStateDie : public GE::IEnemyState {
-	protected:
+	private:
 		bool m_dead;
 		DE::CSound m_fallSound;
 
@@ -49,6 +49,18 @@ namespace DAIDALOS {
 		* @param animationSpeed The animation speed
 		*/
 		CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed);
+
+		/**
+		* Set the dead status.
+		* @param dead The dead status
+		*/
+		void SetDead(const bool dead);
+
+		/**
+		* Set the fall sound.
+		* @param soundName The sound name
+		*/
+		void SetFallSound(const std::string & soundName);
 
 		/**
 		* Reset the state
@@ -69,6 +81,12 @@ namespace DAIDALOS {
 		* @return True if candidate
 		*/
 		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+
+		/**
+		* Get the dead status.
+		* @return The dead status
+		*/
+		const bool IsDead() const;
 	};
 }
 

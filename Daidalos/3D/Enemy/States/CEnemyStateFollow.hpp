@@ -36,7 +36,7 @@ namespace DAIDALOS {
 	* Follow enemy state
 	*/
 	class CEnemyStateFollow : public GE::IEnemyState {
-	protected:
+	private:
 		float m_moveSpeed;
 		float m_rotationSpeed;
 		float m_stopDistance;
@@ -58,6 +58,36 @@ namespace DAIDALOS {
 		* @param searchTime Time the entity search if the target is lost
 		*/
 		CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
+
+		/**
+		* Set the move speed.
+		* @param moveSpeed The move speed
+		*/
+		void SetMoveSpeed(const float moveSpeed);
+
+		/**
+		* Set the rotation speed.
+		* @param rotationSpeed The rotation speed
+		*/
+		void SetRotationSpeed(const float rotationSpeed);
+
+		/**
+		* Set the stop distance.
+		* @param stopDistance The stop distance
+		*/
+		void SetStopDistance(const float stopDistance);
+
+		/**
+		* Set the search timer.
+		* @param searchTimer The search timer
+		*/
+		void SetSearchTimer(const float searchTimer);
+
+		/**
+		* Set the target.
+		* @param target The target
+		*/
+		void SetTarget(GE::ICollidableEntity * target);
 
 		/**
 		* Reset the state
@@ -83,6 +113,36 @@ namespace DAIDALOS {
 		* @return True if candidate
 		*/
 		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+
+		/**
+		* Get the move speed.
+		* @return The move speed
+		*/
+		const float GetMoveSpeed() const;
+
+		/**
+		* Get the rotation speed.
+		* @return The rotation speed
+		*/
+		const float GetRotationSpeed() const;
+
+		/**
+		* Get the stop distance.
+		* @return The stop distance
+		*/
+		const float GetStopDistance() const;
+
+		/**
+		* Get the search timer.
+		* @return The search timer
+		*/
+		const float GetSearchTimer() const;
+
+		/**
+		* Get the target.
+		* @return The target
+		*/
+		GE::ICollidableEntity * GetTarget() const;
 
 	private:
 		/**

@@ -36,7 +36,7 @@ namespace DAIDALOS {
 	* Waiting zombie state
 	*/
 	class CZombieStateWait : public CEnemyStateWait {
-	protected:
+	private:
 		DE::CSound m_moanSound;
 
 	public:

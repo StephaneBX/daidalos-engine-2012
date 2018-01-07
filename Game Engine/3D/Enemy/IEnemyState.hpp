@@ -38,7 +38,7 @@ namespace GE {
 	* Abstract enemy state
 	*/
 	class IEnemyState {
-	protected:
+	private:
 		unsigned int m_priority;
 		float m_animationSpeed;
 		DE::CVector2F m_animationFrames;
@@ -51,6 +51,30 @@ namespace GE {
 		* @param priority The priority
 		*/
 		IEnemyState(const unsigned int priority);
+
+		/**
+		* Set the priority.
+		* @param priority The priority
+		*/
+		void SetPriority(const unsigned int priority);
+
+		/**
+		* Set the animation speed.
+		* @param animationSpeed The animation speed
+		*/
+		void SetAnimationSpeed(const float animationSpeed);
+
+		/**
+		* Set he animation frames.
+		* @param animationFrames The animation frames
+		*/
+		void SetAnimationFrames(const DE::CVector2F & animationFrames);
+
+		/**
+		* Set the way points.
+		* @param wayPoints The way points
+		*/
+		void SetWayPoints(const std::vector<DE::CVector3F> & wayPoints);
 
 		/**
 		* Add a listener
@@ -112,6 +136,30 @@ namespace GE {
 		* @return The priority
 		*/
 		const unsigned int GetPriority() const;
+
+		/**
+		* Get the animation speed.
+		* @return The animation speed
+		*/
+		const float GetAnimationSpeed() const;
+
+		/**
+		* Get the animation frames.
+		* @return The animation frames
+		*/
+		const DE::CVector2F & GetAnimationFrames() const;
+
+		/**
+		* Get the way points.
+		* @return The way points
+		*/
+		std::vector<DE::CVector3F> & GetWayPoints();
+
+		/**
+		* Get the listeners.
+		* @return The listeners
+		*/
+		std::vector<IEnemyState *> & GetListeners();
 
 	protected:
 		/**

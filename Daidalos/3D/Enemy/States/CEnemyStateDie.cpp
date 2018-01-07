@@ -38,12 +38,27 @@ namespace DAIDALOS {
 	*/
 	CEnemyStateDie::CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed) : IEnemyState(priority) {
 		this->m_dead = false;
-		this->m_animationFrames.x = startAnimation;
-		this->m_animationFrames.y = endAnimation;
-		this->m_animationSpeed = animationSpeed;
+		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationSpeed(animationSpeed);
 
-		this->m_fallSound.LoadFromFile("body_fall.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->SetFallSound("body_fall.wav");
 		this->m_fallSound.SetRelativeToListener(false);
+	}
+
+	/**
+	* Set the dead status.
+	* @param dead The dead status
+	*/
+	void CEnemyStateDie::SetDead(const bool dead) {
+		this->m_dead = dead;
+	}
+
+	/**
+	* Set the fall sound.
+	* @param soundName The sound name
+	*/
+	void CEnemyStateDie::SetFallSound(const std::string & soundName) {
+		this->m_fallSound.LoadFromFile(soundName, DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
 	}
 
 	/**
@@ -63,7 +78,7 @@ namespace DAIDALOS {
 
 		if(!this->m_dead) {
 			entity->GetMeshNode()->SetLooped(false);
-			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 			entity->SetCollisionState(false);
 			this->m_fallSound.SetPosition(entity->GetVisiblePosition());
 			this->m_fallSound.SetStatus(DE::SOUND_STATUS_PLAY);
@@ -83,6 +98,14 @@ namespace DAIDALOS {
 	*/
 	const bool CEnemyStateDie::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
 		return entity->GetHealth() == 0;
+	}
+
+	/**
+	* Get the dead status.
+	* @return The dead status
+	*/
+	const bool CEnemyStateDie::IsDead() const {
+		return this->m_dead;
 	}
 }
 

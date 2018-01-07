@@ -42,13 +42,36 @@ namespace DAIDALOS {
 	* @param wayPoints The way points
 	*/
 	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState(priority) {
-		this->m_animationFrames.x = startAnimation;
-		this->m_animationFrames.y = endAnimation;
-		this->m_animationSpeed = animationSpeed;
+		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationSpeed(animationSpeed);
+		this->SetWayPoints(wayPoints);
 		this->m_walkSpeed = walkSpeed;
 		this->m_rotationSpeed = rotationSpeed;
-		this->m_wayPoints = wayPoints;
 		this->m_currentWayPoint = 0;
+	}
+
+	/**
+	* Set the current way point.
+	* @param wayPoint The current way point
+	*/
+	void CEnemyStatePatrol::SetCurrentWayPoint(const int wayPoint) {
+		this->m_currentWayPoint = wayPoint;
+	}
+
+	/**
+	* Set the walk speed.
+	* @param walkSpeed The walk speed
+	*/
+	void CEnemyStatePatrol::SetWalkSpeed(const float walkSpeed) {
+		this->m_walkSpeed = walkSpeed;
+	}
+
+	/**
+	* Set the rotation speed.
+	* @param rotationSpeed The rotation speed
+	*/
+	void CEnemyStatePatrol::SetRotationSpeed(const float rotationSpeed) {
+		this->m_rotationSpeed = rotationSpeed;
 	}
 
 	/**
@@ -59,19 +82,19 @@ namespace DAIDALOS {
 	void CEnemyStatePatrol::Update(GE::IEnemyEntity * entity, const float time) {
 
 		DE::CVector3F movement = DE::CVector3F();
-		if(this->m_wayPoints.size() > 0) {
+		if(this->GetWayPoints().size() > 0) {
 			if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
 				entity->GetMeshNode()->SetLooped(true);
-				entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+				entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 			}
 
 			// Change direction if necessary
-			if((DE::CVector3F(entity->GetVisiblePosition().x, this->m_wayPoints[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->m_wayPoints[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
-				this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->m_wayPoints.size();
+			if((DE::CVector3F(entity->GetVisiblePosition().x, this->GetWayPoints()[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->GetWayPoints()[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
+				this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->GetWayPoints().size();
 				entity->GetMeshNode()->StopAnimation();
 
 				// Interrupted
-				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+				for(auto it = this->GetListeners().begin(); it != this->GetListeners().end(); ++it) {
 					(*it)->OnStateInterrupted(this);
 				}
 			}
@@ -83,7 +106,7 @@ namespace DAIDALOS {
 			UpdateRotation(entity, time);
 		} else {
 			// Interrupted
-			for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+			for(auto it = this->GetListeners().begin(); it != this->GetListeners().end(); ++it) {
 				(*it)->OnStateInterrupted(this);
 			}
 		}
@@ -101,6 +124,30 @@ namespace DAIDALOS {
 	}
 
 	/**
+	* Get the current way point.
+	* @return The current way point
+	*/
+	const int CEnemyStatePatrol::GetCurrentWayPoint() {
+		return this->m_currentWayPoint;
+	}
+
+	/**
+	* Get the walk speed.
+	* @return The walk speed
+	*/
+	const float CEnemyStatePatrol::GetWalkSpeed() {
+		return this->m_walkSpeed;
+	}
+
+	/**
+	* Get the rotation speed.
+	* @return The rotation speed
+	*/
+	const float CEnemyStatePatrol::GetRotationSpeed() {
+		return this->m_rotationSpeed;
+	}
+
+	/**
 	* Update the entity rotation towards the current waypoint
 	* @param entity The entity
 	* @param time Elapsed time
@@ -112,7 +159,7 @@ namespace DAIDALOS {
 		float rotation = this->m_rotationSpeed * timePerSecond;
 
 		// Check the entity - waypoint angle
-		DE::CVector3F entityToWaypoint = (this->m_wayPoints[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
+		DE::CVector3F entityToWaypoint = (this->GetWayPoints()[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
 
 		// Horizontal rotation way
 		DE::CVector2F entityToWaypointHorizontal = DE::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();

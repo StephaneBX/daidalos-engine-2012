@@ -35,7 +35,7 @@ namespace DAIDALOS {
 	* Patrol enemy state
 	*/
 	class CEnemyStatePatrol : public GE::IEnemyState {
-	protected:
+	private:
 		int m_currentWayPoint;
 		float m_walkSpeed;
 		float m_rotationSpeed;
@@ -54,6 +54,24 @@ namespace DAIDALOS {
 		CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
 
 		/**
+		* Set the current way point.
+		* @param wayPoint The current way point
+		*/
+		void SetCurrentWayPoint(const int wayPoint);
+
+		/**
+		* Set the walk speed.
+		* @param walkSpeed The walk speed
+		*/
+		void SetWalkSpeed(const float walkSpeed);
+
+		/**
+		* Set the rotation speed.
+		* @param rotationSpeed The rotation speed
+		*/
+		void SetRotationSpeed(const float rotationSpeed);
+
+		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
@@ -66,6 +84,24 @@ namespace DAIDALOS {
 		* @return True if candidate
 		*/
 		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+
+		/**
+		* Get the current way point.
+		* @return The current way point
+		*/
+		const int GetCurrentWayPoint();
+
+		/**
+		* Get the walk speed.
+		* @return The walk speed
+		*/
+		const float GetWalkSpeed();
+
+		/**
+		* Get the rotation speed.
+		* @return The rotation speed
+		*/
+		const float GetRotationSpeed();
 
 	private:
 		/**

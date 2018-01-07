@@ -42,15 +42,54 @@ namespace DAIDALOS {
 	* @param searchTime Time the entity search if the target is lost
 	*/
 	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : IEnemyState(priority) {
-		this->m_animationFrames.x = startAnimation;
-		this->m_animationFrames.y = endAnimation;
-		this->m_animationSpeed = animationSpeed;
+		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationSpeed(animationSpeed);
 		this->m_target = target;
 		this->m_moveSpeed = moveSpeed;
 		this->m_rotationSpeed = rotationSpeed;
 		this->m_stopDistance = stopDistance;
 		this->m_searchTimer = searchTime;
 		this->m_searched = 0;
+	}
+
+	/**
+	* Set the move speed.
+	* @param moveSpeed The move speed
+	*/
+	void CEnemyStateFollow::SetMoveSpeed(const float moveSpeed) {
+		this->m_moveSpeed = moveSpeed;
+	}
+
+	/**
+	* Set the rotation speed.
+	* @param rotationSpeed The rotation speed
+	*/
+	void CEnemyStateFollow::SetRotationSpeed(const float rotationSpeed) {
+		this->m_rotationSpeed = rotationSpeed;
+	}
+
+	/**
+	* Set the stop distance.
+	* @param stopDistance The stop distance
+	*/
+	void CEnemyStateFollow::SetStopDistance(const float stopDistance) {
+		this->m_stopDistance = stopDistance;
+	}
+
+	/**
+	* Set the search timer.
+	* @param searchTimer The search timer
+	*/
+	void CEnemyStateFollow::SetSearchTimer(const float searchTimer) {
+		this->m_searchTimer = searchTimer;
+	}
+
+	/**
+	* Set the target.
+	* @param target The target
+	*/
+	void CEnemyStateFollow::SetTarget(GE::ICollidableEntity * target) {
+		this->m_target = target;
 	}
 
 	/**
@@ -83,7 +122,7 @@ namespace DAIDALOS {
 		DE::CVector3F movement = DE::CVector3F();
 		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
-			entity->GetMeshNode()->StartAnimation(this->m_animationFrames.x, this->m_animationFrames.y, this->m_animationSpeed);
+			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 		}
 
 		// Reset the search timer if the target is in sight
@@ -107,6 +146,46 @@ namespace DAIDALOS {
 	*/
 	const bool CEnemyStateFollow::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
 		return this->m_target->IsEnabled() && (!entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0));
+	}
+
+	/**
+	* Get the move speed.
+	* @return The move speed
+	*/
+	const float CEnemyStateFollow::GetMoveSpeed() const {
+		return this->m_moveSpeed;
+	}
+
+	/**
+	* Get the rotation speed.
+	* @return The rotation speed
+	*/
+	const float CEnemyStateFollow::GetRotationSpeed() const {
+		return this->m_rotationSpeed;
+	}
+
+	/**
+	* Get the stop distance.
+	* @return The stop distance
+	*/
+	const float CEnemyStateFollow::GetStopDistance() const {
+		return this->m_stopDistance;
+	}
+
+	/**
+	* Get the search timer.
+	* @return The search timer
+	*/
+	const float CEnemyStateFollow::GetSearchTimer() const {
+		return this->m_searchTimer;
+	}
+
+	/**
+	* Get the target.
+	* @return The target
+	*/
+	GE::ICollidableEntity * CEnemyStateFollow::GetTarget() const {
+		return this->m_target;
 	}
 
 	/**

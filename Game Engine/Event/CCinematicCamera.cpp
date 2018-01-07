@@ -51,8 +51,8 @@ namespace GE {
 		this->m_node = new DE::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55.0f), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1f, 100.0f);
 		parent->GetScene()->GetRootNode()->AddChild(this->m_node);
 
-		this->m_collisionState = false;
-		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(1, 1)));
+		this->SetCollisionState(false);
+		this->SetCollisionShape(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(1, 1)));
 	}
 
 	/**

@@ -72,6 +72,22 @@ namespace GE {
 	}
 
 	/**
+	* Set the gravity.
+	* @param gravity The gravity
+	*/
+	void ICollidableEntity::SetGravity(const DE::CVector3F & gravity) {
+		this->m_gravity = gravity;
+	}
+
+	/**
+	* Set the collision shape.
+	* @param shame The collision shape
+	*/
+	void ICollidableEntity::SetCollisionShape(DE::IShape3DF * shape) {
+		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(shape);
+	}
+
+	/**
 	* Get the gravity state
 	* @return The gravity state
 	*/

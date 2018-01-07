@@ -38,8 +38,8 @@ namespace DAIDALOS {
 	*/
 	CSpotEntity::CSpotEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
-		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_SPOT);
+		this->SetId(meshNode->GetId());
+		this->SetType(GE::ENTITY_TYPE_SPOT);
 		this->m_node = meshNode;
 
 		// Default values
@@ -84,7 +84,7 @@ namespace DAIDALOS {
 		}
 
 		// Add the light
-		DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, lightDecalY, 0), DE::CVector3F(90, 0, 0), lightColor, lightRange, lightRadius, lightFallOf, lightTightness, shadowCaster, enabled);
+		DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, lightDecalY, 0), DE::CVector3F(90, 0, 0), lightColor, lightRange, lightRadius, lightFallOf, lightTightness, shadowCaster, enabled);
 		meshNode->AddChild(spot);
 	}
 

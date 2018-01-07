@@ -36,7 +36,7 @@ namespace DAIDALOS {
 	* Attack enemy state
 	*/
 	class CEnemyStateAttack : public GE::IEnemyState {
-	protected:
+	private:
 		unsigned int m_damage;
 		float m_range;
 		float m_attackTimer;
@@ -58,6 +58,36 @@ namespace DAIDALOS {
 		CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay);
 
 		/**
+		* Set the damage.
+		* @param damage The damage
+		*/
+		void SetDamage(const unsigned int damage);
+
+		/**
+		* Set the range.
+		* @param Range The range.
+		*/
+		void SetRange(const float range);
+
+		/**
+		* Set attack timer.
+		* @param attackTimer The attack timer
+		*/
+		void SetAttackTimer(const float attackTimer);
+
+		/**
+		* Set the attack delay.
+		* @param attackDelay The attack delay
+		*/
+		void SetAttackDelay(const float attackDelay);
+
+		/**
+		* Set the target.
+		* @param target The target
+		*/
+		void SetTarget(GE::ICollidableEntity * target);
+
+		/**
 		* Reset the state
 		* @param entity The entity
 		*/
@@ -76,6 +106,36 @@ namespace DAIDALOS {
 		* @return True if candidate
 		*/
 		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+
+		/**
+		* Get the damage.
+		* @return The damage
+		*/
+		const unsigned GetDamage() const;
+
+		/**
+		* Get the range.
+		* @reurn The range
+		*/
+		const float GetRange() const;
+
+		/**
+		* Get the attack timer.
+		* @return the attack timer
+		*/
+		const float GetAttackTimer() const;
+
+		/**
+		* Get the attack delay.
+		* @return The attack delay
+		*/
+		const float GetAttackDelay() const;
+
+		/**
+		* Get the target.
+		* @return The target
+		*/
+		GE::ICollidableEntity * GetTarget() const;
 	};
 }
 

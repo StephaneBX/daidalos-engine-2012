@@ -138,7 +138,7 @@ namespace DAIDALOS {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_LEFT);
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_CROUCH, 0, DE::INPUT_KEY_GAMEPAD_BUTTON1);
 
-		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
+		this->SetCollisionShape(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
 		this->m_rotation = this->m_node->GetRotation();
 		SetVisiblePosition(this->m_node->GetPosition());
 
@@ -189,7 +189,7 @@ namespace DAIDALOS {
 		if(GetHealth() > 0) {
 			this->m_hurtSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		} else {
-			DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
+			DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->GetCollisionShape());
 			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
 
 			this->m_dieSound.SetStatus(DE::SOUND_STATUS_PLAY);
@@ -277,7 +277,7 @@ namespace DAIDALOS {
 		}
 		
 		// Reset the gravity state
-		this->m_gravityState = true;
+		this->SetGravityState(true);
 	}
 
 	/**
@@ -425,15 +425,15 @@ namespace DAIDALOS {
 			this->m_actionState |= FPS_CAMERA_LOOKRIGHT;
 		}
 
-		if(this->m_jumpTimer <= 0 && this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
+		if(this->m_jumpTimer <= 0 && this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
 			this->m_actionState |= FPS_CAMERA_JUMP;
-			this->m_gravity.y = FPS_CAMERA_JUMP_IMPULSION;
+			this->SetGravity(DE::CVector3F(this->GetGravity().x, FPS_CAMERA_JUMP_IMPULSION, this->GetGravity().z));
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
 			this->m_jumpSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
-		if(this->m_gravityState && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
+		if(this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
 			this->m_actionState |= FPS_CAMERA_RUN;
 			this->m_state = FPS_CAMERA_STATE_RUN;
 		} else if(this->m_state == FPS_CAMERA_STATE_RUN) {
@@ -475,18 +475,18 @@ namespace DAIDALOS {
 	*/
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		DE::CVector3F movement;
-		DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->m_collisionShape.get());
+		DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->GetCollisionShape());
 
 		this->m_jumpTimer -= time;
 		if(this->m_jumpTimer < 0) {
 			this->m_jumpTimer = 0;
 		}
 
-		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->m_gravity.y == 0) {
+		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->GetGravity().y == 0) {
 			this->m_state = FPS_CAMERA_STATE_CROUCH;
 			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
 
-		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->m_gravity.y == 0) {
+		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->GetGravity().y == 0) {
 
 			// Check if the player can stand up
 			DE::CVector3F movementUp = DE::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
@@ -536,8 +536,8 @@ namespace DAIDALOS {
 				movement.z += cos(this->m_rotation.y * PI_OVER_180) * factor;
 
 				// If no gravity, add the vertical part
-				if(!this->m_gravityState) {
-					this->m_gravity.y = -sin(this->m_rotation.x * PI_OVER_180) * factor;
+				if(!this->GetGravityState()) {
+					this->SetGravity(DE::CVector3F(this->GetGravity().x, -sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
 				}
 			}
 
@@ -553,16 +553,16 @@ namespace DAIDALOS {
 				movement.z += -cos(this->m_rotation.y * PI_OVER_180) * factor;
 
 				// If no gravity, add the vertical part
-				if(!this->m_gravityState) {
-					this->m_gravity.y = sin(this->m_rotation.x * PI_OVER_180) * factor;
+				if(!this->GetGravityState()) {
+					this->SetGravity(DE::CVector3F(this->GetGravity().x, sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
 				}
 			}
 		}
 
-		if(this->m_gravityState) {
-			this->m_gravity.y += FPS_CAMERA_GRAVITY * timeSecond;
+		if(this->GetGravityState()) {
+			this->SetGravity(DE::CVector3F(this->GetGravity().x, this->GetGravity().y + FPS_CAMERA_GRAVITY * timeSecond, this->GetGravity().z));
 		} else {
-			this->m_gravity.y *= FPS_CAMERA_MOVEMENT_SPEED;
+			this->SetGravity(DE::CVector3F(this->GetGravity().x, this->GetGravity().y * FPS_CAMERA_MOVEMENT_SPEED, this->GetGravity().z));
 		}
 		
 		// Visibility position update based on the state
@@ -586,8 +586,8 @@ namespace DAIDALOS {
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 
 		// Step sounds
-		if(this->m_gravityState) {
-			if(this->m_gravity.y == 0) {
+		if(this->GetGravityState()) {
+			if(this->GetGravity().y == 0) {
 				this->m_stepDistance += (GetVisiblePosition() - previousVisiblePosition).Length();
 				if(this->m_stepDistance >= FPS_CAMERA_STEP_DISTANCE) {
 					// Play a random step sound

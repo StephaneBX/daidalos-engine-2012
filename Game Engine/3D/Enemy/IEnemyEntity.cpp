@@ -114,11 +114,35 @@ namespace GE {
 	}
 
 	/**
+	* Set the current action state
+	* @param actionState The current action state
+	*/
+	void IEnemyEntity::SetCurrentActionState(IEnemyState * actionState) {
+		this->m_currentActionState = actionState;
+	}
+
+	/**
+	* Get the action states.
+	* @return The action states
+	*/
+	std::vector<std::unique_ptr<IEnemyState> > & IEnemyEntity::GetActionStates() {
+		return this->m_actionStates;
+	}
+
+	/**
 	* Get the entity camera node
 	* @return The entity camera node
 	*/
-	DE::CProjectionCameraSceneNode * IEnemyEntity::GetCameraNode() {
+	DE::CProjectionCameraSceneNode * IEnemyEntity::GetCameraNode() const {
 		return this->m_cameraNode;
+	}
+
+	/**
+	* Get the current action state.
+	* @return The current action state
+	*/
+	IEnemyState * IEnemyEntity::GetCurrentActionState() {
+		return this->m_currentActionState;
 	}
 
 	/**

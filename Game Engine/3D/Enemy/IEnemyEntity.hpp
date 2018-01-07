@@ -41,7 +41,7 @@ namespace GE {
 	*/
 	class IEnemyEntity : public ICollidableEntity {
 		friend class IEnemyState;
-	protected:
+	private:
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
 		IEnemyState * m_currentActionState;
 
@@ -80,10 +80,28 @@ namespace GE {
 		virtual const bool IsEnabled() const;
 
 		/**
+		* Set the current action state
+		* @param actionState The current action state
+		*/
+		void SetCurrentActionState(IEnemyState * actionState);
+
+		/**
+		* Get the action states.
+		* @return The action states
+		*/
+		std::vector<std::unique_ptr<IEnemyState> > & GetActionStates();
+
+		/**
 		* Get the entity camera node
 		* @return The entity camera node
 		*/
-		DE::CProjectionCameraSceneNode * GetCameraNode();
+		DE::CProjectionCameraSceneNode * GetCameraNode() const;
+
+		/**
+		* Get the current action state.
+		* @return The current action state
+		*/
+		IEnemyState * GetCurrentActionState();
 
 		/**
 		* Get the player

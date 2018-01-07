@@ -36,7 +36,7 @@ namespace DAIDALOS {
 	* Follow zombie state
 	*/
 	class CZombieStateFollow : public CEnemyStateFollow {
-	protected:
+	private:
 		float m_soundTimer;
 		float m_soundDelay;
 		std::vector<std::unique_ptr<DE::CSound>> m_sounds;
