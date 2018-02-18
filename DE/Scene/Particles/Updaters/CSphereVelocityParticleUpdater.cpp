@@ -54,7 +54,7 @@ namespace DE {
 	* @param particles The particles id to initialize
 	*/
 	void CSphereVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0f;
+		const float timeSecond = time / 1000.0F;
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
 			CParticleEntity * particle = buffer.GetAt((*it));
@@ -68,7 +68,7 @@ namespace DE {
 					// A new linear velocity must be add to the current particle's velocity
 					
 					// Random direction
-					CVector3F velocity(RandomNumber<float>(-1.0f, 1.0f), RandomNumber<float>(-1.0f, 1.0f), RandomNumber<float>(-1.0f, 1.0f));
+					CVector3F velocity(RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F));
 					velocity = velocity.Normalize();
 
 					// Apply the velocity value

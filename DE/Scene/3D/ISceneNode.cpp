@@ -147,10 +147,10 @@ namespace DE {
 		// Boundary check
 		for(int i = 0; i < 3; ++i) {
 			if(this->m_localRotation[i] < 0) {
-				this->m_localRotation[i] += 360.0f;
+				this->m_localRotation[i] += 360.0F;
 			}
-			if(this->m_localRotation[i] > 360.0f) {
-				this->m_localRotation[i] -= 360.0f;
+			if(this->m_localRotation[i] > 360.0F) {
+				this->m_localRotation[i] -= 360.0F;
 			}
 		}
 	}

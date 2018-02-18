@@ -40,7 +40,7 @@ namespace DE {
 		this->m_cursor = nullptr;
 
 		const IRenderer * renderer = IRenderer::GetRenderer();
-		this->m_proj.OrthographicView(0, (float)renderer->GetResolution().x, (float)renderer->GetResolution().y, 0, 0.0f, 1.0f);
+		this->m_proj.OrthographicView(0, (float)renderer->GetResolution().x, (float)renderer->GetResolution().y, 0, 0.0F, 1.0F);
 
 		// Create the main view
 		this->m_mainView = std::unique_ptr<CSprite>(new CSprite());

@@ -152,7 +152,7 @@ namespace DE {
 						this->m_tangent[i][j + k] = CVector3F(1, 0, 0);
 						this->m_binormal[i][j + k] = this->m_tangent[i][j + k].CrossProduct(this->m_normal[i][j + k]).Normalize();
 					} else {
-						float fScale1 = 1.0f / fDenominator;
+						float fScale1 = 1.0F / fDenominator;
 						this->m_tangent[i][j + k] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
 						// Gram-Schmidt orthogonalization

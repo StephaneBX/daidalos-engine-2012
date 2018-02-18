@@ -130,8 +130,8 @@ namespace DE {
 		float animationFPS;
 		float currentTime;
 		fread(&animationFPS, sizeof(float), 1, file);
-		if(animationFPS < 1.0f)
-			animationFPS = 1.0f;
+		if(animationFPS < 1.0F)
+			animationFPS = 1.0F;
 		fread(&currentTime, sizeof(float), 1, file);
 		fread(&this->m_data->numberOfFrames, sizeof(int), 1, file);
 

@@ -171,7 +171,7 @@ namespace DE {
 
 			// New particle emission
 			this->m_pendingTime += time;
-			float msPerParticle = 1000.0f / this->m_emissionRate;
+			float msPerParticle = 1000.0F / this->m_emissionRate;
 			int numberOfNewParticles = (int)(this->m_pendingTime / msPerParticle);
 
 			// We have new particles to create

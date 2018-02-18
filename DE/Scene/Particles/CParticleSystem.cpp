@@ -52,10 +52,10 @@ namespace DE {
 
 		// Create the particle vertex buffer
 		SParticleElement pe[] = {
-			{ CVector3F(0.5f, -0.5f, 0), CVector2F(1, 1) },
-			{ CVector3F(-0.5f, -0.5f, 0), CVector2F(0, 1) },
-			{ CVector3F(-0.5f, 0.5f, 0), CVector2F(0, 0) },
-			{ CVector3F(0.5f, 0.5f, 0), CVector2F(1, 0) }
+			{ CVector3F(0.5F, -0.5F, 0), CVector2F(1, 1) },
+			{ CVector3F(-0.5F, -0.5F, 0), CVector2F(0, 1) },
+			{ CVector3F(-0.5F, 0.5F, 0), CVector2F(0, 0) },
+			{ CVector3F(0.5F, 0.5F, 0), CVector2F(1, 0) }
 		};
 		this->m_particleVB = this->m_renderer->CreateVertexBuffer(sizeof(SParticleElement), 4, BUFFER_DYNAMIC | BUFFER_WRITEONLY, pe);
 
@@ -190,7 +190,7 @@ namespace DE {
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_BILLBOARD_MATRIX), billboardMatrix);
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F((float)this->m_atlasSize.x, (float)this->m_atlasSize.y));
 		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
 		// Steam states
 		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());

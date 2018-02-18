@@ -34,13 +34,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define DISTANCE_FACTOR 2.0f
 
 namespace DE {
-	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0f, 1.0f, 1.0f), false, true) {
+	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0F, 1.0F, 1.0F), false, true) {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1F, 100);
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
@@ -51,7 +51,7 @@ namespace DE {
 		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1f, 100);
+		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1F, 100);
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}

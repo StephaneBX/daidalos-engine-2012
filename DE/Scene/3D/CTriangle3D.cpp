@@ -122,7 +122,7 @@ namespace DE {
 		gamma = (std::pow((this->m_vertices[0] - this->m_vertices[1]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[2] - this->m_vertices[0], this->m_vertices[2] - this->m_vertices[1])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
 
 		this->m_circumSphere.SetPosition(alpha * this->m_vertices[0] + beta * this->m_vertices[1] + gamma * this->m_vertices[2]);
-		this->m_circumSphere.SetRadius((this->m_circumSphere.GetPosition() - this->m_vertices[0]).Length() * 1.5f);
+		this->m_circumSphere.SetRadius((this->m_circumSphere.GetPosition() - this->m_vertices[0]).Length() * 1.5F);
 
 		// Update the tangents and binormals
 		CVector3F ab = this->m_vertices[1] - this->m_vertices[0];
@@ -136,7 +136,7 @@ namespace DE {
 				this->m_tangents[j] = CVector3F(1, 0, 0);
 				this->m_binormals[j] = this->m_tangents[j].CrossProduct(this->m_normals[j]).Normalize();
 			} else {
-				float fScale1 = 1.0f / fDenominator;
+				float fScale1 = 1.0F / fDenominator;
 				this->m_tangents[j] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
 				// Gram-Schmidt orthogonalization
@@ -197,7 +197,7 @@ namespace DE {
 	const CVector3F CTriangle3D::GetIncenter() const {
 		LOG_TRACE();
 
-		return (this->m_vertices[0] + this->m_vertices[1] + this->m_vertices[2]) / 3.0f;
+		return (this->m_vertices[0] + this->m_vertices[1] + this->m_vertices[2]) / 3.0F;
 	}
 
 	CSphereF & CTriangle3D::GetCircumSphere() {

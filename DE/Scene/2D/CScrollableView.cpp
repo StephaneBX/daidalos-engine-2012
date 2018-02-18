@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_SCROLL_PITCH 20
 #define DEFAULT_SCROLLBAR_THICKNESS 10
-#define DEFAULT_SCROLLBAR_COLOR CColor(0.5f, 0.5f, 0.5f, 0.5f)
+#define DEFAULT_SCROLLBAR_COLOR CColor(0.5F, 0.5F, 0.5F, 0.5F)
 
 namespace DE {
 	/**

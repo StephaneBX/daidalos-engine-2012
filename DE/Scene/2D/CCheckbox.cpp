@@ -167,9 +167,9 @@ namespace DE {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			// Handle the disabled gray color
-			CColor color = CColor(1.0f, 1.0f, 1.0f, 1.0f);
+			CColor color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 			if(!this->m_enabled) {
-				color = CColor(0.5f, 0.5f, 0.5f, 1.0f);
+				color = CColor(0.5F, 0.5F, 0.5F, 1.0F);
 			}
 
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();

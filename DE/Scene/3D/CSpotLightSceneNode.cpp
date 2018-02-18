@@ -31,11 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CSpotLightSceneNode.hpp"
 
 namespace DE {
-	CSpotLightSceneNode::CSpotLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) : IBoundedLightSceneNode(scene, parent, name, position, rotation, CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
+	CSpotLightSceneNode::CSpotLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation) : IBoundedLightSceneNode(scene, parent, name, position, rotation, CColor(1.0F, 1.0F, 1.0F), false, 100, 0.8F, true) {
 		LOG_TRACE();
 
 		this->m_radius = DegreeToRadian(30);
-		this->m_tightness = 0.7f;
+		this->m_tightness = 0.7F;
 		this->m_type = SCENE_NODE_SPOTLIGHT;
 
 		// Camera for the shadow rendering

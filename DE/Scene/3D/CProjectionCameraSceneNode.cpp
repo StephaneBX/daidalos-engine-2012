@@ -74,7 +74,7 @@ namespace DE {
 		CVector2F nearSize, farSize;
 		CVector3F x;
 
-		tang = this->m_angle * 0.5f;
+		tang = this->m_angle * 0.5F;
 		nearSize.y = this->m_nearDistance * tang;
 		nearSize.x = nearSize.y * this->m_ratio;
 		farSize.y = this->m_farDistance * tang;

@@ -75,7 +75,7 @@ namespace DE {
 	const bool CImpact::IsImpact() const {
 		LOG_TRACE();
 
-		return this->m_realFraction < 1.0f;
+		return this->m_realFraction < 1.0F;
 	}
 
 	const float CImpact::GetImpactFraction() const {

@@ -38,7 +38,7 @@ namespace DE {
 
 		this->m_changed = true;
 		this->m_coordinates = CRectangleF(0, 0, 1, 1);
-		this->m_backgroundColor = CColor(1.0f, 1.0f, 1.0f, 1.0f);
+		this->m_backgroundColor = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 		this->m_rotation = 0;
 	}

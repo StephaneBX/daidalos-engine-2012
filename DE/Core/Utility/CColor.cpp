@@ -58,7 +58,7 @@ namespace DE {
 	*/
 	CColor::CColor(const float r, const float g, const float b, const float a) {
 		LOG_TRACE();
-		SetInt(static_cast<int>(r * 255.0f), static_cast<int>(g * 255.0f), static_cast<int>(b * 255.0f), static_cast<int>(a * 255.0f));
+		SetInt(static_cast<int>(r * 255.0F), static_cast<int>(g * 255.0F), static_cast<int>(b * 255.0F), static_cast<int>(a * 255.0F));
 	}
 
 	/**
@@ -156,7 +156,7 @@ namespace DE {
 	*/
 	const CVector3F CColor::ToRGBVector() const {
 		LOG_TRACE();
-		return CVector3F(GetRed() / 255.0f, GetGreen() / 255.0f, GetBlue() / 255.0f);
+		return CVector3F(GetRed() / 255.0F, GetGreen() / 255.0F, GetBlue() / 255.0F);
 	}
 
 	/**
@@ -165,7 +165,7 @@ namespace DE {
 	*/
 	const CVector4F CColor::ToRGBAVector() const {
 		LOG_TRACE();
-		return CVector4F(GetRed() / 255.0f, GetGreen() / 255.0f, GetBlue() / 255.0f, GetAlpha() / 255.0f);
+		return CVector4F(GetRed() / 255.0F, GetGreen() / 255.0F, GetBlue() / 255.0F, GetAlpha() / 255.0F);
 	}
 
 	/**
@@ -349,7 +349,7 @@ namespace DE {
 	void CColor::SetRed(const float red) {
 		LOG_TRACE();
 
-		int r = static_cast<int>((red >= 0) ? (red <= 1.0f ? (red * 255) : 255) : 0);
+		int r = static_cast<int>((red >= 0) ? (red <= 1.0F ? (red * 255) : 255) : 0);
 		this->m_color |= r << 16;
 	}
 
@@ -360,7 +360,7 @@ namespace DE {
 	void CColor::SetGreen(const float green) {
 		LOG_TRACE();
 
-		int g = static_cast<int>((green >= 0) ? (green <= 1.0f ? (green * 255) : 255) : 0);
+		int g = static_cast<int>((green >= 0) ? (green <= 1.0F ? (green * 255) : 255) : 0);
 		this->m_color |= g << 8;
 	}
 
@@ -371,7 +371,7 @@ namespace DE {
 	void CColor::SetBlue(const float blue) {
 		LOG_TRACE();
 
-		int b = static_cast<int>((blue >= 0) ? (blue <= 1.0f ? (blue * 255) : 255) : 0);
+		int b = static_cast<int>((blue >= 0) ? (blue <= 1.0F ? (blue * 255) : 255) : 0);
 		this->m_color |= b;
 	}
 
@@ -382,7 +382,7 @@ namespace DE {
 	void CColor::SetAlpha(const float alpha) {
 		LOG_TRACE();
 
-		int a = static_cast<int>((alpha >= 0) ? (alpha <= 1.0f ? (alpha * 255) : 255) : 0);
+		int a = static_cast<int>((alpha >= 0) ? (alpha <= 1.0F ? (alpha * 255) : 255) : 0);
 		this->m_color |= a << 24;
 	}
 
@@ -477,7 +477,7 @@ namespace DE {
 
 		if(text.length() > 0 && token.Tokenize(separator, 0) && token.GetTokens().size() >= 3) {
 			float r, g, b, a;
-			a = 1.0f;
+			a = 1.0F;
 			std::istringstream ss;
 
 			ss.clear();

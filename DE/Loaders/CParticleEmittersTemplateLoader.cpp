@@ -168,7 +168,7 @@ namespace DE {
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
 				if (childName.compare("color") == 0) {
-					GetNodeData(initializersHandle, "color", emitterParticleColor, CColor(1.0f, 1.0f, 1.0f, 1.0f));
+					GetNodeData(initializersHandle, "color", emitterParticleColor, CColor(1.0F, 1.0F, 1.0F, 1.0F));
 					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColor);
 					emitter->AddInitializer(initializer);
 
@@ -255,7 +255,7 @@ namespace DE {
 					for (auto colorElementIt = colorElement; colorElementIt != nullptr; colorElementIt = colorElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle colorChangeHandle = tinyxml2::XMLHandle(colorElementIt);
 						GetNodeData(colorChangeHandle, "time", updaterTime, 0);
-						GetNodeData(colorChangeHandle, "value", updaterColor, CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
+						GetNodeData(colorChangeHandle, "value", updaterColor, CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
 
 						SColorParticleChangeUpdater colorChange;
 						colorChange.time = updaterTime;
@@ -313,7 +313,7 @@ namespace DE {
 					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
-						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0f, 0.0f, 0.0f));
+						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0F, 0.0F, 0.0F));
 						GetNodeData(velocityChangeHandle, "variationFactor", updaterVariationFactor, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);

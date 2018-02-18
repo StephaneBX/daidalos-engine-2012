@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CPointLightSceneNode.hpp"
 
 namespace DE {
-	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0f, 1.0f, 1.0f), false, 100, 0.8f, true) {
+	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0F, 1.0F, 1.0F), false, 100, 0.8F, true) {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_POINTLIGHT;

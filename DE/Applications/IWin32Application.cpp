@@ -361,7 +361,7 @@ namespace DE {
 
 					this->m_input->SetMousePosition(DE::CVector2I(point.x, point.y), this->m_hasFocus);
 
-					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1f || point.x > this->m_displayBounds.GetWidth() * 0.9f || point.y < this->m_displayBounds.GetHeight() * 0.1f || point.y > this->m_displayBounds.GetHeight() * 0.9f)) {
+					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1F || point.x > this->m_displayBounds.GetWidth() * 0.9F || point.y < this->m_displayBounds.GetHeight() * 0.1F || point.y > this->m_displayBounds.GetHeight() * 0.9F)) {
 						SetCursorPos(this->m_width / 2, this->m_height / 2);
 						this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 					}
@@ -453,23 +453,23 @@ namespace DE {
 				}
 
 				// Update the pov - the values are angles
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_UP, state.rgdwPOV[0] == 0 ? 1.0f : 0.0f);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_RIGHT, state.rgdwPOV[0] == 9000 ? 1.0f : 0.0f);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_DOWN, state.rgdwPOV[0] == 18000 ? 1.0f : 0.0f);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_LEFT, state.rgdwPOV[0] == 27000 ? 1.0f : 0.0f);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_UP, state.rgdwPOV[0] == 0 ? 1.0F : 0.0F);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_RIGHT, state.rgdwPOV[0] == 9000 ? 1.0F : 0.0F);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_DOWN, state.rgdwPOV[0] == 18000 ? 1.0F : 0.0F);
+				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_LEFT, state.rgdwPOV[0] == 27000 ? 1.0F : 0.0F);
 
 				// Update the axis
 				const float axisCenter = 32767;
-				const float axisThreshold = 1.0f - (this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1f));
+				const float axisThreshold = 1.0F - (this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1F));
 				float axisFactor = 0;
 
 				// X
 				if(state.lX < axisCenter * axisThreshold) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lX / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lX / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
 				} else {
-					if(state.lX > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lX - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lX > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lX - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
 					} else {
 						axisFactor = 0;
@@ -480,11 +480,11 @@ namespace DE {
 
 				// Y
 				if(state.lY < axisCenter * axisThreshold) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lY / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lY / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
 				} else {
-					if(state.lY > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lY - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lY > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lY - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
 					} else {
 						axisFactor = 0;
@@ -495,11 +495,11 @@ namespace DE {
 
 				// Z
 				if(state.lZ < axisCenter * axisThreshold) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lZ / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lZ / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
 				} else {
-					if(state.lZ > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lZ - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lZ > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lZ - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
 					} else {
 						axisFactor = 0;
@@ -510,11 +510,11 @@ namespace DE {
 
 				// R
 				if(state.lRx < axisCenter * axisThreshold) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lRx / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lRx / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
 				} else {
-					if(state.lRx > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lRx - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lRx > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lRx - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
 					} else {
 						axisFactor = 0;
@@ -525,11 +525,11 @@ namespace DE {
 
 				// U
 				if(state.lRy < axisCenter * axisThreshold) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lRy / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lRy / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
 				} else {
-					if(state.lRy > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lRy - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lRy > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lRy - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
 					} else {
 						axisFactor = 0;
@@ -540,11 +540,11 @@ namespace DE {
 
 				// V
 				if(state.lRz < axisCenter * axisThreshold && state.lRz > 0) {
-					axisFactor = std::min(1.0f, 1.0f - (state.lRz / (axisCenter * axisThreshold)));
+					axisFactor = std::min(1.0F, 1.0F - (state.lRz / (axisCenter * axisThreshold)));
 					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
 				} else {
-					if(state.lRz > axisCenter + (axisCenter * (1.0f - axisThreshold))) {
-						axisFactor = std::min(1.0f, (state.lRz - (axisCenter + (axisCenter * (1.0f - axisThreshold)))) / (axisCenter * axisThreshold));
+					if(state.lRz > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
+						axisFactor = std::min(1.0F, (state.lRz - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
 						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					} else {
 						axisFactor = 0;

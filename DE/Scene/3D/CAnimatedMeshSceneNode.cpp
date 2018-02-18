@@ -161,7 +161,7 @@ namespace DE {
 
 		// Animation update
 		if(this->m_animationState == MESH_ANIMATION_STATE_PLAYING && time > 0) {
-			this->m_animationCurrent += (this->m_animationSpeed * time) / 1000.0f;
+			this->m_animationCurrent += (this->m_animationSpeed * time) / 1000.0F;
 			if(this->m_animationCurrent >= this->m_animationEnd) {
 				if(this->m_looped) {
 					this->m_animationCurrent = (this->m_animationCurrent - this->m_animationEnd) + this->m_animationStart;

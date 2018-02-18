@@ -70,7 +70,7 @@ namespace DE {
 		CVector3F l2 = l * l;
 		float r = positionRadius.w;
 		float r2 = r * r;
-		float e = 1.2f;
+		float e = 1.2F;
 		float a = this->m_resolution.x / (float)this->m_resolution.y;
 
 		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
@@ -86,7 +86,7 @@ namespace DE {
 
 			if(pz1 > 0) {
 				float fx = (-nz1 * e) / nx1;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_resolution.x * 0.5F);
 				float px = -pz1 * nz1 / nx1;
 
 				if(px < l.x) {
@@ -98,7 +98,7 @@ namespace DE {
 
 			if(pz2 > 0) {
 				float fx = (-nz2 * e) / nx2;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5f);
+				int x = (int)((fx + 1) * this->m_resolution.x * 0.5F);
 				float px = -pz2 * nz2 / nx2;
 
 				if(px < l.x) {
@@ -122,7 +122,7 @@ namespace DE {
 
 			if(pz1 > 0) {
 				float fy = (nz1 * e * a) / ny1;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_resolution.y * 0.5F);
 				float py = -pz1 * nz1 / ny1;
 
 				if(py < l.y) {
@@ -134,7 +134,7 @@ namespace DE {
 
 			if(pz2 > 0) {
 				float fy = (nz2 * e * a) / ny2;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5f);
+				int y = (int)((fy + 1) * this->m_resolution.y * 0.5F);
 				float py = -pz2 * nz2 / ny2;
 
 				if(py < l.y) {
@@ -440,8 +440,8 @@ namespace DE {
 		vp.Y = viewport.GetTop();
 		vp.Width = viewport.GetWidth();
 		vp.Height = viewport.GetHeight();
-		vp.MinZ = 0.0f;
-		vp.MaxZ = 1.0f;
+		vp.MinZ = 0.0F;
+		vp.MaxZ = 1.0F;
 
 		this->m_device->SetViewport(&vp);
 	}
@@ -506,7 +506,7 @@ namespace DE {
 	void CDX9Renderer::Clear(const unsigned int surfaceFlags, const CColor & color) {
 		LOG_TRACE();
 
-		this->m_device->Clear(0, nullptr, CDX9Enums::SurfaceFlags(surfaceFlags), color.ToARGB(), 1.0f, 0);
+		this->m_device->Clear(0, nullptr, CDX9Enums::SurfaceFlags(surfaceFlags), color.ToARGB(), 1.0F, 0);
 	}
 
 	void CDX9Renderer::DrawPrimitives(EPrimitiveType type, unsigned long offset, unsigned long count) const {

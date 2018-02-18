@@ -77,10 +77,10 @@ namespace DE {
 		}
 
 		// Find the position
-		this->m_visibilityShape->SetPosition((max + min) / 2.0f);
+		this->m_visibilityShape->SetPosition((max + min) / 2.0F);
 
 		// Find the radius
-		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0f)).Length());
+		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0F)).Length());
 
 		TangentAndBinormalCalculation();
 	}

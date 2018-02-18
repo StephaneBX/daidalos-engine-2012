@@ -58,7 +58,7 @@ namespace DE {
 			CParticleEntity * particle = buffer.GetAt((*it));
 
 			// Get the normalized vector
-			CVector3F velocity(RandomNumber<float>(-1.0f,1.0f), RandomNumber<float>(-1.0f, 1.0f), RandomNumber<float>(-1.0f, 1.0f));
+			CVector3F velocity(RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F));
 			velocity = velocity.Normalize();
 			
 			// Get the velocity value

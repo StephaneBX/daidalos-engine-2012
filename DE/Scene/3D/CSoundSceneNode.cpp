@@ -49,7 +49,7 @@ namespace DE {
 
 		// Update the sound position and orientation
 		this->m_sound.SetPosition(this->m_absolutePosition);
-		if(this->m_sound.GetConeInnerAngle() < 360.0f || this->m_sound.GetConeOuterAngle() < 360.0f) {
+		if(this->m_sound.GetConeInnerAngle() < 360.0F || this->m_sound.GetConeOuterAngle() < 360.0F) {
 			CVector3F lookAt(0, 0, this->m_sound.GetMaxDistance());
 			CVector3F up(0, 1, 0);
 			lookAt = this->m_absoluteRotationMatrix.Transform(lookAt);

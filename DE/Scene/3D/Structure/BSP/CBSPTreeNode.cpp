@@ -811,8 +811,8 @@ namespace DE {
 			}
 		}
 
-		this->m_visibilitySphere.SetPosition((minPosition + maxPosition) / 2.0f);
-		this->m_visibilitySphere.SetRadius((maxPosition - minPosition).Length() / 2.0f);
+		this->m_visibilitySphere.SetPosition((minPosition + maxPosition) / 2.0F);
+		this->m_visibilitySphere.SetRadius((maxPosition - minPosition).Length() / 2.0F);
 	}
 
 	void CBSPTreeNode::BuildInitialPortal() {

@@ -36,7 +36,7 @@ namespace DE {
 
 		SetText(text);
 		SetFont(font);
-		SetColor(CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		SetColor(CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		SetSize(26);
 
 		this->m_horizontalAlignment = TEXT_HORIZONTAL_ALIGNMENT_CENTERED;

@@ -79,10 +79,10 @@ namespace DE {
 		}
 
 		// Find the position
-		this->m_visibilityShape->SetPosition((max + min) / 2.0f);
+		this->m_visibilityShape->SetPosition((max + min) / 2.0F);
 
 		// Find the radius
-		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0f)).Length());
+		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0F)).Length());
 
 		TangentAndBinormalCalculation();
 	}
@@ -112,7 +112,7 @@ namespace DE {
 		float interpolation = this->m_frame - frameA;
 
 		// Cosine
-		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0f;
+		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
 
 		// Use the first frame if the choosen frame is less than 0
 		if(frameA < 0) {
