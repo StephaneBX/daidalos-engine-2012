@@ -318,7 +318,7 @@ namespace EDITOR {
 			this->m_meshNode->SetMesh(meshFilename);
 			
 		} else {
-			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0f, 1.0f, 1.0f));
+			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0F, 1.0F, 1.0F));
 			this->m_meshNode->SetId(0);
 			this->m_meshNode->SetSaved(false);
 			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
@@ -514,7 +514,7 @@ namespace EDITOR {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render();
 	}
 
@@ -524,7 +524,7 @@ namespace EDITOR {
 	void CLevelEditorApplication::OnLevelLoaded() {
 
 		// Add the cameras
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
 		viewCameraNode->SetSaved(false);
 		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(viewCameraNode);
 
@@ -533,7 +533,7 @@ namespace EDITOR {
 		this->m_viewCamera->SetPosition(this->m_cameraPosition);
 		this->m_viewCamera->SetRotation(this->m_cameraRotation);
 
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1f, 200.0f);
+		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
 		editCameraNode->SetSaved(false);
 		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(editCameraNode);
 
@@ -550,7 +550,7 @@ namespace EDITOR {
 		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
 		this->m_editCamera->SetScene(this->m_currentLevel->GetScene());
 
-		this->m_currentLevel->GetScene()->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_currentLevel->GetScene()->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
 		this->m_currentLevel->GetScene()->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 
 		std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);

@@ -30,11 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IWeapon.hpp"
 
 #define PARTICLE_LIFE 50
-#define PARTICLE_DIRECTION_DECAL 0.08f
-#define WOBBLE_SPEED 9.0f
-#define WOBBLE_IMPULSE_ATTENUATION 50.0f
-#define FIRE_LIGHT_TIMER 80.0f
-#define SMOKE_TIMER 3000.0f
+#define PARTICLE_DIRECTION_DECAL 0.08F
+#define WOBBLE_SPEED 9.0F
+#define WOBBLE_IMPULSE_ATTENUATION 50.0F
+#define FIRE_LIGHT_TIMER 80.0F
+#define SMOKE_TIMER 3000.0F
 
 namespace DAIDALOS {
 
@@ -52,8 +52,8 @@ namespace DAIDALOS {
 		this->m_maxAmmo = 0;
 		this->m_precision = 90;
 		this->m_hitCount = 1;
-		this->m_fireAnimationRate = 1.0f;
-		this->m_reloadAnimationRate = 1.0f;
+		this->m_fireAnimationRate = 1.0F;
+		this->m_reloadAnimationRate = 1.0F;
 		this->m_fireDelay = 0;
 		this->m_reloadDelay = 0;
 		this->m_remainingDelay = 0;
@@ -89,9 +89,9 @@ namespace DAIDALOS {
 
 					// Add a direction variation
 					DE::CVector3F directionAltered = this->m_parent->GetScene()->GetActiveCamera()->GetForwardVector();
-					directionAltered.x += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
-					directionAltered.y += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
-					directionAltered.z += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0f, (100 - (float)this->m_precision) / 400.0f);
+					directionAltered.x += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					directionAltered.y += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					directionAltered.z += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
 					directionAltered = directionAltered.Normalize();
 
 					// Create the projectile
@@ -165,12 +165,12 @@ namespace DAIDALOS {
 	*/
 	void IWeapon::Update(const float time) {
 
-		const float timeSecond = time / 1000.0f;
+		const float timeSecond = time / 1000.0F;
 
 		// Apply vertical movement
 		if(this->m_state == WEAPON_STATE_NONE && this->m_parent->GetPlayer()->HasMoved()) {
 			this->m_wobblePositionTime += timeSecond * WOBBLE_SPEED;
-			this->m_meshNode->SetPosition(DE::CVector3F(this->m_meshNode->GetPosition().x, -1.3f - (cosf(this->m_wobblePositionTime) / WOBBLE_IMPULSE_ATTENUATION), this->m_meshNode->GetPosition().z));
+			this->m_meshNode->SetPosition(DE::CVector3F(this->m_meshNode->GetPosition().x, -1.3F - (cosf(this->m_wobblePositionTime) / WOBBLE_IMPULSE_ATTENUATION), this->m_meshNode->GetPosition().z));
 		}
 
 		if(this->m_state == WEAPON_STATE_FIRE || this->m_state == WEAPON_STATE_RELOAD) {
@@ -214,7 +214,7 @@ namespace DAIDALOS {
 
 			bool hit = false;
 			DE::CVector3F collisionPoint;
-			DE::CVector3F movement = projectile.direction * 200.0f * timeSecond;
+			DE::CVector3F movement = projectile.direction * 200.0F * timeSecond;
 
 			// Check for impact on the entities
 			for(auto it2 = this->m_parent->GetEntities().begin(); it2 != this->m_parent->GetEntities().end() && !hit; ++it2) {
@@ -223,7 +223,7 @@ namespace DAIDALOS {
 					// If the projectile movement is greater or equal than the projectile/entity distance
 					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {
 						for(int i = 1; i < ((int)movement.Length() + 1) * 4 && !hit; i++) {
-							DE::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0f);
+							DE::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0F);
 
 							// Collision check
 							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {

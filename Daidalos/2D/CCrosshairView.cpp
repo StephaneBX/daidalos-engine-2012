@@ -36,11 +36,11 @@ namespace DAIDALOS {
 		SetPreferredSize(DE::CVector2I(22, 22));
 
 		this->m_horizontalSprite.SetBounds(DE::CRectangleI(0, 10, 22, 2));
-		this->m_horizontalSprite.SetBackgroundColor(DE::CColor(0.5f, 0.5f, 0.5f, 1.0f));
+		this->m_horizontalSprite.SetBackgroundColor(DE::CColor(0.5F, 0.5F, 0.5F, 1.0F));
 		AddSubview(&this->m_horizontalSprite);
 
 		this->m_verticalSprite.SetBounds(DE::CRectangleI(10, 0, 2, 22));
-		this->m_verticalSprite.SetBackgroundColor(DE::CColor(0.5f, 0.5f, 0.5f, 1.0f));
+		this->m_verticalSprite.SetBackgroundColor(DE::CColor(0.5F, 0.5F, 0.5F, 1.0F));
 		AddSubview(&this->m_verticalSprite);
 	}
 }

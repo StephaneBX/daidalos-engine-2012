@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CAlarmEntity.hpp"
 
-#define ROTATION_SPEED 70.0f
+#define ROTATION_SPEED 70.0F
 
 namespace DAIDALOS {
 	/**
@@ -52,9 +52,9 @@ namespace DAIDALOS {
 		}
 
 		// Add the lights
-		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25,0,0), DE::CColor(0.5f,0.0f,0.0f), 80, 20, 0.7f,0.8f, true, true);
+		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0F, 0), DE::CVector3F(25,0,0), DE::CColor(0.5F,0.0F,0.0F), 80, 20, 0.7F,0.8F, true, true);
 		meshNode->AddChild(spot1);
-		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0f, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5f, 0.0f, 0.0f), 80, 20, 0.7f, 0.8f, true, true);
+		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0F, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5F, 0.0F, 0.0F), 80, 20, 0.7F, 0.8F, true, true);
 		meshNode->AddChild(spot2);
 	}
 
@@ -63,14 +63,14 @@ namespace DAIDALOS {
 	* @param time Elapsed time
 	*/
 	void CAlarmEntity::Update(const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		float rotation = this->m_node->GetRotation().y + this->m_speed * timePerSecond;
-		if(rotation > 360.0f) {
-			rotation -= 360.0f;
+		if(rotation > 360.0F) {
+			rotation -= 360.0F;
 		}
 		if(rotation < 0) {
-			rotation += 360.0f;
+			rotation += 360.0F;
 		}
 		this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
 	}

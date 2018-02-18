@@ -25,10 +25,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define FPS_CAMERA_MOVEMENT_SPEED 10.0f
-#define FPS_CAMERA_ROTATION_SPEED 60.0f
-#define FPS_CAMERA_GRAVITY -20.0f
-#define FPS_CAMERA_JUMP_IMPULSION 10.0f
+#define FPS_CAMERA_MOVEMENT_SPEED 10.0F
+#define FPS_CAMERA_ROTATION_SPEED 60.0F
+#define FPS_CAMERA_GRAVITY -20.0F
+#define FPS_CAMERA_JUMP_IMPULSION 10.0F
 
 #include <limits>
 #include <Core/CInputDevice.hpp>
@@ -87,7 +87,7 @@ namespace EDITOR {
 		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYP);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
-		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
+		this->m_shape.SetRadius(DE::CVector2F(1, 2.7F));
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
@@ -125,7 +125,7 @@ namespace EDITOR {
 	}
 
 	void CFreeCamera::Update(const float time) {
-		float timeSecond = time / 1000.0f;
+		float timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateView(timeSecond);
@@ -248,8 +248,8 @@ namespace EDITOR {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFELEFT);
 			}
 
-			movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
-			movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
+			movement.x += -sin((this->m_rotation.y + 90.0F) * PI_OVER_180) * factor;
+			movement.z += -cos((this->m_rotation.y + 90.0F) * PI_OVER_180) * factor;
 		}
 
 		if((this->m_state & FPS_CAMERA_STRAFERIGHT) != 0) {
@@ -259,8 +259,8 @@ namespace EDITOR {
 				factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFERIGHT);
 			}
 
-			movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
-			movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
+			movement.x += -sin((this->m_rotation.y - 90.0F) * PI_OVER_180) * factor;
+			movement.z += -cos((this->m_rotation.y - 90.0F) * PI_OVER_180) * factor;
 		}
 
 		if((this->m_state & FPS_CAMERA_FORWARD) != 0) {
@@ -300,14 +300,14 @@ namespace EDITOR {
 			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
 			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		} else {
 			// No movement detected this frame, use the smooth factor instead
-			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
+			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2F);
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		}
 
 		// Keyboard view
@@ -352,16 +352,16 @@ namespace EDITOR {
 		}
 
 
-		if(this->m_rotation.x >= 80.0f)
+		if(this->m_rotation.x >= 80.0F)
 			this->m_rotation.x = 80;
 
 		if(this->m_rotation.x < -80)
 			this->m_rotation.x = -80;
 
-		if(this->m_rotation.y >= 360.0f)
-			this->m_rotation.y -= 360.0f;
+		if(this->m_rotation.y >= 360.0F)
+			this->m_rotation.y -= 360.0F;
 
 		if(this->m_rotation.y < 0)
-			this->m_rotation.y += 360.0f;
+			this->m_rotation.y += 360.0F;
 	}
 }

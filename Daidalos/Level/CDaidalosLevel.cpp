@@ -261,7 +261,7 @@ namespace DAIDALOS {
 		checkbox1->SetUncheckedTexture("checkbox_off.png");
 		checkbox1->SetCheckedTexture("checkbox_on.png");
 		checkbox1->SetClickedTexture("checkbox_clicked.png");
-		checkbox1->GetLabelElement()->SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		checkbox1->GetLabelElement()->SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		checkbox1->GetLabelElement()->SetSize(26);
 		checkbox1->GetLabelElement()->SetText("TEST");
 		scroll->AddSubview(checkbox1);
@@ -270,8 +270,8 @@ namespace DAIDALOS {
 		button->SetBounds(DE::CRectangleI(0, 100, 120, 60));
 		button->SetDefaultTexture("button1.png");
 		button->SetClickedTexture("button2.png");
-		button->SetImageInset(DE::CInsetF(0.1f, 0.1f, 0.1f, 0.1f));
-		button->SetDefaultTitleColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		button->SetImageInset(DE::CInsetF(0.1F, 0.1F, 0.1F, 0.1F));
+		button->SetDefaultTitleColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		button->GetTitleElement()->SetSize(26);
 		button->GetTitleElement()->SetText("Test");
 		scroll->AddSubview(button);

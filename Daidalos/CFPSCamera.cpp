@@ -25,24 +25,24 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define FPS_CAMERA_MOVEMENT_SPEED 10.0f
-#define FPS_CAMERA_ROTATION_SPEED 90.0f
-#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 0.28f
-#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.23f
-#define FPS_CAMERA_GRAVITY -20.0f
-#define FPS_CAMERA_JUMP_IMPULSION 10.0f
+#define FPS_CAMERA_MOVEMENT_SPEED 10.0F
+#define FPS_CAMERA_ROTATION_SPEED 90.0F
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 0.28F
+#define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.23F
+#define FPS_CAMERA_GRAVITY -20.0F
+#define FPS_CAMERA_JUMP_IMPULSION 10.0F
 #define FPS_CAMERA_JUMP_DELAY 350
 #define FPS_CAMERA_COLLISION_UPDATE 16
-#define FPS_CAMERA_WALK_FACTOR 1.0f
-#define FPS_CAMERA_RUN_FACTOR 1.7f
-#define FPS_CAMERA_CROUCH_FACTOR 0.6f
-#define FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS 1.0f
-#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND 2.7f
-#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0f
-#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD 0.5f
-#define FPS_CAMERA_STEP_DISTANCE 7.0f
-#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0f
-#define FPS_CAMERA_LADDER_DISTANCE 3.0f
+#define FPS_CAMERA_WALK_FACTOR 1.0F
+#define FPS_CAMERA_RUN_FACTOR 1.7F
+#define FPS_CAMERA_CROUCH_FACTOR 0.6F
+#define FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS 1.0F
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND 2.7F
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0F
+#define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD 0.5F
+#define FPS_CAMERA_STEP_DISTANCE 7.0F
+#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0F
+#define FPS_CAMERA_LADDER_DISTANCE 3.0F
 
 #define FIRST_WEAPON PLAYER_OBJECT_HANDGUN_WEAPON
 #define LAST_WEAPON PLAYER_OBJECT_SHOTGUN_WEAPON
@@ -251,7 +251,7 @@ namespace DAIDALOS {
 	}
 
 	void CFPSCamera::Update(const float time) {
-		float timeSecond = time / 1000.0f;
+		float timeSecond = time / 1000.0F;
 
 		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
 		if(IsEnabled()) {
@@ -508,8 +508,8 @@ namespace DAIDALOS {
 					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFELEFT);
 				}
 
-				movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
-				movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180) * factor;
+				movement.x += -sin((this->m_rotation.y + 90.0F) * PI_OVER_180) * factor;
+				movement.z += -cos((this->m_rotation.y + 90.0F) * PI_OVER_180) * factor;
 			}
 
 			// Strafe right
@@ -520,8 +520,8 @@ namespace DAIDALOS {
 					factor = this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_STRAFERIGHT);
 				}
 
-				movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
-				movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180) * factor;
+				movement.x += -sin((this->m_rotation.y - 90.0F) * PI_OVER_180) * factor;
+				movement.z += -cos((this->m_rotation.y - 90.0F) * PI_OVER_180) * factor;
 			}
 
 			// Go forward
@@ -566,7 +566,7 @@ namespace DAIDALOS {
 		}
 		
 		// Visibility position update based on the state
-		float speedFactor = 1.0f;
+		float speedFactor = 1.0F;
 		switch(this->m_state) {
 		case FPS_CAMERA_STATE_STAND:
 			speedFactor = FPS_CAMERA_WALK_FACTOR;
@@ -622,14 +622,14 @@ namespace DAIDALOS {
 			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
 			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		} else {
 			// No movement detected this frame, use the smooth factor instead
 			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		}
 
 		// Keyboard view and gamepad
@@ -639,14 +639,14 @@ namespace DAIDALOS {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
-				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP)));
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3F - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKUP)));
 				this->m_previousGamepadViewMovement.y = -factor;
 			}
 			this->m_rotation.x -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 
 		} else if(this->m_previousGamepadViewMovement.y < 0) {
 			// Gamepad smooth factor
-			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0F);
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.y;
 		}
 
@@ -655,14 +655,14 @@ namespace DAIDALOS {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
-				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN)));
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR / (1.3F - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKDOWN)));
 				this->m_previousGamepadViewMovement.y = factor;
 			}
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 
 		} else if(this->m_previousGamepadViewMovement.y > 0) {
 			// Gamepad smooth factor
-			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_previousGamepadViewMovement.y = this->m_previousGamepadViewMovement.y * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0F);
 			this->m_rotation.x += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.y;
 		}
 
@@ -671,14 +671,14 @@ namespace DAIDALOS {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
-				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT)));
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3F - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKLEFT)));
 				this->m_previousGamepadViewMovement.x = -factor;
 			}
 			this->m_rotation.y -= FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 
 		} else if(this->m_previousGamepadViewMovement.x < 0) {
 			// Gamepad smooth factor
-			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0F);
 			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.x;
 		}
 
@@ -687,29 +687,29 @@ namespace DAIDALOS {
 			float factor = 1;
 
 			if(this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
-				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3f - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT)));
+				factor = FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR / (1.3F - (this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT) * this->m_inputDevice->GetGamepadActionFactor(0, FPS_CAMERA_LOOKRIGHT)));
 				this->m_previousGamepadViewMovement.x = factor;
 			}
 			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * factor;
 
 		} else if(this->m_previousGamepadViewMovement.x > 0) {
 			// Gamepad smooth factor
-			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0f);
+			this->m_previousGamepadViewMovement.x = this->m_previousGamepadViewMovement.x * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_SMOOTH_FACTOR, 0.0F);
 			this->m_rotation.y += FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_previousGamepadViewMovement.x;
 		}
 
 
-		if(this->m_rotation.x >= 80.0f)
+		if(this->m_rotation.x >= 80.0F)
 			this->m_rotation.x = 80;
 
 		if(this->m_rotation.x < -80)
 			this->m_rotation.x = -80;
 
-		if(this->m_rotation.y >= 360.0f)
-			this->m_rotation.y -= 360.0f;
+		if(this->m_rotation.y >= 360.0F)
+			this->m_rotation.y -= 360.0F;
 
 		if(this->m_rotation.y < 0)
-			this->m_rotation.y += 360.0f;
+			this->m_rotation.y += 360.0F;
 	}
 
 	/**

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CZombieStateFollow.hpp"
 
-#define SOUND_DELAY 1500.0f
+#define SOUND_DELAY 1500.0F
 
 namespace DAIDALOS {
 
@@ -70,7 +70,7 @@ namespace DAIDALOS {
 				this->m_soundTimer = this->m_soundDelay;
 
 				// Groaning sound (10% chance)
-				if(DE::RandomNumber<float>(0, 100.0f) < 10.0f) {
+				if(DE::RandomNumber<float>(0, 100.0f) < 10.0F) {
 					// Play one of the sounds
 					int soundIndex = DE::RandomNumber<int>(0, this->m_sounds.size() - 1);
 					this->m_sounds[soundIndex]->SetPosition(entity->GetVisiblePosition());

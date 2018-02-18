@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Enums.hpp"
 #include "CShotgunAmmoEntity.hpp"
 
-#define ROTATION_SPEED 70.0f
+#define ROTATION_SPEED 70.0F
 #define TRIGGER_RADIUS 5
 #define AMMO_QUANTITY 7
 
@@ -59,7 +59,7 @@ namespace DAIDALOS {
 
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {
-			const float timePerSecond = time / 1000.0f;
+			const float timePerSecond = time / 1000.0F;
 
 			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
 			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));

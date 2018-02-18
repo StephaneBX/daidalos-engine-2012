@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define VIEW_CAMERA_MOVEMENT_SPEED 30.0f
-#define VIEW_CAMERA_ROTATION_SPEED 60.0f
+#define VIEW_CAMERA_MOVEMENT_SPEED 30.0F
+#define VIEW_CAMERA_ROTATION_SPEED 60.0F
 
 #include <limits>
 #include <Core/CInputDevice.hpp>
@@ -48,7 +48,7 @@ namespace EDITOR {
 		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition());
-		this->m_shape.SetRadius(DE::CVector2F(1, 2.7f));
+		this->m_shape.SetRadius(DE::CVector2F(1, 2.7F));
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
@@ -110,13 +110,13 @@ namespace EDITOR {
 		DE::CVector3F movement;
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {
-			movement.x += -sin((this->m_rotation.y + 90.0f) * PI_OVER_180);
-			movement.z += -cos((this->m_rotation.y + 90.0f) * PI_OVER_180);
+			movement.x += -sin((this->m_rotation.y + 90.0F) * PI_OVER_180);
+			movement.z += -cos((this->m_rotation.y + 90.0F) * PI_OVER_180);
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_RIGHT) != 0) {
-			movement.x += -sin((this->m_rotation.y - 90.0f) * PI_OVER_180);
-			movement.z += -cos((this->m_rotation.y - 90.0f) * PI_OVER_180);
+			movement.x += -sin((this->m_rotation.y - 90.0F) * PI_OVER_180);
+			movement.z += -cos((this->m_rotation.y - 90.0F) * PI_OVER_180);
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_UP) != 0) {
@@ -152,26 +152,26 @@ namespace EDITOR {
 			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
 			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		} else {
 			// No movement detected this frame, use the smooth factor instead
-			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
+			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2F);
 
-			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
-			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5f);
+			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
+			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		}
 
-		if(this->m_rotation.x >= 80.0f)
+		if(this->m_rotation.x >= 80.0F)
 			this->m_rotation.x = 80;
 
 		if(this->m_rotation.x < -80)
 			this->m_rotation.x = -80;
 
-		if(this->m_rotation.y >= 360.0f)
-			this->m_rotation.y -= 360.0f;
+		if(this->m_rotation.y >= 360.0F)
+			this->m_rotation.y -= 360.0F;
 
 		if(this->m_rotation.y < 0)
-			this->m_rotation.y += 360.0f;
+			this->m_rotation.y += 360.0F;
 	}
 }

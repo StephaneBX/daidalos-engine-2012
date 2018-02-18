@@ -46,7 +46,7 @@ namespace EDITOR {
 		SetBounds(DE::CRectangleI(0, 0, 400, (numberOfLines + 1) * LABEL_HEIGHT));
 
 		// Set background color
-		SetBackgroundColor(DE::CColor(0.2f, 0.2f, 0.2f));
+		SetBackgroundColor(DE::CColor(0.2F, 0.2F, 0.2F));
 
 		// Create the input label
 		this->m_inputLabel.SetBounds(DE::CRectangleI(MARGIN, this->m_boundingRectangle.GetHeight() - LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));

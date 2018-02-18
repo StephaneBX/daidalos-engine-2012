@@ -59,7 +59,7 @@ namespace DAIDALOS {
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {
 			DE::CVector3F rotation = this->m_node->GetRotation();
-			rotation.y += (ROTATION_SPEED * time) / 1000.0f;
+			rotation.y += (ROTATION_SPEED * time) / 1000.0F;
 			if(rotation.y > 360) {
 				rotation.y -= 360;
 			}

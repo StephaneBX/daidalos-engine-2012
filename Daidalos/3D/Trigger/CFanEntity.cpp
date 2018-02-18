@@ -25,8 +25,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#define ANIMATION_SPEED 80.0f
-#define ANIMATION_FACTOR 30.0f
+#define ANIMATION_SPEED 80.0F
+#define ANIMATION_FACTOR 30.0F
 
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
@@ -58,7 +58,7 @@ namespace DAIDALOS {
 	* @param time Elapsed time
 	*/
 	void CFanEntity::Update(const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		switch(this->m_state) {
 		case FAN_STATE_STARTING:

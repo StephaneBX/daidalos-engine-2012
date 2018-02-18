@@ -46,11 +46,11 @@ namespace DAIDALOS {
 		bool enabled = true;
 		bool shadowCaster = false;
 		float lightDecalY = 0;
-		float lightRange = 15.0f;
-		float lightRadius = 20.0f;
-		float lightFallOf = 0.5f;
-		float lightTightness = 0.5f;
-		DE::CColor lightColor(1.0f, 1.0f, 1.0f, 1.0f);
+		float lightRange = 15.0F;
+		float lightRadius = 20.0F;
+		float lightFallOf = 0.5F;
+		float lightTightness = 0.5F;
+		DE::CColor lightColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 		// Read the attributes
 		if(meshNode->GetAttribute("lightDecalY") != "") {

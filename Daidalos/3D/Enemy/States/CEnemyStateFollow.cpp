@@ -194,7 +194,7 @@ namespace DAIDALOS {
 	* @param time Elapsed time
 	*/
 	void CEnemyStateFollow::UpdateRotation(GE::IEnemyEntity * entity, const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
 		float rotation = this->m_rotationSpeed * timePerSecond;

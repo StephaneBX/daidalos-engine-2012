@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStatePatrol.hpp"
 
-#define EPSILON_DISTANCE 1.0f
+#define EPSILON_DISTANCE 1.0F
 
 namespace DAIDALOS {
 	/**
@@ -153,7 +153,7 @@ namespace DAIDALOS {
 	* @param time Elapsed time
 	*/
 	void CEnemyStatePatrol::UpdateRotation(GE::IEnemyEntity * entity, const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
 		float rotation = this->m_rotationSpeed * timePerSecond;

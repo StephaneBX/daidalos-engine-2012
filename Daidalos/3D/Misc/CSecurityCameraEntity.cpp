@@ -31,11 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CSecurityCameraEntity.hpp"
 
-#define DEFAULT_HORIZONTAL_ROTATION_SPEED 40.0f
-#define DEFAULT_VERTICAL_ROTATION_SPEED 20.0f
+#define DEFAULT_HORIZONTAL_ROTATION_SPEED 40.0F
+#define DEFAULT_VERTICAL_ROTATION_SPEED 20.0F
 #define DEFAULT_MAX_HORIZONTAL_ROTATION 0
 #define DEFAULT_MAX_VERTICAL_ROTATION 10
-#define DEFAULT_RANGE 60.0f
+#define DEFAULT_RANGE 60.0F
 
 namespace DAIDALOS {
 	/**
@@ -55,7 +55,7 @@ namespace DAIDALOS {
 		this->m_verticalRotationSpeed = DEFAULT_VERTICAL_ROTATION_SPEED;
 		this->m_maxHorizontalRotation = DEFAULT_MAX_HORIZONTAL_ROTATION;
 		this->m_maxVerticalRotation = DEFAULT_MAX_VERTICAL_ROTATION;
-		DE::CColor lightColor = DE::CColor(1.0f, 1.0f, 1.0f);
+		DE::CColor lightColor = DE::CColor(1.0F, 1.0F, 1.0F);
 		float range = DEFAULT_RANGE;
 
 		// Get the camera node
@@ -91,7 +91,7 @@ namespace DAIDALOS {
 
 		// Add the light
 		if(this->m_meshCameraNode != nullptr) {
-			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7f, 0.8f, true, true);
+			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7F, 0.8F, true, true);
 			this->m_meshCameraNode->AddChild(spot);
 		}
 	}
@@ -127,13 +127,13 @@ namespace DAIDALOS {
 	* Update the security camera horizontal rotation
 	*/
 	void CSecurityCameraEntity::UpdateHorizontalRotation(const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		// Update the camera rotation so that it follows the player
 		float horizontalRotation = this->m_horizontalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
-		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
+		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0F);
 		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
@@ -164,13 +164,13 @@ namespace DAIDALOS {
 	* Update the security camera vertical rotation
 	*/
 	void CSecurityCameraEntity::UpdateVerticalRotation(const float time) {
-		const float timePerSecond = time / 1000.0f;
+		const float timePerSecond = time / 1000.0F;
 
 		// Update the camera rotation so that it follows the player
 		float verticalRotation = this->m_verticalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
-		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0f);
+		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0F);
 		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 

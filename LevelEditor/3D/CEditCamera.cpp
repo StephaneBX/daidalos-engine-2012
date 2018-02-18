@@ -60,7 +60,7 @@ namespace EDITOR {
 	}
 
 	void CEditCamera::Update(const float time) {
-		float timeSecond = time / 1000.0f;
+		float timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateMovement(timeSecond);

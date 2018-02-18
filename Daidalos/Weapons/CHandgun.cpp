@@ -44,10 +44,10 @@ namespace DAIDALOS {
 		this->m_maxAmmo = 108;
 		this->m_precision = 90;
 		this->m_hitCount = 1;
-		this->m_fireAnimationRate = 5.0f;
-		this->m_reloadAnimationRate = 1.0f;
-		this->m_fireDelay = 350.0f;
-		this->m_reloadDelay = 800.0f;
+		this->m_fireAnimationRate = 5.0F;
+		this->m_reloadAnimationRate = 1.0F;
+		this->m_fireDelay = 350.0F;
+		this->m_reloadDelay = 800.0F;
 		this->m_range = 100;
 
 		this->m_fireSound.LoadFromFile("handgun_fire.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
@@ -68,7 +68,7 @@ namespace DAIDALOS {
 	* @param playerNode The player node to attach the weapon node to
 	*/
 	void CHandgun::InitializeWeaponNode(DE::ISceneNode * playerNode) {
-		this->m_meshNode = new DE::CAnimatedMeshSceneNode(this->m_parent->GetScene()->GetScene(), playerNode, "handgun", "handgun.ms3d", DE::CVector3F(0.38f, -1.3f, 2.5f), DE::CVector3F(), DE::CVector3F(3.0f, 3.0f, 3.0f));
+		this->m_meshNode = new DE::CAnimatedMeshSceneNode(this->m_parent->GetScene()->GetScene(), playerNode, "handgun", "handgun.ms3d", DE::CVector3F(0.38F, -1.3F, 2.5F), DE::CVector3F(), DE::CVector3F(3.0F, 3.0F, 3.0F));
 		this->m_meshNode->SetId(SCENE_TOP_LAYER_ID);
 		this->m_meshNode->SetSaved(false);
 		this->m_meshNode->SetEnabled(true);
@@ -86,7 +86,7 @@ namespace DAIDALOS {
 		this->m_reloadAnimation.second = 6;
 
 		// Initialize the light effect
-		this->m_fireLight = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "handgun_light", DE::CVector3F(0, 0, 2), DE::CVector3F(), DE::CColor(0.7f, 0.7f, 0.7f), 20.0f, 45.0f, 0.3f, 0.3f, false, false);
+		this->m_fireLight = new DE::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "handgun_light", DE::CVector3F(0, 0, 2), DE::CVector3F(), DE::CColor(0.7F, 0.7F, 0.7F), 20.0F, 45.0F, 0.3F, 0.3F, false, false);
 		this->m_fireLight->SetSaved(false);
 		this->m_meshNode->AddChild(this->m_fireLight);
 	}
@@ -114,7 +114,7 @@ namespace DAIDALOS {
 		emitter->SetReusable(true);
 
 		this->m_smokeEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
-		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 1.4f));
+		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 1.4F));
 		this->m_smokeEmitter->SetActive(false);
 		this->m_meshNode->AddChild(this->m_smokeEmitter);
 	}
@@ -128,7 +128,7 @@ namespace DAIDALOS {
 		emitter->SetReusable(true);
 
 		this->m_flashEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponFlashEmitter", emitter);
-		this->m_flashEmitter->SetPosition(DE::CVector3F(0, 0, 1.4f));
+		this->m_flashEmitter->SetPosition(DE::CVector3F(0, 0, 1.4F));
 		this->m_flashEmitter->SetActive(false);
 		this->m_meshNode->AddChild(this->m_flashEmitter);
 	}

@@ -44,9 +44,9 @@ namespace DAIDALOS {
 		this->m_maxAmmo = 43;
 		this->m_precision = 65;
 		this->m_hitCount = 5;
-		this->m_fireAnimationRate = 1.0f;
-		this->m_fireDelay = 1200.0f;
-		this->m_reloadDelay = 2800.0f;
+		this->m_fireAnimationRate = 1.0F;
+		this->m_fireDelay = 1200.0F;
+		this->m_reloadDelay = 2800.0F;
 		this->m_range = 100;
 
 		this->m_fireSound.LoadFromFile("shotgun_fire.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
@@ -93,7 +93,7 @@ namespace DAIDALOS {
 		emitter->SetReusable(true);
 
 		this->m_smokeEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
-		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 2.0f));
+		this->m_smokeEmitter->SetPosition(DE::CVector3F(0, 0, 2.0F));
 		this->m_smokeEmitter->SetActive(false);
 		this->m_meshNode->AddChild(this->m_smokeEmitter);
 	}
@@ -107,7 +107,7 @@ namespace DAIDALOS {
 		emitter->SetReusable(true);
 
 		this->m_flashEmitter = new DE::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponFlashEmitter", emitter);
-		this->m_flashEmitter->SetPosition(DE::CVector3F(0, 0, 2.0f));
+		this->m_flashEmitter->SetPosition(DE::CVector3F(0, 0, 2.0F));
 		this->m_flashEmitter->SetActive(false);
 		this->m_meshNode->AddChild(this->m_flashEmitter);
 	}

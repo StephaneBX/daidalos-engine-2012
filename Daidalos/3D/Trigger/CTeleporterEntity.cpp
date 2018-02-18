@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CTeleporterEntity.hpp"
 
-#define TRIGGER_RADIUS 3.0f
+#define TRIGGER_RADIUS 3.0F
 
 namespace DAIDALOS {
 	/**
