@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "CLoadingView.hpp"
 
-#define GEAR_ROTATION_SPEED 90.0f
+#define GEAR_ROTATION_SPEED 90.0F
 
 namespace GE {
 	/**
@@ -45,7 +45,7 @@ namespace GE {
 
 		this->m_textLabel.SetBounds(DE::CRectangleI(0, (this->m_boundingRectangle.GetHeight() - 100) / 2, this->m_boundingRectangle.GetWidth(), 100));
 		this->m_textLabel.SetSize(80);
-		this->m_textLabel.SetColor(DE::CColor(1.0f, 1.0f, 1.0f, 1.0f));
+		this->m_textLabel.SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		this->m_textLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_CENTERED);
 		this->m_textLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_textLabel.SetText("LOADING...");
@@ -63,7 +63,7 @@ namespace GE {
 	void CLoadingView::Update(const float time) {
 
 		// Update the gear rotation
-		this->m_gearSprite.SetRotation(this->m_gearSprite.GetRotation() + (GEAR_ROTATION_SPEED * time) / 1000.0f);
+		this->m_gearSprite.SetRotation(this->m_gearSprite.GetRotation() + (GEAR_ROTATION_SPEED * time) / 1000.0F);
 
 		IView::Update(time);
 	}

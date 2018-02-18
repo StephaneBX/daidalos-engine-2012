@@ -30,10 +30,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Level/ILevel.hpp"
 
 #define DEFAULT_HEALTH 1
-#define DEFAULT_CAMERA_ANGLE 20.0f
-#define DEFAULT_CAMERA_RATIO 1.2f
-#define DEFAULT_CAMERA_NEAR 0.1f
-#define DEFAULT_CAMERA_FAR 20.0f
+#define DEFAULT_CAMERA_ANGLE 20.0F
+#define DEFAULT_CAMERA_RATIO 1.2F
+#define DEFAULT_CAMERA_NEAR 0.1F
+#define DEFAULT_CAMERA_FAR 20.0F
 
 #define ATTRIBUTE_HEALTH "health"
 #define ATTRIBUTE_MAXHEALTH "max_health"

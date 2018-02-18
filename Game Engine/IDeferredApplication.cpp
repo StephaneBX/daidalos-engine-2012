@@ -237,7 +237,7 @@ namespace GE {
 			}
 
 		} else {
-			this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+			this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 			Render2DScene(this->m_loadingScene);
 		}
 		this->m_fpsLabel.Render();
@@ -369,7 +369,7 @@ namespace GE {
 	void IDeferredApplication::InitializeRendering(DE::C3DScene * scene3D) {
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		this->m_renderer->SetFrameBuffer(nullptr);
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 	}
 
 	/**
@@ -391,7 +391,7 @@ namespace GE {
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		scene3D->RenderSkyboxMask();
@@ -427,12 +427,12 @@ namespace GE {
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH | DE::SURFACE_TYPE_STENCIL, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration.get());
 		this->m_renderer->SetShaderProgram(this->m_DSFill.GetShaderProgram());
 		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_DSFill.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render();
 	}
 
@@ -452,7 +452,7 @@ namespace GE {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
 		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render(SCENE_TOP_LAYER_ID);
 	}
 
@@ -473,7 +473,7 @@ namespace GE {
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderTransparent.GetShaderProgram());
 		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7f);
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->RenderTransparent();
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 	}
@@ -507,7 +507,7 @@ namespace GE {
 
 		// Glow
 		this->m_renderer->SetShaderProgram(this->m_shaderScreenGlow.GetShaderProgram());
-		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 4.5f);
+		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 4.5F);
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		// Blur
@@ -542,7 +542,7 @@ namespace GE {
 				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness());
 			} else {
 				this->m_renderer->SetTexture(0, this->m_texture2DBlack.GetTexture());
-				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness() * -1.0f);
+				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness() * -1.0F);
 			}
 
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -585,7 +585,7 @@ namespace GE {
 				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
 				this->m_renderer->SetShaderProgram(this->m_DSShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 				scene3D->Render();
 			}
 
@@ -676,7 +676,7 @@ namespace GE {
 				this->m_renderer->SetVertexDeclaration(this->m_lightGeometryVD.get());
 				this->m_renderer->SetShaderProgram(this->m_DSShadowMap.GetShaderProgram());
 				this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+				this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 				scene3D->Render();
 			}
 
@@ -734,7 +734,7 @@ namespace GE {
 		this->m_DSFB.AttachElement("lightRT", 0);
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_ONE, DE::RENDER_STATE_BLEND_FUNCTION_ONE);
 	}
 
@@ -755,7 +755,7 @@ namespace GE {
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("postProcessRT", 0);
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET, DE::CColor(0.0f, 0.0f, 0.0f, 0.0f));
+		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
 		this->m_DSFB.AttachDepth("depth");
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
 

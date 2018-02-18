@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CSwitchEntity.hpp"
 
 #define TRIGGER_RADIUS 4
-#define ANIMATION_SPEED 10.0f
+#define ANIMATION_SPEED 10.0F
 
 namespace GE {
 	/**

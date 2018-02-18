@@ -37,7 +37,7 @@ namespace GE {
 	*/
 	void ILevel::LoadLevel(const std::string & filename) {
 
-		this->m_brightness = 0.0f;
+		this->m_brightness = 0.0F;
 		this->m_view = std::unique_ptr<DE::C2DScene>(new DE::C2DScene());
 
 		this->m_scene = std::unique_ptr<DE::C3DScene>(new DE::C3DScene());

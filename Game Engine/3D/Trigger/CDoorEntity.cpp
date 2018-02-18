@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define TRIGGER_RADIUS 10
 #define OPENED_TIME 6000
-#define ANIMATION_SPEED 1.0f
+#define ANIMATION_SPEED 1.0F
 
 namespace GE {
 	/**

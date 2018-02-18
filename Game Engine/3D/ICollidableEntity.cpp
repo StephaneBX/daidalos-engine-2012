@@ -135,7 +135,7 @@ namespace GE {
 	*/
 	void ICollidableEntity::PerformLevelCollisions(DE::CVector3F movement, const float time) {
 
-		const float timeSecond = time / 1000.0f;
+		const float timeSecond = time / 1000.0F;
 		SetVisiblePosition(GetVisiblePosition() + movement * timeSecond);
 
 		// If a collision test is required 

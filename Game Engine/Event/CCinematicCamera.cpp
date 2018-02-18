@@ -48,7 +48,7 @@ namespace GE {
 		this->m_done = false;
 		this->m_currentStep = 0;
 		this->m_steps = steps;
-		this->m_node = new DE::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55.0f), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1f, 100.0f);
+		this->m_node = new DE::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55.0F), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1F, 100.0F);
 		parent->GetScene()->GetRootNode()->AddChild(this->m_node);
 
 		this->SetCollisionState(false);
@@ -87,7 +87,7 @@ namespace GE {
 	}
 
 	void CCinematicCamera::Update(const float time) {
-		float timeSecond = time / 1000.0f;
+		float timeSecond = time / 1000.0F;
 		
 		if(this->m_enabled) {
 			DE::CVector3F position;
@@ -129,7 +129,7 @@ namespace GE {
 					position = DE::CubicInterpolate<DE::CVector3F>(y0, y1, y2, y3, diff);
 
 					// Rotation interpolation - Cosine
-					float interpolation = (1 - cos(diff * PI)) / 2.0f;
+					float interpolation = (1 - cos(diff * PI)) / 2.0F;
 					rotation = (this->m_steps[(int)this->m_currentStep].rotation * (1 - interpolation) + this->m_steps[(int)this->m_currentStep + 1].rotation * interpolation);
 				}
 			}
@@ -138,16 +138,16 @@ namespace GE {
 			GetParent()->SetBrightness(0);
 			if (this->m_steps[(int)this->m_currentStep].fade != FADE_NONE) {
 				float diff = this->m_currentStep - (int)this->m_currentStep;
-				float fadeDiff = this->m_steps[(int)this->m_currentStep].speed * (this->m_steps[(int)this->m_currentStep].fadeDuration / 1000.0f);
+				float fadeDiff = this->m_steps[(int)this->m_currentStep].speed * (this->m_steps[(int)this->m_currentStep].fadeDuration / 1000.0F);
 
 				if (diff < fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_IN || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
 					// Fade in
-					GetParent()->SetBrightness(-1.0f + (diff / fadeDiff));
+					GetParent()->SetBrightness(-1.0F + (diff / fadeDiff));
 				}
 
-				if (diff >= 1.0f - fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_OUT || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
+				if (diff >= 1.0F - fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_OUT || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
 					// Fade out
-					GetParent()->SetBrightness(-(diff - (1.0f - fadeDiff)) / fadeDiff);
+					GetParent()->SetBrightness(-(diff - (1.0F - fadeDiff)) / fadeDiff);
 				}
 			}
 

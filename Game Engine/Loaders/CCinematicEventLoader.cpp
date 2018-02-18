@@ -89,7 +89,7 @@ namespace GE {
 		SCinematicCameraStep step;
 		step.position = position;
 		step.rotation = rotation;
-		step.speed = 1000.0f / duration;
+		step.speed = 1000.0F / duration;
 		step.transition = TRANSITION_NONE;
 		step.fade = FADE_NONE;
 		step.fadeDuration = fadeDuration;
