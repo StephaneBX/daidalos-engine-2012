@@ -81,10 +81,10 @@ namespace GE {
 
 		GetNodeData(handle, "position", position, DE::CVector3F());
 		GetNodeData(handle, "rotation", rotation, DE::CVector3F());
-		GetNodeData(handle, "duration", duration, 1.0f);
+		GetNodeData(handle, "duration", duration, 1.0F);
 		GetNodeData(handle, "transition", transition, "none");
 		GetNodeData(handle, "fade", fade, "none");
-		GetNodeData(handle, "fadeDuration", fadeDuration, 500.0f);
+		GetNodeData(handle, "fadeDuration", fadeDuration, 500.0F);
 
 		SCinematicCameraStep step;
 		step.position = position;

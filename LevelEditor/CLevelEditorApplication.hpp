@@ -40,7 +40,7 @@ namespace EDITOR {
 	/**
 	* Level editor application implementation
 	*/
-	class CLevelEditorApplication : public GE::IForwardApplication, IConsoleListener {
+	class CLevelEditorApplication : public GE::IForwardApplication, public IConsoleListener {
 	private:
 		bool m_viewMode;
 		bool m_drawSkybox;

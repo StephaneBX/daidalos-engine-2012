@@ -66,7 +66,7 @@ namespace DE {
 	/**
 	* A particle emitter
 	*/
-	class CParticleEmitter : IClonable {
+	class CParticleEmitter : public IClonable {
 	protected:
 		bool m_active;
 		bool m_reusable;

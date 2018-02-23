@@ -626,7 +626,7 @@ namespace DAIDALOS {
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		} else {
 			// No movement detected this frame, use the smooth factor instead
-			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2f);
+			this->m_previousMouseMovement *= this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SMOOTHING, 0.2F);
 
 			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);

@@ -41,7 +41,7 @@ namespace DE {
 	/**
 	* Basic class for a selection list
 	*/
-	class CSelectionList : public IView, IButtonListener {
+	class CSelectionList : public IView, public IButtonListener {
 	private:
 		bool m_enabled;
 		std::string m_selectionTexture;

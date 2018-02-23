@@ -39,7 +39,7 @@ namespace EDITOR {
 	/**
 	* Console implementation
 	*/
-	class CConsoleView : public DE::CSprite, DE::IInputKeyboardListener {
+	class CConsoleView : public DE::CSprite, public DE::IInputKeyboardListener {
 	private:
 		std::vector<IConsoleListener*> m_listeners;
 		std::vector<DE::CLabel> m_historyLabel;
