@@ -59,7 +59,7 @@ namespace DE {
 	void CLinearVelocityParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			// Create the altered direction
 			CVector3F velocity = this->m_direction;

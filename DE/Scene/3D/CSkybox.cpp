@@ -125,9 +125,9 @@ namespace DE {
 		renderer->SetIndexBuffer(this->m_indexBuffer, sizeof(int));
 
 		// Shader values to reposition the skybox and change its size
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (this->m_scene->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (this->m_scene->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
 
 		// Draw each part of the skybox
 		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {

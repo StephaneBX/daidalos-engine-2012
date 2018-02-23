@@ -247,7 +247,7 @@ namespace EDITOR {
 
 			std::vector<DE::ISceneNode *> nodesToRemove = GetNodesOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
 			for(auto it = nodesToRemove.begin(); it != nodesToRemove.end(); it++) {
-				this->m_currentLevel->GetScene()->GetRootNode()->RemoveChild((*it));
+				this->m_currentLevel->GetScene()->GetRootNode()->RemoveChild(*it);
 			}
 		}
 
@@ -513,8 +513,8 @@ namespace EDITOR {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render();
 	}
 

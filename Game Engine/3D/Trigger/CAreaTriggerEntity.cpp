@@ -77,7 +77,7 @@ namespace GE {
 
 		// Loop through the ids
 		for(auto it = this->m_triggerNodeIds.begin(); it != this->m_triggerNodeIds.end(); ++it) {
-			std::vector<DE::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray((*it));
+			std::vector<DE::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray(*it);
 
 			// Loop through the nodes
 			for(auto it2 = nodes.begin(); it2 != nodes.end(); ++it2) {

@@ -53,7 +53,7 @@ namespace DE {
 	void CMassParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 			particle->SetMass(this->m_mass);
 		}
 	}

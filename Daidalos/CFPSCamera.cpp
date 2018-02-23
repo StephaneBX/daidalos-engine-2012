@@ -433,7 +433,7 @@ namespace DAIDALOS {
 			this->m_jumpSound.SetStatus(DE::SOUND_STATUS_PLAY);
 		}
 
-		if(this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && ((this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN)))) {
+		if(this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN))) {
 			this->m_actionState |= FPS_CAMERA_RUN;
 			this->m_state = FPS_CAMERA_STATE_RUN;
 		} else if(this->m_state == FPS_CAMERA_STATE_RUN) {

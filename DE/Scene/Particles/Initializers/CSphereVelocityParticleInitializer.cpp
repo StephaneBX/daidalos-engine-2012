@@ -55,7 +55,7 @@ namespace DE {
 	void CSphereVelocityParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			// Get the normalized vector
 			CVector3F velocity(RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F));

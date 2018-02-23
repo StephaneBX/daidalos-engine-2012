@@ -81,27 +81,27 @@ namespace DE {
 			switch((*it)->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_COPLANAR:
 				// Goes to the front child
-				front.push_back((*it));
+				front.push_back(*it);
 				break;
 
 			case BSP_TRIANGLE_ORIENTATION_FRONT:
 				// Goes to the front child
-				front.push_back((*it));
+				front.push_back(*it);
 				break;
 
 			case BSP_TRIANGLE_ORIENTATION_BACK:
 				// Goes to the back child
-				back.push_back((*it));
+				back.push_back(*it);
 				break;
 
 			default:
 			case BSP_TRIANGLE_ORIENTATION_SPANNING:
 				if(split) {
 					// Split the triangle
-					SplitTriangle((*it), front, back);
+					SplitTriangle(*it, front, back);
 				} else {
-					front.push_back((*it));
-					back.push_back((*it));
+					front.push_back(*it);
+					back.push_back(*it);
 				}
 				break;
 			}

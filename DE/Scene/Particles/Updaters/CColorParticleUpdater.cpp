@@ -54,7 +54,7 @@ namespace DE {
 	void CColorParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			SColorParticleChangeUpdater * currentColor = nullptr;
 			SColorParticleChangeUpdater * targetColor = nullptr;

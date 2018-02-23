@@ -172,7 +172,7 @@ namespace DE {
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
 		this->m_root->RenderSkyboxMask();
 	}
@@ -196,7 +196,7 @@ namespace DE {
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
 		this->m_root->Render(filterId);
 	}
@@ -215,7 +215,7 @@ namespace DE {
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
 		this->m_root->RenderTransparent();
 	}
@@ -245,7 +245,7 @@ namespace DE {
 		renderer->SetShaderProgram(this->m_debugShader.GetShaderProgram());
 
 		// Global parameters of the scene
-		this->m_debugShader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
+		this->m_debugShader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 
 		this->m_root->RenderDebugInformation();
 	}
@@ -266,11 +266,11 @@ namespace DE {
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_POSITION), this->m_activeSpotLights->position[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_DIRECTION), this->m_activeSpotLights->direction[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_RRFT), this->m_activeSpotLights->rangeRadiusFalloffTightness[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_COLOR), this->m_activeSpotLights->color[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_VIEWPROJ), this->m_activeSpotLights->node[id]->GetViewProjMatrix());
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_POSITION), this->m_activeSpotLights->position[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_DIRECTION), this->m_activeSpotLights->direction[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_RRFT), this->m_activeSpotLights->rangeRadiusFalloffTightness[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_COLOR), this->m_activeSpotLights->color[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SPOTLIGHT_VIEWPROJ), this->m_activeSpotLights->node[id]->GetViewProjMatrix());
 
 		renderer->SetScissor(this->m_activeSpotLights->scissor[id]);
 	}
@@ -299,8 +299,8 @@ namespace DE {
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_DIRECTION), this->m_activeDirectionalLights->direction[id]);
-		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_COLOR), this->m_activeDirectionalLights->color[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_DIRECTION), this->m_activeDirectionalLights->direction[id]);
+		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_COLOR), this->m_activeDirectionalLights->color[id]);
 	}
 
 	void I3DScene::SetBrushCollision(const int brushId, const bool collision) {

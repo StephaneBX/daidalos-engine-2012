@@ -53,7 +53,7 @@ namespace DE {
 	void CColorParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			particle->SetColor(this->m_color);
 		}

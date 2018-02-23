@@ -303,30 +303,30 @@ namespace EDITOR {
 
 		// Position
 		tinyxml2::XMLElement * child = document.NewElement("position");
-		child->InsertEndChild(document.NewText((meshNode->GetPosition().ToString().c_str())));
+		child->InsertEndChild(document.NewText(meshNode->GetPosition().ToString().c_str()));
 		brush->InsertEndChild(child);
 
 		// Rotation
 		child = document.NewElement("rotation");
-		child->InsertEndChild(document.NewText((meshNode->GetRotation().ToString().c_str())));
+		child->InsertEndChild(document.NewText(meshNode->GetRotation().ToString().c_str()));
 		brush->InsertEndChild(child);
 
 		// Scale
 		child = document.NewElement("scale");
-		child->InsertEndChild(document.NewText((meshNode->GetScale().ToString().c_str())));
+		child->InsertEndChild(document.NewText(meshNode->GetScale().ToString().c_str()));
 		brush->InsertEndChild(child);
 
 		// Diffuse texture
 		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE) != "") {
 			child = document.NewElement("diffuse_texture");
-			child->InsertEndChild(document.NewText((meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).c_str())));
+			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).c_str()));
 			brush->InsertEndChild(child);
 		}
 
 		// Normal texture
 		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL) != "") {
 			child = document.NewElement("normal_texture");
-			child->InsertEndChild(document.NewText((meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL).c_str())));
+			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL).c_str()));
 			brush->InsertEndChild(child);
 		}
 

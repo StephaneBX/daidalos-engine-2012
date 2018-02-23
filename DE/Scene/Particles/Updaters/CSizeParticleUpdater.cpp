@@ -54,7 +54,7 @@ namespace DE {
 	void CSizeParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			SSizeParticleChangeUpdater * currentSize = nullptr;
 			SSizeParticleChangeUpdater * targetSize = nullptr;

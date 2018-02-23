@@ -216,11 +216,11 @@ namespace DE {
 
 		// Remove dead particles
 		for(auto it = this->m_particleIndex.begin(); it != this->m_particleIndex.end();) {
-			CParticleEntity & entity = buffer.GetReferenceAt((*it));
+			CParticleEntity & entity = buffer.GetReferenceAt(*it);
 
 			// If its life is expired, remove it
 			if(entity.GetLifeNormalized() >= 1.0F) {
-				buffer.Delete((*it));
+				buffer.Delete(*it);
 				it = this->m_particleIndex.erase(it);
 			} else {
 				it++;
@@ -231,7 +231,7 @@ namespace DE {
 		this->m_visibilityShape.SetPosition(this->m_position);
 		float maxRadius = 0;
 		for(auto it = this->m_particleIndex.begin(); it != this->m_particleIndex.end(); it++) {
-			CParticleEntity & entity = buffer.GetReferenceAt((*it));
+			CParticleEntity & entity = buffer.GetReferenceAt(*it);
 			maxRadius = std::max(maxRadius, (entity.GetPosition() - this->m_position).Length());
 		}
 		this->m_visibilityShape.SetRadius(maxRadius);

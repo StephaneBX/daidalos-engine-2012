@@ -284,7 +284,7 @@ namespace GE {
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 		this->m_renderer->SetVertexDeclaration(this->m_declaration2D.get());
 		this->m_renderer->SetShaderProgram(this->m_shader2D.GetShaderProgram());
-		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), scene2D->GetProjMatrix());
+		this->m_shader2D.SetParameter(DE::SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_PROJ_MATRIX), scene2D->GetProjMatrix());
 		scene2D->Render();
 	}
 
@@ -315,8 +315,8 @@ namespace GE {
 		this->m_renderer->SetStencilPass(DE::STENCIL_OPERATION_INCREMENT_CLAMP);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		scene3D->RenderSkyboxMask();
 
@@ -347,8 +347,8 @@ namespace GE {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render();
 	}
 
@@ -368,8 +368,8 @@ namespace GE {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render(SCENE_TOP_LAYER_ID);
 	}
 
@@ -386,8 +386,8 @@ namespace GE {
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderTransparent.GetShaderProgram());
-		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderTransparent.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->RenderTransparent();
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
 	}
@@ -418,8 +418,8 @@ namespace GE {
 		// Blur the copied back buffer
 		this->m_renderer->SetFrameBuffer(this->m_frameBufferPostProcess.GetFrameBuffer());
 		this->m_renderer->Clear(DE::SURFACE_TYPE_TARGET | DE::SURFACE_TYPE_DEPTH, DE::CColor(0.0F, 0.0F, 0.0F, 0.0F));
-		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_RESOLUTION), DE::CVector2F((float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y));
-		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 15);
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_RESOLUTION), DE::CVector2F((float)this->m_renderer->GetResolution().x, (float)this->m_renderer->GetResolution().y));
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 15);
 
 		// Horizontal convolution
 		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 0);
@@ -427,7 +427,7 @@ namespace GE {
 
 		// Vertical convolution
 		this->m_renderer->CopyTextureToTexture(this->m_frameBufferPostProcess.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
-		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 1);
+		this->m_shaderScreenBlur.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 1);
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		// Draw back to the back buffer with blending
@@ -436,7 +436,7 @@ namespace GE {
 		this->m_renderer->SetShaderProgram(this->m_shaderScreenGlow.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->SetTexture(0, this->m_frameBufferPostProcess.GetFrameBuffer()->GetTexture("postProcessRT"));
-		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 7.5F);
+		this->m_shaderScreenGlow.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_GLOW_FACTOR), 7.5F);
 		this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -453,10 +453,10 @@ namespace GE {
 			DE::CColor color;
 			if (this->m_currentLevel->GetBrightness() > 0) {
 				this->m_renderer->SetTexture(0, this->m_texture2DWhite.GetTexture());
-				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness());
+				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness());
 			} else {
 				this->m_renderer->SetTexture(0, this->m_texture2DBlack.GetTexture());
-				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness() * -1.0F);
+				this->m_shaderScreen.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness() * -1.0F);
 			}
 
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -530,11 +530,11 @@ namespace GE {
 
 			this->m_renderer->SetTexture(2, this->m_frameBufferShadowMap.GetFrameBuffer()->GetTexture("lightDepthRT"));
 
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_SHADOW_MAP_SIZE, 512));
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_MAP_SIZE), this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_SHADOW_MAP_SIZE, 512));
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_SHADOW_CASTER), scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]);
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+			this->m_shaderSpotLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 			scene3D->SendSpotLightDataToShader(scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]);
 			scene3D->Render();
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, true);
@@ -562,9 +562,9 @@ namespace GE {
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
 		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
 			// Add the light effect to the backbuffer
@@ -594,9 +594,9 @@ namespace GE {
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD | DE::MESHBUFFER_ELEMENT_NTB);
 
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
-		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		this->m_shaderPointLight.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			// Add the light effect to the backbuffer

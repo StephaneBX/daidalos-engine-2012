@@ -59,7 +59,7 @@ namespace DE {
 		const float timeSecond = time / 1000.0F;
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 
 			// Next normalized life
 			float nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();

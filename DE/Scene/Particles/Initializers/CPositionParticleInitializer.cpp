@@ -53,7 +53,7 @@ namespace DE {
 	void CPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 			
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + this->m_position);

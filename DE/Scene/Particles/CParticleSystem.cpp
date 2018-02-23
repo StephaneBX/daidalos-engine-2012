@@ -334,7 +334,7 @@ namespace DE {
 			if((*it)->GetBlendMode() == blendMode && !this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
 				// Get the particle index and the distance to camera
 				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
-					this->m_particleIndex.get()[this->m_particleSize] = (*it2);
+					this->m_particleIndex.get()[this->m_particleSize] = *it2;
 					this->m_particleDistance.get()[this->m_particleSize] = (this->m_particleBuffer.GetAt((*it2))->GetPosition() - this->m_activeCamera->GetPosition()).Length();
 					this->m_particleSize++;
 				}

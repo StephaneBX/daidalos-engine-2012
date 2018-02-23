@@ -55,7 +55,7 @@ namespace DE {
 	void CBoxPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
 		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt((*it));
+			CParticleEntity * particle = buffer.GetAt(*it);
 			CVector3F position = CVector3F(RandomNumber<float>(this->m_positionMin.x, this->m_positionMax.x), RandomNumber<float>(this->m_positionMin.y, this->m_positionMax.y), RandomNumber<float>(this->m_positionMin.z, this->m_positionMax.z));
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + position);

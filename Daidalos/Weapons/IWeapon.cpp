@@ -210,7 +210,7 @@ namespace DAIDALOS {
 
 		// Update the live projectiles
 		for(auto it = this->m_activeProjectiles.begin(); it != this->m_activeProjectiles.end(); ) {
-			SProjectile & projectile = this->m_projectiles.GetReferenceAt((*it));
+			SProjectile & projectile = this->m_projectiles.GetReferenceAt(*it);
 
 			bool hit = false;
 			DE::CVector3F collisionPoint;
@@ -234,7 +234,7 @@ namespace DAIDALOS {
 								hit = true;
 
 								// Kill the projectile
-								this->m_projectiles.Delete((*it));
+								this->m_projectiles.Delete(*it);
 								it = this->m_activeProjectiles.erase(it);
 							}
 						}
@@ -258,7 +258,7 @@ namespace DAIDALOS {
 				}
 
 				// Kill the projectile
-				this->m_projectiles.Delete((*it));
+				this->m_projectiles.Delete(*it);
 				it = this->m_activeProjectiles.erase(it);
 
 			}
@@ -270,7 +270,7 @@ namespace DAIDALOS {
 
 				if(projectile.distance <= 0) {
 					// Kill the projectile
-					this->m_projectiles.Delete((*it));
+					this->m_projectiles.Delete(*it);
 					it = this->m_activeProjectiles.erase(it);
 				} else {
 					it++;
