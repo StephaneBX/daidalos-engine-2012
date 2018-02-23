@@ -370,11 +370,6 @@ namespace DE {
 	void CBSPTreeNode::SplitTriangle(CBSPTriangle * triangle, std::vector<CBSPTriangle*> & front, std::vector<CBSPTriangle*> & back) {
 		LOG_TRACE();
 
-		CVector3F pivot;
-		CVector3F positive1;
-		CVector3F positive2;
-		CVector3F negative1;
-		CVector3F negative2;
 		CVector3F intersection1;
 		CVector3F intersection2;
 		bool split = true;

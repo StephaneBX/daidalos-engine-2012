@@ -80,7 +80,7 @@ namespace DE {
 			* Load the chars
 			*/
 			tinyxml2::XMLElement * character = hDoc.FirstChildElement("font").FirstChildElement("chars").FirstChildElement("char").ToElement();
-			for(auto characterIt = character; characterIt != nullptr; characterIt = characterIt->NextSiblingElement()) {
+			for(tinyxml2::XMLElement * characterIt = character; characterIt != nullptr; characterIt = characterIt->NextSiblingElement()) {
 				SCharData charData;
 				characterIt->QueryUnsignedAttribute("id", &charData.id);
 				characterIt->QueryIntAttribute("x", &charData.x);
@@ -98,7 +98,7 @@ namespace DE {
 			* Load the kernings
 			*/
 			tinyxml2::XMLElement * kerning = hDoc.FirstChildElement("font").FirstChildElement("kernings").FirstChildElement("kerning").ToElement();
-			for(auto kerningIt = kerning; kerningIt != nullptr; kerningIt = kerningIt->NextSiblingElement()) {
+			for(tinyxml2::XMLElement * kerningIt = kerning; kerningIt != nullptr; kerningIt = kerningIt->NextSiblingElement()) {
 				SKerningPair kerningData;
 				kerningIt->QueryUnsignedAttribute("first", &kerningData.first);
 				kerningIt->QueryUnsignedAttribute("second", &kerningData.second);

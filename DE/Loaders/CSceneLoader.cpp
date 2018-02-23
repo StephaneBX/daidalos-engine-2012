@@ -92,7 +92,7 @@ namespace DE {
 
 			// Read the structure nodes
 			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
-			for(auto elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
+			for(tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadNode(scene, root, tinyxml2::XMLHandle(elementIt));
 			}
 		} else {
@@ -237,7 +237,7 @@ namespace DE {
 
 			// Check for attached nodes
 			child = handle.FirstChildElement("node").ToElement();
-			for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+			for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 				// Read only nodes
 				if(std::string(childIt->Name()) == "node") {
 					LoadNode(scene, node, tinyxml2::XMLHandle(childIt));
@@ -273,7 +273,7 @@ namespace DE {
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -288,7 +288,7 @@ namespace DE {
 				bspHandle.ToElement()->QueryBoolAttribute("collisions", &brush.collision);
 				bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
 
-				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for(tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush")
 						AddBSPBrushData(tinyxml2::XMLHandle(child2It), brush);
 				}
@@ -300,7 +300,7 @@ namespace DE {
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -321,7 +321,7 @@ namespace DE {
 
 		// Check for bounding box declared in nodes
 		child = handle.FirstChildElement("node").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "node") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -334,7 +334,6 @@ namespace DE {
 					CVector3F position;
 					CVector3F rotation;
 					CVector3F scale;
-					CVector3F nodeDefaultScale;
 
 					// Get the node position, rotation etc
 					GetNodeData(bspHandle, "position", position, CVector3F(0, 0, 0));
@@ -387,14 +386,14 @@ namespace DE {
 
 		// Read the level geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
 				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SSimpleBrush brush;
 
-				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for (tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
 						AddSimpleBrushData(tinyxml2::XMLHandle(child2It), brush);
 						brush.isMultiBrush = true;
@@ -408,7 +407,7 @@ namespace DE {
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -429,7 +428,6 @@ namespace DE {
 
 		int particleSystemSize;
 		std::string atlasTexture;
-		std::string templateName;
 		CVector2I atlasSize;
 		CVector3F gravity;
 
@@ -445,13 +443,13 @@ namespace DE {
 
 		// Read the emitters templates
 		tinyxml2::XMLElement * emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
-		if(emittersTemplates != nullptr) {
+		if (emittersTemplates != nullptr) {
 			// Read the templates
 			tinyxml2::XMLHandle & templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
 			tinyxml2::XMLElement * templateElement = templatesHandle.FirstChildElement("template").ToElement();
 
-			if(templateElement != nullptr) {
-				for(auto templateElementIt = templateElement; templateElementIt != nullptr; templateElementIt = templateElementIt->NextSiblingElement()) {
+			if (templateElement != nullptr) {
+				for (tinyxml2::XMLElement * templateElementIt = templateElement; templateElementIt != nullptr; templateElementIt = templateElementIt->NextSiblingElement()) {
 					tinyxml2::XMLHandle & templateHandle = tinyxml2::XMLHandle(templateElementIt);
 					tinyxml2::XMLText * text = templateHandle.FirstChild().ToText();
 					if(text != nullptr) {
@@ -525,7 +523,6 @@ namespace DE {
 		float tightness;
 		CVector3F position;
 		CVector3F rotation;
-		CVector3F scale;
 		CVector4F nodeDefaultColor;
 		CColor color;
 
@@ -1992,7 +1989,7 @@ namespace DE {
 		std::string attributeName;
 
 		child = handle.FirstChildElement("attributes").FirstChild().ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			tinyxml2::XMLHandle attributeHandle(childIt);
 
 			// Get the attribute name

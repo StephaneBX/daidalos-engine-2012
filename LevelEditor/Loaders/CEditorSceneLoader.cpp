@@ -156,12 +156,12 @@ namespace EDITOR {
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				tinyxml2::XMLElement * child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
 
-				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for(tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2It);
 
@@ -192,7 +192,7 @@ namespace EDITOR {
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle brushHandle(childIt);
@@ -222,7 +222,7 @@ namespace EDITOR {
 		}
 
 		child = handle.FirstChildElement("node").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A node with a brush bounding box declared
 			if(std::string(childIt->Name()) == "node") {
 				tinyxml2::XMLHandle nodeHandle(childIt);

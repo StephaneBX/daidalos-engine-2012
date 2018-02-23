@@ -61,7 +61,7 @@ namespace DE {
 
 			// Read the structure nodes
 			tinyxml2::XMLElement * element = hDoc.FirstChildElement("emitters").FirstChildElement("emitter").ToElement();
-			for(auto elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
+			for(tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadParticleEmitterNode(tinyxml2::XMLHandle(elementIt));
 			}
 
@@ -175,7 +175,6 @@ namespace DE {
 			CVector3F emitterParticleVelocityDirection;
 			CVector3F emitterParticlePositionMin;
 			CVector3F emitterParticlePositionMax;
-			CVector3F emitterParticleRadiusPosition;
 			CColor emitterParticleColor;
 
 			for (tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
@@ -268,7 +267,7 @@ namespace DE {
 					// Read each step
 					std::vector<SColorParticleChangeUpdater> colorChangeVector;
 					tinyxml2::XMLElement * colorElement = childHandle.FirstChildElement("color").ToElement();
-					for (auto colorElementIt = colorElement; colorElementIt != nullptr; colorElementIt = colorElementIt->NextSiblingElement()) {
+					for (tinyxml2::XMLElement * colorElementIt = colorElement; colorElementIt != nullptr; colorElementIt = colorElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle colorChangeHandle = tinyxml2::XMLHandle(colorElementIt);
 						GetNodeData(colorChangeHandle, "time", updaterTime, 0);
 						GetNodeData(colorChangeHandle, "value", updaterColor, CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
@@ -300,7 +299,7 @@ namespace DE {
 					// Read each step
 					std::vector<SSizeParticleChangeUpdater> sizeChangeVector;
 					tinyxml2::XMLElement * sizeElement = childHandle.FirstChildElement("size").ToElement();
-					for (auto sizeElementIt = sizeElement; sizeElementIt != nullptr; sizeElementIt = sizeElementIt->NextSiblingElement()) {
+					for (tinyxml2::XMLElement * sizeElementIt = sizeElement; sizeElementIt != nullptr; sizeElementIt = sizeElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle sizeChangeHandle = tinyxml2::XMLHandle(sizeElementIt);
 						GetNodeData(sizeChangeHandle, "time", updaterTime, 0);
 						GetNodeData(sizeChangeHandle, "value", updaterSize, 1);
@@ -331,7 +330,7 @@ namespace DE {
 					// Read each step
 					std::vector<SLinearVelocityParticleChangeUpdater> velocityChangeVector;
 					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0F, 0.0F, 0.0F));
@@ -364,7 +363,7 @@ namespace DE {
 					// Read each step
 					std::vector<SSphereVelocityParticleChangeUpdater> velocityChangeVector;
 					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
@@ -397,7 +396,7 @@ namespace DE {
 					// Read each step
 					std::vector<SCircularVelocityParticleChangeUpdater> velocityChangeVector;
 					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
 						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
