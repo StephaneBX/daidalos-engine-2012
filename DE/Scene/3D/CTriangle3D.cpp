@@ -115,7 +115,9 @@ namespace DE {
 		LOG_TRACE();
 
 		// Circum sphere
-		float alpha, beta, gamma;
+		float alpha;
+		float beta;
+		float gamma;
 
 		alpha = (std::pow((this->m_vertices[1] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[0] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
 		beta = (std::pow((this->m_vertices[0] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[1] - this->m_vertices[0], this->m_vertices[1] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));

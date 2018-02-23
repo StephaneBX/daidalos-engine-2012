@@ -219,7 +219,7 @@ namespace DE {
 			CParticleEntity & entity = buffer.GetReferenceAt((*it));
 
 			// If its life is expired, remove it
-			if(entity.GetLifeNormalized() >= 1.0f) {
+			if(entity.GetLifeNormalized() >= 1.0F) {
 				buffer.Delete((*it));
 				it = this->m_particleIndex.erase(it);
 			} else {

@@ -88,7 +88,9 @@ namespace DE {
 		bool ignoreGravity;
 		std::string emitterName = handle.ToElement()->Attribute("name");
 		int emitterBlendMode;
-		float emitterEmissionRate, emitterLife, emitterLifeMax;
+		float emitterEmissionRate;
+		float emitterLife;
+		float emitterLifeMax;
 		CVector3F emitterPosition;
 
 		// Basic values
@@ -130,7 +132,8 @@ namespace DE {
 	*/
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterEmissionRateChange(CParticleEmitter * emitter, tinyxml2::XMLElement * emissionRateChangeElement) {
 		if (emissionRateChangeElement != nullptr) {
-			float emitterEmissionRateTime, emitterEmissionRateValue;
+			float emitterEmissionRateTime;
+			float emitterEmissionRateValue;
 
 			for (tinyxml2::XMLElement* child = emissionRateChangeElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
 				std::string childName = std::string(child->Name());
@@ -159,8 +162,20 @@ namespace DE {
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterInitializers(CParticleEmitter * emitter, tinyxml2::XMLElement * initializersElement) {
 		if (initializersElement != nullptr) {
 			tinyxml2::XMLHandle initializersHandle = tinyxml2::XMLHandle(initializersElement);
-			float emitterParticleSize, emitterParticleLifeMin, emitterParticleLifeMax, emitterParticleRotationMin, emitterParticleRotationMax, emitterParticleVelocityMin, emitterParticleVelocityMax, emitterParticleLinearVelocityVariation, emitterParticleMass;
-			CVector3F emitterParticlePosition, emitterParticleVelocityDirection, emitterParticlePositionMin, emitterParticlePositionMax, emitterParticleRadiusPosition;
+			float emitterParticleSize;
+			float emitterParticleLifeMin;
+			float emitterParticleLifeMax;
+			float emitterParticleRotationMin;
+			float emitterParticleRotationMax;
+			float emitterParticleVelocityMin;
+			float emitterParticleVelocityMax;
+			float emitterParticleLinearVelocityVariation;
+			float emitterParticleMass;
+			CVector3F emitterParticlePosition;
+			CVector3F emitterParticleVelocityDirection;
+			CVector3F emitterParticlePositionMin;
+			CVector3F emitterParticlePositionMax;
+			CVector3F emitterParticleRadiusPosition;
 			CColor emitterParticleColor;
 
 			for (tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
@@ -210,7 +225,8 @@ namespace DE {
 					emitter->AddInitializer(initializer);
 
 				} else if (childName.compare("radiusPosition") == 0) {
-					float emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition;
+					float emitterParticleInnerRadiusPosition;
+					float emitterParticleOuterRadiusPosition;
 					CVector3F emitterParticleAxis;
 					GetNodeData(childHandle, "innerRadius", emitterParticleInnerRadiusPosition, 0);
 					GetNodeData(childHandle, "outerRadius", emitterParticleOuterRadiusPosition, 0);
@@ -278,7 +294,8 @@ namespace DE {
 					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("sizeChange") == 0) {
-					float updaterTime, updaterSize;
+					float updaterTime;
+					float updaterSize;
 
 					// Read each step
 					std::vector<SSizeParticleChangeUpdater> sizeChangeVector;
@@ -301,7 +318,11 @@ namespace DE {
 					}
 
 				} else if (childName.compare("linearVelocityChange") == 0) {
-					float updaterDamping, updaterTime, updaterVariationFactor, updaterVelocityMin, updaterVelocityMax;
+					float updaterDamping;
+					float updaterTime;
+					float updaterVariationFactor;
+					float updaterVelocityMin;
+					float updaterVelocityMax;
 					CVector3F updaterDirection;
 
 					// Read the damping
@@ -332,7 +353,10 @@ namespace DE {
 					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("sphereVelocityChange") == 0) {
-					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
+					float updaterDamping;
+					float updaterTime;
+					float updaterVelocityMin;
+					float updaterVelocityMax;
 
 					// Read the damping
 					GetNodeData(childHandle, "damping", updaterDamping, 0);
@@ -358,7 +382,10 @@ namespace DE {
 					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("circularVelocityChange") == 0) {
-					float updaterDamping, updaterTime, updaterVelocityMin, updaterVelocityMax;
+					float updaterDamping;
+					float updaterTime;
+					float updaterVelocityMin;
+					float updaterVelocityMax;
 					CVector3F updaterAxis;
 
 					// Read the damping
@@ -474,7 +501,10 @@ namespace DE {
 
 		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 			std::istringstream ss;
-			float r, g, b, a;
+			float r;
+			float g;
+			float b;
+			float a;
 
 			ss.str(tokenizer.GetTokens()[0]);
 			ss >> r;

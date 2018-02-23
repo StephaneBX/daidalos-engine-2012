@@ -70,8 +70,10 @@ namespace DE {
 		* Update the view frustum information
 		*/
 		float tang;
-		CVector3F nearCenter, farCenter;
-		CVector2F nearSize, farSize;
+		CVector3F nearCenter;
+		CVector3F farCenter;
+		CVector2F nearSize;
+		CVector2F farSize;
 		CVector3F x;
 
 		tang = this->m_angle * 0.5F;

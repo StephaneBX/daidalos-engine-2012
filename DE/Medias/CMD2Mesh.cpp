@@ -61,7 +61,8 @@ namespace DE {
 		}
 
 		// Visibility shape calculation
-		CVector3F min, max;
+		CVector3F min;
+		CVector3F max;
 		for(int frame = 0; frame < this->m_internalData->header.frameSize; ++frame) {
 			this->m_frame = (float) frame;
 			FinalizeGeometry(MESH_SHADING_SMOOTH);
@@ -130,7 +131,10 @@ namespace DE {
 		SMD2Frame * currentFrameB = &this->m_internalData->frame[frameB];
 		SMD2Vertex * currentVertexA;
 		SMD2Vertex * currentVertexB;
-		CVector3F currentNormalA, currentNormalB, currentPositionA, currentPositionB;
+		CVector3F currentNormalA;
+		CVector3F currentNormalB;
+		CVector3F currentPositionA;
+		CVector3F currentPositionB;
 
 		for(int i = 0; i < this->m_internalData->header.numVertices; i++) {
 			currentVertexA = &currentFrameA->vertex[i];

@@ -57,7 +57,8 @@ namespace DE {
 		}
 
 		// Visibility shape calculation
-		CVector3F min, max;
+		CVector3F min;
+		CVector3F max;
 		for(int frame = 0; frame < this->m_internalData->numberOfFrames; ++frame) {
 			this->m_frame = (float) frame;
 			FinalizeGeometry(MESH_SHADING_SMOOTH);

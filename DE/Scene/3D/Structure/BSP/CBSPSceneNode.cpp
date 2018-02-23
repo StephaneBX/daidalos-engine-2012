@@ -159,7 +159,9 @@ namespace DE {
 	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
-		CVector3F endPoint, edge, distance;
+		CVector3F endPoint;
+		CVector3F edge;
+		CVector3F distance;
 		bool isCollision = false;
 		float dot;
 		float fraction = 1;

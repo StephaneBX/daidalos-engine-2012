@@ -136,8 +136,10 @@ namespace DE {
 	void IMeshBase::TangentAndBinormalCalculation() {
 		LOG_TRACE();
 
-		CVector3F ab, ac;
-		CVector2F abuv, acuv;
+		CVector3F ab;
+		CVector3F ac;
+		CVector2F abuv;
+		CVector2F acuv;
 
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			for(int j = 0; j < this->m_groupSize[i]; j += 3) {

@@ -114,9 +114,14 @@ namespace DE {
 
 		int pitch = 0;
 		int index = 0;
-		CVector3F ab, ac, normalFace, tangent, binormal;
+		CVector3F ab;
+		CVector3F ac;
+		CVector3F normalFace;
+		CVector3F tangent;
+		CVector3F binormal;
 		CVector3F tangentBinormal[2];
-		CVector2F abuv, acuv;
+		CVector2F abuv;
+		CVector2F acuv;
 		unsigned char * lock = (unsigned char*)this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY);
 
 		for(int i = 0; i < (int)triangles.size(); ++i) {

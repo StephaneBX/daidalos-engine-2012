@@ -71,9 +71,9 @@ namespace DE {
 					// Create the altered direction
 					CVector3F velocity = (*it).direction;
 					if ((*it).variationFactor > 0) {
-						velocity.x *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
-						velocity.y *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
-						velocity.z *= (1.0f - RandomNumber<float>(0, (*it).variationFactor));
+						velocity.x *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
+						velocity.y *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
+						velocity.z *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
 					}
 
 					// Apply the velocity value

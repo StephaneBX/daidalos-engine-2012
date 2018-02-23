@@ -63,7 +63,8 @@ namespace DE {
 		}
 
 		// Visibilty shape calculation
-		CVector3F min, max;
+		CVector3F min;
+		CVector3F max;
 		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 			for(int j = 0; j < this->m_internalData->groupSize[i]; ++j) {
 				max.x = std::max(max.x, this->m_vertex[i][j].x);

@@ -243,7 +243,8 @@ namespace DE {
 			}
 		}
 
-		CVector2F boundingBoxMin, boundingBoxMax;
+		CVector2F boundingBoxMin;
+		CVector2F boundingBoxMax;
 
 		// Final calculation if there is a geometry 
 		if(this->m_data.size() > 0) {

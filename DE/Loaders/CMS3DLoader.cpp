@@ -370,7 +370,7 @@ namespace DE {
 	void CMS3DLoader::Animate(const float frame) {
 		LOG_TRACE();
 
-		if(frame < 0.0f) {
+		if(frame < 0.0F) {
 			for(int i = 0; i < this->m_data->numberOfJoints; i++) {
 				this->m_data->joint[i].matrixLocal = this->m_data->joint[i].matrixLocalSkeleton;
 				this->m_data->joint[i].matrixGlobal = this->m_data->joint[i].matrixGlobalSkeleton;
@@ -388,7 +388,8 @@ namespace DE {
 			SMS3DJoint * currentJoint;
 			CVector3F interpolatedVector;
 
-			CMatrix translation, rotationMatrix;
+			CMatrix translation;
+			CMatrix rotationMatrix;
 			CQuaternion rotation;
 
 			float interpolationFactor;
@@ -455,7 +456,8 @@ namespace DE {
 						interpolationFactor = (frame - currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame].time) / (currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame + 1].time - currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame].time);
 
 						// Create a quaternion with the current keyframe values
-						CQuaternion rot1, rot2;
+						CQuaternion rot1;
+						CQuaternion rot2;
 						CQuaternion::YawPitchRoll(rot1, currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame].param.x, currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame].param.y, currentJoint->rotationKeyFrames[currentJoint->currentRotationFrame].param.z);
 
 						// Create a quaternion with the next keyframe values

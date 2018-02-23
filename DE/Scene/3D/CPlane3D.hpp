@@ -191,7 +191,8 @@ namespace DE {
 	}
 
 	template <class T> CVector3<T> CPlane3D<T>::IntersectSegment(const CVector3<T> & p1, const CVector3<T> & p2, float & k) const {
-		CVector3F u, result;
+		CVector3F u;
+		CVector3F result;
 		u = p1 - p2;
 
 		k = (this->m_normal.x * p1.x + this->m_normal.y * p1.y + this->m_normal.z * p1.z + this->m_constant) / (this->m_normal.x * u.x + this->m_normal.y * u.y + this->m_normal.z * u.z);

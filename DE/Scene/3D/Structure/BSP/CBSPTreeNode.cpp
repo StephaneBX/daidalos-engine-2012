@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../../Core/Logger/ILogger.hpp"
 #include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.hpp"
 
-#define BSP_MIN_DISTANCE 0.01f
+#define BSP_MIN_DISTANCE 0.01F
 
 namespace DE {
 	CBSPTreeNode::CBSPTreeNode() {
@@ -166,7 +166,8 @@ namespace DE {
 	void CBSPTreeNode::CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush) {
 		LOG_TRACE();
 
-		float impactFraction, realFraction;
+		float impactFraction;
+		float realFraction;
 		CVector3F normalTemp;
 
 		// Empty leaf, no collision possible
@@ -232,7 +233,8 @@ namespace DE {
 	void CBSPTreeNode::CollisionDetection(IShape3DF & shape, CImpact & impact, CImpact & iBrush) {
 		LOG_TRACE();
 
-		float impactFraction, realFraction;
+		float impactFraction;
+		float realFraction;
 		CVector3F normalTemp;
 
 		// Empty leaf, no collision possible
@@ -368,14 +370,27 @@ namespace DE {
 	void CBSPTreeNode::SplitTriangle(CBSPTriangle * triangle, std::vector<CBSPTriangle*> & front, std::vector<CBSPTriangle*> & back) {
 		LOG_TRACE();
 
-		CVector3F pivot, positive1, positive2, negative1, negative2, intersection1, intersection2;
+		CVector3F pivot;
+		CVector3F positive1;
+		CVector3F positive2;
+		CVector3F negative1;
+		CVector3F negative2;
+		CVector3F intersection1;
+		CVector3F intersection2;
 		bool split = true;
 		EPointOrientation orientation[3];
 		int orientationCounter = 0;
-		int positiveIndex1, positiveIndex2, negativeIndex1, negativeIndex2, pivotIndex;
-		float kFactor1, kFactor2;
+		int positiveIndex1;
+		int positiveIndex2;
+		int negativeIndex1;
+		int negativeIndex2;
+		int pivotIndex;
+		float kFactor1;
+		float kFactor2;
 		CBSPTriangle * tmp;
-		int firstOrderIndex, secondOrderIndex, thirdOrderIndex;
+		int firstOrderIndex;
+		int secondOrderIndex;
+		int thirdOrderIndex;
 
 		// Test the triangle in order to know its position regarding the plane
 		for(int i = 0; i < 3; ++i) {

@@ -162,7 +162,10 @@ namespace DE {
 
 			if (tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 				std::istringstream ss;
-				float r, g, b, a;
+				float r;
+				float g;
+				float b;
+				float a;
 
 				ss.str(tokenizer.GetTokens()[0]);
 				ss >> r;

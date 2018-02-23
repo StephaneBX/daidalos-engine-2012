@@ -39,7 +39,7 @@ namespace DE {
 		this->m_type = SCENE_NODE_SPOTLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), this->m_radius * 2, 1, 0.1f, this->m_range);
+		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), this->m_radius * 2, 1, 0.1F, this->m_range);
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
@@ -52,7 +52,7 @@ namespace DE {
 		this->m_type = SCENE_NODE_SPOTLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), DegreeToRadian(radius) * 2, 1, 0.1f, this->m_range);
+		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), DegreeToRadian(radius) * 2, 1, 0.1F, this->m_range);
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}

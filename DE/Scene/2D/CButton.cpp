@@ -107,7 +107,7 @@ namespace DE {
 	void CButton::SetImageInset(const CInsetF & inset) {
 		LOG_TRACE();
 
-		if(inset.GetLeft() >= 0.0f && inset.GetTop() >= 0.0F && inset.GetRight() >= 0.0F && inset.GetBottom() >= 0.0F) {
+		if(inset.GetLeft() >= 0.0F && inset.GetTop() >= 0.0F && inset.GetRight() >= 0.0F && inset.GetBottom() >= 0.0F) {
 			this->m_imageInset = inset;
 			this->m_changed = true;
 		}

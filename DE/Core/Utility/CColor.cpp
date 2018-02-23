@@ -441,7 +441,10 @@ namespace DE {
 	std::istream & operator>>(std::istream & stream, CColor & color) {
 		LOG_TRACE();
 
-		int r, g, b, a;
+		int r;
+		int g;
+		int b;
+		int a;
 		stream >> r >> g >> b >> a;
 		color.SetInt(r, g, b, a);
 
@@ -476,7 +479,10 @@ namespace DE {
 		token.AddLine(text);
 
 		if(text.length() > 0 && token.Tokenize(separator, 0) && token.GetTokens().size() >= 3) {
-			float r, g, b, a;
+			float r;
+			float g;
+			float b;
+			float a;
 			a = 1.0F;
 			std::istringstream ss;
 

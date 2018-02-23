@@ -253,7 +253,8 @@ namespace DE {
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode(scene);
 		std::string skyName;
-		CVector3F ambientColor, skyAmbientColor;
+		CVector3F ambientColor;
+		CVector3F skyAmbientColor;
 
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
@@ -330,7 +331,10 @@ namespace DE {
 
 				// Bounding box detected
 				if(boundBoxFile != "") {
-					CVector3F position, rotation, scale, nodeDefaultScale;
+					CVector3F position;
+					CVector3F rotation;
+					CVector3F scale;
+					CVector3F nodeDefaultScale;
 
 					// Get the node position, rotation etc
 					GetNodeData(bspHandle, "position", position, CVector3F(0, 0, 0));
@@ -363,7 +367,8 @@ namespace DE {
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode(scene);
 		std::string skyName;
-		CVector3F ambientColor, skyAmbientColor;
+		CVector3F ambientColor;
+		CVector3F skyAmbientColor;
 
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
@@ -423,7 +428,8 @@ namespace DE {
 		LOG_TRACE();
 
 		int particleSystemSize;
-		std::string atlasTexture, templateName;
+		std::string atlasTexture;
+		std::string templateName;
 		CVector2I atlasSize;
 		CVector3F gravity;
 
@@ -478,8 +484,13 @@ namespace DE {
 	void CSceneLoader::LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		float fov, ratio, near, far;
-		CVector3F position, rotation, scale;
+		float fov;
+		float ratio;
+		float near;
+		float far;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
@@ -487,8 +498,8 @@ namespace DE {
 		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
 		GetNodeData(handle, "ratio", ratio, this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y);
-		GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1f));
-		GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0f));
+		GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1F));
+		GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0F));
 
 		// Create the node
 		node = new CProjectionCameraSceneNode(scene, parent, name, position, rotation, DegreeToRadian(fov), ratio, near, far);
@@ -506,9 +517,15 @@ namespace DE {
 	void CSceneLoader::LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool enabled, shadowCaster;
-		float range, radius, falloff, tightness;
-		CVector3F position, rotation, scale;
+		bool enabled;
+		bool shadowCaster;
+		float range;
+		float radius;
+		float falloff;
+		float tightness;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
 		CVector4F nodeDefaultColor;
 		CColor color;
 
@@ -539,8 +556,10 @@ namespace DE {
 	void CSceneLoader::LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool enabled, shadowCaster;
-		float range, falloff;
+		bool enabled;
+		bool shadowCaster;
+		float range;
+		float falloff;
 		CVector3F position;
 		CVector4F nodeDefaultColor;
 		CColor color;
@@ -569,7 +588,8 @@ namespace DE {
 	void CSceneLoader::LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool enabled, shadowCaster;
+		bool enabled;
+		bool shadowCaster;
 		CVector4F nodeDefaultColor;
 		CVector3F rotation;
 		CColor color;
@@ -596,10 +616,18 @@ namespace DE {
 	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool enabled, shadowCaster;
+		bool enabled;
+		bool shadowCaster;
 		int meshShading;
-		std::string diffuseTexture, normalTexture, material, file, boundingBox;
-		CVector3F position, rotation, scale, nodeDefaultScale;
+		std::string diffuseTexture;
+		std::string normalTexture;
+		std::string material;
+		std::string file;
+		std::string boundingBox;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
+		CVector3F nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
@@ -637,10 +665,18 @@ namespace DE {
 	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool enabled, shadowCaster;
+		bool enabled;
+		bool shadowCaster;
 		int meshShading;
-		std::string diffuseTexture, normalTexture, material, file, boundingBox;
-		CVector3F position, rotation, scale, nodeDefaultScale;
+		std::string diffuseTexture;
+		std::string normalTexture;
+		std::string material;
+		std::string file;
+		std::string boundingBox;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
+		CVector3F nodeDefaultScale;
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
@@ -678,11 +714,18 @@ namespace DE {
 	void CSceneLoader::LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
-		bool relativeToListener, looped, playOnStartup;
-		int soundType, soundCategory;
-		float coneInnerAngle, coneOuterAngle, referenceDistance, maxDistance;
+		bool relativeToListener;
+		bool looped;
+		bool playOnStartup;
+		int soundType;
+		int soundCategory;
+		float coneInnerAngle;
+		float coneOuterAngle;
+		float referenceDistance;
+		float maxDistance;
 		std::string file;
-		CVector3F position, rotation;
+		CVector3F position;
+		CVector3F rotation;
 		
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
@@ -725,7 +768,8 @@ namespace DE {
 		LOG_TRACE();
 
 		bool enabled;
-		CVector3F position, rotation;
+		CVector3F position;
+		CVector3F rotation;
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
@@ -783,8 +827,12 @@ namespace DE {
 		LOG_TRACE();
 
 		bool visible;
-		CVector3F position, rotation, scale;
-		std::string diffuseTexture, normalTexture, material;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
+		std::string diffuseTexture;
+		std::string normalTexture;
+		std::string material;
 		std::ostringstream ss;
 
 		std::string name = handle.ToElement()->Attribute("file");
@@ -896,8 +944,12 @@ namespace DE {
 		LOG_TRACE();
 
 		bool visible;
-		CVector3F position, rotation, scale;
-		std::string diffuseTexture, normalTexture, material;
+		CVector3F position;
+		CVector3F rotation;
+		CVector3F scale;
+		std::string diffuseTexture;
+		std::string normalTexture;
+		std::string material;
 		std::ostringstream ss;
 
 		std::string name = handle.ToElement()->Attribute("file");
@@ -971,7 +1023,7 @@ namespace DE {
 			}
 		}
 		// Add the visibility shape to the geometry
-		brush.visibilityShape = new CSphereF((maxVector + minVector) / 2.0f, (maxVector - minVector).Length() / 2.0f);
+		brush.visibilityShape = new CSphereF((maxVector + minVector) / 2.0F, (maxVector - minVector).Length() / 2.0F);
 
 		// Add the original values
 		brush.filename = name;
@@ -1886,7 +1938,10 @@ namespace DE {
 
 		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 			std::istringstream ss;
-			float r, g, b, a;
+			float r;
+			float g;
+			float b;
+			float a;
 
 			ss.str(tokenizer.GetTokens()[0]);
 			ss >> r;

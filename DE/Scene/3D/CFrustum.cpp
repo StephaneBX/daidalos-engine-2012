@@ -53,7 +53,7 @@ namespace DE
 		this->m_nearDistance = nearDistance;
 		this->m_farDistance = farDistance;
 
-		this->m_tang = angle * 0.5f;
+		this->m_tang = angle * 0.5F;
 		this->m_nearSize.y = this->m_nearDistance * this->m_tang;
 		this->m_nearSize.x = this->m_nearSize.y * this->m_ratio;
 		this->m_farSize.y = this->m_farDistance * this->m_tang;
@@ -67,7 +67,9 @@ namespace DE
 		CVector3F up = CVector3F(0,1,0);
 		CVector3F nearCenter;
 		CVector3F farCenter;
-		CVector3F x, y, z;
+		CVector3F x;
+		CVector3F y;
+		CVector3F z;
 
 		this->m_position = position;
 

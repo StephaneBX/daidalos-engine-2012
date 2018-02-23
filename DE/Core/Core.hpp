@@ -139,7 +139,10 @@ namespace DE {
 	* @param mu The factor
 	*/
 	template<typename T> inline T CubicInterpolate(const T y0, const T y1, const T y2, const T y3, float mu) {
-		T a0, a1, a2, a3;
+		T a0;
+		T a1;
+		T a2;
+		T a3;
 		float mu2;
 
 		mu2 = mu * mu;

@@ -68,15 +68,15 @@ namespace DE {
 		SiniP options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 		switch(category) {
 		case SOUND_CATEGORY_MUSIC:
-			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0f));
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0F));
 			break;
 
 		case SOUND_CATEGORY_ENVIRONMENT:
-			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_ENVIRONMENT, 1.0f));
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_ENVIRONMENT, 1.0F));
 			break;
 
 		case SOUND_CATEGORY_DIALOGUE:
-			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_DIALOGUE, 1.0f));
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_DIALOGUE, 1.0F));
 			break;
 		}
 	}
