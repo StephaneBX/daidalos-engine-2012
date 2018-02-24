@@ -68,7 +68,7 @@ namespace DE {
 		* Constructor
 		* @param name The resource name.
 		*/
-		IAnimatedMeshBase(const std::string & name);
+		explicit IAnimatedMeshBase(const std::string & name);
 
 	private:
 		IAnimatedMeshBase();

@@ -42,7 +42,7 @@ namespace DE {
 		* Constructor
 		* @param filename The loading file
 		*/
-		CExceptionSave(const std::string & filename);
+		explicit CExceptionSave(const std::string & filename);
 	};
 }
 

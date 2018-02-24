@@ -47,7 +47,7 @@ namespace DE {
 		* Constructor
 		* @param name The shader program base name
 		*/
-		IShaderProgramBase(const std::string & name);
+		explicit IShaderProgramBase(const std::string & name);
 
 		/**
 		* Destructor

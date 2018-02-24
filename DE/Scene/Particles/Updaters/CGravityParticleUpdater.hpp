@@ -43,7 +43,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		CGravityParticleUpdater(const CVector3F & gravity);
+		explicit CGravityParticleUpdater(const CVector3F & gravity);
 
 		/**
 		* Destructor

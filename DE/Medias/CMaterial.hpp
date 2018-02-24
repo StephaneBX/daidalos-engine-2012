@@ -49,7 +49,7 @@ namespace DE {
 		* Constructor
 		* @param filename The file name
 		*/
-		CMaterial(const std::string & filename);
+		explicit CMaterial(const std::string & filename);
 
 		/**
 		* Constructor

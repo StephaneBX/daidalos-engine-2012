@@ -53,7 +53,7 @@ namespace DE {
 		* Constructor
 		* @param name The resource name
 		*/
-		IResource(const std::string & name);
+		explicit IResource(const std::string & name);
 
 		/**
 		* Destructor

@@ -44,7 +44,7 @@ namespace GE {
 		* Constructor
 		* @param parent The parent
 		*/
-		IPlayer(ILevel * parent);
+		explicit IPlayer(ILevel * parent);
 
 		/**
 		* Set the player armor

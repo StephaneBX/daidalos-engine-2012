@@ -246,7 +246,7 @@ namespace DE {
 		}
 
 		// Copy pixels
-		this->m_texture->m_name = name;
+		this->m_texture->m_name = CFile(name);
 		this->m_texture->m_image.Copy(image);
 
 		// Do not update render target texture type

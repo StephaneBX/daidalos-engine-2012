@@ -67,7 +67,7 @@ namespace DE {
 		* Constructor
 		* @param root The tree node to duplicate
 		*/
-		CBSPBrushNode(CBSPTreeNode * root);
+		explicit CBSPBrushNode(CBSPTreeNode * root);
 
 		/**
 		* Destructor

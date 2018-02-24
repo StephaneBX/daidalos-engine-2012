@@ -63,7 +63,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		CBSPSceneNode(I3DScene * scene);
+		explicit CBSPSceneNode(I3DScene * scene);
 
 		/**
 		* Destructor

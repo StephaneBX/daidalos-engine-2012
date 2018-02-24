@@ -47,7 +47,7 @@ namespace DE {
 		* Constructor
 		* @param declaration The DX9 declaration
 		*/
-		CDX9Declaration(IDirect3DVertexDeclaration9 * declaration);
+		explicit CDX9Declaration(IDirect3DVertexDeclaration9 * declaration);
 
 		/**
 		* Destructor

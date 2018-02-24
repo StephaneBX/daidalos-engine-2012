@@ -35,7 +35,7 @@ namespace DE {
 
 		std::ostringstream stream;
 		stream << s_resourceCounter;
-		this->m_name = stream.str();
+		this->m_name = CFile(stream.str());
 
 		++s_resourceCounter;
 	}
@@ -43,7 +43,7 @@ namespace DE {
 	IResource::IResource(const std::string & name) {
 		LOG_TRACE();
 
-		this->m_name = name;
+		this->m_name = CFile(name);
 		this->m_referenceCount = 0;
 
 		++s_resourceCounter;

@@ -50,7 +50,7 @@ namespace EDITOR {
 		* Constructor
 		* @param texture The view bounds
 		*/
-		CConsoleView(const int numberOfLines);
+		explicit CConsoleView(const int numberOfLines);
 
 		/**
 		* Set the visible value

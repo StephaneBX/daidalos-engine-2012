@@ -50,7 +50,7 @@ namespace DE {
 		* Constructor
 		* @param sizeChanges The size changes definition
 		*/
-		CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges);
+		explicit CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges);
 
 		/**
 		* Destructor

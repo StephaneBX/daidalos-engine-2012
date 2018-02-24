@@ -49,7 +49,7 @@ namespace DE {
 		* Constructor
 		* @param filename The file name
 		*/
-		CAnimatedMesh(const std::string & filename);
+		explicit CAnimatedMesh(const std::string & filename);
 
 		/**
 		* Constructor

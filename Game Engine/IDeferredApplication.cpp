@@ -495,8 +495,8 @@ namespace GE {
 		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadFinalVD.get());
 		
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 		this->m_renderer->SetTexture(0, this->m_texture2DPostProcess.GetTexture());
 		this->m_renderer->SetTexture(1, nullptr);
 
@@ -551,8 +551,8 @@ namespace GE {
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 			this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 			this->m_renderer->SetShaderProgram(this->m_shaderScreen.GetShaderProgram());
-			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
-			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 			this->m_renderer->SetFrameBuffer(nullptr);
 			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
@@ -603,8 +603,8 @@ namespace GE {
 			this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
 			this->m_renderer->SetShaderProgram(this->m_DSSpotLight.GetShaderProgram());
 			this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
-			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB.GetBuffer(), sizeof(SScreenQuadVertexLight), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 
 			this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
 			this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
@@ -636,8 +636,8 @@ namespace GE {
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
 		this->m_renderer->SetShaderProgram(this->m_DSPointLight.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB.GetBuffer(), sizeof(SScreenQuadVertexLight), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 
 		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
 		this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
@@ -694,8 +694,8 @@ namespace GE {
 			this->m_renderer->SetVertexDeclaration(this->m_screenQuadLightVD.get());
 			this->m_renderer->SetShaderProgram(this->m_DSDirectionalLight.GetShaderProgram());
 			this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB, sizeof(SScreenQuadVertexLight), 0, 4);
-			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadLightVB.GetBuffer(), sizeof(SScreenQuadVertexLight), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 
 			this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("normalRT"));
 			this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("specularRT"));
@@ -762,8 +762,8 @@ namespace GE {
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadFinalVD.get());
 		this->m_renderer->SetShaderProgram(this->m_DSFinal.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(this->m_DSFB.GetFrameBuffer());
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("diffuseRT"));
 		this->m_renderer->SetTexture(1, this->m_DSFB.GetFrameBuffer()->GetTexture("lightRT"));
 		this->m_renderer->SetTexture(2, nullptr);
@@ -805,8 +805,8 @@ namespace GE {
 		this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadFinalVD.get());
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB, sizeof(DE::SScreenQuadElement), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadFinalVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 		this->m_renderer->SetShaderProgram(this->m_DSPostProcessFinal.GetShaderProgram());
 		this->m_renderer->SetFrameBuffer(nullptr);
 		this->m_renderer->SetTexture(0, this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"));

@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param texture The texture name
 		*/
-		CCursor(const std::string & texture = "");
+		explicit CCursor(const std::string & texture = "");
 
 		/**
 		* Destructor

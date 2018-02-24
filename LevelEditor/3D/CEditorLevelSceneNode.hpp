@@ -40,7 +40,7 @@ namespace EDITOR {
 		/**
 		* Constructor
 		*/
-		CEditorLevelSceneNode(DE::I3DScene * scene);
+		explicit CEditorLevelSceneNode(DE::I3DScene * scene);
 
 		/**
 		* Destructor

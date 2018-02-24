@@ -72,7 +72,7 @@ namespace DE {
 		LOG_TRACE();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
-		renderer->SetVertexBuffer(0, this->m_debugBuffer, DEBUG_LINES_STRIDE);
+		renderer->SetVertexBuffer(0, this->m_debugBuffer.GetBuffer(), DEBUG_LINES_STRIDE);
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 
 		ISceneNode::RenderDebugInformation();

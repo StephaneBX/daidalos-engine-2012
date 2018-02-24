@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param position The position
 		*/
-		CPositionParticleInitializer(const CVector3F & position);
+		explicit CPositionParticleInitializer(const CVector3F & position);
 
 		/**
 		* Destructor

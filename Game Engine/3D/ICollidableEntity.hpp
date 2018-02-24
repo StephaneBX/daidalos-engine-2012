@@ -53,7 +53,7 @@ namespace GE {
 		* Constructor
 		* @param parent The parent
 		*/
-		ICollidableEntity(ILevel * parent);
+		explicit ICollidableEntity(ILevel * parent);
 
 		/**
 		* Update the entity

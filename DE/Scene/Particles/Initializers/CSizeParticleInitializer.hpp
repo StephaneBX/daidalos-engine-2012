@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param sizeMin The size
 		*/
-		CSizeParticleInitializer(float size);
+		explicit CSizeParticleInitializer(float size);
 
 		/**
 		* Destructor

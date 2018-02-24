@@ -53,7 +53,7 @@ namespace GE {
 		/**
 		* @param parent The parent
 		*/
-		CCinematicEvent(ILevel * parent);
+		explicit CCinematicEvent(ILevel * parent);
 
 		/**
 		* Destructor

@@ -191,7 +191,7 @@ namespace DE {
 		* @param offset The offset
 		* @param count The number of elements in the buffer
 		*/
-		virtual void SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset = 0, const unsigned long count = 0) = 0;
+		virtual void SetVertexBuffer(const int stream, IBufferBase * buffer, const unsigned long stride, const unsigned long offset = 0, const unsigned long count = 0) = 0;
 
 		/**
 		* Define a stream frequency
@@ -206,7 +206,7 @@ namespace DE {
 		* @param buffer The index buffer
 		* @param stride The size of an element
 		*/
-		virtual void SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) = 0;
+		virtual void SetIndexBuffer(IBufferBase * buffer, const unsigned long stride) = 0;
 
 		/**
 		* Set the shader program

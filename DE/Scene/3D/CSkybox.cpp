@@ -122,7 +122,7 @@ namespace DE {
 		// Set the renderer
 		renderer->SetVertexDeclaration(this->m_vertexDeclaration.get());
 		renderer->SetShaderProgram(this->m_shaderProgram.GetShaderProgram());
-		renderer->SetIndexBuffer(this->m_indexBuffer, sizeof(int));
+		renderer->SetIndexBuffer(this->m_indexBuffer.GetBuffer(), sizeof(int));
 
 		// Shader values to reposition the skybox and change its size
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
@@ -131,7 +131,7 @@ namespace DE {
 
 		// Draw each part of the skybox
 		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {
-			renderer->SetVertexBuffer(0, this->m_buffers[i], sizeof(DE::SSkyboxElement), 0, 4);
+			renderer->SetVertexBuffer(0, this->m_buffers[i].GetBuffer(), sizeof(DE::SSkyboxElement), 0, 4);
 			renderer->SetTexture(0, this->m_textures[i].GetTexture());
 			renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}

@@ -49,7 +49,7 @@ namespace DE {
 		* Constructor
 		* @param filename The file name
 		*/
-		CStaticMesh(const std::string & filename);
+		explicit CStaticMesh(const std::string & filename);
 
 		/**
 		* Constructor

@@ -220,7 +220,7 @@ namespace DE {
 					renderer->SetTexture(1, this->m_normalTexture[i].GetTexture());
 				}
 
-				renderer->SetVertexBuffer(0, this->m_buffer[i].GetVertexBuffer(), this->m_buffer[i].GetStride());
+				renderer->SetVertexBuffer(0, this->m_buffer[i].GetVertexBuffer().GetBuffer(), this->m_buffer[i].GetStride());
 				renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_buffer[i].GetNumberOfElements() / 3);
 			}
 

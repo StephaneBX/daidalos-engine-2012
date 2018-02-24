@@ -411,8 +411,8 @@ namespace GE {
 		this->m_renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
 		this->m_renderer->SetVertexDeclaration(this->m_screenQuadPostProcessVD.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderScreenBlur.GetShaderProgram());
-		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadPostProcessVB, sizeof(DE::SScreenQuadElement), 0, 4);
-		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+		this->m_renderer->SetVertexBuffer(0, this->m_screenQuadPostProcessVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 		this->m_renderer->SetTexture(0, this->m_texture2DPostProcess.GetTexture());
 
 		// Blur the copied back buffer
@@ -465,8 +465,8 @@ namespace GE {
 			this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, false);
 			this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, DE::RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
 			this->m_renderer->SetShaderProgram(this->m_shaderScreen.GetShaderProgram());
-			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadPostProcessVB, sizeof(DE::SScreenQuadElement), 0, 4);
-			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB(), sizeof(int));
+			this->m_renderer->SetVertexBuffer(0, this->m_screenQuadPostProcessVB.GetBuffer(), sizeof(DE::SScreenQuadElement), 0, 4);
+			this->m_renderer->SetIndexBuffer(this->m_renderer->GetQuadIB().GetBuffer(), sizeof(int));
 			this->m_renderer->SetFrameBuffer(nullptr);
 			this->m_renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 

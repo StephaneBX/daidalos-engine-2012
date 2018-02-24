@@ -91,7 +91,7 @@ namespace DAIDALOS {
 		* Constructor
 		* @param parent The parent
 		*/
-		IWeapon(GE::ILevel * parent);
+		explicit IWeapon(GE::ILevel * parent);
 
 		/**
 		* Fire the weapon

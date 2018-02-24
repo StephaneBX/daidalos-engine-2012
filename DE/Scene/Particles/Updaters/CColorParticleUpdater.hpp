@@ -50,7 +50,7 @@ namespace DE {
 		* Constructor
 		* @param colorChanges The color changes definition
 		*/
-		CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges);
+		explicit CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges);
 
 		/**
 		* Destructor

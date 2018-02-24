@@ -50,7 +50,7 @@ namespace DE {
 		* Constructor
 		* @param name The shader program base name
 		*/
-		CShaderProgram(const std::string & name);
+		explicit CShaderProgram(const std::string & name);
 
 		/**
 		* Destructor

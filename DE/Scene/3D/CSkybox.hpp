@@ -62,7 +62,7 @@ namespace DE {
 		* Constructor
 		* @param name The start name without the extension and the face
 		*/
-		CSkybox(const std::string & name);
+		explicit CSkybox(const std::string & name);
 
 		/**
 		* Set the associated scene

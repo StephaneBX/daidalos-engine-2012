@@ -46,7 +46,7 @@ namespace GE {
 		* Constructor
 		* @param parent The parent
 		*/
-		ITriggerEntity(ILevel * parent);
+		explicit ITriggerEntity(ILevel * parent);
 
 		/**
 		* Add a target entity

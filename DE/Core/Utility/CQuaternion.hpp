@@ -49,7 +49,7 @@ namespace DE {
 		CQuaternion(const CQuaternion & quat);
 		CQuaternion(const CVector3F & vec, const float angle);
 		CQuaternion(const float x, const float y, const float z, const float w);
-		CQuaternion(const float * const f);
+		explicit CQuaternion(const float * const f);
 		const CQuaternion operator+(const CQuaternion & quat) const;
 		const CQuaternion operator-(const CQuaternion & quat) const;
 		const CQuaternion operator*(const CQuaternion & quat) const;

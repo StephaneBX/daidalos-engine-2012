@@ -70,7 +70,7 @@ namespace DE {
 		* Constructor
 		* @param size The buffer size
 		*/
-		IBufferBase(const unsigned long size);
+		explicit IBufferBase(const unsigned long size);
 
 	private:
 		IBufferBase();

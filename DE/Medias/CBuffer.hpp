@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param buffer The buffer
 		*/
-		CBuffer(IBufferBase * buffer = nullptr);
+		explicit CBuffer(IBufferBase * buffer = nullptr);
 
 		/**
 		* Unlock the buffer
@@ -78,7 +78,7 @@ namespace DE {
 		* Get the buffer
 		* @return The buffer
 		*/
-		const IBufferBase * GetBuffer() const;
+		IBufferBase * GetBuffer() const;
 
 		/**
 		* Get the buffer size in Bits

@@ -57,7 +57,7 @@ namespace EDITOR {
 		* @param cameraNode The camera node
 		* @param smooth The smooth view factor
 		*/
-		CViewCamera(DE::ICameraSceneNode * cameraNode);
+		explicit CViewCamera(DE::ICameraSceneNode * cameraNode);
 
 		/**
 		* Set the associated scene

@@ -61,7 +61,7 @@ namespace DE {
 		return reinterpret_cast<void*>(this->m_buffer->Lock(offset * stride, count * stride, flags));
 	}
 
-	const IBufferBase * CBuffer::GetBuffer() const {
+	IBufferBase * CBuffer::GetBuffer() const {
 		LOG_TRACE();
 
 		return this->m_buffer.get();

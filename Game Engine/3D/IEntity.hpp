@@ -54,7 +54,7 @@ namespace GE {
 		* The constructor
 		* @param parent The parent
 		*/
-		IEntity(ILevel * parent);
+		explicit IEntity(ILevel * parent);
 
 		/**
 		* Set the id

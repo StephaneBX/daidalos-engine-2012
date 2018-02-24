@@ -59,7 +59,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		CSimpleSceneNode(I3DScene * scene);
+		explicit CSimpleSceneNode(I3DScene * scene);
 
 		/**
 		* Destructor

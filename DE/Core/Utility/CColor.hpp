@@ -69,7 +69,7 @@ namespace DE {
 		* Constructor
 		* @param argb The color (ARGB)
 		*/
-		CColor(const unsigned long argb);
+		explicit CColor(const unsigned long argb);
 
 		/**
 		* Get the red channel

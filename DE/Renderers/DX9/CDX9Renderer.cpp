@@ -227,13 +227,11 @@ namespace DE {
 		return new IShaderProgramBase(name);
 	}
 
-	void CDX9Renderer::SetVertexBuffer(const int stream, const CBuffer & buffer, const unsigned long stride, const unsigned long offset, const unsigned long count) {
+	void CDX9Renderer::SetVertexBuffer(const int stream, IBufferBase * buffer, const unsigned long stride, const unsigned long offset, const unsigned long count) {
 		LOG_TRACE();
 
-		const IBufferBase * base = buffer.GetBuffer();
-
-		if(base != nullptr) {
-			const CDX9VertexBuffer * vertexBuffer = static_cast<const CDX9VertexBuffer *>(base);
+		if(buffer != nullptr) {
+			const CDX9VertexBuffer * vertexBuffer = static_cast<const CDX9VertexBuffer *>(buffer);
 			this->m_device->SetStreamSource(stream, vertexBuffer->GetBuffer() != nullptr ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
@@ -248,13 +246,11 @@ namespace DE {
 		this->m_device->SetStreamSourceFreq(stream, CDX9Enums::Get(streamType) | frequency);
 	}
 
-	void CDX9Renderer::SetIndexBuffer(const CBuffer & buffer, const unsigned long stride) {
+	void CDX9Renderer::SetIndexBuffer(IBufferBase * buffer, const unsigned long stride) {
 		LOG_TRACE();
 
-		const IBufferBase * base = buffer.GetBuffer();
-
-		if(base != nullptr) {
-			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(base);
+		if(buffer != nullptr) {
+			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(buffer);
 			this->m_device->SetIndices(indexBuffer->GetBuffer() != nullptr ? indexBuffer->GetBuffer() : nullptr);
 		} else {
 			this->m_device->SetIndices(nullptr);

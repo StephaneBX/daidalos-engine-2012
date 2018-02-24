@@ -47,7 +47,7 @@ namespace GE {
 		* Constructor
 		* @param bounds The view bounds
 		*/
-		CLoadingView(const DE::CRectangleI & bounds);
+		explicit CLoadingView(const DE::CRectangleI & bounds);
 
 		/**
 		* Update the state and the geometry

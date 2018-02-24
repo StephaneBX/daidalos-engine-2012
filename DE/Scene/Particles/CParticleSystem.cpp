@@ -194,8 +194,8 @@ namespace DE {
 
 		// Steam states
 		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());
-		this->m_renderer->SetIndexBuffer(this->m_particleIB, 0);
-		this->m_renderer->SetVertexBuffer(0, this->m_particleVB, sizeof(SParticleElement), 0, 4);
+		this->m_renderer->SetIndexBuffer(this->m_particleIB.GetBuffer(), 0);
+		this->m_renderer->SetVertexBuffer(0, this->m_particleVB.GetBuffer(), sizeof(SParticleElement), 0, 4);
 		this->m_renderer->SetStreamSourceFrequency(1, STREAM_SOURCE_TYPE_INSTANCE, 4);
 
 		// Draw for each type of blend
@@ -203,7 +203,7 @@ namespace DE {
 			FillParticlesData(i);
 			if(this->m_particleSize > 0) {
 				this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, (DE::ERenderStateBlendFunction)i);
-				this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB, sizeof(SParticleData), 0, this->m_particleSize);
+				this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB.GetBuffer(), sizeof(SParticleData), 0, this->m_particleSize);
 				this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
 				this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 			}

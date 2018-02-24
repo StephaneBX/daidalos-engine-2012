@@ -122,7 +122,7 @@ namespace DE {
 		* Constructor
 		* @param name The resource name.
 		*/
-		IMeshBase(const std::string & name);
+		explicit IMeshBase(const std::string & name);
 
 		/**
 		* Flat the normals in the normal geometry output.

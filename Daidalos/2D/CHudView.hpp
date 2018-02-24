@@ -55,7 +55,7 @@ namespace DAIDALOS {
 		* Constructor
 		* @param texture The view bounds
 		*/
-		CHudView(const DE::CRectangleI & bounds);
+		explicit CHudView(const DE::CRectangleI & bounds);
 
 		/**
 		* Set the debug mode

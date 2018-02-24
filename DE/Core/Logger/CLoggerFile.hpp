@@ -46,7 +46,7 @@ namespace DE {
 		* Constructor
 		* @param filename The log filename
 		*/
-		CLoggerFile(const std::string & filename);
+		explicit CLoggerFile(const std::string & filename);
 
 		/**
 		* Destructor

@@ -44,7 +44,7 @@ namespace DE {
 		* Constructor
 		* @param mass The mass
 		*/
-		CMassParticleInitializer(float mass);
+		explicit CMassParticleInitializer(float mass);
 
 		/**
 		* Destructor

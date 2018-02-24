@@ -116,7 +116,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		I3DScene(const std::string & filename);
+		explicit I3DScene(const std::string & filename);
 
 		/**
 		* Destructor

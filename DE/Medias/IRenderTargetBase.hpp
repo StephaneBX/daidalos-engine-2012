@@ -61,7 +61,7 @@ namespace DE {
 		* Constructor
 		* @param type The render target type
 		*/
-		IRenderTargetBase(ERenderTargetType type);
+		explicit IRenderTargetBase(ERenderTargetType type);
 
 	private:
 		IRenderTargetBase();

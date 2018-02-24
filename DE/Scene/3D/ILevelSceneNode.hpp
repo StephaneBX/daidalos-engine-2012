@@ -57,7 +57,7 @@ namespace DE {
 		/**
 		* Constructor
 		*/
-		ILevelSceneNode(I3DScene * scene);
+		explicit ILevelSceneNode(I3DScene * scene);
 
 		/**
 		* Destructor

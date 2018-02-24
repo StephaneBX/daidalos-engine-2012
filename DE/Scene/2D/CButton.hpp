@@ -58,7 +58,7 @@ namespace DE {
 		* Constructor
 		* @param texture The texture name
 		*/
-		CButton(const std::string & texture = "");
+		explicit CButton(const std::string & texture = "");
 
 		/**
 		* Destructor

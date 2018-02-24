@@ -180,7 +180,7 @@ namespace DE {
 
 			renderer->SetTexture(0, GetTextureToRender());
 			renderer->SetTexture(1, nullptr);
-			renderer->SetVertexBuffer(0, this->m_buffer, sizeof(SGUIData));
+			renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
 			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
 		}
 

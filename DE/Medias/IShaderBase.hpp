@@ -150,7 +150,7 @@ namespace DE {
 		* Constructor
 		* @param name The resource name.
 		*/
-		IShaderBase(const std::string & name);
+		explicit IShaderBase(const std::string & name);
 
 	private:
 		IShaderBase();

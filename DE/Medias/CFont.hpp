@@ -52,7 +52,7 @@ namespace DE {
 		* Constructor
 		* @param filename The file name
 		*/
-		CFont(const std::string & filename);
+		explicit CFont(const std::string & filename);
 
 		/**
 		* Constructor

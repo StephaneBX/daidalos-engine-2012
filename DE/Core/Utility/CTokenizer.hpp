@@ -56,7 +56,7 @@ namespace DE {
 		* Constructor.
 		* @param filename The file to tokenize.
 		*/
-		CTokenizer(const std::string & filename);
+		explicit CTokenizer(const std::string & filename);
 
 		/**
 		* Constructor.

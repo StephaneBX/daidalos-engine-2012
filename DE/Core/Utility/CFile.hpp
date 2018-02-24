@@ -49,13 +49,13 @@ namespace DE {
 		* Constructor
 		* @param name The full filename
 		*/
-		CFile(const std::string & name);
+		explicit CFile(const std::string & name);
 
 		/**
 		* Constructor
 		* @param name The full filename
 		*/
-		CFile(const char * name);
+		explicit CFile(const char * name);
 
 		/**
 		* Check if a file exists

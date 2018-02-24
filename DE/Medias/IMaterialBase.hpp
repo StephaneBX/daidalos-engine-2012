@@ -58,7 +58,7 @@ namespace DE {
 		* Constructor
 		* @param name The resource name
 		*/
-		IMaterialBase(const std::string & name);
+		explicit IMaterialBase(const std::string & name);
 
 		/**
 		* Add an element to the material

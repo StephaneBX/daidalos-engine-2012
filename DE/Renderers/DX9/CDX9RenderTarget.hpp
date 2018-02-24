@@ -46,7 +46,7 @@ namespace DE {
 		* Constructor
 		* @param type The type
 		*/
-		CDX9RenderTarget(ERenderTargetType type);
+		explicit CDX9RenderTarget(ERenderTargetType type);
 
 		/**
 		* Constructor
