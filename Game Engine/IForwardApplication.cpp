@@ -422,7 +422,7 @@ namespace daidalosgameengine {
 		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 15);
 
 		// Horizontal convolution
-		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 0);
+		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_BLUR_CONVOLUTION_MODE), 0);
 		this->m_renderer->DrawIndexedPrimitives(daidalosengine::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 
 		// Vertical convolution

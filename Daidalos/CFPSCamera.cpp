@@ -58,12 +58,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Weapons/CShotgun.hpp"
 
 namespace daidalos {
-	CFPSCamera::CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode) : IPlayer(parent) {
+	CFPSCamera::CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode) : m_node(cameraNode), m_flashlightNode(flashlightNode), IPlayer(parent){
 		this->m_hasMoved = false;
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
-		this->m_node = cameraNode;
-		this->m_flashlightNode = flashlightNode;
 		SetHealth(80);
 		this->m_armor = 0;
 		this->m_stepDistance = 0;
