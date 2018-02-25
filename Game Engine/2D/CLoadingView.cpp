@@ -30,12 +30,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define GEAR_ROTATION_SPEED 90.0F
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param bounds The view bounds
 	*/
-	CLoadingView::CLoadingView(const DE::CRectangleI & bounds) {
+	CLoadingView::CLoadingView(const daidalosengine::CRectangleI & bounds) {
 
 		SetBounds(bounds);
 
@@ -43,15 +43,15 @@ namespace GE {
 		this->m_backgroundSprite.SetTexture("loading.png");
 		AddSubview(&this->m_backgroundSprite);
 
-		this->m_textLabel.SetBounds(DE::CRectangleI(0, (this->m_boundingRectangle.GetHeight() - 100) / 2, this->m_boundingRectangle.GetWidth(), 100));
+		this->m_textLabel.SetBounds(daidalosengine::CRectangleI(0, (this->m_boundingRectangle.GetHeight() - 100) / 2, this->m_boundingRectangle.GetWidth(), 100));
 		this->m_textLabel.SetSize(80);
-		this->m_textLabel.SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
-		this->m_textLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_CENTERED);
-		this->m_textLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_textLabel.SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		this->m_textLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_CENTERED);
+		this->m_textLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_textLabel.SetText("LOADING...");
 		AddSubview(&this->m_textLabel);
 
-		this->m_gearSprite.SetBounds(DE::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
+		this->m_gearSprite.SetBounds(daidalosengine::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
 		this->m_gearSprite.SetTexture("gear.png");
 		AddSubview(&this->m_gearSprite);
 	}

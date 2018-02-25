@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Loaders/CMD2Loader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CMD2Loader::CMD2Loader() {
 		LOG_TRACE();
 	}

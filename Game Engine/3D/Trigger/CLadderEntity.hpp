@@ -34,15 +34,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Ladder entity
 	*/
 	class CLadderEntity : public ITriggerEntity {
 	private:
-		DE::CStaticMeshSceneNode * m_node;
-		DE::CAABoundingBoxF m_boundingBox;
+		daidalosengine::CStaticMeshSceneNode * m_node;
+		daidalosengine::CAABoundingBoxF m_boundingBox;
 
 	public:
 		/**
@@ -50,7 +50,7 @@ namespace GE {
 		* @param parent The parent
 		* @param meshNode The ladder node
 		*/
-		CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
+		CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

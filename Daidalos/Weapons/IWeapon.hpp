@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CParticleEmitterSceneNode.hpp>
 #include <Level/ILevel.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	enum EWeaponState {
 		WEAPON_STATE_NONE,
@@ -46,8 +46,8 @@ namespace DAIDALOS {
 	struct SProjectile {
 		int damage;
 		float distance;
-		DE::CVector3F position;
-		DE::CVector3F direction;
+		daidalosengine::CVector3F position;
+		daidalosengine::CVector3F direction;
 	};
 
 	/**
@@ -73,25 +73,25 @@ namespace DAIDALOS {
 		float m_smokeRemainingDelay;
 		std::pair<float, float> m_fireAnimation;
 		std::pair<float, float> m_reloadAnimation;
-		DE::CSound m_fireSound;
-		DE::CSound m_reloadSound;
-		DE::CAnimatedMeshSceneNode * m_meshNode;
-		GE::ILevel * m_parent;
-		std::vector<DE::CParticleEmitter*> m_bulletImpactParticle;
+		daidalosengine::CSound m_fireSound;
+		daidalosengine::CSound m_reloadSound;
+		daidalosengine::CAnimatedMeshSceneNode * m_meshNode;
+		daidalosgameengine::ILevel * m_parent;
+		std::vector<daidalosengine::CParticleEmitter*> m_bulletImpactParticle;
 
 		std::vector<int> m_activeProjectiles;
-		DE::CMemoryAllocator<SProjectile> m_projectiles;
+		daidalosengine::CMemoryAllocator<SProjectile> m_projectiles;
 
-		DE::CSpotLightSceneNode * m_fireLight;
-		DE::CParticleEmitterSceneNode * m_smokeEmitter;
-		DE::CParticleEmitterSceneNode * m_flashEmitter;
+		daidalosengine::CSpotLightSceneNode * m_fireLight;
+		daidalosengine::CParticleEmitterSceneNode * m_smokeEmitter;
+		daidalosengine::CParticleEmitterSceneNode * m_flashEmitter;
 
 	public:
 		/**
 		* Constructor
 		* @param parent The parent
 		*/
-		explicit IWeapon(GE::ILevel * parent);
+		explicit IWeapon(daidalosgameengine::ILevel * parent);
 
 		/**
 		* Fire the weapon
@@ -132,7 +132,7 @@ namespace DAIDALOS {
 		* Initialize the weapon node
 		* @param playerNode The player node to attach the weapon node to
 		*/
-		virtual void InitializeWeaponNode(DE::ISceneNode * playerNode) = 0;
+		virtual void InitializeWeaponNode(daidalosengine::ISceneNode * playerNode) = 0;
 
 		/**
 		* Initialize the particle emitters

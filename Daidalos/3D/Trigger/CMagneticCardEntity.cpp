@@ -32,20 +32,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ROTATION_SPEED 70.0F
 #define TRIGGER_RADIUS 5
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The magnetic card node
 	*/
-	CMagneticCardEntity::CMagneticCardEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CMagneticCardEntity::CMagneticCardEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_MAGNETIC_CARD);
+		SetType(daidalosgameengine::ENTITY_TYPE_MAGNETIC_CARD);
 		this->m_node = meshNode;
-		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
-		this->m_sound.LoadFromFile("misc_bonus.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_sound.LoadFromFile("misc_bonus.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_sound.SetRelativeToListener(true);
 
 		// Read the attributes
@@ -68,7 +68,7 @@ namespace DAIDALOS {
 			const float timePerSecond = time / 1000.0F;
 
 			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+			this->m_node->SetRotation(daidalosengine::CVector3F(0, rotation, 0));
 		}
 	}
 
@@ -77,7 +77,7 @@ namespace DAIDALOS {
 	*/
 	void CMagneticCardEntity::DoAction() {
 		this->m_node->SetEnabled(false);
-		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+		this->m_sound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		GetParent()->GetPlayer()->SetObject(this->m_playerObject, 1);
 	}
 
@@ -86,6 +86,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CMagneticCardEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

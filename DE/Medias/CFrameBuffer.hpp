@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../Medias/IFrameBufferBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Frame buffer enclosing class
 	*/

@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/CInputDevice.hpp"
 #include "../../Scene/2D/CCheckbox.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	*/
@@ -45,7 +45,7 @@ namespace DE {
 
 		this->m_label.SetVerticalAlignment(TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_label.SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_labelInset = DE::CInsetI(5, 5, 5, 5);
+		this->m_labelInset = daidalosengine::CInsetI(5, 5, 5, 5);
 		AddSubview(&this->m_label);
 	}
 
@@ -175,8 +175,8 @@ namespace DE {
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
 
 			renderer->SetTexture(0, GetTextureToRender());
 			renderer->SetTexture(1, nullptr);

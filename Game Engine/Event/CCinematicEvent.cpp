@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CMediaManager.hpp>
 #include "CCinematicEvent.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* @param parent The parent
 	* @param data The name
@@ -48,7 +48,7 @@ namespace GE {
 	*/
 	CCinematicEvent::~CCinematicEvent() {
 		if (this->m_cinematicEventData != nullptr) {
-			DE::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
+			daidalosengine::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
 		}
 	}
 
@@ -59,15 +59,15 @@ namespace GE {
 	void CCinematicEvent::LoadFromFile(const std::string & filename) {
 		// Release previously used resource
 		if (this->m_cinematicEventData != nullptr) {
-			DE::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
+			daidalosengine::CResourceManager::GetInstance()->ReleaseResource(this->m_cinematicEventData->GetName());
 		}
 
 		// Check the existence of the resource and load it if necessary
-		ICinematicEvent * tmp = DE::CResourceManager::GetInstance()->GetResource<ICinematicEvent>(filename);
+		ICinematicEvent * tmp = daidalosengine::CResourceManager::GetInstance()->GetResource<ICinematicEvent>(filename);
 
 		if (tmp == nullptr) {
-			this->m_cinematicEventData = DE::CMediaManager::GetInstance()->LoadMediaFromFile<ICinematicEvent>(filename);
-			DE::CResourceManager::GetInstance()->AddResource(filename, this->m_cinematicEventData);
+			this->m_cinematicEventData = daidalosengine::CMediaManager::GetInstance()->LoadMediaFromFile<ICinematicEvent>(filename);
+			daidalosengine::CResourceManager::GetInstance()->AddResource(filename, this->m_cinematicEventData);
 		} else {
 			this->m_cinematicEventData = tmp;
 		}
@@ -157,7 +157,7 @@ namespace GE {
 	* Get the camera node
 	* @return The camera node
 	*/
-	DE::ICameraSceneNode * CCinematicEvent::GetCameraNode() {
+	daidalosengine::ICameraSceneNode * CCinematicEvent::GetCameraNode() {
 		return this->m_camera->GetCameraNode();
 	}
 }

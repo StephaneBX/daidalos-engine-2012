@@ -70,7 +70,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define APPLICATION_OPTION_SOUND_ENVIRONMENT "environment"
 #define APPLICATION_OPTION_SOUND_DIALOGUE "dialogue"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle the ini configuration files of the engine
 	*/

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStateFollow.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -41,8 +41,8 @@ namespace DAIDALOS {
 	* @param stopDistance the stop distance
 	* @param searchTime Time the entity search if the target is lost
 	*/
-	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : IEnemyState(priority) {
-		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : IEnemyState(priority) {
+		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 		this->m_target = target;
 		this->m_moveSpeed = moveSpeed;
@@ -88,7 +88,7 @@ namespace DAIDALOS {
 	* Set the target.
 	* @param target The target
 	*/
-	void CEnemyStateFollow::SetTarget(GE::ICollidableEntity * target) {
+	void CEnemyStateFollow::SetTarget(daidalosgameengine::ICollidableEntity * target) {
 		this->m_target = target;
 	}
 
@@ -96,7 +96,7 @@ namespace DAIDALOS {
 	* Reset the state
 	* @param entity The entity
 	*/
-	void CEnemyStateFollow::Reset(GE::IEnemyEntity * entity) {
+	void CEnemyStateFollow::Reset(daidalosgameengine::IEnemyEntity * entity) {
 		IEnemyState::Reset(entity);
 	}
 
@@ -112,15 +112,15 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateFollow::Update(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStateFollow::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
 		// If the entity is in search mode, update the search timer
 		if(this->m_searched > 0) {
 			this->m_searched -= time;
 		}
 
-		DE::CVector3F movement = DE::CVector3F();
-		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+		daidalosengine::CVector3F movement = daidalosengine::CVector3F();
+		if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
 			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 		}
@@ -144,7 +144,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateFollow::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
+	const bool CEnemyStateFollow::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return this->m_target->IsEnabled() && (!entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0));
 	}
 
@@ -184,7 +184,7 @@ namespace DAIDALOS {
 	* Get the target.
 	* @return The target
 	*/
-	GE::ICollidableEntity * CEnemyStateFollow::GetTarget() const {
+	daidalosgameengine::ICollidableEntity * CEnemyStateFollow::GetTarget() const {
 		return this->m_target;
 	}
 
@@ -193,18 +193,18 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateFollow::UpdateRotation(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStateFollow::UpdateRotation(daidalosgameengine::IEnemyEntity * entity, const float time) {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
 		float rotation = this->m_rotationSpeed * timePerSecond;
 
 		// Check the entity - waypoint angle
-		DE::CVector3F entityToTarget = (this->m_target->GetVisiblePosition() - entity->GetVisiblePosition()).Normalize();
+		daidalosengine::CVector3F entityToTarget = (this->m_target->GetVisiblePosition() - entity->GetVisiblePosition()).Normalize();
 
 		// Horizontal rotation way
-		DE::CVector2F entityToWaypointHorizontal = DE::CVector2F(entityToTarget.x, entityToTarget.z).Normalize();
-		DE::CVector2F entityForwardHorizontal = DE::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
+		daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToTarget.x, entityToTarget.z).Normalize();
+		daidalosengine::CVector2F entityForwardHorizontal = daidalosengine::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
 
 		float rotationY = entity->GetMeshNode()->GetRotation().y;
 		if(atan2f(entityForwardHorizontal.CrossProduct(entityToWaypointHorizontal), entityForwardHorizontal.DotProduct(entityToWaypointHorizontal)) > 0) {
@@ -214,7 +214,7 @@ namespace DAIDALOS {
 		}
 
 		// Update the entity rotation
-		entity->GetMeshNode()->SetRotation(DE::CVector3F(entity->GetMeshNode()->GetRotation().x, rotationY, entity->GetMeshNode()->GetRotation().z));
+		entity->GetMeshNode()->SetRotation(daidalosengine::CVector3F(entity->GetMeshNode()->GetRotation().x, rotationY, entity->GetMeshNode()->GetRotation().z));
 	}
 }
 

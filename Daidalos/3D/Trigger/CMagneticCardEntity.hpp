@@ -35,15 +35,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IPlayer.hpp>
 #include "../../Enums.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Magnetic card entity
 	*/
-	class CMagneticCardEntity : public GE::ITriggerEntity {
+	class CMagneticCardEntity : public daidalosgameengine::ITriggerEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::CSound m_sound;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CSound m_sound;
 		EPlayerObject m_playerObject;
 
 	public:
@@ -52,7 +52,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The handgun ammo node
 		*/
-		CMagneticCardEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CMagneticCardEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle a projection typed camera
 	*/

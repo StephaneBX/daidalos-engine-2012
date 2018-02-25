@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <array>
 #include "../../../../Scene/3D/Structure/BSP/CBSPTriangle.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The bsp portal class
 	* Used during the pvs calculation to improve performance

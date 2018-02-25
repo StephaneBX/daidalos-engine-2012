@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Memory/CExceptionAssert.hpp"
 #include "../../Scene/2D/CLabel.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CLabel::CLabel(const std::string & text, const std::string & font) {
 		LOG_TRACE();
 
@@ -123,8 +123,8 @@ namespace DE {
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
 
 			renderer->SetTexture(0, this->m_font.GetTexture().GetTexture());
 			renderer->SetTexture(1, nullptr);

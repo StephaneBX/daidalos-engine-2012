@@ -32,16 +32,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CFanEntity.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The fan node
 	*/
-	CFanEntity::CFanEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CFanEntity::CFanEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_FAN);
+		SetType(daidalosgameengine::ENTITY_TYPE_FAN);
 		this->m_node = meshNode;
 
 		this->m_speed = 0;

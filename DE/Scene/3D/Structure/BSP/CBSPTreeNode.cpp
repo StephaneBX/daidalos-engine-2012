@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define BSP_MIN_DISTANCE 0.01F
 
-namespace DE {
+namespace daidalosengine {
 	CBSPTreeNode::CBSPTreeNode() {
 		LOG_TRACE();
 

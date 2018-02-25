@@ -34,20 +34,20 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define TRIGGER_RADIUS 5
 #define ARMOR_BONUS 50
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The armor bonus node
 	*/
-	CArmorBonusEntity::CArmorBonusEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CArmorBonusEntity::CArmorBonusEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_ARMOR);
+		SetType(daidalosgameengine::ENTITY_TYPE_ARMOR);
 		this->m_node = meshNode;
-		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
-		this->m_sound.LoadFromFile("armor_bonus.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_sound.LoadFromFile("armor_bonus.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_sound.SetRelativeToListener(true);
 	}
 
@@ -62,7 +62,7 @@ namespace DAIDALOS {
 			const float timePerSecond = time / 1000.0F;
 
 			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
-			this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+			this->m_node->SetRotation(daidalosengine::CVector3F(0, rotation, 0));
 		}
 	}
 
@@ -71,7 +71,7 @@ namespace DAIDALOS {
 	*/
 	void CArmorBonusEntity::DoAction() {
 		this->m_node->SetEnabled(false);
-		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+		this->m_sound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		GetParent()->GetPlayer()->SetArmor(GetParent()->GetPlayer()->GetArmor() < 150 ? GetParent()->GetPlayer()->GetArmor() + ARMOR_BONUS : 200);
 	}
 
@@ -80,6 +80,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CArmorBonusEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->GetArmor() < 200;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->GetArmor() < 200;
 	}
 }

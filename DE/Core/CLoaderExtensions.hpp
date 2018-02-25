@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Core/ILoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle all the medias loaders and check their extensions compatibilities
 	*/

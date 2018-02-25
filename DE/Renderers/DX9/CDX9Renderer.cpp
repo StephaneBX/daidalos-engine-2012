@@ -45,7 +45,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 using namespace std;
 
-namespace DE {
+namespace daidalosengine {
 	CDX9Renderer::CDX9Renderer(const bool verticalSynchro, const int anisotropicFiltering, const int antialiasing, const HWND hWnd) : IRenderer(verticalSynchro, anisotropicFiltering, antialiasing) {
 		LOG_TRACE();
 

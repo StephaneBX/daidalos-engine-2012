@@ -39,7 +39,7 @@ inline void DoNothing(bool) {}
 #   define Assert(condition) DoNothing(!(condition))
 #endif
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CExceptionAssert class.
 	* Assertion exception class.

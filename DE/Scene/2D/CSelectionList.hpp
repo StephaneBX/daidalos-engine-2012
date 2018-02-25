@@ -37,7 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/2D/Listeners/ISelectionListListener.hpp"
 #include "../../Scene/2D/Listeners/IButtonListener.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class for a selection list
 	*/
@@ -45,10 +45,10 @@ namespace DE {
 	private:
 		bool m_enabled;
 		std::string m_selectionTexture;
-		DE::CLabel m_title;
-		DE::CButton m_selectedValue;
-		DE::CScrollableView m_scrollableView;
-		std::vector<DE::CButton*> m_selections;
+		daidalosengine::CLabel m_title;
+		daidalosengine::CButton m_selectedValue;
+		daidalosengine::CScrollableView m_scrollableView;
+		std::vector<daidalosengine::CButton*> m_selections;
 		std::set<ISelectionListListener *> m_selectionListListeners;
 
 	public:

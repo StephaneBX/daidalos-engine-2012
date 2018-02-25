@@ -32,14 +32,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.hpp>
 #include <3D/IEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Alarm entity
 	*/
-	class CAlarmEntity : public GE::IEntity {
+	class CAlarmEntity : public daidalosgameengine::IEntity {
 	private:
-		DE::CStaticMeshSceneNode * m_node;
+		daidalosengine::CStaticMeshSceneNode * m_node;
 		float m_speed;
 
 	public:
@@ -47,7 +47,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The alarm node
 		*/
-		CAlarmEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
+		CAlarmEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the alarm

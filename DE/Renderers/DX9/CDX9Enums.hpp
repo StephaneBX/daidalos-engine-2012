@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3d9.h>
 #include "../../Core/Enums.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* DX9 class used for enums
 	*/

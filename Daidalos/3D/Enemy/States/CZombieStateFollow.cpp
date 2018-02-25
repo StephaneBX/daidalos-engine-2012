@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define SOUND_DELAY 1500.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Constructor
@@ -44,14 +44,14 @@ namespace DAIDALOS {
 	* @param stopDistance the stop distance
 	* @param searchTime Time the entity search if the target is lost
 	*/
-	CZombieStateFollow::CZombieStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : CEnemyStateFollow(priority, startAnimation, endAnimation, animationSpeed, target, moveSpeed, rotationSpeed, stopDistance, searchTime) {
+	CZombieStateFollow::CZombieStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : CEnemyStateFollow(priority, startAnimation, endAnimation, animationSpeed, target, moveSpeed, rotationSpeed, stopDistance, searchTime) {
 		this->m_soundTimer = 0;
 		this->m_soundDelay = SOUND_DELAY;
 
 		// Initialize the sounds
 		for(int i = 1; i <= 3; ++i) {
-			this->m_sounds.push_back(std::unique_ptr<DE::CSound>(new DE::CSound()));
-			this->m_sounds[i - 1]->LoadFromFile("zombie_groan" + std::to_string(i) + ".wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+			this->m_sounds.push_back(std::unique_ptr<daidalosengine::CSound>(new daidalosengine::CSound()));
+			this->m_sounds[i - 1]->LoadFromFile("zombie_groan" + std::to_string(i) + ".wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 			this->m_sounds[i - 1]->SetRelativeToListener(false);
 		}
 	}
@@ -61,7 +61,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CZombieStateFollow::Update(GE::IEnemyEntity * entity, const float time) {
+	void CZombieStateFollow::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 		CEnemyStateFollow::Update(entity, time);
 
 		if(this->m_sounds.size() > 0) {
@@ -70,11 +70,11 @@ namespace DAIDALOS {
 				this->m_soundTimer = this->m_soundDelay;
 
 				// Groaning sound (10% chance)
-				if(DE::RandomNumber<float>(0, 100.0f) < 10.0F) {
+				if(daidalosengine::RandomNumber<float>(0, 100.0f) < 10.0F) {
 					// Play one of the sounds
-					int soundIndex = DE::RandomNumber<int>(0, this->m_sounds.size() - 1);
+					int soundIndex = daidalosengine::RandomNumber<int>(0, this->m_sounds.size() - 1);
 					this->m_sounds[soundIndex]->SetPosition(entity->GetVisiblePosition());
-					this->m_sounds[soundIndex]->SetStatus(DE::SOUND_STATUS_PLAY);
+					this->m_sounds[soundIndex]->SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 				}
 			}
 		}

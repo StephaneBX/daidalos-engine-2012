@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStateDie.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -38,7 +38,7 @@ namespace DAIDALOS {
 	*/
 	CEnemyStateDie::CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed) : IEnemyState(priority) {
 		this->m_dead = false;
-		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 
 		this->SetFallSound("body_fall.wav");
@@ -58,14 +58,14 @@ namespace DAIDALOS {
 	* @param soundName The sound name
 	*/
 	void CEnemyStateDie::SetFallSound(const std::string & soundName) {
-		this->m_fallSound.LoadFromFile(soundName, DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_fallSound.LoadFromFile(soundName, daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 	}
 
 	/**
 	* Reset the state
 	* @param entity The entity
 	*/
-	void CEnemyStateDie::Reset(GE::IEnemyEntity * entity) {
+	void CEnemyStateDie::Reset(daidalosgameengine::IEnemyEntity * entity) {
 		IEnemyState::Reset(entity);
 	}
 
@@ -74,18 +74,18 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateDie::Update(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStateDie::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
 		if(!this->m_dead) {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 			entity->SetCollisionState(false);
 			this->m_fallSound.SetPosition(entity->GetVisiblePosition());
-			this->m_fallSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_fallSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 			this->m_dead = true;
 		}
 
-		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+		PerformEnemyLevelCollisions(entity, daidalosengine::CVector3F(), time);
 
 		// Update the sound
 		this->m_fallSound.SetPosition(entity->GetVisiblePosition());
@@ -96,7 +96,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateDie::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
+	const bool CEnemyStateDie::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return entity->GetHealth() == 0;
 	}
 

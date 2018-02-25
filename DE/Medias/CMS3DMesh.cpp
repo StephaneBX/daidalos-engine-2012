@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/CMS3DMesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name) {
 		LOG_TRACE();
 

@@ -32,11 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Level/ILevel.hpp>
 #include "../2D/CHudView.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* The daidalos level implementation
 	*/
-	class CDaidalosLevel : public GE::ILevel {
+	class CDaidalosLevel : public daidalosgameengine::ILevel {
 
 	private:
 		CHudView * m_hudView;
@@ -52,13 +52,13 @@ namespace DAIDALOS {
 		* Callback when the cinematic event started
 		* @param cinematicEvent The event
 		*/
-		void OnCinematicEventStarted(GE::CCinematicEvent * cinematicEvent) override;
+		void OnCinematicEventStarted(daidalosgameengine::CCinematicEvent * cinematicEvent) override;
 
 		/**
 		* Callback when the cinematic event ended
 		* @param cinematicEvent The event
 		*/
-		void OnCinematicEventEnded(GE::CCinematicEvent * cinematicEvent) override;
+		void OnCinematicEventEnded(daidalosgameengine::CCinematicEvent * cinematicEvent) override;
 
 	protected:
 		/**

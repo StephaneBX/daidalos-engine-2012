@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/CInputDevice.hpp"
 #include "../../Scene/2D/CCursor.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CCursor::CCursor(const std::string & texture) {
 		LOG_TRACE();
 
@@ -48,9 +48,9 @@ namespace DE {
 		inputDevice->AddAction(cursorActions[1]);
 		inputDevice->AddAction(cursorActions[2]);
 
-		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, DE::INPUT_KEY_MOUSE_BUTTON0);
-		inputDevice->SetActionKey(GUI_VIEW_WHEEL_UP, DE::INPUT_KEY_MOUSE_WHEELUP);
-		inputDevice->SetActionKey(GUI_VIEW_WHEEL_DOWN, DE::INPUT_KEY_MOUSE_WHEELDOWN);
+		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, daidalosengine::INPUT_KEY_MOUSE_BUTTON0);
+		inputDevice->SetActionKey(GUI_VIEW_WHEEL_UP, daidalosengine::INPUT_KEY_MOUSE_WHEELUP);
+		inputDevice->SetActionKey(GUI_VIEW_WHEEL_DOWN, daidalosengine::INPUT_KEY_MOUSE_WHEELDOWN);
 	}
 
 	CCursor::~CCursor() {
@@ -102,8 +102,8 @@ namespace DE {
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), CColor(1.0F, 1.0F, 1.0F, 1.0F));
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), CColor(1.0F, 1.0F, 1.0F, 1.0F));
 
 			renderer->SetTexture(0, this->m_texture.GetTexture());
 			renderer->SetTexture(1, nullptr);

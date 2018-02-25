@@ -30,11 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <3D/Enemy/IEnemyState.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Waiting enemy state 
 	*/
-	class CEnemyStateWait : public GE::IEnemyState {
+	class CEnemyStateWait : public daidalosgameengine::IEnemyState {
 	private:
 		bool m_active;
 		float m_waitTime;
@@ -67,27 +67,27 @@ namespace DAIDALOS {
 		* Reset the state
 		* @param entity The entity
 		*/
-		virtual void Reset(GE::IEnemyEntity * entity);
+		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Callback when an entity interrupt its process
 		* @param state The state
 		*/
-		virtual void OnStateInterrupted(GE::IEnemyState * state);
+		virtual void OnStateInterrupted(daidalosgameengine::IEnemyState * state);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Get the active status.

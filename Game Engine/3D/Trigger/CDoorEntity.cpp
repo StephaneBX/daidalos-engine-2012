@@ -34,13 +34,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define OPENED_TIME 6000
 #define ANIMATION_SPEED 1.0F
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The door node
 	*/
-	CDoorEntity::CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CDoorEntity::CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_DOOR);
@@ -53,11 +53,11 @@ namespace GE {
 		this->m_triggerRadius = TRIGGER_RADIUS;
 		this->m_timer = 0;
 
-		this->m_startSound.LoadFromFile("door_start.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_startSound.LoadFromFile("door_start.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_startSound.SetRelativeToListener(false);
 		this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
 
-		this->m_stopSound.LoadFromFile("door_stop.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_stopSound.LoadFromFile("door_stop.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_stopSound.SetRelativeToListener(false);
 		this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
 
@@ -70,7 +70,7 @@ namespace GE {
 			ss >> this->m_animationSpeed;
 		}
 		if(meshNode->GetAttribute("openingParticleEmitter") != "") {
-			this->m_emitterNode = static_cast<DE::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
+			this->m_emitterNode = static_cast<daidalosengine::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
 		}
 		if(meshNode->GetAttribute("triggerRadius") != "") {
 			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));
@@ -95,27 +95,27 @@ namespace GE {
 				this->m_node->StartAnimation(2, 3, this->m_animationSpeed);
 				GetParent()->GetScene()->SetBrushCollision(this->m_node->GetId(), true);
 				this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
-				this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
+				this->m_startSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 			}
 		}
 
 		// End of opening animation
-		if(this->m_state == DOOR_STATE_OPENING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+		if(this->m_state == DOOR_STATE_OPENING && this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_OPENED;
 			this->m_timer = 0;
 			GetParent()->GetScene()->SetBrushCollision(this->m_node->GetId(), false);
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
-			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_stopSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 			if(this->m_emitterNode != nullptr) {
 				this->m_emitterNode->SetActive(false);
 			}
 		}
 
 		// End of closing animation
-		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+		if(this->m_state == DOOR_STATE_CLOSING && this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
 			this->m_state = DOOR_STATE_CLOSED;
 			this->m_stopSound.SetPosition(this->m_node->GetAbsolutePosition());
-			this->m_stopSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_stopSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 	}
 
@@ -128,7 +128,7 @@ namespace GE {
 			this->m_state = DOOR_STATE_OPENING;
 			this->m_node->StartAnimation(1, 2, this->m_animationSpeed);
 			this->m_startSound.SetPosition(this->m_node->GetAbsolutePosition());
-			this->m_startSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_startSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 			if(this->m_emitterNode != nullptr) {
 				this->m_emitterNode->SetActive(true);
 			}
@@ -148,6 +148,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CDoorEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

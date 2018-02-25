@@ -5,13 +5,13 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(RectangleTest);
 
 void RectangleTest::setUp() {
-	this->m_origin = DE::CVector2I(4, 8);
-	this->m_size = DE::CVector2I(14, 8);
+	this->m_origin = daidalosengine::CVector2I(4, 8);
+	this->m_size = daidalosengine::CVector2I(14, 8);
 	this->m_factor = 2;
 }
 
 void RectangleTest::TestConstructors() {
-	DE::CRectangleI rectangle;
+	daidalosengine::CRectangleI rectangle;
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetRight());
 	CPPUNIT_ASSERT_EQUAL(0, rectangle.GetBottom());
@@ -21,7 +21,7 @@ void RectangleTest::TestConstructors() {
 
 
 	// Value constructor
-	rectangle = DE::CRectangleI(this->m_origin.x, this->m_origin.y, this->m_size.x, this->m_size.y);
+	rectangle = daidalosengine::CRectangleI(this->m_origin.x, this->m_origin.y, this->m_size.x, this->m_size.y);
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x, rectangle.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y, rectangle.GetTop());
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x + this->m_size.x, rectangle.GetRight());
@@ -30,7 +30,7 @@ void RectangleTest::TestConstructors() {
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetHeight());
 
 	// Value constructor
-	rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x, rectangle.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y, rectangle.GetTop());
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x + this->m_size.x, rectangle.GetRight());
@@ -39,7 +39,7 @@ void RectangleTest::TestConstructors() {
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetHeight());
 
 	// Copy constructor
-	DE::CRectangleI rectangle2(rectangle);
+	daidalosengine::CRectangleI rectangle2(rectangle);
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetLeft(), rectangle2.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetTop(), rectangle2.GetTop());
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetRight(), rectangle2.GetRight());
@@ -50,7 +50,7 @@ void RectangleTest::TestConstructors() {
 
 void RectangleTest::TestOperators() {
 	// + operator
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetLeft() + this->m_origin.x, (rectangle + this->m_origin).GetLeft());
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetTop() + this->m_origin.y, (rectangle + this->m_origin).GetTop());
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetRight() + this->m_origin.x, (rectangle + this->m_origin).GetRight());
@@ -59,7 +59,7 @@ void RectangleTest::TestOperators() {
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetHeight(), (rectangle + this->m_origin).GetHeight());
 
 	// += operator
-	DE::CRectangleI tmp = rectangle;
+	daidalosengine::CRectangleI tmp = rectangle;
 	tmp += this->m_origin;
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetLeft() + this->m_origin.x, tmp.GetLeft());
 	CPPUNIT_ASSERT_EQUAL(rectangle.GetTop() + this->m_origin.y, tmp.GetTop());
@@ -124,110 +124,110 @@ void RectangleTest::TestOperators() {
 }
 
 void RectangleTest::TestGetTop() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y, rectangle.GetTop());
 }
 
 void RectangleTest::TestGetLeft() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x, rectangle.GetLeft());
 }
 
 void RectangleTest::TestGetBottom() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.y + this->m_size.y, rectangle.GetBottom());
 }
 
 void RectangleTest::TestGetRight() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_origin.x + this->m_size.x, rectangle.GetRight());
 }
 
 void RectangleTest::TestGetSize() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.x, rectangle.GetSize().x);
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetSize().y);
 }
 
 void RectangleTest::TestGetWidth() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.x, rectangle.GetWidth());
 }
 
 void RectangleTest::TestGetHeight() {
-	DE::CRectangleI rectangle = DE::CRectangleI(this->m_origin, this->m_size);
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(this->m_origin, this->m_size);
 
 	CPPUNIT_ASSERT_EQUAL(this->m_size.y, rectangle.GetHeight());
 }
 
 void RectangleTest::TestIntersectRectangle() {
 	// Intersect
-	DE::CRectangleI rectangle1 = DE::CRectangleI(1, 2, 15, 5);
-	DE::CRectangleI rectangle2 = DE::CRectangleI(9, 4, 8, 9);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INTERSECT, rectangle1.Intersect(rectangle2));
+	daidalosengine::CRectangleI rectangle1 = daidalosengine::CRectangleI(1, 2, 15, 5);
+	daidalosengine::CRectangleI rectangle2 = daidalosengine::CRectangleI(9, 4, 8, 9);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INTERSECT, rectangle1.Intersect(rectangle2));
 
 	// Lower than rectangle 1
-	rectangle2 = DE::CRectangleI(9, 8, 8, 9);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
+	rectangle2 = daidalosengine::CRectangleI(9, 8, 8, 9);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Left of rectangle 1
-	rectangle2 = DE::CRectangleI(-10, 2, 10, 5);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
+	rectangle2 = daidalosengine::CRectangleI(-10, 2, 10, 5);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Right of rectangle 1
-	rectangle2 = DE::CRectangleI(17, 2, 10, 5);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
+	rectangle2 = daidalosengine::CRectangleI(17, 2, 10, 5);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Top of rectangle 1
-	rectangle2 = DE::CRectangleI(3, -8, 10, 9);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
+	rectangle2 = daidalosengine::CRectangleI(3, -8, 10, 9);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle1.Intersect(rectangle2));
 
 	// Intersect - equals
 	rectangle2 = rectangle1;
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle1.Intersect(rectangle2));
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle1.Intersect(rectangle2));
 }
 
 void RectangleTest::TestIntersectPoint() {
 	// Inside
-	DE::CRectangleI rectangle = DE::CRectangleI(1, 2, 15, 5);
-	DE::CVector2I point = DE::CVector2I(7, 4);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
+	daidalosengine::CRectangleI rectangle = daidalosengine::CRectangleI(1, 2, 15, 5);
+	daidalosengine::CVector2I point = daidalosengine::CVector2I(7, 4);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 
 	// Lower
-	point = DE::CVector2I(7, 8);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(7, 8);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
 
 	// Right
-	point = DE::CVector2I(17, 4);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(17, 4);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
 
 	// Left
-	point = DE::CVector2I(0, 4);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(0, 4);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
 
 	// Top
-	point = DE::CVector2I(11, 1);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(11, 1);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_OUTSIDE, rectangle.Intersect(point));
 
 	// Bottom right corner
-	point = DE::CVector2I(16, 7);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(16, 7);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 
 	// Bottom left corner
-	point = DE::CVector2I(1, 7);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(1, 7);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 
 	// Top right corner
-	point = DE::CVector2I(16, 2);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(16, 2);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 
 	// Top left corner
-	point = DE::CVector2I(1, 2);
-	CPPUNIT_ASSERT_EQUAL(DE::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
+	point = daidalosengine::CVector2I(1, 2);
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::RECTANGLE_INTERSECTION_INSIDE, rectangle.Intersect(point));
 }

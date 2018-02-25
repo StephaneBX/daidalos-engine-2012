@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionLoad.hpp"
 #include "../Loaders/CMS3DLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CMS3DLoader::CMS3DLoader() {
 		LOG_TRACE();
 	}

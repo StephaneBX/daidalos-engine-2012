@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9VertexShader.hpp"
 #include "../../Renderers/DX9/CDX9VertexShadersLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CDX9VertexShadersLoader::CDX9VertexShadersLoader() {
 		LOG_TRACE();
 	}

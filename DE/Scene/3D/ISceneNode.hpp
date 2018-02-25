@@ -42,7 +42,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define SCENE_TRANSPARENT_ID -9998
 #define SCENE_TOP_LAYER_ID -9997
 
-namespace DE {
+namespace daidalosengine {
 
 	class I3DScene;
 	/**

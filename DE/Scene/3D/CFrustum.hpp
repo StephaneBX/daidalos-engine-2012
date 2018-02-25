@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CTriangle3D.hpp"
 #include "../../Scene/3D/CPlane3D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle a cone frustum
 	*/

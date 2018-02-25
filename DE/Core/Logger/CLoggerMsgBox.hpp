@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Logger/ILogger.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CLoggerMsgBox class
 	* Log data into a message box

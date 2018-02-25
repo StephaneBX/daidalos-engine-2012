@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define BSP_MAX_IMPACT 5
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The structure used by the bsp brushes
 	*/

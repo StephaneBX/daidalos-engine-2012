@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 struct IDirect3DVertexDeclaration9;
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CDX9Declaration class.
 	* DX9 vertex declaration class.

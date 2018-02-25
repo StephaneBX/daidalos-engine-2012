@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Enums.hpp"
 #include "../../Scene/2D/IView.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class for gui text
 	*/

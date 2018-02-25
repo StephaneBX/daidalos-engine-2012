@@ -30,17 +30,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/ILevelSceneNode.hpp>
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	/**
 	* Handle a 3d simple node
 	*/
-	class CEditorLevelSceneNode : public DE::ILevelSceneNode {
+	class CEditorLevelSceneNode : public daidalosengine::ILevelSceneNode {
 	public:
 		/**
 		* Constructor
 		*/
-		explicit CEditorLevelSceneNode(DE::I3DScene * scene);
+		explicit CEditorLevelSceneNode(daidalosengine::I3DScene * scene);
 
 		/**
 		* Destructor
@@ -74,7 +74,7 @@ namespace EDITOR {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		const bool Slide(DE::IShape3DF & shape, const DE::CVector3F & movement);
+		const bool Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement);
 
 		/**
 		* Get the collision point of a moving point
@@ -83,7 +83,7 @@ namespace EDITOR {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(const DE::CVector3F & position, const DE::CVector3F & movement, DE::CVector3F & point);
+		const bool GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
 
 		/**
 		* Get the collision point of a moving shape
@@ -92,7 +92,7 @@ namespace EDITOR {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(DE::IShape3DF & shape, const DE::CVector3F & movement, DE::CVector3F & point);
+		const bool GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
 
 	protected:
 		/**

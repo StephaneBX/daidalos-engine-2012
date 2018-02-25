@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/IParticleEmittersTemplate.hpp"
 #include "../../Scene/Particles/CParticleEmitter.hpp"
 
-namespace DE {
+namespace daidalosengine {
 
 	/**
 	* The particle emitters templates enclosing class

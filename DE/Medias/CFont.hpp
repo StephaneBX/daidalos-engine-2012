@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CTexture2D.hpp"
 #include "../Medias/IFontBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Font enclosing class
 	*/

@@ -31,14 +31,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/2D/IView.hpp>
 #include <Scene/2D/CSprite.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Basic crosshair implementation
 	*/
-	class CCrosshairView : public DE::IView {
+	class CCrosshairView : public daidalosengine::IView {
 	private:
-		DE::CSprite m_horizontalSprite;
-		DE::CSprite m_verticalSprite;
+		daidalosengine::CSprite m_horizontalSprite;
+		daidalosengine::CSprite m_verticalSprite;
 
 	public:
 		/**

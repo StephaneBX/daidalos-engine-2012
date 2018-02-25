@@ -38,13 +38,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define ATTRIBUTE_HEALTH "health"
 #define ATTRIBUTE_MAXHEALTH "max_health"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The mesh node
 	*/
-	IEnemyEntity::IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
+	IEnemyEntity::IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetFlag(GetFlag() | ENTITY_FLAG_ENEMY);
@@ -56,7 +56,7 @@ namespace GE {
 		this->m_currentActionState = nullptr;
 
 		// The camera node
-		this->m_cameraNode = new DE::CProjectionCameraSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshNode, "enemy_entity_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
+		this->m_cameraNode = new daidalosengine::CProjectionCameraSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshNode, "enemy_entity_camera", daidalosengine::CVector3F(), daidalosengine::CVector3F(), daidalosengine::DegreeToRadian(DEFAULT_CAMERA_ANGLE), DEFAULT_CAMERA_RATIO, DEFAULT_CAMERA_NEAR, DEFAULT_CAMERA_FAR);
 		this->m_cameraNode->SetSaved(false);
 		this->m_meshNode->AddChild(this->m_cameraNode);
 
@@ -133,7 +133,7 @@ namespace GE {
 	* Get the entity camera node
 	* @return The entity camera node
 	*/
-	DE::CProjectionCameraSceneNode * IEnemyEntity::GetCameraNode() const {
+	daidalosengine::CProjectionCameraSceneNode * IEnemyEntity::GetCameraNode() const {
 		return this->m_cameraNode;
 	}
 
@@ -157,7 +157,7 @@ namespace GE {
 	* Get the mesh node
 	* @return The mesh node
 	*/
-	DE::CAnimatedMeshSceneNode * IEnemyEntity::GetMeshNode() {
+	daidalosengine::CAnimatedMeshSceneNode * IEnemyEntity::GetMeshNode() {
 		return this->m_meshNode;
 	}
 }

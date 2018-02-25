@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IResource.hpp"
 #include "../Core/Enums.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Texture filter policy structure
 	*/

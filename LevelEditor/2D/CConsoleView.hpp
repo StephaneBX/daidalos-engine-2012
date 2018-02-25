@@ -34,16 +34,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.hpp>
 #include "IConsoleListener.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	/**
 	* Console implementation
 	*/
-	class CConsoleView : public DE::CSprite, public DE::IInputKeyboardListener {
+	class CConsoleView : public daidalosengine::CSprite, public daidalosengine::IInputKeyboardListener {
 	private:
 		std::vector<IConsoleListener*> m_listeners;
-		std::vector<DE::CLabel> m_historyLabel;
-		DE::CLabel m_inputLabel;
+		std::vector<daidalosengine::CLabel> m_historyLabel;
+		daidalosengine::CLabel m_inputLabel;
 
 	public:
 		/**

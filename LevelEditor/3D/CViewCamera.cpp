@@ -35,32 +35,32 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../CEditorConfiguration.hpp"
 #include "../3D/CViewCamera.hpp"
 
-namespace EDITOR {
-	CViewCamera::CViewCamera(DE::ICameraSceneNode * cameraNode) {
+namespace daidaloseditor {
+	CViewCamera::CViewCamera(daidalosengine::ICameraSceneNode * cameraNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
 
 		// Override camera visibility
 		this->m_node->SetFarDistance(200);
 
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
-		this->m_soundContext = DE::CSoundContextManager::GetInstance();
-		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
+		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
+		this->m_options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		this->m_shape.SetPosition(this->m_node->GetPosition());
-		this->m_shape.SetRadius(DE::CVector2F(1, 2.7F));
+		this->m_shape.SetRadius(daidalosengine::CVector2F(1, 2.7F));
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
-	void CViewCamera::SetScene(DE::C3DScene * scene) {
+	void CViewCamera::SetScene(daidalosengine::C3DScene * scene) {
 		this->m_scene = scene;
 	}
 
-	void CViewCamera::SetPosition(const DE::CVector3F & position) {
+	void CViewCamera::SetPosition(const daidalosengine::CVector3F & position) {
 		this->m_shape.SetPosition(position);
 	}
 
-	void CViewCamera::SetRotation(const DE::CVector3F & rotation) {
+	void CViewCamera::SetRotation(const daidalosengine::CVector3F & rotation) {
 		this->m_rotation = rotation;
 	}
 
@@ -80,7 +80,7 @@ namespace EDITOR {
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
 
-	DE::ICameraSceneNode * CViewCamera::GetCameraNode() const {
+	daidalosengine::ICameraSceneNode * CViewCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
@@ -107,7 +107,7 @@ namespace EDITOR {
 	}
 
 	void CViewCamera::UpdateMovement(const float timeSecond) {
-		DE::CVector3F movement;
+		daidalosengine::CVector3F movement;
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {
 			movement.x += -sin((this->m_rotation.y + 90.0F) * PI_OVER_180);
@@ -140,8 +140,8 @@ namespace EDITOR {
 		}
 
 		movement = movement.Normalize();
-		DE::CVector3F finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
-		DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		daidalosengine::CVector3F finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
+		daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 

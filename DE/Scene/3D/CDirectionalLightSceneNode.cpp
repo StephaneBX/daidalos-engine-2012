@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DISTANCE_FACTOR 2.0f
 
-namespace DE {
+namespace daidalosengine {
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0F, 1.0F, 1.0F), false, true) {
 		LOG_TRACE();
 

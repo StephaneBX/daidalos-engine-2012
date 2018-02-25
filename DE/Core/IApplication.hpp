@@ -47,7 +47,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define APPLICATION_NAME "Daidalos Engine"
 #define MAXIMUM_FRAME_TIME 50
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class for the application
 	*/

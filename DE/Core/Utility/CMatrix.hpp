@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector4.hpp"
 #include "../../Core/Utility/CQuaternion.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CMatrix class
 	* Basic math class for matrixes

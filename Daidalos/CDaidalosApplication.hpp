@@ -34,12 +34,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/IEntity.hpp>
 #include "CFPSCamera.hpp"
 
-namespace DAIDALOS
+namespace daidalos
 {
 	/**
 	* Test application implementation
 	*/
-	class CDaidalosApplication : public GE::IForwardApplication
+	class CDaidalosApplication : public daidalosgameengine::IForwardApplication
 	{
 	private:
 

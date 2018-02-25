@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Utility/CVector3.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle an impact for collision detection
 	*/

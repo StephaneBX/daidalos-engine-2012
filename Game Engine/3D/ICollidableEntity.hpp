@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/IShape3D.hpp>
 #include "IEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Abstract entity with collision properties
@@ -45,8 +45,8 @@ namespace GE {
 		bool m_collisionState;
 		float m_collisionUpdateFrequency;
 		float m_lastCollisionUpdateTimer;
-		DE::CVector3F m_gravity;
-		std::unique_ptr<DE::IShape3DF> m_collisionShape;
+		daidalosengine::CVector3F m_gravity;
+		std::unique_ptr<daidalosengine::IShape3DF> m_collisionShape;
 
 	public:
 		/**
@@ -83,13 +83,13 @@ namespace GE {
 		* Set the gravity.
 		* @param gravity The gravity
 		*/
-		void SetGravity(const DE::CVector3F & gravity);
+		void SetGravity(const daidalosengine::CVector3F & gravity);
 
 		/**
 		* Set the collision shape.
 		* @param shame The collision shape
 		*/
-		void SetCollisionShape(DE::IShape3DF * shape);
+		void SetCollisionShape(daidalosengine::IShape3DF * shape);
 
 		/**
 		* Get the gravity state
@@ -113,20 +113,20 @@ namespace GE {
 		* Get the gravity
 		* @return The gravity
 		*/
-		const DE::CVector3F & GetGravity() const;
+		const daidalosengine::CVector3F & GetGravity() const;
 
 		/**
 		* Get the entity collision shape
 		* @return The entity collision shape
 		*/
-		DE::IShape3DF * GetCollisionShape();
+		daidalosengine::IShape3DF * GetCollisionShape();
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		virtual void OnEntityTouchedGround(const DE::CVector3F gravity) = 0;
+		virtual void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) = 0;
 
 		/**
 		* Process the level collisions (movement + gravity) based on the shape.
@@ -134,7 +134,7 @@ namespace GE {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformLevelCollisions(DE::CVector3F movement, const float time);
+		void PerformLevelCollisions(daidalosengine::CVector3F movement, const float time);
 
 		/**
 		* Process the entity collisions (movement + gravity) based on the shape.
@@ -142,7 +142,7 @@ namespace GE {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEntityCollisions(DE::CVector3F movement, const float time);
+		void PerformEntityCollisions(daidalosengine::CVector3F movement, const float time);
 	};
 }
 

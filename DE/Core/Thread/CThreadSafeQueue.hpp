@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <queue>
 #include <utility>
  
-namespace DE {
+namespace daidalosengine {
 	/**
 	* A thread safe queue implementation.
 	*/

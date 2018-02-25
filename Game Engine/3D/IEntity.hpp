@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/IShape3D.hpp>
 #include <Scene/Particles/CParticleEmitter.hpp>
 
-namespace GE {
+namespace daidalosgameengine {
 	class ILevel;
 
 	/**
@@ -45,9 +45,9 @@ namespace GE {
 		unsigned int m_type;
 		unsigned int m_health;
 		unsigned int m_maxHealth;
-		DE::CVector3F m_visiblePosition;
+		daidalosengine::CVector3F m_visiblePosition;
 		ILevel * m_parent;
-		std::vector<DE::CParticleEmitter*> m_impactParticleEmitters;
+		std::vector<daidalosengine::CParticleEmitter*> m_impactParticleEmitters;
 
 	public:
 		/**
@@ -78,7 +78,7 @@ namespace GE {
 		* Set the visible position
 		* @param position The visible position
 		*/
-		void SetVisiblePosition(const DE::CVector3F & position);
+		void SetVisiblePosition(const daidalosengine::CVector3F & position);
 
 		/**
 		* Set the player active state
@@ -108,7 +108,7 @@ namespace GE {
 		* Generate impact particles from a position
 		* @param position The emitter position
 		*/
-		virtual void GenerateImpactParticles(const DE::CVector3F & position);
+		virtual void GenerateImpactParticles(const daidalosengine::CVector3F & position);
 
 		/**
 		* Get the collision state
@@ -150,7 +150,7 @@ namespace GE {
 		* Get the impact particle emitters
 		* @return The impact particle emitters
 		*/
-		std::vector<DE::CParticleEmitter*> & GetImpactParticleEmitters();
+		std::vector<daidalosengine::CParticleEmitter*> & GetImpactParticleEmitters();
 
 		/**
 		* Get the health
@@ -168,13 +168,13 @@ namespace GE {
 		* Get the visible position
 		* @return The visible position
 		*/
-		virtual const DE::CVector3F & GetVisiblePosition() const;
+		virtual const daidalosengine::CVector3F & GetVisiblePosition() const;
 
 		/**
 		* Get the entity collision shape
 		* @return The entity collision shape
 		*/
-		virtual DE::IShape3DF * GetCollisionShape();
+		virtual daidalosengine::IShape3DF * GetCollisionShape();
 
 		/**
 		* Update the entity

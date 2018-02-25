@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/I3DScene.hpp"
 #include "../../Scene/3D/CAnimatedMeshSceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
 		LOG_TRACE();
 

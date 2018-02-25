@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Renderers/DX9/CDX9Enums.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	D3DPRIMITIVETYPE CDX9Enums::s_primitiveType[] = {
 		D3DPT_TRIANGLELIST,
 		D3DPT_TRIANGLESTRIP,

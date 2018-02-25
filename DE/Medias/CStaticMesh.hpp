@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IMeshBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class used for static meshs
 	*/

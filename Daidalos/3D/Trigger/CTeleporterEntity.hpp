@@ -33,17 +33,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Teleporter entity
 	*/
-	class CTeleporterEntity : public GE::ITriggerEntity {
+	class CTeleporterEntity : public daidalosgameengine::ITriggerEntity {
 	private:
 		std::string m_levelName;
-		DE::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
 
-		DE::CSound m_sound;
+		daidalosengine::CSound m_sound;
 
 	public:
 		/**
@@ -51,7 +51,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The switch node
 		*/
-		CTeleporterEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CTeleporterEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

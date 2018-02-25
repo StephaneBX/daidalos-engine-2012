@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	enum ESwitchState {
 		SWITCH_STATE_ON,
@@ -49,9 +49,9 @@ namespace GE {
 	class CSwitchEntity : public ITriggerEntity {
 	private:
 		bool m_highlighted;
-		DE::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
 
-		DE::CSound m_sound;
+		daidalosengine::CSound m_sound;
 		ESwitchState m_state;
 
 	public:
@@ -60,7 +60,7 @@ namespace GE {
 		* @param parent The parent
 		* @param meshNode The switch node
 		*/
-		CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

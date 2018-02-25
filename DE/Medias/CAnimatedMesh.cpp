@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/CAnimatedMesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CAnimatedMesh::CAnimatedMesh() {
 		LOG_TRACE();
 

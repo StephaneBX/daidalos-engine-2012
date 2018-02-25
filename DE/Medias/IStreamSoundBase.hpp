@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define STREAM_SOUND_BUFFER_SIZE 4
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class for stream sounds
 	*/

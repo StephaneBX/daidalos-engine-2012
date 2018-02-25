@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStateAttack.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -39,9 +39,9 @@ namespace DAIDALOS {
 	* @param damage The damage
 	* @param The range
 	*/
-	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : IEnemyState(priority) {
+	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : IEnemyState(priority) {
 
-		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 		this->m_damage = damage;
 		this->m_range = range;
@@ -86,7 +86,7 @@ namespace DAIDALOS {
 	* Set the target.
 	* @param target The target
 	*/
-	void CEnemyStateAttack::SetTarget(GE::ICollidableEntity * target) {
+	void CEnemyStateAttack::SetTarget(daidalosgameengine::ICollidableEntity * target) {
 		this->m_target = target;
 	}
 
@@ -94,7 +94,7 @@ namespace DAIDALOS {
 	* Reset the state
 	* @param entity The entity
 	*/
-	void CEnemyStateAttack::Reset(GE::IEnemyEntity * entity) {
+	void CEnemyStateAttack::Reset(daidalosgameengine::IEnemyEntity * entity) {
 		IEnemyState::Reset(entity);
 	}
 
@@ -103,9 +103,9 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateAttack::Update(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStateAttack::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
-		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING && this->m_attackTimer == 0) {
+		if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING && this->m_attackTimer == 0) {
 			entity->GetMeshNode()->SetLooped(false);
 			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 			this->m_target->TakeDamage(this->m_damage);
@@ -117,7 +117,7 @@ namespace DAIDALOS {
 			}
 		}
 
-		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+		PerformEnemyLevelCollisions(entity, daidalosengine::CVector3F(), time);
 	}
 
 	/**
@@ -125,7 +125,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateAttack::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
+	const bool CEnemyStateAttack::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return  this->m_attackTimer > 0 || (this->m_target->IsEnabled() && !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && (entity->GetVisiblePosition() - this->m_target->GetVisiblePosition()).Length() <= this->m_range);
 	}
 
@@ -165,7 +165,7 @@ namespace DAIDALOS {
 	* Get the target.
 	* @return The target
 	*/
-	GE::ICollidableEntity * CEnemyStateAttack::GetTarget() const {
+	daidalosgameengine::ICollidableEntity * CEnemyStateAttack::GetTarget() const {
 		return this->m_target;
 	}
 }

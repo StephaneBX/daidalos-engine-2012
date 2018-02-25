@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Memory/CMemoryAllocator.hpp"
 #include "../../Scene/Particles/CParticleEntity.hpp"
 
-namespace DE {
+namespace daidalosengine {
 
 	enum EParticleUpdaterType {
 		PARTICLE_UPDATER_TYPE_COLOR,

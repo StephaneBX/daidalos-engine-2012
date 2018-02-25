@@ -29,13 +29,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Level/ILevel.hpp"
 #include "CCinematicEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param node The node
 	*/
-	CCinematicEntity::CCinematicEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
+	CCinematicEntity::CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent) {
 
 		this->m_triggered = false;
 		SetId(node->GetId());
@@ -100,6 +100,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CCinematicEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

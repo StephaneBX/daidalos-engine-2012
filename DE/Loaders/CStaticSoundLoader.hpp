@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.hpp"
 #include "../Medias/IStaticSoundBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Loader for static sounds
 	*/

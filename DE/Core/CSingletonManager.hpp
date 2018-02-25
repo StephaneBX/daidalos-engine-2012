@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <iostream>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CSingletonManager class.
 	* Manages the singleton classes.

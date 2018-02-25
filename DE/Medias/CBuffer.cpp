@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/CBuffer.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CBuffer::CBuffer(IBufferBase * buffer) {
 		LOG_TRACE();
 

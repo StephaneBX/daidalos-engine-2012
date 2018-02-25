@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <algorithm>
 #include "../../Core/Utility/CVector2.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	enum ERectangleIntersection {
 		RECTANGLE_INTERSECTION_OUTSIDE,
 		RECTANGLE_INTERSECTION_INSIDE,

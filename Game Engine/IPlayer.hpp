@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/ICameraSceneNode.hpp>
 #include "3D/ICollidableEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Player interface
@@ -63,7 +63,7 @@ namespace GE {
 		* Set the player position
 		* @param position The position
 		*/
-		virtual void SetPosition(const DE::CVector3F position) = 0;
+		virtual void SetPosition(const daidalosengine::CVector3F position) = 0;
 
 		/**
 		* Update the camera
@@ -76,7 +76,7 @@ namespace GE {
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		virtual const bool IsShapeVisible(DE::IShape3DF * shape) = 0;
+		virtual const bool IsShapeVisible(daidalosengine::IShape3DF * shape) = 0;
 
 		/**
 		* If the player interaction action is active
@@ -119,14 +119,14 @@ namespace GE {
 		* Get the camera node
 		* @return The camera node
 		*/
-		virtual DE::ICameraSceneNode * GetCameraNode() const = 0;
+		virtual daidalosengine::ICameraSceneNode * GetCameraNode() const = 0;
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		virtual void OnEntityTouchedGround(const DE::CVector3F gravity) = 0;
+		virtual void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) = 0;
 	};
 }
 

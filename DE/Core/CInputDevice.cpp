@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.hpp"
 #include "../Core/CInputDevice.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CInputDevice::CInputDevice() {
 		LOG_TRACE();
 	}

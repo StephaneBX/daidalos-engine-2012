@@ -29,13 +29,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Level/ILevel.hpp"
 #include "CAreaTriggerEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param node The node
 	*/
-	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, DE::ISceneNode * node) : ITriggerEntity(parent) {
+	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent) {
 
 		SetId(node->GetId());
 		SetType(ENTITY_TYPE_AREA_TRIGGER);
@@ -47,7 +47,7 @@ namespace GE {
 			ss >> this->m_triggerRadius;
 		}
 		if(this->m_node->GetAttribute("triggerNodeIds") != "") {
-			DE::CTokenizer tokenizer;
+			daidalosengine::CTokenizer tokenizer;
 			tokenizer.AddLine(this->m_node->GetAttribute("triggerNodeIds"));
 			if(tokenizer.Tokenize("|")) {
 				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
@@ -77,7 +77,7 @@ namespace GE {
 
 		// Loop through the ids
 		for(auto it = this->m_triggerNodeIds.begin(); it != this->m_triggerNodeIds.end(); ++it) {
-			std::vector<DE::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray(*it);
+			std::vector<daidalosengine::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray(*it);
 
 			// Loop through the nodes
 			for(auto it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
@@ -91,6 +91,6 @@ namespace GE {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CAreaTriggerEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

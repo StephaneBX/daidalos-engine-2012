@@ -33,22 +33,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Armor bonus entity
 	*/
-	class CArmorBonusEntity : public GE::ITriggerEntity {
+	class CArmorBonusEntity : public daidalosgameengine::ITriggerEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::CSound m_sound;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CSound m_sound;
 
 	public:
 		/**
 		* @param parent The parent
 		* @param meshNode The armor node
 		*/
-		CArmorBonusEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CArmorBonusEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

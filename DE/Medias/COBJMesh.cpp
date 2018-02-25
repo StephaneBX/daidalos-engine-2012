@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/COBJMesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name) {
 		LOG_TRACE();
 

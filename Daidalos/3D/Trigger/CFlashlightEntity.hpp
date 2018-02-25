@@ -32,16 +32,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
-namespace DAIDALOS
+namespace daidalos
 {
 	/**
 	* Flashlight entity
 	*/
-	class CFlashlightEntity : public GE::ITriggerEntity
+	class CFlashlightEntity : public daidalosgameengine::ITriggerEntity
 	{
 	private:
-		DE::ISceneNode * m_node;
-		DE::CSound m_sound;
+		daidalosengine::ISceneNode * m_node;
+		daidalosengine::CSound m_sound;
 
 	public:
 		/**
@@ -49,7 +49,7 @@ namespace DAIDALOS
 		* @param parent The parent
 		* @param meshNode The flashlight node
 		*/
-		CFlashlightEntity(GE::ILevel * parent, DE::ISceneNode * meshNode);
+		CFlashlightEntity(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * meshNode);
 
 		/**
 		* Update the entity

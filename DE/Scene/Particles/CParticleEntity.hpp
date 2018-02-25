@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector2.hpp"
 #include "../../Core/Utility/CColor.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The particle data structure for the shaders
 	*/

@@ -31,14 +31,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Enemy/IEnemyState.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Die enemy state
 	*/
-	class CEnemyStateDie : public GE::IEnemyState {
+	class CEnemyStateDie : public daidalosgameengine::IEnemyState {
 	private:
 		bool m_dead;
-		DE::CSound m_fallSound;
+		daidalosengine::CSound m_fallSound;
 
 	public:
 		/**
@@ -66,21 +66,21 @@ namespace DAIDALOS {
 		* Reset the state
 		* @param entity The entity
 		*/
-		virtual void Reset(GE::IEnemyEntity * entity);
+		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Get the dead status.

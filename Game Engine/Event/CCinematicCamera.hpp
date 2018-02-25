@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 #include "../3D/ICollidableEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	enum ETransitionType {
 		TRANSITION_NONE,
@@ -50,8 +50,8 @@ namespace GE {
 	};
 
 	struct SCinematicCameraStep {
-		DE::CVector3F position;
-		DE::CVector3F rotation;
+		daidalosengine::CVector3F position;
+		daidalosengine::CVector3F rotation;
 		unsigned int transition;
 		unsigned int fade;
 		float fadeDuration;
@@ -67,9 +67,9 @@ namespace GE {
 		bool m_done;
 		float m_currentStep;
 		std::vector<SCinematicCameraStep> m_steps;
-		DE::ICameraSceneNode * m_node;
-		DE::C3DScene * m_scene;
-		DE::CSoundContextManager * m_soundContext;
+		daidalosengine::ICameraSceneNode * m_node;
+		daidalosengine::C3DScene * m_scene;
+		daidalosengine::CSoundContextManager * m_soundContext;
 
 	public:
 		/**
@@ -112,7 +112,7 @@ namespace GE {
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(DE::IShape3DF * shape);
+		const bool IsShapeVisible(daidalosengine::IShape3DF * shape);
 
 		/**
 		* If the player interaction action is active
@@ -130,14 +130,14 @@ namespace GE {
 		* Get the camera node
 		* @return The camera node
 		*/
-		DE::ICameraSceneNode * GetCameraNode() const;
+		daidalosengine::ICameraSceneNode * GetCameraNode() const;
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const DE::CVector3F gravity);
+		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity);
 	};
 }
 

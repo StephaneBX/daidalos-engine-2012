@@ -38,7 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"dinput8.lib")
 
-namespace DE {
+namespace daidalosengine {
 	IWin32Application * IWin32Application::s_instance = nullptr;
 
 	EInputKey IWin32Application::s_keyCode[] =
@@ -282,7 +282,7 @@ namespace DE {
 		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
 
 		SetCursorPos(this->m_width / 2, this->m_height / 2);
-		this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
+		this->m_input->SetMousePosition(daidalosengine::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 
 		// Renderer creation
 		IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_antialiasing, this->m_hWnd));
@@ -359,11 +359,11 @@ namespace DE {
 				case WM_MOUSEMOVE:
 					point = MAKEPOINTS(msg.lParam);
 
-					this->m_input->SetMousePosition(DE::CVector2I(point.x, point.y), this->m_hasFocus);
+					this->m_input->SetMousePosition(daidalosengine::CVector2I(point.x, point.y), this->m_hasFocus);
 
 					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1F || point.x > this->m_displayBounds.GetWidth() * 0.9F || point.y < this->m_displayBounds.GetHeight() * 0.1F || point.y > this->m_displayBounds.GetHeight() * 0.9F)) {
 						SetCursorPos(this->m_width / 2, this->m_height / 2);
-						this->m_input->SetMousePosition(DE::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
+						this->m_input->SetMousePosition(daidalosengine::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
 					}
 					break;
 

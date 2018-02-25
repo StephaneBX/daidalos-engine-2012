@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Utility/CVector2.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Mouse inputs listener interface.
 	*/

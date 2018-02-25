@@ -30,16 +30,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Enums.hpp>
 #include "CSpotEntity.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CSpotEntity::CSpotEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CSpotEntity::CSpotEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
 		this->SetId(meshNode->GetId());
-		this->SetType(GE::ENTITY_TYPE_SPOT);
+		this->SetType(daidalosgameengine::ENTITY_TYPE_SPOT);
 		this->m_node = meshNode;
 
 		// Default values
@@ -50,7 +50,7 @@ namespace DAIDALOS {
 		float lightRadius = 20.0F;
 		float lightFallOf = 0.5F;
 		float lightTightness = 0.5F;
-		DE::CColor lightColor(1.0F, 1.0F, 1.0F, 1.0F);
+		daidalosengine::CColor lightColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 		// Read the attributes
 		if(meshNode->GetAttribute("lightDecalY") != "") {
@@ -64,7 +64,7 @@ namespace DAIDALOS {
 			shadowCaster = meshNode->GetAttribute("lightShadow_caster") == "true" ? true : false;
 		}
 		if(meshNode->GetAttribute("lightColor") != "") {
-			lightColor = DE::CColor::GetFrom(meshNode->GetAttribute("lightColor"));
+			lightColor = daidalosengine::CColor::GetFrom(meshNode->GetAttribute("lightColor"));
 		}
 		if(meshNode->GetAttribute("lightRange") != "") {
 			std::istringstream ss(meshNode->GetAttribute("lightRange"));
@@ -84,7 +84,7 @@ namespace DAIDALOS {
 		}
 
 		// Add the light
-		DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, lightDecalY, 0), DE::CVector3F(90, 0, 0), lightColor, lightRange, lightRadius, lightFallOf, lightTightness, shadowCaster, enabled);
+		daidalosengine::CSpotLightSceneNode * spot = new daidalosengine::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", daidalosengine::CVector3F(0, lightDecalY, 0), daidalosengine::CVector3F(90, 0, 0), lightColor, lightRange, lightRadius, lightFallOf, lightTightness, shadowCaster, enabled);
 		meshNode->AddChild(spot);
 	}
 

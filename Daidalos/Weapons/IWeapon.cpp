@@ -36,14 +36,14 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FIRE_LIGHT_TIMER 80.0F
 #define SMOKE_TIMER 3000.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The weapon mesh node
 	*/
-	IWeapon::IWeapon(GE::ILevel * parent) {
+	IWeapon::IWeapon(daidalosgameengine::ILevel * parent) {
 		this->m_state = WEAPON_STATE_NONE;
 		this->m_damage = 0;
 		this->m_magazineSize = 0;
@@ -74,7 +74,7 @@ namespace DAIDALOS {
 			this->m_magazineSize--;
 
 			// Play the sound
-			this->m_fireSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_fireSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 
 			// Start the animation
 			if(this->m_meshNode != nullptr) {
@@ -88,10 +88,10 @@ namespace DAIDALOS {
 				if(projectileIndex > -1) {
 
 					// Add a direction variation
-					DE::CVector3F directionAltered = this->m_parent->GetScene()->GetActiveCamera()->GetForwardVector();
-					directionAltered.x += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
-					directionAltered.y += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
-					directionAltered.z += DE::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					daidalosengine::CVector3F directionAltered = this->m_parent->GetScene()->GetActiveCamera()->GetForwardVector();
+					directionAltered.x += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					directionAltered.y += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					directionAltered.z += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
 					directionAltered = directionAltered.Normalize();
 
 					// Create the projectile
@@ -140,7 +140,7 @@ namespace DAIDALOS {
 			this->m_remainingDelay = this->m_reloadDelay;
 
 			// Play the sound
-			this->m_reloadSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_reloadSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 
 			// Stop the smoke emitter
 			this->m_smokeEmitter->SetActive(false);
@@ -170,7 +170,7 @@ namespace DAIDALOS {
 		// Apply vertical movement
 		if(this->m_state == WEAPON_STATE_NONE && this->m_parent->GetPlayer()->HasMoved()) {
 			this->m_wobblePositionTime += timeSecond * WOBBLE_SPEED;
-			this->m_meshNode->SetPosition(DE::CVector3F(this->m_meshNode->GetPosition().x, -1.3F - (cosf(this->m_wobblePositionTime) / WOBBLE_IMPULSE_ATTENUATION), this->m_meshNode->GetPosition().z));
+			this->m_meshNode->SetPosition(daidalosengine::CVector3F(this->m_meshNode->GetPosition().x, -1.3F - (cosf(this->m_wobblePositionTime) / WOBBLE_IMPULSE_ATTENUATION), this->m_meshNode->GetPosition().z));
 		}
 
 		if(this->m_state == WEAPON_STATE_FIRE || this->m_state == WEAPON_STATE_RELOAD) {
@@ -183,14 +183,14 @@ namespace DAIDALOS {
 		}
 
 		// Update the state
-		if(this->m_state == WEAPON_STATE_FIRE && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
+		if(this->m_state == WEAPON_STATE_FIRE && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
 
 			// Start the smoke effect
 			this->m_smokeEmitter->SetActive(true);
 			this->m_smokeRemainingDelay = SMOKE_TIMER;
 
-		} else if(this->m_state == WEAPON_STATE_RELOAD && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED))) {
+		} else if(this->m_state == WEAPON_STATE_RELOAD && this->m_remainingDelay <= 0 && (this->m_meshNode == nullptr || (this->m_meshNode != nullptr && this->m_meshNode->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED))) {
 			this->m_state = WEAPON_STATE_NONE;
 			
 			// Update the magazine size and the remaining ammo
@@ -213,8 +213,8 @@ namespace DAIDALOS {
 			SProjectile & projectile = this->m_projectiles.GetReferenceAt(*it);
 
 			bool hit = false;
-			DE::CVector3F collisionPoint;
-			DE::CVector3F movement = projectile.direction * 200.0F * timeSecond;
+			daidalosengine::CVector3F collisionPoint;
+			daidalosengine::CVector3F movement = projectile.direction * 200.0F * timeSecond;
 
 			// Check for impact on the entities
 			for(auto it2 = this->m_parent->GetEntities().begin(); it2 != this->m_parent->GetEntities().end() && !hit; ++it2) {
@@ -223,7 +223,7 @@ namespace DAIDALOS {
 					// If the projectile movement is greater or equal than the projectile/entity distance
 					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {
 						for(int i = 1; i < ((int)movement.Length() + 1) * 4 && !hit; i++) {
-							DE::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0F);
+							daidalosengine::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0F);
 
 							// Collision check
 							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {

@@ -4,7 +4,7 @@
 #pragma comment(lib, "GameEngine.lib")
 
 void mainTest(HINSTANCE hInstance, int nCmdShow, const std::string levelName) {
-	DAIDALOS::CDaidalosApplication app(hInstance, nCmdShow, levelName);
+	daidalos::CDaidalosApplication app(hInstance, nCmdShow, levelName);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

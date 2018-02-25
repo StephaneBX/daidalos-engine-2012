@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <d3dx9.h>
 #include "../../Medias/IShaderBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* DX9 class used for shaders
 	*/

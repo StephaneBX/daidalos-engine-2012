@@ -41,7 +41,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CLoaderExtensions.hpp"
 #include "../Core/CSingletonManager.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Media manager class
 	* Handle the  process of loading and saving medias by using the correct loader

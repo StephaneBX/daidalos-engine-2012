@@ -12,37 +12,37 @@ void FileTest::setUp() {
 }
 
 void FileTest::TestConstructors() {
-	DE::CFile file;
+	daidalosengine::CFile file;
 	CPPUNIT_ASSERT(!file.FileExists());
 }
 
 void FileTest::TestFileExists() {
-	DE::CFile file("cppunit_dll.dll");
+	daidalosengine::CFile file("cppunit_dll.dll");
 	CPPUNIT_ASSERT(file.FileExists());
 }
 
 void FileTest::TestGetFileSize() {
-	DE::CFile file("cppunit_dll.dll");
+	daidalosengine::CFile file("cppunit_dll.dll");
 	CPPUNIT_ASSERT(file.GetFileSize() == 659456);
 }
 
 void FileTest::TestGetFullname() {
-	DE::CFile file(this->fullname);
+	daidalosengine::CFile file(this->fullname);
 	CPPUNIT_ASSERT_EQUAL(this->fullname, file.GetFullname());
 }
 
 void FileTest::TestGetFilename() {
-	DE::CFile file(this->fullname);
+	daidalosengine::CFile file(this->fullname);
 	CPPUNIT_ASSERT_EQUAL(this->filename, file.GetFilename());
 }
 
 void FileTest::TestGetShortname() {
-	DE::CFile file(this->fullname);
+	daidalosengine::CFile file(this->fullname);
 	CPPUNIT_ASSERT_EQUAL(this->shortname, file.GetShortname());
 }
 
 void FileTest::TestGetExtension() {
-	DE::CFile file(this->fullname);
+	daidalosengine::CFile file(this->fullname);
 	CPPUNIT_ASSERT_EQUAL(this->extension, file.GetExtension());
 }
 

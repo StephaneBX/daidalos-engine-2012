@@ -32,30 +32,30 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/2D/CLabel.hpp>
 #include <Scene/2D/CSprite.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Head-up display implementation
 	*/
-	class CHudView : public DE::IView {
+	class CHudView : public daidalosengine::IView {
 	private:
 		bool m_debugMode;
-		DE::CLabel m_positionLabel;
-		DE::CLabel m_gravityLabel;
-		DE::CSprite m_armorSprite;
-		DE::CLabel m_armorLabel;
-		DE::CSprite m_healthSprite;
-		DE::CLabel m_healthLabel;
-		DE::CSprite m_ammoSprite;
-		DE::CLabel m_ammoLabel;
-		DE::CSprite m_flashlightSprite;
-		DE::CSprite m_crosshairView;
+		daidalosengine::CLabel m_positionLabel;
+		daidalosengine::CLabel m_gravityLabel;
+		daidalosengine::CSprite m_armorSprite;
+		daidalosengine::CLabel m_armorLabel;
+		daidalosengine::CSprite m_healthSprite;
+		daidalosengine::CLabel m_healthLabel;
+		daidalosengine::CSprite m_ammoSprite;
+		daidalosengine::CLabel m_ammoLabel;
+		daidalosengine::CSprite m_flashlightSprite;
+		daidalosengine::CSprite m_crosshairView;
 
 	public:
 		/**
 		* Constructor
 		* @param texture The view bounds
 		*/
-		explicit CHudView(const DE::CRectangleI & bounds);
+		explicit CHudView(const daidalosengine::CRectangleI & bounds);
 
 		/**
 		* Set the debug mode
@@ -73,7 +73,7 @@ namespace DAIDALOS {
 		* Set the player's position
 		* @param position The position
 		*/
-		void SetPosition(const DE::CVector3F position);
+		void SetPosition(const daidalosengine::CVector3F position);
 
 		/**
 		* Set the players's gravity
@@ -105,7 +105,7 @@ namespace DAIDALOS {
 		* Get the color for a state value
 		* @param state The state value
 		*/
-		const DE::CColor GetStateColor(const int state);
+		const daidalosengine::CColor GetStateColor(const int state);
 	};
 }
 

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ENUMS_HPP
 #define __ENUMS_HPP
 
-namespace DE {
+namespace daidalosengine {
 	enum EBuffersType {
 		BUFFER_STATIC = 1,
 		BUFFER_DYNAMIC = 2,

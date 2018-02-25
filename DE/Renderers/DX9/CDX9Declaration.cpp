@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Renderers/DX9/CDX9Declaration.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CDX9Declaration::CDX9Declaration(IDirect3DVertexDeclaration9 * declaration) {
 		LOG_TRACE();
 

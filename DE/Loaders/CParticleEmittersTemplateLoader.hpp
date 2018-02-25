@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.hpp"
 #include "../Scene/Particles/IParticleEmittersTemplate.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Loader for particle emitters template file (.dept)
 	*/

@@ -30,18 +30,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <3D/Enemy/IEnemyEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* A zombie entity implementation
 	*/
-	class CZombieEntity : public GE::IEnemyEntity {
+	class CZombieEntity : public daidalosgameengine::IEnemyEntity {
 	public:
 		/**
 		* Constructor
 		* @param parent The parent
 		* @param meshNode The mesh node
 		*/
-		CZombieEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CZombieEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the enemy entity
@@ -58,14 +58,14 @@ namespace DAIDALOS {
 		* Generate impact particles from a position
 		* @param position The emitter position
 		*/
-		void GenerateImpactParticles(const DE::CVector3F & position);
+		void GenerateImpactParticles(const daidalosengine::CVector3F & position);
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const DE::CVector3F gravity);
+		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity);
 	};
 }
 

@@ -6,29 +6,29 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Vector4Test);
 
 void Vector4Test::TestConstructors() {
 	// Default constuctor
-	DE::CVector4F test1;
+	daidalosengine::CVector4F test1;
 	CPPUNIT_ASSERT(test1.x == 0 && test1.y == 0 && test1.z == 0 && test1.w == 0);
 
 	// Value constructor
-	DE::CVector4F test2(10.0F, 20.0F, 30.0F, 40.0F);
+	daidalosengine::CVector4F test2(10.0F, 20.0F, 30.0F, 40.0F);
 	CPPUNIT_ASSERT(test2.x == 10.0F && test2.y == 20.0F && test2.z == 30.0F && test2.w == 40.0F);
 
 	// Copy constructor
-	DE::CVector4F test3(test2);
+	daidalosengine::CVector4F test3(test2);
 	CPPUNIT_ASSERT(test3.x == test2.x && test3.y == test2.y && test3.z == test2.z && test3.w == test2.w);
 
 	// Array constructor
 	float testArray[4] = { 5.0F, 9.0F, -4.0F, 21.0F };
-	DE::CVector4F test4(testArray);
+	daidalosengine::CVector4F test4(testArray);
 	CPPUNIT_ASSERT(test4.x == testArray[0] && test4.y == testArray[1] && test4.z == testArray[2] && test4.w == testArray[3]);
 }
 
 void Vector4Test::TestOperators() {
-	DE::CVector4F vec1(5.0F, 15.0F, -1.0F, 21.0F);
-	DE::CVector4F vec2(8.0F, 2.0F, -10.0F, -21.0F);
+	daidalosengine::CVector4F vec1(5.0F, 15.0F, -1.0F, 21.0F);
+	daidalosengine::CVector4F vec2(8.0F, 2.0F, -10.0F, -21.0F);
 
 	// = operator
-	DE::CVector4F test = vec1;
+	daidalosengine::CVector4F test = vec1;
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.x, vec1.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.y, vec1.y, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.z, vec1.z, EPSILON);
@@ -146,17 +146,17 @@ void Vector4Test::TestOperators() {
 }
 
 void Vector4Test::TestLength() {
-	DE::CVector4F test(10.0F, 10.0F, 10.0F, 10.0F);
+	daidalosengine::CVector4F test(10.0F, 10.0F, 10.0F, 10.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
 
-	test = DE::CVector4F(-10.0F, -10.0F, -10.0F, -10.0F);
+	test = daidalosengine::CVector4F(-10.0F, -10.0F, -10.0F, -10.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector4F::Length(test), sqrtf(test.x * test.x + test.y * test.y + test.z * test.z + test.w * test.w), EPSILON);
 }
 
 void Vector4Test::TestNormalize() {
-	DE::CVector4F test(2.0F, 5.0F, -15.0F, 33.0F);
+	daidalosengine::CVector4F test(2.0F, 5.0F, -15.0F, 33.0F);
 	CPPUNIT_ASSERT_EQUAL(test.Normalize(), test / test.Length());
 }
 
@@ -166,8 +166,8 @@ void Vector4Test::TestGetFrom() {
 	std::string test3 = "3;7;5;9";
 	std::string test4 = "";
 
-	CPPUNIT_ASSERT_EQUAL(DE::CVector4F::GetFrom(test1), DE::CVector4F(1.5f, 10.0F, -2.0F, -15.0F));
-	CPPUNIT_ASSERT_EQUAL(DE::CVector4F::GetFrom(test2), DE::CVector4F());
-	CPPUNIT_ASSERT_EQUAL(DE::CVector4F::GetFrom(test3, DE::CVector4F(), ";"), DE::CVector4F(3.0F, 7.0F, 5.0F, 9.0F));
-	CPPUNIT_ASSERT_EQUAL(DE::CVector4F::GetFrom(test4), DE::CVector4F());
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector4F::GetFrom(test1), daidalosengine::CVector4F(1.5f, 10.0F, -2.0F, -15.0F));
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector4F::GetFrom(test2), daidalosengine::CVector4F());
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector4F::GetFrom(test3, daidalosengine::CVector4F(), ";"), daidalosengine::CVector4F(3.0F, 7.0F, 5.0F, 9.0F));
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector4F::GetFrom(test4), daidalosengine::CVector4F());
 }

@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <exception>
 #include <string>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CException class.
 	* Main class for all exceptions.

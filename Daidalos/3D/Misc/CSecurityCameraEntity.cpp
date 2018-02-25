@@ -37,16 +37,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define DEFAULT_MAX_VERTICAL_ROTATION 10
 #define DEFAULT_RANGE 60.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CSecurityCameraEntity::CSecurityCameraEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CSecurityCameraEntity::CSecurityCameraEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
 		this->SetId(meshNode->GetId());
-		this->SetType(GE::ENTITY_TYPE_SECURITY_CAMERA);
+		this->SetType(daidalosgameengine::ENTITY_TYPE_SECURITY_CAMERA);
 		this->m_meshRootNode = meshNode;
 		this->m_meshCameraNode = nullptr;
 		this->m_originalHorizontalRotation = this->m_meshRootNode->GetRotation().y;
@@ -55,13 +55,13 @@ namespace DAIDALOS {
 		this->m_verticalRotationSpeed = DEFAULT_VERTICAL_ROTATION_SPEED;
 		this->m_maxHorizontalRotation = DEFAULT_MAX_HORIZONTAL_ROTATION;
 		this->m_maxVerticalRotation = DEFAULT_MAX_VERTICAL_ROTATION;
-		DE::CColor lightColor = DE::CColor(1.0F, 1.0F, 1.0F);
+		daidalosengine::CColor lightColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F);
 		float range = DEFAULT_RANGE;
 
 		// Get the camera node
 		auto meshChildren = this->m_meshRootNode->GetChildren();
 		if(meshChildren.size() > 0) {
-			this->m_meshCameraNode = static_cast<DE::CStaticMeshSceneNode *>(meshChildren.front());
+			this->m_meshCameraNode = static_cast<daidalosengine::CStaticMeshSceneNode *>(meshChildren.front());
 		}
 
 		// Read the attributes
@@ -86,12 +86,12 @@ namespace DAIDALOS {
 			ss >> range;
 		}
 		if(meshNode->GetAttribute("light_color") != "") {
-			lightColor = DE::CColor::GetFrom(meshNode->GetAttribute("light_color"), lightColor);
+			lightColor = daidalosengine::CColor::GetFrom(meshNode->GetAttribute("light_color"), lightColor);
 		}
 
 		// Add the light
 		if(this->m_meshCameraNode != nullptr) {
-			DE::CSpotLightSceneNode * spot = new DE::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshCameraNode, "", DE::CVector3F(0, 0, 2), DE::CVector3F(0, 0, 0), lightColor, range, 20, 0.7F, 0.8F, true, true);
+			daidalosengine::CSpotLightSceneNode * spot = new daidalosengine::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), this->m_meshCameraNode, "", daidalosengine::CVector3F(0, 0, 2), daidalosengine::CVector3F(0, 0, 0), lightColor, range, 20, 0.7F, 0.8F, true, true);
 			this->m_meshCameraNode->AddChild(spot);
 		}
 	}
@@ -133,13 +133,13 @@ namespace DAIDALOS {
 		float horizontalRotation = this->m_horizontalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
-		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0F);
-		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		daidalosengine::CVector3F cameraForward = daidalosengine::CVector3F(0, 0, 1.0F);
+		daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
-		DE::CVector2F cameraToPlayerHorizontal = DE::CVector2F(cameraToPlayer.x, cameraToPlayer.z).Normalize();
-		DE::CVector2F cameraForwardHorizontal = DE::CVector2F(cameraForward.x, cameraForward.z).Normalize();
+		daidalosengine::CVector2F cameraToPlayerHorizontal = daidalosengine::CVector2F(cameraToPlayer.x, cameraToPlayer.z).Normalize();
+		daidalosengine::CVector2F cameraForwardHorizontal = daidalosengine::CVector2F(cameraForward.x, cameraForward.z).Normalize();
 		float rotationY = this->m_meshRootNode->GetRotation().y;
 		if(atan2f(cameraForwardHorizontal.y, cameraForwardHorizontal.x) - atan2f(cameraToPlayerHorizontal.y, cameraToPlayerHorizontal.x) > 0) {
 			rotationY += horizontalRotation;
@@ -157,7 +157,7 @@ namespace DAIDALOS {
 		}
 
 		// Update the camera rotation
-		this->m_meshRootNode->SetRotation(DE::CVector3F(this->m_meshRootNode->GetRotation().x, rotationY, this->m_meshRootNode->GetRotation().z));
+		this->m_meshRootNode->SetRotation(daidalosengine::CVector3F(this->m_meshRootNode->GetRotation().x, rotationY, this->m_meshRootNode->GetRotation().z));
 	}
 
 	/**
@@ -170,13 +170,13 @@ namespace DAIDALOS {
 		float verticalRotation = this->m_verticalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
-		DE::CVector3F cameraForward = DE::CVector3F(0, 0, 1.0F);
-		DE::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
+		daidalosengine::CVector3F cameraForward = daidalosengine::CVector3F(0, 0, 1.0F);
+		daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way
-		DE::CVector2F cameraToPlayerVertical = DE::CVector2F(cameraToPlayer.y, cameraToPlayer.z).Normalize();
-		DE::CVector2F cameraForwardVertical = DE::CVector2F(cameraForward.y, cameraForward.z).Normalize();
+		daidalosengine::CVector2F cameraToPlayerVertical = daidalosengine::CVector2F(cameraToPlayer.y, cameraToPlayer.z).Normalize();
+		daidalosengine::CVector2F cameraForwardVertical = daidalosengine::CVector2F(cameraForward.y, cameraForward.z).Normalize();
 		float rotationX = this->m_meshCameraNode->GetRotation().x;
 		if(atan2f(cameraForwardVertical.y, cameraForwardVertical.x) - atan2f(cameraToPlayerVertical.y, cameraToPlayerVertical.x) > 0) {
 			rotationX -= verticalRotation;
@@ -194,6 +194,6 @@ namespace DAIDALOS {
 		}
 
 		// Update the camera rotation
-		this->m_meshCameraNode->SetRotation(DE::CVector3F(rotationX, this->m_meshCameraNode->GetRotation().y, this->m_meshCameraNode->GetRotation().z));
+		this->m_meshCameraNode->SetRotation(daidalosengine::CVector3F(rotationX, this->m_meshCameraNode->GetRotation().y, this->m_meshCameraNode->GetRotation().z));
 	}
 }

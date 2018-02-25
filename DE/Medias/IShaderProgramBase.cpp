@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.hpp"
 #include "../Medias/IShaderProgramBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IShaderProgramBase::IShaderProgramBase(const std::string & name) : IResource(name) {
 		LOG_TRACE();
 

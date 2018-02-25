@@ -45,7 +45,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CMaterial.hpp"
 #include "../Loaders/CSceneLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CSceneLoader::CSceneLoader() {
 		LOG_TRACE();
 
@@ -1029,7 +1029,7 @@ namespace DE {
 		brush.scale = scale;
 	}
 
-	void CSceneLoader::SaveNode(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveNode(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
 		if(node->IsSaved()) {
 			switch(node->GetType()) {
@@ -1080,7 +1080,7 @@ namespace DE {
 		}
 	}
 
-	void CSceneLoader::SaveParticleSystem(DE::I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CSceneLoader::SaveParticleSystem(daidalosengine::I3DScene * scene, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
 		parent->InsertEndChild(document.NewComment(" Particle System Parameters "));
 

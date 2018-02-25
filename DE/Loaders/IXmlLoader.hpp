@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CColor.hpp"
 #include "../Core/ILoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 
 	/**
 	* Abstract loader for xml files using TinyXML

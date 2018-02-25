@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <dinput.h>
 #include "../Core/IApplication.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Win32 implementation of an application
 	*/

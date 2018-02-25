@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_ENUMS_H
 #define __DAIDALOS_ENUMS_H
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	enum EPlayerObject {
 		PLAYER_OBJECT_FLASHLIGHT,

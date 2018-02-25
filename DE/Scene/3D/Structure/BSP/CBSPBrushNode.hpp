@@ -38,7 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../../../Scene/3D/CImpact.hpp"
 #include "../../../../Scene/3D/Structure/BSP/CBSPTriangle.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	class CBSPTreeNode;
 
 	/**

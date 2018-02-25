@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IResource.hpp"
 #include "../Core/CSingletonManager.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Resource manager
 	* Handle the resources and delete them when unused

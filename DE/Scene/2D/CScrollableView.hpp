@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/2D/IView.hpp"
 #include "../../Scene/2D/CSprite.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Content view for the CScrollableView
 	*/
@@ -133,7 +133,7 @@ namespace DE {
 		/**
 		* Set the scroll bar color
 		*/
-		void SetScrollBarColor(const DE::CColor & color);
+		void SetScrollBarColor(const daidalosengine::CColor & color);
 
 		/**
 		* Perform a hit test, checking if the point is inside of the subview or in this view

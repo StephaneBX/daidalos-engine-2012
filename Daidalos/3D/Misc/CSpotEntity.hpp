@@ -32,21 +32,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.hpp>
 #include <3D/IEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Spot entity
 	*/
-	class CSpotEntity : public GE::IEntity {
+	class CSpotEntity : public daidalosgameengine::IEntity {
 	private:
-		DE::CStaticMeshSceneNode * m_node;
+		daidalosengine::CStaticMeshSceneNode * m_node;
 
 	public:
 		/**
 		* @param parent The parent
 		* @param meshNode The alarm node
 		*/
-		CSpotEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
+		CSpotEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the alarm

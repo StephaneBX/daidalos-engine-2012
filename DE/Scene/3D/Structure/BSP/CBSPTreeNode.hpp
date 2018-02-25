@@ -43,7 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_BSP_SCORE 10000000.0f
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The bsp tree node class
 	* Handle the node of a BSP tree
@@ -70,7 +70,7 @@ namespace DE {
 		* Constructor
 		* @param type The node type
 		*/
-		CBSPTreeNode(EBSPNodeType type);
+		explicit CBSPTreeNode(EBSPNodeType type);
 
 		/**
 		* Destructor

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/IShaderBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IShaderBase::IShaderBase(const std::string & name) : IResource(name) {
 		LOG_TRACE();
 	}

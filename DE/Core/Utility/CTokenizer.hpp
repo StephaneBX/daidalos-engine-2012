@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 #include <string>
 
-namespace DE {
+namespace daidalosengine {
 	typedef std::vector<std::string> TToken;
 
 	/**

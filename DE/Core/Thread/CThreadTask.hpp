@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Thread/IThreadTask.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Thread task implementation
 	*/

@@ -31,22 +31,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define TRIGGER_RADIUS 3.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The switch node
 	*/
-	CTeleporterEntity::CTeleporterEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CTeleporterEntity::CTeleporterEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_TELEPORTER);
+		SetType(daidalosgameengine::ENTITY_TYPE_TELEPORTER);
 		this->m_node = meshNode;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters
-		DE::CParticleEmitter * emitter1 = nullptr;
-		DE::CParticleEmitter * emitter2 = nullptr;
+		daidalosengine::CParticleEmitter * emitter1 = nullptr;
+		daidalosengine::CParticleEmitter * emitter2 = nullptr;
 
 		// Active of inactive effect
 		if(this->m_levelName != "") {
@@ -60,14 +60,14 @@ namespace DAIDALOS {
 		// Lower emitter
 		emitter1->SetPosition(this->m_node->GetAbsolutePosition());
 		emitter1->SetTextureId(0);
-		emitter1->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, 1, 0), 0, 2, 4));
-		emitter1->AddUpdater(new DE::CLinearVelocityParticleUpdater(std::vector<DE::SLinearVelocityParticleChangeUpdater>(), 0));
+		emitter1->AddInitializer(new daidalosengine::CLinearVelocityParticleInitializer(daidalosengine::CVector3F(0, 1, 0), 0, 2, 4));
+		emitter1->AddUpdater(new daidalosengine::CLinearVelocityParticleUpdater(std::vector<daidalosengine::SLinearVelocityParticleChangeUpdater>(), 0));
 
 		// Upper emitter
-		emitter2->SetPosition(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 8, 0));
+		emitter2->SetPosition(this->m_node->GetAbsolutePosition() + daidalosengine::CVector3F(0, 8, 0));
 		emitter2->SetTextureId(0);
-		emitter2->AddInitializer(new DE::CLinearVelocityParticleInitializer(DE::CVector3F(0, -1, 0), 0, 2, 4));
-		emitter2->AddUpdater(new DE::CLinearVelocityParticleUpdater(std::vector<DE::SLinearVelocityParticleChangeUpdater>(), 0));
+		emitter2->AddInitializer(new daidalosengine::CLinearVelocityParticleInitializer(daidalosengine::CVector3F(0, -1, 0), 0, 2, 4));
+		emitter2->AddUpdater(new daidalosengine::CLinearVelocityParticleUpdater(std::vector<daidalosengine::SLinearVelocityParticleChangeUpdater>(), 0));
 	}
 
 	/**
@@ -90,7 +90,7 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CTeleporterEntity::CanDoAction() {
-		return this->m_levelName != "" && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition() + DE::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_levelName != "" && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition() + daidalosengine::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

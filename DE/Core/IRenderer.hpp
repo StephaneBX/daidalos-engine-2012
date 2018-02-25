@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IFrameBufferBase.hpp"
 #include "../Core/IDeclaration.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Screen quad element
 	*/

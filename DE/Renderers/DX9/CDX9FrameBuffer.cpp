@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Renderers/DX9/CDX9FrameBuffer.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CDX9FrameBuffer::CDX9FrameBuffer() : IFrameBufferBase() {
 		LOG_TRACE();
 	}

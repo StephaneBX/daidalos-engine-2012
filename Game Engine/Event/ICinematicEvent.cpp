@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "ICinematicEvent.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* @param name The resource name
 	* @param data The data

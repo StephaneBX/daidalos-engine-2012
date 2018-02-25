@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9PixelShader.hpp"
 #include "../../Renderers/DX9/CDX9PixelShadersLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CDX9PixelShadersLoader::CDX9PixelShadersLoader() {
 		LOG_TRACE();
 	}

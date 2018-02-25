@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/IFontBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IFontBase::IFontBase(const std::string & name, SFontInternalData * data) : IResource(name) {
 		LOG_TRACE();
 

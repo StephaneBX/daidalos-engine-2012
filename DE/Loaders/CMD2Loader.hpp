@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.hpp"
 #include "../Medias/CMD2Mesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Loader for MD2 files
 	*/

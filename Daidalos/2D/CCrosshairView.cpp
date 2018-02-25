@@ -28,19 +28,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "CCrosshairView.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	*/
 	CCrosshairView::CCrosshairView() {
-		SetPreferredSize(DE::CVector2I(22, 22));
+		SetPreferredSize(daidalosengine::CVector2I(22, 22));
 
-		this->m_horizontalSprite.SetBounds(DE::CRectangleI(0, 10, 22, 2));
-		this->m_horizontalSprite.SetBackgroundColor(DE::CColor(0.5F, 0.5F, 0.5F, 1.0F));
+		this->m_horizontalSprite.SetBounds(daidalosengine::CRectangleI(0, 10, 22, 2));
+		this->m_horizontalSprite.SetBackgroundColor(daidalosengine::CColor(0.5F, 0.5F, 0.5F, 1.0F));
 		AddSubview(&this->m_horizontalSprite);
 
-		this->m_verticalSprite.SetBounds(DE::CRectangleI(10, 0, 2, 22));
-		this->m_verticalSprite.SetBackgroundColor(DE::CColor(0.5F, 0.5F, 0.5F, 1.0F));
+		this->m_verticalSprite.SetBounds(daidalosengine::CRectangleI(10, 0, 2, 22));
+		this->m_verticalSprite.SetBackgroundColor(daidalosengine::CColor(0.5F, 0.5F, 0.5F, 1.0F));
 		AddSubview(&this->m_verticalSprite);
 	}
 }

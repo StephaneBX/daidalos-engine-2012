@@ -43,8 +43,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Level/CDaidalosLevel.hpp"
 #include "CDaidalosApplication.hpp"
 
-namespace DAIDALOS {
-	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : GE::IForwardApplication(hInstance, nCmdShow) {
+namespace daidalos {
+	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : daidalosgameengine::IForwardApplication(hInstance, nCmdShow) {
 
 		this->m_loading = true;
 		this->m_cursor.SetVisible(true);
@@ -61,14 +61,14 @@ namespace DAIDALOS {
 	* @param filename The level filename
 	*/
 	void CDaidalosApplication::LoadLevel(const std::string & filename) {
-		this->m_currentLevel = std::unique_ptr<GE::ILevel>(new CDaidalosLevel());
+		this->m_currentLevel = std::unique_ptr<daidalosgameengine::ILevel>(new CDaidalosLevel());
 		this->m_currentLevel->AddListener(this);
 		this->m_currentLevel->LoadLevel(filename);
 	}
 
 	void CDaidalosApplication::Update(const float time) {
 
-		GE::IForwardApplication::Update(time);
+		daidalosgameengine::IForwardApplication::Update(time);
 		if(!this->m_loading) {
 			if(this->m_input->IsActionActive(FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, FPS_CAMERA_EXIT)) {
 				this->m_alive = false;

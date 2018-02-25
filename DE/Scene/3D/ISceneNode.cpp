@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Thread/CThreadPool.hpp"
 #include "../../Scene/3D/ISceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	ISceneNode::ISceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name) {
 		LOG_TRACE();
 

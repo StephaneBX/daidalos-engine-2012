@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IRenderTargetBase.hpp"
 #include "../Core/IResource.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Structure for a framebuffer element
 	*/

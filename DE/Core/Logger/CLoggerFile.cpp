@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "../../Core/Logger/CLoggerFile.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CLoggerFile::CLoggerFile(const std::string & filename) {
 		this->m_outputStream.open(filename.c_str());
 	}

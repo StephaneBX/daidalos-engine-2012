@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define PANEL_TEXTURE_NAME "white.png"
 
-namespace DE {
+namespace daidalosengine {
 	CSprite::CSprite() : IView() {
 		LOG_TRACE();
 
@@ -104,8 +104,8 @@ namespace DE {
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_backgroundColor);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_backgroundColor);
 
 			renderer->SetTexture(0, this->m_texture.GetTexture());
 			renderer->SetTexture(1, nullptr);

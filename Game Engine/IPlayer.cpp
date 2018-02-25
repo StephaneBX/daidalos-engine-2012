@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent

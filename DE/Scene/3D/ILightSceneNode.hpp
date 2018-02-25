@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define LIGHT_DEFAULT_NEAR_DISTANCE 0.1f
 #define LIGHT_DEFAULT_FAR_DISTANCE std::numeric_limits<float>::infinity()
 
-namespace DE {
+namespace daidalosengine {
 	
 	/**
 	* Basic class for all lights.

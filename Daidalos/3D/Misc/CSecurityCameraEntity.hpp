@@ -33,16 +33,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IPlayer.hpp>
 #include <3D/IEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Security camera entity
 	* It's composed of a root node and a child with the camera itself
 	*/
-	class CSecurityCameraEntity : public GE::IEntity {
+	class CSecurityCameraEntity : public daidalosgameengine::IEntity {
 	private:
-		DE::CStaticMeshSceneNode * m_meshRootNode;
-		DE::CStaticMeshSceneNode * m_meshCameraNode;
+		daidalosengine::CStaticMeshSceneNode * m_meshRootNode;
+		daidalosengine::CStaticMeshSceneNode * m_meshCameraNode;
 
 		float m_originalHorizontalRotation;
 		float m_originalVerticalRotation;
@@ -56,7 +56,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The security camera root node
 		*/
-		CSecurityCameraEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
+		CSecurityCameraEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the security camera

@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* The level listener
 	*/

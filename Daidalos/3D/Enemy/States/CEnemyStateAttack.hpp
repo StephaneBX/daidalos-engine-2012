@@ -31,17 +31,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyState.hpp>
 #include <3D/ICollidableEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Attack enemy state
 	*/
-	class CEnemyStateAttack : public GE::IEnemyState {
+	class CEnemyStateAttack : public daidalosgameengine::IEnemyState {
 	private:
 		unsigned int m_damage;
 		float m_range;
 		float m_attackTimer;
 		float m_attackDelay;
-		GE::ICollidableEntity * m_target;
+		daidalosgameengine::ICollidableEntity * m_target;
 
 	public:
 		/**
@@ -55,7 +55,7 @@ namespace DAIDALOS {
 		* @param range The range
 		* @param attackDelay The attack delay
 		*/
-		CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay);
+		CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay);
 
 		/**
 		* Set the damage.
@@ -85,27 +85,27 @@ namespace DAIDALOS {
 		* Set the target.
 		* @param target The target
 		*/
-		void SetTarget(GE::ICollidableEntity * target);
+		void SetTarget(daidalosgameengine::ICollidableEntity * target);
 
 		/**
 		* Reset the state
 		* @param entity The entity
 		*/
-		virtual void Reset(GE::IEnemyEntity * entity);
+		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Get the damage.
@@ -135,7 +135,7 @@ namespace DAIDALOS {
 		* Get the target.
 		* @return The target
 		*/
-		GE::ICollidableEntity * GetTarget() const;
+		daidalosgameengine::ICollidableEntity * GetTarget() const;
 	};
 }
 

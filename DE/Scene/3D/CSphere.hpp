@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Scene/3D/IShape3D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The IShape3D implementation of a sphere.
 	*/

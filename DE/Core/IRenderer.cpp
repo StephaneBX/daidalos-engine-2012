@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Core.hpp"
 #include "../Core/IRenderer.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IRenderer * IRenderer::s_instance = nullptr;
 
 	std::string IRenderer::s_shaderProgramParameters[] =
@@ -205,19 +205,19 @@ namespace DE {
 		this->m_antialiasing = antialiasing;
 
 		// Default texture filter based on engine config
-		this->m_defaultTextureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_ANISOTROPIC;
-		this->m_defaultTextureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_LINEAR;
-		this->m_defaultTextureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_LINEAR;
-		this->m_defaultTextureFilter.addressU = DE::TEXTURE_ADDRESS_WRAP;
-		this->m_defaultTextureFilter.addressV = DE::TEXTURE_ADDRESS_WRAP;
+		this->m_defaultTextureFilter.minFilter = daidalosengine::TEXTURE_FILTER_TYPE_ANISOTROPIC;
+		this->m_defaultTextureFilter.magFilter = daidalosengine::TEXTURE_FILTER_TYPE_LINEAR;
+		this->m_defaultTextureFilter.mipFilter = daidalosengine::TEXTURE_FILTER_TYPE_LINEAR;
+		this->m_defaultTextureFilter.addressU = daidalosengine::TEXTURE_ADDRESS_WRAP;
+		this->m_defaultTextureFilter.addressV = daidalosengine::TEXTURE_ADDRESS_WRAP;
 		this->m_defaultTextureFilter.maxAnisotropy = anisotropicFiltering;
 
 		// Basic texture filter
-		this->m_defaultBasicTextureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_POINT;
-		this->m_defaultBasicTextureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_POINT;
-		this->m_defaultBasicTextureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_POINT;
-		this->m_defaultBasicTextureFilter.addressU = DE::TEXTURE_ADDRESS_CLAMP;
-		this->m_defaultBasicTextureFilter.addressV = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_defaultBasicTextureFilter.minFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.magFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.mipFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
+		this->m_defaultBasicTextureFilter.addressU = daidalosengine::TEXTURE_ADDRESS_CLAMP;
+		this->m_defaultBasicTextureFilter.addressV = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		this->m_defaultBasicTextureFilter.maxAnisotropy = 0;
 	}
 }

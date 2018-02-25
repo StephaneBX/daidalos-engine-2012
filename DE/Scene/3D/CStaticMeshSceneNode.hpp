@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Medias/CStaticMesh.hpp"
 #include "../../Scene/3D/IMeshSceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Mesh scene node for static meshes
 	*/

@@ -37,7 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CRectangle.hpp"
 #include "../Core/IResource.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Kerning between 2 glyphs
 	*/

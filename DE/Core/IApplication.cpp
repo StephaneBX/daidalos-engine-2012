@@ -45,7 +45,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define MAXIMUM_FRAME_TIME 50
 
-namespace DE {
+namespace daidalosengine {
 	IApplication::IApplication() {
 		// Log file
 		ILogger::SetLogger(new CLoggerFile("log.txt"));

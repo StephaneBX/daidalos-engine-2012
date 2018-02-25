@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CMatrix.hpp"
 #include "../../Scene/2D/IView.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IView::~IView() {
 		LOG_TRACE();
 
@@ -225,11 +225,11 @@ namespace DE {
 		this->m_parent = nullptr;
 
 		// Default 2D texture filter
-		this->m_textureFilter.minFilter = DE::TEXTURE_FILTER_TYPE_NONE;
-		this->m_textureFilter.magFilter = DE::TEXTURE_FILTER_TYPE_NONE;
-		this->m_textureFilter.mipFilter = DE::TEXTURE_FILTER_TYPE_NONE;
-		this->m_textureFilter.addressU = DE::TEXTURE_ADDRESS_CLAMP;
-		this->m_textureFilter.addressV = DE::TEXTURE_ADDRESS_CLAMP;
+		this->m_textureFilter.minFilter = daidalosengine::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.magFilter = daidalosengine::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.mipFilter = daidalosengine::TEXTURE_FILTER_TYPE_NONE;
+		this->m_textureFilter.addressU = daidalosengine::TEXTURE_ADDRESS_CLAMP;
+		this->m_textureFilter.addressV = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		this->m_textureFilter.maxAnisotropy = 0;
 	}
 

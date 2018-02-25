@@ -5,7 +5,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(QuaternionTest);
 
 void QuaternionTest::TestConstructors() {
 	// Default contructor
-	DE::CQuaternion quaternion;
+	daidalosengine::CQuaternion quaternion;
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, quaternion.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, quaternion.y, EPSILON);
@@ -14,7 +14,7 @@ void QuaternionTest::TestConstructors() {
 
 
 	// Value constructor
-	DE::CQuaternion quaternion2(1, 2, 3, 4);
+	daidalosengine::CQuaternion quaternion2(1, 2, 3, 4);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, quaternion2.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, quaternion2.y, EPSILON);
@@ -23,7 +23,7 @@ void QuaternionTest::TestConstructors() {
 
 
 	// Copy constructor
-	DE::CQuaternion quaternion3 = quaternion2;
+	daidalosengine::CQuaternion quaternion3 = quaternion2;
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(quaternion2.x, quaternion3.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(quaternion2.y, quaternion3.y, EPSILON);
@@ -31,11 +31,11 @@ void QuaternionTest::TestConstructors() {
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(quaternion2.w, quaternion3.w, EPSILON);
 
 	// Vector / angle constructor
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion4(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion4(vector, daidalosengine::DegreeToRadian(30));
 
-	float cosine = std::cosf(DE::DegreeToRadian(30) / 2.0F);
-	float sinus = std::sinf(DE::DegreeToRadian(30) / 2.0F);
+	float cosine = std::cosf(daidalosengine::DegreeToRadian(30) / 2.0F);
+	float sinus = std::sinf(daidalosengine::DegreeToRadian(30) / 2.0F);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(vector.x * sinus, quaternion4.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(vector.y * sinus, quaternion4.y, EPSILON);
@@ -44,7 +44,7 @@ void QuaternionTest::TestConstructors() {
 
 	// Array constructor
 	float array1[4] = { 1, 2, 3, 4 };
-	DE::CQuaternion quaternion5(array1);
+	daidalosengine::CQuaternion quaternion5(array1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(array1[0], quaternion5.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(array1[1], quaternion5.y, EPSILON);
@@ -53,13 +53,13 @@ void QuaternionTest::TestConstructors() {
 }
 
 void QuaternionTest::TestOperators() {
-	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector1 = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion1(vector1, daidalosengine::DegreeToRadian(30));
 
-	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
-	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
+	daidalosengine::CVector3F vector2 = daidalosengine::CVector3F(-5, 12, -25).Normalize();
+	daidalosengine::CQuaternion quaternion2(vector2, daidalosengine::DegreeToRadian(58));
 
-	DE::CQuaternion tmp;
+	daidalosengine::CQuaternion tmp;
 	float factor = 2.3F;
 
 	// Addition between two quaternions
@@ -175,8 +175,8 @@ void QuaternionTest::TestOperators() {
 }
 
 void QuaternionTest::TestInverse() {
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion(vector, daidalosengine::DegreeToRadian(30));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(-quaternion.Normalize().x, quaternion.Inverse().x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(-quaternion.Normalize().y, quaternion.Inverse().y, EPSILON);
@@ -185,8 +185,8 @@ void QuaternionTest::TestInverse() {
 }
 
 void QuaternionTest::TestNormalize() {
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion(vector, daidalosengine::DegreeToRadian(30));
 
 	float length = std::sqrtf(quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z + quaternion.w * quaternion.w);
 
@@ -197,12 +197,12 @@ void QuaternionTest::TestNormalize() {
 }
 
 void QuaternionTest::TestLog() {
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion(vector, daidalosengine::DegreeToRadian(30));
 
 	float a = (float)acos(quaternion.w);
 	float sina = (float)sin(a);
-	DE::CQuaternion ret;
+	daidalosengine::CQuaternion ret;
 
 	ret.w = 0;
 	if(sina > EPSILON) {
@@ -220,13 +220,13 @@ void QuaternionTest::TestLog() {
 }
 
 void QuaternionTest::TestExp() {
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion(vector, daidalosengine::DegreeToRadian(30));
 
 	float a = sqrt(quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z);
 	float sina = (float)sin(a);
 	float cosa = (float)cos(a);
-	DE::CQuaternion ret;
+	daidalosengine::CQuaternion ret;
 
 	ret.w = cosa;
 	if(a > 0) {
@@ -244,8 +244,8 @@ void QuaternionTest::TestExp() {
 }
 
 void QuaternionTest::TestPower() {
-	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector1 = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion1(vector1, daidalosengine::DegreeToRadian(30));
 	float power = 3.27F;
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL((quaternion1.Log() * power).Exp().x, quaternion1.Power(power).x, EPSILON);
@@ -255,32 +255,32 @@ void QuaternionTest::TestPower() {
 }
 
 void QuaternionTest::TestYawPitchRoll() {
-	DE::CVector3F vectorX = DE::CVector3F(1, 0, 0);
-	DE::CVector3F vectorY = DE::CVector3F(0, 1, 0);
-	DE::CVector3F vectorZ = DE::CVector3F(0, 0, 1);
+	daidalosengine::CVector3F vectorX = daidalosengine::CVector3F(1, 0, 0);
+	daidalosengine::CVector3F vectorY = daidalosengine::CVector3F(0, 1, 0);
+	daidalosengine::CVector3F vectorZ = daidalosengine::CVector3F(0, 0, 1);
 
 	float angleX = 30;
 	float angleY = 45;
 	float angleZ = 15;
 
-	DE::CQuaternion result;
-	DE::CQuaternion::YawPitchRoll(result, angleX, angleY, angleZ);
+	daidalosengine::CQuaternion result;
+	daidalosengine::CQuaternion::YawPitchRoll(result, angleX, angleY, angleZ);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL((DE::CQuaternion(vectorZ, angleZ) * DE::CQuaternion(vectorX, angleX) * DE::CQuaternion(vectorY, angleY)).x, result.x, EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL((DE::CQuaternion(vectorZ, angleZ) * DE::CQuaternion(vectorX, angleX) * DE::CQuaternion(vectorY, angleY)).y, result.y, EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL((DE::CQuaternion(vectorZ, angleZ) * DE::CQuaternion(vectorX, angleX) * DE::CQuaternion(vectorY, angleY)).z, result.z, EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((daidalosengine::CQuaternion(vectorZ, angleZ) * daidalosengine::CQuaternion(vectorX, angleX) * daidalosengine::CQuaternion(vectorY, angleY)).x, result.x, EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((daidalosengine::CQuaternion(vectorZ, angleZ) * daidalosengine::CQuaternion(vectorX, angleX) * daidalosengine::CQuaternion(vectorY, angleY)).y, result.y, EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((daidalosengine::CQuaternion(vectorZ, angleZ) * daidalosengine::CQuaternion(vectorX, angleX) * daidalosengine::CQuaternion(vectorY, angleY)).z, result.z, EPSILON);
 }
 
 void QuaternionTest::TestLerp() {
-	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector1 = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion1(vector1, daidalosengine::DegreeToRadian(30));
 
-	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
-	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
+	daidalosengine::CVector3F vector2 = daidalosengine::CVector3F(-5, 12, -25).Normalize();
+	daidalosengine::CQuaternion quaternion2(vector2, daidalosengine::DegreeToRadian(58));
 
 	float factor = 0.72F;
 
-	DE::CQuaternion result = (quaternion1 * (1 - factor) + quaternion2 * factor).Normalize();
+	daidalosengine::CQuaternion result = (quaternion1 * (1 - factor) + quaternion2 * factor).Normalize();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(result.x, quaternion1.Lerp(quaternion2, factor).x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(result.y, quaternion1.Lerp(quaternion2, factor).y, EPSILON);
@@ -289,17 +289,17 @@ void QuaternionTest::TestLerp() {
 }
 
 void QuaternionTest::TestSlerp() {
-	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector1 = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion1(vector1, daidalosengine::DegreeToRadian(30));
 
-	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
-	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
+	daidalosengine::CVector3F vector2 = daidalosengine::CVector3F(-5, 12, -25).Normalize();
+	daidalosengine::CQuaternion quaternion2(vector2, daidalosengine::DegreeToRadian(58));
 
 	float factor = 0.72F;
-	DE::CQuaternion quaternion3;
+	daidalosengine::CQuaternion quaternion3;
 	float dot = quaternion1.DotProduct(quaternion2);
 
-	DE::CQuaternion result;
+	daidalosengine::CQuaternion result;
 
 	if(dot < 0) {
 		dot = -dot;
@@ -319,8 +319,8 @@ void QuaternionTest::TestSlerp() {
 }
 
 void QuaternionTest::TestLength() {
-	DE::CVector3F vector = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion(vector, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion(vector, daidalosengine::DegreeToRadian(30));
 
 	float length = std::sqrtf(quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z + quaternion.w * quaternion.w);
 
@@ -328,11 +328,11 @@ void QuaternionTest::TestLength() {
 }
 
 void QuaternionTest::TestDotProduct() {
-	DE::CVector3F vector1 = DE::CVector3F(1, 2, 3).Normalize();
-	DE::CQuaternion quaternion1(vector1, DE::DegreeToRadian(30));
+	daidalosengine::CVector3F vector1 = daidalosengine::CVector3F(1, 2, 3).Normalize();
+	daidalosengine::CQuaternion quaternion1(vector1, daidalosengine::DegreeToRadian(30));
 
-	DE::CVector3F vector2 = DE::CVector3F(-5, 12, -25).Normalize();
-	DE::CQuaternion quaternion2(vector2, DE::DegreeToRadian(58));
+	daidalosengine::CVector3F vector2 = daidalosengine::CVector3F(-5, 12, -25).Normalize();
+	daidalosengine::CQuaternion quaternion2(vector2, daidalosengine::DegreeToRadian(58));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(quaternion1.x * quaternion2.x + quaternion1.y * quaternion2.y + quaternion1.z * quaternion2.z + quaternion1.w * quaternion2.w, quaternion1.DotProduct(quaternion2), EPSILON);
 }

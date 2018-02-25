@@ -32,22 +32,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/2D/CLabel.hpp>
 #include <Scene/2D/CSprite.hpp>
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Loading view implementation
 	*/
-	class CLoadingView : public DE::IView {
+	class CLoadingView : public daidalosengine::IView {
 	private:
-		DE::CLabel m_textLabel;
-		DE::CSprite m_backgroundSprite;
-		DE::CSprite m_gearSprite;
+		daidalosengine::CLabel m_textLabel;
+		daidalosengine::CSprite m_backgroundSprite;
+		daidalosengine::CSprite m_gearSprite;
 
 	public:
 		/**
 		* Constructor
 		* @param bounds The view bounds
 		*/
-		explicit CLoadingView(const DE::CRectangleI & bounds);
+		explicit CLoadingView(const daidalosengine::CRectangleI & bounds);
 
 		/**
 		* Update the state and the geometry

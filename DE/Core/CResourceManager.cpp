@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Core/CResourceManager.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CResourceManager::CResourceManager() {
 		LOG_TRACE();
 	}

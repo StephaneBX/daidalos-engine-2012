@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_ENUMS_HPP
 #define __GAMEENGINE_ENUMS_HPP
 
-namespace GE {
+namespace daidalosgameengine {
 
 	enum EEntityFlag {
 		ENTITY_FLAG_COLLIDABLE = 1 << 1,

@@ -33,15 +33,15 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Handgun ammo entity
 	*/
-	class CHandgunAmmoEntity : public GE::ITriggerEntity {
+	class CHandgunAmmoEntity : public daidalosgameengine::ITriggerEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::CSound m_sound;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CSound m_sound;
 
 	public:
 		/**
@@ -49,7 +49,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The handgun ammo node
 		*/
-		CHandgunAmmoEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CHandgunAmmoEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

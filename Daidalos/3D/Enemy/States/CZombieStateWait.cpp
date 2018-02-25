@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CZombieStateWait.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -38,7 +38,7 @@ namespace DAIDALOS {
 	* @param waitTime The wait time
 	*/
 	CZombieStateWait::CZombieStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime) : CEnemyStateWait(priority, startAnimation, endAnimation, animationSpeed, waitTime) {
-		this->m_moanSound.LoadFromFile("zombie_moan.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_moanSound.LoadFromFile("zombie_moan.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_moanSound.SetRelativeToListener(false);
 	}
 
@@ -47,12 +47,12 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CZombieStateWait::Update(GE::IEnemyEntity * entity, const float time) {
+	void CZombieStateWait::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
 		// Play the moan sound (33% chance)
-		if(entity->GetMeshNode()->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED && DE::RandomNumber<int>(1, 3) == 1) {
+		if(entity->GetMeshNode()->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED && daidalosengine::RandomNumber<int>(1, 3) == 1) {
 			this->m_moanSound.SetPosition(entity->GetVisiblePosition());
-			this->m_moanSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_moanSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 
 		CEnemyStateWait::Update(entity, time);

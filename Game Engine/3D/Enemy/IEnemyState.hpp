@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Utility/CVector2.hpp>
 #include <Core/Utility/CVector3.hpp>
 
-namespace GE {
+namespace daidalosgameengine {
 	class IEnemyEntity;
 
 	/**
@@ -41,8 +41,8 @@ namespace GE {
 	private:
 		unsigned int m_priority;
 		float m_animationSpeed;
-		DE::CVector2F m_animationFrames;
-		std::vector<DE::CVector3F> m_wayPoints;
+		daidalosengine::CVector2F m_animationFrames;
+		std::vector<daidalosengine::CVector3F> m_wayPoints;
 		std::vector<IEnemyState *> m_listeners;
 
 	public:
@@ -50,7 +50,7 @@ namespace GE {
 		* Constructor
 		* @param priority The priority
 		*/
-		IEnemyState(const unsigned int priority);
+		explicit IEnemyState(const unsigned int priority);
 
 		/**
 		* Set the priority.
@@ -68,13 +68,13 @@ namespace GE {
 		* Set he animation frames.
 		* @param animationFrames The animation frames
 		*/
-		void SetAnimationFrames(const DE::CVector2F & animationFrames);
+		void SetAnimationFrames(const daidalosengine::CVector2F & animationFrames);
 
 		/**
 		* Set the way points.
 		* @param wayPoints The way points
 		*/
-		void SetWayPoints(const std::vector<DE::CVector3F> & wayPoints);
+		void SetWayPoints(const std::vector<daidalosengine::CVector3F> & wayPoints);
 
 		/**
 		* Add a listener
@@ -147,13 +147,13 @@ namespace GE {
 		* Get the animation frames.
 		* @return The animation frames
 		*/
-		const DE::CVector2F & GetAnimationFrames() const;
+		const daidalosengine::CVector2F & GetAnimationFrames() const;
 
 		/**
 		* Get the way points.
 		* @return The way points
 		*/
-		std::vector<DE::CVector3F> & GetWayPoints();
+		std::vector<daidalosengine::CVector3F> & GetWayPoints();
 
 		/**
 		* Get the listeners.
@@ -169,7 +169,7 @@ namespace GE {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time);
+		void PerformEnemyLevelCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time);
 
 		/**
 		* Process the entity collisions (movement + gravity) based on the shape.
@@ -178,7 +178,7 @@ namespace GE {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time);
+		void PerformEnemyEntityCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time);
 	};
 }
 

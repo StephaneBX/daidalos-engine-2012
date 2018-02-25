@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CINSET_HPP
 #define __CINSET_HPP
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Inset template class
 	* Handle an inset

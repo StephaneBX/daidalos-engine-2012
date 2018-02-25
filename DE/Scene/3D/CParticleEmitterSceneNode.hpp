@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/ISceneNode.hpp"
 #include "../../Scene/Particles/CParticleEmitter.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Particle emitter scene node
 	*/

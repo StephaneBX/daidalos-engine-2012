@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IEntity.hpp"
 #include "../Level/ILevel.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* The constructor
 	* @param parent The parent
@@ -67,7 +67,7 @@ namespace GE {
 	* Set the visible position
 	* @param position The visible position
 	*/
-	void IEntity::SetVisiblePosition(const DE::CVector3F & position) {
+	void IEntity::SetVisiblePosition(const daidalosengine::CVector3F & position) {
 		this->m_visiblePosition = position;
 	}
 
@@ -111,7 +111,7 @@ namespace GE {
 	* Generate impact particles from a position
 	* @param position The emitter position
 	*/
-	void IEntity::GenerateImpactParticles(const DE::CVector3F & position) {
+	void IEntity::GenerateImpactParticles(const daidalosengine::CVector3F & position) {
 		// Nothing to do
 	}
 
@@ -167,7 +167,7 @@ namespace GE {
 	* Get the impact particle emitters
 	* @return The impact particle emitters
 	*/
-	std::vector<DE::CParticleEmitter*> & IEntity::GetImpactParticleEmitters() {
+	std::vector<daidalosengine::CParticleEmitter*> & IEntity::GetImpactParticleEmitters() {
 		return this->m_impactParticleEmitters;
 	}
 
@@ -191,7 +191,7 @@ namespace GE {
 	* Get the visible position
 	* @return The visible position
 	*/
-	const DE::CVector3F & IEntity::GetVisiblePosition() const {
+	const daidalosengine::CVector3F & IEntity::GetVisiblePosition() const {
 		return this->m_visiblePosition;
 	}
 
@@ -199,7 +199,7 @@ namespace GE {
 	* Get the entity collision shape
 	* @return The entity collision shape
 	*/
-	DE::IShape3DF * IEntity::GetCollisionShape() {
+	daidalosengine::IShape3DF * IEntity::GetCollisionShape() {
 		return nullptr;
 	}
 }

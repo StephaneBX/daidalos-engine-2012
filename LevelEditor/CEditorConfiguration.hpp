@@ -44,7 +44,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define EDITOR_SOUND_TEXTURE_NAME "sound.png"
 #define EDITOR_SPOTLIGHT_TEXTURE_NAME "spotlight.png"
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	enum EEditorActionConfiguration {
 		EDITOR_ACTION_EXIT = 1 << 1,
@@ -78,7 +78,7 @@ namespace EDITOR {
 	class CEditorConfiguration {
 	private:
 		SiniP m_configuration;
-		DE::CInputDevice * m_inputDevice;
+		daidalosengine::CInputDevice * m_inputDevice;
 
 		std::vector<std::string> m_groundMeshFilename;
 		std::vector<std::string> m_wallMeshFilename;

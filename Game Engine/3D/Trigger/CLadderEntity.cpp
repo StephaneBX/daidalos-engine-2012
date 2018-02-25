@@ -29,22 +29,22 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Level/ILevel.hpp"
 #include "CLadderEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The ladder node
 	*/
-	CLadderEntity::CLadderEntity(ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CLadderEntity::CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_LADDER);
 		this->m_node = meshNode;
-		this->m_node->SetMeshShadingType(DE::MESH_SHADING_SMOOTH);
+		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
 		// Read the attributes
-		DE::CVector3F boundingBoxSize = DE::CVector3F(1, 1, 1);
-		DE::CVector3F boundingBoxPosition = DE::CVector3F(0, 0, 0);
+		daidalosengine::CVector3F boundingBoxSize = daidalosengine::CVector3F(1, 1, 1);
+		daidalosengine::CVector3F boundingBoxPosition = daidalosengine::CVector3F(0, 0, 0);
 		if(meshNode->GetAttribute("boundingBox_size") != "") {
 			boundingBoxSize = boundingBoxSize.GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
 		}

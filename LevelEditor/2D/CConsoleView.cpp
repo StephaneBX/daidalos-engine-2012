@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define CONSOLE_INPUT_LOAD ">LOAD"
 #define CONSOLE_INPUT_SAVE ">SAVE"
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* Constructor
 	* @param texture The view bounds
@@ -43,17 +43,17 @@ namespace EDITOR {
 	CConsoleView::CConsoleView(const int numberOfLines) {
 
 		// Set the bounds
-		SetBounds(DE::CRectangleI(0, 0, 400, (numberOfLines + 1) * LABEL_HEIGHT));
+		SetBounds(daidalosengine::CRectangleI(0, 0, 400, (numberOfLines + 1) * LABEL_HEIGHT));
 
 		// Set background color
-		SetBackgroundColor(DE::CColor(0.2F, 0.2F, 0.2F));
+		SetBackgroundColor(daidalosengine::CColor(0.2F, 0.2F, 0.2F));
 
 		// Create the input label
-		this->m_inputLabel.SetBounds(DE::CRectangleI(MARGIN, this->m_boundingRectangle.GetHeight() - LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
+		this->m_inputLabel.SetBounds(daidalosengine::CRectangleI(MARGIN, this->m_boundingRectangle.GetHeight() - LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 		this->m_inputLabel.SetSize(LABEL_HEIGHT);
-		this->m_inputLabel.SetColor(DE::CColor(255, 255, 255, 255));
-		this->m_inputLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_inputLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_inputLabel.SetColor(daidalosengine::CColor(255, 255, 255, 255));
+		this->m_inputLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_inputLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_inputLabel.SetText(CONSOLE_INPUT_TEXT);
 		AddSubview(&this->m_inputLabel);
 
@@ -61,11 +61,11 @@ namespace EDITOR {
 		this->m_historyLabel.resize(numberOfLines);
 		int i = 0;
 		for(auto it = this->m_historyLabel.begin(); it != this->m_historyLabel.end(); it++) {
-			(*it).SetBounds(DE::CRectangleI(MARGIN, i * LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
+			(*it).SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 			(*it).SetSize(LABEL_HEIGHT);
-			(*it).SetColor(DE::CColor(255, 255, 255, 255));
-			(*it).SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-			(*it).SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+			(*it).SetColor(daidalosengine::CColor(255, 255, 255, 255));
+			(*it).SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+			(*it).SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 			(*it).SetText("");
 			AddSubview(&(*it));
 			i++;
@@ -82,9 +82,9 @@ namespace EDITOR {
 		IView::SetVisible(visible);
 
 		if(visible) {
-			DE::CInputDevice::GetInstance()->AddKeyboardListener(this);
+			daidalosengine::CInputDevice::GetInstance()->AddKeyboardListener(this);
 		} else {
-			DE::CInputDevice::GetInstance()->RemoveKeyboardListener(this);
+			daidalosengine::CInputDevice::GetInstance()->RemoveKeyboardListener(this);
 
 			// Clean the console
 			this->m_inputLabel.SetText(CONSOLE_INPUT_TEXT);
@@ -159,12 +159,12 @@ namespace EDITOR {
 	* Check the input label for a valid command
 	*/
 	void CConsoleView::ValidInputLabel() {
-		DE::CTokenizer tokenizer;
+		daidalosengine::CTokenizer tokenizer;
 
 		tokenizer.AddLine(this->m_inputLabel.GetText());
 		tokenizer.Tokenize(" ");
 
-		const DE::TToken tokens = tokenizer.GetTokens();
+		const daidalosengine::TToken tokens = tokenizer.GetTokens();
 		if(tokens.size() == 2) {
 			// Check for known commands
 			if(std::string(CONSOLE_INPUT_LOAD).compare(tokens[0]) == 0) {

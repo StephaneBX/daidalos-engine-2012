@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Loaders/CStreamSoundLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CStreamSoundLoader::CStreamSoundLoader() {
 		LOG_TRACE();
 	}

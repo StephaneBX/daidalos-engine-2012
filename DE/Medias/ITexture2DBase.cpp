@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/ITexture2DBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	ITexture2DBase::~ITexture2DBase() {
 		LOG_TRACE();
 	}

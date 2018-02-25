@@ -4,7 +4,7 @@
 #pragma comment(lib, "GameEngine.lib")
 
 void mainTest(HINSTANCE hInstance, int nCmdShow) {
-	EDITOR::CLevelEditorApplication app(hInstance, nCmdShow);
+	daidaloseditor::CLevelEditorApplication app(hInstance, nCmdShow);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {

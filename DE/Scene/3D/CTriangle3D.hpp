@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CPlane3D.hpp"
 #include "../../Scene/3D/CSphere.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle a 3d triangle
 	*/

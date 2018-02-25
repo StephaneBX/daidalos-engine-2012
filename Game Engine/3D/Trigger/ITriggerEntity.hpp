@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <set>
 #include "../IEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Abstract entity with tigger targets and action properties

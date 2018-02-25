@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define DEFAULT_COLLISION_UPDATE_FREQUENCY 16
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
@@ -44,7 +44,7 @@ namespace GE {
 		this->m_collisionState = true;
 		this->m_collisionUpdateFrequency = DEFAULT_COLLISION_UPDATE_FREQUENCY;
 		this->m_lastCollisionUpdateTimer = 0;
-		this->m_gravity = DE::CVector3F();
+		this->m_gravity = daidalosengine::CVector3F();
 	}
 
 	/**
@@ -75,7 +75,7 @@ namespace GE {
 	* Set the gravity.
 	* @param gravity The gravity
 	*/
-	void ICollidableEntity::SetGravity(const DE::CVector3F & gravity) {
+	void ICollidableEntity::SetGravity(const daidalosengine::CVector3F & gravity) {
 		this->m_gravity = gravity;
 	}
 
@@ -83,8 +83,8 @@ namespace GE {
 	* Set the collision shape.
 	* @param shame The collision shape
 	*/
-	void ICollidableEntity::SetCollisionShape(DE::IShape3DF * shape) {
-		this->m_collisionShape = std::unique_ptr<DE::IShape3DF>(shape);
+	void ICollidableEntity::SetCollisionShape(daidalosengine::IShape3DF * shape) {
+		this->m_collisionShape = std::unique_ptr<daidalosengine::IShape3DF>(shape);
 	}
 
 	/**
@@ -115,7 +115,7 @@ namespace GE {
 	* Get the gravity
 	* @return The gravity
 	*/
-	const DE::CVector3F & ICollidableEntity::GetGravity() const {
+	const daidalosengine::CVector3F & ICollidableEntity::GetGravity() const {
 		return this->m_gravity;
 	}
 
@@ -123,7 +123,7 @@ namespace GE {
 	* Get the entity collision shape
 	* @return The entity collision shape
 	*/
-	DE::IShape3DF * ICollidableEntity::GetCollisionShape() {
+	daidalosengine::IShape3DF * ICollidableEntity::GetCollisionShape() {
 		return this->m_collisionShape.get();
 	}
 
@@ -133,7 +133,7 @@ namespace GE {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformLevelCollisions(DE::CVector3F movement, const float time) {
+	void ICollidableEntity::PerformLevelCollisions(daidalosengine::CVector3F movement, const float time) {
 
 		const float timeSecond = time / 1000.0F;
 		SetVisiblePosition(GetVisiblePosition() + movement * timeSecond);
@@ -142,12 +142,12 @@ namespace GE {
 		this->m_lastCollisionUpdateTimer += time;
 		if(this->m_lastCollisionUpdateTimer >= this->m_collisionUpdateFrequency) {
 			// Collision test with only the movement
-			DE::CVector3F finalMovement = GetVisiblePosition() - this->m_collisionShape->GetPosition();
+			daidalosengine::CVector3F finalMovement = GetVisiblePosition() - this->m_collisionShape->GetPosition();
 			GetParent()->GetScene()->Slide(*this->m_collisionShape.get(), finalMovement);
 
 			// Collision test of the gravity
 			finalMovement = this->m_gravity * timeSecond;
-			DE::CVector3F finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
+			daidalosengine::CVector3F finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
 			GetParent()->GetScene()->Slide(*this->m_collisionShape, finalMovement);
 
 			// Reset gravity and state if the entity has touched the ground
@@ -182,7 +182,7 @@ namespace GE {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformEntityCollisions(DE::CVector3F movement, const float time) {
+	void ICollidableEntity::PerformEntityCollisions(daidalosengine::CVector3F movement, const float time) {
 		// Nothing to do
 	}
 }

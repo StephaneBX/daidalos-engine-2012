@@ -57,8 +57,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Weapons/CHandgun.hpp"
 #include "Weapons/CShotgun.hpp"
 
-namespace DAIDALOS {
-	CFPSCamera::CFPSCamera(GE::ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode) : IPlayer(parent) {
+namespace daidalos {
+	CFPSCamera::CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode) : IPlayer(parent) {
 		this->m_hasMoved = false;
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
@@ -71,11 +71,11 @@ namespace DAIDALOS {
 		this->m_jumpTimer = 0;
 		this->m_currentWeapon = nullptr;
 
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
-		this->m_soundContext = DE::CSoundContextManager::GetInstance();
-		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
+		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
+		this->m_options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
-		DE::SInputActionDeclaration decl[] =
+		daidalosengine::SInputActionDeclaration decl[] =
 		{
 			{ FPS_CAMERA_EXIT, -1 },
 			{ FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT },
@@ -99,77 +99,77 @@ namespace DAIDALOS {
 		this->m_inputDevice->AddActions(decl);
 
 		// Keyboard mapping
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_EXIT, DE::INPUT_KEY_KEYBOARD_ESCAPE);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFELEFT, DE::INPUT_KEY_KEYBOARD_Q);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFERIGHT, DE::INPUT_KEY_KEYBOARD_D);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_FORWARD, DE::INPUT_KEY_KEYBOARD_Z);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_BACKWARD, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_JUMP, DE::INPUT_KEY_KEYBOARD_SPACE);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKUP, DE::INPUT_KEY_KEYBOARD_UP);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, DE::INPUT_KEY_KEYBOARD_DOWN);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, DE::INPUT_KEY_KEYBOARD_LSHIFT);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, DE::INPUT_KEY_KEYBOARD_E);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, DE::INPUT_KEY_KEYBOARD_R);	
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_CROUCH, DE::INPUT_KEY_KEYBOARD_C);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_EXIT, daidalosengine::INPUT_KEY_KEYBOARD_ESCAPE);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFELEFT, daidalosengine::INPUT_KEY_KEYBOARD_Q);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFERIGHT, daidalosengine::INPUT_KEY_KEYBOARD_D);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_FORWARD, daidalosengine::INPUT_KEY_KEYBOARD_Z);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_BACKWARD, daidalosengine::INPUT_KEY_KEYBOARD_S);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_JUMP, daidalosengine::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKUP, daidalosengine::INPUT_KEY_KEYBOARD_UP);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, daidalosengine::INPUT_KEY_KEYBOARD_DOWN);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, daidalosengine::INPUT_KEY_KEYBOARD_LEFT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, daidalosengine::INPUT_KEY_KEYBOARD_RIGHT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_RUN, daidalosengine::INPUT_KEY_KEYBOARD_LSHIFT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_INTERACT, daidalosengine::INPUT_KEY_KEYBOARD_E);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_RELOAD, daidalosengine::INPUT_KEY_KEYBOARD_R);	
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_CROUCH, daidalosengine::INPUT_KEY_KEYBOARD_C);
 
 		// Mouse mapping
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_FIRE, DE::INPUT_KEY_MOUSE_BUTTON0);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_NEXT_WEAPON, DE::INPUT_KEY_MOUSE_WHEELUP);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_PREVIOUS_WEAPON, DE::INPUT_KEY_MOUSE_WHEELDOWN);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_FIRE, daidalosengine::INPUT_KEY_MOUSE_BUTTON0);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_NEXT_WEAPON, daidalosengine::INPUT_KEY_MOUSE_WHEELUP);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_PREVIOUS_WEAPON, daidalosengine::INPUT_KEY_MOUSE_WHEELDOWN);
 
 		// Gamepad mapping
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON6);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FORWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_BACKWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFELEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LXN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFERIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LXP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKUP, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKDOWN, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, DE::INPUT_KEY_GAMEPAD_BUTTON0);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RUN, 0, DE::INPUT_KEY_GAMEPAD_BUTTON4);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_INTERACT, 0, DE::INPUT_KEY_GAMEPAD_BUTTON2);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RELOAD, 0, DE::INPUT_KEY_GAMEPAD_BUTTON3);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FIRE, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LZN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_NEXT_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_RIGHT);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, DE::INPUT_KEY_GAMEPAD_POV_LEFT);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_CROUCH, 0, DE::INPUT_KEY_GAMEPAD_BUTTON1);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_EXIT, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON6);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FORWARD, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LYN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_BACKWARD, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LYP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFELEFT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LXN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFERIGHT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LXP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKUP, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RYN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKDOWN, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RYP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RXN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RXP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_JUMP, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON0);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RUN, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON4);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_INTERACT, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON2);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_RELOAD, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON3);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FIRE, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LZN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_NEXT_WEAPON, 0, daidalosengine::INPUT_KEY_GAMEPAD_POV_RIGHT);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_PREVIOUS_WEAPON, 0, daidalosengine::INPUT_KEY_GAMEPAD_POV_LEFT);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_CROUCH, 0, daidalosengine::INPUT_KEY_GAMEPAD_BUTTON1);
 
-		this->SetCollisionShape(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
+		this->SetCollisionShape(new daidalosengine::CEllipseF(this->m_node->GetPosition() - daidalosengine::CVector3F(0, 1, 0), daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND)));
 		this->m_rotation = this->m_node->GetRotation();
 		SetVisiblePosition(this->m_node->GetPosition());
 
-		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_weaponChangeSound.LoadFromFile("change_weapon.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_weaponChangeSound.SetRelativeToListener(true);
 
 		// Initialize the step sounds
 		for(int i = 1; i <= 4; ++i) {
-			this->m_stepSounds.push_back(std::unique_ptr<DE::CSound>(new DE::CSound()));
-			this->m_stepSounds[i - 1]->LoadFromFile("footstep" + std::to_string(i) + ".wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+			this->m_stepSounds.push_back(std::unique_ptr<daidalosengine::CSound>(new daidalosengine::CSound()));
+			this->m_stepSounds[i - 1]->LoadFromFile("footstep" + std::to_string(i) + ".wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 			this->m_stepSounds[i - 1]->SetRelativeToListener(true);
 		}
 
 		// Initialize the fall sound
-		this->m_stepFallSound.LoadFromFile("footstep_fall.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_stepFallSound.LoadFromFile("footstep_fall.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_stepFallSound.SetRelativeToListener(true);
 
 		// Initialize the ladder
-		this->m_ladderSound.LoadFromFile("ladder.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_ladderSound.LoadFromFile("ladder.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_ladderSound.SetRelativeToListener(true);
 
 		// Initialize the jump sound
-		this->m_jumpSound.LoadFromFile("jump.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_jumpSound.LoadFromFile("jump.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_jumpSound.SetRelativeToListener(true);
 
 		// Initialize the hurt sound
-		this->m_hurtSound.LoadFromFile("hurt.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_hurtSound.LoadFromFile("hurt.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_hurtSound.SetRelativeToListener(true);
 
 		// Initialize the die sound
-		this->m_dieSound.LoadFromFile("die.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_dieSound.LoadFromFile("die.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
@@ -187,12 +187,12 @@ namespace DAIDALOS {
 		IPlayer::TakeDamage(damage);
 
 		if(GetHealth() > 0) {
-			this->m_hurtSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_hurtSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		} else {
-			DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->GetCollisionShape());
-			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
+			daidalosengine::CEllipseF * collisionShapeEllipse = static_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
+			collisionShapeEllipse->SetRadius(daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
 
-			this->m_dieSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_dieSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 			this->m_node->SetEnabled(false);
 		}
 	}
@@ -246,7 +246,7 @@ namespace DAIDALOS {
 	* Set the player position
 	* @param position The position
 	*/
-	void CFPSCamera::SetPosition(const DE::CVector3F position) {
+	void CFPSCamera::SetPosition(const daidalosengine::CVector3F position) {
 		SetVisiblePosition(position);
 	}
 
@@ -266,7 +266,7 @@ namespace DAIDALOS {
 		UpdateMovement(timeSecond, time);
 		
 		// Update the node
-		this->m_node->SetPosition(GetVisiblePosition() + DE::CVector3F(0, 1, 0));
+		this->m_node->SetPosition(GetVisiblePosition() + daidalosengine::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
@@ -285,7 +285,7 @@ namespace DAIDALOS {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CFPSCamera::IsShapeVisible(DE::IShape3DF * shape) {
+	const bool CFPSCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -366,7 +366,7 @@ namespace DAIDALOS {
 	* Get the camera node
 	* @return The camera node
 	*/
-	DE::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
+	daidalosengine::ICameraSceneNode * CFPSCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
@@ -374,7 +374,7 @@ namespace DAIDALOS {
 	* Callback used to handle event when the entity fall and touch the ground
 	* @param gravity The gravity value before touching the ground
 	*/
-	void CFPSCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+	void CFPSCamera::OnEntityTouchedGround(const daidalosengine::CVector3F gravity) {
 
 		// Add a delay after a jump
 		if((this->m_actionState & FPS_CAMERA_JUMP) != 0) {
@@ -384,7 +384,7 @@ namespace DAIDALOS {
 
 		// Fall sound at a minimal hight
 		if(gravity.y <= FPS_CAMERA_FALL_STEP_MIN_GRAVITY) {
-			this->m_stepFallSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_stepFallSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 	}
 
@@ -427,10 +427,10 @@ namespace DAIDALOS {
 
 		if(this->m_jumpTimer <= 0 && this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_JUMP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_JUMP)) && !(this->m_actionState & FPS_CAMERA_JUMP)) {
 			this->m_actionState |= FPS_CAMERA_JUMP;
-			this->SetGravity(DE::CVector3F(this->GetGravity().x, FPS_CAMERA_JUMP_IMPULSION, this->GetGravity().z));
+			this->SetGravity(daidalosengine::CVector3F(this->GetGravity().x, FPS_CAMERA_JUMP_IMPULSION, this->GetGravity().z));
 			this->m_inputDevice->FreezeAction(FPS_CAMERA_JUMP);
 			this->m_inputDevice->FreezeGamepadAction(0, FPS_CAMERA_JUMP);
-			this->m_jumpSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_jumpSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 
 		if(this->GetGravityState() && (this->m_state == FPS_CAMERA_STATE_STAND || this->m_state == FPS_CAMERA_STATE_RUN) && (this->m_inputDevice->IsActionActive(FPS_CAMERA_RUN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_RUN))) {
@@ -474,8 +474,8 @@ namespace DAIDALOS {
 	* @param timeSecond Elapsed time
 	*/
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
-		DE::CVector3F movement;
-		DE::CEllipseF * collisionShapeEllipse = static_cast<DE::CEllipseF *>(this->GetCollisionShape());
+		daidalosengine::CVector3F movement;
+		daidalosengine::CEllipseF * collisionShapeEllipse = static_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
 
 		this->m_jumpTimer -= time;
 		if(this->m_jumpTimer < 0) {
@@ -484,18 +484,18 @@ namespace DAIDALOS {
 
 		if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_STAND && this->GetGravity().y == 0) {
 			this->m_state = FPS_CAMERA_STATE_CROUCH;
-			collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
+			collisionShapeEllipse->SetRadius(daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH));
 
 		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->GetGravity().y == 0) {
 
 			// Check if the player can stand up
-			DE::CVector3F movementUp = DE::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
-			DE::CVector3F collisionPoint;
+			daidalosengine::CVector3F movementUp = daidalosengine::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
+			daidalosengine::CVector3F collisionPoint;
 
 			// If no up collision detected at the standing position
 			if(!GetParent()->GetScene()->GetCollisionPoint(*collisionShapeEllipse, movementUp, collisionPoint)) {
 				this->m_state = FPS_CAMERA_STATE_STAND;
-				collisionShapeEllipse->SetRadius(DE::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
+				collisionShapeEllipse->SetRadius(daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND));
 				collisionShapeEllipse->SetPosition(collisionShapeEllipse->GetPosition() + movementUp);
 			}
 
@@ -537,7 +537,7 @@ namespace DAIDALOS {
 
 				// If no gravity, add the vertical part
 				if(!this->GetGravityState()) {
-					this->SetGravity(DE::CVector3F(this->GetGravity().x, -sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
+					this->SetGravity(daidalosengine::CVector3F(this->GetGravity().x, -sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
 				}
 			}
 
@@ -554,15 +554,15 @@ namespace DAIDALOS {
 
 				// If no gravity, add the vertical part
 				if(!this->GetGravityState()) {
-					this->SetGravity(DE::CVector3F(this->GetGravity().x, sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
+					this->SetGravity(daidalosengine::CVector3F(this->GetGravity().x, sin(this->m_rotation.x * PI_OVER_180) * factor, this->GetGravity().z));
 				}
 			}
 		}
 
 		if(this->GetGravityState()) {
-			this->SetGravity(DE::CVector3F(this->GetGravity().x, this->GetGravity().y + FPS_CAMERA_GRAVITY * timeSecond, this->GetGravity().z));
+			this->SetGravity(daidalosengine::CVector3F(this->GetGravity().x, this->GetGravity().y + FPS_CAMERA_GRAVITY * timeSecond, this->GetGravity().z));
 		} else {
-			this->SetGravity(DE::CVector3F(this->GetGravity().x, this->GetGravity().y * FPS_CAMERA_MOVEMENT_SPEED, this->GetGravity().z));
+			this->SetGravity(daidalosengine::CVector3F(this->GetGravity().x, this->GetGravity().y * FPS_CAMERA_MOVEMENT_SPEED, this->GetGravity().z));
 		}
 		
 		// Visibility position update based on the state
@@ -582,7 +582,7 @@ namespace DAIDALOS {
 		}
 
 		// Collision test
-		DE::CVector3F previousVisiblePosition = GetVisiblePosition();
+		daidalosengine::CVector3F previousVisiblePosition = GetVisiblePosition();
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 
 		// Step sounds
@@ -591,7 +591,7 @@ namespace DAIDALOS {
 				this->m_stepDistance += (GetVisiblePosition() - previousVisiblePosition).Length();
 				if(this->m_stepDistance >= FPS_CAMERA_STEP_DISTANCE) {
 					// Play a random step sound
-					this->m_stepSounds[DE::RandomNumber<int>(0, this->m_stepSounds.size() - 1)]->SetStatus(DE::SOUND_STATUS_PLAY);
+					this->m_stepSounds[daidalosengine::RandomNumber<int>(0, this->m_stepSounds.size() - 1)]->SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 					this->m_stepDistance = 0;
 				}
 			} else {
@@ -603,7 +603,7 @@ namespace DAIDALOS {
 			this->m_ladderDistance += fabsf(GetVisiblePosition().y - previousVisiblePosition.y);
 			if(this->m_ladderDistance >= FPS_CAMERA_LADDER_DISTANCE) {
 				// Play the ladder sound
-				this->m_ladderSound.SetStatus(DE::SOUND_STATUS_PLAY);
+				this->m_ladderSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 				this->m_ladderDistance = 0;
 			}
 		}
@@ -727,13 +727,13 @@ namespace DAIDALOS {
 		if((this->m_actionState & FPS_CAMERA_NEXT_WEAPON) != 0 && this->m_weaponsOrder.size() > 1) {
 			this->m_currentWeaponIndex = this->m_weaponsOrder[(this->m_currentWeaponIndex + 1) % this->m_weaponsOrder.size()];
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
-			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_weaponChangeSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 
 		if((this->m_actionState & FPS_CAMERA_PREVIOUS_WEAPON) != 0 && this->m_weaponsOrder.size() > 1) {
 			this->m_currentWeaponIndex = this->m_weaponsOrder[(this->m_currentWeaponIndex - 1) % this->m_weaponsOrder.size()];
 			this->m_currentWeapon = this->m_weapons[this->m_currentWeaponIndex].get();
-			this->m_weaponChangeSound.SetStatus(DE::SOUND_STATUS_PLAY);
+			this->m_weaponChangeSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		}
 	}
 }

@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CInset.hpp"
 #include "../../Medias/CTexture2D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class for buttons
 	*/

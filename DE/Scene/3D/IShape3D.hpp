@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Scene/3D/CPlane3D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	enum EShapeType {
 		SHAPE_SPHERE,
 		SHAPE_ELLIPSE,

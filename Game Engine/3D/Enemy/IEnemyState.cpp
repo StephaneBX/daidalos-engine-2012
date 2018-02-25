@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IEnemyEntity.hpp"
 #include "IEnemyState.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -57,7 +57,7 @@ namespace GE {
 	* Set he animation frames.
 	* @param animationFrames The animation frames
 	*/
-	void IEnemyState::SetAnimationFrames(const DE::CVector2F & animationFrames) {
+	void IEnemyState::SetAnimationFrames(const daidalosengine::CVector2F & animationFrames) {
 		this->m_animationFrames = animationFrames;
 	}
 
@@ -65,7 +65,7 @@ namespace GE {
 	* Set the way points.
 	* @param wayPoints The way points
 	*/
-	void IEnemyState::SetWayPoints(const std::vector<DE::CVector3F> & wayPoints) {
+	void IEnemyState::SetWayPoints(const std::vector<daidalosengine::CVector3F> & wayPoints) {
 		this->m_wayPoints = wayPoints;
 	}
 
@@ -147,7 +147,7 @@ namespace GE {
 	* Get the animation frames.
 	* @return The animation frames
 	*/
-	const DE::CVector2F & IEnemyState::GetAnimationFrames() const {
+	const daidalosengine::CVector2F & IEnemyState::GetAnimationFrames() const {
 		return this->m_animationFrames;
 	}
 
@@ -155,7 +155,7 @@ namespace GE {
 	* Get the way points.
 	* @return The way points
 	*/
-	std::vector<DE::CVector3F> & IEnemyState::GetWayPoints() {
+	std::vector<daidalosengine::CVector3F> & IEnemyState::GetWayPoints() {
 		return this->m_wayPoints;
 	}
 
@@ -174,7 +174,7 @@ namespace GE {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time) {
+	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time) {
 		entity->PerformLevelCollisions(movement, time);
 	}
 
@@ -185,7 +185,7 @@ namespace GE {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, DE::CVector3F movement, const float time) {
+	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time) {
 		entity->PerformEntityCollisions(movement, time);
 	}
 }

@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define PLAYER_NODE_NAME "player"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Load the level. Should be called from a specific thread.
 	* @param filename The filename
@@ -38,13 +38,13 @@ namespace GE {
 	void ILevel::LoadLevel(const std::string & filename) {
 
 		this->m_brightness = 0.0F;
-		this->m_view = std::unique_ptr<DE::C2DScene>(new DE::C2DScene());
+		this->m_view = std::unique_ptr<daidalosengine::C2DScene>(new daidalosengine::C2DScene());
 
-		this->m_scene = std::unique_ptr<DE::C3DScene>(new DE::C3DScene());
+		this->m_scene = std::unique_ptr<daidalosengine::C3DScene>(new daidalosengine::C3DScene());
 		this->m_scene->LoadScene(filename);
-		this->m_activeCamera = (DE::ICameraSceneNode*)this->m_scene->GetNode(PLAYER_NODE_NAME);
+		this->m_activeCamera = (daidalosengine::ICameraSceneNode*)this->m_scene->GetNode(PLAYER_NODE_NAME);
 
-		this->m_scene->GetRootNode()->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+		this->m_scene->GetRootNode()->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
 		this->m_scene->UpdateAll(0);
 
@@ -73,7 +73,7 @@ namespace GE {
 	* Set the active camera
 	* @param activeCamera The active camera
 	*/
-	void ILevel::SetActiveCamera(DE::ICameraSceneNode * activeCamera) {
+	void ILevel::SetActiveCamera(daidalosengine::ICameraSceneNode * activeCamera) {
 		this->m_activeCamera = activeCamera;
 	}
 
@@ -112,7 +112,7 @@ namespace GE {
 	* Get the scene graph
 	* @return The scene graph
 	*/
-	DE::C3DScene * ILevel::GetScene() {
+	daidalosengine::C3DScene * ILevel::GetScene() {
 		return this->m_scene.get();
 	}
 
@@ -120,7 +120,7 @@ namespace GE {
 	* Get the 2d view
 	* @return The 2d view
 	*/
-	DE::C2DScene * ILevel::GetView() {
+	daidalosengine::C2DScene * ILevel::GetView() {
 		return this->m_view.get();
 	}
 
@@ -128,7 +128,7 @@ namespace GE {
 	* Get the active camera
 	* @return The active camera
 	*/
-	DE::ICameraSceneNode * ILevel::GetActiveCamera() {
+	daidalosengine::ICameraSceneNode * ILevel::GetActiveCamera() {
 		return this->m_activeCamera;
 	}
 

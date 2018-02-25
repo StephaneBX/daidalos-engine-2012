@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <map>
 #include "../../Medias/IFrameBufferBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* DX9 class used for frame buffers
 	*/

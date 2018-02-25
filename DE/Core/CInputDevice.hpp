@@ -41,7 +41,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define MAX_GAMEPADS 4
 #define GAMEPAD_AXIS_THRESHOLD 0.25f
 
-namespace DE {
+namespace daidalosengine {
 	enum EInputKey {
 		INPUT_KEY_UNDEFINED,
 		INPUT_KEY_KEYBOARD_BEGINNING,

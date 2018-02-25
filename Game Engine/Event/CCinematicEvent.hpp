@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ICinematicEvent.hpp"
 #include "ICinematicEventListener.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Cinematic event
@@ -97,7 +97,7 @@ namespace GE {
 		* Get the camera node
 		* @return The camera node
 		*/
-		DE::ICameraSceneNode * GetCameraNode();
+		daidalosengine::ICameraSceneNode * GetCameraNode();
 	};
 }
 

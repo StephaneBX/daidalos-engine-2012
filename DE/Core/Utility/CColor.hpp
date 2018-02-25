@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector4.hpp"
 #include <iostream>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CColor class
 	* Handle colors

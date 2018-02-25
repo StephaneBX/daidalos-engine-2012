@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CInputDevice.hpp>
 #include "CEditorConfiguration.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* Constructor
 	*/
@@ -42,10 +42,10 @@ namespace EDITOR {
 	* Load the configuration
 	*/
 	void CEditorConfiguration::LoadConfiguration() {
-		this->m_configuration = DE::CConfigurationManager::GetInstance()->GetConfiguration("Resources/Engine/editor.ini");
+		this->m_configuration = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration("Resources/Engine/editor.ini");
 
 		// Read the configuration
-		DE::CTokenizer tokenizer;
+		daidalosengine::CTokenizer tokenizer;
 
 		// Read the mesh
 		tokenizer.AddLine(this->m_configuration.GetValueString("mesh", "ground", ""));
@@ -95,9 +95,9 @@ namespace EDITOR {
 		this->m_ceilingTextureNormalFilename.insert(this->m_ceilingTextureNormalFilename.end(), tokenizer.GetTokens().begin(), tokenizer.GetTokens().end());
 
 
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
+		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
 
-		DE::SInputActionDeclaration decl[] = {
+		daidalosengine::SInputActionDeclaration decl[] = {
 			{ EDITOR_ACTION_EXIT, -1 },
 			{ EDITOR_ACTION_CAMERA_UP, EDITOR_ACTION_CAMERA_DOWN },
 			{ EDITOR_ACTION_CAMERA_DOWN, EDITOR_ACTION_CAMERA_UP },
@@ -124,29 +124,29 @@ namespace EDITOR {
 		};
 
 		this->m_inputDevice->AddActions(decl);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_EXIT, DE::INPUT_KEY_KEYBOARD_ESCAPE);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_UP, DE::INPUT_KEY_KEYBOARD_Z);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_DOWN, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LEFT, DE::INPUT_KEY_KEYBOARD_Q);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_RIGHT, DE::INPUT_KEY_KEYBOARD_D);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_IN, DE::INPUT_KEY_KEYBOARD_KP_PLUS);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_OUT, DE::INPUT_KEY_KEYBOARD_KP_MINUS);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CHANGE_MODE, DE::INPUT_KEY_KEYBOARD_TAB);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_LIGHTS, DE::INPUT_KEY_KEYBOARD_KP0);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CULLING, DE::INPUT_KEY_KEYBOARD_KP1);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_REFRESH, DE::INPUT_KEY_KEYBOARD_F5);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_ROTATE, DE::INPUT_KEY_KEYBOARD_R);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_NEXT, DE::INPUT_KEY_KEYBOARD_E);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_TEXTURE_NEXT, DE::INPUT_KEY_KEYBOARD_T);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_GROUND, DE::INPUT_KEY_KEYBOARD_1);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_WALL, DE::INPUT_KEY_KEYBOARD_2);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_CEILING, DE::INPUT_KEY_KEYBOARD_3);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_PUT_MESH, DE::INPUT_KEY_KEYBOARD_SPACE);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_DELETE_MESH, DE::INPUT_KEY_KEYBOARD_DELETE);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LAYER_UP, DE::INPUT_KEY_KEYBOARD_PAGEUP);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LAYER_DOWN, DE::INPUT_KEY_KEYBOARD_PAGEDOWN);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CONSOLE, DE::INPUT_KEY_KEYBOARD_KP_MULTIPLY);
-		this->m_inputDevice->SetActionKey(EDITOR_ACTION_BOUNDINGBOX, DE::INPUT_KEY_KEYBOARD_KP2);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_EXIT, daidalosengine::INPUT_KEY_KEYBOARD_ESCAPE);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_UP, daidalosengine::INPUT_KEY_KEYBOARD_Z);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_DOWN, daidalosengine::INPUT_KEY_KEYBOARD_S);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LEFT, daidalosengine::INPUT_KEY_KEYBOARD_Q);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_RIGHT, daidalosengine::INPUT_KEY_KEYBOARD_D);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_IN, daidalosengine::INPUT_KEY_KEYBOARD_KP_PLUS);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_ZOOM_OUT, daidalosengine::INPUT_KEY_KEYBOARD_KP_MINUS);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CHANGE_MODE, daidalosengine::INPUT_KEY_KEYBOARD_TAB);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_LIGHTS, daidalosengine::INPUT_KEY_KEYBOARD_KP0);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CULLING, daidalosengine::INPUT_KEY_KEYBOARD_KP1);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_REFRESH, daidalosengine::INPUT_KEY_KEYBOARD_F5);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_ROTATE, daidalosengine::INPUT_KEY_KEYBOARD_R);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_MESH_NEXT, daidalosengine::INPUT_KEY_KEYBOARD_E);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_TEXTURE_NEXT, daidalosengine::INPUT_KEY_KEYBOARD_T);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_GROUND, daidalosengine::INPUT_KEY_KEYBOARD_1);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_WALL, daidalosengine::INPUT_KEY_KEYBOARD_2);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_SELECT_CEILING, daidalosengine::INPUT_KEY_KEYBOARD_3);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_PUT_MESH, daidalosengine::INPUT_KEY_KEYBOARD_SPACE);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_DELETE_MESH, daidalosengine::INPUT_KEY_KEYBOARD_DELETE);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LAYER_UP, daidalosengine::INPUT_KEY_KEYBOARD_PAGEUP);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CAMERA_LAYER_DOWN, daidalosengine::INPUT_KEY_KEYBOARD_PAGEDOWN);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_CONSOLE, daidalosengine::INPUT_KEY_KEYBOARD_KP_MULTIPLY);
+		this->m_inputDevice->SetActionKey(EDITOR_ACTION_BOUNDINGBOX, daidalosengine::INPUT_KEY_KEYBOARD_KP2);
 	}
 
 	/**

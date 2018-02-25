@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include "CEnemyStateFollow.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Follow zombie state
 	*/
@@ -39,7 +39,7 @@ namespace DAIDALOS {
 	private:
 		float m_soundTimer;
 		float m_soundDelay;
-		std::vector<std::unique_ptr<DE::CSound>> m_sounds;
+		std::vector<std::unique_ptr<daidalosengine::CSound>> m_sounds;
 
 	public:
 		/**
@@ -54,14 +54,14 @@ namespace DAIDALOS {
 		* @param stopDistance the stop distance
 		* @param searchTime Time the entity search if the target is lost
 		*/
-		CZombieStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
+		CZombieStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 	};
 }
 

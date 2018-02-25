@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	enum EFanState {
 		FAN_STATE_STOPPED,
@@ -45,9 +45,9 @@ namespace DAIDALOS {
 	/**
 	* Door entity
 	*/
-	class CFanEntity : public GE::ITriggerEntity {
+	class CFanEntity : public daidalosgameengine::ITriggerEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
 
 		EFanState m_state;
 		float m_speed;
@@ -58,7 +58,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The fan node
 		*/
-		CFanEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CFanEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

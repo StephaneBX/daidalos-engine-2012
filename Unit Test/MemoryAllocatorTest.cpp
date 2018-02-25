@@ -4,14 +4,14 @@
 CPPUNIT_TEST_SUITE_REGISTRATION(MemoryAllocatorTest);
 
 void MemoryAllocatorTest::TestConstructors() {
-	DE::CMemoryAllocator<bool> allocator;
+	daidalosengine::CMemoryAllocator<bool> allocator;
 
 	CPPUNIT_ASSERT_EQUAL(0, allocator.GetSize());
 	CPPUNIT_ASSERT_EQUAL(0, allocator.GetCount());
 }
 
 void MemoryAllocatorTest::TestAllocate() {
-	DE::CMemoryAllocator<bool> allocator;
+	daidalosengine::CMemoryAllocator<bool> allocator;
 	allocator.Allocate(10);
 
 	CPPUNIT_ASSERT_EQUAL(10, allocator.GetSize());
@@ -19,7 +19,7 @@ void MemoryAllocatorTest::TestAllocate() {
 }
 
 void MemoryAllocatorTest::TestNewDelete() {
-	DE::CMemoryAllocator<bool> allocator;
+	daidalosengine::CMemoryAllocator<bool> allocator;
 	allocator.Allocate(10);
 
 	int index = allocator.New();

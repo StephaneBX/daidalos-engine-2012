@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CResourceManager.hpp"
 #include "../Medias/CFont.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CFont::CFont() {
 		LOG_TRACE();
 

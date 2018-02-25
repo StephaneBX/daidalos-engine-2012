@@ -37,19 +37,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/IEntity.hpp"
 #include "../3D/Trigger/ITriggerEntity.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* The level abstract class
 	*/
 	class ILevel : public ICinematicEventListener {
 	protected:
 		float m_brightness;
-		std::unique_ptr<DE::C3DScene> m_scene;
-		std::unique_ptr<DE::C2DScene> m_view;
+		std::unique_ptr<daidalosengine::C3DScene> m_scene;
+		std::unique_ptr<daidalosengine::C2DScene> m_view;
 		std::vector<std::unique_ptr<IEntity> > m_entities;
 		std::vector<ILevelListener *> m_listeners;
 		std::unique_ptr<IPlayer> m_player;
-		DE::ICameraSceneNode * m_activeCamera;
+		daidalosengine::ICameraSceneNode * m_activeCamera;
 
 	public:
 		/**
@@ -74,7 +74,7 @@ namespace GE {
 		* Set the active camera
 		* @param activeCamera The active camera
 		*/
-		void SetActiveCamera(DE::ICameraSceneNode * activeCamera);
+		void SetActiveCamera(daidalosengine::ICameraSceneNode * activeCamera);
 
 		/**
 		* Update the level
@@ -92,19 +92,19 @@ namespace GE {
 		* Get the scene graph
 		* @return The scene graph
 		*/
-		DE::C3DScene * GetScene();
+		daidalosengine::C3DScene * GetScene();
 
 		/**
 		* Get the 2d view
 		* @return The 2d view
 		*/
-		DE::C2DScene * GetView();
+		daidalosengine::C2DScene * GetView();
 
 		/**
 		* Get the active camera
 		* @eturn The active camera
 		*/
-		DE::ICameraSceneNode * GetActiveCamera();
+		daidalosengine::ICameraSceneNode * GetActiveCamera();
 
 		/**
 		* Get the player

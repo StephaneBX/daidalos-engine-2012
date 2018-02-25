@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/IBufferBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IBufferBase::IBufferBase(const unsigned long size) : IResource() {
 		LOG_TRACE();
 

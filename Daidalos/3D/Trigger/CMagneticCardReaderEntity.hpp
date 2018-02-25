@@ -34,17 +34,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Trigger/ITriggerEntity.hpp>
 #include <IPlayer.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Switch entity
 	*/
-	class CMagneticCardReaderEntity : public GE::ITriggerEntity {
+	class CMagneticCardReaderEntity : public daidalosgameengine::ITriggerEntity {
 	private:
 		bool m_highlighted;
 		bool m_activated;
-		DE::CStaticMeshSceneNode * m_node;
-		DE::CSound m_sound;
+		daidalosengine::CStaticMeshSceneNode * m_node;
+		daidalosengine::CSound m_sound;
 		EPlayerObject m_magneticCard;
 
 	public:
@@ -53,7 +53,7 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param meshNode The mesh node
 		*/
-		CMagneticCardReaderEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode);
+		CMagneticCardReaderEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

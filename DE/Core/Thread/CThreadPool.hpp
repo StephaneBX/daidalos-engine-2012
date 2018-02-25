@@ -43,7 +43,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <utility>
 #include <vector>
  
-namespace DE {
+namespace daidalosengine {
 	/**
 	* A Thread pool.
 	*/
@@ -140,7 +140,7 @@ namespace DE {
         }
     };
  
-    namespace DefaultThreadPool
+    namespace daidalosenginefaultThreadPool
     {
         /**
         * Submit a job to the default thread pool.

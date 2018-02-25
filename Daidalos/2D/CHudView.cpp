@@ -28,85 +28,85 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include "CHudView.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 
-	CHudView::CHudView(const DE::CRectangleI & bounds) : IView() {
+	CHudView::CHudView(const daidalosengine::CRectangleI & bounds) : IView() {
 
 		SetBounds(bounds);
 
 		// Create the position label
-		this->m_positionLabel.SetBounds(DE::CRectangleI(5, 0, 400, 30));
+		this->m_positionLabel.SetBounds(daidalosengine::CRectangleI(5, 0, 400, 30));
 		this->m_positionLabel.SetSize(26);
-		this->m_positionLabel.SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
-		this->m_positionLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_positionLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_positionLabel.SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		this->m_positionLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_positionLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_positionLabel.SetText("Position");
 		AddSubview(&this->m_positionLabel);
 
 		// Create the gravity label
-		this->m_gravityLabel.SetBounds(DE::CRectangleI(5, 30, 200, 30));
+		this->m_gravityLabel.SetBounds(daidalosengine::CRectangleI(5, 30, 200, 30));
 		this->m_gravityLabel.SetSize(26);
-		this->m_gravityLabel.SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
-		this->m_gravityLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-		this->m_gravityLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_gravityLabel.SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		this->m_gravityLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+		this->m_gravityLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_gravityLabel.SetText("Gravity");
 		AddSubview(&this->m_gravityLabel);
 
 		// Create the health sprite
 		this->m_healthSprite.SetTexture("hud.png");
-		this->m_healthSprite.SetCoordinates(DE::CRectangleF(0, 0.281F, 0.125F, 0.125F));
-		this->m_healthSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 110, 32, 32));
+		this->m_healthSprite.SetCoordinates(daidalosengine::CRectangleF(0, 0.281F, 0.125F, 0.125F));
+		this->m_healthSprite.SetBounds(daidalosengine::CRectangleI(40, this->m_preferredsize.y - 110, 32, 32));
 		AddSubview(&this->m_healthSprite);
 
 		// Create the health label
-		this->m_healthLabel.SetBounds(DE::CRectangleI(75, this->m_preferredsize.y - 110, 100, 55));
+		this->m_healthLabel.SetBounds(daidalosengine::CRectangleI(75, this->m_preferredsize.y - 110, 100, 55));
 		this->m_healthLabel.SetSize(35);
-		this->m_healthLabel.SetColor(DE::CColor(0.0F, 1.0F, 0.0F, 1.0F));
-		this->m_healthLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
-		this->m_healthLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_healthLabel.SetColor(daidalosengine::CColor(0.0F, 1.0F, 0.0F, 1.0F));
+		this->m_healthLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
+		this->m_healthLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_healthLabel.SetText("0%");
 		AddSubview(&this->m_healthLabel);
 
 		// Create the armor sprite
 		this->m_armorSprite.SetTexture("hud.png");
-		this->m_armorSprite.SetCoordinates(DE::CRectangleF(0, 0.141F, 0.125F, 0.125F));
-		this->m_armorSprite.SetBounds(DE::CRectangleI(40, this->m_preferredsize.y - 55, 32, 32));
+		this->m_armorSprite.SetCoordinates(daidalosengine::CRectangleF(0, 0.141F, 0.125F, 0.125F));
+		this->m_armorSprite.SetBounds(daidalosengine::CRectangleI(40, this->m_preferredsize.y - 55, 32, 32));
 		AddSubview(&this->m_armorSprite);
 
 		// Create the armor label
-		this->m_armorLabel.SetBounds(DE::CRectangleI(75, this->m_preferredsize.y - 55, 100, 55));
+		this->m_armorLabel.SetBounds(daidalosengine::CRectangleI(75, this->m_preferredsize.y - 55, 100, 55));
 		this->m_armorLabel.SetSize(35);
-		this->m_armorLabel.SetColor(DE::CColor(1.0F, 0.0F, 0.0F, 1.0F));
-		this->m_armorLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
-		this->m_armorLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_armorLabel.SetColor(daidalosengine::CColor(1.0F, 0.0F, 0.0F, 1.0F));
+		this->m_armorLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
+		this->m_armorLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_armorLabel.SetText("0%");
 		AddSubview(&this->m_armorLabel);
 
 		// Create the ammo sprite
 		this->m_ammoSprite.SetTexture("hud.png");
-		this->m_ammoSprite.SetCoordinates(DE::CRectangleF(0, 0, 0.125F, 0.125F));
-		this->m_ammoSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, this->m_preferredsize.y - 55, 32, 32));
+		this->m_ammoSprite.SetCoordinates(daidalosengine::CRectangleF(0, 0, 0.125F, 0.125F));
+		this->m_ammoSprite.SetBounds(daidalosengine::CRectangleI(this->m_preferredsize.x - 40 - 32, this->m_preferredsize.y - 55, 32, 32));
 		AddSubview(&this->m_ammoSprite);
 
 		// Create the ammo label
-		this->m_ammoLabel.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 230, this->m_preferredsize.y - 55, 130, 55));
+		this->m_ammoLabel.SetBounds(daidalosengine::CRectangleI(this->m_preferredsize.x - 230, this->m_preferredsize.y - 55, 130, 55));
 		this->m_ammoLabel.SetSize(35);
-		this->m_ammoLabel.SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
-		this->m_ammoLabel.SetHorizontalAlignment(DE::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
-		this->m_ammoLabel.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_ammoLabel.SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		this->m_ammoLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_RIGHT);
+		this->m_ammoLabel.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_ammoLabel.SetText("0 / 0");
 		AddSubview(&this->m_ammoLabel);
 
 		// Create the flashlight sprite
 		this->m_flashlightSprite.SetTexture("hud.png");
-		this->m_flashlightSprite.SetCoordinates(DE::CRectangleF(0.141F, 0, 0.250F, 0.250F));
-		this->m_flashlightSprite.SetBounds(DE::CRectangleI(this->m_preferredsize.x - 40 - 32, 20, 32, 32));
+		this->m_flashlightSprite.SetCoordinates(daidalosengine::CRectangleF(0.141F, 0, 0.250F, 0.250F));
+		this->m_flashlightSprite.SetBounds(daidalosengine::CRectangleI(this->m_preferredsize.x - 40 - 32, 20, 32, 32));
 		this->m_flashlightSprite.SetVisible(false);
 		AddSubview(&this->m_flashlightSprite);
 
 		// Create the crosshair
 		this->m_crosshairView.SetTexture("crosshair.tga");
-		this->m_crosshairView.SetBounds(DE::CRectangleI((this->m_preferredsize.x - 32) / 2, (this->m_preferredsize.y - 32) / 2, 32, 32));
+		this->m_crosshairView.SetBounds(daidalosengine::CRectangleI((this->m_preferredsize.x - 32) / 2, (this->m_preferredsize.y - 32) / 2, 32, 32));
 		AddSubview(&this->m_crosshairView);
 	}
 
@@ -132,7 +132,7 @@ namespace DAIDALOS {
 	* Set the player's position
 	* @param position The position
 	*/
-	void CHudView::SetPosition(const DE::CVector3F position) {
+	void CHudView::SetPosition(const daidalosengine::CVector3F position) {
 		std::stringstream ss;
 		ss << "POSITION: " << (int)position.x << " : " << (int)position.y << " : " << (int)position.z;
 		this->m_positionLabel.SetText(ss.str());
@@ -185,21 +185,21 @@ namespace DAIDALOS {
 	* Get the color for a state value
 	* @param state The state value
 	*/
-	const DE::CColor CHudView::GetStateColor(const int state) {
+	const daidalosengine::CColor CHudView::GetStateColor(const int state) {
 
-		DE::CColor color;
+		daidalosengine::CColor color;
 
 		if(state <= 20) {
-			color = DE::CColor(1.0F, 0.0F, 0.0F, 1.0F);
+			color = daidalosengine::CColor(1.0F, 0.0F, 0.0F, 1.0F);
 
 		} else if(state <= 80) {
-			color = DE::CColor(1.0F, 1.0F, 0.5F, 1.0F);
+			color = daidalosengine::CColor(1.0F, 1.0F, 0.5F, 1.0F);
 
 		} else if(state <= 100) {
-			color = DE::CColor(0.0F, 1.0F, 0.0F, 1.0F);
+			color = daidalosengine::CColor(0.0F, 1.0F, 0.0F, 1.0F);
 
 		} else {
-			color = DE::CColor(0.0F, 0.0F, 1.0F, 1.0F);
+			color = daidalosengine::CColor(0.0F, 0.0F, 1.0F, 1.0F);
 		}
 		return color;
 	}

@@ -42,7 +42,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define MAX_LIGHTS_IN_SHADERS 200
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Spot lights data structure for shaders.
 	* Also used by the point lights

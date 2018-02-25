@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/I3DScene.hpp"
 #include "../../Scene/3D/CMeshBuffer.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CMeshBuffer::CMeshBuffer() {
 		LOG_TRACE();
 

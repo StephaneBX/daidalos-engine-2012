@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/I3DScene.hpp"
 #include "../../Scene/3D/IBoundedLightSceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IBoundedLightSceneNode::~IBoundedLightSceneNode() {
 		LOG_TRACE();
 	}

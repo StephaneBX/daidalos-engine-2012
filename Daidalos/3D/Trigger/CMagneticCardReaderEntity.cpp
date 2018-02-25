@@ -32,16 +32,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Enums.hpp"
 #include "CMagneticCardReaderEntity.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The mesh node
 	*/
-	CMagneticCardReaderEntity::CMagneticCardReaderEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CMagneticCardReaderEntity::CMagneticCardReaderEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_MAGNETIC_CARD_READER);
+		SetType(daidalosgameengine::ENTITY_TYPE_MAGNETIC_CARD_READER);
 		this->m_node = meshNode;
 
 		this->m_highlighted = false;
@@ -99,6 +99,6 @@ namespace DAIDALOS {
 	*/
 	const bool CMagneticCardReaderEntity::CanDoAction() {
 
-		return !this->m_activated && GetParent()->GetPlayer()->GetObjectValue(this->m_magneticCard) > 0 && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return !this->m_activated && GetParent()->GetPlayer()->GetObjectValue(this->m_magneticCard) > 0 && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 }

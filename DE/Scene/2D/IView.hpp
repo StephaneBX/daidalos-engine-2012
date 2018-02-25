@@ -40,7 +40,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define GUI_VIEW_WHEEL_UP 1 << 29
 #define GUI_VIEW_WHEEL_DOWN 1 << 30
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The GUI data structure for the shaders
 	*/

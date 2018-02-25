@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <future>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* A wrapper around a std::future that adds the behavior of futures returned from std::async.
 	* Specifically, this object will block and wait for execution to finish before going out of scope.

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/ISoundBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	ISoundBase::~ISoundBase() {
 		LOG_TRACE();
 

@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/IBoundedLightSceneNode.hpp"
 #include "../../Scene/3D/CProjectionCameraSceneNode.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Handle a spot light
 	*/

@@ -38,7 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define EDIT_CAMERA_LAYER_HEIGHT 8.0f
 #define EDIT_CAMERA_STEP 10.0f
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* Edit camera
 	*/
@@ -47,11 +47,11 @@ namespace EDITOR {
 		unsigned int m_state;
 		int m_layer;
 		int m_zoom;
-		DE::CVector3F m_rotation;
-		DE::ICameraSceneNode * m_node;
-		DE::CInputDevice * m_inputDevice;
-		DE::C3DScene * m_scene;
-		DE::CSoundContextManager * m_soundContext;
+		daidalosengine::CVector3F m_rotation;
+		daidalosengine::ICameraSceneNode * m_node;
+		daidalosengine::CInputDevice * m_inputDevice;
+		daidalosengine::C3DScene * m_scene;
+		daidalosengine::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
 	public:
@@ -59,25 +59,25 @@ namespace EDITOR {
 		* @param cameraNode The camera node
 		* @param smooth The smooth view factor
 		*/
-		CEditCamera(DE::ICameraSceneNode * cameraNode);
+		explicit CEditCamera(daidalosengine::ICameraSceneNode * cameraNode);
 
 		/**
 		* Set the associated scene
 		* @param scene The associated scene
 		*/
-		void SetScene(DE::C3DScene * scene);
+		void SetScene(daidalosengine::C3DScene * scene);
 
 		/**
 		* Set the camera position
 		* @param position The position
 		*/
-		void SetPosition(const DE::CVector3F & position);
+		void SetPosition(const daidalosengine::CVector3F & position);
 
 		/**
 		* Set the camera rotation
 		* @param rotation The rotation
 		*/
-		void SetRotation(const DE::CVector3F & rotation);
+		void SetRotation(const daidalosengine::CVector3F & rotation);
 
 		/**
 		* Update the camera
@@ -89,7 +89,7 @@ namespace EDITOR {
 		* Get the camera node
 		* @return The camera node
 		*/
-		DE::ICameraSceneNode * GetCameraNode() const;
+		daidalosengine::ICameraSceneNode * GetCameraNode() const;
 
 		/**
 		* Get the layer

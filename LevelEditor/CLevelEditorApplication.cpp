@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CEditorLevel.hpp"
 #include "CLevelEditorApplication.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	enum EMeshCategorySelectionMode {
 		MESH_CATEGORY_SELECTION_MODE_NONE,
@@ -43,10 +43,10 @@ namespace EDITOR {
 	CLevelEditorApplication::CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow) : IForwardApplication(hInstance, nCmdShow) {
 
 		// Replace the default level loader
-		DE::CMediaManager::GetInstance()->AddLoader(new CEditorSceneLoader(), "des");
+		daidalosengine::CMediaManager::GetInstance()->AddLoader(new CEditorSceneLoader(), "des");
 
 		// Tmp
-		DE::CMediaManager::GetInstance()->AddSearchPath("Resources/Textures/Tank/");
+		daidalosengine::CMediaManager::GetInstance()->AddSearchPath("Resources/Textures/Tank/");
 
 		this->m_viewMode = true;
 		this->m_drawSkybox = true;
@@ -56,7 +56,7 @@ namespace EDITOR {
 		this->m_meshCategorySelectionMode = MESH_CATEGORY_SELECTION_MODE_NONE;
 		this->m_wallMeshEditIndex = 0;
 		this->m_wallTextureEditIndex = 0;
-		this->m_cameraPosition = DE::CVector3F(0, 4, 0);
+		this->m_cameraPosition = daidalosengine::CVector3F(0, 4, 0);
 		this->m_meshNode = nullptr;
 		this->m_loading = true;
 		
@@ -76,7 +76,7 @@ namespace EDITOR {
 	* @param filename The level filename
 	*/
 	void CLevelEditorApplication::LoadLevel(const std::string & filename) {
-		this->m_currentLevel = std::unique_ptr<GE::ILevel>(new CEditorLevel());
+		this->m_currentLevel = std::unique_ptr<daidalosgameengine::ILevel>(new CEditorLevel());
 		this->m_currentLevel->AddListener(this);
 		this->m_currentLevel->LoadLevel(filename);
 	}
@@ -111,7 +111,7 @@ namespace EDITOR {
 					this->m_boundingBox = !this->m_boundingBox;
 					this->m_input->FreezeAction(EDITOR_ACTION_BOUNDINGBOX);
 
-					std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+					std::vector<daidalosengine::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
 					for(auto it = nodes.begin(); it != nodes.end(); it++) {
 						(*it)->SetEnabled(this->m_boundingBox);
 					}
@@ -130,8 +130,8 @@ namespace EDITOR {
 				this->m_cursor.Update(time);
 				//this->m_scene2D->Update(time);
 
-				this->m_cameraPosition = DE::CVector3F(this->m_activeCamera->GetPosition());
-				this->m_cameraRotation = DE::CVector3F(this->m_activeCamera->GetRotation());
+				this->m_cameraPosition = daidalosengine::CVector3F(this->m_activeCamera->GetPosition());
+				this->m_cameraRotation = daidalosengine::CVector3F(this->m_activeCamera->GetRotation());
 
 				if(this->m_input->IsActionActive(EDITOR_ACTION_REFRESH) && this->m_viewMode) {
 					this->m_loading = true;
@@ -229,11 +229,11 @@ namespace EDITOR {
 			this->m_input->FreezeAction(EDITOR_ACTION_PUT_MESH);
 			
 			if(this->m_meshNode != nullptr) {
-				DE::CVector3F rotation = this->m_meshNode->GetRotation();
+				daidalosengine::CVector3F rotation = this->m_meshNode->GetRotation();
 				this->m_meshNode->SetName(EDITOR_NODE_NAME_MULTIBRUSH);
 				this->m_meshNode->SetSaved(true);
 
-				if(this->m_meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).compare(EDITOR_SKY_TEXURE_NAME) == 0) {
+				if(this->m_meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE).compare(EDITOR_SKY_TEXURE_NAME) == 0) {
 					this->m_meshNode->SetId(SCENE_SKYBOX_ID);
 				}
 
@@ -245,14 +245,14 @@ namespace EDITOR {
 		if(this->m_input->IsActionActive(EDITOR_ACTION_DELETE_MESH)) {
 			this->m_input->FreezeAction(EDITOR_ACTION_DELETE_MESH);
 
-			std::vector<DE::ISceneNode *> nodesToRemove = GetNodesOnBlock(DE::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
+			std::vector<daidalosengine::ISceneNode *> nodesToRemove = GetNodesOnBlock(daidalosengine::CVector2I((int)this->m_editCamera->GetCameraNode()->GetPosition().x, (int)this->m_editCamera->GetCameraNode()->GetPosition().z), (int)this->m_editCamera->GetLayer());
 			for(auto it = nodesToRemove.begin(); it != nodesToRemove.end(); it++) {
 				this->m_currentLevel->GetScene()->GetRootNode()->RemoveChild(*it);
 			}
 		}
 
 		if(this->m_meshNode != nullptr) {
-			this->m_meshNode->SetPosition(DE::CVector3F(this->m_editCamera->GetCameraNode()->GetPosition().x, this->m_editCamera->GetLayer() * EDIT_CAMERA_LAYER_HEIGHT, this->m_editCamera->GetCameraNode()->GetPosition().z));
+			this->m_meshNode->SetPosition(daidalosengine::CVector3F(this->m_editCamera->GetCameraNode()->GetPosition().x, this->m_editCamera->GetLayer() * EDIT_CAMERA_LAYER_HEIGHT, this->m_editCamera->GetCameraNode()->GetPosition().z));
 
 			// Next texture
 			if(this->m_input->IsActionActive(EDITOR_ACTION_TEXTURE_NEXT)) {
@@ -269,7 +269,7 @@ namespace EDITOR {
 			// Rotate mesh
 			if(this->m_input->IsActionActive(EDITOR_ACTION_MESH_ROTATE)) {
 				this->m_input->FreezeAction(EDITOR_ACTION_MESH_ROTATE);
-				this->m_meshNode->SetRotation(DE::CVector3F(0, (this->m_meshNode->GetRotation().y + 90), 0));
+				this->m_meshNode->SetRotation(daidalosengine::CVector3F(0, (this->m_meshNode->GetRotation().y + 90), 0));
 			}
 		}
 
@@ -286,7 +286,7 @@ namespace EDITOR {
 	* Update the selection mesh node
 	* @param rotation The rotation
 	*/
-	void CLevelEditorApplication::UpdateMeshNode(const DE::CVector3F & rotation) {
+	void CLevelEditorApplication::UpdateMeshNode(const daidalosengine::CVector3F & rotation) {
 		std::string meshFilename;
 		std::string textureDiffuseFilename;
 		std::string textureNormalFilename;
@@ -318,14 +318,14 @@ namespace EDITOR {
 			this->m_meshNode->SetMesh(meshFilename);
 			
 		} else {
-			this->m_meshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, DE::CVector3F(), rotation, DE::CVector3F(1.0F, 1.0F, 1.0F));
+			this->m_meshNode = new daidalosengine::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), EDITOR_NODE_NAME_CURRENT, meshFilename, daidalosengine::CVector3F(), rotation, daidalosengine::CVector3F(1.0F, 1.0F, 1.0F));
 			this->m_meshNode->SetId(0);
 			this->m_meshNode->SetSaved(false);
-			this->m_meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
+			this->m_meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
 			this->m_currentLevel->GetScene()->GetRootNode()->AddChild(this->m_meshNode);
 		}
-		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, textureNormalFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, textureNormalFilename, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 	}
 
 	/**
@@ -334,8 +334,8 @@ namespace EDITOR {
 	void CLevelEditorApplication::UpdateNodesVisibility() {
 
 		// Get all the mesh nodes
-		std::vector<DE::ISceneNode *> nodes = this->m_currentLevel->GetScene()->GetNodeArray(DE::SCENE_NODE_STATICMESH);
-		std::vector<DE::ISceneNode *> animatedMeshNodes = this->m_currentLevel->GetScene()->GetNodeArray(DE::SCENE_NODE_ANIMATEDMESH);
+		std::vector<daidalosengine::ISceneNode *> nodes = this->m_currentLevel->GetScene()->GetNodeArray(daidalosengine::SCENE_NODE_STATICMESH);
+		std::vector<daidalosengine::ISceneNode *> animatedMeshNodes = this->m_currentLevel->GetScene()->GetNodeArray(daidalosengine::SCENE_NODE_ANIMATEDMESH);
 		nodes.insert(nodes.end(), animatedMeshNodes.begin(), animatedMeshNodes.end());
 
 		if(this->m_viewMode) {
@@ -394,8 +394,8 @@ namespace EDITOR {
 			break;
 		}
 
-		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		this->m_meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, textureNormalFilename, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, textureDiffuseFilename, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, textureNormalFilename, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 	}
 
 	/**
@@ -427,7 +427,7 @@ namespace EDITOR {
 	/**
 	* Render a 3D scene
 	*/
-	void CLevelEditorApplication::Render3DScene(DE::C3DScene * scene3D) {
+	void CLevelEditorApplication::Render3DScene(daidalosengine::C3DScene * scene3D) {
 
 		// ------------------------------
 		// Initialization
@@ -482,9 +482,9 @@ namespace EDITOR {
 	* @param layer The layer
 	* @return A vector of nodes
 	*/
-	std::vector<DE::ISceneNode*> CLevelEditorApplication::GetNodesOnBlock(DE::CVector2I position, int layer) {
-		std::vector<DE::ISceneNode*> node;
-		std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_MULTIBRUSH);
+	std::vector<daidalosengine::ISceneNode*> CLevelEditorApplication::GetNodesOnBlock(daidalosengine::CVector2I position, int layer) {
+		std::vector<daidalosengine::ISceneNode*> node;
+		std::vector<daidalosengine::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_MULTIBRUSH);
 
 		for(auto it = nodes.begin(); it != nodes.end(); it++) {
 			if((*it)->GetPosition().x > (position.x - EDIT_CAMERA_STEP) && (*it)->GetPosition().x < (position.x + EDIT_CAMERA_STEP) && (*it)->GetPosition().z >(position.y - EDIT_CAMERA_STEP) && (*it)->GetPosition().z < (position.y + EDIT_CAMERA_STEP) && (*it)->GetPosition().y >((layer * EDIT_CAMERA_LAYER_HEIGHT) - EDIT_CAMERA_LAYER_HEIGHT) && (*it)->GetPosition().y < ((layer * EDIT_CAMERA_LAYER_HEIGHT) + EDIT_CAMERA_LAYER_HEIGHT)) {
@@ -498,23 +498,23 @@ namespace EDITOR {
 	* Render the diffuse part
 	* @param scene3D The scene
 	*/
-	void CLevelEditorApplication::DiffuseRendering(DE::C3DScene * scene3D) {
+	void CLevelEditorApplication::DiffuseRendering(daidalosengine::C3DScene * scene3D) {
 		// ------------------------------
 		// Forward rendering: diffuse
 		// ------------------------------
 		if(this->m_culling) {
-			this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_CCW);
+			this->m_renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
 		} else {
-			this->m_renderer->SetCullType(DE::RENDER_STATE_CULL_TYPE_NONE);
+			this->m_renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_NONE);
 		}
 
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_STENCILENABLE, false);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
-		scene3D->SetMeshFormat(DE::MESHBUFFER_ELEMENT_POSITION | DE::MESHBUFFER_ELEMENT_TEXCOORD);
+		this->m_renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_STENCILENABLE, false);
+		this->m_renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
+		scene3D->SetMeshFormat(daidalosengine::MESHBUFFER_ELEMENT_POSITION | daidalosengine::MESHBUFFER_ELEMENT_TEXCOORD);
 		this->m_renderer->SetVertexDeclaration(this->m_declarationDiffuse.get());
 		this->m_renderer->SetShaderProgram(this->m_shaderDiffuse.GetShaderProgram());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shaderDiffuse.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shaderDiffuse.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shaderDiffuse.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 		scene3D->Render();
 	}
 
@@ -524,7 +524,7 @@ namespace EDITOR {
 	void CLevelEditorApplication::OnLevelLoaded() {
 
 		// Add the cameras
-		DE::CProjectionCameraSceneNode * viewCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "viewCameraNode", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
+		daidalosengine::CProjectionCameraSceneNode * viewCameraNode = new daidalosengine::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "viewCameraNode", daidalosengine::CVector3F(), daidalosengine::CVector3F(), daidalosengine::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
 		viewCameraNode->SetSaved(false);
 		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(viewCameraNode);
 
@@ -533,16 +533,16 @@ namespace EDITOR {
 		this->m_viewCamera->SetPosition(this->m_cameraPosition);
 		this->m_viewCamera->SetRotation(this->m_cameraRotation);
 
-		DE::CProjectionCameraSceneNode * editCameraNode = new DE::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "editCameraNode", DE::CVector3F(0, 100, 0), DE::CVector3F(80, 0, 0), DE::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
+		daidalosengine::CProjectionCameraSceneNode * editCameraNode = new daidalosengine::CProjectionCameraSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "editCameraNode", daidalosengine::CVector3F(0, 100, 0), daidalosengine::CVector3F(80, 0, 0), daidalosengine::DegreeToRadian(55), this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y, 0.1F, 200.0F);
 		editCameraNode->SetSaved(false);
 		this->m_currentLevel->GetScene()->GetRootNode()->AddChild(editCameraNode);
 
 		// Add the player marker
-		DE::ISceneNode * playerNode = this->m_currentLevel->GetScene()->GetNode("player");
+		daidalosengine::ISceneNode * playerNode = this->m_currentLevel->GetScene()->GetNode("player");
 		if(playerNode != nullptr) {
-			DE::CStaticMeshSceneNode * playerMeshNode = new DE::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "playerMarker", "cube.obj", DE::CVector3F(playerNode->GetAbsolutePosition().x, playerNode->GetAbsolutePosition().y - 3, playerNode->GetAbsolutePosition().z), DE::CVector3F(), DE::CVector3F(2, 4, 2));
-			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-			playerMeshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_PLAYER_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			daidalosengine::CStaticMeshSceneNode * playerMeshNode = new daidalosengine::CStaticMeshSceneNode(this->m_currentLevel->GetScene()->GetScene(), this->m_currentLevel->GetScene()->GetRootNode(), "playerMarker", "cube.obj", daidalosengine::CVector3F(playerNode->GetAbsolutePosition().x, playerNode->GetAbsolutePosition().y - 3, playerNode->GetAbsolutePosition().z), daidalosengine::CVector3F(), daidalosengine::CVector3F(2, 4, 2));
+			playerMeshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_PLAYER_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+			playerMeshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_PLAYER_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 			playerMeshNode->SetSaved(false);
 			this->m_currentLevel->GetScene()->GetRootNode()->AddChild(playerMeshNode);
 		}
@@ -550,10 +550,10 @@ namespace EDITOR {
 		this->m_editCamera = std::unique_ptr<CEditCamera>(new CEditCamera(editCameraNode));
 		this->m_editCamera->SetScene(this->m_currentLevel->GetScene());
 
-		this->m_currentLevel->GetScene()->GetRootNode()->SetAmbientColor(DE::CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
+		this->m_currentLevel->GetScene()->GetRootNode()->SetAmbientColor(daidalosengine::CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
 		this->m_currentLevel->GetScene()->GetRootNode()->SetUseGlobalAmbientColor(!this->m_drawLights);
 
-		std::vector<DE::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
+		std::vector<daidalosengine::ISceneNode*> nodes = this->m_currentLevel->GetScene()->GetNodeArray(EDITOR_NODE_NAME_BOUNDINGBOX);
 		for(auto it = nodes.begin(); it != nodes.end(); it++) {
 			(*it)->SetEnabled(this->m_boundingBox);
 		}

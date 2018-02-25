@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CVector3.hpp"
 #include "../Medias/CMD2Mesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name) {
 		LOG_TRACE();
 

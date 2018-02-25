@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 		
 	enum EDoorState {
 		DOOR_STATE_CLOSED,
@@ -49,11 +49,11 @@ namespace GE {
 	*/
 	class CDoorEntity : public ITriggerEntity {
 	private:
-		DE::CAnimatedMeshSceneNode * m_node;
-		DE::CParticleEmitterSceneNode * m_emitterNode;
+		daidalosengine::CAnimatedMeshSceneNode * m_node;
+		daidalosengine::CParticleEmitterSceneNode * m_emitterNode;
 
-		DE::CSound m_startSound;
-		DE::CSound m_stopSound;
+		daidalosengine::CSound m_startSound;
+		daidalosengine::CSound m_stopSound;
 		EDoorState m_state;
 		bool m_closable;
 		float m_animationSpeed;
@@ -66,7 +66,7 @@ namespace GE {
 		* @param parent The parent
 		* @param meshNode The door node
 		*/
-		CDoorEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Update the entity

@@ -31,11 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Loaders/IXmlLoader.hpp>
 #include "../Event/ICinematicEvent.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Loader for daidalos engine game cinematic files (.dgc)
 	*/
-	class CCinematicEventLoader : public DE::IXmlLoader < ICinematicEvent > {
+	class CCinematicEventLoader : public daidalosengine::IXmlLoader < ICinematicEvent > {
 	protected:
 		std::string m_filename;
 

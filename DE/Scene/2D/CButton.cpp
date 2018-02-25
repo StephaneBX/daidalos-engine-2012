@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/CInputDevice.hpp"
 #include "../../Scene/2D/CButton.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	* @param texture The texture name
@@ -44,10 +44,10 @@ namespace DE {
 		this->m_imageInset = CInsetF(0, 0, 0, 0);
 		this->m_changed = true;
 
-		this->m_title.SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_CENTERED);
-		this->m_defaultTitleColor = DE::CColor(1.0F, 1.0F, 1.0F, 1.0F);
-		this->m_clickedTitleColor = DE::CColor(1.0F, 1.0F, 1.0F, 1.0F);
-		this->m_focusedTitleColor = DE::CColor(1.0F, 1.0F, 1.0F, 1.0F);
+		this->m_title.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+		this->m_defaultTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
+		this->m_clickedTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
+		this->m_focusedTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		SetDefaultTexture(texture);
 
 		AddSubview(&this->m_title);
@@ -194,7 +194,7 @@ namespace DE {
 
 		if(this->m_changed) {
 			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
-			this->m_title.SetBounds(DE::CRectangleI(0, 0, this->m_preferredsize.x, this->m_preferredsize.y));
+			this->m_title.SetBounds(daidalosengine::CRectangleI(0, 0, this->m_preferredsize.x, this->m_preferredsize.y));
 
 			IRenderer * renderer = IRenderer::GetRenderer();
 
@@ -235,8 +235,8 @@ namespace DE {
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
 
 			renderer->SetTexture(0, GetTextureToRender());
 			renderer->SetTexture(1, nullptr);

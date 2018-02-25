@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Core/Utility/CFile.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	*/

@@ -32,13 +32,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define TRIGGER_RADIUS 4
 #define ANIMATION_SPEED 10.0F
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The switch node
 	*/
-	CSwitchEntity::CSwitchEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CSwitchEntity::CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_SWITCH);
@@ -71,7 +71,7 @@ namespace GE {
 
 		switch(this->m_state) {
 		case SWITCH_STATE_ACTIVATING:
-			if(this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+			if(this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
 				for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
 					(*it)->DoAction();
 				}
@@ -80,7 +80,7 @@ namespace GE {
 			break;
 
 		case SWITCH_STATE_DEACTIVATING:
-			if(this->m_node->GetAnimationState() == DE::MESH_ANIMATION_STATE_STOPPED) {
+			if(this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
 				for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
 					(*it)->DoAction();
 				}
@@ -122,7 +122,7 @@ namespace GE {
 			targetsOk = (*it)->CanDoAction();
 		}
 
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
+		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	/**

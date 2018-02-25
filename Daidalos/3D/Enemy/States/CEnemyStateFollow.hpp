@@ -31,18 +31,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyState.hpp>
 #include <3D/ICollidableEntity.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Follow enemy state
 	*/
-	class CEnemyStateFollow : public GE::IEnemyState {
+	class CEnemyStateFollow : public daidalosgameengine::IEnemyState {
 	private:
 		float m_moveSpeed;
 		float m_rotationSpeed;
 		float m_stopDistance;
 		float m_searchTimer;
 		float m_searched;
-		GE::ICollidableEntity * m_target;
+		daidalosgameengine::ICollidableEntity * m_target;
 
 	public:
 		/**
@@ -57,7 +57,7 @@ namespace DAIDALOS {
 		* @param stopDistance the stop distance
 		* @param searchTime Time the entity search if the target is lost
 		*/
-		CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, GE::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
+		CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
 
 		/**
 		* Set the move speed.
@@ -87,13 +87,13 @@ namespace DAIDALOS {
 		* Set the target.
 		* @param target The target
 		*/
-		void SetTarget(GE::ICollidableEntity * target);
+		void SetTarget(daidalosgameengine::ICollidableEntity * target);
 
 		/**
 		* Reset the state
 		* @param entity The entity
 		*/
-		virtual void Reset(GE::IEnemyEntity * entity);
+		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Callback when the entity take damage
@@ -105,14 +105,14 @@ namespace DAIDALOS {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Get the move speed.
@@ -142,7 +142,7 @@ namespace DAIDALOS {
 		* Get the target.
 		* @return The target
 		*/
-		GE::ICollidableEntity * GetTarget() const;
+		daidalosgameengine::ICollidableEntity * GetTarget() const;
 
 	private:
 		/**
@@ -150,7 +150,7 @@ namespace DAIDALOS {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		void UpdateRotation(GE::IEnemyEntity * entity, const float time);
+		void UpdateRotation(daidalosgameengine::IEnemyEntity * entity, const float time);
 	};
 }
 

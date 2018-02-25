@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/IStaticSoundBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IStaticSoundBase::IStaticSoundBase(const std::string & name, const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
 		LOG_TRACE();
 

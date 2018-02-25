@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CEditorLevel.hpp"
 #include "CFreeCamera.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	/**
 	* Update the level

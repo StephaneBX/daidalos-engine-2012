@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/ILoader.hpp"
 #include "../Medias/COBJMesh.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Loader for wavefront files (.obj)
 	*/

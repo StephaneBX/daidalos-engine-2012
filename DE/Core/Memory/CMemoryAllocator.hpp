@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <algorithm>
 #include "../../Core/Core.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CMemoryAllocator template class.
 	* Manages memory allocation.

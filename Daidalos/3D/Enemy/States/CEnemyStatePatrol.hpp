@@ -30,11 +30,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <3D/Enemy/IEnemyState.hpp>
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Patrol enemy state
 	*/
-	class CEnemyStatePatrol : public GE::IEnemyState {
+	class CEnemyStatePatrol : public daidalosgameengine::IEnemyState {
 	private:
 		int m_currentWayPoint;
 		float m_walkSpeed;
@@ -51,7 +51,7 @@ namespace DAIDALOS {
 		* @param rotationSpeed The rotation speed
 		* @param wayPoints The way points
 		*/
-		CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints);
+		CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<daidalosengine::CVector3F> & wayPoints);
 
 		/**
 		* Set the current way point.
@@ -76,14 +76,14 @@ namespace DAIDALOS {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(GE::IEnemyEntity * entity);
+		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
 
 		/**
 		* Get the current way point.
@@ -109,7 +109,7 @@ namespace DAIDALOS {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		void UpdateRotation(GE::IEnemyEntity * entity, const float time);
+		void UpdateRotation(daidalosgameengine::IEnemyEntity * entity, const float time);
 	};
 }
 

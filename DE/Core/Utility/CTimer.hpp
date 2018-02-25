@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Windows.h>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CTimer class.
 	* Manages time.

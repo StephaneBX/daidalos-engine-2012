@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector2.hpp"
 #include "../../Scene/3D/IShape3D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* The IShape3D implementation of an ellipse.
 	*/

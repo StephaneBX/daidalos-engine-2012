@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <3D/Enemy/IEnemyEntity.hpp>
 #include "CEnemyStateWait.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -41,7 +41,7 @@ namespace DAIDALOS {
 		this->m_active = false;
 		this->m_waitTime = waitTime;
 		this->m_waited = 0;
-		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 	}
 
@@ -65,7 +65,7 @@ namespace DAIDALOS {
 	* Reset the state
 	* @param entity The entity
 	*/
-	void CEnemyStateWait::Reset(GE::IEnemyEntity * entity) {
+	void CEnemyStateWait::Reset(daidalosgameengine::IEnemyEntity * entity) {
 		IEnemyState::Reset(entity);
 	}
 
@@ -73,7 +73,7 @@ namespace DAIDALOS {
 	* Callback when an entity interrupt its process
 	* @param state The state
 	*/
-	void CEnemyStateWait::OnStateInterrupted(GE::IEnemyState * state) {
+	void CEnemyStateWait::OnStateInterrupted(daidalosgameengine::IEnemyState * state) {
 		this->m_active = true;
 	}
 
@@ -82,16 +82,16 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStateWait::Update(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStateWait::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
 		this->m_waited += time;
 
-		if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+		if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
 			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 		}
 
-		PerformEnemyLevelCollisions(entity, DE::CVector3F(), time);
+		PerformEnemyLevelCollisions(entity, daidalosengine::CVector3F(), time);
 
 		// End wait state
 		if(this->m_waited >= this->m_waitTime) {
@@ -107,7 +107,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateWait::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
+	const bool CEnemyStateWait::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return this->m_active;
 	}
 

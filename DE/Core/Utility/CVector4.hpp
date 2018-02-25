@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Utility/CVector3.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CVector4 class
 	* Basic math class for vectors of size 4

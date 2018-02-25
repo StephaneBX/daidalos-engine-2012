@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/IRenderer.hpp"
 #include "../../Scene/2D/C2DScene.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	*/

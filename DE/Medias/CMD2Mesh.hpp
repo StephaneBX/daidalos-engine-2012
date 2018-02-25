@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define MD2_FRAME_NAME_SIZE 16
 #define MD2_NUMVERTEX_NORMALS 162
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* MD2 header information structure
 	*/

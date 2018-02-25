@@ -31,11 +31,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Level/ILevel.hpp>
 #include "2D/CConsoleView.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* The editor level
 	*/
-	class CEditorLevel : public GE::ILevel {
+	class CEditorLevel : public daidalosgameengine::ILevel {
 	private:
 		CConsoleView * m_consoleView;
 

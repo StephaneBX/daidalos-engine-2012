@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define EPSILON_DISTANCE 1.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param priority The priority
@@ -41,8 +41,8 @@ namespace DAIDALOS {
 	* @param rotationSpeed The rotation speed
 	* @param wayPoints The way points
 	*/
-	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<DE::CVector3F> & wayPoints) : IEnemyState(priority) {
-		this->SetAnimationFrames(DE::CVector2F(startAnimation, endAnimation));
+	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<daidalosengine::CVector3F> & wayPoints) : IEnemyState(priority) {
+		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 		this->SetWayPoints(wayPoints);
 		this->m_walkSpeed = walkSpeed;
@@ -79,17 +79,17 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStatePatrol::Update(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStatePatrol::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
-		DE::CVector3F movement = DE::CVector3F();
+		daidalosengine::CVector3F movement = daidalosengine::CVector3F();
 		if(this->GetWayPoints().size() > 0) {
-			if(entity->GetMeshNode()->GetAnimationState() != DE::MESH_ANIMATION_STATE_PLAYING) {
+			if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING) {
 				entity->GetMeshNode()->SetLooped(true);
 				entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
 			}
 
 			// Change direction if necessary
-			if((DE::CVector3F(entity->GetVisiblePosition().x, this->GetWayPoints()[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->GetWayPoints()[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
+			if((daidalosengine::CVector3F(entity->GetVisiblePosition().x, this->GetWayPoints()[this->m_currentWayPoint].y, entity->GetVisiblePosition().z) - this->GetWayPoints()[this->m_currentWayPoint]).Length() <= EPSILON_DISTANCE) {
 				this->m_currentWayPoint = (this->m_currentWayPoint + 1) % this->GetWayPoints().size();
 				entity->GetMeshNode()->StopAnimation();
 
@@ -119,7 +119,7 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStatePatrol::IsCandidateForNextAction(GE::IEnemyEntity * entity) {
+	const bool CEnemyStatePatrol::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return true;
 	}
 
@@ -152,18 +152,18 @@ namespace DAIDALOS {
 	* @param entity The entity
 	* @param time Elapsed time
 	*/
-	void CEnemyStatePatrol::UpdateRotation(GE::IEnemyEntity * entity, const float time) {
+	void CEnemyStatePatrol::UpdateRotation(daidalosgameengine::IEnemyEntity * entity, const float time) {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
 		float rotation = this->m_rotationSpeed * timePerSecond;
 
 		// Check the entity - waypoint angle
-		DE::CVector3F entityToWaypoint = (this->GetWayPoints()[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
+		daidalosengine::CVector3F entityToWaypoint = (this->GetWayPoints()[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
 
 		// Horizontal rotation way
-		DE::CVector2F entityToWaypointHorizontal = DE::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();
-		DE::CVector2F entityForwardHorizontal = DE::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
+		daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();
+		daidalosengine::CVector2F entityForwardHorizontal = daidalosengine::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
 
 		float rotationY = entity->GetMeshNode()->GetRotation().y;
 		if(atan2f(entityForwardHorizontal.CrossProduct(entityToWaypointHorizontal), entityForwardHorizontal.DotProduct(entityToWaypointHorizontal)) > 0) {
@@ -173,7 +173,7 @@ namespace DAIDALOS {
 		}
 
 		// Update the entity rotation
-		entity->GetMeshNode()->SetRotation(DE::CVector3F(entity->GetMeshNode()->GetRotation().x, rotationY, entity->GetMeshNode()->GetRotation().z));
+		entity->GetMeshNode()->SetRotation(daidalosengine::CVector3F(entity->GetMeshNode()->GetRotation().x, rotationY, entity->GetMeshNode()->GetRotation().z));
 	}
 }
 

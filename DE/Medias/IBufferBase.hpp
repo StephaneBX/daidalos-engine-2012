@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../Core/IResource.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Basic class used for buffers
 	*/

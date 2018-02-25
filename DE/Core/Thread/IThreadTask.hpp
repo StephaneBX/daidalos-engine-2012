@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ITHREADTASK_HPP
 #define __ITHREADTASK_HPP
 
-namespace DE {
+namespace daidalosengine {
 
 	/**
 	* An abstract thread task

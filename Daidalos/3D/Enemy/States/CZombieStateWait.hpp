@@ -31,13 +31,13 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Medias/CSound.hpp>
 #include "CEnemyStateWait.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Waiting zombie state
 	*/
 	class CZombieStateWait : public CEnemyStateWait {
 	private:
-		DE::CSound m_moanSound;
+		daidalosengine::CSound m_moanSound;
 
 	public:
 		/**
@@ -55,7 +55,7 @@ namespace DAIDALOS {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(GE::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
 	};
 }
 

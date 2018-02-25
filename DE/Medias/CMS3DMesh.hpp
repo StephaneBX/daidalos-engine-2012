@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define MS3D_ROOT_JOINT -1
 #define MS3D_VERTEX_NO_BONES -1
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* MS3D internal data structure for meshes
 	*/

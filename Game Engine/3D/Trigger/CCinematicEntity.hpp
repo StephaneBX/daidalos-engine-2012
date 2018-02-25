@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.hpp"
 #include "../../Event/CCinematicEvent.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Cinematic entity
@@ -43,7 +43,7 @@ namespace GE {
 	private:
 		bool m_triggered;
 		float m_triggerRadius;
-		DE::ISceneNode * m_node;
+		daidalosengine::ISceneNode * m_node;
 		std::unique_ptr<CCinematicEvent> m_cinematicEvent;
 
 	public:
@@ -51,7 +51,7 @@ namespace GE {
 		* @param parent The parent
 		* @param meshNode The node
 		*/
-		CCinematicEntity(ILevel * parent, DE::ISceneNode * node);
+		CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node);
 
 		/**
 		* Update the entity

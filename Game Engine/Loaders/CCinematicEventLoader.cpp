@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/Memory/CExceptionLoad.hpp>
 #include "CCinematicEventLoader.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Constructor
@@ -67,20 +67,20 @@ namespace GE {
 			}
 			
 		} else {
-			DE::ILogger::Kill();
-			throw DE::CExceptionLoad(this->m_filename);
+			daidalosengine::ILogger::Kill();
+			throw daidalosengine::CExceptionLoad(this->m_filename);
 		}
 
 		return new ICinematicEvent(filename, data);
 	}
 
 	void CCinematicEventLoader::LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle & handle) {
-		DE::CVector3F position, rotation;
+		daidalosengine::CVector3F position, rotation;
 		std::string transition, fade;
 		float duration, fadeDuration;
 
-		GetNodeData(handle, "position", position, DE::CVector3F());
-		GetNodeData(handle, "rotation", rotation, DE::CVector3F());
+		GetNodeData(handle, "position", position, daidalosengine::CVector3F());
+		GetNodeData(handle, "rotation", rotation, daidalosengine::CVector3F());
 		GetNodeData(handle, "duration", duration, 1.0F);
 		GetNodeData(handle, "transition", transition, "none");
 		GetNodeData(handle, "fade", fade, "none");

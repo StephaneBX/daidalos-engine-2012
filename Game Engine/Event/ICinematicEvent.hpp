@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/IResource.hpp>
 #include "CCinematicCamera.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* The font internal data
@@ -45,7 +45,7 @@ namespace GE {
 	/**
 	* Cinematic event
 	*/
-	class ICinematicEvent : public DE::IResource {
+	class ICinematicEvent : public daidalosengine::IResource {
 	private:
 		std::unique_ptr<SCinematicEventInternalData> m_data;
 

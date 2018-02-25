@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_ICINEMATICEVENTLISTENER_HPP
 #define __GAMEENGINE_ICINEMATICEVENTLISTENER_HPP
 
-namespace GE {
+namespace daidalosgameengine {
 
 	class CCinematicEvent;
 	/**

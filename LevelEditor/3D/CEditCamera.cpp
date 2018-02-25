@@ -32,8 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../CEditorConfiguration.hpp"
 #include "../3D/CEditCamera.hpp"
 
-namespace EDITOR {
-	CEditCamera::CEditCamera(DE::ICameraSceneNode * cameraNode) {
+namespace daidaloseditor {
+	CEditCamera::CEditCamera(daidalosengine::ICameraSceneNode * cameraNode) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
 		this->m_layer = 0;
@@ -42,20 +42,20 @@ namespace EDITOR {
 		// Override camera visibility
 		this->m_node->SetFarDistance(200);
 
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
-		this->m_soundContext = DE::CSoundContextManager::GetInstance();
-		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
+		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
+		this->m_options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 	}
 
-	void CEditCamera::SetScene(DE::C3DScene * scene) {
+	void CEditCamera::SetScene(daidalosengine::C3DScene * scene) {
 		this->m_scene = scene;
 	}
 
-	void CEditCamera::SetPosition(const DE::CVector3F & position) {
+	void CEditCamera::SetPosition(const daidalosengine::CVector3F & position) {
 		this->m_node->SetPosition(position);
 	}
 
-	void CEditCamera::SetRotation(const DE::CVector3F & rotation) {
+	void CEditCamera::SetRotation(const daidalosengine::CVector3F & rotation) {
 		this->m_rotation = rotation;
 	}
 
@@ -65,11 +65,11 @@ namespace EDITOR {
 		UpdateState();
 		UpdateMovement(timeSecond);
 
-		this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * EDIT_CAMERA_LAYER_HEIGHT + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z));
-		this->m_node->SetRotation(DE::CVector3F(80, 0, 0));
+		this->m_node->SetPosition(daidalosengine::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * EDIT_CAMERA_LAYER_HEIGHT + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z));
+		this->m_node->SetRotation(daidalosengine::CVector3F(80, 0, 0));
 	}
 
-	DE::ICameraSceneNode * CEditCamera::GetCameraNode() const {
+	daidalosengine::ICameraSceneNode * CEditCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
@@ -120,7 +120,7 @@ namespace EDITOR {
 	}
 
 	void CEditCamera::UpdateMovement(const float timeSecond) {
-		DE::CVector3F movement;
+		daidalosengine::CVector3F movement;
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_IN) != 0) {
 			this->m_zoom--;
@@ -139,19 +139,19 @@ namespace EDITOR {
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_LEFT) != 0) {
-			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(-EDIT_CAMERA_STEP, 0, 0));
+			this->m_node->SetPosition(daidalosengine::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + daidalosengine::CVector3F(-EDIT_CAMERA_STEP, 0, 0));
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_RIGHT) != 0) {
-			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(EDIT_CAMERA_STEP, 0, 0));
+			this->m_node->SetPosition(daidalosengine::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + daidalosengine::CVector3F(EDIT_CAMERA_STEP, 0, 0));
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_UP) != 0) {
-			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(0, 0, EDIT_CAMERA_STEP));
+			this->m_node->SetPosition(daidalosengine::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + daidalosengine::CVector3F(0, 0, EDIT_CAMERA_STEP));
 		}
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_DOWN) != 0) {
-			this->m_node->SetPosition(DE::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + DE::CVector3F(0, 0, -EDIT_CAMERA_STEP));
+			this->m_node->SetPosition(daidalosengine::CVector3F(this->m_node->GetPosition().x, (float)(this->m_layer * 10 + this->m_zoom * EDIT_CAMERA_LAYER_HEIGHT), this->m_node->GetPosition().z) + daidalosengine::CVector3F(0, 0, -EDIT_CAMERA_STEP));
 		}
 	}
 }

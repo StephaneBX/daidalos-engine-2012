@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <fstream>
 #include "../../Core/Logger/ILogger.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CLoggerFile class
 	* Log data into a file

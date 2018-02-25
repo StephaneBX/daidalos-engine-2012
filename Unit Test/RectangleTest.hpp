@@ -8,8 +8,8 @@
 class RectangleTest : public CppUnit::TestFixture
 {
 private:
-	DE::CVector2I m_origin;
-	DE::CVector2I m_size;
+	daidalosengine::CVector2I m_origin;
+	daidalosengine::CVector2I m_size;
 	int m_factor;
 
 	CPPUNIT_TEST_SUITE(RectangleTest);

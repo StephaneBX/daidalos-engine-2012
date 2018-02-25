@@ -6,29 +6,29 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Vector2Test);
 
 void Vector2Test::TestConstructors() {
 	// Default constuctor
-	DE::CVector2F test1;
+	daidalosengine::CVector2F test1;
 	CPPUNIT_ASSERT(test1.x == 0 && test1.y == 0);
 
 	// Value constructor
-	DE::CVector2F test2(10.0F, 20.0F);
+	daidalosengine::CVector2F test2(10.0F, 20.0F);
 	CPPUNIT_ASSERT(test2.x == 10.0F && test2.y == 20.0F);
 
 	// Copy constructor
-	DE::CVector2F test3(test2);
+	daidalosengine::CVector2F test3(test2);
 	CPPUNIT_ASSERT(test3.x == 10.0F && test3.y == 20.0F);
 
 	// Array constructor
 	float testArray[2] = { 5.0F, 9.0F };
-	DE::CVector2F test4(testArray);
+	daidalosengine::CVector2F test4(testArray);
 	CPPUNIT_ASSERT(test4.x == testArray[0] && test4.y == testArray[1]);
 }
 
 void Vector2Test::TestOperators() {
-	DE::CVector2F vec1(5.0F, 15.0F);
-	DE::CVector2F vec2(8.0F, 2.0F);
+	daidalosengine::CVector2F vec1(5.0F, 15.0F);
+	daidalosengine::CVector2F vec2(8.0F, 2.0F);
 
 	// = operator
-	DE::CVector2F test = vec1;
+	daidalosengine::CVector2F test = vec1;
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.x, vec1.x, EPSILON);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.y, vec1.y, EPSILON);
 
@@ -122,31 +122,31 @@ void Vector2Test::TestOperators() {
 }
 
 void Vector2Test::TestLength() {
-	DE::CVector2F test(10.0F, 10.0F);
+	daidalosengine::CVector2F test(10.0F, 10.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
 
-	test = DE::CVector2F(-10.0F, -10.0F);
+	test = daidalosengine::CVector2F(-10.0F, -10.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test.Length(), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector2F::Length(test), sqrtf(test.x * test.x + test.y * test.y), EPSILON);
 }
 
 void Vector2Test::TestDotProduct() {
-	DE::CVector2F test1(2.0F, 5.0F);
-	DE::CVector2F test2(8.0F, 3.0F);
+	daidalosengine::CVector2F test1(2.0F, 5.0F);
+	daidalosengine::CVector2F test2(8.0F, 3.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.DotProduct(test2), test1.x * test2.x + test1.y * test2.y, EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::DotProduct(test1, test2), test1.x * test2.x + test1.y * test2.y, EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector2F::DotProduct(test1, test2), test1.x * test2.x + test1.y * test2.y, EPSILON);
 }
 
 void Vector2Test::TestDistance() {
-	DE::CVector2F test1(2.0F, 5.0F);
-	DE::CVector2F test2(8.0F, 3.0F);
+	daidalosengine::CVector2F test1(2.0F, 5.0F);
+	daidalosengine::CVector2F test2(8.0F, 3.0F);
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(test1.Distance(test2), (test2 - test1).Length(), EPSILON);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(DE::CVector2F::Distance(test1, test2), (test2 - test1).Length(), EPSILON);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(daidalosengine::CVector2F::Distance(test1, test2), (test2 - test1).Length(), EPSILON);
 }
 
 void Vector2Test::TestNormalize() {
-	DE::CVector2F test(2.0F, 5.0F);
+	daidalosengine::CVector2F test(2.0F, 5.0F);
 	CPPUNIT_ASSERT_EQUAL(test.Normalize(), test / test.Length());
 }
 
@@ -156,8 +156,8 @@ void Vector2Test::TestGetFrom() {
 	std::string test3 = "3;7";
 	std::string test4 = "";
 
-	CPPUNIT_ASSERT_EQUAL(DE::CVector2F::GetFrom(test1), DE::CVector2F(1.5F, 10.0F));
-	CPPUNIT_ASSERT_EQUAL(DE::CVector2F::GetFrom(test2), DE::CVector2F());
-	CPPUNIT_ASSERT_EQUAL(DE::CVector2F::GetFrom(test3, DE::CVector2F(), ";"), DE::CVector2F(3.0F, 7.0F));
-	CPPUNIT_ASSERT_EQUAL(DE::CVector2F::GetFrom(test4), DE::CVector2F());
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector2F::GetFrom(test1), daidalosengine::CVector2F(1.5F, 10.0F));
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector2F::GetFrom(test2), daidalosengine::CVector2F());
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector2F::GetFrom(test3, daidalosengine::CVector2F(), ";"), daidalosengine::CVector2F(3.0F, 7.0F));
+	CPPUNIT_ASSERT_EQUAL(daidalosengine::CVector2F::GetFrom(test4), daidalosengine::CVector2F());
 }

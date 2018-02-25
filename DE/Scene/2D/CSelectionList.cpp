@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define TRANSPARENT_TEXTURE "alpha.png"
 #define SELECTION_TEXTURE "blue.png"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	* @param texture The texture name
@@ -51,7 +51,7 @@ namespace DE {
 
 		// Set the value label
 		this->m_selectedValue.SetDefaultTexture(TRANSPARENT_TEXTURE);
-		this->m_selectedValue.GetTitleElement()->SetVerticalAlignment(DE::TEXT_VERTICAL_ALIGNMENT_TOP);
+		this->m_selectedValue.GetTitleElement()->SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_TOP);
 		this->m_selectedValue.AddButtonListener(this);
 		AddSubview(&this->m_selectedValue);
 
@@ -137,18 +137,18 @@ namespace DE {
 		this->m_title.Update(time);
 
 		// Update the value position and size
-		this->m_selectedValue.SetBounds(DE::CRectangleI(this->m_title.GetBoundingRectangle().GetRight(), 0, this->m_preferredsize.x - this->m_title.GetBoundingRectangle().GetRight(), BUTTON_HEIGHT));
+		this->m_selectedValue.SetBounds(daidalosengine::CRectangleI(this->m_title.GetBoundingRectangle().GetRight(), 0, this->m_preferredsize.x - this->m_title.GetBoundingRectangle().GetRight(), BUTTON_HEIGHT));
 		this->m_selectedValue.Update(time);
 
 		// Update the button size
 		int index = 0;
 		for (auto it = this->m_selections.begin(); it != this->m_selections.end(); ++it) {
-			(*it)->SetBounds(DE::CRectangleI(0, index * BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, BUTTON_HEIGHT));
+			(*it)->SetBounds(daidalosengine::CRectangleI(0, index * BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, BUTTON_HEIGHT));
 			index++;
 		}
 
 		// Update the scrollabe view position and size
-		this->m_scrollableView.SetBounds(DE::CRectangleI(this->m_selectedValue.GetPosition().x, this->m_selectedValue.GetPosition().y + BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, NUMBER_VISIBLE_CHOICES * BUTTON_HEIGHT));
+		this->m_scrollableView.SetBounds(daidalosengine::CRectangleI(this->m_selectedValue.GetPosition().x, this->m_selectedValue.GetPosition().y + BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, NUMBER_VISIBLE_CHOICES * BUTTON_HEIGHT));
 		this->m_scrollableView.Update(time);
 	}
 
@@ -197,7 +197,7 @@ namespace DE {
 	const int CSelectionList::AddSelection(const std::string & text) {
 		LOG_TRACE();
 
-		this->m_selections.push_back(new DE::CButton(TRANSPARENT_TEXTURE));
+		this->m_selections.push_back(new daidalosengine::CButton(TRANSPARENT_TEXTURE));
 		int index = this->m_selections.size() - 1;
 
 		// Fill the button

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ISELECTIONLISTLISTENER_HPP
 #define __ISELECTIONLISTLISTENER_HPP
 
-namespace DE {
+namespace daidalosengine {
 	class CSelectionList;
 
 	/**

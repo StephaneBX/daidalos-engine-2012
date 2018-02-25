@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9Renderer.hpp"
 #include "../../Renderers/DX9/CDX9Shader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CDX9Shader::CDX9Shader(const std::string & name, ID3DXConstantTable * constantTable) : IShaderBase(name) {
 		LOG_TRACE();
 

@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Loaders/CEditorSceneLoader.hpp"
 #include "../CEditorConfiguration.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 
 	/**
 	* Override and use a simple node system
@@ -39,7 +39,7 @@ namespace EDITOR {
 	* @param child The bsp node root
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadBSPStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
 	}
 
@@ -49,7 +49,7 @@ namespace EDITOR {
 	* @param child The bsp node root
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadSimpleStructure(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
 	}
 
@@ -59,10 +59,10 @@ namespace EDITOR {
 	* @param child The bsp node root
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadSoundNode(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node, const std::string & name) {
+	void CEditorSceneLoader::LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) {
 
-		DE::CSceneLoader::LoadSoundNode(scene, parent, handle, node, name);
-		static_cast<DE::CSoundSceneNode*>(node)->SetSoundStatus(DE::SOUND_STATUS_PAUSE);
+		daidalosengine::CSceneLoader::LoadSoundNode(scene, parent, handle, node, name);
+		static_cast<daidalosengine::CSoundSceneNode*>(node)->SetSoundStatus(daidalosengine::SOUND_STATUS_PAUSE);
 	}
 
 	/**
@@ -71,7 +71,7 @@ namespace EDITOR {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CEditorSceneLoader::SaveSimpleStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CEditorSceneLoader::SaveSimpleStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 		SaveBSPStructure(node, document, parent);
 	}
 
@@ -81,17 +81,17 @@ namespace EDITOR {
 	* @param document The xml document
 	* @param parent The element parent
 	*/
-	void CEditorSceneLoader::SaveBSPStructure(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CEditorSceneLoader::SaveBSPStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
 		parent->InsertEndChild(document.NewComment(" BSP Level Node "));
 
-		DE::ILevelSceneNode * levelNode = static_cast<DE::ILevelSceneNode*>(node);
+		daidalosengine::ILevelSceneNode * levelNode = static_cast<daidalosengine::ILevelSceneNode*>(node);
 
 		// Level node
 		tinyxml2::XMLElement * levelElement = document.NewElement("node");
 
 		// Type
-		levelElement->SetAttribute("type", DE::SCENE_NODE_ROOT);
+		levelElement->SetAttribute("type", daidalosengine::SCENE_NODE_ROOT);
 
 		// Name
 		levelElement->SetAttribute("name", "level");
@@ -133,16 +133,16 @@ namespace EDITOR {
 	* @param child The bsp node root
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadEditorLevelStucture(DE::I3DScene * scene, DE::ISceneNode *& parent, tinyxml2::XMLHandle & handle, DE::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
 		tinyxml2::XMLElement * child;
 		node = new CEditorLevelSceneNode(scene);
 		std::string skyName;
-		DE::CVector3F ambientColor, skyAmbientColor;
+		daidalosengine::CVector3F ambientColor, skyAmbientColor;
 
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
-			ambientColor = DE::CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
-		static_cast<CEditorLevelSceneNode*>(node)->SetAmbientColor(DE::CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+			ambientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
+		static_cast<CEditorLevelSceneNode*>(node)->SetAmbientColor(daidalosengine::CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
 		if(handle.ToElement()->Attribute("skyName") != nullptr)
@@ -151,8 +151,8 @@ namespace EDITOR {
 
 		// Get the sky ambient color
 		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
-			skyAmbientColor = DE::CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
-		static_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(DE::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
+			skyAmbientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		static_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(daidalosengine::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
 		child = handle.FirstChildElement("multi_brush").ToElement();
@@ -165,13 +165,13 @@ namespace EDITOR {
 					if(std::string(child2It->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2It);
 
-						DE::CVector3F position, rotation, scale;
+						daidalosengine::CVector3F position, rotation, scale;
 						std::string diffuseTexture, normalTexture;
 
 						// Search for defined values in the element or use default values
-						GetNodeData(brushHandle, "position", position, DE::CVector3F(0, 0, 0));
-						GetNodeData(brushHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
-						GetNodeData(brushHandle, "scale", scale, DE::CVector3F(1, 1, 1));
+						GetNodeData(brushHandle, "position", position, daidalosengine::CVector3F(0, 0, 0));
+						GetNodeData(brushHandle, "rotation", rotation, daidalosengine::CVector3F(0, 0, 0));
+						GetNodeData(brushHandle, "scale", scale, daidalosengine::CVector3F(1, 1, 1));
 						GetNodeData(brushHandle, "diffuse_texture", diffuseTexture, "default.png");
 						GetNodeData(brushHandle, "normal_texture", normalTexture, "default.png");
 						std::string file = brushHandle.ToElement()->Attribute("file");
@@ -180,11 +180,11 @@ namespace EDITOR {
 						brushHandle.ToElement()->QueryIntAttribute("id", &id);
 
 						// Create the node
-						DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_MULTIBRUSH, file, position, rotation, scale);
+						daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_MULTIBRUSH, file, position, rotation, scale);
 						meshNode->SetId(id);
-						meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-						meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+						meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 						node->AddChild(meshNode);
 					}
 				}
@@ -197,13 +197,13 @@ namespace EDITOR {
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle brushHandle(childIt);
 
-				DE::CVector3F position, rotation, scale;
+				daidalosengine::CVector3F position, rotation, scale;
 				std::string diffuseTexture, normalTexture;
 
 				// Search for defined values in the element or use default values
-				GetNodeData(brushHandle, "position", position, DE::CVector3F(0, 0, 0));
-				GetNodeData(brushHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
-				GetNodeData(brushHandle, "scale", scale, DE::CVector3F(1, 1, 1));
+				GetNodeData(brushHandle, "position", position, daidalosengine::CVector3F(0, 0, 0));
+				GetNodeData(brushHandle, "rotation", rotation, daidalosengine::CVector3F(0, 0, 0));
+				GetNodeData(brushHandle, "scale", scale, daidalosengine::CVector3F(1, 1, 1));
 				GetNodeData(brushHandle, "diffuse_texture", diffuseTexture, "default.png");
 				GetNodeData(brushHandle, "normal_texture", normalTexture, "default.png");
 				std::string file = brushHandle.ToElement()->Attribute("file");
@@ -212,11 +212,11 @@ namespace EDITOR {
 				brushHandle.ToElement()->QueryIntAttribute("id", &id);
 
 				// Create the node
-				DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BRUSH, file, position, rotation, scale);
+				daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BRUSH, file, position, rotation, scale);
 				meshNode->SetId(id);
-				meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, diffuseTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-				meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, normalTexture, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 				node->AddChild(meshNode);
 			}
 		}
@@ -227,7 +227,7 @@ namespace EDITOR {
 			if(std::string(childIt->Name()) == "node") {
 				tinyxml2::XMLHandle nodeHandle(childIt);
 
-				DE::CVector3F position, rotation, scale;
+				daidalosengine::CVector3F position, rotation, scale;
 				std::string boundingBox;
 
 				int type = -1;
@@ -237,45 +237,45 @@ namespace EDITOR {
 				nodeHandle.ToElement()->QueryIntAttribute("id", &id);
 
 				// Search for defined values in the element or use default values
-				GetNodeData(nodeHandle, "position", position, DE::CVector3F(0, 0, 0));
-				GetNodeData(nodeHandle, "rotation", rotation, DE::CVector3F(0, 0, 0));
-				GetNodeData(nodeHandle, "scale", scale, DE::CVector3F(1, 1, 1));
+				GetNodeData(nodeHandle, "position", position, daidalosengine::CVector3F(0, 0, 0));
+				GetNodeData(nodeHandle, "rotation", rotation, daidalosengine::CVector3F(0, 0, 0));
+				GetNodeData(nodeHandle, "scale", scale, daidalosengine::CVector3F(1, 1, 1));
 				GetNodeData(nodeHandle, "boundingBox", boundingBox, "");
 
 				// Create a bounding box if necessary
 				if(boundingBox != "") {
 					// Create the node
-					DE::CStaticMeshSceneNode * meshNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
+					daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
 					meshNode->SetId(id);
 					meshNode->SetSaved(false);
 					meshNode->SetShadowCaster(false);
-					meshNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					meshNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(meshNode);
 				}
 
 				// Add a visible element if the node is a sound
-				if(type == DE::SCENE_NODE_SOUND) {
-					DE::CStaticMeshSceneNode * soundNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, DE::CVector3F(2, 2, 2));
+				if(type == daidalosengine::SCENE_NODE_SOUND) {
+					daidalosengine::CStaticMeshSceneNode * soundNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, daidalosengine::CVector3F(2, 2, 2));
 					soundNode->SetId(id);
 					soundNode->SetSaved(false);
 					soundNode->SetShadowCaster(false);
-					soundNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					soundNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					soundNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(soundNode);
 				}
 
 				// Add a visible element if the node is a light
-				if(type == DE::SCENE_NODE_SPOTLIGHT) {
-					DE::CStaticMeshSceneNode * lightNode = new DE::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, DE::CVector3F(2, 2, 2));
+				if(type == daidalosengine::SCENE_NODE_SPOTLIGHT) {
+					daidalosengine::CStaticMeshSceneNode * lightNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_SOUND, "cube.obj", position, rotation, daidalosengine::CVector3F(2, 2, 2));
 					lightNode->SetId(id);
 					lightNode->SetSaved(false);
 					lightNode->SetShadowCaster(false);
-					lightNode->SetMeshShadingType(DE::MESH_SHADING_FLAT);
-					lightNode->SetMeshTexture(DE::TEXTURE_TYPE_DIFFUSE, EDITOR_SPOTLIGHT_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					lightNode->SetMeshTexture(DE::TEXTURE_TYPE_NORMAL, EDITOR_SPOTLIGHT_TEXTURE_NAME, DE::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					lightNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
 					node->AddChild(lightNode);
 				}
 			}
@@ -288,9 +288,9 @@ namespace EDITOR {
 	* @param child The bsp node root
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::SaveBrush(DE::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
+	void CEditorSceneLoader::SaveBrush(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		DE::IMeshSceneNode * meshNode = static_cast<DE::IMeshSceneNode *>(node);
+		daidalosengine::IMeshSceneNode * meshNode = static_cast<daidalosengine::IMeshSceneNode *>(node);
 		tinyxml2::XMLElement * brush = document.NewElement("brush");
 
 		// Id
@@ -317,16 +317,16 @@ namespace EDITOR {
 		brush->InsertEndChild(child);
 
 		// Diffuse texture
-		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE) != "") {
+		if(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE) != "") {
 			child = document.NewElement("diffuse_texture");
-			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_DIFFUSE).c_str()));
+			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE).c_str()));
 			brush->InsertEndChild(child);
 		}
 
 		// Normal texture
-		if(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL) != "") {
+		if(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_NORMAL) != "") {
 			child = document.NewElement("normal_texture");
-			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(DE::TEXTURE_TYPE_NORMAL).c_str()));
+			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_NORMAL).c_str()));
 			brush->InsertEndChild(child);
 		}
 

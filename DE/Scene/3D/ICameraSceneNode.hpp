@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define DEBUG_LINES_COUNT 16
 #define DEBUG_LINES_STRIDE sizeof(CVector3F)
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Structure that hold view frustum information
 	*/

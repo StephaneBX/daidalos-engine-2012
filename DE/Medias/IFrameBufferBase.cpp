@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Memory/CExceptionAssert.hpp"
 #include "../Medias/IFrameBufferBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IFrameBufferBase::~IFrameBufferBase() {
 		LOG_TRACE();
 

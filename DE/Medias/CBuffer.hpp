@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Medias/IBufferBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Buffer enclosing class
 	*/

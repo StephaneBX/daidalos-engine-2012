@@ -32,16 +32,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define ROTATION_SPEED 70.0F
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CAlarmEntity::CAlarmEntity(GE::ILevel * parent, DE::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CAlarmEntity::CAlarmEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_ALARM);
+		SetType(daidalosgameengine::ENTITY_TYPE_ALARM);
 		this->m_node = meshNode;
 		this->m_speed = ROTATION_SPEED;
 
@@ -52,9 +52,9 @@ namespace DAIDALOS {
 		}
 
 		// Add the lights
-		DE::CSpotLightSceneNode * spot1 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0F, 0), DE::CVector3F(25,0,0), DE::CColor(0.5F,0.0F,0.0F), 80, 20, 0.7F,0.8F, true, true);
+		daidalosengine::CSpotLightSceneNode * spot1 = new daidalosengine::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", daidalosengine::CVector3F(0, -2.0F, 0), daidalosengine::CVector3F(25,0,0), daidalosengine::CColor(0.5F,0.0F,0.0F), 80, 20, 0.7F,0.8F, true, true);
 		meshNode->AddChild(spot1);
-		DE::CSpotLightSceneNode * spot2 = new DE::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", DE::CVector3F(0, -2.0F, 0), DE::CVector3F(25, 180, 0), DE::CColor(0.5F, 0.0F, 0.0F), 80, 20, 0.7F, 0.8F, true, true);
+		daidalosengine::CSpotLightSceneNode * spot2 = new daidalosengine::CSpotLightSceneNode(this->GetParent()->GetScene()->GetScene(), this->m_node, "", daidalosengine::CVector3F(0, -2.0F, 0), daidalosengine::CVector3F(25, 180, 0), daidalosengine::CColor(0.5F, 0.0F, 0.0F), 80, 20, 0.7F, 0.8F, true, true);
 		meshNode->AddChild(spot2);
 	}
 
@@ -72,7 +72,7 @@ namespace DAIDALOS {
 		if(rotation < 0) {
 			rotation += 360.0F;
 		}
-		this->m_node->SetRotation(DE::CVector3F(0, rotation, 0));
+		this->m_node->SetRotation(daidalosengine::CVector3F(0, rotation, 0));
 	}
 
 	/**

@@ -52,7 +52,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define APPLICATION_MATERIALS_CONFIGURATION "Resources/Engine/materials.ini"
 #define APPLICATION_NODES_CONFIGURATION "Resources/Engine/nodes.ini"
 
-namespace DE {
+namespace daidalosengine {
 	inline const std::string GetCurrentTimeAsString() {
 		time_t     now = time(0);
 		struct tm  tstruct;

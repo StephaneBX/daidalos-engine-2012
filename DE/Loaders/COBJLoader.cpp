@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Utility/CTokenizer.hpp"
 #include "../Loaders/COBJLoader.hpp"
 
-namespace DE {
+namespace daidalosengine {
 #define OBJ_LOADER_ELEMENT_PER_LINE 4
 
 	COBJLoader::COBJLoader() {

@@ -38,7 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <IPlayer.hpp>
 #include "Weapons/IWeapon.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	enum EFPSCameraAction {
 		FPS_CAMERA_EXIT				= 1 << 1,
@@ -71,7 +71,7 @@ namespace DAIDALOS {
 	/**
 	* FPS type camera implementation
 	*/
-	class CFPSCamera : public GE::IPlayer
+	class CFPSCamera : public daidalosgameengine::IPlayer
 	{
 	private:
 		bool m_hasMoved;
@@ -81,22 +81,22 @@ namespace DAIDALOS {
 		float m_ladderDistance;
 		float m_jumpTimer;
 		EFPSCameraState m_state;
-		DE::CVector2F m_previousMouseMovement;
-		DE::CVector2F m_previousGamepadViewMovement;
-		DE::CVector3F m_rotation;
-		DE::ICameraSceneNode * m_node;
-		DE::ISceneNode * m_flashlightNode;
-		DE::CInputDevice * m_inputDevice;
-		DE::CSoundContextManager * m_soundContext;
+		daidalosengine::CVector2F m_previousMouseMovement;
+		daidalosengine::CVector2F m_previousGamepadViewMovement;
+		daidalosengine::CVector3F m_rotation;
+		daidalosengine::ICameraSceneNode * m_node;
+		daidalosengine::ISceneNode * m_flashlightNode;
+		daidalosengine::CInputDevice * m_inputDevice;
+		daidalosengine::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
 		// Sounds
-		std::vector<std::unique_ptr<DE::CSound>> m_stepSounds;
-		DE::CSound m_stepFallSound;
-		DE::CSound m_ladderSound;
-		DE::CSound m_jumpSound;
-		DE::CSound m_hurtSound;
-		DE::CSound m_dieSound;
+		std::vector<std::unique_ptr<daidalosengine::CSound>> m_stepSounds;
+		daidalosengine::CSound m_stepFallSound;
+		daidalosengine::CSound m_ladderSound;
+		daidalosengine::CSound m_jumpSound;
+		daidalosengine::CSound m_hurtSound;
+		daidalosengine::CSound m_dieSound;
 
 		// Weapons and objects
 		std::map<unsigned int, unsigned int> m_objects;
@@ -104,7 +104,7 @@ namespace DAIDALOS {
 		unsigned int m_currentWeaponIndex;
 		std::map<unsigned int, std::unique_ptr<IWeapon> > m_weapons;
 		std::vector<unsigned int> m_weaponsOrder;
-		DE::CSound m_weaponChangeSound;
+		daidalosengine::CSound m_weaponChangeSound;
 
 	public:
 		/**
@@ -113,7 +113,7 @@ namespace DAIDALOS {
 		* @param cameraNode The camera node
 		* @param flashlightNode The flashlight node
 		*/
-		CFPSCamera(GE::ILevel * parent, DE::ICameraSceneNode * cameraNode, DE::ISceneNode * flashlightNode);
+		CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode);
 
 		/**
 		* Set the player active state
@@ -144,7 +144,7 @@ namespace DAIDALOS {
 		* Set the player position
 		* @param position The position
 		*/
-		void SetPosition(const DE::CVector3F position) override;
+		void SetPosition(const daidalosengine::CVector3F position) override;
 
 		/**
 		* Update the camera
@@ -157,7 +157,7 @@ namespace DAIDALOS {
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(DE::IShape3DF * shape) override;
+		const bool IsShapeVisible(daidalosengine::IShape3DF * shape) override;
 
 		/**
 		* If the player interaction action is active
@@ -206,14 +206,14 @@ namespace DAIDALOS {
 		* Get the camera node
 		* @return The camera node
 		*/
-		DE::ICameraSceneNode * GetCameraNode() const override;
+		daidalosengine::ICameraSceneNode * GetCameraNode() const override;
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const DE::CVector3F gravity) override;
+		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) override;
 
 	private:
 		/**

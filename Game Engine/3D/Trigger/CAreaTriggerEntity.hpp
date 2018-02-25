@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "ITriggerEntity.hpp"
 #include "../../IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 
 	/**
 	* Area trigger entity
@@ -40,7 +40,7 @@ namespace GE {
 	class CAreaTriggerEntity : public ITriggerEntity {
 	private:
 		float m_triggerRadius;
-		DE::ISceneNode * m_node;
+		daidalosengine::ISceneNode * m_node;
 		std::vector<int> m_triggerNodeIds;
 
 	public:
@@ -48,7 +48,7 @@ namespace GE {
 		* @param parent The parent
 		* @param node The node
 		*/
-		CAreaTriggerEntity(ILevel * parent, DE::ISceneNode * node);
+		CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node);
 
 		/**
 		* Update the entity

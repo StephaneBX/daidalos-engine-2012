@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStreamSoundBase.hpp"
 #include "../Medias/CSound.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	CSound::CSound() {}
 
 	CSound::CSound(const std::string & filename, ESoundType type, ESoundCategory category) {
@@ -65,7 +65,7 @@ namespace DE {
 		}
 
 		// Set the gain
-		SiniP options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		SiniP options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 		switch(category) {
 		case SOUND_CATEGORY_MUSIC:
 			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0F));

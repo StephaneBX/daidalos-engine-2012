@@ -52,55 +52,55 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "IPlayer.hpp"
 #include "Level/ILevel.hpp"
 
-namespace GE
+namespace daidalosgameengine
 {
 	/**
 	* Deferred rendering application
 	*/
-	class IDeferredApplication : public DE::IWin32Application, public GE::ILevelListener {
+	class IDeferredApplication : public daidalosengine::IWin32Application, public daidalosgameengine::ILevelListener {
 	protected:
 		bool m_loading;
 		std::unique_ptr<ILevel> m_currentLevel;
-		DE::C2DScene * m_loadingScene;
-		DE::CCursor m_cursor;
+		daidalosengine::C2DScene * m_loadingScene;
+		daidalosengine::CCursor m_cursor;
 
 		// 2D Rendering 
-		DE::DeclarationPtr m_declaration2D;
-		DE::CShaderProgram m_shader2D;
+		daidalosengine::DeclarationPtr m_declaration2D;
+		daidalosengine::CShaderProgram m_shader2D;
 
 		// Deferred Shading
-		DE::DeclarationPtr m_declaration;
-		DE::DeclarationPtr m_declarationDiffuse;
-		DE::CFrameBuffer m_DSFB;
-		DE::CBuffer m_screenQuadLightVB;
-		DE::CBuffer m_screenQuadFinalVB;
-		DE::DeclarationPtr m_lightGeometryVD;
-		DE::DeclarationPtr m_screenQuadLightVD;
-		DE::DeclarationPtr m_screenQuadLightVD2;
-		DE::DeclarationPtr m_screenQuadFinalVD;
-		DE::CShaderProgram m_DSFill;
-		DE::CShaderProgram m_DSShadowMap;
-		DE::CShaderProgram m_DSSpotLight;
-		DE::CShaderProgram m_DSPointLight;
-		DE::CShaderProgram m_DSDirectionalLight;
-		DE::CShaderProgram m_DSFinal;
-		DE::CShaderProgram m_DSPostProcessFinal;
-		DE::CShaderProgram m_shaderTransparent;
-		DE::CShaderProgram m_shaderDiffuse;
+		daidalosengine::DeclarationPtr m_declaration;
+		daidalosengine::DeclarationPtr m_declarationDiffuse;
+		daidalosengine::CFrameBuffer m_DSFB;
+		daidalosengine::CBuffer m_screenQuadLightVB;
+		daidalosengine::CBuffer m_screenQuadFinalVB;
+		daidalosengine::DeclarationPtr m_lightGeometryVD;
+		daidalosengine::DeclarationPtr m_screenQuadLightVD;
+		daidalosengine::DeclarationPtr m_screenQuadLightVD2;
+		daidalosengine::DeclarationPtr m_screenQuadFinalVD;
+		daidalosengine::CShaderProgram m_DSFill;
+		daidalosengine::CShaderProgram m_DSShadowMap;
+		daidalosengine::CShaderProgram m_DSSpotLight;
+		daidalosengine::CShaderProgram m_DSPointLight;
+		daidalosengine::CShaderProgram m_DSDirectionalLight;
+		daidalosengine::CShaderProgram m_DSFinal;
+		daidalosengine::CShaderProgram m_DSPostProcessFinal;
+		daidalosengine::CShaderProgram m_shaderTransparent;
+		daidalosengine::CShaderProgram m_shaderDiffuse;
 
 		// Post process
-		DE::CTexture2D m_texture2DPostProcess;
-		DE::CShaderProgram m_shaderScreenBlur;
-		DE::CShaderProgram m_shaderScreenGlow;
+		daidalosengine::CTexture2D m_texture2DPostProcess;
+		daidalosengine::CShaderProgram m_shaderScreenBlur;
+		daidalosengine::CShaderProgram m_shaderScreenGlow;
 
 		// Misc
-		DE::CTexture2D m_texture2DWhite;
-		DE::CTexture2D m_texture2DBlack;
-		DE::CShaderProgram m_shaderScreen;
+		daidalosengine::CTexture2D m_texture2DWhite;
+		daidalosengine::CTexture2D m_texture2DBlack;
+		daidalosengine::CShaderProgram m_shaderScreen;
 
 		// Hud
-		DE::CFPSCounter m_fpsCounter;
-		DE::CLabel m_fpsLabel;
+		daidalosengine::CFPSCounter m_fpsCounter;
+		daidalosengine::CLabel m_fpsLabel;
 		CLoadingView * m_loadingView;
 
 	public:
@@ -139,61 +139,61 @@ namespace GE
 		* Render a 3D scene
 		* @param scene3D The scene
 		*/
-		virtual void Render3DScene(DE::C3DScene * scene3D);
+		virtual void Render3DScene(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render a 2D scene
 		* @param scene2D The scene
 		*/
-		virtual void Render2DScene(DE::C2DScene * scene2D);
+		virtual void Render2DScene(daidalosengine::C2DScene * scene2D);
 
 		/**
 		* Do initialization before rendering anything
 		* @param scene3D The scene
 		*/
-		virtual void InitializeRendering(DE::C3DScene * scene3D);
+		virtual void InitializeRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the skybox
 		* @param scene3D The scene
 		*/
-		virtual void SkyboxRendering(DE::C3DScene * scene3D);
+		virtual void SkyboxRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the diffuse part
 		* @param scene3D The scene
 		*/
-		virtual void DiffuseRendering(DE::C3DScene * scene3D);
+		virtual void DiffuseRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the diffuse top layer part
 		* @param scene3D The scene
 		*/
-		virtual void DiffuseTopLayerRendering(DE::C3DScene * scene3D);
+		virtual void DiffuseTopLayerRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the transparent part
 		* @param scene3D The scene
 		*/
-		virtual void TransparentRendering(DE::C3DScene * scene3D);
+		virtual void TransparentRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the spot lights in the RT
 		* @param scene3D The scene
 		*/
-		virtual void SpotLightsRendering(DE::C3DScene * scene3D);
+		virtual void SpotLightsRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the point lights in the RT
 		* @param scene3D The scene
 		*/
-		virtual void PointLightsRendering(DE::C3DScene * scene3D);
+		virtual void PointLightsRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the directional lights in the RT
 		* @param scene3D The scene
 		*/
-		virtual void DirectionalLightsRendering(DE::C3DScene * scene3D);
+		virtual void DirectionalLightsRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Do the post process rendering
@@ -219,25 +219,25 @@ namespace GE
 		* Prepare for light rendering
 		* @param scene3D The scene
 		*/
-		void PreLightRendering(DE::C3DScene * scene3D);
+		void PreLightRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Post light rendering
 		* @param scene3D The scene
 		*/
-		void PostLightRendering(DE::C3DScene * scene3D);
+		void PostLightRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Render the particle system
 		* @param scene3D The scene
 		*/
-		void ParticleSystemRendering(DE::C3DScene * scene3D);
+		void ParticleSystemRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Finalize the deferred rendering by drawing the RTs the the backbuffer
 		* @param scene3D The scene
 		*/
-		void FinalizeDeferredRendering(DE::C3DScene * scene3D);
+		void FinalizeDeferredRendering(daidalosengine::C3DScene * scene3D);
 	};
 }
 

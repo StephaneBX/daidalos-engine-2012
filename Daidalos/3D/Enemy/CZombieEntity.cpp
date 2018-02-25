@@ -67,36 +67,36 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define IMPACT_PARTICLE_LIFE 50
 #define IMPACT_PARTICLE_EMITTERS 15
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param node The mesh node
 	*/
-	CZombieEntity::CZombieEntity(GE::ILevel * parent, DE::CAnimatedMeshSceneNode * node) : IEnemyEntity(parent, node) {
+	CZombieEntity::CZombieEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * node) : IEnemyEntity(parent, node) {
 
-		this->SetGravity(DE::CVector3F(0, GRAVITY, 0));
-		this->SetCollisionShape(new DE::CEllipseF(this->GetMeshNode()->GetPosition() + DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), DE::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
+		this->SetGravity(daidalosengine::CVector3F(0, GRAVITY, 0));
+		this->SetCollisionShape(new daidalosengine::CEllipseF(this->GetMeshNode()->GetPosition() + daidalosengine::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), daidalosengine::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
 
 		// Read the waypoints
 		std::string waypointsString = this->GetMeshNode()->GetAttribute("patrol_waypoints");
-		std::vector<DE::CVector3F> wayPoints;
+		std::vector<daidalosengine::CVector3F> wayPoints;
 		if(waypointsString != "") {
-			DE::CTokenizer tokenizer;
+			daidalosengine::CTokenizer tokenizer;
 			tokenizer.AddLine(waypointsString);
 			if(tokenizer.Tokenize("|")) {
 				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
-					wayPoints.push_back(DE::CVector3F(this->GetMeshNode()->GetAbsolutePosition() + DE::CVector3F::GetFrom(*it)));
+					wayPoints.push_back(daidalosengine::CVector3F(this->GetMeshNode()->GetAbsolutePosition() + daidalosengine::CVector3F::GetFrom(*it)));
 				}
 			}
 		}
 		
-		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
-		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
-		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CZombieStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
-		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
-		this->GetActionStates().push_back(std::unique_ptr<GE::IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CZombieStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
 		this->GetActionStates().front()->AddListener(this->GetActionStates()[1].get());
@@ -105,13 +105,13 @@ namespace DAIDALOS {
 		this->SetVisiblePosition(this->GetCollisionShape()->GetPosition());
 
 		// Change the default camera settings
-		this->GetCameraNode()->SetAngle(DE::DegreeToRadian(VIEW_ANGLE));
-		this->GetCameraNode()->SetPosition(DE::CVector3F(0, 4, 0));
+		this->GetCameraNode()->SetAngle(daidalosengine::DegreeToRadian(VIEW_ANGLE));
+		this->GetCameraNode()->SetPosition(daidalosengine::CVector3F(0, 4, 0));
 		this->GetCameraNode()->SetFarDistance(VIEW_DISTANCE);
 
 		// Initialize the impact particle emitters
 		for(int i = 0; i < IMPACT_PARTICLE_EMITTERS; i++) {
-			DE::CParticleEmitter * emitter = this->GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
+			daidalosengine::CParticleEmitter * emitter = this->GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
 			emitter->SetTextureId(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
@@ -127,7 +127,7 @@ namespace DAIDALOS {
 	void CZombieEntity::Update(const float time) {
 		IEnemyEntity::Update(time);
 
-		this->GetMeshNode()->SetPosition(GetVisiblePosition() - DE::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));
+		this->GetMeshNode()->SetPosition(GetVisiblePosition() - daidalosengine::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0));
 	}
 
 	/**
@@ -136,7 +136,7 @@ namespace DAIDALOS {
 	void CZombieEntity::SelectNextActionState() {
 		if(this->GetCurrentActionState() != nullptr) {
 
-			GE::IEnemyState * nextState = nullptr;
+			daidalosgameengine::IEnemyState * nextState = nullptr;
 			for(auto it = this->GetActionStates().begin(); it != this->GetActionStates().end(); ++it) {
 				if((*it)->IsCandidateForNextAction(this)) {
 
@@ -158,7 +158,7 @@ namespace DAIDALOS {
 	* Generate impact particles from a position
 	* @param position The emitter position
 	*/
-	void CZombieEntity::GenerateImpactParticles(const DE::CVector3F & position) {
+	void CZombieEntity::GenerateImpactParticles(const daidalosengine::CVector3F & position) {
 		bool freeParticleEmitterFound = false;
 		for(unsigned int index = 0; index < GetImpactParticleEmitters().size() && !freeParticleEmitterFound; index++) {
 			if(!GetImpactParticleEmitters()[index]->IsActive()) {
@@ -175,7 +175,7 @@ namespace DAIDALOS {
 	* Callback used to handle event when the entity fall and touch the ground
 	* @param gravity The gravity value before touching the ground
 	*/
-	void CZombieEntity::OnEntityTouchedGround(const DE::CVector3F gravity) {
+	void CZombieEntity::OnEntityTouchedGround(const daidalosengine::CVector3F gravity) {
 		// Nothing to do
 	}
 }

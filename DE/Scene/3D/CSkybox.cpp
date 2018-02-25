@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define SIZE_FACTOR 1.5f
 #define SHADER_NAME "skybox"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Skybox element
 	*/
@@ -125,15 +125,15 @@ namespace DE {
 		renderer->SetIndexBuffer(this->m_indexBuffer.GetBuffer(), sizeof(int));
 
 		// Shader values to reposition the skybox and change its size
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (this->m_scene->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
-		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, DE::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_POSITION), this->m_scene->GetActiveCamera()->GetAbsolutePosition());
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_SKYBOX_SIZE), (this->m_scene->GetActiveCamera()->GetNearDistance() * SIZE_FACTOR));
+		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
 
 		// Draw each part of the skybox
 		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {
-			renderer->SetVertexBuffer(0, this->m_buffers[i].GetBuffer(), sizeof(DE::SSkyboxElement), 0, 4);
+			renderer->SetVertexBuffer(0, this->m_buffers[i].GetBuffer(), sizeof(daidalosengine::SSkyboxElement), 0, 4);
 			renderer->SetTexture(0, this->m_textures[i].GetTexture());
-			renderer->DrawIndexedPrimitives(DE::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
+			renderer->DrawIndexedPrimitives(daidalosengine::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
 
 		// Enable back writing to the z-buffer
@@ -166,7 +166,7 @@ namespace DE {
 			{ CVector3F(1, -1, 1), CVector2F(1, 1) },
 			{ CVector3F(-1, -1, 1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_FRONT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, front);
+		this->m_buffers[SKYBOX_FACE_FRONT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, front);
 
 		SSkyboxElement right[] =
 		{
@@ -175,7 +175,7 @@ namespace DE {
 			{ CVector3F(1, -1, -1), CVector2F(1, 1) },
 			{ CVector3F(1, -1, 1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_RIGHT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, right);
+		this->m_buffers[SKYBOX_FACE_RIGHT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, right);
 
 		SSkyboxElement back[] =
 		{
@@ -184,7 +184,7 @@ namespace DE {
 			{ CVector3F(-1, -1, -1), CVector2F(1, 1) },
 			{ CVector3F(1, -1, -1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_BACK] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, back);
+		this->m_buffers[SKYBOX_FACE_BACK] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, back);
 
 		SSkyboxElement left[] =
 		{
@@ -193,7 +193,7 @@ namespace DE {
 			{ CVector3F(-1, -1, 1), CVector2F(1, 1) },
 			{ CVector3F(-1, -1, -1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_LEFT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, left);
+		this->m_buffers[SKYBOX_FACE_LEFT] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, left);
 
 		SSkyboxElement up[] =
 		{
@@ -202,7 +202,7 @@ namespace DE {
 			{ CVector3F(1, 1, 1), CVector2F(1, 1) },
 			{ CVector3F(-1, 1, 1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_UP] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, up);
+		this->m_buffers[SKYBOX_FACE_UP] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, up);
 
 		SSkyboxElement down[] =
 		{
@@ -211,13 +211,13 @@ namespace DE {
 			{ CVector3F(1, -1, -1), CVector2F(1, 1) },
 			{ CVector3F(-1, -1, -1), CVector2F(0, 1) }
 		};
-		this->m_buffers[SKYBOX_FACE_DOWN] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, DE::BUFFER_DYNAMIC | DE::BUFFER_WRITEONLY, down);
+		this->m_buffers[SKYBOX_FACE_DOWN] = renderer->CreateVertexBuffer(sizeof(SSkyboxElement), 4, daidalosengine::BUFFER_DYNAMIC | daidalosengine::BUFFER_WRITEONLY, down);
 
 		// Create the vertex declaration
-		DE::SDeclarationElement declaration[] =
+		daidalosengine::SDeclarationElement declaration[] =
 		{
-			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
-			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 }
+			{ 0, daidalosengine::DECLARATION_USAGE_POSITION0, daidalosengine::DECLARATION_TYPE_FLOAT3 },
+			{ 0, daidalosengine::DECLARATION_USAGE_TEXCOORD0, daidalosengine::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_vertexDeclaration = renderer->CreateVertexDeclaration(declaration);
 

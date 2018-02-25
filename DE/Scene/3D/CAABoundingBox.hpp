@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/3D/CPlane3D.hpp"
 #include "../../Scene/3D/IShape3D.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	enum EAABoundingBoxPlane {
 		AABOUNDINGBOX_PLANE_LEFT,
 		AABOUNDINGBOX_PLANE_RIGHT,

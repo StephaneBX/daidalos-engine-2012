@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "IWeapon.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Shotgun weapon
@@ -43,14 +43,14 @@ namespace DAIDALOS {
 		* @param parent The parent
 		* @param playerNode The player node
 		*/
-		CShotgun(GE::ILevel * parent, DE::ISceneNode * playerNode);
+		CShotgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode);
 
 	protected:
 		/**
 		* Initialize the weapon node
 		* @param playerNode The player node to attach the weapon node to
 		*/
-		void InitializeWeaponNode(DE::ISceneNode * playerNode) override;
+		void InitializeWeaponNode(daidalosengine::ISceneNode * playerNode) override;
 
 		/**
 		* Initialize the particle emitters

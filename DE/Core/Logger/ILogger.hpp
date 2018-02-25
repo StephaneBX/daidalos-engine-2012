@@ -70,7 +70,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <sstream>
 #include <memory>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CLogger class
 	* Basic class for handling data logging

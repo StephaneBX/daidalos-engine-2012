@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define SKYBOX_FACES 6
 
-namespace DE {
+namespace daidalosengine {
 	class I3DScene;
 
 	/**
@@ -47,7 +47,7 @@ namespace DE {
 		bool m_visible;
 		I3DScene * m_scene;
 		std::array<CTexture2D, SKYBOX_FACE_SIZE> m_textures;
-		std::array<DE::CBuffer, SKYBOX_FACE_SIZE> m_buffers;
+		std::array<daidalosengine::CBuffer, SKYBOX_FACE_SIZE> m_buffers;
 		CBuffer m_indexBuffer;
 		DeclarationPtr m_vertexDeclaration;
 		CShaderProgram m_shaderProgram;

@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/Updaters/CGravityParticleUpdater.hpp"
 #include "../../Scene/Particles/CParticleSystem.hpp"
 
-namespace DE {
+namespace daidalosengine {
 
 	/**
 	* The constructor
@@ -41,12 +41,12 @@ namespace DE {
 		this->m_renderer = IRenderer::GetRenderer();
 		
 		// Create the particle vertex declaration used by both particle vertex buffers
-		DE::SDeclarationElement particleDecl[] = {
-			{ 0, DE::DECLARATION_USAGE_POSITION0, DE::DECLARATION_TYPE_FLOAT3 },
-			{ 0, DE::DECLARATION_USAGE_TEXCOORD0, DE::DECLARATION_TYPE_FLOAT2 },
-			{ 1, DE::DECLARATION_USAGE_POSITION1, DE::DECLARATION_TYPE_FLOAT4 },
-			{ 1, DE::DECLARATION_USAGE_COLOR0, DE::DECLARATION_TYPE_FLOAT4 },
-			{ 1, DE::DECLARATION_USAGE_POSITION2, DE::DECLARATION_TYPE_FLOAT2 }
+		daidalosengine::SDeclarationElement particleDecl[] = {
+			{ 0, daidalosengine::DECLARATION_USAGE_POSITION0, daidalosengine::DECLARATION_TYPE_FLOAT3 },
+			{ 0, daidalosengine::DECLARATION_USAGE_TEXCOORD0, daidalosengine::DECLARATION_TYPE_FLOAT2 },
+			{ 1, daidalosengine::DECLARATION_USAGE_POSITION1, daidalosengine::DECLARATION_TYPE_FLOAT4 },
+			{ 1, daidalosengine::DECLARATION_USAGE_COLOR0, daidalosengine::DECLARATION_TYPE_FLOAT4 },
+			{ 1, daidalosengine::DECLARATION_USAGE_POSITION2, daidalosengine::DECLARATION_TYPE_FLOAT2 }
 		};
 		this->m_particleVD = this->m_renderer->CreateVertexDeclaration(particleDecl);
 
@@ -175,9 +175,9 @@ namespace DE {
 		// Set the render states
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHABLEND, true);
 		
-		this->m_renderer->SetBlendOperation(DE::RENDER_STATE_BLEND_OPERATION_ADD);
+		this->m_renderer->SetBlendOperation(daidalosengine::RENDER_STATE_BLEND_OPERATION_ADD);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
-		this->m_renderer->SetRenderState(DE::RENDER_STATE_TYPE_DEPTHTEST, true);
+		this->m_renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
 		this->m_renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
 		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
 
@@ -189,8 +189,8 @@ namespace DE {
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_BILLBOARD_MATRIX), billboardMatrix);
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, this->m_renderer->GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F((float)this->m_atlasSize.x, (float)this->m_atlasSize.y));
-		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
-		this->m_shader.SetParameter(DE::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(DE::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
+		this->m_shader.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
+		this->m_shader.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, this->m_renderer->GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
 		// Steam states
 		this->m_renderer->SetVertexDeclaration(this->m_particleVD.get());
@@ -202,7 +202,7 @@ namespace DE {
 		for(int i = RENDER_STATE_BLEND_FUNCTION_ZERO; i <= RENDER_STATE_BLEND_FUNCTION_INVSRCCOLOR2; i++) {
 			FillParticlesData(i);
 			if(this->m_particleSize > 0) {
-				this->m_renderer->SetBlendFunction(DE::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, (DE::ERenderStateBlendFunction)i);
+				this->m_renderer->SetBlendFunction(daidalosengine::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, (daidalosengine::ERenderStateBlendFunction)i);
 				this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB.GetBuffer(), sizeof(SParticleData), 0, this->m_particleSize);
 				this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
 				this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);

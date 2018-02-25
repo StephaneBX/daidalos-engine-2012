@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define DEFAULT_SCROLLBAR_THICKNESS 10
 #define DEFAULT_SCROLLBAR_COLOR CColor(0.5F, 0.5F, 0.5F, 0.5F)
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Constructor
 	*/
@@ -45,7 +45,7 @@ namespace DE {
 		this->m_scrollPitch = DEFAULT_SCROLL_PITCH;
 
 		// Initialize the scroll bar
-		this->m_scrollBarView.SetBounds(DE::CRectangleI(0, 0, DEFAULT_SCROLLBAR_THICKNESS, DEFAULT_SCROLLBAR_THICKNESS));
+		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(0, 0, DEFAULT_SCROLLBAR_THICKNESS, DEFAULT_SCROLLBAR_THICKNESS));
 		this->m_scrollBarView.SetBackgroundColor(DEFAULT_SCROLLBAR_COLOR);
 
 		// Add the content and the scroll bar
@@ -74,11 +74,11 @@ namespace DE {
 		this->m_contentView.Update(time);
 
 		// Update the scroll view size to contain the content view and the scroll bar
-		SetPreferredSize(DE::CVector2I(this->m_contentView.GetPreferredSize().x + this->m_scrollBarView.GetPreferredSize().x, GetPreferredSize().y));
+		SetPreferredSize(daidalosengine::CVector2I(this->m_contentView.GetPreferredSize().x + this->m_scrollBarView.GetPreferredSize().x, GetPreferredSize().y));
 
 		// Calculate the scroll bar new position and size
 		float sizeFactor = this->m_preferredsize.y / (float)this->m_contentView.GetPreferredSize().y;
-		this->m_scrollBarView.SetBounds(DE::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -(int)(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, (int)(GetPreferredSize().y * sizeFactor)));
+		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -(int)(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, (int)(GetPreferredSize().y * sizeFactor)));
 
 		// Update the scroll bar
 		this->m_scrollBarView.Update(time);
@@ -143,13 +143,13 @@ namespace DE {
 	void CScrollableView::SetScrollBarThickness(const int thickness) {
 		LOG_TRACE();
 
-		this->m_scrollBarView.SetPreferredSize(DE::CVector2I(thickness, this->m_scrollBarView.GetPreferredSize().y));
+		this->m_scrollBarView.SetPreferredSize(daidalosengine::CVector2I(thickness, this->m_scrollBarView.GetPreferredSize().y));
 	}
 
 	/**
 	* Set the scroll bar color
 	*/
-	void CScrollableView::SetScrollBarColor(const DE::CColor & color) {
+	void CScrollableView::SetScrollBarColor(const daidalosengine::CColor & color) {
 		LOG_TRACE();
 
 		this->m_scrollBarView.SetBackgroundColor(color);

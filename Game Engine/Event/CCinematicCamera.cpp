@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Level/ILevel.hpp"
 #include "CCinematicCamera.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Constructor
 	* @param parent The parent
@@ -40,19 +40,19 @@ namespace GE {
 	*/
 	CCinematicCamera::CCinematicCamera(ILevel * parent, const std::vector<SCinematicCameraStep> & steps) : ICollidableEntity(parent) {
 
-		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
+		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
 
-		this->m_soundContext = DE::CSoundContextManager::GetInstance();
+		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
 
 		this->m_enabled = false;
 		this->m_done = false;
 		this->m_currentStep = 0;
 		this->m_steps = steps;
-		this->m_node = new DE::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", DE::CVector3F(), DE::CVector3F(), DE::DegreeToRadian(55.0F), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1F, 100.0F);
+		this->m_node = new daidalosengine::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", daidalosengine::CVector3F(), daidalosengine::CVector3F(), daidalosengine::DegreeToRadian(55.0F), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1F, 100.0F);
 		parent->GetScene()->GetRootNode()->AddChild(this->m_node);
 
 		this->SetCollisionState(false);
-		this->SetCollisionShape(new DE::CEllipseF(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0), DE::CVector2F(1, 1)));
+		this->SetCollisionShape(new daidalosengine::CEllipseF(this->m_node->GetPosition() - daidalosengine::CVector3F(0, 1, 0), daidalosengine::CVector2F(1, 1)));
 	}
 
 	/**
@@ -90,8 +90,8 @@ namespace GE {
 		float timeSecond = time / 1000.0F;
 		
 		if(this->m_enabled) {
-			DE::CVector3F position;
-			DE::CVector3F rotation;
+			daidalosengine::CVector3F position;
+			daidalosengine::CVector3F rotation;
 
 			// Update the step
 			this->m_currentStep += this->m_steps[(int)this->m_currentStep].speed * timeSecond;
@@ -115,10 +115,10 @@ namespace GE {
 					float diff = this->m_currentStep - (int)this->m_currentStep;
 
 					// Position interpolation - Splines
-					DE::CVector3F y0 = this->m_steps[(int)this->m_currentStep].position;
-					DE::CVector3F y1 = this->m_steps[(int)this->m_currentStep].position;
-					DE::CVector3F y2 = this->m_steps[(int)this->m_currentStep + 1].position;
-					DE::CVector3F y3 = this->m_steps[(int)this->m_currentStep + 1].position;
+					daidalosengine::CVector3F y0 = this->m_steps[(int)this->m_currentStep].position;
+					daidalosengine::CVector3F y1 = this->m_steps[(int)this->m_currentStep].position;
+					daidalosengine::CVector3F y2 = this->m_steps[(int)this->m_currentStep + 1].position;
+					daidalosengine::CVector3F y3 = this->m_steps[(int)this->m_currentStep + 1].position;
 
 					if (this->m_currentStep >= 1) {
 						y0 = this->m_steps[(int)this->m_currentStep - 1].position;
@@ -126,7 +126,7 @@ namespace GE {
 					if ((this->m_currentStep + 2) <= this->m_steps.size() - 1) {
 						y3 = this->m_steps[(int)this->m_currentStep + 2].position;
 					}
-					position = DE::CubicInterpolate<DE::CVector3F>(y0, y1, y2, y3, diff);
+					position = daidalosengine::CubicInterpolate<daidalosengine::CVector3F>(y0, y1, y2, y3, diff);
 
 					// Rotation interpolation - Cosine
 					float interpolation = (1 - cos(diff * PI)) / 2.0F;
@@ -162,7 +162,7 @@ namespace GE {
 		}
 	}
 
-	DE::ICameraSceneNode * CCinematicCamera::GetCameraNode() const {
+	daidalosengine::ICameraSceneNode * CCinematicCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
@@ -171,7 +171,7 @@ namespace GE {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CCinematicCamera::IsShapeVisible(DE::IShape3DF * shape) {
+	const bool CCinematicCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -195,7 +195,7 @@ namespace GE {
 	* Callback used to handle event when the entity fall and touch the ground
 	* @param gravity The gravity value before touching the ground
 	*/
-	void CCinematicCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+	void CCinematicCamera::OnEntityTouchedGround(const daidalosengine::CVector3F gravity) {
 		// Nothing to do
 	}
 }

@@ -37,7 +37,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <SiniP/SiniP.h>
 #include <IPlayer.hpp>
 
-namespace EDITOR
+namespace daidaloseditor
 {
 	enum EFPSCameraMovement
 	{
@@ -55,17 +55,17 @@ namespace EDITOR
 	/**
 	* Free type camera implementation
 	*/
-	class CFreeCamera : public GE::IPlayer
+	class CFreeCamera : public daidalosgameengine::IPlayer
 	{
 	private:
 		unsigned int m_state;
-		DE::CVector2F m_previousMouseMovement;
-		DE::CVector3F m_rotation;
-		DE::ICameraSceneNode * m_node;
-		DE::CInputDevice * m_inputDevice;
-		DE::CEllipseF m_shape;
-		DE::C3DScene * m_scene;
-		DE::CSoundContextManager * m_soundContext;
+		daidalosengine::CVector2F m_previousMouseMovement;
+		daidalosengine::CVector3F m_rotation;
+		daidalosengine::ICameraSceneNode * m_node;
+		daidalosengine::CInputDevice * m_inputDevice;
+		daidalosengine::CEllipseF m_shape;
+		daidalosengine::C3DScene * m_scene;
+		daidalosengine::CSoundContextManager * m_soundContext;
 		SiniP m_options;
 
 	public:
@@ -74,7 +74,7 @@ namespace EDITOR
 		* @param parent The parent
 		* @param cameraNode The camera node
 		*/
-		CFreeCamera(GE::ILevel * parent, DE::ICameraSceneNode * cameraNode);
+		CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode);
 
 		/**
 		* Set the player active state
@@ -99,7 +99,7 @@ namespace EDITOR
 		* Set the player position
 		* @param position The position
 		*/
-		void SetPosition(const DE::CVector3F position) override;
+		void SetPosition(const daidalosengine::CVector3F position) override;
 
 		/**
 		* Update the camera
@@ -112,7 +112,7 @@ namespace EDITOR
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(DE::IShape3DF * shape) override;
+		const bool IsShapeVisible(daidalosengine::IShape3DF * shape) override;
 
 		/**
 		* If the player interaction action is active
@@ -155,14 +155,14 @@ namespace EDITOR
 		* Get the camera node
 		* @return The camera node
 		*/
-		DE::ICameraSceneNode * GetCameraNode() const override;
+		daidalosengine::ICameraSceneNode * GetCameraNode() const override;
 
 	protected:
 		/**
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const DE::CVector3F gravity) override;
+		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) override;
 
 	private:
 		/**

@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../ICollidableEntity.hpp"
 #include "../../IPlayer.hpp"
 
-namespace GE {
+namespace daidalosgameengine {
 	/**
 	* Abstract enemy entity
 	*/
@@ -45,8 +45,8 @@ namespace GE {
 		std::vector<std::unique_ptr<IEnemyState> > m_actionStates;
 		IEnemyState * m_currentActionState;
 
-		DE::CAnimatedMeshSceneNode * m_meshNode;
-		DE::CProjectionCameraSceneNode * m_cameraNode;
+		daidalosengine::CAnimatedMeshSceneNode * m_meshNode;
+		daidalosengine::CProjectionCameraSceneNode * m_cameraNode;
 
 	public:
 		/**
@@ -54,7 +54,7 @@ namespace GE {
 		* @param parent The parent
 		* @param meshNode The mesh node
 		*/
-		IEnemyEntity(ILevel * parent, DE::CAnimatedMeshSceneNode * meshNode);
+		IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
 		* Damage the entity
@@ -95,7 +95,7 @@ namespace GE {
 		* Get the entity camera node
 		* @return The entity camera node
 		*/
-		DE::CProjectionCameraSceneNode * GetCameraNode() const;
+		daidalosengine::CProjectionCameraSceneNode * GetCameraNode() const;
 
 		/**
 		* Get the current action state.
@@ -113,7 +113,7 @@ namespace GE {
 		* Get the mesh node
 		* @return The mesh node
 		*/
-		DE::CAnimatedMeshSceneNode * GetMeshNode();
+		daidalosengine::CAnimatedMeshSceneNode * GetMeshNode();
 	};
 }
 

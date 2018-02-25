@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../../Medias/ITexture2DBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* DX9 class used for 2D textures
 	*/

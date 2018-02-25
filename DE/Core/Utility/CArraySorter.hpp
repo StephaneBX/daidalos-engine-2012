@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <algorithm>
 
-namespace DE {
+namespace daidalosengine {
 
 	enum EArraySorterOrder {
 		ARRAY_SORTER_ORDER_ASC,

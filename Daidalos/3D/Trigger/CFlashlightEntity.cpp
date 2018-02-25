@@ -34,19 +34,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Enums.hpp"
 #include "CFlashlightEntity.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param meshNode The flashlight node
 	*/
-	CFlashlightEntity::CFlashlightEntity(GE::ILevel * parent, DE::ISceneNode * meshNode) : ITriggerEntity(parent) {
+	CFlashlightEntity::CFlashlightEntity(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * meshNode) : ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
-		SetType(GE::ENTITY_TYPE_FLASHLIGHT);
+		SetType(daidalosgameengine::ENTITY_TYPE_FLASHLIGHT);
 		this->m_node = meshNode;
 
-		this->m_sound.LoadFromFile("flashlight_bonus.wav", DE::SOUND_TYPE_STATIC, DE::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_sound.LoadFromFile("flashlight_bonus.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_sound.SetRelativeToListener(true);
 	}
 
@@ -58,7 +58,7 @@ namespace DAIDALOS {
 
 		ITriggerEntity::Update(time);
 		if(this->m_node->IsEnabled()) {
-			DE::CVector3F rotation = this->m_node->GetRotation();
+			daidalosengine::CVector3F rotation = this->m_node->GetRotation();
 			rotation.y += (ROTATION_SPEED * time) / 1000.0F;
 			if(rotation.y > 360) {
 				rotation.y -= 360;
@@ -73,7 +73,7 @@ namespace DAIDALOS {
 	void CFlashlightEntity::DoAction() {
 		this->m_node->SetEnabled(false);
 		GetParent()->GetPlayer()->SetObject(PLAYER_OBJECT_FLASHLIGHT, 1);
-		this->m_sound.SetStatus(DE::SOUND_STATUS_PLAY);
+		this->m_sound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 	}
 
 	/**
@@ -81,6 +81,6 @@ namespace DAIDALOS {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	const bool CFlashlightEntity::CanDoAction() {
-		return this->m_node->IsEnabled() && DE::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

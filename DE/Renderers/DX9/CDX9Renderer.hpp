@@ -41,7 +41,7 @@ class IDeclaration;
 class CDX9FrameBuffer;
 struct SDeclarationElement;
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* DX9 Renderer class
 	*/

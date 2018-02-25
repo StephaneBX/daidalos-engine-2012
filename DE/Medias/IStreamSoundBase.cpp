@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/Logger/ILogger.hpp"
 #include "../Medias/IStreamSoundBase.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	IStreamSoundBase::IStreamSoundBase(const std::string & name, SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
 		LOG_TRACE();
 

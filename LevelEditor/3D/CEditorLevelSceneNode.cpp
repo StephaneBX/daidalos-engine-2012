@@ -28,10 +28,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/IRenderer.hpp>
 #include "../3D/CEditorLevelSceneNode.hpp"
 
-namespace EDITOR {
-	CEditorLevelSceneNode::CEditorLevelSceneNode(DE::I3DScene * scene) : ILevelSceneNode(scene) {
-		this->m_type = DE::SCENE_NODE_ROOT;
-		this->m_shadingType = DE::MESH_SHADING_FLAT;
+namespace daidaloseditor {
+	CEditorLevelSceneNode::CEditorLevelSceneNode(daidalosengine::I3DScene * scene) : ILevelSceneNode(scene) {
+		this->m_type = daidalosengine::SCENE_NODE_ROOT;
+		this->m_shadingType = daidalosengine::MESH_SHADING_FLAT;
 	}
 
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
@@ -49,12 +49,12 @@ namespace EDITOR {
 	*/
 	void CEditorLevelSceneNode::RenderTransparent() {
 
-		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
-		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, true);
+		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
+		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHATEST, true);
 		renderer->SetAlphaReference(0x00000001);
-		renderer->SetAlphaFunction(DE::COMPARE_GREATEREQUAL);
+		renderer->SetAlphaFunction(daidalosengine::COMPARE_GREATEREQUAL);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);
-		renderer->SetRenderState(DE::RENDER_STATE_TYPE_ALPHATEST, false);
+		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHATEST, false);
 	}
 
 	void CEditorLevelSceneNode::RenderSkyboxMask() {
@@ -65,17 +65,17 @@ namespace EDITOR {
 		// Nothing to do
 	}
 
-	const bool CEditorLevelSceneNode::Slide(DE::IShape3DF & shape, const DE::CVector3F & movement) {
+	const bool CEditorLevelSceneNode::Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement) {
 
 		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
-	const bool CEditorLevelSceneNode::GetCollisionPoint(const DE::CVector3F & position, const DE::CVector3F & movement, DE::CVector3F & point) {
+	const bool CEditorLevelSceneNode::GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
 		return false;
 	}
 
-	const bool CEditorLevelSceneNode::GetCollisionPoint(DE::IShape3DF & shape, const DE::CVector3F & movement, DE::CVector3F & point) {
+	const bool CEditorLevelSceneNode::GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
 		return false;
 	}
 

@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ICLONABLE_HPP
 #define __ICLONABLE_HPP
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Clonable interface
 	*/

@@ -34,7 +34,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define LIGHTNING_UPDATE_DELAY 20.0f
 
-namespace DE {
+namespace daidalosengine {
 
 	C3DScene::C3DScene() {
 		LOG_TRACE();

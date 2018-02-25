@@ -36,21 +36,21 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CConfigurationManager.hpp>
 #include "CFreeCamera.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* Constructor
 	* @param parent The parent
 	* @param cameraNode The camera node
 	*/
-	CFreeCamera::CFreeCamera(GE::ILevel * parent, DE::ICameraSceneNode * cameraNode) : IPlayer(parent) {
+	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) : IPlayer(parent) {
 		this->m_state = 0;
 		this->m_node = cameraNode;
 
-		this->m_inputDevice = DE::CInputDevice::GetInstance();
-		this->m_soundContext = DE::CSoundContextManager::GetInstance();
-		this->m_options = DE::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
+		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
+		this->m_options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
-		DE::SInputActionDeclaration decl[] =
+		daidalosengine::SInputActionDeclaration decl[] =
 		{
 			{ FPS_CAMERA_EXIT, -1 },
 			{ FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT },
@@ -66,28 +66,28 @@ namespace EDITOR {
 		this->m_inputDevice->AddActions(decl);
 
 		// Keyboard mapping
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_EXIT, DE::INPUT_KEY_KEYBOARD_ESCAPE);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFELEFT, DE::INPUT_KEY_KEYBOARD_Q);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFERIGHT, DE::INPUT_KEY_KEYBOARD_D);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_FORWARD, DE::INPUT_KEY_KEYBOARD_Z);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_BACKWARD, DE::INPUT_KEY_KEYBOARD_S);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKUP, DE::INPUT_KEY_KEYBOARD_UP);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, DE::INPUT_KEY_KEYBOARD_DOWN);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, DE::INPUT_KEY_KEYBOARD_LEFT);
-		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, DE::INPUT_KEY_KEYBOARD_RIGHT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_EXIT, daidalosengine::INPUT_KEY_KEYBOARD_ESCAPE);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFELEFT, daidalosengine::INPUT_KEY_KEYBOARD_Q);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_STRAFERIGHT, daidalosengine::INPUT_KEY_KEYBOARD_D);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_FORWARD, daidalosengine::INPUT_KEY_KEYBOARD_Z);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_BACKWARD, daidalosengine::INPUT_KEY_KEYBOARD_S);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKUP, daidalosengine::INPUT_KEY_KEYBOARD_UP);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKDOWN, daidalosengine::INPUT_KEY_KEYBOARD_DOWN);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKLEFT, daidalosengine::INPUT_KEY_KEYBOARD_LEFT);
+		this->m_inputDevice->SetActionKey(FPS_CAMERA_LOOKRIGHT, daidalosengine::INPUT_KEY_KEYBOARD_RIGHT);
 
 		// Gamepad mapping
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FORWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_BACKWARD, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LYP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFELEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LXN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFERIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_LXP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKUP, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKDOWN, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RXP);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYN);
-		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, DE::INPUT_KEY_GAMEPAD_AXIS_RYP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_FORWARD, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LYN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_BACKWARD, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LYP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFELEFT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LXN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_STRAFERIGHT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_LXP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKUP, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RXN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKDOWN, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RXP);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKLEFT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RYN);
+		this->m_inputDevice->SetGamepadActionKey(FPS_CAMERA_LOOKRIGHT, 0, daidalosengine::INPUT_KEY_GAMEPAD_AXIS_RYP);
 
-		this->m_shape.SetPosition(this->m_node->GetPosition() - DE::CVector3F(0, 1, 0));
-		this->m_shape.SetRadius(DE::CVector2F(1, 2.7F));
+		this->m_shape.SetPosition(this->m_node->GetPosition() - daidalosengine::CVector3F(0, 1, 0));
+		this->m_shape.SetRadius(daidalosengine::CVector2F(1, 2.7F));
 		this->m_rotation = this->m_node->GetRotation();
 	}
 
@@ -120,7 +120,7 @@ namespace EDITOR {
 	* Set the player position
 	* @param position The position
 	*/
-	void CFreeCamera::SetPosition(const DE::CVector3F position) {
+	void CFreeCamera::SetPosition(const daidalosengine::CVector3F position) {
 		SetVisiblePosition(position);
 	}
 
@@ -131,7 +131,7 @@ namespace EDITOR {
 		UpdateView(timeSecond);
 		UpdateMovement(timeSecond);
 
-		this->m_node->SetPosition(this->m_shape.GetPosition() + DE::CVector3F(0, 1, 0));
+		this->m_node->SetPosition(this->m_shape.GetPosition() + daidalosengine::CVector3F(0, 1, 0));
 		this->m_node->SetRotation(this->m_rotation);
 
 		// Update the listener
@@ -140,7 +140,7 @@ namespace EDITOR {
 		this->m_soundContext->SetListenerOrientation(orientation);
 	}
 
-	DE::ICameraSceneNode * CFreeCamera::GetCameraNode() const {
+	daidalosengine::ICameraSceneNode * CFreeCamera::GetCameraNode() const {
 		return this->m_node;
 	}
 
@@ -149,7 +149,7 @@ namespace EDITOR {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CFreeCamera::IsShapeVisible(DE::IShape3DF * shape) {
+	const bool CFreeCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -206,7 +206,7 @@ namespace EDITOR {
 	* Callback used to handle event when the entity fall and touch the ground
 	* @param gravity The gravity value before touching the ground
 	*/
-	void CFreeCamera::OnEntityTouchedGround(const DE::CVector3F gravity) {
+	void CFreeCamera::OnEntityTouchedGround(const daidalosengine::CVector3F gravity) {
 		// Nothing to do
 	}
 
@@ -239,7 +239,7 @@ namespace EDITOR {
 	}
 
 	void CFreeCamera::UpdateMovement(const float timeSecond) {
-		DE::CVector3F movement;
+		daidalosengine::CVector3F movement;
 
 		if((this->m_state & FPS_CAMERA_STRAFELEFT) != 0) {
 			float factor = 1;
@@ -288,8 +288,8 @@ namespace EDITOR {
 		}
 
 		movement = movement.Normalize();
-		DE::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
-		DE::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		daidalosengine::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
+		daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 

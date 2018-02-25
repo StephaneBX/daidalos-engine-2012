@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <memory>
 #include "../Core/Enums.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* Structure used for a declaration element
 	*/

@@ -56,7 +56,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/Particles/Updaters/CSphereVelocityParticleUpdater.hpp"
 #include "../../Scene/Particles/Updaters/CCircularVelocityParticleUpdater.hpp"
 
-namespace DE {
+namespace daidalosengine {
 
 	struct SParticleEmitterEmissionRateChange {
 		float time;

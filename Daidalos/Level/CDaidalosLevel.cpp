@@ -52,7 +52,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/Enemy/CZombieEntity.hpp"
 #include "../CFPSCamera.hpp"
 
-namespace DAIDALOS {
+namespace daidalos {
 
 	/**
 	* Update the level
@@ -71,7 +71,7 @@ namespace DAIDALOS {
 
 		// Check for a loading call
 		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
-			if((*it)->GetType() == GE::ENTITY_TYPE_TELEPORTER && ((GE::ITriggerEntity*)(*it).get())->CanDoAction()) {
+			if((*it)->GetType() == daidalosgameengine::ENTITY_TYPE_TELEPORTER && ((daidalosgameengine::ITriggerEntity*)(*it).get())->CanDoAction()) {
 				
 				for(auto it2 = this->m_listeners.begin(); it2 != this->m_listeners.end(); ++it2) {
 					(*it2)->OnTriggerNextLevel(((CTeleporterEntity*)(*it).get())->GetNextLevelName());
@@ -84,7 +84,7 @@ namespace DAIDALOS {
 	* Callback when the cinematic event started
 	* @param cinematicEvent The event
 	*/
-	void CDaidalosLevel::OnCinematicEventStarted(GE::CCinematicEvent * cinematicEvent) {
+	void CDaidalosLevel::OnCinematicEventStarted(daidalosgameengine::CCinematicEvent * cinematicEvent) {
 		this->m_hudView->SetVisible(false);
 	}
 
@@ -92,7 +92,7 @@ namespace DAIDALOS {
 	* Callback when the cinematic event ended
 	* @param cinematicEvent The event
 	*/
-	void CDaidalosLevel::OnCinematicEventEnded(GE::CCinematicEvent * cinematicEvent) {
+	void CDaidalosLevel::OnCinematicEventEnded(daidalosgameengine::CCinematicEvent * cinematicEvent) {
 		this->m_hudView->SetVisible(true);
 	}
 
@@ -110,28 +110,28 @@ namespace DAIDALOS {
 		this->m_entities.clear();
 
 		// Create the FPS camera
-		this->m_player = std::unique_ptr<GE::IPlayer>(new CFPSCamera(this, this->m_activeCamera, this->m_scene->GetNode("flashlight")));
+		this->m_player = std::unique_ptr<daidalosgameengine::IPlayer>(new CFPSCamera(this, this->m_activeCamera, this->m_scene->GetNode("flashlight")));
 
 		// Load the doors
-		std::vector<DE::ISceneNode*> doorNode = this->m_scene->GetNodeArray("door_entity");
+		std::vector<daidalosengine::ISceneNode*> doorNode = this->m_scene->GetNodeArray("door_entity");
 		for(auto it = doorNode.begin(); it != doorNode.end(); it++) {
-			GE::CDoorEntity * doorEntity = new GE::CDoorEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
-			this->m_entities.push_back(std::unique_ptr<GE::CDoorEntity>(doorEntity));
+			daidalosgameengine::CDoorEntity * doorEntity = new daidalosgameengine::CDoorEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<daidalosgameengine::CDoorEntity>(doorEntity));
 		}
 
 		// Load the fans
-		std::vector<DE::ISceneNode*> fanNode = this->m_scene->GetNodeArray("fan_entity");
+		std::vector<daidalosengine::ISceneNode*> fanNode = this->m_scene->GetNodeArray("fan_entity");
 		for(auto it = fanNode.begin(); it != fanNode.end(); it++) {
-			CFanEntity * fanEntity = new CFanEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CFanEntity * fanEntity = new CFanEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			fanEntity->DoAction();
 			this->m_entities.push_back(std::unique_ptr<CFanEntity>(fanEntity));
 		}
 
 		// Load the switchs
-		std::vector<DE::ISceneNode*> switchNode = this->m_scene->GetNodeArray("switch_entity");
+		std::vector<daidalosengine::ISceneNode*> switchNode = this->m_scene->GetNodeArray("switch_entity");
 		for(auto it = switchNode.begin(); it != switchNode.end(); it++) {
-			GE::CSwitchEntity * switchEntity = new GE::CSwitchEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
-			this->m_entities.push_back(std::unique_ptr<GE::CSwitchEntity>(switchEntity));
+			daidalosgameengine::CSwitchEntity * switchEntity = new daidalosgameengine::CSwitchEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<daidalosgameengine::CSwitchEntity>(switchEntity));
 		}
 
 		/*if(switchNode.size() > 0) {
@@ -139,153 +139,153 @@ namespace DAIDALOS {
 		}*/
 
 		// Load the teleporters
-		std::vector<DE::ISceneNode*> teleporterNode = this->m_scene->GetNodeArray("teleporter_entity");
+		std::vector<daidalosengine::ISceneNode*> teleporterNode = this->m_scene->GetNodeArray("teleporter_entity");
 		for(auto it = teleporterNode.begin(); it != teleporterNode.end(); it++) {
-			CTeleporterEntity * teleporterEntity = new CTeleporterEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CTeleporterEntity * teleporterEntity = new CTeleporterEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CTeleporterEntity>(teleporterEntity));
 		}
 
 		// Load the alarms
-		std::vector<DE::ISceneNode*> alarmNode = this->m_scene->GetNodeArray("alarm_entity");
+		std::vector<daidalosengine::ISceneNode*> alarmNode = this->m_scene->GetNodeArray("alarm_entity");
 		for(auto it = alarmNode.begin(); it != alarmNode.end(); it++) {
-			CAlarmEntity * alarmEntity = new CAlarmEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			CAlarmEntity * alarmEntity = new CAlarmEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CAlarmEntity>(alarmEntity));
 		}
 
 		// Load the armor bonus
-		std::vector<DE::ISceneNode*> armorNode = this->m_scene->GetNodeArray("armor_bonus_entity");
+		std::vector<daidalosengine::ISceneNode*> armorNode = this->m_scene->GetNodeArray("armor_bonus_entity");
 		for(auto it = armorNode.begin(); it != armorNode.end(); it++) {
-			CArmorBonusEntity * armorBonusEntity = new CArmorBonusEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CArmorBonusEntity * armorBonusEntity = new CArmorBonusEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CArmorBonusEntity>(armorBonusEntity));
 		}
 
 		// Load the health bonus
-		std::vector<DE::ISceneNode*> healthNode = this->m_scene->GetNodeArray("health_bonus_entity");
+		std::vector<daidalosengine::ISceneNode*> healthNode = this->m_scene->GetNodeArray("health_bonus_entity");
 		for(auto it = healthNode.begin(); it != healthNode.end(); it++) {
-			CHealthBonusEntity * healthBonusEntity = new CHealthBonusEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CHealthBonusEntity * healthBonusEntity = new CHealthBonusEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CHealthBonusEntity>(healthBonusEntity));
 		}
 
 		// Load the handgun ammo
-		std::vector<DE::ISceneNode*> handgunAmmoNode = this->m_scene->GetNodeArray("handgun_ammo_entity");
+		std::vector<daidalosengine::ISceneNode*> handgunAmmoNode = this->m_scene->GetNodeArray("handgun_ammo_entity");
 		for(auto it = handgunAmmoNode.begin(); it != handgunAmmoNode.end(); it++) {
-			CHandgunAmmoEntity * handgunAmmoEntity = new CHandgunAmmoEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CHandgunAmmoEntity * handgunAmmoEntity = new CHandgunAmmoEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CHandgunAmmoEntity>(handgunAmmoEntity));
 		}
 
 		// Load the shotgun ammo
-		std::vector<DE::ISceneNode*> shotgunAmmoNode = this->m_scene->GetNodeArray("shotgun_ammo_entity");
+		std::vector<daidalosengine::ISceneNode*> shotgunAmmoNode = this->m_scene->GetNodeArray("shotgun_ammo_entity");
 		for(auto it = shotgunAmmoNode.begin(); it != shotgunAmmoNode.end(); it++) {
-			CShotgunAmmoEntity * shotgunAmmoEntity = new CShotgunAmmoEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CShotgunAmmoEntity * shotgunAmmoEntity = new CShotgunAmmoEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CShotgunAmmoEntity>(shotgunAmmoEntity));
 		}
 
 		// Load the flashlight
-		std::vector<DE::ISceneNode*> flashlightNode = this->m_scene->GetNodeArray("flashlight_entity");
+		std::vector<daidalosengine::ISceneNode*> flashlightNode = this->m_scene->GetNodeArray("flashlight_entity");
 		for(auto it = flashlightNode.begin(); it != flashlightNode.end(); it++) {
-			CFlashlightEntity * flashlightEntity = new CFlashlightEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CFlashlightEntity * flashlightEntity = new CFlashlightEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CFlashlightEntity>(flashlightEntity));
 		}
 
 		// Load the security cameras
-		std::vector<DE::ISceneNode*> securityCameraNode = this->m_scene->GetNodeArray("security_camera_entity");
+		std::vector<daidalosengine::ISceneNode*> securityCameraNode = this->m_scene->GetNodeArray("security_camera_entity");
 		for(auto it = securityCameraNode.begin(); it != securityCameraNode.end(); it++) {
-			CSecurityCameraEntity * securityCameraEntity = new CSecurityCameraEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			CSecurityCameraEntity * securityCameraEntity = new CSecurityCameraEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CSecurityCameraEntity>(securityCameraEntity));
 		}
 
 		// Load the ladders
-		std::vector<DE::ISceneNode*> ladderNode = this->m_scene->GetNodeArray("ladder_entity");
+		std::vector<daidalosengine::ISceneNode*> ladderNode = this->m_scene->GetNodeArray("ladder_entity");
 		for(auto it = ladderNode.begin(); it != ladderNode.end(); it++) {
-			GE::CLadderEntity * ladderEntity = new GE::CLadderEntity(this, (DE::CStaticMeshSceneNode*)(*it));
-			this->m_entities.push_back(std::unique_ptr<GE::CLadderEntity>(ladderEntity));
+			daidalosgameengine::CLadderEntity * ladderEntity = new daidalosgameengine::CLadderEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<daidalosgameengine::CLadderEntity>(ladderEntity));
 		}
 
 		// Load the zombies
-		std::vector<DE::ISceneNode*> zombieNode = this->m_scene->GetNodeArray("zombie_enemy_entity");
+		std::vector<daidalosengine::ISceneNode*> zombieNode = this->m_scene->GetNodeArray("zombie_enemy_entity");
 		for(auto it = zombieNode.begin(); it != zombieNode.end(); it++) {
-			CZombieEntity * zombieEntity = new CZombieEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CZombieEntity * zombieEntity = new CZombieEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CZombieEntity>(zombieEntity));
 		}
 
 		// Load the area triggers
-		std::vector<DE::ISceneNode*> areaTriggerNode = this->m_scene->GetNodeArray("area_trigger_entity");
+		std::vector<daidalosengine::ISceneNode*> areaTriggerNode = this->m_scene->GetNodeArray("area_trigger_entity");
 		for(auto it = areaTriggerNode.begin(); it != areaTriggerNode.end(); it++) {
-			GE::CAreaTriggerEntity * areaTriggerEntity = new GE::CAreaTriggerEntity(this, (*it));
-			this->m_entities.push_back(std::unique_ptr<GE::CAreaTriggerEntity>(areaTriggerEntity));
+			daidalosgameengine::CAreaTriggerEntity * areaTriggerEntity = new daidalosgameengine::CAreaTriggerEntity(this, (*it));
+			this->m_entities.push_back(std::unique_ptr<daidalosgameengine::CAreaTriggerEntity>(areaTriggerEntity));
 		}
 
 		// Load the spots
-		std::vector<DE::ISceneNode*> spotNode = this->m_scene->GetNodeArray("spot_entity");
+		std::vector<daidalosengine::ISceneNode*> spotNode = this->m_scene->GetNodeArray("spot_entity");
 		for(auto it = spotNode.begin(); it != spotNode.end(); it++) {
-			CSpotEntity * spotEntity = new CSpotEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			CSpotEntity * spotEntity = new CSpotEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CSpotEntity>(spotEntity));
 		}
 
 		// Load the magnetic cards
-		std::vector<DE::ISceneNode*> magneticCardNode = this->m_scene->GetNodeArray("magnetic_card_entity");
+		std::vector<daidalosengine::ISceneNode*> magneticCardNode = this->m_scene->GetNodeArray("magnetic_card_entity");
 		for(auto it = magneticCardNode.begin(); it != magneticCardNode.end(); it++) {
-			CMagneticCardEntity * magneticCardEntity = new CMagneticCardEntity(this, (DE::CAnimatedMeshSceneNode*)(*it));
+			CMagneticCardEntity * magneticCardEntity = new CMagneticCardEntity(this, (daidalosengine::CAnimatedMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CMagneticCardEntity>(magneticCardEntity));
 		}
 
 		// Load the magnetic card readers
-		std::vector<DE::ISceneNode*> magneticCardReaderNode = this->m_scene->GetNodeArray("magnetic_card_reader_entity");
+		std::vector<daidalosengine::ISceneNode*> magneticCardReaderNode = this->m_scene->GetNodeArray("magnetic_card_reader_entity");
 		for(auto it = magneticCardReaderNode.begin(); it != magneticCardReaderNode.end(); it++) {
-			CMagneticCardReaderEntity * magneticCardReaderEntity = new CMagneticCardReaderEntity(this, (DE::CStaticMeshSceneNode*)(*it));
+			CMagneticCardReaderEntity * magneticCardReaderEntity = new CMagneticCardReaderEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
 			this->m_entities.push_back(std::unique_ptr<CMagneticCardReaderEntity>(magneticCardReaderEntity));
 		}
 
 		// Load the cinematic triggers
-		std::vector<DE::ISceneNode*> cinematicTriggerNode = this->m_scene->GetNodeArray("cinematic_trigger_entity");
+		std::vector<daidalosengine::ISceneNode*> cinematicTriggerNode = this->m_scene->GetNodeArray("cinematic_trigger_entity");
 		for (auto it = cinematicTriggerNode.begin(); it != cinematicTriggerNode.end(); it++) {
-			GE::CCinematicEntity * cinematicTriggerEntity = new GE::CCinematicEntity(this, (DE::CStaticMeshSceneNode*)(*it));
-			this->m_entities.push_back(std::unique_ptr<GE::CCinematicEntity>(cinematicTriggerEntity));
+			daidalosgameengine::CCinematicEntity * cinematicTriggerEntity = new daidalosgameengine::CCinematicEntity(this, (daidalosengine::CStaticMeshSceneNode*)(*it));
+			this->m_entities.push_back(std::unique_ptr<daidalosgameengine::CCinematicEntity>(cinematicTriggerEntity));
 		}
 		
 		// Load the hud
-		DE::IRenderer * renderer = DE::IRenderer::GetRenderer();
-		this->m_hudView = new CHudView(DE::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
+		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
+		this->m_hudView = new CHudView(daidalosengine::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
 		//this->m_view->AddToMainView(this->m_hudView);
 
 		// TMP load views
 
-		DE::CScrollableView * scroll = new DE::CScrollableView();
-		scroll->SetBounds(DE::CRectangleI(100, 100, 150, 80));
+		daidalosengine::CScrollableView * scroll = new daidalosengine::CScrollableView();
+		scroll->SetBounds(daidalosengine::CRectangleI(100, 100, 150, 80));
 		scroll->SetScrollBarThickness(5);
 		this->m_view->AddToMainView(scroll);
 
-		DE::CCheckbox * checkbox1 = new DE::CCheckbox();
-		checkbox1->SetBounds(DE::CRectangleI(0, 0, 32, 32));
+		daidalosengine::CCheckbox * checkbox1 = new daidalosengine::CCheckbox();
+		checkbox1->SetBounds(daidalosengine::CRectangleI(0, 0, 32, 32));
 		checkbox1->SetUncheckedTexture("checkbox_off.png");
 		checkbox1->SetCheckedTexture("checkbox_on.png");
 		checkbox1->SetClickedTexture("checkbox_clicked.png");
-		checkbox1->GetLabelElement()->SetColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		checkbox1->GetLabelElement()->SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		checkbox1->GetLabelElement()->SetSize(26);
 		checkbox1->GetLabelElement()->SetText("TEST");
 		scroll->AddSubview(checkbox1);
 
-		DE::CButton * button = new DE::CButton("button1.png");
-		button->SetBounds(DE::CRectangleI(0, 100, 120, 60));
+		daidalosengine::CButton * button = new daidalosengine::CButton("button1.png");
+		button->SetBounds(daidalosengine::CRectangleI(0, 100, 120, 60));
 		button->SetDefaultTexture("button1.png");
 		button->SetClickedTexture("button2.png");
-		button->SetImageInset(DE::CInsetF(0.1F, 0.1F, 0.1F, 0.1F));
-		button->SetDefaultTitleColor(DE::CColor(1.0F, 1.0F, 1.0F, 1.0F));
+		button->SetImageInset(daidalosengine::CInsetF(0.1F, 0.1F, 0.1F, 0.1F));
+		button->SetDefaultTitleColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		button->GetTitleElement()->SetSize(26);
 		button->GetTitleElement()->SetText("Test");
 		scroll->AddSubview(button);
 
-		DE::CCheckbox * checkbox2 = new DE::CCheckbox();
-		checkbox2->SetBounds(DE::CRectangleI(0, 200, 32, 32));
+		daidalosengine::CCheckbox * checkbox2 = new daidalosengine::CCheckbox();
+		checkbox2->SetBounds(daidalosengine::CRectangleI(0, 200, 32, 32));
 		checkbox2->SetUncheckedTexture("checkbox_off.png");
 		checkbox2->SetCheckedTexture("checkbox_on.png");
 		checkbox2->SetClickedTexture("checkbox_clicked.png");
 		scroll->AddSubview(checkbox2);
 
 
-		DE::CSelectionList * selectionList = new DE::CSelectionList();
-		selectionList->SetBounds(DE::CRectangleI(600, 100, 600, 200));
+		daidalosengine::CSelectionList * selectionList = new daidalosengine::CSelectionList();
+		selectionList->SetBounds(daidalosengine::CRectangleI(600, 100, 600, 200));
 		selectionList->SetSelectionListTitle("SELECTION LIST: ");
 		selectionList->AddSelection("VALUE 1");
 		selectionList->AddSelection("VALUE 2");

@@ -36,11 +36,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "2D/CConsoleView.hpp"
 #include "2D/IConsoleListener.hpp"
 
-namespace EDITOR {
+namespace daidaloseditor {
 	/**
 	* Level editor application implementation
 	*/
-	class CLevelEditorApplication : public GE::IForwardApplication, public IConsoleListener {
+	class CLevelEditorApplication : public daidalosgameengine::IForwardApplication, public IConsoleListener {
 	private:
 		bool m_viewMode;
 		bool m_drawSkybox;
@@ -61,17 +61,17 @@ namespace EDITOR {
 		std::unique_ptr<CViewCamera> m_viewCamera;
 		std::unique_ptr<CEditCamera> m_editCamera;
 
-		DE::CProjectionCameraSceneNode * m_viewCameraNode;
-		DE::CProjectionCameraSceneNode * m_editCameraNode;
+		daidalosengine::CProjectionCameraSceneNode * m_viewCameraNode;
+		daidalosengine::CProjectionCameraSceneNode * m_editCameraNode;
 
-		DE::CVector3F m_cameraPosition;
-		DE::CVector3F m_cameraRotation;
+		daidalosengine::CVector3F m_cameraPosition;
+		daidalosengine::CVector3F m_cameraRotation;
 
-		DE::CStaticMeshSceneNode * m_meshNode;
+		daidalosengine::CStaticMeshSceneNode * m_meshNode;
 
 		CConsoleView * m_consoleView;
 
-		DE::ICameraSceneNode * m_activeCamera;
+		daidalosengine::ICameraSceneNode * m_activeCamera;
 
 	public:
 		/**
@@ -128,7 +128,7 @@ namespace EDITOR {
 		* Update the selection mesh node
 		* @param rotation The rotation
 		*/
-		void UpdateMeshNode(const DE::CVector3F & rotation = DE::CVector3F());
+		void UpdateMeshNode(const daidalosengine::CVector3F & rotation = daidalosengine::CVector3F());
 
 		/**
 		* Update the next texture to apply depending on the mesh category selection
@@ -149,7 +149,7 @@ namespace EDITOR {
 		* Render a 3D scene
 		* @param scene3D The scene
 		*/
-		void Render3DScene(DE::C3DScene * scene3D);
+		void Render3DScene(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Get the node matching the position and the layer
@@ -157,13 +157,13 @@ namespace EDITOR {
 		* @param layer The layer
 		* @return A vector of nodes
 		*/
-		std::vector<DE::ISceneNode *> GetNodesOnBlock(DE::CVector2I position, int layer);
+		std::vector<daidalosengine::ISceneNode *> GetNodesOnBlock(daidalosengine::CVector2I position, int layer);
 
 		/**
 		* Render the diffuse part
 		* @param scene3D The scene
 		*/
-		void DiffuseRendering(DE::C3DScene * scene3D);
+		void DiffuseRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Callback when the level is fully loaded

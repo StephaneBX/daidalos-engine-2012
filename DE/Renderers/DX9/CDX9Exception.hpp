@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include "../../Core/Memory/CException.hpp"
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CDX9Exception class.
 	* DX9 exception class.

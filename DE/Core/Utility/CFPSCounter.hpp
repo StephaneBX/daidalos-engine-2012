@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <sstream>
 
-namespace DE {
+namespace daidalosengine {
 	/**
 	* CFPSCounter class.
 	* Manages the fps calculation.
