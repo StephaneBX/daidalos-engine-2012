@@ -39,15 +39,11 @@ namespace daidalos {
 	* @param damage The damage
 	* @param The range
 	*/
-	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : IEnemyState(priority) {
+	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : m_damage(damage),  m_range(range), m_target(target), m_attackDelay(attackDelay) ,IEnemyState(priority) {
 
 		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
-		this->m_damage = damage;
-		this->m_range = range;
-		this->m_target = target;
 		this->m_attackTimer = 0;
-		this->m_attackDelay = attackDelay;
 	}
 
 	/**

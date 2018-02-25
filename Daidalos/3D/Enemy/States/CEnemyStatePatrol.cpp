@@ -41,12 +41,10 @@ namespace daidalos {
 	* @param rotationSpeed The rotation speed
 	* @param wayPoints The way points
 	*/
-	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<daidalosengine::CVector3F> & wayPoints) : IEnemyState(priority) {
+	CEnemyStatePatrol::CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<daidalosengine::CVector3F> & wayPoints) : m_walkSpeed(walkSpeed), m_rotationSpeed(rotationSpeed) ,IEnemyState(priority) {
 		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
 		this->SetWayPoints(wayPoints);
-		this->m_walkSpeed = walkSpeed;
-		this->m_rotationSpeed = rotationSpeed;
 		this->m_currentWayPoint = 0;
 	}
 

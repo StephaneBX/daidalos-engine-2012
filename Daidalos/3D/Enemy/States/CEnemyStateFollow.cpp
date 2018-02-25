@@ -41,14 +41,9 @@ namespace daidalos {
 	* @param stopDistance the stop distance
 	* @param searchTime Time the entity search if the target is lost
 	*/
-	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : IEnemyState(priority) {
+	CEnemyStateFollow::CEnemyStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime) : m_target(target), m_moveSpeed(moveSpeed), m_rotationSpeed(rotationSpeed), m_stopDistance(stopDistance), m_searchTimer(searchTime) ,IEnemyState(priority) {
 		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);
-		this->m_target = target;
-		this->m_moveSpeed = moveSpeed;
-		this->m_rotationSpeed = rotationSpeed;
-		this->m_stopDistance = stopDistance;
-		this->m_searchTimer = searchTime;
 		this->m_searched = 0;
 	}
 

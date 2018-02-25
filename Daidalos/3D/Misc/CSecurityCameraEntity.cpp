@@ -43,11 +43,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CSecurityCameraEntity::CSecurityCameraEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CSecurityCameraEntity::CSecurityCameraEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_meshRootNode(meshNode), IEntity(parent) {
 
 		this->SetId(meshNode->GetId());
 		this->SetType(daidalosgameengine::ENTITY_TYPE_SECURITY_CAMERA);
-		this->m_meshRootNode = meshNode;
 		this->m_meshCameraNode = nullptr;
 		this->m_originalHorizontalRotation = this->m_meshRootNode->GetRotation().y;
 		this->m_originalVerticalRotation = this->m_meshRootNode->GetRotation().x;

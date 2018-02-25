@@ -36,11 +36,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CSpotEntity::CSpotEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CSpotEntity::CSpotEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_node(meshNode), IEntity(parent) {
 
 		this->SetId(meshNode->GetId());
 		this->SetType(daidalosgameengine::ENTITY_TYPE_SPOT);
-		this->m_node = meshNode;
 
 		// Default values
 		bool enabled = true;

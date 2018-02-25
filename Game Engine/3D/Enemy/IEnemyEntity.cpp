@@ -44,7 +44,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The mesh node
 	*/
-	IEnemyEntity::IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent) {
+	IEnemyEntity::IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_meshNode(meshNode), ICollidableEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetFlag(GetFlag() | ENTITY_FLAG_ENEMY);
@@ -52,7 +52,6 @@ namespace daidalosgameengine {
 		SetHealth(DEFAULT_HEALTH);
 		SetMaxHealth(DEFAULT_HEALTH);
 
-		this->m_meshNode = meshNode;
 		this->m_currentActionState = nullptr;
 
 		// The camera node

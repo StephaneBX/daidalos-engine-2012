@@ -40,11 +40,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The armor bonus node
 	*/
-	CArmorBonusEntity::CArmorBonusEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CArmorBonusEntity::CArmorBonusEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_ARMOR);
-		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
 		this->m_sound.LoadFromFile("armor_bonus.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);

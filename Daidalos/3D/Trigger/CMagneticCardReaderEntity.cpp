@@ -38,11 +38,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The mesh node
 	*/
-	CMagneticCardReaderEntity::CMagneticCardReaderEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CMagneticCardReaderEntity::CMagneticCardReaderEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_MAGNETIC_CARD_READER);
-		this->m_node = meshNode;
 
 		this->m_highlighted = false;
 		this->m_activated = false;

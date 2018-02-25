@@ -35,11 +35,10 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The ladder node
 	*/
-	CLadderEntity::CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CLadderEntity::CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_LADDER);
-		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
 		// Read the attributes

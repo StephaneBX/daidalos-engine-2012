@@ -40,11 +40,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The flashlight node
 	*/
-	CFlashlightEntity::CFlashlightEntity(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * meshNode) : ITriggerEntity(parent) {
+	CFlashlightEntity::CFlashlightEntity(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_FLASHLIGHT);
-		this->m_node = meshNode;
 
 		this->m_sound.LoadFromFile("flashlight_bonus.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_sound.SetRelativeToListener(true);

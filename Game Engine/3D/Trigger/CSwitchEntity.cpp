@@ -38,11 +38,10 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The switch node
 	*/
-	CSwitchEntity::CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CSwitchEntity::CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_SWITCH);
-		this->m_node = meshNode;
 
 		this->m_highlighted = false;
 		this->m_state = SWITCH_STATE_OFF;

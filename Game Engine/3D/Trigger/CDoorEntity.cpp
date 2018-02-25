@@ -40,11 +40,10 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The door node
 	*/
-	CDoorEntity::CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CDoorEntity::CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_DOOR);
-		this->m_node = meshNode;
 		this->m_emitterNode = nullptr;
 
 		this->m_state = DOOR_STATE_CLOSED;

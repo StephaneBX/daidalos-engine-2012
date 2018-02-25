@@ -42,9 +42,8 @@ namespace daidaloseditor {
 	* @param parent The parent
 	* @param cameraNode The camera node
 	*/
-	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) : IPlayer(parent) {
+	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode), IPlayer(parent) {
 		this->m_state = 0;
-		this->m_node = cameraNode;
 
 		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
 		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();

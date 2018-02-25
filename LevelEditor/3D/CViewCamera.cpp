@@ -36,9 +36,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/CViewCamera.hpp"
 
 namespace daidaloseditor {
-	CViewCamera::CViewCamera(daidalosengine::ICameraSceneNode * cameraNode) {
+	CViewCamera::CViewCamera(daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode) {
 		this->m_state = 0;
-		this->m_node = cameraNode;
 
 		// Override camera visibility
 		this->m_node->SetFarDistance(200);

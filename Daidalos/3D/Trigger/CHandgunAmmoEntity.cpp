@@ -40,11 +40,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The handgun ammo node
 	*/
-	CHandgunAmmoEntity::CHandgunAmmoEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CHandgunAmmoEntity::CHandgunAmmoEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_HANDGUN_AMMO);
-		this->m_node = meshNode;
 		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
 		this->m_sound.LoadFromFile("handgun_ammo.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);

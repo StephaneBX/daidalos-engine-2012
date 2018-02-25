@@ -38,11 +38,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The alarm node
 	*/
-	CAlarmEntity::CAlarmEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : IEntity(parent) {
+	CAlarmEntity::CAlarmEntity(daidalosgameengine::ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_node(meshNode), IEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_ALARM);
-		this->m_node = meshNode;
 		this->m_speed = ROTATION_SPEED;
 
 		// Read the attributes

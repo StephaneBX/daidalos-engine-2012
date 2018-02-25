@@ -37,11 +37,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The switch node
 	*/
-	CTeleporterEntity::CTeleporterEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CTeleporterEntity::CTeleporterEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_TELEPORTER);
-		this->m_node = meshNode;
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters

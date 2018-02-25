@@ -38,11 +38,10 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The fan node
 	*/
-	CFanEntity::CFanEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent) {
+	CFanEntity::CFanEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
 
 		SetId(meshNode->GetId());
 		SetType(daidalosgameengine::ENTITY_TYPE_FAN);
-		this->m_node = meshNode;
 
 		this->m_speed = 0;
 		this->m_state = FAN_STATE_STOPPED;

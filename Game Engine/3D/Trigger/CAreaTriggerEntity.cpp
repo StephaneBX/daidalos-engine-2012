@@ -35,11 +35,10 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param node The node
 	*/
-	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent) {
+	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node) : m_node(node), ITriggerEntity(parent) {
 
 		SetId(node->GetId());
 		SetType(ENTITY_TYPE_AREA_TRIGGER);
-		this->m_node = node;
 		
 		// Read the attributes
 		if(this->m_node->GetAttribute("triggerRadius") != "") {

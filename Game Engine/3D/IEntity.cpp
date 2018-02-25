@@ -33,8 +33,7 @@ namespace daidalosgameengine {
 	* The constructor
 	* @param parent The parent
 	*/
-	IEntity::IEntity(ILevel * parent) {
-		this->m_parent = parent;
+	IEntity::IEntity(ILevel * parent) : m_parent(parent) {
 		this->m_id = 0;
 		this->m_flag = 0;
 	}

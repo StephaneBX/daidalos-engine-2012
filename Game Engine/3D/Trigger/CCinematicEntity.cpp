@@ -35,12 +35,11 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param node The node
 	*/
-	CCinematicEntity::CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent) {
+	CCinematicEntity::CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node) : m_node(node), ITriggerEntity(parent) {
 
 		this->m_triggered = false;
 		SetId(node->GetId());
 		SetType(ENTITY_TYPE_AREA_TRIGGER);
-		this->m_node = node;
 		std::string cinematicFile;
 
 		// Read the attributes

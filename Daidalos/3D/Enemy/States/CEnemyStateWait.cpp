@@ -37,9 +37,8 @@ namespace daidalos {
 	* @param animationSpeed The animation speed
 	* @param waitTime The wait time
 	*/
-	CEnemyStateWait::CEnemyStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime) : IEnemyState(priority) {
+	CEnemyStateWait::CEnemyStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime) : m_waitTime(waitTime), IEnemyState(priority) {
 		this->m_active = false;
-		this->m_waitTime = waitTime;
 		this->m_waited = 0;
 		this->SetAnimationFrames(daidalosengine::CVector2F(startAnimation, endAnimation));
 		this->SetAnimationSpeed(animationSpeed);

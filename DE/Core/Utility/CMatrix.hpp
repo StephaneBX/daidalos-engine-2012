@@ -175,11 +175,11 @@ namespace daidalosengine {
 	inline CMatrix::CMatrix(const float m11, const float m12, const float m13, const float m14,
 		const float m21, const float m22, const float m23, const float m24,
 		const float m31, const float m32, const float m33, const float m34,
-		const float m41, const float m42, const float m43, const float m44) {
-		this->_11 = m11; this->_12 = m12; this->_13 = m13; this->_14 = m14;
-		this->_21 = m21; this->_22 = m22; this->_23 = m23; this->_24 = m24;
-		this->_31 = m31; this->_32 = m32; this->_33 = m33; this->_34 = m34;
-		this->_41 = m41; this->_42 = m42; this->_43 = m43; this->_44 = m44;
+		const float m41, const float m42, const float m43, const float m44) : 
+		_11(m11), _12(m12), _13(m13), _14(m14),
+		_21(m21), _22(m22), _23(m23), _24(m24),
+		_31(m31), _32(m32), _33(m33), _34(m34),
+		_41(m41), _42(m42), _43(m43), _44(m44) {
 	}
 
 	/**

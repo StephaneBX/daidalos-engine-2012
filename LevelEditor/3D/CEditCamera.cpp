@@ -33,9 +33,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/CEditCamera.hpp"
 
 namespace daidaloseditor {
-	CEditCamera::CEditCamera(daidalosengine::ICameraSceneNode * cameraNode) {
+	CEditCamera::CEditCamera(daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode) {
 		this->m_state = 0;
-		this->m_node = cameraNode;
 		this->m_layer = 0;
 		this->m_zoom = 8;
 
