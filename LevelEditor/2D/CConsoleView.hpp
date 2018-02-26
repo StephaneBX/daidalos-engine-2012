@@ -56,7 +56,7 @@ namespace daidaloseditor {
 		* Set the visible value
 		* @param visible The visible value
 		*/
-		void SetVisible(const bool visible);
+		void SetVisible(const bool visible) final;
 
 		/**
 		* Add a listener
