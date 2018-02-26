@@ -137,7 +137,8 @@ namespace daidaloseditor {
 		tinyxml2::XMLElement * child;
 		node = new CEditorLevelSceneNode(scene);
 		std::string skyName;
-		daidalosengine::CVector3F ambientColor, skyAmbientColor;
+		daidalosengine::CVector3F ambientColor;
+		daidalosengine::CVector3F skyAmbientColor;
 
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
@@ -165,8 +166,11 @@ namespace daidaloseditor {
 					if(std::string(child2It->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2It);
 
-						daidalosengine::CVector3F position, rotation, scale;
-						std::string diffuseTexture, normalTexture;
+						daidalosengine::CVector3F position;
+						daidalosengine::CVector3F rotation;
+						daidalosengine::CVector3F scale;
+						std::string diffuseTexture;
+						std::string normalTexture;
 
 						// Search for defined values in the element or use default values
 						GetNodeData(brushHandle, "position", position, daidalosengine::CVector3F(0, 0, 0));
@@ -197,8 +201,11 @@ namespace daidaloseditor {
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle brushHandle(childIt);
 
-				daidalosengine::CVector3F position, rotation, scale;
-				std::string diffuseTexture, normalTexture;
+				daidalosengine::CVector3F position;
+				daidalosengine::CVector3F rotation;
+				daidalosengine::CVector3F scale;
+				std::string diffuseTexture;
+				std::string normalTexture;
 
 				// Search for defined values in the element or use default values
 				GetNodeData(brushHandle, "position", position, daidalosengine::CVector3F(0, 0, 0));
@@ -227,7 +234,9 @@ namespace daidaloseditor {
 			if(std::string(childIt->Name()) == "node") {
 				tinyxml2::XMLHandle nodeHandle(childIt);
 
-				daidalosengine::CVector3F position, rotation, scale;
+				daidalosengine::CVector3F position;
+				daidalosengine::CVector3F rotation;
+				daidalosengine::CVector3F scale;
 				std::string boundingBox;
 
 				int type = -1;

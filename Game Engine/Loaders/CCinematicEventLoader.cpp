@@ -75,9 +75,12 @@ namespace daidalosgameengine {
 	}
 
 	void CCinematicEventLoader::LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle & handle) {
-		daidalosengine::CVector3F position, rotation;
-		std::string transition, fade;
-		float duration, fadeDuration;
+		daidalosengine::CVector3F position;
+		daidalosengine::CVector3F rotation;
+		std::string transition;
+		std::string fade;
+		float duration;
+		float fadeDuration;
 
 		GetNodeData(handle, "position", position, daidalosengine::CVector3F());
 		GetNodeData(handle, "rotation", rotation, daidalosengine::CVector3F());
