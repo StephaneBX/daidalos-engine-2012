@@ -41,18 +41,7 @@ namespace daidalosengine {
 	CScrollableView::CScrollableView() {
 		LOG_TRACE();
 
-		this->m_enabled = true;
-		this->m_scrollPitch = DEFAULT_SCROLL_PITCH;
-
-		// Initialize the scroll bar
-		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(0, 0, DEFAULT_SCROLLBAR_THICKNESS, DEFAULT_SCROLLBAR_THICKNESS));
-		this->m_scrollBarView.SetBackgroundColor(DEFAULT_SCROLLBAR_COLOR);
-
-		// Add the content and the scroll bar
-		this->m_subviews.push_back(&this->m_contentView);
-		this->m_contentView.SetParent(this);
-		this->m_subviews.push_back(&this->m_scrollBarView);
-		this->m_scrollBarView.SetParent(this);
+		Initialize();
 	}
 
 	/**
@@ -67,7 +56,18 @@ namespace daidalosengine {
 	* Initialize the content
 	*/
 	void CScrollableView::Initialize() {
+		this->m_enabled = true;
+		this->m_scrollPitch = DEFAULT_SCROLL_PITCH;
 
+		// Initialize the scroll bar
+		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(0, 0, DEFAULT_SCROLLBAR_THICKNESS, DEFAULT_SCROLLBAR_THICKNESS));
+		this->m_scrollBarView.SetBackgroundColor(DEFAULT_SCROLLBAR_COLOR);
+
+		// Add the content and the scroll bar
+		this->m_subviews.push_back(&this->m_contentView);
+		this->m_contentView.SetParent(this);
+		this->m_subviews.push_back(&this->m_scrollBarView);
+		this->m_scrollBarView.SetParent(this);
 	}
 
 	/**
@@ -281,7 +281,9 @@ namespace daidalosengine {
 	/**
 	* Initialize the content
 	*/
-	void CScrollableContentView::Initialize() {}
+	void CScrollableContentView::Initialize() {
+		// Nothing to do
+	}
 
 	/**
 	* Update the text geometry

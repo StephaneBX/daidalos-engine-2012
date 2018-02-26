@@ -51,7 +51,7 @@ namespace daidalosengine {
 	* Initialize the content
 	*/
 	void CLabel::Initialize() {
-
+		// Nothing to do
 	}
 
 	void CLabel::SetFont(const std::string & font) {

@@ -51,7 +51,7 @@ namespace daidalosengine {
 	* Initialize the content
 	*/
 	void CSprite::Initialize() {
-
+		// Nothing to do
 	}
 
 	void CSprite::SetRotation(const float rotation) {

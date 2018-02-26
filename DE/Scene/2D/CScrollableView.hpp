@@ -51,7 +51,7 @@ namespace daidalosengine {
 		/**
 		* Initialize the content
 		*/
-		virtual void Initialize();
+		virtual void Initialize() final;
 
 		/**
 		* Update the text geometry

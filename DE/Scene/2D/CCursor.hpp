@@ -54,7 +54,7 @@ namespace daidalosengine {
 		/**
 		* Initialize the content
 		*/
-		void Initialize() final;
+		virtual void Initialize() final;
 
 		/**
 		* Set the texture

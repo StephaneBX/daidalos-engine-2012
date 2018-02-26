@@ -66,7 +66,7 @@ namespace daidalosengine {
 		/**
 		* Initialize the content
 		*/
-		void Initialize() final;
+		virtual void Initialize() final;
 
 		/**
 		* Add a button listener
