@@ -47,6 +47,13 @@ namespace daidalosengine {
 
 	}
 
+	/**
+	* Initialize the content
+	*/
+	void CSprite::Initialize() {
+
+	}
+
 	void CSprite::SetRotation(const float rotation) {
 		LOG_TRACE();
 

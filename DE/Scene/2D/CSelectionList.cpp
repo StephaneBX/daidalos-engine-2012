@@ -68,6 +68,13 @@ namespace daidalosengine {
 	}
 
 	/**
+	* Initialize the content
+	*/
+	void CSelectionList::Initialize() {
+
+	}
+
+	/**
 	* Add a button listener
 	* @param listener The button listener
 	*/

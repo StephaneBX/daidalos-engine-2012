@@ -52,6 +52,11 @@ namespace daidalosengine {
 		virtual ~CCursor();
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Set the texture
 		*/
 		void SetTexture(const std::string & texture);

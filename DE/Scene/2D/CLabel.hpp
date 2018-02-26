@@ -63,6 +63,11 @@ namespace daidalosengine {
 		virtual ~CLabel();
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Set the font
 		* @param font The font name
 		*/

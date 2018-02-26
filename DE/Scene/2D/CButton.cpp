@@ -49,8 +49,7 @@ namespace daidalosengine {
 		this->m_clickedTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		this->m_focusedTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		SetDefaultTexture(texture);
-
-		AddSubview(&this->m_title);
+		Initialize();
 	}
 
 	/**
@@ -58,6 +57,13 @@ namespace daidalosengine {
 	*/
 	CButton::~CButton() {
 		LOG_TRACE();
+	}
+
+	/**
+	* Initialize the content
+	*/
+	void CButton::Initialize() {
+		AddSubview(&this->m_title);
 	}
 
 	/**

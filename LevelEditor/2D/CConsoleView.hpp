@@ -41,6 +41,7 @@ namespace daidaloseditor {
 	*/
 	class CConsoleView : public daidalosengine::CSprite, public daidalosengine::IInputKeyboardListener {
 	private:
+		int m_numberOfLines;
 		std::vector<IConsoleListener*> m_listeners;
 		std::vector<daidalosengine::CLabel> m_historyLabel;
 		daidalosengine::CLabel m_inputLabel;
@@ -51,6 +52,11 @@ namespace daidaloseditor {
 		* @param texture The view bounds
 		*/
 		explicit CConsoleView(const int numberOfLines);
+
+		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
 
 		/**
 		* Set the visible value

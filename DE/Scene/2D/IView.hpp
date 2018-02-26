@@ -73,6 +73,11 @@ namespace daidalosengine {
 		virtual ~IView();
 
 		/**
+		* Initialize the content
+		*/
+		virtual void Initialize() = 0;
+
+		/**
 		* Update the text geometry
 		* @param time The elapsed time
 		*/

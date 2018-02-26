@@ -40,10 +40,16 @@ namespace daidaloseditor {
 	* Constructor
 	* @param texture The view bounds
 	*/
-	CConsoleView::CConsoleView(const int numberOfLines) {
+	CConsoleView::CConsoleView(const int numberOfLines) : m_numberOfLines(numberOfLines) {
+		Initialize();
+	}
 
+	/**
+	* Initialize the content
+	*/
+	void CConsoleView::Initialize() {
 		// Set the bounds
-		SetBounds(daidalosengine::CRectangleI(0, 0, 400, (numberOfLines + 1) * LABEL_HEIGHT));
+		SetBounds(daidalosengine::CRectangleI(0, 0, 400, (this->m_numberOfLines + 1) * LABEL_HEIGHT));
 
 		// Set background color
 		SetBackgroundColor(daidalosengine::CColor(0.2F, 0.2F, 0.2F));
@@ -58,9 +64,9 @@ namespace daidaloseditor {
 		AddSubview(&this->m_inputLabel);
 
 		// Create the history labels
-		this->m_historyLabel.resize(numberOfLines);
+		this->m_historyLabel.resize(this->m_numberOfLines);
 		int i = 0;
-		for(auto it = this->m_historyLabel.begin(); it != this->m_historyLabel.end(); it++) {
+		for (auto it = this->m_historyLabel.begin(); it != this->m_historyLabel.end(); it++) {
 			(*it).SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 			(*it).SetSize(LABEL_HEIGHT);
 			(*it).SetColor(daidalosengine::CColor(255, 255, 255, 255));

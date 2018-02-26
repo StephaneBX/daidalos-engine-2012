@@ -35,11 +35,22 @@ namespace daidalosengine {
 	CCursor::CCursor(const std::string & texture) {
 		LOG_TRACE();
 
+		Initialize();
+	}
+
+	CCursor::~CCursor() {
+
+	}
+
+	/**
+	* Initialize the content
+	*/
+	void CCursor::Initialize() {
 		this->m_changed = true;
 
 		// Add the cursor actions
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
-		SInputActionDeclaration cursorActions[] = { 
+		SInputActionDeclaration cursorActions[] = {
 			{ GUI_VIEW_LEFT_CLICK, -1 },
 			{ GUI_VIEW_WHEEL_UP, -1 },
 			{ GUI_VIEW_WHEEL_DOWN, -1 }
@@ -51,10 +62,6 @@ namespace daidalosengine {
 		inputDevice->SetActionKey(GUI_VIEW_LEFT_CLICK, daidalosengine::INPUT_KEY_MOUSE_BUTTON0);
 		inputDevice->SetActionKey(GUI_VIEW_WHEEL_UP, daidalosengine::INPUT_KEY_MOUSE_WHEELUP);
 		inputDevice->SetActionKey(GUI_VIEW_WHEEL_DOWN, daidalosengine::INPUT_KEY_MOUSE_WHEELDOWN);
-	}
-
-	CCursor::~CCursor() {
-
 	}
 
 	void CCursor::SetTexture(const std::string & texture) {

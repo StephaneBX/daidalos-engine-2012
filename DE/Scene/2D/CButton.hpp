@@ -66,6 +66,11 @@ namespace daidalosengine {
 		virtual ~CButton();
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Add a button listener
 		* @param listener The button listener
 		*/

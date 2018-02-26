@@ -38,7 +38,13 @@ namespace daidalosgameengine {
 	CLoadingView::CLoadingView(const daidalosengine::CRectangleI & bounds) {
 
 		SetBounds(bounds);
+		Initialize();
+	}
 
+	/**
+	* Initialize the content
+	*/
+	void CLoadingView::Initialize() {
 		this->m_backgroundSprite.SetBounds(this->m_boundingRectangle);
 		this->m_backgroundSprite.SetTexture("loading.png");
 		AddSubview(&this->m_backgroundSprite);

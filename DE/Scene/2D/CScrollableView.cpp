@@ -64,6 +64,13 @@ namespace daidalosengine {
 	}
 
 	/**
+	* Initialize the content
+	*/
+	void CScrollableView::Initialize() {
+
+	}
+
+	/**
 	* Update the text geometry
 	* @param time The elapsed time
 	*/
@@ -270,6 +277,11 @@ namespace daidalosengine {
 	CScrollableContentView::~CScrollableContentView() {
 		LOG_TRACE();
 	}
+
+	/**
+	* Initialize the content
+	*/
+	void CScrollableContentView::Initialize() {}
 
 	/**
 	* Update the text geometry

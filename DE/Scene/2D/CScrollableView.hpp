@@ -49,6 +49,11 @@ namespace daidalosengine {
 		virtual ~CScrollableContentView();
 
 		/**
+		* Initialize the content
+		*/
+		virtual void Initialize();
+
+		/**
 		* Update the text geometry
 		* @param time The elapsed time
 		*/
@@ -88,6 +93,11 @@ namespace daidalosengine {
 		* Destructor
 		*/
 		virtual ~CScrollableView();
+
+		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
 
 		/**
 		* Update the text geometry

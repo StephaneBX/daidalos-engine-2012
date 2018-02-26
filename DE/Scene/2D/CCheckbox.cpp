@@ -38,6 +38,21 @@ namespace daidalosengine {
 	CCheckbox::CCheckbox() {
 		LOG_TRACE();
 
+		Initialize();
+	}
+
+	/**
+	* Destructor
+	*/
+	CCheckbox::~CCheckbox() {
+		LOG_TRACE();
+
+	}
+
+	/**
+	* Initialize the content
+	*/
+	void CCheckbox::Initialize() {
 		this->m_enabled = true;
 		this->m_checked = false;
 		this->m_changed = true;
@@ -47,14 +62,6 @@ namespace daidalosengine {
 		this->m_label.SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
 		this->m_labelInset = daidalosengine::CInsetI(5, 5, 5, 5);
 		AddSubview(&this->m_label);
-	}
-
-	/**
-	* Destructor
-	*/
-	CCheckbox::~CCheckbox() {
-		LOG_TRACE();
-
 	}
 
 	/**

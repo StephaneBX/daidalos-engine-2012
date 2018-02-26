@@ -33,7 +33,13 @@ namespace daidalos {
 	CHudView::CHudView(const daidalosengine::CRectangleI & bounds) : IView() {
 
 		SetBounds(bounds);
+		Initialize();
+	}
 
+	/**
+	* Initialize the content
+	*/
+	void CHudView::Initialize() {
 		// Create the position label
 		this->m_positionLabel.SetBounds(daidalosengine::CRectangleI(5, 0, 400, 30));
 		this->m_positionLabel.SetSize(26);

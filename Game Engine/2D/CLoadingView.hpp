@@ -50,6 +50,11 @@ namespace daidalosgameengine {
 		explicit CLoadingView(const daidalosengine::CRectangleI & bounds);
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Update the state and the geometry
 		* @param time The elapsed time
 		*/

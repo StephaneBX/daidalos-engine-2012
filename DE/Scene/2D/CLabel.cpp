@@ -47,6 +47,13 @@ namespace daidalosengine {
 
 	}
 
+	/**
+	* Initialize the content
+	*/
+	void CLabel::Initialize() {
+
+	}
+
 	void CLabel::SetFont(const std::string & font) {
 		LOG_TRACE();
 

@@ -58,6 +58,11 @@ namespace daidalos {
 		explicit CHudView(const daidalosengine::CRectangleI & bounds);
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Set the debug mode
 		* @param debugMode The debug mode
 		*/

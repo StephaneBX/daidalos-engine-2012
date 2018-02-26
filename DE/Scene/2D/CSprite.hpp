@@ -54,6 +54,11 @@ namespace daidalosengine {
 		virtual ~CSprite();
 
 		/**
+		* Initialize the content
+		*/
+		virtual void Initialize();
+
+		/**
 		* Set the rotation in degree
 		* @param rotation The rotation
 		*/

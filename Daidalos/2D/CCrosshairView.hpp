@@ -45,6 +45,11 @@ namespace daidalos {
 		* Constructor
 		*/
 		CCrosshairView();
+
+		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
 	};
 }
 

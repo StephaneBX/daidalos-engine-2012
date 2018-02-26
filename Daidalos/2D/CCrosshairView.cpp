@@ -33,6 +33,13 @@ namespace daidalos {
 	* Constructor
 	*/
 	CCrosshairView::CCrosshairView() {
+		Initialize();
+	}
+
+	/**
+	* Initialize the content
+	*/
+	void CCrosshairView::Initialize() {
 		SetPreferredSize(daidalosengine::CVector2I(22, 22));
 
 		this->m_horizontalSprite.SetBounds(daidalosengine::CRectangleI(0, 10, 22, 2));

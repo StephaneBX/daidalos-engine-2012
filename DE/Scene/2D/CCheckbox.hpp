@@ -63,6 +63,11 @@ namespace daidalosengine {
 		virtual ~CCheckbox();
 
 		/**
+		* Initialize the content
+		*/
+		void Initialize() final;
+
+		/**
 		* Add a checkbox listener
 		* @param listener The checkbox listener
 		*/
