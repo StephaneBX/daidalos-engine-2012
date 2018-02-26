@@ -39,6 +39,11 @@ namespace daidaloseditor {
 
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IConsoleListener() {}
+
+		/**
 		* Called when a load command is inputed in the console
 		* @param filename The level filename to load
 		*/

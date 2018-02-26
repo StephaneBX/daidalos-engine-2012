@@ -53,6 +53,11 @@ namespace daidalosgameengine {
 		explicit IEnemyState(const unsigned int priority);
 
 		/**
+		* Destructor
+		*/
+		virtual ~IEnemyState();
+
+		/**
 		* Set the priority.
 		* @param priority The priority
 		*/

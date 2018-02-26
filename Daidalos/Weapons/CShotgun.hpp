@@ -45,6 +45,11 @@ namespace daidalos {
 		*/
 		CShotgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode);
 
+		/**
+		* Destructor
+		*/
+		virtual ~CShotgun();
+
 	protected:
 		/**
 		* Initialize the weapon node

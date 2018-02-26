@@ -53,6 +53,11 @@ namespace daidalosgameengine {
 
 	public:
 		/**
+		* Destrictor
+		*/
+		virtual ~ILevel();
+
+		/**
 		* Load the level. Should be called from a specific thread.
 		* @param filename The filename
 		*/

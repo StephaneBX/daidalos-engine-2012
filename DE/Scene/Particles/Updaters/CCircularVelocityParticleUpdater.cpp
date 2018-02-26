@@ -35,11 +35,8 @@ namespace daidalosengine {
 	* @param axis The rotation axis
 	* @param damping The damping factor
 	*/
-	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping) {
+	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping) : m_damping(damping), m_axis(axis), m_circularVelocityChanges(circularVelocityChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_VELOCITY;
-		this->m_damping = damping;
-		this->m_axis = axis;
-		this->m_circularVelocityChanges = circularVelocityChanges;
 	}
 
 	/**

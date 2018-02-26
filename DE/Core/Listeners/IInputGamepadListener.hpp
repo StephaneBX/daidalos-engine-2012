@@ -37,6 +37,11 @@ namespace daidalosengine {
 	class IInputGamepadListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IInputGamepadListener() {}
+
+		/**
 		* Called when the gamepad state has changed
 		* @param actionId The action id
 		* @param factor The action factor

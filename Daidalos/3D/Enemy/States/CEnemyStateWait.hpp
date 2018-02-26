@@ -52,6 +52,11 @@ namespace daidalos {
 		CEnemyStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CEnemyStateWait();
+
+		/**
 		* Set the active status.
 		* @param active The active status
 		*/

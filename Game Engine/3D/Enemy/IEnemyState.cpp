@@ -36,6 +36,11 @@ namespace daidalosgameengine {
 	IEnemyState::IEnemyState(const unsigned int priority) : m_priority(priority) {}
 
 	/**
+	* Destructor
+	*/
+	IEnemyState::~IEnemyState() {}
+
+	/**
 	* Set the priority.
 	* @param priority The priority
 	*/

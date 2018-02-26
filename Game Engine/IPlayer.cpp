@@ -29,6 +29,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace daidalosgameengine {
 	/**
+	* Destructor
+	*/
+	IPlayer::~IPlayer() {}
+
+	/**
 	* Constructor
 	* @param parent The parent
 	*/

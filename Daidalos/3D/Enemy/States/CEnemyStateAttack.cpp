@@ -47,6 +47,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CEnemyStateAttack::~CEnemyStateAttack() {}
+
+	/**
 	* Set the damage.
 	* @param damage The damage
 	*/

@@ -48,6 +48,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CEnemyStateFollow::~CEnemyStateFollow() {}
+
+	/**
 	* Set the move speed.
 	* @param moveSpeed The move speed
 	*/

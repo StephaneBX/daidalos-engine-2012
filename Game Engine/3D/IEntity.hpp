@@ -57,6 +57,11 @@ namespace daidalosgameengine {
 		explicit IEntity(ILevel * parent);
 
 		/**
+		* Destructor
+		*/
+		virtual ~IEntity();
+
+		/**
 		* Set the id
 		* @param id The id
 		*/

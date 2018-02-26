@@ -43,6 +43,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CZombieStateWait::~CZombieStateWait() {}
+
+	/**
 	* Update the entity
 	* @param entity The entity
 	* @param time Elapsed time

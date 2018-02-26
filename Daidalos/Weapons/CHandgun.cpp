@@ -64,6 +64,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CHandgun::~CHandgun() {}
+
+	/**
 	* Initialize the weapon node
 	* @param playerNode The player node to attach the weapon node to
 	*/

@@ -39,6 +39,11 @@ namespace daidalosengine {
 	class IButtonListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IButtonListener() {}
+
+		/**
 		* Called when the button is clicked
 		* @param button The button that trigger the action
 		*/

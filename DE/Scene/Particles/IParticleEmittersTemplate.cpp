@@ -34,9 +34,7 @@ namespace daidalosengine {
 	* @param name The ressource name
 	* @param emitters The emitters
 	*/
-	IParticleEmittersTemplate::IParticleEmittersTemplate(std::string name, const std::map<std::string, CParticleEmitter *> emitters) : IResource(name) {
-		this->m_emitters = emitters;
-	}
+	IParticleEmittersTemplate::IParticleEmittersTemplate(std::string name, const std::map<std::string, CParticleEmitter *> emitters) : m_emitters(emitters), IResource(name) {}
 
 	/**
 	* Destructor

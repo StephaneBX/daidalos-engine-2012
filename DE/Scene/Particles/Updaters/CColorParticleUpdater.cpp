@@ -33,9 +33,8 @@ namespace daidalosengine {
 	* Constructor
 	* @param colorChanges The color changes definition
 	*/
-	CColorParticleUpdater::CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges) {
+	CColorParticleUpdater::CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges) : m_colorChanges(colorChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_COLOR;
-		this->m_colorChanges = colorChanges;
 	}
 
 	/**

@@ -43,7 +43,7 @@ namespace daidalos {
 	* @param parent The parent
 	* @param meshNode The weapon mesh node
 	*/
-	IWeapon::IWeapon(daidalosgameengine::ILevel * parent) {
+	IWeapon::IWeapon(daidalosgameengine::ILevel * parent) : m_parent(parent) {
 		this->m_state = WEAPON_STATE_NONE;
 		this->m_damage = 0;
 		this->m_magazineSize = 0;
@@ -60,9 +60,13 @@ namespace daidalos {
 		this->m_smokeRemainingDelay = 0;
 		this->m_wobblePositionTime = 0;
 		this->m_range = 100;
-		this->m_parent = parent;
 		this->m_fireLight = nullptr;
 	}
+
+	/**
+	* Destructor
+	*/
+	IWeapon::~IWeapon() {}
 
 	/**
 	* Fire the weapon

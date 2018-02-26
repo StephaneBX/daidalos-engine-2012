@@ -38,7 +38,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param steps The steps
 	*/
-	CCinematicCamera::CCinematicCamera(ILevel * parent, const std::vector<SCinematicCameraStep> & steps) : ICollidableEntity(parent) {
+	CCinematicCamera::CCinematicCamera(ILevel * parent, const std::vector<SCinematicCameraStep> & steps) : m_steps(steps), ICollidableEntity(parent) {
 
 		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
 
@@ -47,7 +47,6 @@ namespace daidalosgameengine {
 		this->m_enabled = false;
 		this->m_done = false;
 		this->m_currentStep = 0;
-		this->m_steps = steps;
 		this->m_node = new daidalosengine::CProjectionCameraSceneNode(parent->GetScene()->GetScene(), parent->GetScene()->GetRootNode(), "cinematic_camera", daidalosengine::CVector3F(), daidalosengine::CVector3F(), daidalosengine::DegreeToRadian(55.0F), renderer->GetResolution().x / (float)renderer->GetResolution().y, 0.1F, 100.0F);
 		parent->GetScene()->GetRootNode()->AddChild(this->m_node);
 

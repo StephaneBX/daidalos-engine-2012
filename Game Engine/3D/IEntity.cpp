@@ -39,6 +39,11 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Destructor
+	*/
+	IEntity::~IEntity() {}
+
+	/**
 	* Set the id
 	* @param id The id
 	*/

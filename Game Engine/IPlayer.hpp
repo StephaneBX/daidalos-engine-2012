@@ -47,6 +47,11 @@ namespace daidalosgameengine {
 		explicit IPlayer(ILevel * parent);
 
 		/**
+		* Destructor
+		*/
+		virtual ~IPlayer();
+
+		/**
 		* Set the player armor
 		* @param health The player armor
 		*/

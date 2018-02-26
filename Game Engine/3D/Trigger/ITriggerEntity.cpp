@@ -38,6 +38,11 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Destructor
+	*/
+	ITriggerEntity::~ITriggerEntity() {}
+
+	/**
 	* Add a target entity
 	* @param entity The target entity
 	*/

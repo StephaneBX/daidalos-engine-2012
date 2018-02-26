@@ -38,6 +38,11 @@ namespace daidalosengine {
 	class IInputMouseListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IInputMouseListener() {}
+
+		/**
 		* Called when the mouse has moved
 		* @param position The new position
 		* @param movement The movement

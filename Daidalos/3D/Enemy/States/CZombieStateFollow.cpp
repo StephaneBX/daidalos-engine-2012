@@ -57,6 +57,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CZombieStateFollow::~CZombieStateFollow() {}
+
+	/**
 	* Update the entity
 	* @param entity The entity
 	* @param time Elapsed time

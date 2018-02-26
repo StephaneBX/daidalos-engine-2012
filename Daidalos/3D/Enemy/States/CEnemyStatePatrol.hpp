@@ -54,6 +54,11 @@ namespace daidalos {
 		CEnemyStatePatrol(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float walkSpeed, const float rotationSpeed, std::vector<daidalosengine::CVector3F> & wayPoints);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CEnemyStatePatrol();
+
+		/**
 		* Set the current way point.
 		* @param wayPoint The current way point
 		*/

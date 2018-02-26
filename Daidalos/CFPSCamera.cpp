@@ -178,6 +178,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CFPSCamera::~CFPSCamera() {}
+
+	/**
 	* Damage the entity
 	* @param damage The damage
 	*/

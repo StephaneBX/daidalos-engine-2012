@@ -34,10 +34,8 @@ namespace daidalosengine {
 	* @param rotationMin The rotation min
 	* @param rotationMax The rotation max
 	*/
-	CRotationParticleInitializer::CRotationParticleInitializer(float rotationMin, float rotationMax) {
+	CRotationParticleInitializer::CRotationParticleInitializer(float rotationMin, float rotationMax) : m_rotationMin(rotationMin), m_rotationMax(rotationMax) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION;
-		this->m_rotationMin = rotationMin;
-		this->m_rotationMax = rotationMax;
 	}
 
 	/**

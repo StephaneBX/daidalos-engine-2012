@@ -35,11 +35,8 @@ namespace daidalosengine {
 	* @param outerRadius The outer radius
 	* @param axis The axis
 	*/
-	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis) {
+	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis) : m_innerRadius(innerRadius), m_outerRadius(outerRadius), m_axis(axis) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION;
-		this->m_innerRadius = innerRadius;
-		this->m_outerRadius = outerRadius;
-		this->m_axis = axis;
 	}
 
 	/**

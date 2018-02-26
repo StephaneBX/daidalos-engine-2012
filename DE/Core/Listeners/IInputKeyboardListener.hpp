@@ -38,6 +38,11 @@ namespace daidalosengine {
 	class IInputKeyboardListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IInputKeyboardListener() {}
+
+		/**
 		* Called when a keyboard action is started
 		* @param actionId The action id
 		*/

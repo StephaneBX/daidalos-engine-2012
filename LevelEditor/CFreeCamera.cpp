@@ -91,6 +91,11 @@ namespace daidaloseditor {
 	}
 
 	/**
+	* Destructor
+	*/
+	CFreeCamera::~CFreeCamera() {}
+
+	/**
 	* Set the player active state
 	* @param enabled The player active state
 	*/

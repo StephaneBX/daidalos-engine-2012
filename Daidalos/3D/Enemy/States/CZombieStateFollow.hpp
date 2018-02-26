@@ -57,6 +57,11 @@ namespace daidalos {
 		CZombieStateFollow(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const float moveSpeed, const float rotationSpeed, const float stopDistance, const float searchTime);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CZombieStateFollow();
+
+		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time

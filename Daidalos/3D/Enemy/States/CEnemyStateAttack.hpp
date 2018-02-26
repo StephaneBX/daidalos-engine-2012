@@ -58,6 +58,11 @@ namespace daidalos {
 		CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CEnemyStateAttack();
+
+		/**
 		* Set the damage.
 		* @param damage The damage
 		*/

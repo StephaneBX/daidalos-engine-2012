@@ -116,6 +116,11 @@ namespace daidalos {
 		CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CFPSCamera();
+
+		/**
 		* Set the player active state
 		* @param enabled The player active state
 		*/

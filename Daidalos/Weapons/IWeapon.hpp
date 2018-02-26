@@ -94,6 +94,11 @@ namespace daidalos {
 		explicit IWeapon(daidalosgameengine::ILevel * parent);
 
 		/**
+		* Destructor
+		*/
+		virtual ~IWeapon();
+
+		/**
 		* Fire the weapon
 		*/
 		virtual void Fire();

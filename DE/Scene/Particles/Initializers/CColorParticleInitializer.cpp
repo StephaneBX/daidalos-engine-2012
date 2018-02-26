@@ -33,9 +33,8 @@ namespace daidalosengine {
 	* Constructor
 	* @param colorMin The color
 	*/
-	CColorParticleInitializer::CColorParticleInitializer(const CColor & color) {
+	CColorParticleInitializer::CColorParticleInitializer(const CColor & color) : m_color(color) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_COLOR;
-		this->m_color = color;
 	}
 
 	/**

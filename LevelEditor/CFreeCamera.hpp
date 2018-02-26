@@ -77,6 +77,11 @@ namespace daidaloseditor
 		CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CFreeCamera();
+
+		/**
 		* Set the player active state
 		* @param enabled The player active state
 		*/

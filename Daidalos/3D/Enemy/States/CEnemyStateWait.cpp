@@ -45,6 +45,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CEnemyStateWait::~CEnemyStateWait() {}
+
+	/**
 	* Set the active status.
 	* @param active The active status
 	*/

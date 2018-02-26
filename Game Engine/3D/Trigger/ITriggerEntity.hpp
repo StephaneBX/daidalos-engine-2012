@@ -49,6 +49,11 @@ namespace daidalosgameengine {
 		explicit ITriggerEntity(ILevel * parent);
 
 		/**
+		* Destructor
+		*/
+		virtual ~ITriggerEntity();
+
+		/**
 		* Add a target entity
 		* @param entity The target entity
 		*/

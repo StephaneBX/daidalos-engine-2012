@@ -138,12 +138,7 @@ namespace daidalosengine {
 	* @param z The z coordinate
 	* @param w The w coordinate
 	*/
-	inline CQuaternion::CQuaternion(const float x, const float y, const float z, const float w) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
-		this->w = w;
-	}
+	inline CQuaternion::CQuaternion(const float x, const float y, const float z, const float w) : x(x), y(y), z(z), w(w) {}
 
 	/**
 	* Constructor

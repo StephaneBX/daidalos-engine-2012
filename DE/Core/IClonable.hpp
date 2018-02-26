@@ -36,6 +36,11 @@ namespace daidalosengine {
 
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~IClonable() {}
+
+		/**
 		* Clone the class
 		* @return The cloned class
 		*/

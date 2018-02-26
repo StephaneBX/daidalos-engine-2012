@@ -34,10 +34,8 @@ namespace daidalosengine {
 	* @param sphereVelocityChanges The sphere velocity changes definition
 	* @param damping The damping factor
 	*/
-	CSphereVelocityParticleUpdater::CSphereVelocityParticleUpdater(const std::vector<SSphereVelocityParticleChangeUpdater> & sphereVelocityChanges, const float damping) {
+	CSphereVelocityParticleUpdater::CSphereVelocityParticleUpdater(const std::vector<SSphereVelocityParticleChangeUpdater> & sphereVelocityChanges, const float damping) : m_damping(damping), m_sphereVelocityChanges(sphereVelocityChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_VELOCITY;
-		this->m_damping = damping;
-		this->m_sphereVelocityChanges = sphereVelocityChanges;
 	}
 
 	/**

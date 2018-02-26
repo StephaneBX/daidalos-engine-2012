@@ -36,12 +36,8 @@ namespace daidalosengine {
 	* @param velocityMin The velocity min
 	* @param velocityMax The velocity max
 	*/
-	CLinearVelocityParticleInitializer::CLinearVelocityParticleInitializer(const CVector3F & direction, float variationFactor, float velocityMin, float velocityMax) {
+	CLinearVelocityParticleInitializer::CLinearVelocityParticleInitializer(const CVector3F & direction, float variationFactor, float velocityMin, float velocityMax) : m_direction(direction), m_variationFactor(variationFactor), m_velocityMin(velocityMin), m_velocityMax(velocityMax) {
 		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_LINEAR_VELOCITY;
-		this->m_direction = direction;
-		this->m_variationFactor = variationFactor;
-		this->m_velocityMin = velocityMin;
-		this->m_velocityMax = velocityMax;
 	}
 
 	/**

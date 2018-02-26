@@ -55,6 +55,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalos {
 
 	/**
+	* Destructor
+	*/
+	CDaidalosLevel::~CDaidalosLevel() {}
+
+	/**
 	* Update the level
 	* @param time The elapsed time
 	*/

@@ -39,6 +39,11 @@ namespace daidalosengine {
 	class ICheckboxListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~ICheckboxListener() {}
+
+		/**
 		* Called when the checkbox is checked
 		* @param button The checkbox that trigger the action
 		*/

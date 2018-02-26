@@ -43,6 +43,11 @@ namespace daidalos {
 
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~CDaidalosLevel();
+
+		/**
 		* Update the level
 		* @param time The elapsed time
 		*/

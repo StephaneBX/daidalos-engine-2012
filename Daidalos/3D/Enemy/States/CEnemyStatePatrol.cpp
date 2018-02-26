@@ -49,6 +49,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CEnemyStatePatrol::~CEnemyStatePatrol() {}
+
+	/**
 	* Set the current way point.
 	* @param wayPoint The current way point
 	*/

@@ -93,7 +93,7 @@ namespace daidalosengine {
 		/**
 		* The destructor
 		*/
-		~CParticleEmitter();
+		virtual ~CParticleEmitter();
 
 		/**
 		* Set the active state

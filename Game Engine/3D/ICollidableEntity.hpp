@@ -56,6 +56,11 @@ namespace daidalosgameengine {
 		explicit ICollidableEntity(ILevel * parent);
 
 		/**
+		* Destructor
+		*/
+		virtual ~ICollidableEntity();
+
+		/**
 		* Update the entity
 		* @param time Elapsed time
 		*/

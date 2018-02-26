@@ -37,6 +37,11 @@ namespace daidalosgameengine {
 	class ILevelListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~ILevelListener() {}
+
+		/**
 		* Callback when the level is fully loaded
 		*/
 		virtual void OnLevelLoaded() = 0;

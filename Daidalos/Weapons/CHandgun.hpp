@@ -45,6 +45,11 @@ namespace daidalos {
 		*/
 		CHandgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode);
 
+		/**
+		* Destructor
+		*/
+		virtual ~CHandgun();
+
 	protected:
 		/**
 		* Initialize the weapon node

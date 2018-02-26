@@ -75,6 +75,11 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Destructor
+	*/
+	IEnemyEntity::~IEnemyEntity() {}
+
+	/**
 	* Damage the entity
 	* @param damage The damage
 	*/

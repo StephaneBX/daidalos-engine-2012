@@ -46,6 +46,11 @@ namespace daidalos {
 	}
 
 	/**
+	* Destructor
+	*/
+	CEnemyStateDie::~CEnemyStateDie() {}
+
+	/**
 	* Set the dead status.
 	* @param dead The dead status
 	*/

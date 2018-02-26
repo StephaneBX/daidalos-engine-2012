@@ -32,6 +32,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace daidalosgameengine {
 	/**
+	* Destrictor
+	*/
+	ILevel::~ILevel() {}
+
+	/**
 	* Load the level. Should be called from a specific thread.
 	* @param filename The filename
 	*/

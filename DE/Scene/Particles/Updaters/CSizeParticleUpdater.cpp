@@ -33,7 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param sizeChanges The size changes definbitions
 	*/
-	CSizeParticleUpdater::CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges) {
+	CSizeParticleUpdater::CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges) : m_sizeChanges(sizeChanges) {
 		this->m_type = PARTICLE_UPDATER_TYPE_SIZE;
 		this->m_sizeChanges = sizeChanges;
 	}

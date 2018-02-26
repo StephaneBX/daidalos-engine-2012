@@ -37,6 +37,11 @@ namespace daidalosengine {
 	class ISelectionListListener {
 	public:
 		/**
+		* Destructor
+		*/
+		virtual ~ISelectionListListener() {}
+
+		/**
 		* Called when a value is selected
 		* @param index The index selected
 		* @param value The associated value

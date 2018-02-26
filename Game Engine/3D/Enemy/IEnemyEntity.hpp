@@ -57,6 +57,11 @@ namespace daidalosgameengine {
 		IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode);
 
 		/**
+		* Destructor
+		*/
+		virtual ~IEnemyEntity();
+
+		/**
 		* Damage the entity
 		* @param damage The damage
 		*/

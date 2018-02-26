@@ -34,11 +34,10 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param data The name
 	*/
-	CCinematicEvent::CCinematicEvent(ILevel * parent) {
+	CCinematicEvent::CCinematicEvent(ILevel * parent) : m_parent(parent) {
 
 		this->m_enabled = false;
 		this->m_done = false;
-		this->m_parent = parent;
 		this->m_cinematicEventData = nullptr;
 		this->m_listeners.push_back(parent);
 	}

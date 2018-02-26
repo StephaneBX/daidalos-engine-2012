@@ -51,6 +51,11 @@ namespace daidalos {
 		CZombieStateWait(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, const float waitTime);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CZombieStateWait();
+
+		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time

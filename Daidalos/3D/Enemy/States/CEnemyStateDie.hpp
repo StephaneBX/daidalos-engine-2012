@@ -51,6 +51,11 @@ namespace daidalos {
 		CEnemyStateDie(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed);
 
 		/**
+		* Destructor
+		*/
+		virtual ~CEnemyStateDie();
+
+		/**
 		* Set the dead status.
 		* @param dead The dead status
 		*/

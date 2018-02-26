@@ -48,6 +48,11 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Destructor
+	*/
+	ICollidableEntity::~ICollidableEntity() {}
+
+	/**
 	* Set the gravity state
 	* @param state The gravity state
 	*/
