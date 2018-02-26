@@ -42,6 +42,20 @@ namespace daidalosengine {
 	CSelectionList::CSelectionList() {
 		LOG_TRACE();
 
+		Initialize();
+	}
+
+	/**
+	* Destructor
+	*/
+	CSelectionList::~CSelectionList() {
+		LOG_TRACE();
+	}
+
+	/**
+	* Initialize the content
+	*/
+	void CSelectionList::Initialize() {
 		this->m_enabled = true;
 		this->m_selectionTexture = SELECTION_TEXTURE;
 
@@ -58,20 +72,6 @@ namespace daidalosengine {
 		// Set the scrollable view
 		this->m_scrollableView.SetVisible(false);
 		AddSubview(&this->m_scrollableView);
-	}
-
-	/**
-	* Destructor
-	*/
-	CSelectionList::~CSelectionList() {
-		LOG_TRACE();
-	}
-
-	/**
-	* Initialize the content
-	*/
-	void CSelectionList::Initialize() {
-
 	}
 
 	/**

@@ -55,22 +55,22 @@ namespace daidalos {
 		* Initialize the weapon node
 		* @param playerNode The player node to attach the weapon node to
 		*/
-		virtual void InitializeWeaponNode(daidalosengine::ISceneNode * playerNode) override;
+		virtual void InitializeWeaponNode(daidalosengine::ISceneNode * playerNode) final;
 
 		/**
 		* Initialize the particle emitters
 		*/
-		virtual void InitializeParticleEmitters() override;
+		virtual void InitializeParticleEmitters() final;
 
 		/**
 		* Initialize the smoke emitter
 		*/
-		virtual void InitializeFireSmokeEmitter() override;
+		virtual void InitializeFireSmokeEmitter() final;
 
 		/**
 		* Initialize the flash emitter
 		*/
-		virtual void InitializeFireFlashEmitter() override;
+		virtual void InitializeFireFlashEmitter() final;
 	};
 }
 
