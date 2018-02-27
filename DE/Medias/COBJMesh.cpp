@@ -126,6 +126,10 @@ namespace daidalosengine {
 			}
 			
 			break;
+
+		default:
+			FlatShadingNormals();
+			break;
 		}
 	}
 }

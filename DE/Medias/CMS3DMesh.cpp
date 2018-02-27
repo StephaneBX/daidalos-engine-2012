@@ -148,6 +148,15 @@ namespace daidalosengine {
 				}
 			}
 			break;
+
+		default:
+			for (int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for (int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+				}
+			}
+			FlatShadingNormals();
+			break;
 		}
 	}
 

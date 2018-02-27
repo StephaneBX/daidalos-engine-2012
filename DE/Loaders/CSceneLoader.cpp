@@ -173,6 +173,13 @@ namespace daidalosengine {
 					parent = node;
 				}
 				break;
+
+			default:
+				LoadSimpleStructure(scene, parent, handle, node);
+				if (parent == nullptr) {
+					parent = node;
+				}
+				break;
 			}
 
 			break;
@@ -1075,6 +1082,9 @@ namespace daidalosengine {
 
 			case SCENE_NODE_PARTICLE_EMITTER:
 				SaveParticleEmitterNode(node, document, parent);
+				break;
+
+			default:
 				break;
 			}
 		}

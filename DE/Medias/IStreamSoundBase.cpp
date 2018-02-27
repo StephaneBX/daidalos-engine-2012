@@ -86,6 +86,9 @@ namespace daidalosengine {
 		case SOUND_STATUS_PAUSE:
 			alSourcePause(this->m_source);
 			break;
+
+		default:
+			break;
 		}
 	}
 

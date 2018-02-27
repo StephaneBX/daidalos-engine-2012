@@ -581,6 +581,7 @@ namespace daidalosengine {
 			case DECLARATION_USAGE_COLOR1:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 1; break;
 			case DECLARATION_USAGE_COLOR2:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 2; break;
 			case DECLARATION_USAGE_COLOR3:		currentElement.Usage = D3DDECLUSAGE_COLOR;    currentElement.UsageIndex = 3; break;
+			default: break;
 			}
 
 			// Type
@@ -590,6 +591,7 @@ namespace daidalosengine {
 			case DECLARATION_TYPE_FLOAT3: currentElement.Type = D3DDECLTYPE_FLOAT3;	offset[elements[i].stream] += 12; break;
 			case DECLARATION_TYPE_FLOAT4: currentElement.Type = D3DDECLTYPE_FLOAT4;	offset[elements[i].stream] += 16; break;
 			case DECLARATION_TYPE_COLOR: currentElement.Type = D3DDECLTYPE_FLOAT4;  offset[elements[i].stream] += 16; break;
+			default: break;
 			}
 
 			dx9Elements.push_back(currentElement);

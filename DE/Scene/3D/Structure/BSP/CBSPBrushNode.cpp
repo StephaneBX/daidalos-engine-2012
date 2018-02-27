@@ -84,6 +84,9 @@ namespace daidalosengine {
 			case BSP_TRIANGLE_ORIENTATION_COPLANAR:
 				coplanar = true;
 				break;
+
+			default:
+				break;
 			}
 		}
 

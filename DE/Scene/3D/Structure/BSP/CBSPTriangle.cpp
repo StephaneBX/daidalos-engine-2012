@@ -115,6 +115,9 @@ namespace daidalosengine {
 				++backCounter;
 				++onCounter;
 				break;
+
+			default:
+				break;
 			}
 		}
 

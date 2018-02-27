@@ -188,6 +188,15 @@ namespace daidalosengine {
 				}
 			}
 			break;
+
+		default:
+			for (int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+				for (int j = 0; j < 3; ++j) {
+					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
+				}
+			}
+			FlatShadingNormals();
+			break;
 		}
 	}
 

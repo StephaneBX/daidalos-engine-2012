@@ -270,6 +270,9 @@ namespace daidalosengine {
 				case TEXT_VERTICAL_ALIGNMENT_CENTERED:
 					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y) / 2;
 					break;
+
+				default:
+					break;
 				}
 
 				boundingBoxMin.x = this->m_data[0].position.x;
@@ -293,6 +296,9 @@ namespace daidalosengine {
 
 					case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
 						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
+						break;
+
+					default:
 						break;
 					}
 

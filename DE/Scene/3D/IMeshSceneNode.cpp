@@ -124,6 +124,9 @@ namespace daidalosengine {
 					this->m_normalTexture[i].CreateFromFile(filename, format, filter);
 				}
 				break;
+
+			default:
+				break;
 			}
 		} else {
 			// Set the texture to the chosen group
@@ -136,6 +139,9 @@ namespace daidalosengine {
 
 			case TEXTURE_TYPE_NORMAL:
 				this->m_normalTexture[group].CreateFromFile(filename, format, filter);
+				break;
+
+			default:
 				break;
 			}
 		}
@@ -257,6 +263,9 @@ namespace daidalosengine {
 			if(this->m_normalTexture != nullptr) {
 				name = this->m_normalTexture->GetTexture()->GetName();
 			}
+			break;
+
+		default:
 			break;
 		}
 

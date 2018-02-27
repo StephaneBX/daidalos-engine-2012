@@ -269,6 +269,9 @@ namespace daidalosengine {
 			dest[2] = 0x00;
 			dest[3] = 0x00;
 			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -325,6 +328,9 @@ namespace daidalosengine {
 			dest[1] = 0x00;
 			dest[2] = 0x00;
 			dest[3] = 0x00;
+			break;
+
+		default:
 			break;
 		}
 	}
@@ -393,6 +399,9 @@ namespace daidalosengine {
 			dest[2] = 0x00;
 			dest[3] = 0x00;
 			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -454,6 +463,9 @@ namespace daidalosengine {
 			dest[2] = 0x00;
 			dest[3] = 0x00;
 			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -510,6 +522,9 @@ namespace daidalosengine {
 			dest[1] = 0x00;
 			dest[2] = 0x00;
 			dest[3] = 0x00;
+			break;
+
+		default:
 			break;
 		}
 	}
@@ -568,6 +583,9 @@ namespace daidalosengine {
 			dest[2] = 0x00;
 			dest[3] = 0x00;
 			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -602,6 +620,9 @@ namespace daidalosengine {
 
 		case PIXEL_FORMAT_A8R8G8B8:
 			ConvertPixel_A8R8G8B8(destFormat, src, dest);
+			break;
+
+		default:
 			break;
 		}
 	}

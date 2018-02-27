@@ -89,6 +89,9 @@ namespace daidalosengine {
 		case TEXTURE_TYPE_NORMAL:
 			this->m_normalTexture = texture;
 			break;
+
+		default:
+			break;
 		}
 	}
 

@@ -327,7 +327,8 @@ namespace daidalosengine {
 		SOUND_STATUS_INITIAL,
 		SOUND_STATUS_STOP,
 		SOUND_STATUS_PAUSE,
-		SOUND_STATUS_PLAY
+		SOUND_STATUS_PLAY,
+		SOUND_STATUS_UNKNOWN
 	};
 
 	enum ETextHorizontalAlignment {

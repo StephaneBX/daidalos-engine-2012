@@ -62,6 +62,10 @@ namespace daidalosengine {
 		case SOUND_TYPE_STREAM:
 			this->m_sound = std::unique_ptr<IStreamSoundBase>(CMediaManager::GetInstance()->LoadMediaFromFile<IStreamSoundBase>(filename));
 			break;
+
+		default:
+			this->m_sound = std::unique_ptr<IStreamSoundBase>(CMediaManager::GetInstance()->LoadMediaFromFile<IStreamSoundBase>(filename));
+			break;
 		}
 
 		// Set the gain
@@ -77,6 +81,10 @@ namespace daidalosengine {
 
 		case SOUND_CATEGORY_DIALOGUE:
 			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_DIALOGUE, 1.0F));
+			break;
+
+		default:
+			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0F));
 			break;
 		}
 	}

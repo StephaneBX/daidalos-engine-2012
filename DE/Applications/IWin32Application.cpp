@@ -402,6 +402,9 @@ namespace daidalosengine {
 				case WM_QUIT:
 					this->m_alive = false;
 					break;
+
+				default:
+					break;
 				}
 
 				TranslateMessage(&msg);
@@ -628,6 +631,9 @@ namespace daidalosengine {
 		case WM_KILLFOCUS:
 			this->m_hasFocus = false;
 			ShowCursor(true);
+			break;
+
+		default:
 			break;
 		}
 		return DefWindowProc(hWnd, message, wParam, lParam);
