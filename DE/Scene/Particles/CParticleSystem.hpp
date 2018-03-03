@@ -53,7 +53,7 @@ namespace daidalosengine {
 	* The particle system class that handle the creation and the management of particles and emitters
 	*/
 	class CParticleSystem {
-	protected:
+	private:
 		// Particle system data
 		CTexture2D m_atlasTexture;
 		CVector2I m_atlasSize;

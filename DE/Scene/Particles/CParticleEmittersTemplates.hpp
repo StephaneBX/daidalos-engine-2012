@@ -38,7 +38,7 @@ namespace daidalosengine {
 	* The particle emitters templates enclosing class
 	*/
 	class CParticleEmittersTemplates {
-	protected:
+	private:
 		std::map<std::string, IParticleEmittersTemplate*> m_particleEmittersTemplates;
 
 	public:

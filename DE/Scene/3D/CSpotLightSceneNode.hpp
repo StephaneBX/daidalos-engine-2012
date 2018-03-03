@@ -39,7 +39,7 @@ namespace daidalosengine {
 	* Handle a spot light
 	*/
 	class CSpotLightSceneNode : public IBoundedLightSceneNode {
-	protected:
+	private:
 		float m_radius;
 		float m_tightness;
 		CProjectionCameraSceneNode * m_camera;

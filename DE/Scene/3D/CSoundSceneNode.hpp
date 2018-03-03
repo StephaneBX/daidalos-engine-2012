@@ -37,7 +37,7 @@ namespace daidalosengine {
 	* Handle a sound node
 	*/
 	class CSoundSceneNode : public ISceneNode {
-	protected:
+	private:
 		bool m_autoStart;
 		CSound m_sound;
 

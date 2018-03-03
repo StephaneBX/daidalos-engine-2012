@@ -46,7 +46,7 @@ namespace daidalosengine {
 	* A particle entity
 	*/
 	class CParticleEntity {
-	protected:
+	private:
 		bool m_visible;
 		float m_life;
 		float m_lifeMax;

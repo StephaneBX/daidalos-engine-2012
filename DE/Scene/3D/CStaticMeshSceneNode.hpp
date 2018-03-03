@@ -36,7 +36,7 @@ namespace daidalosengine {
 	* Mesh scene node for static meshes
 	*/
 	class CStaticMeshSceneNode : public IMeshSceneNode {
-	protected:
+	private:
 		CStaticMesh m_mesh;
 
 	public:

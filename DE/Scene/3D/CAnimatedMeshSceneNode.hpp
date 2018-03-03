@@ -36,7 +36,7 @@ namespace daidalosengine {
 	* Mesh scene node for animated meshes
 	*/
 	class CAnimatedMeshSceneNode : public IMeshSceneNode {
-	protected:
+	private:
 		bool m_looped;
 		float m_animationStart;
 		float m_animationEnd;

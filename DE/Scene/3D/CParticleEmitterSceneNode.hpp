@@ -36,7 +36,7 @@ namespace daidalosengine {
 	* Particle emitter scene node
 	*/
 	class CParticleEmitterSceneNode : public ISceneNode {
-	protected:
+	private:
 		std::string m_templateName;
 		std::string m_emitterName;
 		CParticleEmitter * m_emitter;

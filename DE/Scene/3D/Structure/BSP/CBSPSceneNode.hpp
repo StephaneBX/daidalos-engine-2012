@@ -50,7 +50,7 @@ namespace daidalosengine {
 	* Handle a 3d bsp tree
 	*/
 	class CBSPSceneNode : public ILevelSceneNode {
-	protected:
+	private:
 		std::unique_ptr<CBSPTreeNode> m_bsp;
 		std::unique_ptr<CBSPBrushNode> m_collisionBsp;
 		std::vector<CBSPTreeNode*> m_geometryLeafs;

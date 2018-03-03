@@ -36,7 +36,7 @@ namespace daidalosengine {
 	* Manages time.
 	*/
 	class CTimer {
-	protected:
+	private:
 		double m_start;
 		double m_stop;
 		double m_corr;

@@ -35,7 +35,7 @@ namespace daidalosengine {
 	* Handle a 3d triangle for the bsp
 	*/
 	class CBSPTriangle : public CTriangle3D {
-	protected:
+	private:
 		bool m_separationPlane;
 		bool m_visible;
 		bool m_drawn;

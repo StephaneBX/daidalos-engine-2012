@@ -51,7 +51,7 @@ namespace daidalosengine {
 	* Handle a 3d simple node
 	*/
 	class CSimpleSceneNode : public ILevelSceneNode {
-	protected:
+	private:
 		std::vector<CTriangle3D*> m_visibleTriangles;
 		std::vector<SSimpleBrush> m_brushes;
 

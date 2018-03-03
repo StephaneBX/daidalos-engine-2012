@@ -39,7 +39,7 @@ namespace daidalosengine {
 	* Handle a directional light
 	*/
 	class CDirectionalLightSceneNode : public ILightSceneNode {
-	protected:
+	private:
 		COrthographicCameraSceneNode * m_camera;
 
 	public:

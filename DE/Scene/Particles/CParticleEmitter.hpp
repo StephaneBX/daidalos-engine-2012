@@ -67,7 +67,7 @@ namespace daidalosengine {
 	* A particle emitter
 	*/
 	class CParticleEmitter : public IClonable {
-	protected:
+	private:
 		bool m_active;
 		bool m_reusable;
 		bool m_ignoreGravity;
