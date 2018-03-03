@@ -330,7 +330,6 @@ void MatrixTest::TestSetTranslation() {
 }
 
 void MatrixTest::TestSetRotation() {
-	//daidalosengine::CMatrix matrix = daidalosengine::CMatrix::RotationMatrix(daidalosengine::CVector3F(daidalosengine::DegreeToRadian(10), daidalosengine::DegreeToRadian(20), daidalosengine::DegreeToRadian(30)));
 
 	CPPUNIT_FAIL("Not implemented");
 }

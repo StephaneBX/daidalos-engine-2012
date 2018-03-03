@@ -131,16 +131,6 @@ namespace daidalosengine {
 		* Data interpolation
 		*/
 		switch(shadingType) {
-		default:
-		case MESH_SHADING_FLAT:
-			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
-					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
-				}
-			}
-			FlatShadingNormals();
-			break;
-
 		case MESH_SHADING_SMOOTH:
 			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
@@ -148,6 +138,16 @@ namespace daidalosengine {
 					this->m_normal[i][j] = this->m_internalData->mesh[i].normal[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
 				}
 			}
+			break;
+
+		default:
+			// Flat shading
+			for (int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for (int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+				}
+			}
+			FlatShadingNormals();
 			break;
 		}
 	}

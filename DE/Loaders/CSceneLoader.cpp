@@ -154,19 +154,18 @@ namespace daidalosengine {
 		case SCENE_NODE_ROOT:
 
 			switch(this->m_structure) {
-				// Simple structure
-			case SCENE_NODE_ROOT_STRUCTURE_TYPE_SIMPLE:
-				LoadSimpleStructure(scene, parent, handle, node);
+				// BSP structure
+			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
+				LoadBSPStructure(scene, parent, handle, node);
 				if(parent == nullptr) {
 					parent = node;
 				}
 				break;
 
-				// BSP structure
+				// Simple structure
 			default:
-			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
-				LoadBSPStructure(scene, parent, handle, node);
-				if(parent == nullptr) {
+				LoadSimpleStructure(scene, parent, handle, node);
+				if (parent == nullptr) {
 					parent = node;
 				}
 				break;

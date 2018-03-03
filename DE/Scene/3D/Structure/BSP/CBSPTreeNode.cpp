@@ -95,7 +95,7 @@ namespace daidalosengine {
 				break;
 
 			default:
-			case BSP_TRIANGLE_ORIENTATION_SPANNING:
+				// Spanning
 				if(split) {
 					// Split the triangle
 					SplitTriangle(*it, front, back);
