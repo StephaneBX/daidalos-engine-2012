@@ -101,7 +101,6 @@ namespace daidalosengine {
 		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
 			LOG_TRACE();
 
-			CTokenizer tokenizer;
 			data = defaultValue;
 			tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 			if (text != nullptr) {
@@ -119,7 +118,6 @@ namespace daidalosengine {
 		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
 			LOG_TRACE();
 
-			CTokenizer tokenizer;
 			data = defaultValue;
 			tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 			if (text != nullptr) {
@@ -137,7 +135,6 @@ namespace daidalosengine {
 		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
 			LOG_TRACE();
 
-			CTokenizer tokenizer;
 			data = defaultValue;
 			tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 			if (text != nullptr) {

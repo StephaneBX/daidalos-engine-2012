@@ -49,7 +49,6 @@ namespace daidalosengine {
 		this->m_filename = filename;
 		CVector3F tmpVec3;
 		CVector2F tmpVec2;
-		std::ostringstream stream;
 		std::istringstream ss;
 		std::vector<CVector3F> tmpVertex;
 		std::vector<CVector3F> tmpNormal;
@@ -57,8 +56,6 @@ namespace daidalosengine {
 		std::vector<int> vertexOrder;
 		std::vector<int> normalOrder;
 		std::vector<int> textureOrder;
-		std::string tmpLine;
-		std::string tmpString;
 		int groupCounter = -1;
 
 		// Data

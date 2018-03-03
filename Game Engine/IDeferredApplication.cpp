@@ -536,7 +536,6 @@ namespace daidalosgameengine {
 
 		// Level brightness factor
 		if (this->m_currentLevel->GetBrightness() != 0) {
-			daidalosengine::CColor color;
 			if (this->m_currentLevel->GetBrightness() > 0) {
 				this->m_renderer->SetTexture(0, this->m_texture2DWhite.GetTexture());
 				this->m_shaderScreen.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_ALPHA), this->m_currentLevel->GetBrightness());

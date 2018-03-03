@@ -64,7 +64,6 @@ namespace daidalosengine {
 			for (auto it = this->m_linearVelocityChanges.begin(); it != this->m_linearVelocityChanges.end(); ++it) {
 				if ((*it).time >= particle->GetLifeNormalized() && (*it).time < nextNormalizedLife) {
 					// A new linear velocity must be add to the current particle's velocity
-					float factor = RandomNumber<float>(0, (*it).variationFactor);
 
 					// Create the altered direction
 					CVector3F velocity = (*it).direction;

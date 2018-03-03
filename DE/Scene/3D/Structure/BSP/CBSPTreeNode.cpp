@@ -94,18 +94,9 @@ namespace daidalosengine {
 				back.push_back(*it);
 				break;
 
+			default:
 			case BSP_TRIANGLE_ORIENTATION_SPANNING:
 				if(split) {
-					// Split the triangle
-					SplitTriangle(*it, front, back);
-				} else {
-					front.push_back(*it);
-					back.push_back(*it);
-				}
-				break;
-
-			default:
-				if (split) {
 					// Split the triangle
 					SplitTriangle(*it, front, back);
 				} else {

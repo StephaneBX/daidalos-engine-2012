@@ -49,7 +49,6 @@ namespace daidalosengine {
 		std::string elementName;
 		std::istringstream iss;
 
-		CVector3F tmpVector;
 		std::vector<std::string> filterList;
 		filterList.push_back("newmtl ");
 		filterList.push_back("Kd ");

@@ -119,7 +119,6 @@ namespace daidaloseditor {
 	}
 
 	void CEditCamera::UpdateMovement(const float timeSecond) {
-		daidalosengine::CVector3F movement;
 
 		if((this->m_state & EDITOR_ACTION_CAMERA_ZOOM_IN) != 0) {
 			this->m_zoom--;

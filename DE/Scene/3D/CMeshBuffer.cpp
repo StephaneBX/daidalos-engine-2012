@@ -42,8 +42,6 @@ namespace daidalosengine {
 	void CMeshBuffer::Transform(CVector3F * vertex, CVector2F * texcoord, CVector3F * normal, CVector3F * tangent, CVector3F * binormal, const int numberOfElements) {
 		LOG_TRACE();
 
-		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
-
 		// Check the vertex buffer size
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * numberOfElements) {
 			// Create a new one if the current one can't hold the data
@@ -104,8 +102,6 @@ namespace daidalosengine {
 	void CMeshBuffer::Transform(const std::vector<CTriangle3D*> & triangles, EMeshShadingType shadingType) {
 		LOG_TRACE();
 
-		ICameraSceneNode * camera = this->m_scene->GetActiveCamera();
-
 		// Check the vertex buffer size
 		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * triangles.size() * 3) {
 			// Create a new one if the current one can't hold the data
@@ -114,8 +110,6 @@ namespace daidalosengine {
 
 		int pitch = 0;
 		int index = 0;
-		CVector3F ab;
-		CVector3F tangentBinormal[2];
 		unsigned char * lock = (unsigned char*)this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY);
 
 		for(int i = 0; i < (int)triangles.size(); ++i) {

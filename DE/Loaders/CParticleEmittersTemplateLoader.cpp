@@ -91,7 +91,6 @@ namespace daidalosengine {
 		float emitterEmissionRate;
 		float emitterLife;
 		float emitterLifeMax;
-		CVector3F emitterPosition;
 
 		// Basic values
 		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
@@ -254,7 +253,6 @@ namespace daidalosengine {
 	*/
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterUpdaters(CParticleEmitter * emitter, tinyxml2::XMLElement * updatersElement) {
 		if (updatersElement != nullptr) {
-			tinyxml2::XMLHandle updatersHandle = tinyxml2::XMLHandle(updatersElement);
 
 			for (tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
 				std::string childName = std::string(child->Name());
@@ -449,7 +447,6 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
@@ -460,7 +457,6 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if (text != nullptr) {
@@ -471,7 +467,6 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
@@ -482,7 +477,6 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {

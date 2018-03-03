@@ -57,7 +57,6 @@ namespace daidalosengine {
 		}
 
 		// Get the sound information
-		IStaticSoundBase * sound = nullptr;
 		int nbSamples = static_cast<int>(fileInfos.channels * fileInfos.frames);
 		int sampleRate = fileInfos.samplerate;
 		std::vector<ALshort> samples(nbSamples);

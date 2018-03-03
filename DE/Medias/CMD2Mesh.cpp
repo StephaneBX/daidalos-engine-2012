@@ -171,6 +171,7 @@ namespace daidalosengine {
 		* Data interpolation
 		*/
 		switch(shadingType) {
+		default:
 		case MESH_SHADING_FLAT:
 			for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 				for(int j = 0; j < 3; ++j) {
@@ -187,15 +188,6 @@ namespace daidalosengine {
 					this->m_normal[0][i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
 				}
 			}
-			break;
-
-		default:
-			for (int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
-				for (int j = 0; j < 3; ++j) {
-					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
-				}
-			}
-			FlatShadingNormals();
 			break;
 		}
 	}

@@ -317,7 +317,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		int g = (green >= 0) ? (green <= 255 ? green : 255) : 0;
-		this->m_color |= green << 8;
+		this->m_color |= g << 8;
 	}
 
 	/**
@@ -328,7 +328,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		int b = (blue >= 0) ? (blue <= 255 ? blue : 255) : 0;
-		this->m_color |= blue;
+		this->m_color |= b;
 	}
 
 	/**
@@ -339,7 +339,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		int a = (alpha >= 0) ? (alpha <= 255 ? alpha : 255) : 0;
-		this->m_color |= alpha << 24;
+		this->m_color |= a << 24;
 	}
 
 	/**

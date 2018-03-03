@@ -141,7 +141,6 @@ namespace daidalosengine {
 		ISceneNode * node = nullptr;
 		int type = -1;
 		handle.ToElement()->QueryIntAttribute("type", &type);
-		CTokenizer tokenizer;
 
 		std::string name = "undefined";
 		if(handle.ToElement()->Attribute("name")) {
@@ -150,9 +149,6 @@ namespace daidalosengine {
 
 		int id = 0;
 		handle.ToElement()->QueryIntAttribute("id", &id);
-
-		CVector4F nodeDefaultColor;
-		CVector3F nodeDefaultScale;
 
 		switch(type) {
 		case SCENE_NODE_ROOT:
@@ -167,16 +163,10 @@ namespace daidalosengine {
 				break;
 
 				// BSP structure
+			default:
 			case SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP:
 				LoadBSPStructure(scene, parent, handle, node);
 				if(parent == nullptr) {
-					parent = node;
-				}
-				break;
-
-			default:
-				LoadSimpleStructure(scene, parent, handle, node);
-				if (parent == nullptr) {
 					parent = node;
 				}
 				break;
@@ -1388,7 +1378,6 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" DirectionalLight Node "));
 
-		std::stringstream ss;
 		CDirectionalLightSceneNode * sceneNode = static_cast<CDirectionalLightSceneNode*>(node);
 		tinyxml2::XMLElement * lightNode = document.NewElement("node");
 
@@ -1544,7 +1533,6 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" Animated Mesh Node "));
 
-		std::stringstream ss;
 		CAnimatedMeshSceneNode * sceneNode = static_cast<CAnimatedMeshSceneNode*>(node);
 		tinyxml2::XMLElement * meshNode = document.NewElement("node");
 
@@ -1749,7 +1737,6 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" Empty Node "));
 
-		std::stringstream ss;
 		CEmptySceneNode * sceneNode = static_cast<CEmptySceneNode*>(node);
 		tinyxml2::XMLElement * emptyNode = document.NewElement("node");
 
@@ -1905,7 +1892,6 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
@@ -1916,7 +1902,6 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
@@ -1927,7 +1912,6 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
 		LOG_TRACE();
 
-		CTokenizer tokenizer;
 		data = defaultValue;
 		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {

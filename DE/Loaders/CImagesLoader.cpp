@@ -62,7 +62,7 @@ namespace daidalosengine {
 
 		if(!ilLoadImage(const_cast<ILstring>(filename.c_str()))) {
 			ILenum devilError = ilGetError();
-			LOG_ERROR("Unable to load the image '" << filename << "'");
+			LOG_ERROR("Unable to load the image '" << filename << "' : " << devilError);
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
