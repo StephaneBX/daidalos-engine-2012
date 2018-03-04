@@ -29,10 +29,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace daidalosengine {
 	/**
+	* Constructor
+	* @param type The type
+	*/
+	IParticleInitializer::IParticleInitializer(EParticleInitializerType type) {
+		this->m_type = type;
+	}
+
+	/**
 	* Destructor
 	*/
 	IParticleInitializer::~IParticleInitializer() {
 
+	}
+
+	/**
+	* Set the type
+	* @param type The type
+	*/
+	void IParticleInitializer::SetType(EParticleInitializerType type) {
+		this->m_type = type;
 	}
 
 	/**

@@ -32,9 +32,7 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CDefaultParticleInitializer::CDefaultParticleInitializer() {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_DEFAULT;
-	}
+	CDefaultParticleInitializer::CDefaultParticleInitializer() : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_DEFAULT) {}
 
 	/**
 	* Destructor

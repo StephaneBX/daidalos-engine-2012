@@ -37,6 +37,6 @@ namespace daidalosengine {
 	CExceptionAssert::CExceptionAssert(const std::string & filename, const int line) {
 		std::ostringstream stream;
 		stream << "Assertion error" << std::endl << "File: " << filename << std::endl << "Line " << line << std::endl;
-		this->m_message = stream.str();
+		SetMessage(stream.str());
 	}
 }

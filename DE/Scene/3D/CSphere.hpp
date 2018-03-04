@@ -83,13 +83,9 @@ namespace daidalosengine {
 		CSphere GetUnion(const CSphere & sphere) const;
 	};
 
-	template <class T> CSphere<T>::CSphere() : IShape3D<T>() {
-		this->m_type = SHAPE_SPHERE;
-	}
+	template <class T> CSphere<T>::CSphere() : IShape3D<T>(SHAPE_SPHERE) {}
 
-	template <class T> CSphere<T>::CSphere(const CVector3<T> & position, const float radius) : IShape3D<T>(position) {
-		this->m_type = SHAPE_SPHERE;
-		this->m_position = position;
+	template <class T> CSphere<T>::CSphere(const CVector3<T> & position, const float radius) : IShape3D<T>(position, SHAPE_SPHERE) {
 		this->m_radius = radius;
 	}
 

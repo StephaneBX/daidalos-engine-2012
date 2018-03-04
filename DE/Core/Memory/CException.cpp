@@ -39,6 +39,14 @@ namespace daidalosengine {
 	CException::~CException() throw() {}
 
 	/**
+	* Set the message
+	* @param message The message
+	*/
+	void CException::SetMessage(const std::string & message) {
+		this->m_message = message;
+	}
+
+	/**
 	* Get the exception message
 	* @return The exception message
 	*/

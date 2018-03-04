@@ -53,11 +53,16 @@ namespace daidalosengine {
 	* The particle initializer abstract class
 	*/
 	class IParticleInitializer : public IClonable {
-
-	protected:
+	private:
 		EParticleInitializerType m_type;
 
 	public:
+		/**
+		* Constructor
+		* @param type The type
+		*/
+		explicit IParticleInitializer(EParticleInitializerType type);
+
 		/**
 		* Destructor
 		*/
@@ -69,6 +74,12 @@ namespace daidalosengine {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
+
+		/**
+		* Set the type
+		* @param type The type
+		*/
+		void SetType(EParticleInitializerType type);
 
 		/**
 		* Get the initializer type

@@ -37,6 +37,6 @@ namespace daidalosengine {
 		std::ostringstream stream;
 		stream << "Loading error" << std::endl << "File: " << filename << std::endl;
 
-		this->m_message = stream.str();
+		SetMessage(stream.str());
 	}
 }

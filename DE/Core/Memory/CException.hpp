@@ -37,7 +37,7 @@ namespace daidalosengine {
 	* Main class for all exceptions.
 	*/
 	class CException : public std::exception {
-	protected:
+	private:
 		std::string m_message;
 
 	public:
@@ -50,6 +50,12 @@ namespace daidalosengine {
 		* Destructor
 		*/
 		virtual ~CException() throw();
+
+		/**
+		* Set the message
+		* @param message The message
+		*/
+		void SetMessage(const std::string & message);
 
 		/**
 		* Get the exception message

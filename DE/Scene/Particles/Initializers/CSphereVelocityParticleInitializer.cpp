@@ -34,9 +34,7 @@ namespace daidalosengine {
 	* @param velocityMin The velocity min
 	* @param velocityMax The velocity max
 	*/
-	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(float velocityMin, float velocityMax) : m_velocityMin(velocityMin), m_velocityMax(velocityMax) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY;
-	}
+	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(float velocityMin, float velocityMax) : m_velocityMin(velocityMin), m_velocityMax(velocityMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY) {}
 
 	/**
 	* Destructor

@@ -59,6 +59,16 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Trigger the next level by calling the listeners
+	* @param levelName The level name
+	*/
+	void ILevel::TriggerNextLevel(const std::string & levelName) {
+		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+			(*it)->OnTriggerNextLevel(levelName);
+		}
+	}
+
+	/**
 	* Set the level brightness
 	* @param brightness The brightness
 	*/
@@ -80,6 +90,14 @@ namespace daidalosgameengine {
 	*/
 	void ILevel::SetActiveCamera(daidalosengine::ICameraSceneNode * activeCamera) {
 		this->m_activeCamera = activeCamera;
+	}
+
+	/**
+	* Set the player
+	* @param player The player
+	*/
+	void ILevel::SetPlayer(IPlayer * player) {
+		this->m_player = std::unique_ptr<IPlayer>(player);
 	}
 
 	/**
@@ -213,5 +231,16 @@ namespace daidalosgameengine {
 	*/
 	void ILevel::OnCinematicEventEnded(CCinematicEvent * cinematicEvent) {
 
+	}
+
+	/**
+	* Do post level loading process
+	*/
+	void ILevel::PostLoadLevel() {
+
+		// End of loading callback
+		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
+			(*it)->OnLevelLoaded();
+		}
 	}
 }

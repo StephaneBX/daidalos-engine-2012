@@ -42,7 +42,7 @@ namespace daidalosengine {
 	* Basic class for 3d shapes.
 	*/
 	template <class T> class IShape3D {
-	protected:
+	private:
 		CVector3<T> m_position;
 		EShapeType m_type;
 
@@ -54,9 +54,16 @@ namespace daidalosengine {
 
 		/**
 		* Constructor
-		* @param position The position
+		* @param type The type
 		*/
-		IShape3D(const CVector3<T> & position);
+		IShape3D(EShapeType type);
+
+		/**
+		* Constructor
+		* @param position The position
+		* @param type The type
+		*/
+		IShape3D(const CVector3<T> & position, EShapeType type);
 
 		/**
 		* Destructor
@@ -112,8 +119,13 @@ namespace daidalosengine {
 
 	template <class T> IShape3D<T>::IShape3D() {}
 
-	template <class T> IShape3D<T>::IShape3D(const CVector3<T> & position) {
+	template <class T> IShape3D<T>::IShape3D(EShapeType type) {
+		this->m_type = type;
+	}
+
+	template <class T> IShape3D<T>::IShape3D(const CVector3<T> & position, EShapeType type) {
 		this->m_position = position;
+		this->m_type = type;
 	}
 
 	template <class T> IShape3D<T>::~IShape3D() {}

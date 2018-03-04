@@ -33,9 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param position The position
 	*/
-	CPositionParticleInitializer::CPositionParticleInitializer(const CVector3F & position) : m_position(position) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_POSITION;
-	}
+	CPositionParticleInitializer::CPositionParticleInitializer(const CVector3F & position) : m_position(position), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_POSITION) {}
 
 	/**
 	* Destructor

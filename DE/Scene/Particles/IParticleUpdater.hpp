@@ -47,11 +47,16 @@ namespace daidalosengine {
 	* The particle updater abstract class
 	*/
 	class IParticleUpdater : public IClonable {
-
-	protected:
+	private:
 		EParticleUpdaterType m_type;
 
 	public:
+		/**
+		* Constructor
+		* @param type The type
+		*/
+		explicit IParticleUpdater(EParticleUpdaterType type);
+
 		/**
 		* Destructor
 		*/
@@ -64,6 +69,12 @@ namespace daidalosengine {
 		* @param particles The particles id to initialize
 		*/
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) = 0;
+
+		/**
+		* Set the type
+		* @param type The type
+		*/
+		void SetType(EParticleUpdaterType type);
 
 		/**
 		* Get the updater type

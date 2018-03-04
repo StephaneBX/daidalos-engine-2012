@@ -45,6 +45,6 @@ namespace daidalosengine {
 			stream << "no";
 		stream << "." << std::endl;
 
-		this->m_message = stream.str();
+		SetMessage(stream.str());
 	}
 }

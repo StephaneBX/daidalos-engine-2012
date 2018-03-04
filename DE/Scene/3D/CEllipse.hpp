@@ -71,14 +71,10 @@ namespace daidalosengine {
 		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
 	};
 
-	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>() {
-		this->m_type = SHAPE_ELLIPSE;
-	}
+	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>(SHAPE_ELLIPSE) {}
 
-	template <class T> CEllipse<T>::CEllipse(const CVector3<T> & position, const CVector2<T> & radius) : IShape3D<T>(position) {
-		this->m_position = position;
+	template <class T> CEllipse<T>::CEllipse(const CVector3<T> & position, const CVector2<T> & radius) : IShape3D<T>(position, SHAPE_ELLIPSE) {
 		this->m_radius = radius;
-		this->m_type = SHAPE_ELLIPSE;
 	}
 
 

@@ -50,11 +50,7 @@ namespace daidaloseditor {
 	* Do post level loading process
 	*/
 	void CEditorLevel::PostLoadLevel() {
-		this->m_entities.clear();
-
-		// End of loading callback
-		for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnLevelLoaded();
-		}
+		GetEntities().clear();
+		ILevel::PostLoadLevel();
 	}
 }

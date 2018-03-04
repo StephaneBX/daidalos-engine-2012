@@ -32,9 +32,7 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CLifeParticleUpdater::CLifeParticleUpdater() {
-		this->m_type = PARTICLE_UPDATER_TYPE_LIFE;
-	}
+	CLifeParticleUpdater::CLifeParticleUpdater() : IParticleUpdater(PARTICLE_UPDATER_TYPE_LIFE) {}
 
 	/**
 	* Destructor

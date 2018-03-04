@@ -115,14 +115,9 @@ namespace daidalosengine {
 		const CVector3<T> & GetMax() const;
 	};
 
-	template <class T> CAABoundingBox<T>::CAABoundingBox() : IShape3D<T>() {
-		this->m_type = SHAPE_AABOX;
-	}
+	template <class T> CAABoundingBox<T>::CAABoundingBox() : IShape3D<T>(SHAPE_AABOX) {}
 
-	template <class T> CAABoundingBox<T>::CAABoundingBox(const CVector3<T> & position, const CVector3<T> & size) : IShape3D<T>(position) {
-		this->m_position = position;
-		this->m_type = SHAPE_AABOX;
-
+	template <class T> CAABoundingBox<T>::CAABoundingBox(const CVector3<T> & position, const CVector3<T> & size) : IShape3D<T>(position, SHAPE_AABOX) {
 		SetSize(size);
 	}
 
@@ -135,8 +130,8 @@ namespace daidalosengine {
 
 	template <class T> void CAABoundingBox<T>::SetSize(const CVector3<T> & size) {
 		this->m_size = size;
-		this->m_min = this->m_position - (this->m_size / 2.0f);
-		this->m_max = this->m_position + (this->m_size / 2.0f);
+		this->m_min = GetPosition() - (this->m_size / 2.0f);
+		this->m_max = GetPosition() + (this->m_size / 2.0f);
 
 		BuildPlanes();
 	}
@@ -145,7 +140,7 @@ namespace daidalosengine {
 		this->m_min = minPosition;
 		this->m_max = maxPosition;
 		this->m_size = maxPosition - minPosition;
-		this->m_position = minPosition + (this->m_size / 2.0f);
+		IShape3D::SetPosition(minPosition + (this->m_size / 2.0f));
 
 		BuildPlanes();
 	}
@@ -171,19 +166,19 @@ namespace daidalosengine {
 	}
 
 	template <class T> const float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
-		CVector3<T> endSegment = this->m_position + CVector3<T>(plane.GetNormal().x * this->m_size.x, plane.GetNormal().y * this->m_size.y, plane.GetNormal().z * this->m_size.z);
+		CVector3<T> endSegment = GetPosition() + CVector3<T>(plane.GetNormal().x * this->m_size.x, plane.GetNormal().y * this->m_size.y, plane.GetNormal().z * this->m_size.z);
 		float factor = 1.0f;
 		CVector3<T> intersection;
 
 		// Check the intersection between each plane and the segment (plane - position)
 		for(auto it = this->m_planes.begin(); it != this->m_planes.end(); ++it) {
-			intersection = (*it).IntersectSegment(this->m_position, endSegment, factor);
+			intersection = (*it).IntersectSegment(GetPosition(), endSegment, factor);
 			if(factor > 0 && factor < 1.0f) {
 				break;
 			}
 		}
 
-		return (intersection - this->m_position).Length();
+		return (intersection - GetPosition()).Length();
 	}
 
 	template <class T> const CVector3<T> & CAABoundingBox<T>::GetMin() const {

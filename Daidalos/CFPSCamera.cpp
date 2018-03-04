@@ -589,8 +589,8 @@ namespace daidalos {
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 
 		// Step sounds
-		if(this->GetGravityState()) {
-			if(this->GetGravity().y == 0) {
+		if (this->GetGravityState()) {
+			if (this->GetGravity().y == 0) {
 				this->m_stepDistance += (GetVisiblePosition() - previousVisiblePosition).Length();
 				if(this->m_stepDistance >= FPS_CAMERA_STEP_DISTANCE) {
 					// Play a random step sound
@@ -604,7 +604,7 @@ namespace daidalos {
 			}
 		} else {
 			this->m_ladderDistance += fabsf(GetVisiblePosition().y - previousVisiblePosition.y);
-			if(this->m_ladderDistance >= FPS_CAMERA_LADDER_DISTANCE) {
+			if (this->m_ladderDistance >= FPS_CAMERA_LADDER_DISTANCE) {
 				// Play the ladder sound
 				this->m_ladderSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 				this->m_ladderDistance = 0;

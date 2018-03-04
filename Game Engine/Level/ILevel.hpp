@@ -42,7 +42,7 @@ namespace daidalosgameengine {
 	* The level abstract class
 	*/
 	class ILevel : public ICinematicEventListener {
-	protected:
+	private:
 		float m_brightness;
 		std::unique_ptr<daidalosengine::C3DScene> m_scene;
 		std::unique_ptr<daidalosengine::C2DScene> m_view;
@@ -64,6 +64,12 @@ namespace daidalosgameengine {
 		void LoadLevel(const std::string & filename);
 
 		/**
+		* Trigger the next level by calling the listeners
+		* @param levelName The level name
+		*/
+		void TriggerNextLevel(const std::string & levelName);
+
+		/**
 		* Set the level brightness
 		* @param brightness The brightness
 		*/
@@ -80,6 +86,12 @@ namespace daidalosgameengine {
 		* @param activeCamera The active camera
 		*/
 		void SetActiveCamera(daidalosengine::ICameraSceneNode * activeCamera);
+
+		/**
+		* Set the player
+		* @param player The player
+		*/
+		void SetPlayer(IPlayer * player);
 
 		/**
 		* Update the level
@@ -168,7 +180,7 @@ namespace daidalosgameengine {
 		/**
 		* Do post level loading process
 		*/
-		virtual void PostLoadLevel() = 0;
+		virtual void PostLoadLevel();
 	};
 }
 

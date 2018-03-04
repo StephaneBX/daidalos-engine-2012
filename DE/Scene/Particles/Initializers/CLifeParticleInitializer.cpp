@@ -34,9 +34,7 @@ namespace daidalosengine {
 	* @param lifeMin The life min
 	* @param lifeMax The life max
 	*/
-	CLifeParticleInitializer::CLifeParticleInitializer(float lifeMin, float lifeMax) : m_lifeMin(lifeMin), m_lifeMax(lifeMax) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE;
-	}
+	CLifeParticleInitializer::CLifeParticleInitializer(float lifeMin, float lifeMax) : m_lifeMin(lifeMin), m_lifeMax(lifeMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE) {}
 
 	/**
 	* Destructor

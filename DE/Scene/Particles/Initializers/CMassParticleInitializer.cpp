@@ -33,9 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param mass The mass
 	*/
-	CMassParticleInitializer::CMassParticleInitializer(float mass) : m_mass(mass) {
-		this->m_type = PARTICLE_INITIALIZER_TYPE_MASS;
-	}
+	CMassParticleInitializer::CMassParticleInitializer(float mass) : m_mass(mass), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MASS) {}
 
 	/**
 	* Destructor

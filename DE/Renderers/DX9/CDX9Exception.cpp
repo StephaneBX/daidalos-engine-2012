@@ -33,6 +33,6 @@ namespace daidalosengine {
 		std::ostringstream stream;
 		stream << "[DX9 Renderer] Unable to achieve " << function << " in " << func << std::endl;
 
-		this->m_message = stream.str();
+		SetMessage(stream.str());
 	}
 }

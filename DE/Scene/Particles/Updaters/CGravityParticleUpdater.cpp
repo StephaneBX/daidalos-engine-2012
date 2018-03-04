@@ -32,9 +32,7 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CGravityParticleUpdater::CGravityParticleUpdater(const CVector3F & gravity) : m_gravity(gravity) {
-		this->m_type = PARTICLE_UPDATER_TYPE_GRAVITY;
-	}
+	CGravityParticleUpdater::CGravityParticleUpdater(const CVector3F & gravity) : m_gravity(gravity), IParticleUpdater(PARTICLE_UPDATER_TYPE_GRAVITY) {}
 
 	/**
 	* Destructor

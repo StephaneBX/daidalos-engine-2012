@@ -32,9 +32,7 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CRotationParticleUpdater::CRotationParticleUpdater() {
-		this->m_type = PARTICLE_UPDATER_TYPE_ROTATION;
-	}
+	CRotationParticleUpdater::CRotationParticleUpdater() : IParticleUpdater(PARTICLE_UPDATER_TYPE_ROTATION) {}
 
 	/**
 	* Destructor
