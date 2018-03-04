@@ -55,7 +55,7 @@ namespace daidalosengine {
 	void CDX9Texture2D::Update(const CRectangleI & rect) {
 		LOG_TRACE();
 
-		if(this->m_format == this->m_image.GetFormat()) {
+		if(GetFormat() == GetImage().GetFormat()) {
 			D3DLOCKED_RECT lockedRect;
 			RECT Lock = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
 
@@ -67,7 +67,7 @@ namespace daidalosengine {
 			this->m_texture->GetDevice(&device);
 
 			IDirect3DSurface9 * src = nullptr;
-			if(FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(this->m_image.GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr))) {
+			if(FAILED(device->CreateOffscreenPlainSurface(rect.GetWidth(), rect.GetHeight(), CDX9Enums::Get(GetImage().GetFormat()), D3DPOOL_SYSTEMMEM, &src, nullptr))) {
 				LOG_ERROR("Unable to create an offscreen plain surface");
 				ILogger::Kill();
 
@@ -91,11 +91,12 @@ namespace daidalosengine {
 			}
 		}
 
-		if(this->m_mipmaps) {
-			if(this->m_autoMipmap)
+		if(HasMipmaps()) {
+			if (HasAutoMimap()) {
 				this->m_texture->GenerateMipSubLevels();
-			else
+			} else {
 				D3DXFilterTexture(this->m_texture, nullptr, D3DX_DEFAULT, D3DX_DEFAULT);
+			}
 		}
 	}
 
@@ -103,12 +104,12 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		unsigned char * destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
-		const unsigned char * srcPix = this->m_image.GetData() + (rect.GetLeft() + rect.GetTop() * this->m_size.x) * GetBytesPerPixel(this->m_image.GetFormat());
-		const unsigned int bpp = GetBytesPerPixel(this->m_image.GetFormat());
+		const unsigned char * srcPix = GetImage().GetData() + (rect.GetLeft() + rect.GetTop() * GetSize().x) * GetBytesPerPixel(GetImage().GetFormat());
+		const unsigned int bpp = GetBytesPerPixel(GetImage().GetFormat());
 
 		for(int i = 0; i < rect.GetHeight(); ++i) {
 			std::copy(srcPix, srcPix + rect.GetWidth() * bpp, destPix);
-			srcPix += this->m_size.x * bpp;
+			srcPix += GetSize().x * bpp;
 			destPix += lockedRect.Pitch;
 		}
 	}

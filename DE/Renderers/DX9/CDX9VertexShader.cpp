@@ -35,7 +35,6 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_vertexShader = vertexShader;
-		this->m_constantTable = constantTable;
 	}
 
 	CDX9VertexShader::~CDX9VertexShader() {

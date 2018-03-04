@@ -38,7 +38,7 @@ namespace daidalosengine {
 	* Basic class used for shader programs
 	*/
 	class IShaderProgramBase : public IResource {
-	protected:
+	private:
 		IShaderBase * m_vertexShader;
 		IShaderBase * m_pixelShader;
 

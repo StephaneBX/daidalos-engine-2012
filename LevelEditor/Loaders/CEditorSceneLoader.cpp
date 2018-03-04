@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/CStaticMeshSceneNode.hpp>
 #include <Scene/3D/CSoundSceneNode.hpp>
+#include <Core/IRenderer.hpp>
 #include "../3D/CEditorLevelSceneNode.hpp"
 #include "../Loaders/CEditorSceneLoader.hpp"
 #include "../CEditorConfiguration.hpp"
@@ -139,6 +140,7 @@ namespace daidaloseditor {
 		std::string skyName;
 		daidalosengine::CVector3F ambientColor;
 		daidalosengine::CVector3F skyAmbientColor;
+		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
@@ -187,8 +189,8 @@ namespace daidaloseditor {
 						daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_MULTIBRUSH, file, position, rotation, scale);
 						meshNode->SetId(id);
 						meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+						meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 						node->AddChild(meshNode);
 					}
 				}
@@ -222,8 +224,8 @@ namespace daidaloseditor {
 				daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BRUSH, file, position, rotation, scale);
 				meshNode->SetId(id);
 				meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, diffuseTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+				meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, normalTexture, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 				node->AddChild(meshNode);
 			}
 		}
@@ -259,8 +261,8 @@ namespace daidaloseditor {
 					meshNode->SetSaved(false);
 					meshNode->SetShadowCaster(false);
 					meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+					meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_COLLISION_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 					node->AddChild(meshNode);
 				}
 
@@ -271,8 +273,8 @@ namespace daidaloseditor {
 					soundNode->SetSaved(false);
 					soundNode->SetShadowCaster(false);
 					soundNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+					soundNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SOUND_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 					node->AddChild(soundNode);
 				}
 
@@ -283,8 +285,8 @@ namespace daidaloseditor {
 					lightNode->SetSaved(false);
 					lightNode->SetShadowCaster(false);
 					lightNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+					lightNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, EDITOR_SPOTLIGHT_TEXTURE_NAME, daidalosengine::PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 					node->AddChild(lightNode);
 				}
 			}

@@ -39,7 +39,7 @@ namespace daidalosengine {
 	* DX9 class used for shaders
 	*/
 	class CDX9Shader : public IShaderBase {
-	protected:
+	private:
 		std::map<std::string, D3DXHANDLE> m_handles;
 		ID3DXConstantTable * m_constantTable;
 

@@ -35,7 +35,7 @@ namespace daidalosengine {
 	* Basic class used for animated meshs
 	*/
 	class IAnimatedMeshBase : public IMeshBase {
-	protected:
+	private:
 		float m_frame;
 
 	public:
@@ -49,6 +49,18 @@ namespace daidalosengine {
 		* @param frame The frame number
 		*/
 		void Animate(const float frame);
+
+		/**
+		* Set the frame
+		* @param frame The frame
+		*/
+		void SetFrame(const float frame);
+
+		/**
+		* Get the frame
+		* @return The frame
+		*/
+		const float GetFrame() const;
 
 		/**
 		* Finalize the geometry.

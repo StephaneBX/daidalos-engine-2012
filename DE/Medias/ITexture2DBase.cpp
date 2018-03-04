@@ -33,6 +33,46 @@ namespace daidalosengine {
 		LOG_TRACE();
 	}
 
+	/**
+	* Check if the the texture has mipmaps
+	* @return True if the texture has mipmaps
+	*/
+	const bool ITexture2DBase::HasMipmaps() const {
+		return this->m_mipmaps;
+	}
+
+	/**
+	* Check if the auto mipmap is enabled
+	* @return True if the auto mipmap is enabled
+	*/
+	const bool ITexture2DBase::HasAutoMimap() const {
+		return this->m_autoMipmap;
+	}
+
+	/**
+	* Get the texture size
+	* @return The texture size
+	*/
+	const CVector2I & ITexture2DBase::GetSize() const {
+		return this->m_size;
+	}
+
+	/**
+	* Get the texture format
+	* @return The texture format
+	*/
+	const EPixelFormat ITexture2DBase::GetFormat() const {
+		return this->m_format;
+	}
+
+	/**
+	* Get the texture image
+	* @return The texture image
+	*/
+	const CImage & ITexture2DBase::GetImage() const {
+		return this->m_image;
+	}
+
 	const STexture2DFilterPolicy & ITexture2DBase::GetTextureFilterPolicy() const {
 		LOG_TRACE();
 

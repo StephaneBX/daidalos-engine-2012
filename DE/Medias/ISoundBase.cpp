@@ -29,12 +29,19 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/ISoundBase.hpp"
 
 namespace daidalosengine {
+	/**
+	* Destructor
+	*/
 	ISoundBase::~ISoundBase() {
 		LOG_TRACE();
 
 		alDeleteSources(1, &this->m_source);
 	}
 
+	/**
+	* Set the sound status
+	* @param status The status
+	*/
 	void ISoundBase::SetStatus(ESoundStatus status) {
 		LOG_TRACE();
 
@@ -60,12 +67,20 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Set the gain (volume)
+	* @param gain The gain between 0.0 and 1.0
+	*/
 	void ISoundBase::SetGain(const float gain) {
 		LOG_TRACE();
 
 		alSourcef(this->m_source, AL_GAIN, gain);
 	}
 
+	/**
+	* Set the position
+	* @param position The position
+	*/
 	void ISoundBase::SetPosition(const CVector3F & position) {
 		LOG_TRACE();
 
@@ -73,6 +88,10 @@ namespace daidalosengine {
 		alSourcefv(this->m_source, AL_POSITION, pos);
 	}
 
+	/**
+	* Set the orientation
+	* @param orientation A 6 float array for the at and the up vectors
+	*/
 	void ISoundBase::SetOrientation(float * orientation) {
 		LOG_TRACE();
 
@@ -80,58 +99,97 @@ namespace daidalosengine {
 		alSourcefv(this->m_source, AL_DIRECTION, orientation2);
 	}
 
+	/**
+	* Set the velocity
+	* @param velocity The velocity
+	*/
 	void ISoundBase::SetVelocity(const CVector3F & velocity) {
 		LOG_TRACE();
 
 		alSourcefv(this->m_source, AL_VELOCITY, velocity);
 	}
 
+	/**
+	* Set the cone inner angle
+	* @param angle The cone angle
+	*/
 	void ISoundBase::SetConeInnerAngle(const float angle) {
 		LOG_TRACE();
 
 		alSourcef(this->m_source, AL_CONE_INNER_ANGLE, angle);
 	}
 
+	/**
+	* Set the cone outer angle
+	* @param angle The cone angle
+	*/
 	void ISoundBase::SetConeOuterAngle(const float angle) {
 		LOG_TRACE();
 
 		alSourcef(this->m_source, AL_CONE_OUTER_ANGLE, angle);
 	}
 
+	/**
+	* Set the distance from wich the gain will be maximal
+	* @param distance The distance
+	*/
 	void ISoundBase::SetReferenceDistance(const float distance) {
 		LOG_TRACE();
 
 		alSourcef(this->m_source, AL_REFERENCE_DISTANCE, distance);
 	}
 
+	/**
+	* Set the distance from wich the gain will be minimal
+	* @param distance The distance
+	*/
 	void ISoundBase::SetMaxDistance(const float distance) {
 		LOG_TRACE();
 
 		alSourcef(this->m_source, AL_MAX_DISTANCE, distance);
 	}
 
+	/**
+	* Set the position relative to the listener
+	* @param relative The relative value
+	*/
 	void ISoundBase::SetRelativeToListener(const bool relative) {
 		LOG_TRACE();
 
 		alSourcei(this->m_source, AL_SOURCE_RELATIVE, relative ? AL_TRUE : AL_FALSE);
 	}
 
+	/**
+	* Set the sound as looped
+	* @param loop The loop value
+	*/
 	void ISoundBase::SetLooped(const bool loop) {
 		LOG_TRACE();
 
 		alSourcei(this->m_source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
 	}
 
+	/**
+	* Update a sound
+	*/
 	void ISoundBase::Update() {
 		LOG_TRACE();
 	}
 
+	/**
+	* Get the format
+	* @return The format
+	*/
 	ESoundFormat ISoundBase::GetFormat() const {
 		LOG_TRACE();
 
 		return this->m_format;
 	}
 
+	/**
+	* Get the status
+	* @return The status
+	*/
 	ESoundStatus ISoundBase::GetStatus() const {
 		LOG_TRACE();
 
@@ -158,6 +216,10 @@ namespace daidalosengine {
 		return SOUND_STATUS_STOP;
 	}
 
+	/**
+	* Check if the position is relative to the listener
+	* @return The relative position state
+	*/
 	const bool ISoundBase::IsRelativeToListener() const {
 		LOG_TRACE();
 
@@ -167,6 +229,10 @@ namespace daidalosengine {
 		return status == AL_TRUE;
 	}
 
+	/**
+	* Get the looped status
+	* @return The looped status
+	*/
 	const bool ISoundBase::IsLooped() const {
 		LOG_TRACE();
 
@@ -176,24 +242,62 @@ namespace daidalosengine {
 		return status == AL_TRUE;
 	}
 
+	/**
+	* Get the source
+	* @return The source
+	*/
+	const ALuint ISoundBase::GetSource() const {
+		LOG_TRACE();
+
+		return this->m_source;
+	}
+
+	/**
+	* Get the number of channels
+	* @return The number of channels
+	*/
 	const int ISoundBase::GetChannelsCount() const {
 		LOG_TRACE();
 
 		int channels = 1;
 
-		switch(this->m_format) {
-		case SOUND_FORMAT_STEREO16:
-			channels = 2;
-			break;
+		switch (this->m_format) {
+			case SOUND_FORMAT_STEREO16:
+				channels = 2;
+				break;
 
-		default:
-			channels = 1;
-			break;
+			default:
+				channels = 1;
+				break;
 		}
 
 		return channels;
 	}
 
+	/**
+	* Get the samples count
+	* @return The samples count
+	*/
+	const int ISoundBase::GetSamplesCount() const {
+		LOG_TRACE();
+
+		return this->m_samplesCount;
+	}
+
+	/**
+	* Get the sample rate
+	* @return The sample rate
+	*/
+	const int ISoundBase::GetSampleRate() const {
+		LOG_TRACE();
+
+		return this->m_sampleRate;
+	}
+
+	/**
+	* Get the gain
+	* @return The gain
+	*/
 	const float ISoundBase::GetGain() const {
 		LOG_TRACE();
 
@@ -204,6 +308,10 @@ namespace daidalosengine {
 		return result;
 	}
 
+	/**
+	* Get the cone inner angle
+	* @return The cone inner angle
+	*/
 	const float ISoundBase::GetConeInnerAngle() const {
 		LOG_TRACE();
 
@@ -214,6 +322,10 @@ namespace daidalosengine {
 		return result;
 	}
 
+	/**
+	* Get the cone outer angle
+	* @return The cone outer angle
+	*/
 	const float ISoundBase::GetConeOuterAngle() const {
 		LOG_TRACE();
 
@@ -224,6 +336,10 @@ namespace daidalosengine {
 		return result;
 	}
 
+	/**
+	* Get the distance from wich the gain will be maximal
+	* @return The distance from wich the gain will be maximal
+	*/
 	const float ISoundBase::GetReferenceDistance() const {
 		LOG_TRACE();
 
@@ -234,6 +350,10 @@ namespace daidalosengine {
 		return result;
 	}
 
+	/**
+	* Get the distance from wich the gain will be minimal
+	* @return The distance from wich the gain will be minimal
+	*/
 	const float ISoundBase::GetMaxDistance() const {
 		LOG_TRACE();
 
@@ -244,15 +364,26 @@ namespace daidalosengine {
 		return result;
 	}
 
-	ISoundBase::ISoundBase(const std::string & name) : IResource(name) {
+	/**
+	* Constructor
+	* @param name The filename
+	* @param format The sound format
+	* @param samplesCount The samples count
+	* @param sampleRate The sample rate
+	*/
+	ISoundBase::ISoundBase(const std::string & name, ESoundFormat format, const int samplesCount, const int sampleRate) : IResource(name) {
 		LOG_TRACE();
 
-		this->m_format = SOUND_FORMAT_MONO16;
-		this->m_samplesCount = 0;
-		this->m_sampleRate = 0;
+		this->m_format = format;
+		this->m_samplesCount = samplesCount;
+		this->m_sampleRate = sampleRate;
 		alGenSources(1, &this->m_source);
 	}
 
+	/**
+	* Get the OpenAL sound format
+	* @return The format
+	*/
 	ALenum ISoundBase::GetALFormat() const {
 		LOG_TRACE();
 

@@ -29,20 +29,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStaticSoundBase.hpp"
 
 namespace daidalosengine {
-	IStaticSoundBase::IStaticSoundBase(const std::string & name, const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
+	IStaticSoundBase::IStaticSoundBase(const std::string & name, const ALuint buffer, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name, format, samplesCount, sampleRate) {
 		LOG_TRACE();
 
 		this->m_buffer = buffer;
-		this->m_format = format;
-		this->m_samplesCount = samplesCount;
-		this->m_sampleRate = sampleRate;
-		alSourcei(this->m_source, AL_BUFFER, this->m_buffer);
+		alSourcei(GetSource(), AL_BUFFER, this->m_buffer);
 	}
 
 	IStaticSoundBase::~IStaticSoundBase() {
 		LOG_TRACE();
 
 		alDeleteBuffers(1, &this->m_buffer);
-		alSourcei(this->m_source, AL_BUFFER, 0);
+		alSourcei(GetSource(), AL_BUFFER, 0);
 	}
 }

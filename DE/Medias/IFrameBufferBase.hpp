@@ -75,7 +75,7 @@ namespace daidalosengine {
 	* Basic class used for frame buffers
 	*/
 	class IFrameBufferBase : public IResource {
-	protected:
+	private:
 		bool m_ready;
 		std::map<std::string, SFrameBufferElement> m_elements;
 		std::map<std::string, IRenderTargetBase *> m_depthElements;

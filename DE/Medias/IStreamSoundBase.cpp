@@ -29,14 +29,11 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IStreamSoundBase.hpp"
 
 namespace daidalosengine {
-	IStreamSoundBase::IStreamSoundBase(const std::string & name, SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name) {
+	IStreamSoundBase::IStreamSoundBase(const std::string & name, SNDFILE * file, ESoundFormat format, const int samplesCount, const int sampleRate) : ISoundBase(name, format, samplesCount, sampleRate) {
 		LOG_TRACE();
 
 		this->m_framesRead = 0;
 		this->m_file = file;
-		this->m_format = format;
-		this->m_samplesCount = samplesCount;
-		this->m_sampleRate = sampleRate;
 
 		alGenBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
 		for(int i = 0; i < STREAM_SOUND_BUFFER_SIZE; ++i)
@@ -48,9 +45,9 @@ namespace daidalosengine {
 
 		ALint nbQueued;
 		ALuint buffer;
-		alGetSourcei(this->m_source, AL_BUFFERS_QUEUED, &nbQueued);
+		alGetSourcei(GetSource(), AL_BUFFERS_QUEUED, &nbQueued);
 		for(ALint i = 0; i < nbQueued; ++i)
-			alSourceUnqueueBuffers(this->m_source, 1, &buffer);
+			alSourceUnqueueBuffers(GetSource(), 1, &buffer);
 
 		sf_close(this->m_file);
 		alDeleteBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
@@ -63,15 +60,15 @@ namespace daidalosengine {
 		case SOUND_STATUS_STOP:
 		case SOUND_STATUS_INITIAL:
 			if(status == SOUND_STATUS_STOP)
-				alSourceStop(this->m_source);
+				alSourceStop(GetSource());
 
 			this->m_framesRead = 0;
 
 			ALint nbQueued;
 			ALuint buffer;
-			alGetSourcei(this->m_source, AL_BUFFERS_QUEUED, &nbQueued);
+			alGetSourcei(GetSource(), AL_BUFFERS_QUEUED, &nbQueued);
 			for(ALint i = 0; i < nbQueued; ++i)
-				alSourceUnqueueBuffers(this->m_source, 1, &buffer);
+				alSourceUnqueueBuffers(GetSource(), 1, &buffer);
 
 			sf_seek(this->m_file, 0, SEEK_SET);
 
@@ -80,11 +77,11 @@ namespace daidalosengine {
 			break;
 
 		case SOUND_STATUS_PLAY:
-			alSourcePlay(this->m_source);
+			alSourcePlay(GetSource());
 			break;
 
 		case SOUND_STATUS_PAUSE:
-			alSourcePause(this->m_source);
+			alSourcePause(GetSource());
 			break;
 
 		default:
@@ -98,11 +95,11 @@ namespace daidalosengine {
 		if(GetStatus() == SOUND_STATUS_PLAY) {
 			ALint nbProcessed;
 			int read = 0;
-			alGetSourcei(this->m_source, AL_BUFFERS_PROCESSED, &nbProcessed);
+			alGetSourcei(GetSource(), AL_BUFFERS_PROCESSED, &nbProcessed);
 
 			for(ALint i = 0; i < nbProcessed; ++i) {
 				ALuint buffer;
-				alSourceUnqueueBuffers(this->m_source, 1, &buffer);
+				alSourceUnqueueBuffers(GetSource(), 1, &buffer);
 
 				read = ReadChunk(buffer);
 			}
@@ -131,15 +128,15 @@ namespace daidalosengine {
 	const int IStreamSoundBase::ReadChunk(ALuint buffer) {
 		LOG_TRACE();
 
-		int nbSamples = this->m_sampleRate * GetChannelsCount();
+		int nbSamples = GetSampleRate() * GetChannelsCount();
 		int read = 0;
 		std::vector<ALshort> samples(nbSamples);
 
 		read = (int)sf_read_short(this->m_file, &samples[0], nbSamples);
 
 		if(read > 0) {
-			alBufferData(buffer, GetALFormat(), &samples[0], read * sizeof(ALushort), this->m_sampleRate);
-			alSourceQueueBuffers(this->m_source, 1, &buffer);
+			alBufferData(buffer, GetALFormat(), &samples[0], read * sizeof(ALushort), GetSampleRate());
+			alSourceQueueBuffers(GetSource(), 1, &buffer);
 			this->m_framesRead += read;
 		}
 

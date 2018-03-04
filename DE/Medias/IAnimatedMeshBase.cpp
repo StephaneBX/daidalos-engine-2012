@@ -29,20 +29,46 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IAnimatedMeshBase.hpp"
 
 namespace daidalosengine {
+	/**
+	* Destructor
+	*/
 	IAnimatedMeshBase::~IAnimatedMeshBase() {
 		LOG_TRACE();
 	}
 
+	/**
+	* Animate the mesh
+	* @param frame The frame number
+	*/
 	void IAnimatedMeshBase::Animate(const float frame) {
 		LOG_TRACE();
 
 		this->m_frame = frame;
 	}
 
+	/**
+	* Set the frame
+	* @param frame The frame
+	*/
+	void IAnimatedMeshBase::SetFrame(const float frame) {
+		this->m_frame = frame;
+	}
+
+	/**
+	* Get the frame
+	* @return The frame
+	*/
+	const float IAnimatedMeshBase::GetFrame() const {
+		return this->m_frame;
+	}
+
+	/**
+	* Constructor
+	* @param name The resource name.
+	*/
 	IAnimatedMeshBase::IAnimatedMeshBase(const std::string & name) : IMeshBase(name) {
 		LOG_TRACE();
 
 		this->m_frame = 0;
 	}
-
 }

@@ -39,7 +39,7 @@ namespace daidalosengine {
 	* Basic class for sounds
 	*/
 	class ISoundBase : public IResource {
-	protected:
+	private:
 		ALuint m_source;
 		ESoundFormat m_format;
 		int m_samplesCount;
@@ -147,10 +147,28 @@ namespace daidalosengine {
 		virtual const bool IsLooped() const;
 
 		/**
+		* Get the source
+		* @return The source
+		*/
+		const ALuint GetSource() const;
+
+		/**
 		* Get the number of channels
 		* @return The number of channels
 		*/
 		const int GetChannelsCount() const;
+
+		/**
+		* Get the samples count
+		* @return The samples count
+		*/
+		const int GetSamplesCount() const;
+
+		/**
+		* Get the sample rate
+		* @return The sample rate
+		*/
+		const int GetSampleRate() const;
 
 		/**
 		* Get the gain
@@ -185,8 +203,12 @@ namespace daidalosengine {
 	protected:
 		/**
 		* Constructor
+		* @param name The filename
+		* @param format The sound format
+		* @param samplesCount The samples count
+		* @param sampleRate The sample rate
 		*/
-		explicit ISoundBase(const std::string & name);
+		ISoundBase(const std::string & name, ESoundFormat format, const int samplesCount, const int sampleRate);
 
 		/**
 		* Get the OpenAL sound format

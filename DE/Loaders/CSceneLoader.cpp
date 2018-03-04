@@ -53,7 +53,6 @@ namespace daidalosengine {
 		this->m_nodesConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_NODES_CONFIGURATION);
 		this->m_materialsConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
 		this->m_structure = SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP;
-		this->m_renderer = nullptr;
 	}
 
 	CSceneLoader::~CSceneLoader() {
@@ -64,10 +63,6 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		I3DScene * scene = new I3DScene(filename);
-
-		if(this->m_renderer == nullptr)
-			this->m_renderer = IRenderer::GetRenderer();
-
 		this->m_filename = filename;
 		ISceneNode * root = nullptr;
 		tinyxml2::XMLElement * element = nullptr;
@@ -485,13 +480,14 @@ namespace daidalosengine {
 		CVector3F position;
 		CVector3F rotation;
 		CVector3F scale;
+		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
-		GetNodeData(handle, "ratio", ratio, this->m_renderer->GetResolution().x / (float)this->m_renderer->GetResolution().y);
+		GetNodeData(handle, "ratio", ratio, renderer->GetResolution().x / (float)renderer->GetResolution().y);
 		GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1F));
 		GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0F));
 
@@ -621,6 +617,7 @@ namespace daidalosengine {
 		CVector3F rotation;
 		CVector3F scale;
 		CVector3F nodeDefaultScale;
+		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
@@ -640,8 +637,8 @@ namespace daidalosengine {
 		node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		node->SetEnabled(enabled);
 		node->SetShadowCaster(shadowCaster);
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
 		static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
 		static_cast<CStaticMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
@@ -670,6 +667,7 @@ namespace daidalosengine {
 		CVector3F rotation;
 		CVector3F scale;
 		CVector3F nodeDefaultScale;
+		IRenderer * renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
@@ -689,8 +687,8 @@ namespace daidalosengine {
 		node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		node->SetEnabled(enabled);
 		node->SetShadowCaster(shadowCaster);
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
 		static_cast<CAnimatedMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
@@ -827,6 +825,7 @@ namespace daidalosengine {
 		std::string normalTexture;
 		std::string material;
 		std::ostringstream ss;
+		IRenderer * renderer = IRenderer::GetRenderer();
 
 		std::string name = handle.ToElement()->Attribute("file");
 		int id = SCENE_DEFAULT_ID;
@@ -853,11 +852,11 @@ namespace daidalosengine {
 			CTexture2D normal;
 
 			if(diffuseTexture != "") {
-				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
 			if(normalTexture != "") {
-				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
@@ -944,6 +943,7 @@ namespace daidalosengine {
 		std::string normalTexture;
 		std::string material;
 		std::ostringstream ss;
+		IRenderer * renderer = IRenderer::GetRenderer();
 
 		std::string name = handle.ToElement()->Attribute("file");
 		int id = SCENE_DEFAULT_ID;
@@ -972,11 +972,11 @@ namespace daidalosengine {
 			CTexture2D normal;
 			
 			if(diffuseTexture != "") {
-				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			} 
 
 			if(normalTexture != "") {
-				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, this->m_renderer->GetDefaultTextureFilter());
+				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
 			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {

@@ -36,7 +36,7 @@ namespace daidalosgameengine {
 	* Loader for daidalos engine game cinematic files (.dgc)
 	*/
 	class CCinematicEventLoader : public daidalosengine::IXmlLoader < ICinematicEvent > {
-	protected:
+	private:
 		std::string m_filename;
 
 	public:

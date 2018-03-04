@@ -54,7 +54,7 @@ namespace daidalosengine {
 	protected:
 		friend class CTexture2D;
 
-	protected:
+	private:
 		bool m_mipmaps;
 		bool m_autoMipmap;
 		CVector2I m_size;
@@ -67,6 +67,36 @@ namespace daidalosengine {
 		* Destructor
 		*/
 		virtual ~ITexture2DBase();
+
+		/**
+		* Check if the the texture has mipmaps
+		* @return True if the texture has mipmaps
+		*/
+		const bool HasMipmaps() const;
+
+		/**
+		* Check if the auto mipmap is enabled
+		* @return True if the auto mipmap is enabled
+		*/
+		const bool HasAutoMimap() const;
+
+		/**
+		* Get the texture size
+		* @return The texture size
+		*/
+		const CVector2I & GetSize() const;
+
+		/**
+		* Get the texture format
+		* @return The texture format
+		*/
+		const EPixelFormat GetFormat() const;
+
+		/**
+		* Get the texture image
+		* @return The texture image
+		*/
+		const CImage & GetImage() const;
 
 		/**
 		* Get the filter policy

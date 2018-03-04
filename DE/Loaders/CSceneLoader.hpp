@@ -32,7 +32,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <string>
 #include <map>
 #include "../Core/ILoader.hpp"
-#include "../Core/IRenderer.hpp"
 #include "../Core/CConfigurationManager.hpp"
 #include "../Scene/3D/Structure/BSP/CBSPSceneNode.hpp"
 #include "../Scene/3D/Structure/Simple/CSimpleSceneNode.hpp"
@@ -44,12 +43,11 @@ namespace daidalosengine {
 	* Loader for daidalos engine scene files (.des)
 	*/
 	class CSceneLoader : public ILoader < I3DScene > {
-	protected:
+	private:
 		std::string m_filename;
 		ESceneNodeRootStructureType m_structure;
 		SiniP m_nodesConf;
 		SiniP m_materialsConf;
-		IRenderer * m_renderer;
 
 	public:
 		/**

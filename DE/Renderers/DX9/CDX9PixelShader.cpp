@@ -35,7 +35,6 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_pixelShader = pixelShader;
-		this->m_constantTable = constantTable;
 	}
 
 	CDX9PixelShader::~CDX9PixelShader() {
