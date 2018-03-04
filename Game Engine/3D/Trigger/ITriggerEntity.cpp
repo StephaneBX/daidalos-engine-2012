@@ -59,6 +59,57 @@ namespace daidalosgameengine {
 	}
 
 	/**
+	* Set the trigger param
+	* @param triggerParam the trigger param
+	*/
+	void ITriggerEntity::SetTriggerParam(const unsigned int triggerParam) {
+		this->m_triggerParam = triggerParam;
+	}
+
+	/**
+	* Trigger the DoAction on all entities
+	*/
+	void ITriggerEntity::TriggerEntitiesDoAction() {
+		for (auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
+			(*it)->DoAction();
+		}
+	}
+
+	/**
+	* Trigger the CanDoAction on all entities
+	* @return the triggered result
+	*/
+	const ETriggeredResult ITriggerEntity::TriggerEntitiesCanDoAction() const {
+
+		ETriggeredResult result = TRIGGERED_RESULT_NONE;
+		unsigned int triggred = 0;
+		for (auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
+			if ((*it)->CanDoAction()) {
+				triggred++;
+			}
+		}
+
+		// Result set
+		if (triggred > 0) {
+			if (triggred == this->m_targetsEntity.size()) {
+				result = TRIGGERED_RESULT_ALL;
+			} else {
+				result = TRIGGERED_RESULT_SOME;
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	* Get the trigger param
+	* @return the trigger param
+	*/
+	const unsigned int ITriggerEntity::GetTriggerParam() const {
+		return this->m_triggerParam;
+	}
+
+	/**
 	* Update the entity
 	* @param time Elapsed time
 	*/

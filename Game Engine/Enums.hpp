@@ -54,6 +54,12 @@ namespace daidalosgameengine {
 		ENTITY_TYPE_AREA_TRIGGER,
 		ENTITY_TYPE_SPOT
 	};
+
+	enum ETriggeredResult {
+		TRIGGERED_RESULT_NONE,
+		TRIGGERED_RESULT_SOME,
+		TRIGGERED_RESULT_ALL
+	};
 }
 
 #endif

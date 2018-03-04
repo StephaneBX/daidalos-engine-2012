@@ -71,18 +71,14 @@ namespace daidalosgameengine {
 		switch(this->m_state) {
 		case SWITCH_STATE_ACTIVATING:
 			if(this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
-				for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
-					(*it)->DoAction();
-				}
+				TriggerEntitiesDoAction();
 				this->m_state = SWITCH_STATE_ON;
 			}
 			break;
 
 		case SWITCH_STATE_DEACTIVATING:
 			if(this->m_node->GetAnimationState() == daidalosengine::MESH_ANIMATION_STATE_STOPPED) {
-				for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
-					(*it)->DoAction();
-				}
+				TriggerEntitiesDoAction();
 				this->m_state = SWITCH_STATE_OFF;
 			}
 			break;
@@ -116,12 +112,8 @@ namespace daidalosgameengine {
 	*/
 	const bool CSwitchEntity::CanDoAction() {
 
-		bool targetsOk = true;
-		for(auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end() && targetsOk; it++) {
-			targetsOk = (*it)->CanDoAction();
-		}
-
-		return targetsOk && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
+		ETriggeredResult triggered = TriggerEntitiesCanDoAction();
+		return triggered == TRIGGERED_RESULT_ALL && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 
 	/**

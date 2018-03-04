@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <set>
 #include "../IEntity.hpp"
+#include "../../Enums.hpp"
 
 namespace daidalosgameengine {
 
@@ -37,7 +38,7 @@ namespace daidalosgameengine {
 	* Abstract entity with tigger targets and action properties
 	*/
 	class ITriggerEntity : public IEntity {
-	protected:
+	private:
 		unsigned int m_triggerParam;
 		std::set<ITriggerEntity*> m_targetsEntity;
 
@@ -64,6 +65,29 @@ namespace daidalosgameengine {
 		* @param entity The target entity
 		*/
 		void RemoveTarget(ITriggerEntity * entity);
+
+		/**
+		* Set the trigger param
+		* @param triggerParam the trigger param
+		*/
+		void SetTriggerParam(const unsigned int triggerParam);
+
+		/**
+		* Trigger the DoAction on all entities
+		*/
+		void TriggerEntitiesDoAction();
+
+		/**
+		* Trigger the CanDoAction on all entities
+		* @return the triggered result
+		*/
+		const ETriggeredResult TriggerEntitiesCanDoAction() const;
+
+		/**
+		* Get the trigger param
+		* @return the trigger param
+		*/
+		const unsigned int GetTriggerParam() const;
 
 		/**
 		* Update the entity

@@ -68,7 +68,7 @@ namespace daidalosgameengine {
 	* Trigger the entity action
 	*/
 	void CLadderEntity::DoAction() {
-		if(this->m_triggerParam != 0) {
+		if(GetTriggerParam() != 0) {
 			GetParent()->GetPlayer()->SetGravityState(false);
 		}
 	}
@@ -79,7 +79,7 @@ namespace daidalosgameengine {
 	*/
 	const bool CLadderEntity::CanDoAction() {
 
-		this->m_triggerParam = this->m_boundingBox.IsCollision(GetParent()->GetPlayer()->GetCollisionShape()) ? 1 : 0;
+		SetTriggerParam(this->m_boundingBox.IsCollision(GetParent()->GetPlayer()->GetCollisionShape()) ? 1 : 0);
 		return true;
 	}
 }
