@@ -95,7 +95,18 @@ namespace daidalosengine {
 	* @return The clamped value
 	*/
 	template<typename T> inline const T ClampNumber(const T value, const T minValue, const T maxValue) {
-		return value >= minValue ? (value <= maxValue ? value : maxValue) : minValue;
+
+		T result = value;
+
+		if (result < minValue) {
+			result = minValue;
+		}
+
+		if (result > maxValue) {
+			result = maxValue;
+		}
+
+		return result;
 	}
 
 	/**

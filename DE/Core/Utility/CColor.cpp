@@ -305,7 +305,7 @@ namespace daidalosengine {
 	void CColor::SetRed(const int red) {
 		LOG_TRACE();
 
-		int r = (red >= 0) ? (red <= 255 ? red : 255) : 0;
+		int r = ClampNumber(red, 0, 255);
 		this->m_color |= r << 16;
 	}
 
@@ -316,7 +316,7 @@ namespace daidalosengine {
 	void CColor::SetGreen(const int green) {
 		LOG_TRACE();
 
-		int g = (green >= 0) ? (green <= 255 ? green : 255) : 0;
+		int g = ClampNumber(green, 0, 255);
 		this->m_color |= g << 8;
 	}
 
@@ -327,7 +327,7 @@ namespace daidalosengine {
 	void CColor::SetBlue(const int blue) {
 		LOG_TRACE();
 
-		int b = (blue >= 0) ? (blue <= 255 ? blue : 255) : 0;
+		int b = ClampNumber(blue, 0, 255);
 		this->m_color |= b;
 	}
 
@@ -338,7 +338,7 @@ namespace daidalosengine {
 	void CColor::SetAlpha(const int alpha) {
 		LOG_TRACE();
 
-		int a = (alpha >= 0) ? (alpha <= 255 ? alpha : 255) : 0;
+		int a = ClampNumber(alpha, 0, 255);
 		this->m_color |= a << 24;
 	}
 
@@ -349,7 +349,7 @@ namespace daidalosengine {
 	void CColor::SetRed(const float red) {
 		LOG_TRACE();
 
-		int r = static_cast<int>((red >= 0) ? (red <= 1.0F ? (red * 255) : 255) : 0);
+		int r = static_cast<int>(ClampNumber(red, 0.0F, 1.0F) * 255);
 		this->m_color |= r << 16;
 	}
 
@@ -360,7 +360,7 @@ namespace daidalosengine {
 	void CColor::SetGreen(const float green) {
 		LOG_TRACE();
 
-		int g = static_cast<int>((green >= 0) ? (green <= 1.0F ? (green * 255) : 255) : 0);
+		int g = static_cast<int>(ClampNumber(green, 0.0F, 1.0F) * 255);
 		this->m_color |= g << 8;
 	}
 
@@ -371,7 +371,7 @@ namespace daidalosengine {
 	void CColor::SetBlue(const float blue) {
 		LOG_TRACE();
 
-		int b = static_cast<int>((blue >= 0) ? (blue <= 1.0F ? (blue * 255) : 255) : 0);
+		int b = static_cast<int>(ClampNumber(blue, 0.0F, 1.0F) * 255);
 		this->m_color |= b;
 	}
 
@@ -382,7 +382,7 @@ namespace daidalosengine {
 	void CColor::SetAlpha(const float alpha) {
 		LOG_TRACE();
 
-		int a = static_cast<int>((alpha >= 0) ? (alpha <= 1.0F ? (alpha * 255) : 255) : 0);
+		int a = static_cast<int>(ClampNumber(alpha, 0.0F, 1.0F) * 255);
 		this->m_color |= a << 24;
 	}
 
@@ -425,10 +425,10 @@ namespace daidalosengine {
 	void CColor::SetInt(const int r, const int g, const int b, const int a) {
 		LOG_TRACE();
 
-		unsigned char red = (r >= 0) ? (r <= 255 ? r : 255) : 0;
-		unsigned char green = (g >= 0) ? (g <= 255 ? g : 255) : 0;
-		unsigned char blue = (b >= 0) ? (b <= 255 ? b : 255) : 0;
-		unsigned char alpha = (a >= 0) ? (a <= 255 ? a : 255) : 0;
+		unsigned char red = ClampNumber(r, 0, 255);
+		unsigned char green = ClampNumber(g, 0, 255);
+		unsigned char blue = ClampNumber(b, 0, 255);
+		unsigned char alpha = ClampNumber(a, 0, 255);
 
 		SetUnsignedChar(red, green, blue, alpha);
 	}

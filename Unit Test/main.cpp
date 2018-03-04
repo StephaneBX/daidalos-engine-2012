@@ -10,7 +10,7 @@
 #pragma comment(lib, "TestRunner.lib")
 #pragma comment(lib, "DaidalosEngine.lib")
 
-int main(int argc, char* argv[]) {
+int main() {
 	// Create the event manager and test controller
 	CppUnit::TestResult controller;
 
