@@ -70,6 +70,10 @@ namespace daidalosengine {
 		return tmpRef;
 	}
 
+	void IResource::SetName(const std::string & name) {
+		this->m_name = CFile(name);
+	}
+
 	void IResource::AddReference() {
 		LOG_TRACE();
 

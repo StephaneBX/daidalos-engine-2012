@@ -38,7 +38,7 @@ namespace daidalosengine {
 	* Basic class for all bounded / finite lights.
 	*/
 	class IBoundedLightSceneNode : public ILightSceneNode {
-	protected:
+	private:
 		float m_range;
 		float m_falloff;
 		CRectangleI m_scissor;

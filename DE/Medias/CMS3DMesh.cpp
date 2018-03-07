@@ -33,27 +33,15 @@ namespace daidalosengine {
 	CMS3DMesh::CMS3DMesh(const std::string & name, SMS3DInternalData * data) : IAnimatedMeshBase(name) {
 		LOG_TRACE();
 
-		this->m_internalData = data;
-
-		this->m_vertex = new CVector3F*[this->m_internalData->numberOfMeshes];
-		this->m_normal = new CVector3F*[this->m_internalData->numberOfMeshes];
-		this->m_tangent = new CVector3F*[this->m_internalData->numberOfMeshes];
-		this->m_binormal = new CVector3F*[this->m_internalData->numberOfMeshes];
-		this->m_texcoord = new CVector2F*[this->m_internalData->numberOfMeshes];
-
 		// Data initialization
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-			this->m_groupSize.push_back(this->m_internalData->mesh[i].numberOfFaces * 3);
-			this->m_vertex[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
-			this->m_normal[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
-			this->m_tangent[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
-			this->m_binormal[i] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
-			this->m_texcoord[i] = new CVector2F[this->m_internalData->mesh[i].numberOfFaces * 3];
-		}
+		this->m_internalData = data;
+		InitializeBuffers(this->m_internalData->numberOfMeshes);
 
-		// Copy texture coordinates
 		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-			memcpy(this->m_texcoord[i], this->m_internalData->mesh[i].textureCoordinates, sizeof(CVector2F) * this->m_internalData->mesh[i].numberOfFaces * 3);
+			InitializeBufferGroup(this->m_internalData->mesh[i].numberOfFaces * 3);
+
+			// Copy texture coordinates
+			memcpy(GetTexcoords(i), this->m_internalData->mesh[i].textureCoordinates, sizeof(CVector2F) * this->m_internalData->mesh[i].numberOfFaces * 3);
 		}
 
 		// Visibility shape calculation
@@ -65,22 +53,22 @@ namespace daidalosengine {
 
 			for(int j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
 				for(int k = 0; k < this->m_internalData->mesh[j].numberOfFaces * 3; ++k) {
-					max.x = std::max(max.x, this->m_vertex[j][k].x);
-					max.y = std::max(max.y, this->m_vertex[j][k].y);
-					max.z = std::max(max.z, this->m_vertex[j][k].z);
+					max.x = std::max(max.x, GetVertices(j)[k].x);
+					max.y = std::max(max.y, GetVertices(j)[k].y);
+					max.z = std::max(max.z, GetVertices(j)[k].z);
 
-					min.x = std::min(min.x, this->m_vertex[j][k].x);
-					min.y = std::min(min.y, this->m_vertex[j][k].y);
-					min.z = std::min(min.z, this->m_vertex[j][k].z);
+					min.x = std::min(min.x, GetVertices(j)[k].x);
+					min.y = std::min(min.y, GetVertices(j)[k].y);
+					min.z = std::min(min.z, GetVertices(j)[k].z);
 				}
 			}
 		}
 
 		// Find the position
-		this->m_visibilityShape->SetPosition((max + min) / 2.0F);
+		GetVisibilityShape()->SetPosition((max + min) / 2.0F);
 
 		// Find the radius
-		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0F)).Length());
+		GetVisibilityShape()->SetRadius((max - ((max + min) / 2.0F)).Length());
 
 		TangentAndBinormalCalculation();
 	}
@@ -134,8 +122,8 @@ namespace daidalosengine {
 		case MESH_SHADING_SMOOTH:
 			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
-					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
-					this->m_normal[i][j] = this->m_internalData->mesh[i].normal[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
+					GetVertices(i)[j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+					GetNormals(i)[j] = this->m_internalData->mesh[i].normal[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
 				}
 			}
 			break;
@@ -144,7 +132,7 @@ namespace daidalosengine {
 			// Flat shading
 			for (int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 				for (int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
-					this->m_vertex[i][j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
+					GetVertices(i)[j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
 				}
 			}
 			FlatShadingNormals();

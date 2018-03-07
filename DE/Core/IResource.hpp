@@ -39,7 +39,7 @@ namespace daidalosengine {
 	private:
 		static int s_resourceCounter;
 
-	protected:
+	private:
 		int m_referenceCount;
 		CFile m_name;
 
@@ -73,6 +73,12 @@ namespace daidalosengine {
 		const int Release();
 
 		/**
+		* Set the name
+		* @param name The name
+		*/
+		void SetName(const std::string & name);
+
+		/**
 		* Add a reference on the ressource
 		*/
 		void AddReference();
@@ -89,7 +95,7 @@ namespace daidalosengine {
 
 	private:
 		IResource(const IResource & resource);
-		const IResource & operator=(const IResource & copy);
+		const IResource & operator=(const IResource & copy) = delete;
 	};
 }
 

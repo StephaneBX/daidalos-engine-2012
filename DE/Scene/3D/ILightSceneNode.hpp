@@ -40,7 +40,7 @@ namespace daidalosengine {
 	* Basic class for all lights.
 	*/
 	class ILightSceneNode : public ISceneNode {
-	protected:
+	private:
 		CColor m_color;
 
 	public:

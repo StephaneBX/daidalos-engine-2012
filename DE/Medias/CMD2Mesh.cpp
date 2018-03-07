@@ -36,27 +36,16 @@ namespace daidalosengine {
 	CMD2Mesh::CMD2Mesh(const std::string & name, SMD2InternalData * data) : IAnimatedMeshBase(name) {
 		LOG_TRACE();
 
-		this->m_internalData = data;
-
-		this->m_vertex = new CVector3F*[1];
-		this->m_normal = new CVector3F*[1];
-		this->m_tangent = new CVector3F*[1];
-		this->m_binormal = new CVector3F*[1];
-		this->m_texcoord = new CVector2F*[1];
-
 		// Data initialization
-		this->m_groupSize.push_back(this->m_internalData->header.numTriangle * 3);
-		this->m_vertex[0] = new CVector3F[this->m_internalData->header.numTriangle * 3];
-		this->m_normal[0] = new CVector3F[this->m_internalData->header.numTriangle * 3];
-		this->m_tangent[0] = new CVector3F[this->m_internalData->header.numTriangle * 3];
-		this->m_binormal[0] = new CVector3F[this->m_internalData->header.numTriangle * 3];
-		this->m_texcoord[0] = new CVector2F[this->m_internalData->header.numTriangle * 3];
+		this->m_internalData = data;
+		InitializeBuffers(1);
+		InitializeBufferGroup(this->m_internalData->header.numTriangle * 3);
 
 		// Copy texture coordinates
 		for(int i = 0; i < this->m_internalData->header.numTriangle; i++) {
 			for(int j = 0; j < 3; j++) {
-				this->m_texcoord[0][i * 3 + j].x = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
-				this->m_texcoord[0][i * 3 + j].y = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].v) / ((float)this->m_internalData->header.skinHeight);
+				GetTexcoords(0)[i * 3 + j].x = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
+				GetTexcoords(0)[i * 3 + j].y = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].v) / ((float)this->m_internalData->header.skinHeight);
 			}
 		}
 
@@ -69,21 +58,21 @@ namespace daidalosengine {
 
 			for(int j = 0; j < this->m_internalData->header.numTriangle * 3; ++j) {
 
-				max.x = std::max(max.x, this->m_vertex[0][j].x);
-				max.y = std::max(max.y, this->m_vertex[0][j].y);
-				max.z = std::max(max.z, this->m_vertex[0][j].z);
+				max.x = std::max(max.x, GetVertices(0)[j].x);
+				max.y = std::max(max.y, GetVertices(0)[j].y);
+				max.z = std::max(max.z, GetVertices(0)[j].z);
 
-				min.x = std::min(min.x, this->m_vertex[0][j].x);
-				min.y = std::min(min.y, this->m_vertex[0][j].y);
-				min.z = std::min(min.z, this->m_vertex[0][j].z);
+				min.x = std::min(min.x, GetVertices(0)[j].x);
+				min.y = std::min(min.y, GetVertices(0)[j].y);
+				min.z = std::min(min.z, GetVertices(0)[j].z);
 			}
 		}
 
 		// Find the position
-		this->m_visibilityShape->SetPosition((max + min) / 2.0F);
+		GetVisibilityShape()->SetPosition((max + min) / 2.0F);
 
 		// Find the radius
-		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0F)).Length());
+		GetVisibilityShape()->SetRadius((max - ((max + min) / 2.0F)).Length());
 
 		TangentAndBinormalCalculation();
 	}
@@ -174,8 +163,8 @@ namespace daidalosengine {
 		case MESH_SHADING_SMOOTH:
 			for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 				for(int j = 0; j < 3; ++j) {
-					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
-					this->m_normal[0][i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
+					GetVertices(0)[i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
+					GetNormals(0)[i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
 				}
 			}
 			break;
@@ -184,7 +173,7 @@ namespace daidalosengine {
 			// Flat shading
 			for (int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 				for (int j = 0; j < 3; ++j) {
-					this->m_vertex[0][i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
+					GetVertices(0)[i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
 				}
 			}
 			FlatShadingNormals();

@@ -58,6 +58,32 @@ namespace daidalosengine {
 		SAFE_DELETE(this->m_visibilityShape);
 	}
 
+	/**
+	* Initialize the required data
+	* @param numberOfGroups The number of groups
+	*/
+	void IMeshBase::InitializeBuffers(const unsigned numberOfGroups) {
+		this->m_vertex = new CVector3F*[numberOfGroups];
+		this->m_normal = new CVector3F*[numberOfGroups];
+		this->m_tangent = new CVector3F*[numberOfGroups];
+		this->m_binormal = new CVector3F*[numberOfGroups];
+		this->m_texcoord = new CVector2F*[numberOfGroups];
+	}
+
+	/**
+	* Add a group size
+	* @param numberOfTriangles The group size
+	*/
+	void IMeshBase::InitializeBufferGroup(const unsigned int numberOfTriangles) {
+		this->m_groupSize.push_back(numberOfTriangles);
+
+		this->m_vertex[this->m_groupSize.size() - 1] = new CVector3F[numberOfTriangles];
+		this->m_normal[this->m_groupSize.size() - 1] = new CVector3F[numberOfTriangles];
+		this->m_tangent[this->m_groupSize.size() - 1] = new CVector3F[numberOfTriangles];
+		this->m_binormal[this->m_groupSize.size() - 1] = new CVector3F[numberOfTriangles];
+		this->m_texcoord[this->m_groupSize.size() - 1] = new CVector2F[numberOfTriangles];
+	}
+
 	const int IMeshBase::GetNumberOfGroups() const {
 
 		LOG_TRACE();

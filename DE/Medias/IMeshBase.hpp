@@ -41,7 +41,7 @@ namespace daidalosengine {
 	* Basic class used for meshs
 	*/
 	class IMeshBase : public IResource {
-	protected:
+	private:
 		std::vector<int> m_groupSize;
 		CVector3F ** m_vertex;
 		CVector3F ** m_normal;
@@ -62,6 +62,18 @@ namespace daidalosengine {
 		* @param shadingType The shading type
 		*/
 		virtual void FinalizeGeometry(EMeshShadingType shadingType) = 0;
+
+		/**
+		* Initialize the required data
+		* @param numberOfGroups The number of groups
+		*/
+		void InitializeBuffers(const unsigned numberOfGroups);
+
+		/**
+		* Add a new buffer group and initialize it
+		* @param numberOfTriangles The group size
+		*/
+		void InitializeBufferGroup(const unsigned int numberOfTriangles);
 
 		/**
 		* Get the number of groups.
@@ -137,7 +149,7 @@ namespace daidalosengine {
 	private:
 		IMeshBase();
 		IMeshBase(const IMeshBase & copy);
-		const IMeshBase & operator=(const IMeshBase & copy);
+		const IMeshBase & operator=(const IMeshBase & copy) = delete;
 	};
 }
 

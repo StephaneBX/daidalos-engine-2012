@@ -34,31 +34,21 @@ namespace daidalosengine {
 	COBJMesh::COBJMesh(const std::string & name, SOBJInternalData * data) : IMeshBase(name) {
 		LOG_TRACE();
 
+		// Data initialization
 		this->m_internalData = data;
+		InitializeBuffers(this->m_internalData->groupSize.size());
 
-		this->m_vertex = new CVector3F*[this->m_internalData->groupSize.size()];
-		this->m_normal = new CVector3F*[this->m_internalData->groupSize.size()];
-		this->m_tangent = new CVector3F*[this->m_internalData->groupSize.size()];
-		this->m_binormal = new CVector3F*[this->m_internalData->groupSize.size()];
-		this->m_texcoord = new CVector2F*[this->m_internalData->groupSize.size()];
-
-		// Copy the data
-		this->m_groupSize = this->m_internalData->groupSize;
 		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
-			this->m_vertex[i] = new CVector3F[this->m_internalData->groupSize[i]];
-			this->m_normal[i] = new CVector3F[this->m_internalData->groupSize[i]];
-			this->m_tangent[i] = new CVector3F[this->m_internalData->groupSize[i]];
-			this->m_binormal[i] = new CVector3F[this->m_internalData->groupSize[i]];
-			this->m_texcoord[i] = new CVector2F[this->m_internalData->groupSize[i]];
+			InitializeBufferGroup(this->m_internalData->groupSize[i]);
 
-			memcpy(this->m_vertex[i], this->m_internalData->vertex[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
-			memcpy(this->m_texcoord[i], this->m_internalData->texcoord[i], sizeof(CVector2F) * this->m_internalData->groupSize[i]);
+			memcpy(GetVertices(i), this->m_internalData->vertex[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+			memcpy(GetTexcoords(i), this->m_internalData->texcoord[i], sizeof(CVector2F) * this->m_internalData->groupSize[i]);
 
 			if(this->m_internalData->normal[i] == nullptr) {
 				// If no normals are present, calculate them (flat)
 				FlatShadingNormals();
 			} else {
-				memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+				memcpy(GetNormals(i), this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
 			}
 		}
 
@@ -67,21 +57,21 @@ namespace daidalosengine {
 		CVector3F max;
 		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
 			for(int j = 0; j < this->m_internalData->groupSize[i]; ++j) {
-				max.x = std::max(max.x, this->m_vertex[i][j].x);
-				max.y = std::max(max.y, this->m_vertex[i][j].y);
-				max.z = std::max(max.z, this->m_vertex[i][j].z);
+				max.x = std::max(max.x, GetVertices(i)[j].x);
+				max.y = std::max(max.y, GetVertices(i)[j].y);
+				max.z = std::max(max.z, GetVertices(i)[j].z);
 
-				min.x = std::min(min.x, this->m_vertex[i][j].x);
-				min.y = std::min(min.y, this->m_vertex[i][j].y);
-				min.z = std::min(min.z, this->m_vertex[i][j].z);
+				min.x = std::min(min.x, GetVertices(i)[j].x);
+				min.y = std::min(min.y, GetVertices(i)[j].y);
+				min.z = std::min(min.z, GetVertices(i)[j].z);
 			}
 		}
 
 		// Find the position
-		this->m_visibilityShape->SetPosition((max + min) / 2.0F);
+		GetVisibilityShape()->SetPosition((max + min) / 2.0F);
 
 		// Find the radius
-		this->m_visibilityShape->SetRadius((max - ((max + min) / 2.0F)).Length());
+		GetVisibilityShape()->SetRadius((max - ((max + min) / 2.0F)).Length());
 
 		TangentAndBinormalCalculation();
 	}
@@ -118,7 +108,7 @@ namespace daidalosengine {
 			// Use the declared normal if possible
 			if(this->m_internalData->normal != nullptr) {
 				for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
-					memcpy(this->m_normal[i], this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
+					memcpy(GetNormals(i), this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
 				}
 			} else {
 				// If no normal, use flat shading

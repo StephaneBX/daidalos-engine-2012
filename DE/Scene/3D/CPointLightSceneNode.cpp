@@ -60,11 +60,11 @@ namespace daidalosengine {
 
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
-				lights->positionRange[lights->numberOfLights] = CVector4F(this->m_absolutePosition, this->m_range);
-				lights->colorFalloff[lights->numberOfLights] = CVector4F(this->m_color.ToRGBVector(), this->m_falloff);
+				lights->positionRange[lights->numberOfLights] = CVector4F(this->m_absolutePosition, GetRange());
+				lights->colorFalloff[lights->numberOfLights] = CVector4F(GetColor().ToRGBVector(), GetFalloff());
 				lights->enabled[lights->numberOfLights] = 1;
 				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
-				lights->scissor[lights->numberOfLights] = this->m_scissor;
+				lights->scissor[lights->numberOfLights] = GetScissor();
 				++lights->numberOfLights;
 			}
 		}

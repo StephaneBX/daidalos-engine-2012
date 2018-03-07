@@ -126,7 +126,7 @@ namespace daidalosengine {
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
 				lights->direction[lights->numberOfLights] = CVector4F(direction, 0);
 				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition, 0);
-				lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();
+				lights->color[lights->numberOfLights] = GetColor().ToRGBAVector();
 				lights->enabled[lights->numberOfLights] = 1;
 				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
 				lights->node[lights->numberOfLights] = this->m_camera;

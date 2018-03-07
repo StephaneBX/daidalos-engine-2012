@@ -39,7 +39,7 @@ namespace daidalosengine {
 		this->m_type = SCENE_NODE_SPOTLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), this->m_radius * 2, 1, 0.1F, this->m_range);
+		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), this->m_radius * 2, 1, 0.1F, GetRange());
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
@@ -52,7 +52,7 @@ namespace daidalosengine {
 		this->m_type = SCENE_NODE_SPOTLIGHT;
 
 		// Camera for the shadow rendering
-		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), DegreeToRadian(radius) * 2, 1, 0.1F, this->m_range);
+		this->m_camera = new CProjectionCameraSceneNode(scene, this, "spotlight_camera", CVector3F(), CVector3F(), DegreeToRadian(radius) * 2, 1, 0.1F, GetRange());
 		this->m_camera->SetSaved(false);
 		AddChild(this->m_camera);
 	}
@@ -92,11 +92,11 @@ namespace daidalosengine {
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS && !lightFound) {
 				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition, 0);
 				lights->direction[lights->numberOfLights] = CVector4F(this->m_camera->GetForwardVector(), 0);
-				lights->color[lights->numberOfLights] = this->m_color.ToRGBAVector();
-				lights->rangeRadiusFalloffTightness[lights->numberOfLights] = CVector4F(this->m_visibilityShape->GetInnerDepth(), RadianToDegree(this->m_radius), this->m_falloff, this->m_tightness);
+				lights->color[lights->numberOfLights] = GetColor().ToRGBAVector();
+				lights->rangeRadiusFalloffTightness[lights->numberOfLights] = CVector4F(GetVisibilitySphere()->GetInnerDepth(), RadianToDegree(this->m_radius), GetFalloff(), this->m_tightness);
 				lights->enabled[lights->numberOfLights] = 1;
 				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
-				lights->scissor[lights->numberOfLights] = this->m_scissor;
+				lights->scissor[lights->numberOfLights] = GetScissor();
 				lights->node[lights->numberOfLights] = this->m_camera;
 				++lights->numberOfLights;
 			}
