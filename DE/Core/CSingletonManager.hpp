@@ -70,7 +70,7 @@ namespace daidalosengine {
 			}
 		}
 
-	protected:
+	private:
 		static T * s_instance;
 	};
 

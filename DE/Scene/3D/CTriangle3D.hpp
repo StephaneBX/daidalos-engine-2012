@@ -41,7 +41,7 @@ namespace daidalosengine {
 	* Handle a 3d triangle
 	*/
 	class CTriangle3D {
-	protected:
+	private:
 		int m_id;
 		CVector3F m_vertices[3];
 		CVector3F m_normals[3];
@@ -203,6 +203,12 @@ namespace daidalosengine {
 		* @return The material
 		*/
 		SMaterialElement * GetMaterialElement() const;
+
+		/**
+		* Get the vertices
+		* @return The vertices
+		*/
+		CVector3F * GetVertices();
 	};
 }
 

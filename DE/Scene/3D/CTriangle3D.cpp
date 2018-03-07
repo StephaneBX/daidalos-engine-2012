@@ -234,4 +234,14 @@ namespace daidalosengine {
 
 		return this->m_material.GetMaterial()->GetElement(this->m_materialElement);
 	}
+
+	/**
+	* Get the vertices
+	* @return The vertices
+	*/
+	CVector3F * CTriangle3D::GetVertices() {
+		LOG_TRACE();
+
+		return this->m_vertices;
+	}
 }

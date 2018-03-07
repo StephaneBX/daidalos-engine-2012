@@ -64,8 +64,8 @@ namespace daidalosengine {
 	void CBSPTriangle::CreatePlane() {
 		LOG_TRACE();
 
-		this->m_plane = CPlane3DF(this->m_vertices);
-		this->m_flatNormal = this->m_plane.GetNormal();
+		this->m_plane = CPlane3DF(GetVertices());
+		SetFlatNormal(this->m_plane.GetNormal());
 	}
 
 	const bool CBSPTriangle::IsSeparationPlane() const {
