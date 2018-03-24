@@ -59,28 +59,28 @@ namespace daidalosengine {
 
 		this->m_font.LoadFromFile(font);
 		this->m_scale = this->m_size / (float)this->m_font.GetSize();
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CLabel::SetText(const std::string & text) {
 		LOG_TRACE();
 
 		this->m_text = text;
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CLabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment) {
 		LOG_TRACE();
 
 		this->m_horizontalAlignment = alignment;
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CLabel::SetVerticalAlignment(ETextVerticalAlignment alignment) {
 		LOG_TRACE();
 
 		this->m_verticalAlignment = alignment;
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CLabel::SetSize(const unsigned int size) {
@@ -94,27 +94,15 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_color = color;
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CLabel::Update(const float time) {
 		LOG_TRACE();
 
-		if(this->m_changed) {
-			IRenderer * renderer = IRenderer::GetRenderer();
-
+		if (IsChanged()) {
 			GenerateTextGeometry();
-
-			if(this->m_data.size() > 0) {
-				// Create a new buffer if the current one is too small
-				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
-					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
-
-				// Lock and copy the data
-				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
-				memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
-				this->m_buffer.Unlock();
-			}
+			UpdateBuffer();
 		}
 
 		// Update the subviews
@@ -124,19 +112,18 @@ namespace daidalosengine {
 	void CLabel::Render() {
 		LOG_TRACE();
 
-		if(this->m_data.size() > 0) {
+		if (GetDataSize() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_color);
 
 			renderer->SetTexture(0, this->m_font.GetTexture().GetTexture());
 			renderer->SetTexture(1, nullptr);
-			renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
-			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+			RenderPrimitives();
 		}
 
 		// Render the subviews
@@ -182,67 +169,66 @@ namespace daidalosengine {
 	void CLabel::GenerateTextGeometry() {
 		LOG_TRACE();
 
-		this->m_data.clear();
-
+		std::vector<SGUIData> data;
 		std::set<unsigned int> lineStart;
 		lineStart.insert(0);
 		CVector2I cursor;
 		unsigned char currentCharacter;
 		unsigned int lastWordStartAt = 0;
 
-		for(unsigned int i = 0; i < this->m_text.length(); ++i) {
-			switch(this->m_text[i]) {
-			case '\n':
+		for (unsigned int i = 0; i < this->m_text.length(); ++i) {
+			switch (this->m_text[i]) {
+				case '\n':
 
-				// End of a word, check its placement
-				if(this->m_data.size() > 0) {
-					if(CheckWordPlacement(lastWordStartAt, cursor, lineStart))
+					// End of a word, check its placement
+					if (data.size() > 0) {
+						if (CheckWordPlacement(data, lastWordStartAt, cursor, lineStart))
+							break;
+					}
+
+					// If it's not the end of the text
+					if ((i + 1) < this->m_text.length()) {
+						lastWordStartAt = data.size();
+						cursor.x = 0;
+						cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+
+						// If a preferred height has been set and the text is too high, stop here
+						if (GetPreferredSize().y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y)
+							break;
+
+						lineStart.insert(data.size());
+					}
+					continue;
+
+				case '\t':
+				case ' ':
+					currentCharacter = ' ';
+
+					// End of a word, check its placement
+					if (CheckWordPlacement(data, lastWordStartAt, cursor, lineStart))
 						break;
-				}
 
-				// If it's not the end of the text
-				if((i + 1) < this->m_text.length()) {
-					lastWordStartAt = this->m_data.size();
-					cursor.x = 0;
-					cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
-
-					// If a preferred height has been set and the text is too high, stop here
-					if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y)
-						break;
-
-					lineStart.insert(this->m_data.size());
-				}
-				continue;
-
-			case '\t':
-			case ' ':
-				currentCharacter = ' ';
-
-				// End of a word, check its placement
-				if(CheckWordPlacement(lastWordStartAt, cursor, lineStart))
+					lastWordStartAt = data.size();
 					break;
 
-				lastWordStartAt = this->m_data.size();
-				break;
-
-			default:
-				currentCharacter = this->m_text[i];
-				break;
+				default:
+					currentCharacter = this->m_text[i];
+					break;
 			}
 
 			// Create the geometry
 			const SCharDescriptor * descriptor = this->m_font.GetCharDescriptor(currentCharacter);
 
 			// Check the character compatibility with the font
-			if(descriptor != nullptr) {
+			if (descriptor != nullptr) {
 				// No need to create geometry for ' '
-				if(currentCharacter != ' ') {
+				if (currentCharacter != ' ') {
 					CRectangleF coord = descriptor->coordinates;
 					CRectangleI pos = CRectangleI((int)(descriptor->position.GetLeft() * this->m_scale), (int)(descriptor->position.GetTop() * this->m_scale), (int)(descriptor->position.GetWidth() * this->m_scale), (int)(descriptor->position.GetHeight() * this->m_scale)) + cursor;
 
 					// Add the geometry
-					std::vector<SGUIData> data = GenerateQuad(pos, coord);
-					this->m_data.insert(this->m_data.end(), data.begin(), data.end());
+					std::vector<SGUIData> tmpData = GenerateQuad(pos, coord);
+					data.insert(data.end(), tmpData.begin(), tmpData.end());
 				}
 
 				// Advance the cursor
@@ -254,85 +240,88 @@ namespace daidalosengine {
 		CVector2F boundingBoxMax;
 
 		// Final calculation if there is a geometry 
-		if(this->m_data.size() > 0) {
+		if (data.size() > 0) {
 			// Last word, check its placement
-			CheckWordPlacement(lastWordStartAt, cursor, lineStart);
+			CheckWordPlacement(data, lastWordStartAt, cursor, lineStart);
 
-			if(this->m_data.size() > 0) {
+			if (data.size() > 0) {
 				// Perform alignment calculation
 				int verticalDecal = 0;
 				int horizontalDecal = 0;
-				switch(this->m_verticalAlignment) {
-				case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
-					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y);
-					break;
-
-				case TEXT_VERTICAL_ALIGNMENT_CENTERED:
-					verticalDecal = (int)(this->m_preferredsize.y - this->m_data[this->m_data.size() - 1].position.y) / 2;
-					break;
-
-				default:
-					break;
-				}
-
-				boundingBoxMin.x = this->m_data[0].position.x;
-				boundingBoxMin.y = this->m_data[0].position.y;
-				boundingBoxMax.x = this->m_data[this->m_data.size() - 1].position.x;
-				boundingBoxMax.y = this->m_data[this->m_data.size() - 1].position.y;
-
-				// Update each line
-				for(auto it = lineStart.begin(); it != lineStart.end(); ++it) {
-					unsigned int lineEnd = this->m_data.size() - 1;
-					auto next = it;
-					++next;
-
-					if(next != lineStart.end())
-						lineEnd = (*next - 1);
-
-					switch(this->m_horizontalAlignment) {
-					case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
-						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x);
+				switch (this->m_verticalAlignment) {
+					case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
+						verticalDecal = (int)(GetPreferredSize().y - data[data.size() - 1].position.y);
 						break;
 
-					case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
-						horizontalDecal = (int)(this->m_preferredsize.x - this->m_data[lineEnd].position.x) / 2;
+					case TEXT_VERTICAL_ALIGNMENT_CENTERED:
+						verticalDecal = (int)(GetPreferredSize().y - data[data.size() - 1].position.y) / 2;
 						break;
 
 					default:
 						break;
+				}
+
+				boundingBoxMin.x = data[0].position.x;
+				boundingBoxMin.y = data[0].position.y;
+				boundingBoxMax.x = data[data.size() - 1].position.x;
+				boundingBoxMax.y = data[data.size() - 1].position.y;
+
+				// Update each line
+				for (auto it = lineStart.begin(); it != lineStart.end(); ++it) {
+					unsigned int lineEnd = data.size() - 1;
+					auto next = it;
+					++next;
+
+					if (next != lineStart.end())
+						lineEnd = (*next - 1);
+
+					switch (this->m_horizontalAlignment) {
+						case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
+							horizontalDecal = (int)(GetPreferredSize().x - data[lineEnd].position.x);
+							break;
+
+						case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
+							horizontalDecal = (int)(GetPreferredSize().x - data[lineEnd].position.x) / 2;
+							break;
+
+						default:
+							break;
 					}
 
-					for(unsigned int j = *it; j <= lineEnd; ++j) {
+					for (unsigned int j = *it; j <= lineEnd; ++j) {
 						// Apply horizontal and vertical alignment
-						this->m_data[j].position.x = this->m_data[j].position.x + horizontalDecal + this->m_position.x;
-						this->m_data[j].position.y = this->m_data[j].position.y + verticalDecal + this->m_position.y;
+						data[j].position.x = data[j].position.x + horizontalDecal + GetPosition().x;
+						data[j].position.y = data[j].position.y + verticalDecal + GetPosition().y;
 
 						// Get the min and max x value for the bounding box
-						boundingBoxMin.x = std::min(boundingBoxMin.x, this->m_data[j].position.x);
-						boundingBoxMax.x = std::max(boundingBoxMax.x, this->m_data[j].position.x);
+						boundingBoxMin.x = std::min(boundingBoxMin.x, data[j].position.x);
+						boundingBoxMax.x = std::max(boundingBoxMax.x, data[j].position.x);
 					}
 				}
 			}
 		}
 
-		// Final bounding box calculation
-		this->m_boundingRectangle = CRectangleI((int)boundingBoxMin.x + this->m_position.x, (int)boundingBoxMin.y + this->m_position.y, (int)(boundingBoxMax.x - boundingBoxMin.x), (int)(boundingBoxMax.y - boundingBoxMin.y));
+		// Add the data
+		SetData(data);
 
-		this->m_changed = false;
+		// Final bounding box calculation
+		SetBoundingRectangle(CRectangleI(GetPosition().x, GetPosition().y, (int)(boundingBoxMax.x - boundingBoxMin.x), (int)(boundingBoxMax.y - boundingBoxMin.y)));
+
+		SetChanged(false);
 	}
 
-	const bool CLabel::CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
+	const bool CLabel::CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
 		LOG_TRACE();
 
 		// If a preferred width has been set and the line is too long for the last word
-		if(this->m_preferredsize.x > 0 && cursor.x > this->m_preferredsize.x) {
-			float decal = this->m_data[wordStartAt].position.x;
+		if (GetPreferredSize().x > 0 && cursor.x > GetPreferredSize().x) {
+			float decal = data[wordStartAt].position.x;
 			cursor.x -= (int)decal;
 			cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
 
 			// If a preferred height has been set and the text is too high, stop here and remove the word
-			if(this->m_preferredsize.y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > this->m_preferredsize.y) {
-				this->m_data.erase(this->m_data.begin() + wordStartAt, this->m_data.end());
+			if (GetPreferredSize().y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y) {
+				data.erase(data.begin() + wordStartAt, data.end());
 				return true;
 			}
 
@@ -340,9 +329,9 @@ namespace daidalosengine {
 			lineStart.insert(wordStartAt);
 
 			// Replace the last word at the beginning of the next line
-			for(unsigned int j = wordStartAt; j < this->m_data.size(); ++j) {
-				this->m_data[j].position.x -= decal;
-				this->m_data[j].position.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+			for (unsigned int j = wordStartAt; j < data.size(); ++j) {
+				data[j].position.x -= decal;
+				data[j].position.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
 			}
 		}
 

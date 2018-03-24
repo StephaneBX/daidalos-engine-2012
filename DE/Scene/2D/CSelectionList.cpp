@@ -144,7 +144,7 @@ namespace daidalosengine {
 		this->m_title.Update(time);
 
 		// Update the value position and size
-		this->m_selectedValue.SetBounds(daidalosengine::CRectangleI(this->m_title.GetBoundingRectangle().GetRight(), 0, this->m_preferredsize.x - this->m_title.GetBoundingRectangle().GetRight(), BUTTON_HEIGHT));
+		this->m_selectedValue.SetBounds(daidalosengine::CRectangleI(this->m_title.GetBoundingRectangle().GetRight(), 0, GetPreferredSize().x - this->m_title.GetBoundingRectangle().GetRight(), BUTTON_HEIGHT));
 		this->m_selectedValue.Update(time);
 
 		// Update the button size

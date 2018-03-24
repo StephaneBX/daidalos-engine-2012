@@ -1,26 +1,12 @@
 <cinematic>
 	<camera>
-		<!-- Lift Room -->
+		<!-- Main Room -->
 		<step>
-			<position>100:8:110</position>
-			<rotation>10:0:0</rotation>
-			<duration>6000</duration>
+			<position>35:20:149</position>
+			<rotation>10:210:0</rotation>
+			<duration>10000</duration>
 			<transition>none</transition>
 			<fade>out</fade>
-		</step>
-		<step>
-			<position>90:11:150</position>
-			<rotation>0:0:0</rotation>
-			<duration>5000</duration>
-			<transition>none</transition>
-			<fade>both</fade>
-		</step>
-		<step>
-			<position>90:11:170</position>
-			<rotation>0:90:0</rotation>
-			<duration>6000</duration>
-			<transition>none</transition>
-			<fade>in</fade>
 		</step>
 
 	</camera>

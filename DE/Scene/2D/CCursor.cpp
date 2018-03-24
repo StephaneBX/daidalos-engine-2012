@@ -46,7 +46,7 @@ namespace daidalosengine {
 	* Initialize the content
 	*/
 	void CCursor::Initialize() {
-		this->m_changed = true;
+		SetChanged(true);
 
 		// Add the cursor actions
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
@@ -69,8 +69,8 @@ namespace daidalosengine {
 
 		if(texture != "") {
 			this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
-			this->m_preferredsize = this->m_texture.GetSize();
-			this->m_changed = true;
+			SetPreferredSize(this->m_texture.GetSize());
+			SetChanged(true);
 		} else {
 			this->m_texture = CTexture2D();
 		}
@@ -83,18 +83,8 @@ namespace daidalosengine {
 
 		IRenderer * renderer = IRenderer::GetRenderer();
 
-		this->m_data = GenerateQuad(this->m_boundingRectangle, CRectangleF(0, 0, 1, 1));
-
-		if(this->m_data.size() > 0) {
-			// Create a new buffer if the current one is too small
-			if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
-				this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
-
-			// Lock and copy the data
-			unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
-			memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
-			this->m_buffer.Unlock();
-		}
+		SetData(GenerateQuad(this->GetBoundingRectangle(), CRectangleF(0, 0, 1, 1)));
+		UpdateBuffer();
 
 		// Update the subviews
 		IView::Update(time);
@@ -103,19 +93,18 @@ namespace daidalosengine {
 	void CCursor::Render() {
 		LOG_TRACE();
 
-		if(this->m_data.size() > 0) {
+		if (GetDataSize() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), CColor(1.0F, 1.0F, 1.0F, 1.0F));
 
 			renderer->SetTexture(0, this->m_texture.GetTexture());
 			renderer->SetTexture(1, nullptr);
-			renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
-			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+			RenderPrimitives();
 		}
 
 		// Render the subviews
@@ -129,12 +118,7 @@ namespace daidalosengine {
 
 		// Update the cursor position
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
-		this->m_position.x += inputDevice->GetMouseMovement().x;
-		this->m_position.y += inputDevice->GetMouseMovement().y;
-
-		this->m_position.x = ClampNumber(this->m_position.x, 0, renderer->GetResolution().x);
-		this->m_position.y = ClampNumber(this->m_position.y, 0, renderer->GetResolution().y);
-
-		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
+		SetPosition(CVector2I(ClampNumber(GetPosition().x + inputDevice->GetMouseMovement().x, 0, renderer->GetResolution().x), ClampNumber(GetPosition().y + inputDevice->GetMouseMovement().y, 0, renderer->GetResolution().y)));
+		SetBounds(CRectangleI(GetPosition(), GetPreferredSize()));
 	}
 }

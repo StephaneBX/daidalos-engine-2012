@@ -55,7 +55,7 @@ namespace daidaloseditor {
 		SetBackgroundColor(daidalosengine::CColor(0.2F, 0.2F, 0.2F));
 
 		// Create the input label
-		this->m_inputLabel.SetBounds(daidalosengine::CRectangleI(MARGIN, this->m_boundingRectangle.GetHeight() - LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
+		this->m_inputLabel.SetBounds(daidalosengine::CRectangleI(MARGIN, GetBoundingRectangle().GetHeight() - LABEL_HEIGHT, GetBoundingRectangle().GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 		this->m_inputLabel.SetSize(LABEL_HEIGHT);
 		this->m_inputLabel.SetColor(daidalosengine::CColor(255, 255, 255, 255));
 		this->m_inputLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -67,7 +67,7 @@ namespace daidaloseditor {
 		this->m_historyLabel.resize(this->m_numberOfLines);
 		int i = 0;
 		for (auto it = this->m_historyLabel.begin(); it != this->m_historyLabel.end(); it++) {
-			(*it).SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, this->m_boundingRectangle.GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
+			(*it).SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, GetBoundingRectangle().GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 			(*it).SetSize(LABEL_HEIGHT);
 			(*it).SetColor(daidalosengine::CColor(255, 255, 255, 255));
 			(*it).SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -142,7 +142,7 @@ namespace daidaloseditor {
 		// Add a key
 		if(key >= '0' && key <= '9' || key >= 'A' && key <= 'Z' || key == ' ') {
 
-			if((this->m_inputLabel.GetBoundingRectangle().GetWidth() + LABEL_HEIGHT) < this->m_boundingRectangle.GetWidth()) {
+			if((this->m_inputLabel.GetBoundingRectangle().GetWidth() + LABEL_HEIGHT) < GetBoundingRectangle().GetWidth()) {
 				std::ostringstream ss;
 				ss << this->m_inputLabel.GetText() << (char)key;
 

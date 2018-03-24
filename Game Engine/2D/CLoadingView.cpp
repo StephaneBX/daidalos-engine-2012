@@ -45,11 +45,11 @@ namespace daidalosgameengine {
 	* Initialize the content
 	*/
 	void CLoadingView::Initialize() {
-		this->m_backgroundSprite.SetBounds(this->m_boundingRectangle);
+		this->m_backgroundSprite.SetBounds(GetBoundingRectangle());
 		this->m_backgroundSprite.SetTexture("loading.png");
 		AddSubview(&this->m_backgroundSprite);
 
-		this->m_textLabel.SetBounds(daidalosengine::CRectangleI(0, (this->m_boundingRectangle.GetHeight() - 100) / 2, this->m_boundingRectangle.GetWidth(), 100));
+		this->m_textLabel.SetBounds(daidalosengine::CRectangleI(0, (GetBoundingRectangle().GetHeight() - 100) / 2, GetBoundingRectangle().GetWidth(), 100));
 		this->m_textLabel.SetSize(80);
 		this->m_textLabel.SetColor(daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 		this->m_textLabel.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_CENTERED);
@@ -57,7 +57,7 @@ namespace daidalosgameengine {
 		this->m_textLabel.SetText("LOADING...");
 		AddSubview(&this->m_textLabel);
 
-		this->m_gearSprite.SetBounds(daidalosengine::CRectangleI(this->m_boundingRectangle.GetWidth() - 256, this->m_boundingRectangle.GetHeight() - 256, 256, 256));
+		this->m_gearSprite.SetBounds(daidalosengine::CRectangleI(GetBoundingRectangle().GetWidth() - 256, GetBoundingRectangle().GetHeight() - 256, 256, 256));
 		this->m_gearSprite.SetTexture("gear.png");
 		AddSubview(&this->m_gearSprite);
 	}

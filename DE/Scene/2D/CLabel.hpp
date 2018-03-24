@@ -158,11 +158,12 @@ namespace daidalosengine {
 
 		/**
 		* Check the word placement regarding the preferred size and move it to the next line if necessary
+		* @param data The data
 		* @param wordStartAt The index of the word in th data
 		* @param cursor The current cursor position
 		* @param lineStart The index of each line in the data
 		*/
-		const bool CheckWordPlacement(const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart);
+		const bool CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart);
 	};
 }
 

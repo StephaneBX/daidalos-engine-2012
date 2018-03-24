@@ -36,7 +36,7 @@ namespace daidalosengine {
 	CSprite::CSprite() : IView() {
 		LOG_TRACE();
 
-		this->m_changed = true;
+		SetChanged(true);
 		this->m_coordinates = CRectangleF(0, 0, 1, 1);
 		this->m_backgroundColor = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
@@ -58,7 +58,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_rotation = rotation;
-		this->m_changed = true;
+		SetChanged(true);
 	}
 
 	void CSprite::SetTexture(const std::string texture) {
@@ -82,20 +82,10 @@ namespace daidalosengine {
 	void CSprite::Update(const float time) {
 		LOG_TRACE();
 
-		if(this->m_changed) {
+		if (IsChanged()) {
 			IRenderer * renderer = IRenderer::GetRenderer();
-			this->m_data = GenerateQuad(this->m_boundingRectangle, this->m_coordinates, this->m_rotation);
-
-			if(this->m_data.size() > 0) {
-				// Create a new buffer if the current one is too small
-				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
-					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
-
-				// Lock and copy the data
-				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
-				memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
-				this->m_buffer.Unlock();
-			}
+			SetData(GenerateQuad(GetBoundingRectangle(), this->m_coordinates, this->m_rotation));
+			UpdateBuffer();
 		}
 
 		// Update the subviews
@@ -105,19 +95,18 @@ namespace daidalosengine {
 	void CSprite::Render() {
 		LOG_TRACE();
 
-		if(this->m_data.size() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
+		if (GetDataSize() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), this->m_backgroundColor);
 
 			renderer->SetTexture(0, this->m_texture.GetTexture());
 			renderer->SetTexture(1, nullptr);
-			renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
-			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+			RenderPrimitives();
 		}
 
 		// Render the subviews

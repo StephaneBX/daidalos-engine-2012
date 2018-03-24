@@ -55,8 +55,8 @@ namespace daidalosengine {
 	void CCheckbox::Initialize() {
 		this->m_enabled = true;
 		this->m_checked = false;
-		this->m_changed = true;
 		this->m_clicked = false;
+		SetChanged(true);
 
 		this->m_label.SetVerticalAlignment(TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_label.SetHorizontalAlignment(TEXT_HORIZONTAL_ALIGNMENT_LEFT);
@@ -115,7 +115,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != "") {
-			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_uncheckedTexture = CTexture2D();
 		}
@@ -125,7 +125,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != "") {
-			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_checkedTexture = CTexture2D();
 		}
@@ -135,7 +135,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != "") {
-			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, &this->m_textureFilter);
+			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_clickedTexture = CTexture2D();
 		}
@@ -144,23 +144,10 @@ namespace daidalosengine {
 	void CCheckbox::Update(const float time) {
 		LOG_TRACE();
 
-		if(this->m_changed) {
-			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
-
-			IRenderer * renderer = IRenderer::GetRenderer();
-
+		if (IsChanged()) {
+			SetBounds(CRectangleI(GetPosition(), GetPreferredSize()));
 			GenerateGeometry();
-
-			if(this->m_data.size() > 0) {
-				// Create a new buffer if the current one is too small
-				if((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
-					this->m_buffer = renderer->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
-
-				// Lock and copy the data
-				unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
-				memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
-				this->m_buffer.Unlock();
-			}
+			UpdateBuffer();
 		}
 
 		// Update the subviews
@@ -170,53 +157,48 @@ namespace daidalosengine {
 	void CCheckbox::Render() {
 		LOG_TRACE();
 
-		if(this->m_data.size() > 0) {
+		if (GetDataSize() > 0) {
 			IRenderer * renderer = IRenderer::GetRenderer();
 
 			// Handle the disabled gray color
 			CColor color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
-			if(!this->m_enabled) {
+			if (!this->m_enabled) {
 				color = CColor(0.5F, 0.5F, 0.5F, 1.0F);
 			}
 
 			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), this->m_parent != nullptr ? this->m_parent->GetAbsolutePosition() : CVector2I());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TEXT_COLOR), color);
 
 			renderer->SetTexture(0, GetTextureToRender());
 			renderer->SetTexture(1, nullptr);
-			renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
-			renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+			RenderPrimitives();
 		}
 
 		// Render the subviews
-		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if ((*it)->IsVisible()) {
-				(*it)->Render();
-			}
-		}
+		RenderSubviews();
 	}
 
 	const bool CCheckbox::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
-		this->m_hitTest = IsInside(point);
+		SetHit(IsInside(point));
 
 		// Click canceled by the user
-		if(this->m_clicked && !this->m_hitTest) {
+		if(this->m_clicked && !IsHit()) {
 			this->m_clicked = false;
 		}
 
 		CInputDevice * inputDevice = CInputDevice::GetInstance();
 
 		// Click start test
-		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && this->m_hitTest) {
+		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && IsHit()) {
 			this->m_clicked = true;
 		} else {
 			// Click end test
-			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && this->m_hitTest) {
+			if(!inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && this->m_clicked && IsHit()) {
 				this->m_clicked = false;
 				this->m_checked = !this->m_checked;
 
@@ -231,7 +213,7 @@ namespace daidalosengine {
 			}
 		}
 
-		return this->m_hitTest;
+		return IsHit();
 	}
 
 	const bool CCheckbox::IsEnabled() const {
@@ -255,14 +237,13 @@ namespace daidalosengine {
 	void CCheckbox::GenerateGeometry() {
 		LOG_TRACE();
 
-		this->m_data.clear();
 		CRectangleI positionRectangle = GetPositionRectangle();
-		this->m_data = GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1));
+		SetData(GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1)));
 
 		// Update the label position
-		this->m_label.SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), this->m_preferredsize.x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), this->m_preferredsize.y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
+		this->m_label.SetBounds(CRectangleI(positionRectangle.GetWidth() + this->m_labelInset.GetLeft(), this->m_labelInset.GetTop(), GetPreferredSize().x - positionRectangle.GetWidth() - this->m_labelInset.GetLeft() - this->m_labelInset.GetRight(), GetPreferredSize().y - this->m_labelInset.GetTop() - this->m_labelInset.GetBottom()));
 
-		this->m_changed = false;
+		SetChanged(false);
 	}
 
 	CRectangleI CCheckbox::GetPositionRectangle() {
@@ -271,12 +252,12 @@ namespace daidalosengine {
 		CRectangleI positionRectangle;
 
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {
-			positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_clickedTexture.GetSize().y) / 2, this->m_clickedTexture.GetSize().x, this->m_clickedTexture.GetSize().y);
+			positionRectangle = CRectangleI(GetPosition().x, GetPosition().y + (GetPreferredSize().y - this->m_clickedTexture.GetSize().y) / 2, this->m_clickedTexture.GetSize().x, this->m_clickedTexture.GetSize().y);
 		} else {
 			if(this->m_checked && this->m_checkedTexture.GetTexture() != nullptr) {
-				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_checkedTexture.GetSize().y) / 2, this->m_checkedTexture.GetSize().x, this->m_checkedTexture.GetSize().y);
+				positionRectangle = CRectangleI(GetPosition().x, GetPosition().y + (GetPreferredSize().y - this->m_checkedTexture.GetSize().y) / 2, this->m_checkedTexture.GetSize().x, this->m_checkedTexture.GetSize().y);
 			} else {
-				positionRectangle = CRectangleI(this->m_position.x, this->m_position.y + (this->m_preferredsize.y - this->m_uncheckedTexture.GetSize().y) / 2, this->m_uncheckedTexture.GetSize().x, this->m_uncheckedTexture.GetSize().y);
+				positionRectangle = CRectangleI(GetPosition().x, GetPosition().y + (GetPreferredSize().y - this->m_uncheckedTexture.GetSize().y) / 2, this->m_uncheckedTexture.GetSize().x, this->m_uncheckedTexture.GetSize().y);
 			}
 		}
 		return positionRectangle;

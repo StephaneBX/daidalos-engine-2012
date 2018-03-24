@@ -31,6 +31,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Scene/2D/IView.hpp"
 
 namespace daidalosengine {
+	/**
+	* Destructor
+	*/
 	IView::~IView() {
 		LOG_TRACE();
 
@@ -39,6 +42,10 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Update the text geometry
+	* @param time The elapsed time
+	*/
 	void IView::Update(const float time) {
 		LOG_TRACE();
 
@@ -49,6 +56,9 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Render the text
+	*/
 	void IView::Render() {
 		LOG_TRACE();
 
@@ -62,6 +72,10 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Add a subview
+	* @param view The subview to add
+	*/
 	void IView::AddSubview(IView * view) {
 		LOG_TRACE();
 
@@ -69,6 +83,10 @@ namespace daidalosengine {
 		view->SetParent(this);
 	}
 
+	/**
+	* Remove a subview
+	* @param view The subview to remove
+	*/
 	void IView::RemoveSubview(IView * view) {
 		LOG_TRACE();
 
@@ -81,19 +99,39 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Remove all the subviews
+	*/
 	void IView::RemoveAllSubviews() {
 		LOG_TRACE();
 
 		this->m_subviews.clear();
 	}
 
+	/**
+	* Perform a hit test, checking if the point is inside one of the subview or in this view
+	* The test is exclusive, only 1 view can succeed in the hit test
+	* @param point The point to test in screen coordinate
+	* @return True if the point is inside the view on inside one of its subviews
+	*/
 	const bool IView::HitTest(const CVector2I & point) {
+		return HitTest(this, point);
+	}
+
+	/**
+	* Perform a hit test, checking if the point is inside one of the subview or in this view
+	* The test is exclusive, only 1 view can succeed in the hit test
+	* @param target the target view to check
+	* @param point The point to test in screen coordinate
+	* @return True if the point is inside the view on inside one of its subviews
+	*/
+	const bool IView::HitTest(IView * target, const CVector2I & point) {
 		LOG_TRACE();
 
 		this->m_hitTest = false;
 
-		for(auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
-			if(IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
+		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
+			if (target->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
 				return true;
 			}
 		}
@@ -102,18 +140,40 @@ namespace daidalosengine {
 		return this->m_hitTest;
 	}
 
+	/**
+	* Set the changed value
+	* @param changed The changed value
+	*/
 	void IView::SetChanged(const bool changed) {
 		LOG_TRACE();
 
 		this->m_changed = changed;
 	}
 
+	/**
+	* Set the visible value
+	* @param visible The visible value
+	*/
 	void IView::SetVisible(const bool visible) {
 		LOG_TRACE();
 
 		this->m_visible = visible;
 	}
 
+	/**
+	* Set the hit
+	* @param hit The hit
+	*/
+	void IView::SetHit(const bool hit) {
+		LOG_TRACE();
+
+		this->m_hitTest = hit;
+	}
+
+	/**
+	* Set the position
+	* @param position The position
+	*/
 	void IView::SetPosition(const CVector2I & position) {
 		LOG_TRACE();
 
@@ -121,6 +181,10 @@ namespace daidalosengine {
 		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
+	/**
+	* Set the preferred size
+	* @param size The preferred size
+	*/
 	void IView::SetPreferredSize(const CVector2I & size) {
 		LOG_TRACE();
 
@@ -128,6 +192,20 @@ namespace daidalosengine {
 		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
+	/**
+	* Set the bounding rectangle
+	* @param bounds The bounds
+	*/
+	void IView::SetBoundingRectangle(const CRectangleI & bounds) {
+		LOG_TRACE();
+
+		this->m_boundingRectangle = bounds;
+	}
+
+	/**
+	* Set the bounds (position + preferred size)
+	* @param bounds The bounds
+	*/
 	void IView::SetBounds(const CRectangleI & bounds) {
 		LOG_TRACE();
 
@@ -136,12 +214,19 @@ namespace daidalosengine {
 		this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
 	}
 
+	/**
+	* Set the view parent
+	* @param parent The view parent
+	*/
 	void IView::SetParent(IView * parent) {
 		LOG_TRACE();
 
 		this->m_parent = parent;
 	}
 
+	/**
+	* Remove from the parent view
+	*/
 	void IView::RemoveFromParentView() {
 		LOG_TRACE();
 
@@ -150,42 +235,72 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get the changed value
+	* @return The changed value
+	*/
 	const bool IView::IsChanged() const {
 		LOG_TRACE();
 
 		return this->m_changed;
 	}
 
+	/**
+	* Get the visible value
+	* @return The visible value
+	*/
 	const bool IView::IsVisible() const {
 		LOG_TRACE();
 
 		return this->m_visible;
 	}
 
-	const bool IView::isHit() const {
+	/**
+	* Check if the previous hit test occurred in this view
+	* @return True if the hit test occurred in this view
+	*/
+	const bool IView::IsHit() const {
 		LOG_TRACE();
 
 		return this->m_hitTest;
 	}
 
+	/**
+	* Check if a point is inside the gui
+	* @param point The point to test in screen coordinate
+	* @return True if the point is inside the gui
+	*/
 	const bool IView::IsInside(const CVector2I & point) const {
 		LOG_TRACE();
 
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
 	}
 
+	/**
+	* Check if a rectangle is inside the gui
+	* @param rectangle The rectangle to test in screen coordinate
+	* @return True if the rectangle is inside the gui
+	*/
 	const bool IView::IsInside(const CRectangleI & rectangle) const {
 		LOG_TRACE();
 
 		return GetAbsoluteBoundingRectangle().Intersect(rectangle) != RECTANGLE_INTERSECTION_OUTSIDE;
 	}
 
+	/**
+	* Get the position relative to the parent
+	* @return The position
+	*/
 	const CVector2I & IView::GetPosition() const {
 		LOG_TRACE();
 
 		return this->m_position;
 	}
 
+	/**
+	* Get the absolute position
+	* @return The absolute position
+	*/
 	const CVector2I IView::GetAbsolutePosition() const {
 		LOG_TRACE();
 
@@ -195,18 +310,30 @@ namespace daidalosengine {
 		return m_position;
 	}
 
+	/**
+	* Get the preferred size
+	* @return The preferred size
+	*/
 	const CVector2I & IView::GetPreferredSize() const {
 		LOG_TRACE();
 
 		return this->m_preferredsize;
 	}
 
+	/**
+	* Get the bounding rectangle relative to the parent
+	* @return The bounding rectangle
+	*/
 	const CRectangleI & IView::GetBoundingRectangle() const {
 		LOG_TRACE();
 
 		return this->m_boundingRectangle;
 	}
 
+	/**
+	* Get the absolute bounding rectangle
+	* @return The absolute bounding rectangle
+	*/
 	const CRectangleI IView::GetAbsoluteBoundingRectangle() const {
 		LOG_TRACE();
 
@@ -216,6 +343,25 @@ namespace daidalosengine {
 		return m_boundingRectangle;
 	}
 
+	/**
+	* Get the parent
+	* @return The parent
+	*/
+	IView * IView::GetParent() {
+		return this->m_parent;
+	}
+
+	/**
+	* Get the texture filter
+	* @return The texture filter
+	*/
+	STexture2DFilterPolicy * IView::GetTextureFilter() {
+		return &this->m_textureFilter;
+	}
+
+	/**
+	* Constructor
+	*/
 	IView::IView() {
 		LOG_TRACE();
 
@@ -233,12 +379,87 @@ namespace daidalosengine {
 		this->m_textureFilter.maxAnisotropy = 0;
 	}
 
+	/**
+	* Constructor
+	* @param copy The element to copy
+	*/
 	IView::IView(const IView & copy) {
 		LOG_TRACE();
 
 		*this = copy;
 	}
 
+	/**
+	* Update the buffer if necessary
+	*/
+	void IView::UpdateBuffer() {
+		LOG_TRACE();
+
+		if (this->m_data.size() > 0) {
+			// Create a new buffer if the current one is too small
+			if ((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
+				this->m_buffer = IRenderer::GetRenderer()->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+
+			// Lock and copy the data
+			unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
+			memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
+			this->m_buffer.Unlock();
+		}
+	}
+
+	/**
+	* Render the primtives from the buffer
+	*/
+	void IView::RenderPrimitives() {
+		LOG_TRACE();
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
+		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
+	}
+
+	/**
+	* Render the subviews
+	* @param scissor If the scissor test should be modified
+	*/
+	void IView::RenderSubviews(const bool scissor) {
+		LOG_TRACE();
+
+		// Set the scissor if enabled
+		IRenderer * renderer = IRenderer::GetRenderer();
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			if ((*it)->IsVisible()) {
+				if (scissor) {
+					renderer->SetScissor(this->m_parent->GetAbsoluteBoundingRectangle());
+				}
+				(*it)->Render();
+			}
+		}
+	}
+
+	/**
+	* Set the data
+	* @param data The data
+	*/
+	void IView::SetData(const std::vector<SGUIData> & data) {
+		this->m_data = data;
+	}
+
+	/**
+	* Get the data size
+	* @return The data size
+	*/
+	const int IView::GetDataSize() const {
+		LOG_TRACE();
+
+		return this->m_data.size();
+	}
+
+	/**
+	* = operator override
+	* @param copy A GUI element copy
+	* @return The GUI element
+	*/
 	const IView & IView::operator=(const IView & copy) {
 		LOG_TRACE();
 
@@ -254,6 +475,30 @@ namespace daidalosengine {
 		return *this;
 	}
 
+	/**
+	* Perform a hit test, checking if the point is inside one of the subview or in this view
+	* @param target the target view to check
+	* @param point The point to test in screen coordinate
+	* @return True if the point is inside the view on inside one of its subviews
+	*/
+	const bool IView::HitTestAny(IView * target, const CVector2I & point) {
+		this->m_hitTest = false;
+
+		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
+			if (target->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
+				this->m_hitTest = true;
+			}
+		}
+		return this->m_hitTest;
+	}
+
+	/**
+	* Generate and return a quad with a given position and texture coordinates
+	* @param position The position
+	* @param coordinates The texture coordinates
+	* @param rotation The rotation
+	* @return The quad
+	*/
 	const std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation) {
 		LOG_TRACE();
 
@@ -294,5 +539,25 @@ namespace daidalosengine {
 		}
 
 		return dataSet;
+	}
+
+	/**
+	* Calculate the subviews bounding rectangle
+	* @return The bounding rectangle
+	*/
+	const CRectangleI IView::GetSubviewsBoundingRectangle() const {
+		LOG_TRACE();
+
+		CVector2I minSize;
+		CVector2I maxSize;
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+			minSize.x = std::min(minSize.x, (*it)->GetPosition().x);
+			minSize.y = std::min(minSize.y, (*it)->GetPosition().y);
+
+			maxSize.x = std::max(maxSize.x, (*it)->GetPosition().x + (*it)->GetPreferredSize().x);
+			maxSize.y = std::max(maxSize.y, (*it)->GetPosition().y + (*it)->GetPreferredSize().y);
+		}
+
+		return CRectangleI(minSize, maxSize - minSize);
 	}
 }

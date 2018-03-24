@@ -53,7 +53,7 @@ namespace daidalosengine {
 	* Basic class for views
 	*/
 	class IView {
-	protected:
+	private:
 		bool m_changed;
 		bool m_visible;
 		bool m_hitTest;
@@ -114,6 +114,15 @@ namespace daidalosengine {
 		virtual const bool HitTest(const CVector2I & point);
 
 		/**
+		* Perform a hit test, checking if the point is inside one of the subview or in this view
+		* The test is exclusive, only 1 view can succeed in the hit test
+		* @param target the target view to check
+		* @param point The point to test in screen coordinate
+		* @return True if the point is inside the view on inside one of its subviews
+		*/
+		virtual const bool HitTest(IView * target, const CVector2I & point);
+
+		/**
 		* Set the changed value
 		* @param changed The changed value
 		*/
@@ -126,6 +135,12 @@ namespace daidalosengine {
 		virtual void SetVisible(const bool visible);
 
 		/**
+		* Set the hit
+		* @param hit The hit
+		*/
+		void SetHit(const bool hit);
+
+		/**
 		* Set the position
 		* @param position The position
 		*/
@@ -136,6 +151,12 @@ namespace daidalosengine {
 		* @param size The preferred size
 		*/
 		void SetPreferredSize(const CVector2I & size);
+
+		/**
+		* Set the bounding rectangle
+		* @param bounds The bounds
+		*/
+		void SetBoundingRectangle(const CRectangleI & bounds);
 
 		/**
 		* Set the bounds (position + preferred size)
@@ -170,7 +191,7 @@ namespace daidalosengine {
 		* Check if the previous hit test occurred in this view
 		* @return True if the hit test occurred in this view
 		*/
-		const bool isHit() const;
+		const bool IsHit() const;
 
 		/**
 		* Check if a point is inside the gui
@@ -216,6 +237,18 @@ namespace daidalosengine {
 		*/
 		const CRectangleI GetAbsoluteBoundingRectangle() const;
 
+		/**
+		* Get the parent
+		* @return The parent
+		*/
+		IView * GetParent();
+
+		/**
+		* Get the texture filter
+		* @return The texture filter
+		*/
+		STexture2DFilterPolicy * GetTextureFilter();
+
 	protected:
 		/**
 		* Constructor
@@ -229,11 +262,47 @@ namespace daidalosengine {
 		IView(const IView & copy);
 
 		/**
+		* Update the buffer if necessary
+		*/
+		void UpdateBuffer();
+
+		/**
+		* Render the primtives from the buffer
+		*/
+		void RenderPrimitives();
+
+		/**
+		* Render the subviews
+		* @param scissor If the scissor test should be modified
+		*/
+		void RenderSubviews(const bool scissor = false);
+
+		/**
+		* Set the data
+		* @param data The data
+		*/
+		void SetData(const std::vector<SGUIData> & data);
+
+		/**
+		* Get the data size
+		* @return The data size
+		*/
+		const int GetDataSize() const;
+
+		/**
 		* = operator override
 		* @param copy A GUI element copy
 		* @return The GUI element
 		*/
 		const IView & operator=(const IView & copy);
+
+		/**
+		* Perform a hit test, checking if the point is inside one of the subview or in this view
+		* @param target the target view to check
+		* @param point The point to test in screen coordinate
+		* @return True if the point is inside the view on inside one of its subviews
+		*/
+		const bool HitTestAny(IView * target, const CVector2I & point);
 
 		/**
 		* Generate and return a quad with a given position and texture coordinates
@@ -243,6 +312,12 @@ namespace daidalosengine {
 		* @return The quad
 		*/
 		const std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation = 0);
+
+		/**
+		* Calculate the subviews bounding rectangle
+		* @return The bounding rectangle
+		*/
+		const CRectangleI GetSubviewsBoundingRectangle() const;
 	};
 }
 

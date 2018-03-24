@@ -64,10 +64,8 @@ namespace daidalosengine {
 		this->m_scrollBarView.SetBackgroundColor(DEFAULT_SCROLLBAR_COLOR);
 
 		// Add the content and the scroll bar
-		this->m_subviews.push_back(&this->m_contentView);
-		this->m_contentView.SetParent(this);
-		this->m_subviews.push_back(&this->m_scrollBarView);
-		this->m_scrollBarView.SetParent(this);
+		IView::AddSubview(&this->m_contentView);
+		IView::AddSubview(&this->m_scrollBarView);
 	}
 
 	/**
@@ -84,7 +82,7 @@ namespace daidalosengine {
 		SetPreferredSize(daidalosengine::CVector2I(this->m_contentView.GetPreferredSize().x + this->m_scrollBarView.GetPreferredSize().x, GetPreferredSize().y));
 
 		// Calculate the scroll bar new position and size
-		float sizeFactor = this->m_preferredsize.y / (float)this->m_contentView.GetPreferredSize().y;
+		float sizeFactor = GetPreferredSize().y / (float)this->m_contentView.GetPreferredSize().y;
 		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -(int)(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, (int)(GetPreferredSize().y * sizeFactor)));
 
 		// Update the scroll bar
@@ -171,18 +169,18 @@ namespace daidalosengine {
 	const bool CScrollableView::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
-		this->m_hitTest = false;
+		SetHit(false);
 
 		if (this->m_enabled) {
-			this->m_hitTest = IsInside(point);
+			SetHit(IsInside(point));
 			CInputDevice * inputDevice = CInputDevice::GetInstance();
 
-			if (this->m_hitTest && inputDevice->IsActionActive(GUI_VIEW_WHEEL_UP)) {
+			if (IsHit() && inputDevice->IsActionActive(GUI_VIEW_WHEEL_UP)) {
 				// Move up
 				const int offset = std::min(this->m_scrollPitch, GetContentTopPosition());
 				OffsetContent(offset);
 
-			} else if (this->m_hitTest && inputDevice->IsActionActive(GUI_VIEW_WHEEL_DOWN)) {
+			} else if (IsHit() && inputDevice->IsActionActive(GUI_VIEW_WHEEL_DOWN)) {
 				// Move down
 				const int offset = std::min(this->m_scrollPitch, GetContentBottomPosition());
 				OffsetContent(-offset);
@@ -193,7 +191,7 @@ namespace daidalosengine {
 			}
 		}
 
-		return this->m_hitTest;
+		return IsHit();
 	}
 
 	/**
@@ -296,14 +294,9 @@ namespace daidalosengine {
 		IView::Update(time);
 
 		// Set the size to max its content
-		if (this->m_subviews.size() > 0) {
-			CVector2I maxSize;
-			for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-				maxSize.x = std::max(maxSize.x, (*it)->GetPosition().x + (*it)->GetPreferredSize().x);
-				maxSize.y = std::max(maxSize.y, (*it)->GetPosition().y + (*it)->GetPreferredSize().y);
-			}
-			this->m_preferredsize = maxSize;
-			this->m_boundingRectangle = CRectangleI(this->m_position.x, this->m_position.y, this->m_preferredsize.x, this->m_preferredsize.y);
+		CRectangleI subviewsBoundingRectangle = GetSubviewsBoundingRectangle();
+		if (subviewsBoundingRectangle.GetSize().x > 0 && subviewsBoundingRectangle.GetSize().y > 0) {
+			SetBounds(CRectangleI(GetPosition(), CVector2I(subviewsBoundingRectangle.GetWidth(), subviewsBoundingRectangle.GetHeight())));
 		}
 
 		// Second update
@@ -316,14 +309,7 @@ namespace daidalosengine {
 	void CScrollableContentView::Render() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-
-		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if ((*it)->IsVisible()) {
-				renderer->SetScissor(this->m_parent->GetAbsoluteBoundingRectangle());
-				(*it)->Render();
-			}
-		}
+		RenderSubviews(true);
 	}
 
 	/**
@@ -335,13 +321,6 @@ namespace daidalosengine {
 	const bool CScrollableContentView::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
-		this->m_hitTest = false;
-
-		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
-			if (this->m_parent->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
-				this->m_hitTest = true;
-			}
-		}
-		return this->m_hitTest;
+		return HitTestAny(GetParent(), point);
 	}
 }
