@@ -45,7 +45,6 @@ namespace daidaloseditor {
 		bool m_viewMode;
 		bool m_drawSkybox;
 		bool m_drawLights;
-		bool m_culling;
 		bool m_boundingBox;
 
 		int m_meshCategorySelectionMode;
@@ -158,12 +157,6 @@ namespace daidaloseditor {
 		* @return A vector of nodes
 		*/
 		std::vector<daidalosengine::ISceneNode *> GetNodesOnBlock(daidalosengine::CVector2I position, int layer);
-
-		/**
-		* Render the diffuse part
-		* @param scene3D The scene
-		*/
-		void DiffuseRendering(daidalosengine::C3DScene * scene3D);
 
 		/**
 		* Callback when the level is fully loaded

@@ -39,6 +39,7 @@ namespace daidalosgameengine {
 		daidalosengine::CMediaManager::GetInstance()->AddSearchPath("Resources/Cinematics/");
 
 		this->m_loading = false;
+		this->m_cullEnabled = true;
 		this->m_loadingScene = new daidalosengine::C2DScene();
 
 		this->m_cursor.SetTexture("cursor.png");
@@ -341,7 +342,12 @@ namespace daidalosgameengine {
 		// ------------------------------
 		// Forward rendering: diffuse
 		// ------------------------------
-		this->m_renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
+		if (this->m_cullEnabled) {
+			this->m_renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
+		} else {
+			this->m_renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_NONE);
+		}
+
 		this->m_renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_STENCILENABLE, false);
 		this->m_renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
 		scene3D->SetMeshFormat(daidalosengine::MESHBUFFER_ELEMENT_POSITION | daidalosengine::MESHBUFFER_ELEMENT_TEXCOORD);
@@ -602,5 +608,69 @@ namespace daidalosgameengine {
 			scene3D->SendDirectionalLightDataToShader(i);
 			scene3D->Render();
 		}
+	}
+
+	/**
+	* Check the laoding state
+	* @return true if the level is loading
+	*/
+	const bool IForwardApplication::IsLoading() const {
+		return this->m_loading;
+	}
+
+	/**
+	* Check if the cull is enabled
+	* @return true if the cull is enabled
+	*/
+	const bool IForwardApplication::IsCullEnabled() const {
+		return this->m_cullEnabled;
+	}
+
+	/**
+	* Get the current level
+	* @return the current level
+	*/
+	daidalosgameengine::ILevel * IForwardApplication::GetCurrentLevel() const {
+		return this->m_currentLevel.get();
+	}
+
+	/**
+	* Get the loading scene
+	* @return The loading scene
+	*/
+	daidalosengine::C2DScene * IForwardApplication::GetLoadingScene() const  {
+		return this->m_loadingScene;
+	}
+
+	/**
+	* Get the cursor
+	* @return The cursor
+	*/
+	daidalosengine::CCursor & IForwardApplication::GetCursor() {
+		return this->m_cursor;
+	}
+
+	/**
+	* Set the loading state
+	* @param loading The loading state
+	*/
+	void IForwardApplication::SetLoading(const bool loading) {
+		this->m_loading = loading;
+	}
+
+	/**
+	* Set the cull
+	* @param cullEnabled The cull
+	*/
+	void IForwardApplication::SetCullEnabled(const bool cullEnabled) {
+		this->m_cullEnabled = cullEnabled;
+	}
+
+	/**
+	* Set the current level
+	* @param level The level
+	*/
+	void IForwardApplication::SetLevel(daidalosgameengine::ILevel * level) {
+		this->m_currentLevel = std::unique_ptr<daidalosgameengine::ILevel>(level);
 	}
 }

@@ -58,7 +58,7 @@ namespace daidalosgameengine
 	* Deferred rendering application
 	*/
 	class IDeferredApplication : public daidalosengine::IWin32Application, public daidalosgameengine::ILevelListener {
-	protected:
+	private:
 		bool m_loading;
 		std::unique_ptr<ILevel> m_currentLevel;
 		daidalosengine::C2DScene * m_loadingScene;

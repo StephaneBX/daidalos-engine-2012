@@ -46,8 +46,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalos {
 	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : daidalosgameengine::IForwardApplication(hInstance, nCmdShow) {
 
-		this->m_loading = true;
-		this->m_cursor.SetVisible(true);
+		SetLoading(true);
+		GetCursor().SetVisible(true);
 		std::thread(&CDaidalosApplication::LoadLevel, this, levelName).detach();
 
 		MainLoop();
@@ -61,24 +61,24 @@ namespace daidalos {
 	* @param filename The level filename
 	*/
 	void CDaidalosApplication::LoadLevel(const std::string & filename) {
-		this->m_currentLevel = std::unique_ptr<daidalosgameengine::ILevel>(new CDaidalosLevel());
-		this->m_currentLevel->AddListener(this);
-		this->m_currentLevel->LoadLevel(filename);
+		SetLevel(new CDaidalosLevel());
+		GetCurrentLevel()->AddListener(this);
+		GetCurrentLevel()->LoadLevel(filename);
 	}
 
 	void CDaidalosApplication::Update(const float time) {
 
 		daidalosgameengine::IForwardApplication::Update(time);
-		if(!this->m_loading) {
+		if(!IsLoading()) {
 			if(this->m_input->IsActionActive(FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, FPS_CAMERA_EXIT)) {
 				this->m_alive = false;
 			}
 
-			this->m_currentLevel->Update(time);
-			this->m_cursor.Update(time);
+			GetCurrentLevel()->Update(time);
+			GetCursor().Update(time);
 
 		} else {
-			this->m_loadingScene->Update(time);
+			GetLoadingScene()->Update(time);
 		}
 	}
 
@@ -86,8 +86,8 @@ namespace daidalos {
 	* Callback when the level is fully loaded
 	*/
 	void CDaidalosApplication::OnLevelLoaded() {
-		this->m_loading = false;
-		this->m_currentLevel->GetView()->SetCursor(&this->m_cursor);
+		SetLoading(false);
+		GetCurrentLevel()->GetView()->SetCursor(&GetCursor());
 	}
 
 	/**

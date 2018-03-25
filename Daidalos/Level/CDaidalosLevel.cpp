@@ -249,7 +249,7 @@ namespace daidalos {
 		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
 		this->m_hudView = new CHudView(daidalosengine::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
-		GetView()->AddToMainView(this->m_hudView);
+		//GetView()->AddToMainView(this->m_hudView);
 
 		// TMP load views
 

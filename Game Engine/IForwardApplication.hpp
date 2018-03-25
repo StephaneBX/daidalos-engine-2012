@@ -49,8 +49,9 @@ namespace daidalosgameengine {
 	* Forward rendering application
 	*/
 	class IForwardApplication : public daidalosengine::IWin32Application, public daidalosgameengine::ILevelListener {
-	protected:
+	private:
 		bool m_loading;
+		bool m_cullEnabled;
 		std::unique_ptr<ILevel> m_currentLevel;
 		daidalosengine::C2DScene * m_loadingScene;
 		daidalosengine::CCursor m_cursor;
@@ -200,6 +201,54 @@ namespace daidalosgameengine {
 		* Callback when the next level is triggered
 		*/
 		virtual void OnTriggerNextLevel(const std::string & nextLevel) = 0;
+
+		/**
+		* Check the laoding state
+		* @return true if the level is loading
+		*/
+		const bool IsLoading() const;
+
+		/**
+		* Check if the cull is enabled
+		* @return true if the cull is enabled
+		*/
+		const bool IsCullEnabled() const;
+
+		/**
+		* Get the current level
+		* @return the current level
+		*/
+		daidalosgameengine::ILevel * GetCurrentLevel() const;
+
+		/**
+		* Get the loading scene
+		* @return The loading scene
+		*/
+		daidalosengine::C2DScene * GetLoadingScene() const;
+
+		/**
+		* Get the cursor
+		* @return The cursor
+		*/
+		daidalosengine::CCursor & GetCursor();
+
+		/**
+		* Set the loading state
+		* @param loading The loading state
+		*/
+		void SetLoading(const bool loading);
+
+		/**
+		* Set the cull
+		* @param cullEnabled The cull
+		*/
+		void SetCullEnabled(const bool cullEnabled);
+
+		/**
+		* Set the current level
+		* @param level The level
+		*/
+		void SetLevel(daidalosgameengine::ILevel * level);
 	};
 }
 

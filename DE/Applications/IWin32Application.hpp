@@ -39,7 +39,7 @@ namespace daidalosengine {
 	* Win32 implementation of an application
 	*/
 	class IWin32Application : public IApplication {
-	protected:
+	private:
 		bool m_hasFocus;
 		int m_nCmdShow;
 		HINSTANCE m_hInstance;
