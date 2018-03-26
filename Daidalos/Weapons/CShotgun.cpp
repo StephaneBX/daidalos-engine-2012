@@ -37,25 +37,19 @@ namespace daidalos {
 	* @param meshNode The player node
 	*/
 	CShotgun::CShotgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode) : IWeapon(parent) {
-		this->m_damage = 12;
-		this->m_magazineSize = 7;
-		this->m_maxMagazineSize = 7;
-		this->m_remainingAmmo = 0;
-		this->m_maxAmmo = 43;
-		this->m_precision = 65;
-		this->m_hitCount = 5;
-		this->m_fireAnimationRate = 1.0F;
-		this->m_fireDelay = 1200.0F;
-		this->m_reloadDelay = 2800.0F;
-		this->m_range = 100;
+		// Initialize the weapon stats
+		SetMagazineStats(7, 7);
+		SetAmmoStats(0, 43);
+		SetOffensiveStats(12, 5, 65, 100);
+		SetFireStats(1.0F, 1200.0F);
+		SetReloadStats(1.0F, 2800.0F);
 
-		this->m_fireSound.LoadFromFile("shotgun_fire.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
-		this->m_fireSound.SetRelativeToListener(true);
-		this->m_reloadSound.LoadFromFile("shotgun_reload.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
-		this->m_reloadSound.SetRelativeToListener(true);
+		// Initialize the sounds
+		SetFireSound("shotgun_fire.wav");
+		SetReloadSound("shotgun_reload.wav");
 
-		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);
-
+		// Initialize the projectiles & particles
+		InitializeProjectileBuffer(PROJECTILE_BUFFER_SIZE);
 		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
 		InitializeFireSmokeEmitter();
@@ -80,12 +74,11 @@ namespace daidalos {
 	*/
 	void CShotgun::InitializeParticleEmitters() {
 		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
-			daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "environmentImpactEmitter");
+			daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "environmentImpactEmitter");
 			emitter->SetTextureId(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
-
-			this->m_bulletImpactParticle.push_back(emitter);
+			AddParticleEmitter(emitter);
 		}
 	}
 
@@ -93,28 +86,26 @@ namespace daidalos {
 	* Initialize the smoke emitter
 	*/
 	void CShotgun::InitializeFireSmokeEmitter() {
-		daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
+		daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
 		emitter->SetTextureId(1);
 		emitter->SetReusable(true);
 
-		this->m_smokeEmitter = new daidalosengine::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
-		this->m_smokeEmitter->SetPosition(daidalosengine::CVector3F(0, 0, 2.0F));
-		this->m_smokeEmitter->SetActive(false);
-		this->m_meshNode->AddChild(this->m_smokeEmitter);
+		daidalosengine::CParticleEmitterSceneNode * node = new daidalosengine::CParticleEmitterSceneNode(GetParent()->GetScene()->GetScene(), GetMeshNode(), "weaponSmokeEmitter", emitter);
+		node->SetPosition(daidalosengine::CVector3F(0, 0, 2.0F));
+		SetSmokeEmitter(node);
 	}
 
 	/**
 	* Initialize the flash emitter
 	*/
 	void CShotgun::InitializeFireFlashEmitter() {
-		daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponFlashEmitter");
+		daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponFlashEmitter");
 		emitter->SetTextureId(1);
 		emitter->SetReusable(true);
 
-		this->m_flashEmitter = new daidalosengine::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponFlashEmitter", emitter);
-		this->m_flashEmitter->SetPosition(daidalosengine::CVector3F(0, 0, 2.0F));
-		this->m_flashEmitter->SetActive(false);
-		this->m_meshNode->AddChild(this->m_flashEmitter);
+		daidalosengine::CParticleEmitterSceneNode * node = new daidalosengine::CParticleEmitterSceneNode(GetParent()->GetScene()->GetScene(), GetMeshNode(), "weaponFlashEmitter", emitter);
+		node->SetPosition(daidalosengine::CVector3F(0, 0, 2.0F));
+		SetFlashEmitter(node);
 	}
 }
 

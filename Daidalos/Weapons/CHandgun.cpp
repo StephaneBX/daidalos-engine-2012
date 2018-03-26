@@ -37,26 +37,19 @@ namespace daidalos {
 	* @param meshNode The player node
 	*/
 	CHandgun::CHandgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode) : IWeapon(parent) {
-		this->m_damage = 10;
-		this->m_magazineSize = 12;
-		this->m_maxMagazineSize = 12;
-		this->m_remainingAmmo = 0;
-		this->m_maxAmmo = 108;
-		this->m_precision = 90;
-		this->m_hitCount = 1;
-		this->m_fireAnimationRate = 5.0F;
-		this->m_reloadAnimationRate = 1.0F;
-		this->m_fireDelay = 350.0F;
-		this->m_reloadDelay = 800.0F;
-		this->m_range = 100;
+		// Initialize the weapon stats
+		SetMagazineStats(12, 12);
+		SetAmmoStats(0, 108);
+		SetOffensiveStats(10, 1, 90, 100);
+		SetFireStats(5.0F, 350.0F);
+		SetReloadStats(1.0F, 800.0F);
 
-		this->m_fireSound.LoadFromFile("handgun_fire.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
-		this->m_fireSound.SetRelativeToListener(true);
-		this->m_reloadSound.LoadFromFile("handgun_reload.wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
-		this->m_reloadSound.SetRelativeToListener(true);
+		// Initialize the sounds
+		SetFireSound("handgun_fire.wav");
+		SetReloadSound("handgun_reload.wav");
 
-		this->m_projectiles.Allocate(PROJECTILE_BUFFER_SIZE);
-
+		// Initialize the projectiles & particles
+		InitializeProjectileBuffer(PROJECTILE_BUFFER_SIZE);
 		InitializeWeaponNode(playerNode);
 		InitializeParticleEmitters();
 		InitializeFireSmokeEmitter();
@@ -73,27 +66,23 @@ namespace daidalos {
 	* @param playerNode The player node to attach the weapon node to
 	*/
 	void CHandgun::InitializeWeaponNode(daidalosengine::ISceneNode * playerNode) {
-		this->m_meshNode = new daidalosengine::CAnimatedMeshSceneNode(this->m_parent->GetScene()->GetScene(), playerNode, "handgun", "handgun.ms3d", daidalosengine::CVector3F(0.38F, -1.3F, 2.5F), daidalosengine::CVector3F(), daidalosengine::CVector3F(3.0F, 3.0F, 3.0F));
-		this->m_meshNode->SetId(SCENE_TOP_LAYER_ID);
-		this->m_meshNode->SetSaved(false);
-		this->m_meshNode->SetEnabled(true);
-		this->m_meshNode->SetShadowCaster(false);
-		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, "handgun_d.png", daidalosengine::PIXEL_FORMAT_A8R8G8B8, daidalosengine::IRenderer::GetRenderer()->GetDefaultTextureFilter());
-		this->m_meshNode->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, "handgun_n.png", daidalosengine::PIXEL_FORMAT_A8R8G8B8, daidalosengine::IRenderer::GetRenderer()->GetDefaultTextureFilter());
-		this->m_meshNode->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
-		this->m_meshNode->SetMeshMaterial("default.mtl");
-		playerNode->AddChild(this->m_meshNode);
+		SetMeshNode(new daidalosengine::CAnimatedMeshSceneNode(GetParent()->GetScene()->GetScene(), playerNode, "handgun", "handgun.ms3d", daidalosengine::CVector3F(0.38F, -1.3F, 2.5F), daidalosengine::CVector3F(), daidalosengine::CVector3F(3.0F, 3.0F, 3.0F)));
+		GetMeshNode()->SetId(SCENE_TOP_LAYER_ID);
+		GetMeshNode()->SetSaved(false);
+		GetMeshNode()->SetEnabled(true);
+		GetMeshNode()->SetShadowCaster(false);
+		GetMeshNode()->SetMeshTexture(daidalosengine::TEXTURE_TYPE_DIFFUSE, "handgun_d.png", daidalosengine::PIXEL_FORMAT_A8R8G8B8, daidalosengine::IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		GetMeshNode()->SetMeshTexture(daidalosengine::TEXTURE_TYPE_NORMAL, "handgun_n.png", daidalosengine::PIXEL_FORMAT_A8R8G8B8, daidalosengine::IRenderer::GetRenderer()->GetDefaultTextureFilter());
+		GetMeshNode()->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
+		GetMeshNode()->SetMeshMaterial("default.mtl");
+		playerNode->AddChild(GetMeshNode());
 
-		this->m_fireAnimation.first = 1;
-		this->m_fireAnimation.second = 3;
-
-		this->m_reloadAnimation.first = 4;
-		this->m_reloadAnimation.second = 6;
+		// Initialize animations
+		SetFireAnimation(1, 3);
+		SetReloadAnimation(4, 6);
 
 		// Initialize the light effect
-		this->m_fireLight = new daidalosengine::CSpotLightSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "handgun_light", daidalosengine::CVector3F(0, 0, 2), daidalosengine::CVector3F(), daidalosengine::CColor(0.7F, 0.7F, 0.7F), 20.0F, 45.0F, 0.3F, 0.3F, false, false);
-		this->m_fireLight->SetSaved(false);
-		this->m_meshNode->AddChild(this->m_fireLight);
+		SetFireLight(new daidalosengine::CSpotLightSceneNode(GetParent()->GetScene()->GetScene(), GetMeshNode(), "handgun_light", daidalosengine::CVector3F(0, 0, 2), daidalosengine::CVector3F(), daidalosengine::CColor(0.7F, 0.7F, 0.7F), 20.0F, 45.0F, 0.3F, 0.3F, false, false));
 	}
 
 	/**
@@ -101,12 +90,11 @@ namespace daidalos {
 	*/
 	void CHandgun::InitializeParticleEmitters() {
 		for(int i = 0; i < PROJECTILE_BUFFER_SIZE; i++) {
-			daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "environmentImpactEmitter");
+			daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "environmentImpactEmitter");
 			emitter->SetTextureId(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
-
-			this->m_bulletImpactParticle.push_back(emitter);
+			AddParticleEmitter(emitter);
 		}
 	}
 
@@ -114,28 +102,26 @@ namespace daidalos {
 	* Initialize the smoke emitter
 	*/
 	void CHandgun::InitializeFireSmokeEmitter() {
-		daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
+		daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponSmokeEmitter");
 		emitter->SetTextureId(3);
 		emitter->SetReusable(true);
 
-		this->m_smokeEmitter = new daidalosengine::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponSmokeEmitter", emitter);
-		this->m_smokeEmitter->SetPosition(daidalosengine::CVector3F(0, 0, 1.4F));
-		this->m_smokeEmitter->SetActive(false);
-		this->m_meshNode->AddChild(this->m_smokeEmitter);
+		daidalosengine::CParticleEmitterSceneNode * node = new daidalosengine::CParticleEmitterSceneNode(GetParent()->GetScene()->GetScene(), GetMeshNode(), "weaponSmokeEmitter", emitter);
+		node->SetPosition(daidalosengine::CVector3F(0, 0, 1.4F));
+		SetSmokeEmitter(node);
 	}
 
 	/**
 	* Initialize the flash emitter
 	*/
 	void CHandgun::InitializeFireFlashEmitter() {
-		daidalosengine::CParticleEmitter * emitter = this->m_parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponFlashEmitter");
+		daidalosengine::CParticleEmitter * emitter = GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "weaponFlashEmitter");
 		emitter->SetTextureId(1);
 		emitter->SetReusable(true);
 
-		this->m_flashEmitter = new daidalosengine::CParticleEmitterSceneNode(this->m_parent->GetScene()->GetScene(), this->m_meshNode, "weaponFlashEmitter", emitter);
-		this->m_flashEmitter->SetPosition(daidalosengine::CVector3F(0, 0, 1.4F));
-		this->m_flashEmitter->SetActive(false);
-		this->m_meshNode->AddChild(this->m_flashEmitter);
+		daidalosengine::CParticleEmitterSceneNode * node = new daidalosengine::CParticleEmitterSceneNode(GetParent()->GetScene()->GetScene(), GetMeshNode(), "weaponFlashEmitter", emitter);
+		node->SetPosition(daidalosengine::CVector3F(0, 0, 1.4F));
+		SetFlashEmitter(node);
 	}
 }
 

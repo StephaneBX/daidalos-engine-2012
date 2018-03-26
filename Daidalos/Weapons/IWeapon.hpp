@@ -54,7 +54,7 @@ namespace daidalos {
 	* Abstract weapon
 	*/
 	class IWeapon {
-	protected:
+	private:
 		EWeaponState m_state;
 		unsigned int m_damage;
 		unsigned int m_magazineSize;
@@ -153,6 +153,117 @@ namespace daidalos {
 		* Initialize the flash emitter
 		*/
 		virtual void InitializeFireFlashEmitter() = 0;
+
+		/**
+		* Initialize the projectile buffer
+		* @param bufferSize The buffer size
+		*/
+		void InitializeProjectileBuffer(const int bufferSize);
+
+		/**
+		* Set the magazine size related stats
+		* @param initialMagazineSize The initial magazine size
+		* @param maxMagazineSize The max magazine size
+		*/
+		void SetMagazineStats(const unsigned int initialMagazineSize, const unsigned int maxMagazineSize);
+
+		/**
+		* Set the remaining ammo related stats
+		* @param remainingAmmo The remaining ammo
+		* @param maxAmmo The max ammo
+		*/
+		void SetAmmoStats(const unsigned int remainingAmmo, const unsigned int maxAmmo);
+
+		/**
+		* Set the offensive stats
+		* @param damage The damage
+		* @param hitCount The number of impacts
+		* @param precision The precision in percentage
+		* @param range The range
+		*/
+		void SetOffensiveStats(const unsigned int damage, const unsigned int hitCount, const unsigned int precision, const unsigned int range);
+
+		/**
+		* Set the fire stats
+		* @param animationRate The animation rate
+		* @param animationDelay The delay between two animations
+		*/
+		void SetFireStats(const float animationRate, const float animationDelay);
+
+		/**
+		* Set the reload stats
+		* @param animationRate The animation rate
+		* @param animationDelay The delay between two animations
+		*/
+		void SetReloadStats(const float animationRate, const float animationDelay);
+
+		/**
+		* Set the fire sound
+		* @param soundFile The sound file
+		*/
+		void SetFireSound(const std::string soundFile);
+
+		/**
+		* Set the fire sound
+		* @param soundFile The sound file
+		*/
+		void SetReloadSound(const std::string soundFile);
+
+		/**
+		* Set the fire animation
+		* @param firstFrame The first frame
+		* @param lastFrame The last frame
+		*/
+		void SetFireAnimation(const float firstFrame, const float lastFrame);
+
+		/**
+		* Set the reload animation
+		* @param firstFrame The first frame
+		* @param lastFrame The last frame
+		*/
+		void SetReloadAnimation(const float firstFrame, const float lastFrame);
+
+		/**
+		* Set the mesh node
+		* @param meshNode The mesh node
+		*/
+		void SetMeshNode(daidalosengine::CAnimatedMeshSceneNode * meshNode);
+
+		/**
+		* Set the fire light
+		* @param fireLight The fire light
+		*/
+		void SetFireLight(daidalosengine::CSpotLightSceneNode * fireLight);
+
+		/**
+		* Set the smoke emitter
+		* @param emitter The emitter
+		*/
+		void SetSmokeEmitter(daidalosengine::CParticleEmitterSceneNode * emitter);
+
+		/**
+		* Set the fire emitter
+		* @param emitter The emitter
+		*/
+		void SetFlashEmitter(daidalosengine::CParticleEmitterSceneNode * emitter);
+
+		/**
+		* Add a particle emitter
+		* @param emitter The particle emitter
+		*/
+		void AddParticleEmitter(daidalosengine::CParticleEmitter * emitter);
+
+		/**
+		* Get the parent
+		* @return The parent
+		*/
+		daidalosgameengine::ILevel * GetParent() const;
+
+		/**
+		* Get the mesh node
+		* @return The mesh node
+		*/
+		daidalosengine::CAnimatedMeshSceneNode * GetMeshNode() const;
 	};
 }
 

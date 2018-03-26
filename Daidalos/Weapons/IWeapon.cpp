@@ -61,6 +61,8 @@ namespace daidalos {
 		this->m_wobblePositionTime = 0;
 		this->m_range = 100;
 		this->m_fireLight = nullptr;
+		this->m_flashEmitter = nullptr;
+		this->m_smokeEmitter = nullptr;
 	}
 
 	/**
@@ -297,5 +299,188 @@ namespace daidalos {
 	*/
 	const unsigned int IWeapon::GetRemainingAmmo() const {
 		return this->m_remainingAmmo;
+	}
+
+	/**
+	* Initialize the projectile buffer
+	* @param bufferSize The buffer size
+	*/
+	void IWeapon::InitializeProjectileBuffer(const int bufferSize) {
+		this->m_projectiles.Allocate(bufferSize);
+	}
+
+	/**
+	* Set the magazine size related stats
+	* @param initialMagazineSize The initial magazine size
+	* @param maxMagazineSize The max magazine size
+	*/
+	void IWeapon::SetMagazineStats(const unsigned int initialMagazineSize, const unsigned int maxMagazineSize) {
+		this->m_magazineSize = initialMagazineSize;
+		this->m_maxMagazineSize = maxMagazineSize;
+	}
+
+	/**
+	* Set the remaining ammo related stats
+	* @param remainingAmmo The remaining ammo
+	* @param maxAmmo The max ammo
+	*/
+	void IWeapon::SetAmmoStats(const unsigned int remainingAmmo, const unsigned int maxAmmo) {
+		this->m_remainingAmmo = remainingAmmo;
+		this->m_maxAmmo = maxAmmo;
+	}
+
+	/**
+	* Set the offensive stats
+	* @param damage The damage
+	* @param hitCount The number of impacts
+	* @param precision The precision in percentage
+	* @param range The range
+	*/
+	void IWeapon::SetOffensiveStats(const unsigned int damage, const unsigned int hitCount, const unsigned int precision, const unsigned int range) {
+		this->m_damage = damage;
+		this->m_hitCount = hitCount;
+		this->m_precision = precision;
+		this->m_range = range;
+	}
+
+	/**
+	* Set the fire stats
+	* @param animationRate The animation rate
+	* @param animationDelay The delay between two animations
+	*/
+	void IWeapon::SetFireStats(const float animationRate, const float animationDelay) {
+		this->m_fireAnimationRate = animationRate;
+		this->m_fireDelay = animationDelay;
+	}
+
+	/**
+	* Set the reload stats
+	* @param animationRate The animation rate
+	* @param animationDelay The delay between two animations
+	*/
+	void IWeapon::SetReloadStats(const float animationRate, const float animationDelay) {
+		this->m_reloadAnimationRate = animationRate;
+		this->m_reloadDelay = animationDelay;
+	}
+
+	/**
+	* Set the fire sound
+	* @param soundFile The sound file
+	*/
+	void IWeapon::SetFireSound(const std::string soundFile) {
+		this->m_fireSound.LoadFromFile(soundFile, daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_fireSound.SetRelativeToListener(true);
+	}
+
+	/**
+	* Set the fire sound
+	* @param soundFile The sound file
+	*/
+	void IWeapon::SetReloadSound(const std::string soundFile) {
+		this->m_reloadSound.LoadFromFile(soundFile, daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
+		this->m_reloadSound.SetRelativeToListener(true);
+	}
+
+	/**
+	* Set the fire animation
+	* @param firstFrame The first frame
+	* @param lastFrame The last frame
+	*/
+	void IWeapon::SetFireAnimation(const float firstFrame, const float lastFrame) {
+		this->m_fireAnimation.first = firstFrame;
+		this->m_fireAnimation.second = lastFrame;
+	}
+
+	/**
+	* Set the reload animation
+	* @param firstFrame The first frame
+	* @param lastFrame The last frame
+	*/
+	void IWeapon::SetReloadAnimation(const float firstFrame, const float lastFrame) {
+		this->m_reloadAnimation.first = firstFrame;
+		this->m_reloadAnimation.second = lastFrame;
+	}
+
+	/**
+	* Set the mesh node
+	* @param meshNode The mesh node
+	*/
+	void IWeapon::SetMeshNode(daidalosengine::CAnimatedMeshSceneNode * meshNode) {
+		this->m_meshNode = meshNode;
+	}
+
+	/**
+	* Set the fire light
+	* @param fireLight The fire light
+	*/
+	void IWeapon::SetFireLight(daidalosengine::CSpotLightSceneNode * fireLight) {
+
+		// Remove previous declared light
+		if (this->m_fireLight != nullptr) {
+			GetMeshNode()->RemoveChild(this->m_fireLight);
+		}
+
+		// Add the new one
+		this->m_fireLight = fireLight;
+		this->m_fireLight->SetSaved(false);
+		GetMeshNode()->AddChild(this->m_fireLight);
+	}
+
+	/**
+	* Set the smoke emitter
+	* @param emitter The emitter
+	*/
+	void IWeapon::SetSmokeEmitter(daidalosengine::CParticleEmitterSceneNode * emitter) {
+
+		// Remove previous declared emitter
+		if (this->m_smokeEmitter != nullptr) {
+			GetMeshNode()->RemoveChild(this->m_smokeEmitter);
+		}
+
+		// Add the emitter
+		this->m_smokeEmitter = emitter;
+		this->m_smokeEmitter->SetActive(false);
+		GetMeshNode()->AddChild(this->m_smokeEmitter);
+	}
+
+	/**
+	* Set the fire emitter
+	* @param emitter The emitter
+	*/
+	void IWeapon::SetFlashEmitter(daidalosengine::CParticleEmitterSceneNode * emitter) {
+
+		// Remove previous declared emitter
+		if (this->m_flashEmitter != nullptr) {
+			GetMeshNode()->RemoveChild(this->m_flashEmitter);
+		}
+
+		// Add the emitter
+		this->m_flashEmitter = emitter;
+		this->m_flashEmitter->SetActive(false);
+		GetMeshNode()->AddChild(this->m_flashEmitter);
+	}
+
+	/**
+	* Add a particle emitter
+	* @param emitter The particle emitter
+	*/
+	void IWeapon::AddParticleEmitter(daidalosengine::CParticleEmitter * emitter) {
+		this->m_bulletImpactParticle.push_back(emitter);
+	}
+
+	/**
+	* Get the parent
+	* @return The parent
+	*/
+	daidalosgameengine::ILevel * IWeapon::GetParent() const {
+		return this->m_parent;
+	}
+
+	/**
+	* Get the mesh node
+	* @return The mesh node
+	*/
+	daidalosengine::CAnimatedMeshSceneNode * IWeapon::GetMeshNode() const {
+		return this->m_meshNode;
 	}
 }
