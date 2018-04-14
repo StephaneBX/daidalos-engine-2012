@@ -39,7 +39,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_type = SCENE_NODE_ROOT;
-		this->m_shadingType = MESH_SHADING_SMOOTH;
+		SetMeshShadingType(MESH_SHADING_SMOOTH);
 	}
 
 	CSimpleSceneNode::~CSimpleSceneNode() {
@@ -56,12 +56,12 @@ namespace daidalosengine {
 		for(unsigned int i = 0; i < brushes.size(); ++i) {
 			for(unsigned int j = 0; j < brushes[i].geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
-				if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
-					this->m_diffuseTextures.push_back(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
+				//if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
+				AddDiffuseTexture(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
-				if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-					this->m_normalTextures.push_back(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
+				//if(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
+				AddNormalTexture(brushes[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Update the bounding box
 				for(unsigned int k = 0; k < 3; k++) {
@@ -75,7 +75,9 @@ namespace daidalosengine {
 		this->m_brushes = brushes;
 
 		// Set the bounding box
-		this->m_levelBoundingBox.SetMinMax(minPosition, maxPosition);
+		CAABoundingBoxF boundingBox;
+		boundingBox.SetMinMax(minPosition, maxPosition);
+		SetLevelBoundingBox(boundingBox);
 	}
 
 	/**
@@ -130,15 +132,14 @@ namespace daidalosengine {
 
 		// Reset the data
 		this->m_visibleTriangles.clear();
-		this->m_batchSize.clear();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		this->m_activeCamera = this->m_scene->GetActiveCamera();
+		SetActiveCamera(this->m_scene->GetActiveCamera());
 		RegisterBrushesForRendering(filterId);
-		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
+		SetNumberOfVisibleTriangles(this->m_visibleTriangles.size());
 		if(this->m_visibleTriangles.size() > 0) {
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
@@ -151,7 +152,7 @@ namespace daidalosengine {
 			SMaterialElement * batchMaterialElement;
 
 			// Sort with the diffuse texture and the material
-			while(this->m_visibleTriangles.size() > 0) {
+			while (this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
 				batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
@@ -161,14 +162,14 @@ namespace daidalosengine {
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
 				// Batch per texture
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) {
+				if (!IsTexturingEnabled()) {
 					// The textures are disabled so no batching needed, we take all the triangles
 					batchTriangles.insert(std::end(batchTriangles), std::begin(this->m_visibleTriangles), std::end(this->m_visibleTriangles));
 					this->m_visibleTriangles.clear();
 				} else {
 					// Check for compatible triangles
-					for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
-						if((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
+					for (auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+						if ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
 							batchTriangles.push_back(*it);
 							it = this->m_visibleTriangles.erase(it);
 						} else {
@@ -177,9 +178,6 @@ namespace daidalosengine {
 					}
 				}
 
-				// Transform
-				this->m_levelBuffer.Transform(batchTriangles, this->m_shadingType);
-
 				// Material
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), batchMaterialElement->m_kDiffuse);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), batchMaterialElement->m_kSpecular);
@@ -187,19 +185,20 @@ namespace daidalosengine {
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
 
 				// Can override material ambient color
-				if(this->m_useGlobalAmbientColor) {
-					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_ambientColor);
+				if(GetUseGlobalAmbientColor()) {
+					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), GetAmbientColor());
 				} else {
 					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), batchMaterialElement->m_kAmbient);
 				}
 
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
+				if (IsTexturingEnabled()) {
 					renderer->SetTexture(0, batchDiffuseTexture);
 					renderer->SetTexture(1, batchNormalTexture);
 				}
 
-				renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer().GetBuffer(), this->m_levelBuffer.GetStride());
-				renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
+				// Transform & draw
+				SetLevelBuffer(batchTriangles);
+				RenderPrimitives();
 			}
 		}
 
@@ -217,7 +216,7 @@ namespace daidalosengine {
 		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {
 			// Loop through each triangle
 			for(auto it2 = (*it).geometry.begin(); it2 != (*it).geometry.end(); ++it2) {
-				if(!this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
+				if(!GetActiveCamera()->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
 					this->m_visibleTriangles.push_back(*it2);
 				}
 			}

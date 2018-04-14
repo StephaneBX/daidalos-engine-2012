@@ -42,7 +42,7 @@ namespace daidalosengine {
 		this->m_type = SCENE_NODE_ROOT;
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
-		this->m_shadingType = MESH_SHADING_SMOOTH;
+		SetMeshShadingType(MESH_SHADING_SMOOTH);
 	}
 
 	CBSPSceneNode::~CBSPSceneNode() {
@@ -68,12 +68,12 @@ namespace daidalosengine {
 			brushGeometry.clear();
 			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j) {
 				// Add the diffuse texture to the diffuse textures vector
-				if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
-					this->m_diffuseTextures.push_back(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
+				//if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
+				AddDiffuseTexture(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
-				if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-					this->m_normalTextures.push_back(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
+				//if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
+				AddNormalTexture(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Add a copy in the global vector
 				global.push_back(new CBSPTriangle(*brushDefinition[i].geometry[j]));
@@ -119,7 +119,9 @@ namespace daidalosengine {
 		}
 
 		// Set the bounding box
-		this->m_levelBoundingBox.SetMinMax(minPosition, maxPosition);
+		CAABoundingBoxF boundingBox;
+		boundingBox.SetMinMax(minPosition, maxPosition);
+		SetLevelBoundingBox(boundingBox);
 	}
 
 	/**
@@ -318,17 +320,16 @@ namespace daidalosengine {
 
 		// Reset the data
 		this->m_visibleTriangles.clear();
-		this->m_batchSize.clear();
 		//this->m_bsp->ResetDraw();
 
 		IRenderer * renderer = IRenderer::GetRenderer();
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		this->m_activeCamera = this->m_scene->GetActiveCamera();
+		SetActiveCamera(this->m_scene->GetActiveCamera());
 		RegisterNodeForRendering(this->m_bsp.get(),filterId);
-		this->m_numberOfVisibleTriangles = this->m_visibleTriangles.size();
-		if(this->m_visibleTriangles.size() > 0) {
+		SetNumberOfVisibleTriangles(this->m_visibleTriangles.size());
+		if (this->m_visibleTriangles.size() > 0) {
 
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
@@ -341,7 +342,7 @@ namespace daidalosengine {
 			SMaterialElement * batchMaterialElement;
 
 			// Sort with the diffuse texture and the material
-			while(this->m_visibleTriangles.size() > 0) {
+			while (this->m_visibleTriangles.size() > 0) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
 				batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
@@ -351,14 +352,14 @@ namespace daidalosengine {
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
 				// Batch per texture
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) == 0) {
+				if (!IsTexturingEnabled()) {
 					// The textures are disabled so no batching needed, we take all the triangles
 					batchTriangles.insert(std::end(batchTriangles), std::begin(this->m_visibleTriangles), std::end(this->m_visibleTriangles));
 					this->m_visibleTriangles.clear();
 				} else {
 					// Check for compatible triangles
-					for(auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
-						if((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
+					for (auto it = this->m_visibleTriangles.begin(); it != this->m_visibleTriangles.end();) {
+						if ((*it)->GetTexture(TEXTURE_TYPE_DIFFUSE) == batchDiffuseTexture && (*it)->GetTexture(TEXTURE_TYPE_NORMAL) == batchNormalTexture && (*it)->GetMaterialElement() == batchMaterialElement) {
 							batchTriangles.push_back(*it);
 							it = this->m_visibleTriangles.erase(it);
 						} else {
@@ -367,9 +368,6 @@ namespace daidalosengine {
 					}
 				}
 
-				// Transform
-				this->m_levelBuffer.Transform(batchTriangles, this->m_shadingType);
-
 				// Material
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), batchMaterialElement->m_kDiffuse);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), batchMaterialElement->m_kAmbient);
@@ -377,17 +375,18 @@ namespace daidalosengine {
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_EMISSION), batchMaterialElement->m_kEmission);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), batchMaterialElement->m_ns);
 
-				if((this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
+				if (IsTexturingEnabled()) {
 					renderer->SetTexture(0, batchDiffuseTexture);
 					renderer->SetTexture(1, batchNormalTexture);
 				}
 
-				renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer().GetBuffer(), this->m_levelBuffer.GetStride());
-				renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
+				//Transform & draw
+				SetLevelBuffer(batchTriangles);
+				RenderPrimitives();
 			}
 		}
 
-		if(filterId == SCENE_DEFAULT_ID || filterId == SCENE_TOP_LAYER_ID) {
+		if (filterId == SCENE_DEFAULT_ID || filterId == SCENE_TOP_LAYER_ID) {
 			ISceneNode::Render(filterId);
 		}
 	}
@@ -401,10 +400,10 @@ namespace daidalosengine {
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
 
 			// Check the visibility for the leaf before testing each triangle
-			if(!this->m_activeCamera->FrustumCull(&(*it)->GetVisibilitySphere())) {
+			if(!GetActiveCamera()->FrustumCull(&(*it)->GetVisibilitySphere())) {
 				// Loop through each triangle
 				for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
-					if((*it2)->IsVisible()/* && !(*it2)->IsDrawn()*/ && !this->m_activeCamera->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
+					if((*it2)->IsVisible()/* && !(*it2)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
 						this->m_visibleTriangles.push_back((*it2).get());
 						//(*it2)->SetDrawn(true);
 					}
@@ -416,7 +415,7 @@ namespace daidalosengine {
 	void CBSPSceneNode::RegisterNodeForRendering(CBSPTreeNode * node, const int filterId) {
 		LOG_TRACE();
 
-		if(this->m_activeCamera->FrustumCull(&node->GetVisibilitySphere())) {
+		if(GetActiveCamera()->FrustumCull(&node->GetVisibilitySphere())) {
 			return;
 		}
 
@@ -424,7 +423,7 @@ namespace daidalosengine {
 
 		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF) {
 			for(auto it = node->GetTriangles().begin(); it != node->GetTriangles().end(); ++it) {
-				if((*it)->IsVisible()/* && !(*it)->IsDrawn()*/ && !this->m_activeCamera->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
+				if((*it)->IsVisible()/* && !(*it)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
 					this->m_visibleTriangles.push_back((*it).get());
 					//(*it)->SetDrawn(true);
 				}

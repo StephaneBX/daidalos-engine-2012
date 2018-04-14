@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/Logger/ILogger.hpp"
+#include "../../Core/IRenderer.hpp"
 #include "../../Scene/3D/ILevelSceneNode.hpp"
 
 namespace daidalosengine {
@@ -50,6 +51,16 @@ namespace daidalosengine {
 
 		this->m_levelBuffer.SetMeshFormat(format);
 		ISceneNode::SetMeshFormat(format);
+	}
+
+	/**
+	* Set the numbe of visible triangles
+	* @param visibleTriangles The number of visible triangles
+	*/
+	void ILevelSceneNode::SetNumberOfVisibleTriangles(const int visibleTriangles) {
+		LOG_TRACE();
+
+		this->m_numberOfVisibleTriangles = visibleTriangles;
 	}
 
 	void ILevelSceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
@@ -78,14 +89,76 @@ namespace daidalosengine {
 		this->m_skyAmbientColor = ambientColor;
 	}
 
+	/**
+	* Set the level bounding box
+	* @param levelBoundingBox the level bonding box
+	*/
+	void ILevelSceneNode::SetLevelBoundingBox(const CAABoundingBoxF & levelBoundingBox) {
+		LOG_TRACE();
+
+		this->m_levelBoundingBox = levelBoundingBox;
+	}
+
+	/**
+	* Set the active camera
+	* @param camera The active camera
+	*/
+	void ILevelSceneNode::SetActiveCamera(ICameraSceneNode * camera) {
+		LOG_TRACE();
+
+		this->m_activeCamera = camera;
+	}
+
+	/**
+	* Add a diffuse texture
+	* @param texture The diffuse texture
+	*/
+	void ILevelSceneNode::AddDiffuseTexture(ITexture2DBase * texture) {
+		LOG_TRACE();
+
+		this->m_diffuseTextures.insert(texture);
+	}
+
+	/**
+	* Add a normal texture
+	* @param texture The normal texture
+	*/
+	void ILevelSceneNode::AddNormalTexture(ITexture2DBase * texture) {
+		LOG_TRACE();
+
+		this->m_normalTextures.insert(texture);
+	}
+
 	const bool ILevelSceneNode::GetUseGlobalAmbientColor() const {
+		LOG_TRACE();
+
 		return this->m_useGlobalAmbientColor;
+	}
+
+	/**
+	* Check if thetexturing is enabled
+	* @return True if the texturing is enabled
+	*/
+	const bool ILevelSceneNode::IsTexturingEnabled() const {
+		LOG_TRACE();
+
+		return (this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0;
 	}
 
 	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const {
 		LOG_TRACE();
 
 		return this->m_numberOfVisibleTriangles;
+	}
+
+	/**
+	* Get the mesh shading type
+	* @return The mesh shading type
+	*/
+	const EMeshShadingType ILevelSceneNode::GetMeshShadingType() const {
+		LOG_TRACE();
+
+		return this->m_shadingType;
 	}
 
 	const CVector4F & ILevelSceneNode::GetAmbientColor() const {
@@ -110,5 +183,36 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		return this->m_levelBoundingBox;
+	}
+
+	/**
+	* Get the active camera
+	* @return The active camera
+	*/
+	ICameraSceneNode * ILevelSceneNode::GetActiveCamera() const {
+		LOG_TRACE();
+
+		return this->m_activeCamera;
+	}
+
+	/**
+	* Set the level buffer
+	* @param triangles The triangles
+	*/
+	void ILevelSceneNode::SetLevelBuffer(const std::vector<CTriangle3D *> triangles) {
+		LOG_TRACE();
+
+		this->m_levelBuffer.Transform(triangles, this->m_shadingType);
+	}
+
+	/**
+	* Render the primtives from the buffer
+	*/
+	void ILevelSceneNode::RenderPrimitives() {
+		LOG_TRACE();
+
+		IRenderer * renderer = IRenderer::GetRenderer();
+		renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer().GetBuffer(), this->m_levelBuffer.GetStride());
+		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
 	}
 }

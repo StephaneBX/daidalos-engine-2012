@@ -47,7 +47,7 @@ namespace daidalos {
 	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : daidalosgameengine::IForwardApplication(hInstance, nCmdShow) {
 
 		SetLoading(true);
-		GetCursor().SetVisible(true);
+		GetCursor().SetVisible(false);
 		std::thread(&CDaidalosApplication::LoadLevel, this, levelName).detach();
 
 		MainLoop();

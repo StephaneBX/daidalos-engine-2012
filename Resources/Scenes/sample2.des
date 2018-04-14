@@ -4,11 +4,15 @@
 	<particleSystem>
 		<atlasTextureFile>particleAtlas.tga</atlasTextureFile>
 		<atlasTextureSize>4:4</atlasTextureSize>
-		<systemSize>15000</systemSize>
+		<systemSize>5000</systemSize>
+		<gravity>0:-10:0</gravity>
+		<particleEmittersTemplates>
+            <template>default.dept</template>
+        </particleEmittersTemplates>
 	</particleSystem>
 
 	<!-- Level node with a bsp structure -->
-	<node type="0" name="level" ambientColor="0.4:0.4:0.4" skyName="sky1" skyAmbientColor="0.5:0.5:0.5">
+	<node type="0" name="level" ambientColor="0.6:0.6:0.6" skyName="sky1" skyAmbientColor="0.7:0.7:0.7">
 		<!-- Level node geometry -->
 		
 		<multi_brush>
@@ -7880,21 +7884,7 @@
 			<range>10</range>
 			<falloff>0.7</falloff>
 		</node>
-		
-		<!-- Test sound -->
-		<node type="7" name="soundSpot1">
-			<position>0:0:0</position>
-			<rotation>0:0:0</rotation>
-			<file>test.wav</file>
-			<type>1</type>
-			<gain>1</gain>
-			<reference_distance>4</reference_distance>
-			<max_distance>100</max_distance>
-			<relative_to_listener>true</relative_to_listener>
-			<looped>true</looped>
-			<play_on_startup>true</play_on_startup>
-		</node>
-		
+
 		<!-- Start level teleporter -->
 		<node type="6" name="teleporter_entity" file="teleporter.ms3d">
 			<position>0:0:0</position>
@@ -7972,45 +7962,10 @@
 			</attributes>
 			
 			<!-- Smoke coming from the top of the door when moving -->
-			<node type="9" name="smokeDoorEmitter">
+			<node type="9" name="smokeDoorEmitter" templateName="default.dept" emitterName="smokeDoorEmitter">
 				<active>false</active>
 				<position>0:7.5:0</position>
 				<textureId>0</textureId>
-				<blendMode>5</blendMode>
-				<life>-1</life>
-				<lifeMax>-1</lifeMax>
-				<emissionRate>40</emissionRate>
-				<initializers>
-					<minMaxColor>
-						<min>0.5:0.5:0.5:0.2</min>
-						<max>0.5:0.5:0.5:0</max>
-					</minMaxColor>
-					<minMaxSize>
-						<min>2</min>
-						<max>4</max>
-					</minMaxSize>
-					<minMaxLife>
-						<min>0</min>
-						<max>2000</max>
-					</minMaxLife>
-					<minMaxRotation>
-						<min>-45</min>
-						<max>45</max>
-					</minMaxRotation>
-					<minMaxBoxPosition>
-						<min>-5:0:0.5</min>
-						<max>5:0:0.9</max>
-					</minMaxBoxPosition>
-				</initializers>
-				<updaters>
-					<color/>
-					<gravity>
-						<vector>0:-0.5:0</vector>
-					</gravity>
-					<life/>
-					<rotation/>
-					<size/>
-				</updaters>
 			</node>
 		</node>
 		<brush file="cube.obj" id="-6">
@@ -8059,51 +8014,27 @@
 			<scale>2:2:2</scale>
 			<diffuse_texture>black.png</diffuse_texture>
 			<normal_texture>white.png</normal_texture>
-			
-			<!-- Smoke coming from the fan -->
-			<node type="9" name="smokeFanEmitter">
-				<active>true</active>
-				<position>0:0:0</position>
-				<textureId>0</textureId>
-				<life>-1</life>
-				<lifeMax>-1</lifeMax>
-				<emissionRate>120</emissionRate>
-				<initializers>
-					<minMaxColor>
-						<min>0.7:0.5:0.5:0.2</min>
-						<max>0.7:0.5:0.5:0</max>
-					</minMaxColor>
-					<minMaxSize>
-						<min>2</min>
-						<max>8</max>
-					</minMaxSize>
-					<minMaxLife>
-						<min>0</min>
-						<max>13000</max>
-					</minMaxLife>
-					<minMaxRotation>
-						<min>-45</min>
-						<max>45</max>
-					</minMaxRotation>
-					<minMaxSphereVelocity>
-						<min>1</min>
-						<max>1.5</max>
-					</minMaxSphereVelocity>
-				</initializers>
-				<updaters>
-					<color/>
-					<gravity>
-						<vector>0:-0.8:0</vector>
-					</gravity>
-					<life/>
-					<rotation/>
-					<size/>
-					<velocity>
-						<damping>0.05</damping>
-					</velocity>
-				</updaters>
-			</node>
-			
+		</node>
+		
+		<!-- Test sound -->
+		<node type="7" name="soundSpot1">
+			<position>170:32:80</position>
+			<rotation>0:0:0</rotation>
+			<file>fan.wav</file>
+			<type>1</type>
+			<gain>1</gain>
+			<reference_distance>4</reference_distance>
+			<max_distance>40</max_distance>
+			<relative_to_listener>false</relative_to_listener>
+			<looped>true</looped>
+			<play_on_startup>true</play_on_startup>
+		</node>
+		
+		<!-- Smoke coming from the fan -->
+		<node type="9" name="redSmokeEmitter" templateName="default.dept" emitterName="redSmokeEmitter">
+			<active>true</active>
+			<position>170:32:80</position>
+			<textureId>0</textureId>
 		</node>
 		
 		<!-- End level teleporter -->

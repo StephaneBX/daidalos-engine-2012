@@ -28,6 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILEVELSCENENODE_HPP
 #define __ILEVELSCENENODE_HPP
 
+#include <set>
 #include "../../Scene/3D/CMeshBuffer.hpp"
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 #include "../../Scene/3D/ISceneNode.hpp"
@@ -38,14 +39,13 @@ namespace daidalosengine {
 	* Base class for level nodes
 	*/
 	class ILevelSceneNode : public ISceneNode {
-	protected:
+	private:
 		EMeshShadingType m_shadingType;
 		bool m_useGlobalAmbientColor;
 		int m_numberOfVisibleTriangles;
 		CVector4F m_ambientColor;
-		std::vector<ITexture2DBase*> m_diffuseTextures;
-		std::vector<ITexture2DBase*> m_normalTextures;
-		std::vector<int> m_batchSize;
+		std::set<ITexture2DBase*> m_diffuseTextures;
+		std::set<ITexture2DBase*> m_normalTextures;
 		CMeshBuffer m_levelBuffer;
 		ICameraSceneNode * m_activeCamera;
 		CAABoundingBoxF m_levelBoundingBox;
@@ -77,6 +77,12 @@ namespace daidalosengine {
 		void SetMeshFormat(const int format);
 
 		/**
+		* Set the numbe of visible triangles
+		* @param visibleTriangles The number of visible triangles
+		*/
+		void SetNumberOfVisibleTriangles(const int visibleTriangles);
+
+		/**
 		* Set the mesh shading type
 		* @param shadingType The mesh shading type
 		*/
@@ -100,6 +106,22 @@ namespace daidalosengine {
 		*/
 		void SetSkyAmbientColor(const CVector4F & ambientColor);
 
+		
+
+		
+
+		/**
+		* Add a diffuse texture
+		* @param texture The diffuse texture
+		*/
+		void AddDiffuseTexture(ITexture2DBase * texture);
+
+		/**
+		* Add a normal texture
+		* @param texture The normal texture
+		*/
+		void AddNormalTexture(ITexture2DBase * texture);
+
 		/**
 		* Get the global ambient color flag
 		* @return The global ambient color flag
@@ -111,6 +133,12 @@ namespace daidalosengine {
 		* @return The number of visible triangles
 		*/
 		const int GetNumberOfVisibleTriangles() const;
+
+		/**
+		* Get the mesh shading type
+		* @return The mesh shading type
+		*/
+		const EMeshShadingType GetMeshShadingType() const;
 
 		/**
 		* Get the ambient color
@@ -135,6 +163,12 @@ namespace daidalosengine {
 		* @return The level bounding box
 		*/
 		const CAABoundingBoxF GetLevelBoundingBox();
+
+		/**
+		* Get the active camera
+		* @return The active camera
+		*/ 
+		ICameraSceneNode * GetActiveCamera() const;
 
 		/**
 		* Render the node
@@ -182,6 +216,36 @@ namespace daidalosengine {
 		* @return True if a collision occurred
 		*/
 		virtual const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) = 0;
+
+	protected:
+		/**
+		* Set the level bounding box
+		* @param levelBoundingBox The level bonding box
+		*/
+		void SetLevelBoundingBox(const CAABoundingBoxF & levelBoundingBox);
+
+		/**
+		* Set the active camera
+		* @param camera The active camera
+		*/
+		void SetActiveCamera(ICameraSceneNode * camera);
+
+		/**
+		* Set the level buffer
+		* @param triangles The triangles
+		*/
+		void SetLevelBuffer(const std::vector<CTriangle3D *> triangles);
+
+		/**
+		* Render the primtives from the buffer
+		*/
+		void RenderPrimitives();
+
+		/**
+		* Check if thetexturing is enabled
+		* @return True if the texturing is enabled
+		*/
+		const bool IsTexturingEnabled() const;
 	};
 }
 
