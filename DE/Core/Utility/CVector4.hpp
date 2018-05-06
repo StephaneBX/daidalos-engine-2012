@@ -42,7 +42,6 @@ namespace daidalosengine {
 		T z;
 		T w;
 
-	public:
 		CVector4();
 		CVector4(const CVector4<T> & vec);
 		CVector4(const CVector3<T> & vec, const T w);

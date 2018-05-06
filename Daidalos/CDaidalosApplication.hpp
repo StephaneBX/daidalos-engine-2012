@@ -39,10 +39,7 @@ namespace daidalos
 	/**
 	* Test application implementation
 	*/
-	class CDaidalosApplication : public daidalosgameengine::IForwardApplication
-	{
-	private:
-
+	class CDaidalosApplication : public daidalosgameengine::IForwardApplication {
 	public:
 		/**
 		* Constructor

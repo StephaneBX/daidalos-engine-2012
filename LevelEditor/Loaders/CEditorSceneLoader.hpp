@@ -36,8 +36,6 @@ namespace daidaloseditor {
 	*/
 	class CEditorSceneLoader : public daidalosengine::CSceneLoader {
 
-	public:
-
 	protected:
 		/**
 		* Override and use a simple node system

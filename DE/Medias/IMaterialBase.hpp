@@ -50,7 +50,7 @@ namespace daidalosengine {
 	* Basic class used for materials
 	*/
 	class IMaterialBase : public IResource {
-	public:
+	private:
 		std::map<std::string, std::unique_ptr<SMaterialElement>> m_elements;
 
 	public:
@@ -77,7 +77,7 @@ namespace daidalosengine {
 	private:
 		IMaterialBase();
 		IMaterialBase(const IMaterialBase & copy);
-		const IMaterialBase & operator=(const IMaterialBase & copy);
+		const IMaterialBase & operator=(const IMaterialBase & copy) = delete;
 	};
 }
 

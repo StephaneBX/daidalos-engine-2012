@@ -94,7 +94,6 @@ namespace daidalosengine {
 		*/
 		CFile FindMedia(const std::string & filename);
 
-	private:
 		/**
 		* Constructor
 		*/

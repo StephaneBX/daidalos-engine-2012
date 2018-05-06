@@ -78,10 +78,9 @@ namespace daidalosengine {
 		*/
 		void UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect);
 
-	private:
 		CDX9Texture2D();
 		CDX9Texture2D(const CDX9Texture2D & copy);
-		const CDX9Texture2D & operator=(const CDX9Texture2D & copy);
+		const CDX9Texture2D & operator=(const CDX9Texture2D & copy) = delete;
 	};
 }
 

@@ -95,12 +95,6 @@ namespace daidalos {
 		void SetTarget(daidalosgameengine::ICollidableEntity * target);
 
 		/**
-		* Reset the state
-		* @param entity The entity
-		*/
-		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
-
-		/**
 		* Callback when the entity take damage
 		*/
 		virtual void OnEntityTakeDamage();

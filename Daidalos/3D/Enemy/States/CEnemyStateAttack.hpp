@@ -93,12 +93,6 @@ namespace daidalos {
 		void SetTarget(daidalosgameengine::ICollidableEntity * target);
 
 		/**
-		* Reset the state
-		* @param entity The entity
-		*/
-		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
-
-		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time

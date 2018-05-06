@@ -74,10 +74,9 @@ namespace daidalosengine {
 		*/
 		virtual void Unlock() override;
 
-	private:
 		CDX9Buffer();
 		CDX9Buffer(const CDX9Buffer & copy);
-		const CDX9Buffer & operator=(const CDX9Buffer & copy);
+		const CDX9Buffer & operator=(const CDX9Buffer & copy) = delete;
 	};
 
 	template <class T> inline CDX9Buffer<T>::CDX9Buffer(const unsigned long size, T * buffer) : IBufferBase(size) {

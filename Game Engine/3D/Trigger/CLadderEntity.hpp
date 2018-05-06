@@ -53,12 +53,6 @@ namespace daidalosgameengine {
 		CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode);
 
 		/**
-		* Update the entity
-		* @param time Elapsed time
-		*/
-		void Update(const float time = 0);
-
-		/**
 		* Trigger the entity action
 		*/
 		void DoAction();

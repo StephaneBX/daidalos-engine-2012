@@ -42,7 +42,6 @@ namespace daidalosengine {
 		T x;
 		T y;
 
-	public:
 		CVector2();
 		CVector2(const CVector2<T> & vec);
 		CVector2(const T x, const T y);

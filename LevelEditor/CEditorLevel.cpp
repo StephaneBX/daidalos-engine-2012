@@ -32,14 +32,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidaloseditor {
 
 	/**
-	* Update the level
-	* @param time The elapsed time
-	*/
-	void CEditorLevel::Update(const float time) {
-		ILevel::Update(time);
-	}
-
-	/**
 	* Do pre level loading process
 	*/
 	void CEditorLevel::PreLoadLevel() {

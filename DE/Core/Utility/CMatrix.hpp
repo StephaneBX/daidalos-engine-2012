@@ -61,7 +61,6 @@ namespace daidalosengine {
 		float _43;
 		float _44;
 
-	public:
 		CMatrix();
 		CMatrix(const CMatrix & matrix);
 		CMatrix(const CVector3F & scale, const CVector3F & rotation, const CVector3F & translation);

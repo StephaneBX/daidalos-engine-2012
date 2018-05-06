@@ -376,10 +376,9 @@ namespace daidalosengine {
 		*/
 		void Initialize();
 
-	private:
 		CDX9Renderer();
 		CDX9Renderer(const CDX9Renderer & copy);
-		const CDX9Renderer & operator=(const CDX9Renderer & copy);
+		const CDX9Renderer & operator=(const CDX9Renderer & copy) = delete;
 	};
 }
 

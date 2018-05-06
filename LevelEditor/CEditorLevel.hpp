@@ -39,13 +39,6 @@ namespace daidaloseditor {
 	private:
 		CConsoleView * m_consoleView;
 
-	public:
-		/**
-		* Update the level
-		* @param time The elapsed time
-		*/
-		void Update(const float time);
-
 	protected:
 		/**
 		* Do pre level loading process

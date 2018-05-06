@@ -44,7 +44,6 @@ namespace daidalosengine {
 		float z;
 		float w;
 
-	public:
 		CQuaternion();
 		CQuaternion(const CQuaternion & quat);
 		CQuaternion(const CVector3F & vec, const float angle);

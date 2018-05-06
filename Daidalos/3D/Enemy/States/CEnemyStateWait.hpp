@@ -69,12 +69,6 @@ namespace daidalos {
 		void SetWaitTime(const float waitTime);
 
 		/**
-		* Reset the state
-		* @param entity The entity
-		*/
-		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
-
-		/**
 		* Callback when an entity interrupt its process
 		* @param state The state
 		*/

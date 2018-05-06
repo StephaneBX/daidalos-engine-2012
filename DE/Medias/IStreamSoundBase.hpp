@@ -90,10 +90,10 @@ namespace daidalosengine {
 		*/
 		const int ReadChunk(ALuint buffer);
 
-	private:
+	
 		IStreamSoundBase();
 		IStreamSoundBase(const IStreamSoundBase & copy);
-		const IStreamSoundBase & operator=(const IStreamSoundBase & copy);
+		const IStreamSoundBase & operator=(const IStreamSoundBase & copy) = delete;
 	};
 }
 

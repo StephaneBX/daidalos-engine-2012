@@ -417,12 +417,11 @@ namespace daidalosengine {
 		*/
 		ISceneNode * FindNode(ISceneNode * currentNode, const std::string & name) const;
 
-	private:
 		/**
 		* Constructor
 		*/
 		I3DScene(const I3DScene & copy);
-		const I3DScene & operator=(const I3DScene & copy);
+		const I3DScene & operator=(const I3DScene & copy) = delete;
 	};
 }
 

@@ -51,12 +51,6 @@ namespace daidalosgameengine {
 		CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node);
 
 		/**
-		* Update the entity
-		* @param time Elapsed time
-		*/
-		void Update(const float time = 0);
-
-		/**
 		* Trigger the entity action
 		*/
 		void DoAction();

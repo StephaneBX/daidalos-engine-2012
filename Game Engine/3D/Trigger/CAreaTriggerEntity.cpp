@@ -60,15 +60,6 @@ namespace daidalosgameengine {
 	}
 
 	/**
-	* Update the entity
-	* @param time Elapsed time
-	*/
-	void CAreaTriggerEntity::Update(const float time) {
-
-		ITriggerEntity::Update(time);
-	}
-
-	/**
 	* Trigger the entity action
 	*/
 	void CAreaTriggerEntity::DoAction() {

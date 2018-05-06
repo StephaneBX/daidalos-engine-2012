@@ -93,14 +93,6 @@ namespace daidalos {
 	}
 
 	/**
-	* Reset the state
-	* @param entity The entity
-	*/
-	void CEnemyStateFollow::Reset(daidalosgameengine::IEnemyEntity * entity) {
-		IEnemyState::Reset(entity);
-	}
-
-	/**
 	* Callback when the entity take damage
 	*/
 	void CEnemyStateFollow::OnEntityTakeDamage() {

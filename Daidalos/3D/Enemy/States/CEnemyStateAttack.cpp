@@ -92,14 +92,6 @@ namespace daidalos {
 	}
 
 	/**
-	* Reset the state
-	* @param entity The entity
-	*/
-	void CEnemyStateAttack::Reset(daidalosgameengine::IEnemyEntity * entity) {
-		IEnemyState::Reset(entity);
-	}
-
-	/**
 	* Update the entity
 	* @param entity The entity
 	* @param time Elapsed time

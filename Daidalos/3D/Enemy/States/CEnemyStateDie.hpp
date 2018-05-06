@@ -68,12 +68,6 @@ namespace daidalos {
 		void SetFallSound(const std::string & soundName);
 
 		/**
-		* Reset the state
-		* @param entity The entity
-		*/
-		virtual void Reset(daidalosgameengine::IEnemyEntity * entity);
-
-		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
