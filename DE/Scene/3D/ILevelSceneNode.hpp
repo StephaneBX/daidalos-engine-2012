@@ -106,10 +106,6 @@ namespace daidalosengine {
 		*/
 		void SetSkyAmbientColor(const CVector4F & ambientColor);
 
-		
-
-		
-
 		/**
 		* Add a diffuse texture
 		* @param texture The diffuse texture

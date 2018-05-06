@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidaloseditor {
 	CEditorLevelSceneNode::CEditorLevelSceneNode(daidalosengine::I3DScene * scene) : ILevelSceneNode(scene) {
 		this->m_type = daidalosengine::SCENE_NODE_ROOT;
-		this->m_shadingType = daidalosengine::MESH_SHADING_FLAT;
+		SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
 	}
 
 	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}

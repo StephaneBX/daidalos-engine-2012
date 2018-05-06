@@ -81,7 +81,7 @@ namespace daidalosengine {
 		*/
 		CResourceManager();
 		CResourceManager(const CResourceManager & copy);
-		const CResourceManager & operator=(const CResourceManager & copy);
+		const CResourceManager & operator=(const CResourceManager & copy) = delete;
 	};
 
 	template <class T> T * CResourceManager::GetResource(const std::string & name) const {

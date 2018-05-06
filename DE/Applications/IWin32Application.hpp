@@ -32,6 +32,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 #include <dinput.h>
+#include <Windows.h>
+#include "../Core/CInputDevice.hpp"
 #include "../Core/IApplication.hpp"
 
 namespace daidalosengine {
@@ -42,6 +44,7 @@ namespace daidalosengine {
 	private:
 		bool m_hasFocus;
 		int m_nCmdShow;
+		HWND m_hWnd;
 		HINSTANCE m_hInstance;
 		WNDCLASSEX m_wc;
 		LPDIRECTINPUT m_directInput;

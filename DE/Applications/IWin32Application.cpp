@@ -217,10 +217,9 @@ namespace daidalosengine {
 	* @param nCmdShow The commands
 	* @param title The application title
 	*/
-	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication() {
+	IWin32Application::IWin32Application(const HINSTANCE hInstance, const int nCmdShow, const std::string & title) : IApplication(title) {
 		LOG_TRACE();
 
-		this->m_name = title;
 		s_instance = this;
 
 		this->m_hasFocus = false;
@@ -235,12 +234,11 @@ namespace daidalosengine {
 		this->m_wc.hInstance = this->m_hInstance;
 		this->m_wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		this->m_wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-		this->m_wc.lpszClassName = this->m_name.c_str();
+		this->m_wc.lpszClassName = GetName().c_str();
 
 		RegisterClassEx(&this->m_wc);
 
 		InitializeWindow();
-
 		InitializeGamepad();
 	}
 
@@ -269,27 +267,29 @@ namespace daidalosengine {
 	void IWin32Application::InitializeWindow() {
 		LOG_TRACE();
 
-		if(this->m_fullscreen) {
-			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
+		CInputDevice* input = CInputDevice::GetInstance();
+
+		if(IsFullScreen()) {
+			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, GetWidth(), GetHeight(), NULL, NULL, this->m_hInstance, NULL);
 		} else {
-			this->m_hWnd = CreateWindowEx(NULL, this->m_name.c_str(), this->m_name.c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, this->m_width, this->m_height, NULL, NULL, this->m_hInstance, NULL);
+			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, GetWidth(), GetHeight(), NULL, NULL, this->m_hInstance, NULL);
 		}
 		ShowWindow(this->m_hWnd, this->m_nCmdShow);
 
 		RECT rect;
 		GetClientRect(this->m_hWnd, &rect);
 
-		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
+		SetDisplayBounds(CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top));
 
-		SetCursorPos(this->m_width / 2, this->m_height / 2);
-		this->m_input->SetMousePosition(daidalosengine::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
+		SetCursorPos(GetWidth() / 2, GetHeight() / 2);
+		input->SetMousePosition(daidalosengine::CVector2I(GetDisplayBounds().GetWidth() / 2, GetDisplayBounds().GetHeight() / 2), false);
 
 		// Renderer creation
-		IRenderer::SetRenderer(new CDX9Renderer(this->m_verticalSynchro, this->m_anisotropicFiltering, this->m_antialiasing, this->m_hWnd));
+		IRenderer::SetRenderer(new CDX9Renderer(IsVerticalSynchro(), GetAnisotropicFiltering(), GetAntialiasing(), this->m_hWnd));
 
-		this->m_renderer = IRenderer::GetRenderer();
-		this->m_renderer->SetDisplayBounds(this->m_displayBounds);
-		this->m_renderer->SetFillMode(this->m_fillMode);
+		IRenderer* renderer = IRenderer::GetRenderer();
+		renderer->SetDisplayBounds(GetDisplayBounds());
+		renderer->SetFillMode(GetFillMode());
 	}
 
 	/**
@@ -322,6 +322,7 @@ namespace daidalosengine {
 		float time;
 		float realTime;
 		double previousTime = timer.Elapsed();
+		CInputDevice* input = CInputDevice::GetInstance();
 
 		// Ignore the first messages
 		while(PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0) {
@@ -329,7 +330,7 @@ namespace daidalosengine {
 			DispatchMessage(&msg);
 		}
 
-		while(this->m_alive) {
+		while(IsAlive()) {
 			time = (float)((timer.Elapsed() - previousTime) * 1000);
 			realTime = time;
 			previousTime = timer.Elapsed();
@@ -339,68 +340,68 @@ namespace daidalosengine {
 				time = MAXIMUM_FRAME_TIME;
 
 			// Disable any previous mouse wheel movement
-			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELUP);
-			this->m_input->SetKeyUp(INPUT_KEY_MOUSE_WHEELDOWN);
+			input->SetKeyUp(INPUT_KEY_MOUSE_WHEELUP);
+			input->SetKeyUp(INPUT_KEY_MOUSE_WHEELDOWN);
 
 			while(PeekMessage(&msg, this->m_hWnd, 0, 0, PM_REMOVE) > 0) {
 				switch(msg.message) {
 				case WM_KEYDOWN:
 					if(msg.wParam < 167) {
-						this->m_input->SetKeyDown(s_keyCode[msg.wParam], msg.wParam);
+						input->SetKeyDown(s_keyCode[msg.wParam], msg.wParam);
 					}
 					break;
 
 				case WM_KEYUP:
 					if(msg.wParam < 167) {
-						this->m_input->SetKeyUp(s_keyCode[msg.wParam], msg.wParam);
+						input->SetKeyUp(s_keyCode[msg.wParam], msg.wParam);
 					}
 					break;
 
 				case WM_MOUSEMOVE:
 					point = MAKEPOINTS(msg.lParam);
 
-					this->m_input->SetMousePosition(daidalosengine::CVector2I(point.x, point.y), this->m_hasFocus);
+					input->SetMousePosition(daidalosengine::CVector2I(point.x, point.y), this->m_hasFocus);
 
-					if(this->m_hasFocus && (point.x < this->m_displayBounds.GetWidth() * 0.1F || point.x > this->m_displayBounds.GetWidth() * 0.9F || point.y < this->m_displayBounds.GetHeight() * 0.1F || point.y > this->m_displayBounds.GetHeight() * 0.9F)) {
-						SetCursorPos(this->m_width / 2, this->m_height / 2);
-						this->m_input->SetMousePosition(daidalosengine::CVector2I(this->m_displayBounds.GetWidth() / 2, this->m_displayBounds.GetHeight() / 2), false);
+					if(this->m_hasFocus && (point.x < GetDisplayBounds().GetWidth() * 0.1F || point.x > GetDisplayBounds().GetWidth() * 0.9F || point.y < GetDisplayBounds().GetHeight() * 0.1F || point.y > GetDisplayBounds().GetHeight() * 0.9F)) {
+						SetCursorPos(GetWidth() / 2, GetHeight() / 2);
+						input->SetMousePosition(daidalosengine::CVector2I(GetDisplayBounds().GetWidth() / 2, GetDisplayBounds().GetHeight() / 2), false);
 					}
 					break;
 
 				case WM_MOUSEWHEEL:
 					if(GET_WHEEL_DELTA_WPARAM(msg.wParam) > 0) {
-						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELUP);
+						input->SetKeyDown(INPUT_KEY_MOUSE_WHEELUP);
 					} else {
-						this->m_input->SetKeyDown(INPUT_KEY_MOUSE_WHEELDOWN);
+						input->SetKeyDown(INPUT_KEY_MOUSE_WHEELDOWN);
 					}
 					break;
 
 				case WM_LBUTTONDOWN:
-					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON0);
+					input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON0);
 					break;
 
 				case WM_LBUTTONUP:
-					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON0);
+					input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON0);
 					break;
 
 				case WM_RBUTTONDOWN:
-					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON1);
+					input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON1);
 					break;
 
 				case WM_RBUTTONUP:
-					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON1);
+					input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON1);
 					break;
 
 				case WM_MBUTTONDOWN:
-					this->m_input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON2);
+					input->SetKeyDown(INPUT_KEY_MOUSE_BUTTON2);
 					break;
 
 				case WM_MBUTTONUP:
-					this->m_input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON2);
+					input->SetKeyUp(INPUT_KEY_MOUSE_BUTTON2);
 					break;
 
 				case WM_QUIT:
-					this->m_alive = false;
+					SetAlive(false);
 					break;
 
 				default:
@@ -417,7 +418,7 @@ namespace daidalosengine {
 			Update(time);
 			Render();
 
-			this->m_input->ResetMouseMovement();
+			input->ResetMouseMovement();
 		}
 	}
 
@@ -435,6 +436,7 @@ namespace daidalosengine {
 	void IWin32Application::UpdateGamepads() {
 		LOG_TRACE();
 
+		CInputDevice* input = CInputDevice::GetInstance();
 		// Loop through the active gamepads
 		for(unsigned int gamepadId = 0; gamepadId < this->m_gamepad.size(); gamepadId++) {
 			// Get the gamepad state
@@ -452,107 +454,107 @@ namespace daidalosengine {
 					if(state.rgbButtons[i] & 0x80) {
 						buttonState = 1;
 					}
-					this->m_input->SetGamepadKey(gamepadId, (EInputKeyGamepad)(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
+					input->SetGamepadKey(gamepadId, (EInputKeyGamepad)(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
 				}
 
 				// Update the pov - the values are angles
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_UP, state.rgdwPOV[0] == 0 ? 1.0F : 0.0F);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_RIGHT, state.rgdwPOV[0] == 9000 ? 1.0F : 0.0F);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_DOWN, state.rgdwPOV[0] == 18000 ? 1.0F : 0.0F);
-				this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_LEFT, state.rgdwPOV[0] == 27000 ? 1.0F : 0.0F);
+				input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_UP, state.rgdwPOV[0] == 0 ? 1.0F : 0.0F);
+				input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_RIGHT, state.rgdwPOV[0] == 9000 ? 1.0F : 0.0F);
+				input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_DOWN, state.rgdwPOV[0] == 18000 ? 1.0F : 0.0F);
+				input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_POV_LEFT, state.rgdwPOV[0] == 27000 ? 1.0F : 0.0F);
 
 				// Update the axis
 				const float axisCenter = 32767;
-				const float axisThreshold = 1.0F - (this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1F));
+				const float axisThreshold = 1.0F - (GetOptions().GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1F));
 				float axisFactor = 0;
 
 				// X
 				if(state.lX < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lX / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
 				} else {
 					if(state.lX > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lX - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LXP, axisFactor);
 					}
 				}
 
 				// Y
 				if(state.lY < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lY / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
 				} else {
 					if(state.lY > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lY - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LYP, axisFactor);
 					}
 				}
 
 				// Z
 				if(state.lZ < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lZ / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
 				} else {
 					if(state.lZ > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lZ - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_LZP, axisFactor);
 					}
 				}
 
 				// R
 				if(state.lRx < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lRx / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
 				} else {
 					if(state.lRx > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lRx - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RXP, axisFactor);
 					}
 				}
 
 				// U
 				if(state.lRy < axisCenter * axisThreshold) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lRy / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
 				} else {
 					if(state.lRy > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lRy - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RYP, axisFactor);
 					}
 				}
 
 				// V
 				if(state.lRz < axisCenter * axisThreshold && state.lRz > 0) {
 					axisFactor = std::min(1.0F, 1.0F - (state.lRz / (axisCenter * axisThreshold)));
-					this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
+					input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
 				} else {
 					if(state.lRz > axisCenter + (axisCenter * (1.0F - axisThreshold))) {
 						axisFactor = std::min(1.0F, (state.lRz - (axisCenter + (axisCenter * (1.0F - axisThreshold)))) / (axisCenter * axisThreshold));
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					} else {
 						axisFactor = 0;
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
-						this->m_input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZN, axisFactor);
+						input->SetGamepadKey(gamepadId, INPUT_KEY_GAMEPAD_AXIS_RZP, axisFactor);
 					}
 				}
 			} else {
@@ -579,7 +581,7 @@ namespace daidalosengine {
 
 		RECT rect;
 		GetWindowRect(this->m_hWnd, &rect);
-		this->m_displayBounds = CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top);
+		SetDisplayBounds(CRectangleI(0, 0, rect.right - rect.left, rect.bottom - rect.top));
 	}
 
 	/**

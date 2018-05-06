@@ -68,10 +68,11 @@ namespace daidalos {
 
 	void CDaidalosApplication::Update(const float time) {
 
+		daidalosengine::CInputDevice* input = daidalosengine::CInputDevice::GetInstance();
 		daidalosgameengine::IForwardApplication::Update(time);
 		if(!IsLoading()) {
-			if(this->m_input->IsActionActive(FPS_CAMERA_EXIT) || this->m_input->IsGamepadActionActive(0, FPS_CAMERA_EXIT)) {
-				this->m_alive = false;
+			if(input->IsActionActive(FPS_CAMERA_EXIT) || input->IsGamepadActionActive(0, FPS_CAMERA_EXIT)) {
+				SetAlive(false);
 			}
 
 			GetCurrentLevel()->Update(time);

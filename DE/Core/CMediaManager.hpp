@@ -100,7 +100,7 @@ namespace daidalosengine {
 		*/
 		CMediaManager();
 		CMediaManager(const CMediaManager & copy);
-		const CMediaManager & operator=(const CMediaManager & copy);
+		const CMediaManager & operator=(const CMediaManager & copy) = delete;
 	};
 
 	template <class T> void CMediaManager::AddLoader(ILoader<T> * loader, const std::string & extensions) {

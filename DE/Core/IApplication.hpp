@@ -30,13 +30,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 #include "../Core/Utility/CRectangle.hpp"
-#include "../Core/CInputDevice.hpp"
 #include "../Core/CConfigurationManager.hpp"
 #include "../Core/CSoundContextManager.hpp"
-
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 
 #pragma comment(lib, "SiniP.lib")
 #pragma comment(lib, "tinyxml2.lib")
@@ -52,7 +47,7 @@ namespace daidalosengine {
 	* Basic class for the application
 	*/
 	class IApplication {
-	protected:
+	private:
 		bool m_alive;
 		bool m_fullscreen;
 		bool m_verticalSynchro;
@@ -66,19 +61,14 @@ namespace daidalosengine {
 		CRectangleI m_displayBounds;
 		SiniP m_options;
 		IRenderer * m_renderer;
-		CInputDevice * m_input;
 		CSoundContextManager * m_soundContext;
-
-		// Need for Windows / DirectX
-#ifdef _WIN32
-		HWND m_hWnd;
-#endif
 
 	public:
 		/**
 		* Constructor
+		* @param name The application name
 		*/
-		IApplication();
+		explicit IApplication(const std::string & name);
 
 		/**
 		* The destructor
@@ -86,6 +76,84 @@ namespace daidalosengine {
 		virtual ~IApplication();
 
 	protected:
+		/**
+		* Check if the application is alive
+		* @return True if the application is alive
+		*/
+		const bool IsAlive() const;
+
+		/**
+		* Check if the fullscreen is enabled
+		* @return True if the fullscreen is enabled
+		*/
+		const bool IsFullScreen() const;
+
+		/**
+		* Check if the vertical synchro is enabled
+		* @return True if the vertical synchro is enabled
+		*/
+		const bool IsVerticalSynchro() const;
+
+		/**
+		* Get the width
+		* @return The width
+		*/
+		const int GetWidth() const;
+
+		/**
+		* Get the height
+		* @return The height
+		*/
+		const int GetHeight() const;
+
+		/**
+		* Get the anisotropic filterting level
+		* @return The anisotropic filterting level
+		*/
+		const int GetAnisotropicFiltering() const;
+
+		/**
+		* Get the antialiasing level
+		* @return The antialiasing level
+		*/
+		const int GetAntialiasing() const;
+
+		/**
+		* Get the fill mode
+		* @return The fill mode
+		*/
+		const ERenderStateFillMode GetFillMode() const;
+
+		/**
+		* Get the name
+		* @return The name
+		*/
+		const std::string & GetName();
+
+		/**
+		* Get the options
+		* @return The options
+		*/
+		const SiniP & GetOptions() const;
+
+		/**
+		* Get the display bounds
+		* @return The display bounds
+		*/
+		const CRectangleI & GetDisplayBounds() const;
+
+		/**
+		* Set the alive state
+		* @param alive The alive state
+		*/
+		void SetAlive(const bool alive);
+
+		/**
+		* Set the display bounds
+		* @param displayBounds The display bounds
+		*/
+		void SetDisplayBounds(const CRectangleI & displayBounds);
+
 		/**
 		* Initialize the window
 		*/
@@ -121,7 +189,7 @@ namespace daidalosengine {
 
 	private:
 		IApplication(const IApplication & copy);
-		const IApplication & operator=(const IApplication & copy);
+		const IApplication & operator=(const IApplication & copy) = delete;
 	};
 }
 

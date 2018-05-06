@@ -40,22 +40,23 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.hpp"
 #include "../Core/CResourceManager.hpp"
 #include "../Core/CSoundContextManager.hpp"
+#include "../Core/CInputDevice.hpp"
 #include "../Core/Utility/CTimer.hpp"
 #include "../Core/IApplication.hpp"
 
 #define MAXIMUM_FRAME_TIME 50
 
 namespace daidalosengine {
-	IApplication::IApplication() {
+	IApplication::IApplication(const std::string & name) {
 		// Log file
-		ILogger::SetLogger(new CLoggerFile("log.txt"));
+		ILogger::SetLogger(new CLoggerFile("application.log"));
 		LOG_TRACE();
 
 		// Seed initialization for the main thread
 		srand((unsigned int)time(nullptr));
 
+		this->m_name = name;
 		this->m_renderer = nullptr;
-		this->m_input = CInputDevice::GetInstance();
 		this->m_soundContext = CSoundContextManager::GetInstance();
 		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
@@ -120,6 +121,110 @@ namespace daidalosengine {
 		CMediaManager::Kill();
 		CResourceManager::Kill();
 		ILogger::Kill();
+	}
+
+	/**
+	* Check if the application is alive
+	* @return True if the application is alive
+	*/
+	const bool IApplication::IsAlive() const {
+		return this->m_alive;
+	}
+
+	/**
+	* Check if the fullscreen is enabled
+	* @return True if the fullscreen is enabled
+	*/
+	const bool IApplication::IsFullScreen() const {
+		return this->m_fullscreen;
+	}
+
+	/**
+	* Check if the vertical synchro is enabled
+	* @return True if the vertical synchro is enabled
+	*/
+	const bool IApplication::IsVerticalSynchro() const {
+		return this->m_verticalSynchro;
+	}
+
+	/**
+	* Get the width
+	* @return The width
+	*/
+	const int IApplication::GetWidth() const {
+		return this->m_width;
+	}
+
+	/**
+	* Get the height
+	* @return The height
+	*/
+	const int IApplication::GetHeight() const {
+		return this->m_height;
+	}
+
+	/**
+	* Get the anisotropic filterting level
+	* @return The anisotropic filterting level
+	*/
+	const int IApplication::GetAnisotropicFiltering() const {
+		return this->m_anisotropicFiltering;
+	}
+
+	/**
+	* Get the antialiasing level
+	* @return The antialiasing level
+	*/
+	const int IApplication::GetAntialiasing() const {
+		return this->m_antialiasing;
+	}
+
+	/**
+	* Get the name
+	* @return The name
+	*/
+	const std::string & IApplication::GetName() {
+		return this->m_name;
+	}
+
+	/**
+	* Get the options
+	* @return The options
+	*/
+	const SiniP & IApplication::GetOptions() const {
+		return this->m_options;
+	}
+
+	/**
+	* Get the display bounds
+	* @return The display bounds
+	*/
+	const CRectangleI & IApplication::GetDisplayBounds() const {
+		return this->m_displayBounds;
+	}
+
+	/**
+	* Get the fill mode
+	* @return The fill mode
+	*/
+	const ERenderStateFillMode IApplication::GetFillMode() const {
+		return this->m_fillMode;
+	}
+
+	/**
+	* Set the alive state
+	* @param alive The alive state
+	*/
+	void IApplication::SetAlive(const bool alive) {
+		this->m_alive = alive;
+	}
+
+	/**
+	* Set the display bounds
+	* @param displayBounds The display bounds
+	*/
+	void IApplication::SetDisplayBounds(const CRectangleI & displayBounds) {
+		this->m_displayBounds = displayBounds;
 	}
 }
 

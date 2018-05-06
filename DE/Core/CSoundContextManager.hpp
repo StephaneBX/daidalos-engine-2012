@@ -74,7 +74,7 @@ namespace daidalosengine {
 		*/
 		CSoundContextManager();
 		CSoundContextManager(const CSoundContextManager & copy);
-		const CSoundContextManager & operator=(const CSoundContextManager & copy);
+		const CSoundContextManager & operator=(const CSoundContextManager & copy) = delete;
 	};
 }
 
