@@ -89,6 +89,14 @@ namespace daidalosengine {
 		LOG_TRACE();
 	}
 
+	/**
+	* Get the vertical synchro state
+	* @return True if the vertical synchro is enabled
+	*/
+	const bool IRenderer::IsVerticalSynchro() const {
+		return this->m_verticalSynchro;
+	}
+
 	CBuffer IRenderer::CreateVertexBuffer(const unsigned long stride, const unsigned long count, const unsigned long flags, const void * data) const {
 		LOG_TRACE();
 
@@ -219,5 +227,30 @@ namespace daidalosengine {
 		this->m_defaultBasicTextureFilter.addressU = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		this->m_defaultBasicTextureFilter.addressV = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		this->m_defaultBasicTextureFilter.maxAnisotropy = 0;
+	}
+
+	/**
+	* Set the current screen quad index buffer
+	* @param buffer The buffer
+	*/
+	void IRenderer::SetCurrentScreenQuadIB(const CBuffer & buffer) {
+		this->m_quadIB = buffer;
+	}
+
+	/**
+	* Set the current shader program
+	* @param shaderProgram The shader program
+	*/
+	void IRenderer::SetCurrentShaderProgram(IShaderProgramBase * shaderProgram) {
+		this->m_currentShaderProgram = shaderProgram;
+	}
+
+	/**
+	* Set a capability
+	* @param capablity The capability
+	* @param value The value
+	*/
+	void IRenderer::SetCapability(const ECapability capability, const bool value) {
+		this->m_capabilities[capability] = value;
 	}
 }

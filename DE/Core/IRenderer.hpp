@@ -51,10 +51,8 @@ namespace daidalosengine {
 	class IRenderer {
 	private:
 		static IRenderer * s_instance;
-
 		static std::string s_shaderProgramParameters[];
 
-	protected:
 		bool m_verticalSynchro;
 		int m_anisotropicFiltering;
 		int m_antialiasing;
@@ -65,7 +63,6 @@ namespace daidalosengine {
 		CVector2I m_resolution;
 		STexture2DFilterPolicy m_defaultTextureFilter;
 		STexture2DFilterPolicy m_defaultBasicTextureFilter;
-
 		CBuffer m_quadIB;
 
 	public:
@@ -73,6 +70,12 @@ namespace daidalosengine {
 		* Destructor
 		*/
 		virtual ~IRenderer();
+
+		/**
+		* Get the vertical synchro state
+		* @return True if the vertical synchro is enabled
+		*/
+		const bool IsVerticalSynchro() const;
 
 		/**
 		* Create a vertex declaration
@@ -478,6 +481,25 @@ namespace daidalosengine {
 		* Check the host capabilities
 		*/
 		virtual void CheckCapabilities() = 0;
+
+		/**
+		* Set the current screen quad index buffer
+		* @param buffer The buffer
+		*/
+		void SetCurrentScreenQuadIB(const CBuffer & buffer);
+
+		/**
+		* Set the current shader program
+		* @param shaderProgram The shader program
+		*/
+		void SetCurrentShaderProgram(IShaderProgramBase * shaderProgram);
+
+		/**
+		* Set a capability
+		* @param capablity The capability
+		* @param value The value
+		*/
+		void SetCapability(const ECapability capability, const bool value);
 
 	private:
 		IRenderer();

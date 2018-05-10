@@ -64,14 +64,14 @@ namespace daidalosengine {
 	const CRectangleI CDX9Renderer::GetLightScissor(const CVector4F & positionRadius) const {
 		LOG_TRACE();
 
-		int rect[4] = { 0, 0, this->m_resolution.x, this->m_resolution.y };
+		int rect[4] = { 0, 0, GetResolution().x, GetResolution().y };
 
 		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
 		CVector3F l2 = l * l;
 		float r = positionRadius.w;
 		float r2 = r * r;
 		float e = 1.2F;
-		float a = this->m_resolution.x / (float)this->m_resolution.y;
+		float a = GetResolution().x / (float) GetResolution().y;
 
 		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
 		if(d > 0) {
@@ -86,7 +86,7 @@ namespace daidalosengine {
 
 			if(pz1 > 0) {
 				float fx = (-nz1 * e) / nx1;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5F);
+				int x = (int)((fx + 1) * GetResolution().x * 0.5F);
 				float px = -pz1 * nz1 / nx1;
 
 				if(px < l.x) {
@@ -98,7 +98,7 @@ namespace daidalosengine {
 
 			if(pz2 > 0) {
 				float fx = (-nz2 * e) / nx2;
-				int x = (int)((fx + 1) * this->m_resolution.x * 0.5F);
+				int x = (int)((fx + 1) * GetResolution().x * 0.5F);
 				float px = -pz2 * nz2 / nx2;
 
 				if(px < l.x) {
@@ -122,7 +122,7 @@ namespace daidalosengine {
 
 			if(pz1 > 0) {
 				float fy = (nz1 * e * a) / ny1;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5F);
+				int y = (int)((fy + 1) * GetResolution().y * 0.5F);
 				float py = -pz1 * nz1 / ny1;
 
 				if(py < l.y) {
@@ -134,7 +134,7 @@ namespace daidalosengine {
 
 			if(pz2 > 0) {
 				float fy = (nz2 * e * a) / ny2;
-				int y = (int)((fy + 1) * this->m_resolution.y * 0.5F);
+				int y = (int)((fy + 1) * GetResolution().y * 0.5F);
 				float py = -pz2 * nz2 / ny2;
 
 				if(py < l.y) {
@@ -149,7 +149,7 @@ namespace daidalosengine {
 
 		// Boundary check
 		if(finalRect.GetWidth() <= 0 || finalRect.GetHeight() <= 0) {
-			finalRect = CRectangleI(0, 0, this->m_resolution.x, this->m_resolution.y);
+			finalRect = CRectangleI(0, 0, GetResolution().x, GetResolution().y);
 		}
 
 		return finalRect;
@@ -260,7 +260,7 @@ namespace daidalosengine {
 	void CDX9Renderer::SetShaderProgram(IShaderProgramBase * shaderProgram) {
 		LOG_TRACE();
 
-		this->m_currentShaderProgram = shaderProgram;
+		SetCurrentShaderProgram(shaderProgram);
 
 		if(shaderProgram != nullptr) {
 			const CDX9VertexShader * vertexShader = static_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
@@ -641,21 +641,17 @@ namespace daidalosengine {
 		D3DCAPS9 capabilities;
 		this->m_device->GetDeviceCaps(&capabilities);
 
-		this->m_capabilities[CAPABILITY_HARDWARE_MIPMAP] = (capabilities.Caps2 & D3DCAPS2_CANAUTOGENMIPMAP) != 0;
-		this->m_capabilities[CAPABILITY_HARDWARE_DXT_COMPRESSION] = CheckFormat(D3DFMT_DXT1, D3DRTYPE_TEXTURE) &&
+		SetCapability(CAPABILITY_HARDWARE_MIPMAP, (capabilities.Caps2 & D3DCAPS2_CANAUTOGENMIPMAP) != 0);
+		SetCapability(CAPABILITY_HARDWARE_DXT_COMPRESSION, CheckFormat(D3DFMT_DXT1, D3DRTYPE_TEXTURE) &&
 			CheckFormat(D3DFMT_DXT3, D3DRTYPE_TEXTURE) &&
-			CheckFormat(D3DFMT_DXT5, D3DRTYPE_TEXTURE);
-
-		this->m_capabilities[CAPABILITY_HARDWARE_NON_POW2_TEXTURES] = ((capabilities.TextureCaps & D3DPTEXTURECAPS_POW2) == 0) &&
-			((capabilities.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL) == 0);
-
-		this->m_capabilities[CAPABILITY_HARDWARE_MRT] = (capabilities.NumSimultaneousRTs > 1) &&
+			CheckFormat(D3DFMT_DXT5, D3DRTYPE_TEXTURE));
+		SetCapability(CAPABILITY_HARDWARE_NON_POW2_TEXTURES, ((capabilities.TextureCaps & D3DPTEXTURECAPS_POW2) == 0) &&
+			((capabilities.TextureCaps & D3DPTEXTURECAPS_NONPOW2CONDITIONAL) == 0));
+		SetCapability(CAPABILITY_HARDWARE_MRT, (capabilities.NumSimultaneousRTs > 1) &&
 			((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTINDEPENDENTBITDEPTHS) != 0) &&
-			((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTPOSTPIXELSHADERBLENDING) != 0);
-
-		this->m_capabilities[CAPABILITY_HARDWARE_MULTITEXTURE] = capabilities.MaxSimultaneousTextures > 1;
-
-		this->m_capabilities[CAPABILITY_HARDWARE_ADVANCED_BUFFERS] = true;
+			((capabilities.PrimitiveMiscCaps & D3DPMISCCAPS_MRTPOSTPIXELSHADERBLENDING) != 0));
+		SetCapability(CAPABILITY_HARDWARE_MULTITEXTURE, capabilities.MaxSimultaneousTextures > 1);
+		SetCapability(CAPABILITY_HARDWARE_ADVANCED_BUFFERS, true);
 	}
 
 	void CDX9Renderer::Initialize() {
@@ -688,7 +684,7 @@ namespace daidalosengine {
 
 		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 
-		if(this->m_verticalSynchro)
+		if(IsVerticalSynchro())
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 		else
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
@@ -743,8 +739,7 @@ namespace daidalosengine {
 
 		// Canvas resolution
 		CRectangleI viewport = GetViewport();
-		this->m_resolution.x = viewport.GetWidth();
-		this->m_resolution.y = viewport.GetHeight();
+		SetResolution(CVector2I(viewport.GetWidth(), viewport.GetHeight()));
 
 		// Screen quad information
 		SScreenQuadElement sq[] =
@@ -754,10 +749,10 @@ namespace daidalosengine {
 			{ CVector3F(-1, 1, 0), CVector2F(0, 0) },
 			{ CVector3F(1, 1, 0), CVector2F(1, 0) }
 		};
-		memcpy(this->m_screenQuadElement, sq, sizeof(SScreenQuadElement) * 4);
+		memcpy(GetScreenQuad(), sq, sizeof(SScreenQuadElement) * 4);
 
 		// Quad Index Buffer
 		int indices[] = { 0, 1, 2, 2, 3, 0 };
-		this->m_quadIB = CreateIndexBuffer(6, 0, indices);
+		SetCurrentScreenQuadIB(CreateIndexBuffer(6, 0, indices));
 	}
 }
