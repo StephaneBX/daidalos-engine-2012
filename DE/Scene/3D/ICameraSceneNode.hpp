@@ -51,7 +51,7 @@ namespace daidalosengine {
 	* Handle a camera
 	*/
 	class ICameraSceneNode : public ISceneNode {
-	protected:
+	private:
 		float m_nearDistance;
 		float m_farDistance;
 		CMatrix m_viewMatrix;
@@ -167,6 +167,12 @@ namespace daidalosengine {
 		*/
 		const CVector3F & GetUpVector() const;
 
+		/**
+		* Get the absolute look at position
+		* @return The absolute look at position
+		*/
+		const CVector3F & GetAbsoluteLookAt() const;
+
 	protected:
 		/**
 		* Constructor
@@ -179,6 +185,50 @@ namespace daidalosengine {
 		* @param farDistance The far distance
 		*/
 		ICameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance);
+
+		/**
+		* Set the projection matrix
+		* @param matrix The view projection matrix
+		*/
+		void SetProjMatrix(const CMatrix & matrix);
+
+		/**
+		* Set the view projection matrix
+		* @param matrix The view projection matrix
+		*/
+		void SetViewProjMatrix(const CMatrix & matrix);
+
+		/**
+		* Set a view frustum point
+		* @param point The point to get
+		* @param value The value
+		*/
+		void SetViewFrustumRelativePoint(EFrustumPoint point, const CVector3F & value);
+
+		/**
+		* Set a view frustum absolute point
+		* @param point The point to get
+		* @param value The value
+		*/
+		void SetViewFrustumAbsolutePoint(EFrustumPoint point, const CVector3F & value);
+
+		/**
+		* Build the view frustum planes
+		* @param plane The plane
+		* @param planePoints The plane definition as a list of points
+		*/
+		void SetViewFrustumPlane(EFrustumPlane plane, CVector3F * planePoints);
+
+		/**
+		* Set the forward vector
+		* @param vector The forward vector
+		*/
+		void SetForwardVector(const CVector3F & vector);
+
+		/**
+		* Update the debug buffer
+		*/
+		void UpdateDebugBuffer();
 
 	private:
 		ICameraSceneNode();

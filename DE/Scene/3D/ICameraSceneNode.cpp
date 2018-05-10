@@ -153,6 +153,16 @@ namespace daidalosengine {
 		return this->m_absoluteUp;
 	}
 
+	/**
+	* Get the absolute look at position
+	* @return The absolute look at position
+	*/
+	const CVector3F & ICameraSceneNode::GetAbsoluteLookAt() const {
+		LOG_TRACE();
+
+		return this->m_absoluteLookAt;
+	}
+
 	ICameraSceneNode::ICameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance) : ISceneNode(scene, parent, name, position, rotation) {
 		LOG_TRACE();
 
@@ -160,5 +170,104 @@ namespace daidalosengine {
 		this->m_nearDistance = nearDistance;
 		this->m_farDistance = farDistance;
 		this->m_localUp = CVector3F(0, 1, 0);
+	}
+
+	/**
+	* Set the projection matrix
+	* @param matrix The view projection matrix
+	*/
+	void ICameraSceneNode::SetProjMatrix(const CMatrix & matrix) {
+		LOG_TRACE();
+
+		this->m_projMatrix = matrix;
+	}
+
+	/**
+	* Set the view projection matrix
+	* @param matrix The view projection matrix
+	*/
+	void ICameraSceneNode::SetViewProjMatrix(const CMatrix & matrix) {
+		LOG_TRACE();
+
+		this->m_viewProjMatrix = matrix;
+	}
+
+	/**
+	* Set a view frustum point
+	* @param point The point to get
+	* @param value The value
+	*/
+	void ICameraSceneNode::SetViewFrustumRelativePoint(EFrustumPoint point, const CVector3F & value) {
+		LOG_TRACE();
+
+		this->m_frustum.relativePoints[point] = value;
+	}
+
+	/**
+	* Set a view frustum absolute point
+	* @param point The point to get
+	* @param value The value
+	*/
+	void ICameraSceneNode::SetViewFrustumAbsolutePoint(EFrustumPoint point, const CVector3F & value) {
+		LOG_TRACE();
+
+		this->m_frustum.absolutePoints[point] = value;
+	}
+
+	/**
+	* Build the view frustum planes
+	* @param plane The plane
+	* @param planePoints The plane definition as a list of points
+	*/
+	void ICameraSceneNode::SetViewFrustumPlane(EFrustumPlane plane, CVector3F * planePoints) {
+		LOG_TRACE();
+
+		this->m_frustum.planes[plane].Build(planePoints);
+	}
+
+	/**
+	* Set the forward vector
+	* @param vector The forward vector
+	*/
+	void ICameraSceneNode::SetForwardVector(const CVector3F & vector) {
+		LOG_TRACE();
+
+		this->m_frustum.forward = vector;
+	}
+
+	/**
+	* Update the debug buffer
+	*/
+	void ICameraSceneNode::UpdateDebugBuffer() {
+		// Check the vertex buffer size
+		if ((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
+			// Create a new one if the current one can't hold the data
+			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+		}
+
+		// Set the data
+		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
+			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT),
+			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT),
+			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT),
+			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT),
+			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT)
+		};
+
+		// Update the buffer
+		unsigned char * lock = (unsigned char*)this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY);
+		memcpy(lock, pointsData, sizeof(pointsData));
+		this->m_debugBuffer.Unlock();
 	}
 }

@@ -61,10 +61,12 @@ namespace daidalosengine {
 		ICameraSceneNode::Update(time);
 
 		// Update the projection information
-		this->m_projMatrix.PerspectiveFOV(this->m_angle, this->m_ratio, this->m_nearDistance, this->m_farDistance);
+		CMatrix projMatrix;
+		projMatrix.PerspectiveFOV(this->m_angle, this->m_ratio, GetNearDistance(), GetFarDistance());
+		SetProjMatrix(projMatrix);
 
 		// Update the view proj matrix
-		this->m_viewProjMatrix = this->m_viewMatrix * this->m_projMatrix;
+		SetViewProjMatrix(GetViewMatrix() * GetProjMatrix());
 
 		/**
 		* Update the view frustum information
@@ -77,102 +79,73 @@ namespace daidalosengine {
 		CVector3F x;
 
 		tang = this->m_angle * 0.5F;
-		nearSize.y = this->m_nearDistance * tang;
+		nearSize.y = GetNearDistance() * tang;
 		nearSize.x = nearSize.y * this->m_ratio;
-		farSize.y = this->m_farDistance * tang;
+		farSize.y = GetFarDistance() * tang;
 		farSize.x = farSize.y * this->m_ratio;
 
 		// Z axis camera
-		this->m_frustum.forward = (this->m_absoluteLookAt - this->m_absolutePosition).Normalize();
+		SetForwardVector((GetAbsoluteLookAt() - this->m_absolutePosition).Normalize());
 
 		// X axis camera
-		x = this->m_absoluteUp.CrossProduct(this->m_frustum.forward).Normalize();
+		x = GetUpVector().CrossProduct(GetForwardVector()).Normalize();
 
 		// World space calculation
 
 		// Find the center of the planes
-		nearCenter = this->m_absolutePosition + this->m_frustum.forward * this->m_nearDistance;
-		farCenter = this->m_absolutePosition + this->m_frustum.forward * this->m_farDistance;
+		nearCenter = this->m_absolutePosition + GetForwardVector() * GetNearDistance();
+		farCenter = this->m_absolutePosition + GetForwardVector() * GetFarDistance();
 
 		// Find the absolute points of the near plane
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT] = nearCenter + this->m_absoluteUp * nearSize.y - x * nearSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT] = nearCenter + this->m_absoluteUp * nearSize.y + x * nearSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] = nearCenter - this->m_absoluteUp * nearSize.y - x * nearSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT] = nearCenter - this->m_absoluteUp * nearSize.y + x * nearSize.x;
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT, nearCenter + GetUpVector() * nearSize.y - x * nearSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT, nearCenter + GetUpVector() * nearSize.y + x * nearSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT, nearCenter - GetUpVector() * nearSize.y - x * nearSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT, nearCenter - GetUpVector() * nearSize.y + x * nearSize.x);
 
 		// Find the absolute points of the far plane
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT] = farCenter + this->m_absoluteUp * farSize.y - x * farSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT] = farCenter + this->m_absoluteUp * farSize.y + x * farSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT] = farCenter - this->m_absoluteUp * farSize.y - x * farSize.x;
-		this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = farCenter - this->m_absoluteUp * farSize.y + x * farSize.x;
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT, farCenter + GetUpVector() * farSize.y - x * farSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT, farCenter + GetUpVector() * farSize.y + x * farSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT, farCenter - GetUpVector() * farSize.y - x * farSize.x);
+		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT, farCenter - GetUpVector() * farSize.y + x * farSize.x);
 
 
 		// Local space calculation
 
 		// Find the center of the planes
-		nearCenter = this->m_frustum.forward * this->m_nearDistance;
-		farCenter = this->m_frustum.forward * this->m_farDistance;
+		nearCenter = GetForwardVector() * GetNearDistance();
+		farCenter = GetForwardVector() * GetFarDistance();
 
 		// Find the for points of the near plane
-		this->m_frustum.relativePoints[FRUSTUM_POINT_NEAR_TOP_LEFT] = nearCenter + this->m_absoluteUp * nearSize.y - x * nearSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT] = nearCenter + this->m_absoluteUp * nearSize.y + x * nearSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] = nearCenter - this->m_absoluteUp * nearSize.y - x * nearSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT] = nearCenter - this->m_absoluteUp * nearSize.y + x * nearSize.x;
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_NEAR_TOP_LEFT, nearCenter + GetUpVector() * nearSize.y - x * nearSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT, nearCenter + GetUpVector() * nearSize.y + x * nearSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT, nearCenter - GetUpVector() * nearSize.y - x * nearSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT, nearCenter - GetUpVector() * nearSize.y + x * nearSize.x);
 
 		// Find the four points of the far plane
-		this->m_frustum.relativePoints[FRUSTUM_POINT_FAR_TOP_LEFT] = farCenter + this->m_absoluteUp * farSize.y - x * farSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_FAR_TOP_RIGHT] = farCenter + this->m_absoluteUp * farSize.y + x * farSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT] = farCenter - this->m_absoluteUp * farSize.y - x * farSize.x;
-		this->m_frustum.relativePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = farCenter - this->m_absoluteUp * farSize.y + x * farSize.x;
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_FAR_TOP_LEFT, farCenter + GetUpVector() * farSize.y - x * farSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_FAR_TOP_RIGHT, farCenter + GetUpVector() * farSize.y + x * farSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT, farCenter - GetUpVector() * farSize.y - x * farSize.x);
+		SetViewFrustumRelativePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT, farCenter - GetUpVector() * farSize.y + x * farSize.x);
 
 
 		// Table creation four the frustum planes
-		CVector3F leftFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT] };
-		CVector3F rightFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
-		CVector3F topFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT] };
-		CVector3F bottomFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT] };
-		CVector3F nearFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT] };
-		CVector3F farFrustrum[3] = { this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] };
+		CVector3F leftFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT) };
+		CVector3F rightFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT) };
+		CVector3F topFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT) };
+		CVector3F bottomFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_LEFT) };
+		CVector3F nearFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT) };
+		CVector3F farFrustrum[3] = { GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_FAR_BOTTOM_RIGHT) };
 
 		// Update the frustum planes
-		this->m_frustum.planes[FRUSTUM_PLANE_LEFT].Build(leftFrustrum);
-		this->m_frustum.planes[FRUSTUM_PLANE_RIGHT].Build(rightFrustrum);
-		this->m_frustum.planes[FRUSTUM_PLANE_TOP].Build(topFrustrum);
-		this->m_frustum.planes[FRUSTUM_PLANE_BOTTOM].Build(bottomFrustrum);
-		this->m_frustum.planes[FRUSTUM_PLANE_NEAR].Build(nearFrustrum);
-		this->m_frustum.planes[FRUSTUM_PLANE_FAR].Build(farFrustrum);
-
+		SetViewFrustumPlane(FRUSTUM_PLANE_LEFT, leftFrustrum);
+		SetViewFrustumPlane(FRUSTUM_PLANE_RIGHT, rightFrustrum);
+		SetViewFrustumPlane(FRUSTUM_PLANE_TOP, topFrustrum);
+		SetViewFrustumPlane(FRUSTUM_PLANE_BOTTOM, bottomFrustrum);
+		SetViewFrustumPlane(FRUSTUM_PLANE_NEAR, nearFrustrum);
+		SetViewFrustumPlane(FRUSTUM_PLANE_FAR, farFrustrum);
 
 		// Update the debug buffer
-
-		// Check the vertex buffer size
-		if((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
-			// Create a new one if the current one can't hold the data
-			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
-		}
-
-		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT],
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
-			this->m_absolutePosition, this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_NEAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_RIGHT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT],
-			this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_BOTTOM_LEFT], this->m_frustum.absolutePoints[FRUSTUM_POINT_FAR_TOP_LEFT]
-		};
-
-		unsigned char * lock = (unsigned char*)this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY);
-		memcpy(lock, pointsData, sizeof(pointsData));
-		this->m_debugBuffer.Unlock();
+		UpdateDebugBuffer();
 	}
 
 	const float CProjectionCameraSceneNode::GetAngle() const {
