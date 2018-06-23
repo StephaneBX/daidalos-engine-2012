@@ -70,7 +70,7 @@ namespace daidalosengine {
 		* Set the mesh
 		* @param filename The mesh filename
 		*/
-		virtual void SetMesh(const std::string filename) override;
+		virtual void SetMesh(const std::string & filename) override;
 
 		/**
 		* Update the absolute position

@@ -35,9 +35,6 @@ namespace daidalosengine {
 
 		this->m_looped = false;
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
-		this->m_buffer = nullptr;
-		this->m_diffuseTexture = nullptr;
-		this->m_normalTexture = nullptr;
 
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -56,9 +53,6 @@ namespace daidalosengine {
 
 		this->m_looped = false;
 		this->m_type = SCENE_NODE_ANIMATEDMESH;
-		this->m_buffer = nullptr;
-		this->m_diffuseTexture = nullptr;
-		this->m_normalTexture = nullptr;
 		
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -76,24 +70,13 @@ namespace daidalosengine {
 
 	}
 
-	void CAnimatedMeshSceneNode::SetMesh(const std::string filename) {
+	void CAnimatedMeshSceneNode::SetMesh(const std::string & filename) {
 		LOG_TRACE();
 
-		SAFE_DELETE_ARRAY(this->m_buffer);
-		SAFE_DELETE_ARRAY(this->m_diffuseTexture);
-		SAFE_DELETE_ARRAY(this->m_normalTexture);
-
-		this->m_filename = filename;
+		SetFileName(filename);
 		this->m_mesh.LoadFromFile(filename);
-		this->m_numberOfGroups = this->m_mesh.GetMesh()->GetNumberOfGroups();
 
-		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
-		for(int i = 0; i < this->m_numberOfGroups; i++) {
-			this->m_buffer[i].SetScene(this->m_scene);
-		}
-
-		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
-		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
+		InitializeGeometry(this->m_mesh.GetMesh()->GetNumberOfGroups());
 	}
 
 	void CAnimatedMeshSceneNode::SetLooped(const bool looped) {
@@ -171,12 +154,12 @@ namespace daidalosengine {
 				}
 			}
 		}
-		this->m_needGeometryUpdate = true;
+		SetNeedGeometryUpdate(true);
 
 		// Update the activation shape
-		this->m_visibilityShape->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 		CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-		this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
+		GetVisibilityShape()->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
+		GetVisibilityShape()->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 
 	const std::string CAnimatedMeshSceneNode::GetMeshName() const {
@@ -206,9 +189,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_mesh.Animate(this->m_animationCurrent);
-		this->m_mesh.FinalizeGeometry(this->m_shadingType);
-		for(int i = 0; i < this->m_numberOfGroups; ++i)
-			this->m_buffer[i].Transform(this->m_mesh.GetMesh()->GetVertices(i), this->m_mesh.GetMesh()->GetTexcoords(i), this->m_mesh.GetMesh()->GetNormals(i), this->m_mesh.GetMesh()->GetTangents(i), this->m_mesh.GetMesh()->GetBinormals(i), this->m_mesh.GetMesh()->GetGroupSize(i));
-		this->m_needGeometryUpdate = false;
+		this->m_mesh.FinalizeGeometry(GetMeshShadingType());
+		for (int i = 0; i < GetNumberOfGroups(); ++i) {
+			PushMeshData(this->m_mesh.GetMesh(), i);
+		}
+		SetNeedGeometryUpdate(false);
 	}
 }

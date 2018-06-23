@@ -41,6 +41,11 @@ namespace daidalosengine {
 		this->m_shadingType = MESH_SHADING_SMOOTH;
 		this->m_visibilityShape = new CSphereF();
 		this->m_needGeometryUpdate = true;
+
+		this->m_numberOfGroups = 0;
+		this->m_buffer = nullptr;
+		this->m_diffuseTexture = nullptr;
+		this->m_normalTexture = nullptr;
 	}
 
 	IMeshSceneNode::IMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : ISceneNode(scene, parent, name, position, rotation) {
@@ -50,6 +55,11 @@ namespace daidalosengine {
 		SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
 		this->m_needGeometryUpdate = true;
+
+		this->m_numberOfGroups = 0;
+		this->m_buffer = nullptr;
+		this->m_diffuseTexture = nullptr;
+		this->m_normalTexture = nullptr;
 	}
 
 	IMeshSceneNode::~IMeshSceneNode() {
@@ -60,6 +70,16 @@ namespace daidalosengine {
 		SAFE_DELETE_ARRAY(this->m_normalTexture);
 
 		SAFE_DELETE(this->m_visibilityShape);
+	}
+
+	/**
+	* Set the filename
+	* @param filename The filename
+	*/
+	void IMeshSceneNode::SetFileName(const std::string & filename) {
+		LOG_TRACE();
+
+		this->m_filename = filename;
 	}
 
 	void IMeshSceneNode::SetMeshMaterial(const std::string & filename) {
@@ -235,16 +255,19 @@ namespace daidalosengine {
 		ISceneNode::Render(filterId);
 	}
 
+	/**
+	* Get the number of groups
+	*/
+	const int IMeshSceneNode::GetNumberOfGroups() const {
+		LOG_TRACE();
+
+		return this->m_numberOfGroups;
+	}
+
 	const EMeshShadingType IMeshSceneNode::GetMeshShadingType() const {
 		LOG_TRACE();
 
 		return this->m_shadingType;
-	}
-
-	CSphereF * IMeshSceneNode::GetVisibilityShape() const {
-		LOG_TRACE();
-
-		return this->m_visibilityShape;
 	}
 
 	const std::string IMeshSceneNode::GetMeshTextureName(ETextureType textureType) const {
@@ -282,6 +305,58 @@ namespace daidalosengine {
 		}
 
 		return name;
+	}
+
+	CSphereF * IMeshSceneNode::GetVisibilityShape() {
+		LOG_TRACE();
+
+		return this->m_visibilityShape;
+	}
+
+	/**
+	* Initialize the geometry data
+	* @param numberOfGroups The number of groups
+	*/
+	void IMeshSceneNode::InitializeGeometry(const int numberOfGroups) {
+		LOG_TRACE();
+
+		SAFE_DELETE_ARRAY(this->m_buffer);
+		SAFE_DELETE_ARRAY(this->m_diffuseTexture);
+		SAFE_DELETE_ARRAY(this->m_normalTexture);
+
+		// Set the number of groups
+		this->m_numberOfGroups = numberOfGroups;
+
+		// Initialize the buffers
+		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
+		for (int i = 0; i < this->m_numberOfGroups; i++) {
+			this->m_buffer[i].SetScene(this->m_scene);
+		}
+
+		// Initialize the textures arrays
+		this->m_diffuseTexture = new CTexture2D[this->m_numberOfGroups];
+		this->m_normalTexture = new CTexture2D[this->m_numberOfGroups];
+	}
+
+	/**
+	* Push the mesh data into the buffer.
+	* @param mesh The mesh
+	* @param group The group index
+	*/
+	void IMeshSceneNode::PushMeshData(IMeshBase * mesh, const int group) {
+		LOG_TRACE();
+
+		this->m_buffer[group].Transform(mesh->GetVertices(group), mesh->GetTexcoords(group), mesh->GetNormals(group), mesh->GetTangents(group), mesh->GetBinormals(group), mesh->GetGroupSize(group));
+	}
+
+	/**
+	* Set if a geometry update is required.
+	* @param needGeometryUpdate If a geometry update is required
+	*/
+	void IMeshSceneNode::SetNeedGeometryUpdate(const bool needGeometryUpdate) {
+		LOG_TRACE();
+
+		this->m_needGeometryUpdate = needGeometryUpdate;
 	}
 
 	void IMeshSceneNode::FinalizeGeometry() {

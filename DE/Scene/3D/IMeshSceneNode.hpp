@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Enums.hpp"
 #include "../../Medias/CTexture2D.hpp"
 #include "../../Medias/CMaterial.hpp"
+#include "../../Medias/IMeshBase.hpp"
 #include "../../Scene/3D/CSphere.hpp"
 #include "../../Scene/3D/CMeshBuffer.hpp"
 #include "../../Scene/3D/ISceneNode.hpp"
@@ -41,7 +42,7 @@ namespace daidalosengine {
 	* Basic class for mesh nodes
 	*/
 	class IMeshSceneNode : public ISceneNode {
-	protected:
+	private:
 		bool m_needGeometryUpdate;
 		bool m_needVisibilityShapeUpdate;
 		int m_numberOfGroups;
@@ -82,10 +83,16 @@ namespace daidalosengine {
 		virtual ~IMeshSceneNode();
 
 		/**
+		* Set the filename
+		* @param filename The filename
+		*/
+		void SetFileName(const std::string & filename);
+
+		/**
 		* Set the mesh
 		* @param filename The mesh filename
 		*/
-		virtual void SetMesh(const std::string filename) = 0;
+		virtual void SetMesh(const std::string & filename) = 0;
 
 		/**
 		* Set a material
@@ -144,15 +151,15 @@ namespace daidalosengine {
 		virtual const std::string GetMeshName() const = 0;
 
 		/**
+		* Get the number of groups
+		*/
+		const int GetNumberOfGroups() const;
+
+		/**
 		* Get the mesh shading type
 		* @return The mesh shading type
 		*/
 		const EMeshShadingType GetMeshShadingType() const;
-
-		/**
-		* Get the visibility shape 
-		*/
-		CSphereF * GetVisibilityShape() const;
 
 		/**
 		* Get the texture name
@@ -167,7 +174,31 @@ namespace daidalosengine {
 		*/
 		const std::string GetMeshMaterialName() const;
 
+		/**
+		* Get the visibility shape
+		*/
+		CSphereF * GetVisibilityShape();
+
 	protected:
+		/**
+		* Initialize the geometry data
+		* @param numberOfGroups The number of groups
+		*/
+		void InitializeGeometry(const int numberOfGroups);
+
+		/**
+		* Push the mesh data into the buffer.
+		* @param mesh The mesh
+		* @param group The group index
+		*/
+		void PushMeshData(IMeshBase * mesh, const int group);
+
+		/**
+		* Set if a geometry update is required.
+		* @param needGeometryUpdate If a geometry update is required
+		*/
+		void SetNeedGeometryUpdate(const bool needGeometryUpdate);
+
 		/**
 		* Finalize the geometry before rendering the mesh
 		*/

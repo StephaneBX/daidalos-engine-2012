@@ -76,7 +76,7 @@ namespace daidalosengine {
 		* Set the mesh
 		* @param filename The mesh filename
 		*/
-		void SetMesh(const std::string filename);
+		void SetMesh(const std::string & filename);
 
 		/**
 		* Set the looped state
