@@ -76,7 +76,7 @@ namespace daidalosengine {
 		*/
 
 		// Z axis camera
-		SetForwardVector((GetAbsoluteLookAt() - this->m_absolutePosition).Normalize());
+		SetForwardVector((GetAbsoluteLookAt() - GetAbsolutePosition()).Normalize());
 
 		// Find the absolute points
 		CMatrix viewProjMatrixInv = GetViewProjMatrix().Inverse();
@@ -99,12 +99,12 @@ namespace daidalosengine {
 			frustumCorner[i].y /= frustumCorner[i].w;
 			frustumCorner[i].z /= frustumCorner[i].w;
 
-			SetViewFrustumAbsolutePoint((EFrustumPoint) i, CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z) + this->m_absolutePosition);
+			SetViewFrustumAbsolutePoint((EFrustumPoint) i, CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z) + GetAbsolutePosition());
 		}
 
 		// Find the relative points
 		for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
-			SetViewFrustumRelativePoint((EFrustumPoint)i, GetViewFrustumAbsolutePoint((EFrustumPoint)i) - this->m_absolutePosition);
+			SetViewFrustumRelativePoint((EFrustumPoint)i, GetViewFrustumAbsolutePoint((EFrustumPoint)i) - GetAbsolutePosition());
 		}
 
 		// Table creation for the frustum planes

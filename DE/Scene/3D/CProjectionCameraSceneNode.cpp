@@ -85,7 +85,7 @@ namespace daidalosengine {
 		farSize.x = farSize.y * this->m_ratio;
 
 		// Z axis camera
-		SetForwardVector((GetAbsoluteLookAt() - this->m_absolutePosition).Normalize());
+		SetForwardVector((GetAbsoluteLookAt() - GetAbsolutePosition()).Normalize());
 
 		// X axis camera
 		x = GetUpVector().CrossProduct(GetForwardVector()).Normalize();
@@ -93,8 +93,8 @@ namespace daidalosengine {
 		// World space calculation
 
 		// Find the center of the planes
-		nearCenter = this->m_absolutePosition + GetForwardVector() * GetNearDistance();
-		farCenter = this->m_absolutePosition + GetForwardVector() * GetFarDistance();
+		nearCenter = GetAbsolutePosition() + GetForwardVector() * GetNearDistance();
+		farCenter = GetAbsolutePosition() + GetForwardVector() * GetFarDistance();
 
 		// Find the absolute points of the near plane
 		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT, nearCenter + GetUpVector() * nearSize.y - x * nearSize.x);

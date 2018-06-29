@@ -34,13 +34,13 @@ namespace daidalosengine {
 	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), CColor(1.0F, 1.0F, 1.0F), false, 100, 0.8F, true) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_POINTLIGHT;
+		SetType(SCENE_NODE_POINTLIGHT);
 	}
 
 	CPointLightSceneNode::CPointLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CColor & color, const float range, const float falloff, const bool shadowCaster, const bool enabled) : IBoundedLightSceneNode(scene, parent, name, position, CVector3F(0, 0, 0), color, shadowCaster, range, falloff, enabled) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_POINTLIGHT;
+		SetType(SCENE_NODE_POINTLIGHT);
 	}
 
 	CPointLightSceneNode::~CPointLightSceneNode() {
@@ -55,15 +55,15 @@ namespace daidalosengine {
 		IBoundedLightSceneNode::Update(time);
 
 		// If active and enabled, add it to the active lights list
-		if(this->m_active && this->m_enabled) {
-			SPointLightsShaderData * lights = this->m_scene->GetActivePointLightsBuffer();
+		if(IsActive() && IsEnabled()) {
+			SPointLightsShaderData * lights = GetScene()->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
-				lights->positionRange[lights->numberOfLights] = CVector4F(this->m_absolutePosition, GetRange());
+				lights->positionRange[lights->numberOfLights] = CVector4F(GetAbsolutePosition(), GetRange());
 				lights->colorFalloff[lights->numberOfLights] = CVector4F(GetColor().ToRGBVector(), GetFalloff());
 				lights->enabled[lights->numberOfLights] = 1;
-				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
+				lights->shadowCaster[lights->numberOfLights] = IsShadowCaster() ? 1 : 0;
 				lights->scissor[lights->numberOfLights] = GetScissor();
 				++lights->numberOfLights;
 			}

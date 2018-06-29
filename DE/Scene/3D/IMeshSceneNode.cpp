@@ -201,17 +201,17 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Activation check
-		this->m_active = (filterId == SCENE_DEFAULT_ID && this->m_id != SCENE_TOP_LAYER_ID && !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape)) || (this->m_id == filterId && filterId == SCENE_TOP_LAYER_ID);
+		SetActive((filterId == SCENE_DEFAULT_ID && GetId()!= SCENE_TOP_LAYER_ID && !GetScene()->GetActiveCamera()->FrustumCull(this->m_visibilityShape)) || (GetId() == filterId && filterId == SCENE_TOP_LAYER_ID));
 
 		// If the camera is bound to a light, it means that the render is used for a lightning shadow process.
 		// Render the mesh only if it's a shadow caster
-		if(this->m_active && this->m_scene->GetActiveCamera()->GetParent() != nullptr && (this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_SPOTLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_DIRECTIONALLIGHT || this->m_scene->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_POINTLIGHT)) {
+		if(IsActive() && GetScene()->GetActiveCamera()->GetParent() != nullptr && (GetScene()->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_SPOTLIGHT || GetScene()->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_DIRECTIONALLIGHT || GetScene()->GetActiveCamera()->GetParent()->GetType() == SCENE_NODE_POINTLIGHT)) {
 			if(!IsShadowCaster()) {
-				this->m_active = false;
+				SetActive(false);
 			}
 		}
 
-		if (this->m_active && this->m_enabled) {
+		if (IsActive() && IsEnabled()) {
 			if (this->m_needGeometryUpdate) {
 				FinalizeGeometry();
 			}
@@ -222,8 +222,8 @@ namespace daidalosengine {
 			Assert(shaderProgram != nullptr);
 
 			// World matrixes
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), GetAbsoluteTransformationMatrix());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), GetAbsoluteRotationMatrix());
 
 			// Group paramaters
 			for(int i = 0; i < this->m_numberOfGroups; ++i) {
@@ -234,8 +234,8 @@ namespace daidalosengine {
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_NS), this->m_activeMaterialElement[i]->m_ns);
 
 				// Can override material ambient color
-				if(this->m_scene->GetRootNode()->GetUseGlobalAmbientColor()) {
-					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_scene->GetRootNode()->GetAmbientColor());
+				if(GetScene()->GetRootNode()->GetUseGlobalAmbientColor()) {
+					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), GetScene()->GetRootNode()->GetAmbientColor());
 				} else {
 					shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_AMBIENT), this->m_activeMaterialElement[i]->m_kAmbient);
 				}
@@ -330,7 +330,7 @@ namespace daidalosengine {
 		// Initialize the buffers
 		this->m_buffer = new CMeshBuffer[this->m_numberOfGroups];
 		for (int i = 0; i < this->m_numberOfGroups; i++) {
-			this->m_buffer[i].SetScene(this->m_scene);
+			this->m_buffer[i].SetScene(GetScene());
 		}
 
 		// Initialize the textures arrays

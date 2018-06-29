@@ -33,7 +33,7 @@ namespace daidalosengine {
 	CSoundSceneNode::CSoundSceneNode(I3DScene * scene, const std::string & filename, ESoundType type, ESoundCategory category, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_SOUND;
+		SetType(SCENE_NODE_SOUND);
 		this->m_autoStart = false;
 		this->m_sound.LoadFromFile(filename, type, category);
 	}
@@ -48,12 +48,12 @@ namespace daidalosengine {
 		ISceneNode::Update(time);
 
 		// Update the sound position and orientation
-		this->m_sound.SetPosition(this->m_absolutePosition);
+		this->m_sound.SetPosition(GetAbsolutePosition());
 		if(this->m_sound.GetConeInnerAngle() < 360.0F || this->m_sound.GetConeOuterAngle() < 360.0F) {
 			CVector3F lookAt(0, 0, this->m_sound.GetMaxDistance());
 			CVector3F up(0, 1, 0);
-			lookAt = this->m_absoluteRotationMatrix.Transform(lookAt);
-			up = this->m_absoluteRotationMatrix.Transform(lookAt, true);
+			lookAt = GetAbsoluteRotationMatrix().Transform(lookAt);
+			up = GetAbsoluteRotationMatrix().Transform(lookAt, true);
 
 			float orientation[] = { lookAt.x, lookAt.y, lookAt.z, up.x, up.y, up.z };
 			this->m_sound.SetOrientation(orientation);

@@ -37,7 +37,7 @@ namespace daidalosengine {
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, CColor(1.0F, 1.0F, 1.0F), false, true) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
+		SetType(SCENE_NODE_DIRECTIONALLIGHT);
 
 		// Camera for the shadow rendering
 		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1F, 100);
@@ -48,7 +48,7 @@ namespace daidalosengine {
 	CDirectionalLightSceneNode::CDirectionalLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled) : ILightSceneNode(scene, parent, name, CVector3F(0, 0, 0), rotation, color, shadowCaster, enabled) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_DIRECTIONALLIGHT;
+		SetType(SCENE_NODE_DIRECTIONALLIGHT);
 
 		// Camera for the shadow rendering
 		this->m_camera = new COrthographicCameraSceneNode(scene, this, "directionallight_camera", CVector3F(), CVector3F(), CRectangleF(), 0.1F, 100);
@@ -64,26 +64,26 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Get the light direction
-		CVector3F direction = this->m_absoluteRotationMatrix.Transform(CVector3F(0, 0, 1)).Normalize();
+		CVector3F direction = GetAbsoluteRotationMatrix().Transform(CVector3F(0, 0, 1)).Normalize();
 
 		CVector3F centroid;
 		CAABoundingBoxF boundingBox;
-		if(this->m_scene->GetActiveCamera() != this->m_camera) {
+		if(GetScene()->GetActiveCamera() != this->m_camera) {
 			// If the active camera is not the light camera, use the active camera frustum as a bounding box
 			CVector3F boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 			CVector3F boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 			// Find the min and max
 			for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
-				boundingBoxMin = boundingBoxMin.Min(this->m_scene->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
-				boundingBoxMax = boundingBoxMax.Max(this->m_scene->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
+				boundingBoxMin = boundingBoxMin.Min(GetScene()->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
+				boundingBoxMax = boundingBoxMax.Max(GetScene()->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
 			}
 
 			// Set the bounding box
 			boundingBox.SetMinMax(boundingBoxMin, boundingBoxMax);
 		} else {
 			// If the active camera is the light camera, use the world bounding box
-			boundingBox = this->m_scene->GetSceneBoundingBox();
+			boundingBox = GetScene()->GetSceneBoundingBox();
 		}
 
 		// Find the centroid
@@ -93,7 +93,7 @@ namespace daidalosengine {
 		float distance = (boundingBox.GetMin()).Distance(centroid);
 
 		// Find the light position based on the centroid
-		this->m_localPosition = centroid;
+		SetPosition(centroid);
 
 		// Update the absolute position and the camera view matrix
 		this->m_camera->SetNearDistance(0);
@@ -119,16 +119,16 @@ namespace daidalosengine {
 
 
 		// If active and enabled, add it to the active lights list
-		if(this->m_active && this->m_enabled) {
-			SDirectionalLightsShaderData * lights = this->m_scene->GetActiveDirectionalLightsBuffer();
+		if(IsActive() && IsEnabled()) {
+			SDirectionalLightsShaderData * lights = GetScene()->GetActiveDirectionalLightsBuffer();
 
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {
 				lights->direction[lights->numberOfLights] = CVector4F(direction, 0);
-				lights->position[lights->numberOfLights] = CVector4F(this->m_absolutePosition, 0);
+				lights->position[lights->numberOfLights] = CVector4F(GetAbsolutePosition(), 0);
 				lights->color[lights->numberOfLights] = GetColor().ToRGBAVector();
 				lights->enabled[lights->numberOfLights] = 1;
-				lights->shadowCaster[lights->numberOfLights] = this->m_shadowCaster ? 1 : 0;
+				lights->shadowCaster[lights->numberOfLights] = IsShadowCaster() ? 1 : 0;
 				lights->node[lights->numberOfLights] = this->m_camera;
 				++lights->numberOfLights;
 			}

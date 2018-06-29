@@ -39,7 +39,7 @@ namespace daidalosengine {
 	CBSPSceneNode::CBSPSceneNode(I3DScene * scene) : ILevelSceneNode(scene) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_ROOT;
+		SetType(SCENE_NODE_ROOT);
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
 		SetMeshShadingType(MESH_SHADING_SMOOTH);
@@ -326,14 +326,14 @@ namespace daidalosengine {
 		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
-		SetActiveCamera(this->m_scene->GetActiveCamera());
+		SetActiveCamera(GetScene()->GetActiveCamera());
 		RegisterNodeForRendering(this->m_bsp.get(),filterId);
 		SetNumberOfVisibleTriangles(this->m_visibleTriangles.size());
 		if (this->m_visibleTriangles.size() > 0) {
 
 			// World matrixes
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), this->m_worldMatrix);
-			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), this->m_absoluteRotationMatrix);
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), GetAbsoluteTransformationMatrix());
+			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), GetAbsoluteRotationMatrix());
 
 			// Sort the triangles
 			std::vector<CTriangle3D*> batchTriangles;

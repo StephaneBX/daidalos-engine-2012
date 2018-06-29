@@ -97,6 +97,16 @@ namespace daidalosengine {
 		this->m_attributes[attributeName] = attributeValue;
 	}
 
+	/**
+	* Set the active status
+	* @param active
+	*/
+	void ISceneNode::SetActive(const bool active) {
+		LOG_TRACE();
+
+		this->m_active = active;
+	}
+
 	void ISceneNode::SetEnabled(const bool enabled) {
 		LOG_TRACE();
 
@@ -113,6 +123,16 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_shadowCaster = shadowCaster;
+	}
+
+	/**
+	* Set the node type
+	* @param type The type
+	*/
+	void ISceneNode::SetType(ESceneNodeType type) {
+		LOG_TRACE();
+
+		this->m_type = type;
 	}
 
 	void ISceneNode::SetId(const int id) {
@@ -368,6 +388,16 @@ namespace daidalosengine {
 		return this->m_absolutePosition;
 	}
 
+	/**
+	* Get the local rotation matrix
+	* @return The local rotation matrix
+	*/
+	const CMatrix & ISceneNode::GetRotationMatrix() const {
+		LOG_TRACE();
+
+		return this->m_localRotationMatrix;
+	}
+
 	const CMatrix & ISceneNode::GetTransformationMatrix() const {
 		LOG_TRACE();
 
@@ -396,6 +426,16 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		return this->m_absolutePositionMatrix;
+	}
+
+	/**
+	* Get the scene
+	* @return The scene
+	*/
+	I3DScene * ISceneNode::GetScene() const {
+		LOG_TRACE();
+
+		return this->m_scene;
 	}
 
 	const ISceneNode * ISceneNode::GetParent() const {

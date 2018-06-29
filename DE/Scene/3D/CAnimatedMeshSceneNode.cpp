@@ -34,7 +34,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_looped = false;
-		this->m_type = SCENE_NODE_ANIMATEDMESH;
+		SetType(SCENE_NODE_ANIMATEDMESH);
 
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -52,7 +52,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_looped = false;
-		this->m_type = SCENE_NODE_ANIMATEDMESH;
+		SetType(SCENE_NODE_ANIMATEDMESH);
 		
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -157,8 +157,8 @@ namespace daidalosengine {
 		SetNeedGeometryUpdate(true);
 
 		// Update the activation shape
-		CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-		GetVisibilityShape()->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
+		CVector3F radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
+		GetVisibilityShape()->SetPosition(GetAbsoluteTransformationMatrix().Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 		GetVisibilityShape()->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 

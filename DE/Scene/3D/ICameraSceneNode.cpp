@@ -55,17 +55,17 @@ namespace daidalosengine {
 
 		// Update the camera
 		this->m_localLookAt = CVector3F(0, 0, this->m_farDistance);
-		this->m_localLookAt = this->m_localMatrix.Transform(this->m_localLookAt);
-		this->m_localUp = this->m_localRotationMatrix.Transform(CVector3F(0, 1, 0)).Normalize();
+		this->m_localLookAt = GetTransformationMatrix().Transform(this->m_localLookAt);
+		this->m_localUp = GetRotationMatrix().Transform(CVector3F(0, 1, 0)).Normalize();
 
-		if(this->m_parent != nullptr) {
-			this->m_absoluteLookAt = (this->m_parent->GetAbsoluteRotationMatrix() * this->m_parent->GetAbsoluteTranslationMatrix()).Transform(this->m_localLookAt);
-			this->m_absoluteUp = CMatrix().RotationQuaternion(this->m_parent->GetAbsoluteTransformationMatrix().TransformRotation()).Transform(this->m_localUp).Normalize();
+		if(GetParent() != nullptr) {
+			this->m_absoluteLookAt = (GetParent()->GetAbsoluteRotationMatrix() * GetParent()->GetAbsoluteTranslationMatrix()).Transform(this->m_localLookAt);
+			this->m_absoluteUp = CMatrix().RotationQuaternion(GetParent()->GetAbsoluteTransformationMatrix().TransformRotation()).Transform(this->m_localUp).Normalize();
 		} else {
 			this->m_absoluteLookAt = this->m_localLookAt;
 			this->m_absoluteUp = this->m_localUp;
 		}
-		this->m_viewMatrix.LookAt(this->m_absolutePosition, this->m_absoluteLookAt, this->m_absoluteUp);
+		this->m_viewMatrix.LookAt(GetAbsolutePosition(), this->m_absoluteLookAt, this->m_absoluteUp);
 	}
 
 	void ICameraSceneNode::RenderDebugInformation() {
@@ -166,7 +166,7 @@ namespace daidalosengine {
 	ICameraSceneNode::ICameraSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const float nearDistance, const float farDistance) : ISceneNode(scene, parent, name, position, rotation) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_CAMERA;
+		SetType(SCENE_NODE_CAMERA);
 		this->m_nearDistance = nearDistance;
 		this->m_farDistance = farDistance;
 		this->m_localUp = CVector3F(0, 1, 0);
@@ -247,10 +247,10 @@ namespace daidalosengine {
 
 		// Set the data
 		CVector3F pointsData[DEBUG_LINES_COUNT * 2] = {
-			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT),
-			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT),
-			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT),
-			this->m_absolutePosition, GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT),
+			GetAbsolutePosition(), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT),
+			GetAbsolutePosition(), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT),
+			GetAbsolutePosition(), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT),
+			GetAbsolutePosition(), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT),
 			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT),
 			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT),
 			GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_RIGHT), GetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_BOTTOM_LEFT),

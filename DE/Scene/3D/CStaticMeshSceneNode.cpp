@@ -34,7 +34,7 @@ namespace daidalosengine {
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename) : IMeshSceneNode(scene, parent, name) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_STATICMESH;
+		SetType(SCENE_NODE_STATICMESH);
 
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -43,7 +43,7 @@ namespace daidalosengine {
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_STATICMESH;
+		SetType(SCENE_NODE_STATICMESH);
 
 		SetMesh(filename);
 		SetMeshMaterial("default.mtl");
@@ -72,8 +72,8 @@ namespace daidalosengine {
 		IMeshSceneNode::Update(time);
 
 		// Update the activation shape
-		CVector3F radius = this->m_worldMatrix.GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
-		GetVisibilityShape()->SetPosition(this->m_worldMatrix.Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
+		CVector3F radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
+		GetVisibilityShape()->SetPosition(GetAbsoluteTransformationMatrix().Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 		GetVisibilityShape()->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 

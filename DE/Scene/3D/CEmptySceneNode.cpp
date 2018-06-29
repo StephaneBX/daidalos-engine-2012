@@ -33,12 +33,12 @@ namespace daidalosengine {
 	CEmptySceneNode::CEmptySceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name) : ISceneNode(scene, parent, name) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_EMPTY;
+		SetType(SCENE_NODE_EMPTY);
 	}
 
 	CEmptySceneNode::CEmptySceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position) : ISceneNode(scene, parent, name, position, CVector3F()) {
 		LOG_TRACE();
 
-		this->m_type = SCENE_NODE_EMPTY;
+		SetType(SCENE_NODE_EMPTY);
 	}
 }

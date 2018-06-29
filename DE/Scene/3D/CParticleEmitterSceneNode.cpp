@@ -38,7 +38,7 @@ namespace daidalosengine {
 	*/
 	CParticleEmitterSceneNode::CParticleEmitterSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, CParticleEmitter * emitter) : m_emitter(emitter), ISceneNode(scene, parent, name) {
 		this->m_emitter = emitter;
-		this->m_type = SCENE_NODE_PARTICLE_EMITTER;
+		SetType(SCENE_NODE_PARTICLE_EMITTER);
 	}
 
 	CParticleEmitterSceneNode::~CParticleEmitterSceneNode() {

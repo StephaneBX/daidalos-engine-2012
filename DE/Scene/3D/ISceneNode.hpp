@@ -49,7 +49,7 @@ namespace daidalosengine {
 	* Basic class for the scene nodes.
 	*/
 	class ISceneNode {
-	protected:
+	private:
 		bool m_enabled;
 		bool m_active;
 		bool m_saved;
@@ -120,6 +120,12 @@ namespace daidalosengine {
 		void AddAttribute(const std::string & attributeName, const std::string attributeValue);
 
 		/**
+		* Set the active status
+		* @param active
+		*/
+		void SetActive(const bool active);
+
+		/**
 		* Set the node enabled status
 		* @param enabled The enabled status
 		*/
@@ -136,6 +142,12 @@ namespace daidalosengine {
 		* @param shadowCaster The cast shadows status
 		*/
 		void SetShadowCaster(const bool shadowCaster);
+
+		/**
+		* Set the node type
+		* @param type The type
+		*/
+		void SetType(ESceneNodeType type);
 
 		/**
 		* Set the node id
@@ -310,6 +322,12 @@ namespace daidalosengine {
 		const CVector3F & GetAbsolutePosition() const;
 
 		/**
+		* Get the local rotation matrix
+		* @return The local rotation matrix
+		*/
+		const CMatrix & GetRotationMatrix() const;
+
+		/**
 		* Get the local transformation
 		* @return The local transformation
 		*/
@@ -338,6 +356,12 @@ namespace daidalosengine {
 		* @return The absolute translation matrix
 		*/
 		const CMatrix & GetAbsoluteTranslationMatrix() const;
+
+		/**
+		* Get the scene
+		* @return The scene
+		*/
+		I3DScene * GetScene() const;
 
 		/**
 		* Get the node parent

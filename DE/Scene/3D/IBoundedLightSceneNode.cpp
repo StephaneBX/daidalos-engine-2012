@@ -52,16 +52,16 @@ namespace daidalosengine {
 		ISceneNode::Update(time);
 
 		// Update the activation shape
-		this->m_visibilityShape->SetPosition(this->m_absolutePosition);
+		this->m_visibilityShape->SetPosition(GetAbsolutePosition());
 
-		CVector3F radius = this->m_absoluteScaleMatrix.Transform(CVector3F(this->m_range, this->m_range, this->m_range));
+		CVector3F radius = GetAbsoluteScaleMatrix().Transform(CVector3F(this->m_range, this->m_range, this->m_range));
 		this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 
 		// Get the light scissor
-		this->m_scissor = IRenderer::GetRenderer()->GetLightScissor(CVector4F(this->m_scene->GetActiveCamera()->GetViewMatrix().Transform(this->m_visibilityShape->GetPosition()), this->m_visibilityShape->GetInnerDepth()));
+		this->m_scissor = IRenderer::GetRenderer()->GetLightScissor(CVector4F(GetScene()->GetActiveCamera()->GetViewMatrix().Transform(this->m_visibilityShape->GetPosition()), this->m_visibilityShape->GetInnerDepth()));
 
 		// Activation check (frustum + scissor test)
-		this->m_active = !this->m_scene->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0);
+		SetActive(!GetScene()->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0));
 	}
 
 	const float IBoundedLightSceneNode::GetRange() const {
