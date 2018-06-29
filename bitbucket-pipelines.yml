@@ -9,4 +9,6 @@ pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
-          -mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=my-team-org -Dsonar.login=$SONAR_TOKEN
+          - SonarQube.Scanner.MSBuild.exe begin /k:"daidalos-engine" /d:sonar.organization="stapoli-bitbucket" /d:sonar.cfamily.build-wrapper-output=bw-output /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$SONAR_TOKEN
+          - build-wrapper-win-x86-64.exe --out-dir bw-output MsBuild.exe /t:Rebuild
+          - SonarQube.Scanner.MSBuild.exe end /d:sonar.login="1066b0d973366f82e5f339de2af2e0d53aa8744f"
