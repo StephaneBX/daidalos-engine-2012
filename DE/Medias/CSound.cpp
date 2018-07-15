@@ -35,7 +35,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/CSound.hpp"
 
 namespace daidalosengine {
-	CSound::CSound() {}
+	CSound::CSound() = default;
 
 	CSound::CSound(const std::string & filename, ESoundType type, ESoundCategory category) {
 		LOG_TRACE();
@@ -201,56 +201,56 @@ namespace daidalosengine {
 		return this->m_category;
 	}
 
-	const bool CSound::IsRelativeToListener() const {
+	bool CSound::IsRelativeToListener() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsRelativeToListener();
 	}
 
-	const bool CSound::IsLooped() const {
+	bool CSound::IsLooped() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->IsLooped();
 	}
 
-	const int CSound::GetChannelsCount() const {
+	int CSound::GetChannelsCount() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetChannelsCount();
 	}
 
-	const float CSound::GetGain() const {
+	float CSound::GetGain() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetGain();
 	}
 
-	const float CSound::GetConeInnerAngle() const {
+	float CSound::GetConeInnerAngle() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeInnerAngle();
 	}
 
-	const float CSound::GetConeOuterAngle() const {
+	float CSound::GetConeOuterAngle() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetConeOuterAngle();
 	}
 
-	const float CSound::GetReferenceDistance() const {
+	float CSound::GetReferenceDistance() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);
 		return this->m_sound->GetReferenceDistance();
 	}
 
-	const float CSound::GetMaxDistance() const {
+	float CSound::GetMaxDistance() const {
 		LOG_TRACE();
 
 		Assert(this->m_sound != nullptr);

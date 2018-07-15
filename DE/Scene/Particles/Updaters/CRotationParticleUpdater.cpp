@@ -37,9 +37,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CRotationParticleUpdater::~CRotationParticleUpdater() {
-
-	}
+	CRotationParticleUpdater::~CRotationParticleUpdater() = default;
 
 	/**
 	* Update the particle

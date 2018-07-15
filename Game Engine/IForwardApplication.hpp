@@ -32,15 +32,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.hpp>
 #include <Scene/2D/C2DScene.hpp>
 #include <Scene/2D/CLabel.hpp>
-#include <Scene/Particles/CParticleSystem.hpp>
 #include <Medias/CShaderProgram.hpp>
 #include <Medias/CFrameBuffer.hpp>
 #include <Core/Utility/CFPSCounter.hpp>
-#include <Core/IRenderer.hpp>
 #include <Core/IDeclaration.hpp>
 #include <Applications/IWin32Application.hpp>
 #include "2D/CLoadingView.hpp"
-#include "3D/IEntity.hpp"
 #include "IPlayer.hpp"
 #include "Level/ILevel.hpp"
 
@@ -107,12 +104,12 @@ namespace daidalosgameengine {
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Render the application
 		*/
-		virtual void Render();
+		virtual void Render() override;
 
 	protected:
 		/**
@@ -195,24 +192,24 @@ namespace daidalosgameengine {
 		/**
 		* Callback when the level is fully loaded
 		*/
-		virtual void OnLevelLoaded() = 0;
+		virtual void OnLevelLoaded() override = 0;
 
 		/**
 		* Callback when the next level is triggered
 		*/
-		virtual void OnTriggerNextLevel(const std::string & nextLevel) = 0;
+		virtual void OnTriggerNextLevel(const std::string & nextLevel) override = 0;
 
 		/**
 		* Check the laoding state
 		* @return true if the level is loading
 		*/
-		const bool IsLoading() const;
+		bool IsLoading() const;
 
 		/**
 		* Check if the cull is enabled
 		* @return true if the cull is enabled
 		*/
-		const bool IsCullEnabled() const;
+		bool IsCullEnabled() const;
 
 		/**
 		* Get the current level

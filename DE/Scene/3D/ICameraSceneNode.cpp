@@ -78,7 +78,7 @@ namespace daidalosengine {
 		ISceneNode::RenderDebugInformation();
 	}
 
-	const bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
+	bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
 		int count = 0;
@@ -93,13 +93,13 @@ namespace daidalosengine {
 		return count >= 1 && count < FRUSTUM_PLANE_SIZE;
 	}
 
-	const float ICameraSceneNode::GetNearDistance() const {
+	float ICameraSceneNode::GetNearDistance() const {
 		LOG_TRACE();
 
 		return this->m_nearDistance;
 	}
 
-	const float ICameraSceneNode::GetFarDistance() const {
+	float ICameraSceneNode::GetFarDistance() const {
 
 		LOG_TRACE();
 		return this->m_farDistance;

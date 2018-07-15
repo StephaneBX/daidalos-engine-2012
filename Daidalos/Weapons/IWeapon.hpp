@@ -124,13 +124,13 @@ namespace daidalos {
 		* Get the magazine size
 		* @return The magazine size
 		*/
-		const unsigned int GetMagazineSize() const;
+		unsigned int GetMagazineSize() const;
 
 		/**
 		* Get the remaining ammo
 		* @return The remaining ammo
 		*/
-		const unsigned int GetRemainingAmmo() const;
+		unsigned int GetRemainingAmmo() const;
 
 	protected:
 		/**

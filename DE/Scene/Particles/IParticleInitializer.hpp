@@ -85,7 +85,7 @@ namespace daidalosengine {
 		* Get the initializer type
 		* @return The initializer type
 		*/
-		const EParticleInitializerType GetType() const;
+		EParticleInitializerType GetType() const;
 
 		/**
 		* Clone the class

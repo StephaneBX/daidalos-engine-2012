@@ -27,7 +27,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Memory/CExceptionAssert.hpp"
 #include "../../Core/CMediaManager.hpp"
-#include "../../Core/Utility/CArraySorter.hpp"
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Scene/3D/ILevelSceneNode.hpp"
 #include "../../Scene/3D/C3DScene.hpp"
@@ -156,49 +155,49 @@ namespace daidalosengine {
 		this->m_scene->SetBrushCollision(brushId, collision);
 	}
 
-	const bool C3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
+	bool C3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->Slide(shape, movement);
 	}
 
-	const bool C3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+	bool C3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetCollisionPoint(position, movement, point);
 	}
 
-	const bool C3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+	bool C3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetCollisionPoint(shape, movement, point);
 	}
 
-	const int C3DScene::GetNumberOfActiveSpotLights() const {
+	int C3DScene::GetNumberOfActiveSpotLights() const {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActiveSpotLights();
 	}
 
-	const int C3DScene::GetNumberOfActivePointLights() const {
+	int C3DScene::GetNumberOfActivePointLights() const {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActivePointLights();
 	}
 
-	const int C3DScene::GetNumberOfActiveDirectionalLights() const {
+	int C3DScene::GetNumberOfActiveDirectionalLights() const {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);
 		return this->m_scene->GetNumberOfActiveDirectionalLights();
 	}
 
-	const int C3DScene::GetNumberOfVisibleTriangles() const {
+	int C3DScene::GetNumberOfVisibleTriangles() const {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);

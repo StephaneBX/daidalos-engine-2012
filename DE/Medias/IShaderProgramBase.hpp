@@ -66,7 +66,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const bool value);
 
 		/**
 		* Set a shader parameter
@@ -74,7 +74,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const int value);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const int value);
 
 		/**
 		* Set a shader parameter
@@ -82,16 +82,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param value The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const float value);
-
-		/**
-		* Set a shader parameter
-		* @param flags The flags for the parameter target(s)
-		* @param name The parameter name
-		* @param value The value
-		* @param size The number of elements
-		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const float value);
 
 		/**
 		* Set a shader parameter
@@ -100,7 +91,7 @@ namespace daidalosengine {
 		* @param value The value
 		* @param size The number of elements
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const bool * value, const int size);
 
 		/**
 		* Set a shader parameter
@@ -109,7 +100,16 @@ namespace daidalosengine {
 		* @param value The value
 		* @param size The number of elements
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const int * value, const int size);
+
+		/**
+		* Set a shader parameter
+		* @param flags The flags for the parameter target(s)
+		* @param name The parameter name
+		* @param value The value
+		* @param size The number of elements
+		*/
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const float * value, const int size);
 
 		/**
 		* Set a shader parameter
@@ -117,7 +117,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector2F & vec);
 
 		/**
 		* Set a shader parameter
@@ -125,7 +125,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector2I & vec);
 
 		/**
 		* Set a shader parameter
@@ -133,7 +133,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector3F & vec);
 
 		/**
 		* Set a shader parameter
@@ -141,7 +141,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param vec The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F & vec);
 
 		/**
 		* Set a shader parameter
@@ -149,7 +149,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param color The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CColor & color);
 
 		/**
 		* Set a shader parameter
@@ -157,7 +157,7 @@ namespace daidalosengine {
 		* @param name The parameter name
 		* @param mat The value
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix & mat);
 
 		/**
 		* Set a shader parameter
@@ -166,7 +166,7 @@ namespace daidalosengine {
 		* @param vec The value
 		* @param size The number of elements
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size);
 
 		/**
 		* Set a shader parameter
@@ -175,7 +175,7 @@ namespace daidalosengine {
 		* @param mat The value
 		* @param size The number of elements
 		*/
-		void SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size);
+		void SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size);
 
 		/**
 		* Get the vertex shader

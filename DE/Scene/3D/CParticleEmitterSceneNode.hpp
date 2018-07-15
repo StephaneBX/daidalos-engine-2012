@@ -72,7 +72,7 @@ namespace daidalosengine {
 		* Update the absolute position
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Set the template name

@@ -81,19 +81,19 @@ namespace daidalosgameengine {
 		* Trigger the CanDoAction on all entities
 		* @return the triggered result
 		*/
-		const ETriggeredResult TriggerEntitiesCanDoAction() const;
+		ETriggeredResult TriggerEntitiesCanDoAction() const;
 
 		/**
 		* Get the trigger param
 		* @return the trigger param
 		*/
-		const unsigned int GetTriggerParam() const;
+		unsigned int GetTriggerParam() const;
 
 		/**
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Trigger the entity action
@@ -104,7 +104,7 @@ namespace daidalosgameengine {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		virtual const bool CanDoAction() = 0;
+		virtual bool CanDoAction() = 0;
 	};
 }
 

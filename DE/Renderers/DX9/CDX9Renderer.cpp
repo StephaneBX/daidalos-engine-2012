@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/CMediaManager.hpp"
 #include "../../Core/CConfigurationManager.hpp"
 #include "../../Core/Logger/ILogger.hpp"
-#include "../../Renderers/DX9/DX9Global.hpp"
 #include "../../Renderers/DX9/CDX9Exception.hpp"
 #include "../../Renderers/DX9/CDX9Enums.hpp"
 #include "../../Renderers/DX9/CDX9VertexShader.hpp"
@@ -517,7 +516,7 @@ namespace daidalosengine {
 		this->m_device->DrawIndexedPrimitive(CDX9Enums::Get(type), 0, this->m_minVertexIndex, this->m_numVertices, offset, count);
 	}
 
-	const bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const {
+	bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const {
 		LOG_TRACE();
 
 		return SUCCEEDED(this->m_d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_X8R8G8B8, usage, resourceType, format));

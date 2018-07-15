@@ -64,7 +64,7 @@ namespace daidalosgameengine {
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time) = 0;
+		virtual void Update(const float time) override = 0;
 
 		/**
 		* Set the gravity state
@@ -92,7 +92,7 @@ namespace daidalosgameengine {
 
 		/**
 		* Set the collision shape.
-		* @param shame The collision shape
+		* @param shape The collision shape
 		*/
 		void SetCollisionShape(daidalosengine::IShape3DF * shape);
 
@@ -100,19 +100,19 @@ namespace daidalosgameengine {
 		* Get the gravity state
 		* @return The gravity state
 		*/
-		const bool GetGravityState() const;
+		bool GetGravityState() const;
 
 		/**
 		* Get the collision state
 		* @return The collision state
 		*/
-		const bool GetCollisionState() const;
+		bool GetCollisionState() const override;
 
 		/**
 		* Get the collision frequency
 		* @return The collision frequency
 		*/
-		const float GetCollisionFrequency() const;
+		float GetCollisionFrequency() const;
 
 		/**
 		* Get the gravity
@@ -124,7 +124,7 @@ namespace daidalosgameengine {
 		* Get the entity collision shape
 		* @return The entity collision shape
 		*/
-		daidalosengine::IShape3DF * GetCollisionShape();
+		daidalosengine::IShape3DF * GetCollisionShape() override;
 
 	protected:
 		/**

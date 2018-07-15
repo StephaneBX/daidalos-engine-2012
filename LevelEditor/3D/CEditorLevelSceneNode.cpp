@@ -34,7 +34,7 @@ namespace daidaloseditor {
 		SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
 	}
 
-	CEditorLevelSceneNode::~CEditorLevelSceneNode() {}
+	CEditorLevelSceneNode::~CEditorLevelSceneNode() = default;
 	
 	/**
 	* Render the node
@@ -65,17 +65,17 @@ namespace daidaloseditor {
 		// Nothing to do
 	}
 
-	const bool CEditorLevelSceneNode::Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement) {
+	bool CEditorLevelSceneNode::Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement) {
 
 		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
-	const bool CEditorLevelSceneNode::GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
+	bool CEditorLevelSceneNode::GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
 		return false;
 	}
 
-	const bool CEditorLevelSceneNode::GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
+	bool CEditorLevelSceneNode::GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) {
 		return false;
 	}
 

@@ -80,7 +80,7 @@ namespace daidalosengine {
 		* Get the updater type
 		* @return The updater type
 		*/
-		const EParticleUpdaterType GetType() const;
+		EParticleUpdaterType GetType() const;
 
 		/**
 		* Clone the class

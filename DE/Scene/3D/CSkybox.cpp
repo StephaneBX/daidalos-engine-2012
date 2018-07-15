@@ -144,7 +144,7 @@ namespace daidalosengine {
 	* If the skybox is visible
 	* @return True is the skybox is visible and can be rendered
 	*/
-	const bool CSkybox::IsVisible() const {
+	bool CSkybox::IsVisible() const {
 		LOG_TRACE();
 
 		return this->m_visible;

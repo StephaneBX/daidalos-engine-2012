@@ -178,49 +178,49 @@ namespace daidalosengine {
 		* Get the active state
 		* @return The active state
 		*/
-		const bool IsActive() const;
+		bool IsActive() const;
 
 		/**
 		* If the emitter is reusable
 		* @return If the emitter is reusable
 		*/
-		const bool IsReusable() const;
+		bool IsReusable() const;
 
 		/**
 		* If the emitter ignore gravity
 		* @return If the emitter ignore gravity
 		*/
-		const bool IsIgnoreGravity() const;
+		bool IsIgnoreGravity() const;
 
 		/**
 		* Get the texture id
 		* @return The texture id
 		*/
-		const int GetTextureId() const;
+		int GetTextureId() const;
 
 		/**
 		* Get the blend mode
 		* @return The blend mode
 		*/
-		const int GetBlendMode() const;
+		int GetBlendMode() const;
 
 		/**
 		* Get the life
 		* @return The life
 		*/
-		const float GetLife() const;
+		float GetLife() const;
 
 		/**
 		* Get the  maximum life
 		* @return The maximum life
 		*/
-		const float GetLifeMax() const;
+		float GetLifeMax() const;
 
 		/**
 		* Get the emission rate
 		* @return The emission rate
 		*/
-		const float GetEmissionRate() const;
+		float GetEmissionRate() const;
 
 		/**
 		* Get the emitter visibility sphere

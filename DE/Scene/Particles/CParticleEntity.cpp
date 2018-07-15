@@ -43,6 +43,7 @@ namespace daidalosengine {
 		this->m_sphereVelocity = CVector3F();
 		this->m_gravityVelocity = CVector3F();
 		this->m_circularVelocity = 0;
+		this->m_visible = false;
 	}
 
 	/**
@@ -172,7 +173,7 @@ namespace daidalosengine {
 	* Get the visibility state
 	* @return The visibility state
 	*/
-	const bool CParticleEntity::GetVisible() const {
+	bool CParticleEntity::GetVisible() const {
 		return this->m_visible;
 	}
 
@@ -180,14 +181,14 @@ namespace daidalosengine {
 	* Get the life
 	* @return The life
 	*/
-	const float CParticleEntity::GetLife() const {
+	float CParticleEntity::GetLife() const {
 		return this->m_life;
 	}
 
 	/**
 	* Get the max life
 	*/
-	const float CParticleEntity::GetLifeMax() const {
+	float CParticleEntity::GetLifeMax() const {
 		return this->m_lifeMax;
 	}
 
@@ -195,7 +196,7 @@ namespace daidalosengine {
 	* Get the life as a normalized value
 	* @return The normalized life value
 	*/
-	const float CParticleEntity::GetLifeNormalized() const {
+	float CParticleEntity::GetLifeNormalized() const {
 		float value = GetLife() / GetLifeMax();
 		if(value > 1.0F) {
 			value = 1.0F;
@@ -206,21 +207,21 @@ namespace daidalosengine {
 	/**
 	* Get the size
 	*/
-	const float CParticleEntity::GetSize() const {
+	float CParticleEntity::GetSize() const {
 		return this->m_data.sizeTextureId.x;
 	}
 
 	/**
 	* Get the rotation
 	*/
-	const float CParticleEntity::GetRotation() const {
+	float CParticleEntity::GetRotation() const {
 		return this->m_data.positionRotation.w;
 	}
 
 	/**
 	* Get the rotation speed
 	*/
-	const float CParticleEntity::GetRotationSpeed() const {
+	float CParticleEntity::GetRotationSpeed() const {
 		return this->m_rotationSpeed;
 	}
 
@@ -228,14 +229,14 @@ namespace daidalosengine {
 	* Get the mass
 	* @return The mass
 	*/
-	const float CParticleEntity::GetMass() const {
+	float CParticleEntity::GetMass() const {
 		return this->m_mass;
 	}
 
 	/**
 	* Get the circular velocity
 	*/
-	const float CParticleEntity::GetCircularVelocity() const {
+	float CParticleEntity::GetCircularVelocity() const {
 		return this->m_circularVelocity;
 	}
 

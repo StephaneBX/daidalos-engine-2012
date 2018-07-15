@@ -38,9 +38,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CColorParticleInitializer::~CColorParticleInitializer() {
-
-	}
+	CColorParticleInitializer::~CColorParticleInitializer() = default;
 
 	/**
 	* Initialize the particles

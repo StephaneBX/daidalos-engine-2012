@@ -31,7 +31,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	IPlayer::~IPlayer() {}
+	IPlayer::~IPlayer() = default;
 
 	/**
 	* Constructor

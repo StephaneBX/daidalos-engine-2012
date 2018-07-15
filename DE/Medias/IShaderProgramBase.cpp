@@ -61,7 +61,7 @@ namespace daidalosengine {
 		Load(this->m_pixelShader, name + ".psh");
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const bool value) {
 
 		LOG_TRACE();
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -75,7 +75,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const int value) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -89,7 +89,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const float value) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -103,7 +103,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -117,7 +117,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -131,7 +131,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -145,7 +145,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -159,7 +159,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2I & vec) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector2I & vec) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -173,7 +173,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -187,7 +187,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -201,7 +201,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CColor & color) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -215,7 +215,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -229,7 +229,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {
@@ -243,7 +243,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void IShaderProgramBase::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
+	void IShaderProgramBase::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
 		LOG_TRACE();
 
 		if((flags & SHADERPROGRAM_FLAG_VERTEX) != 0) {

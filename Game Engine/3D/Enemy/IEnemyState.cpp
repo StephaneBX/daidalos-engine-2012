@@ -38,7 +38,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	IEnemyState::~IEnemyState() {}
+	IEnemyState::~IEnemyState() = default;
 
 	/**
 	* Set the priority.
@@ -74,7 +74,7 @@ namespace daidalosgameengine {
 
 	/**
 	* Add a listener
-	* @param entity The entity
+	* @param state The state
 	*/
 	void IEnemyState::AddListener(IEnemyState * state) {
 		this->m_listeners.push_back(state);
@@ -82,7 +82,7 @@ namespace daidalosgameengine {
 
 	/**
 	* Remove a listener
-	* @param entity The entity
+	* @param state The state
 	*/
 	void IEnemyState::RemoveListener(IEnemyState * state) {
 		auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), state);
@@ -134,7 +134,7 @@ namespace daidalosgameengine {
 	* Get the priority
 	* @return The priority
 	*/
-	const unsigned int IEnemyState::GetPriority() const {
+	unsigned int IEnemyState::GetPriority() const {
 		return this->m_priority;
 	}
 
@@ -142,7 +142,7 @@ namespace daidalosgameengine {
 	* Get the animation speed.
 	* @return The animation speed
 	*/
-	const float IEnemyState::GetAnimationSpeed() const {
+	float IEnemyState::GetAnimationSpeed() const {
 		return this->m_animationSpeed;
 	}
 

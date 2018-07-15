@@ -64,10 +64,10 @@ namespace daidalosengine {
 
 		bool front = false;
 		bool back = false;
-		bool coplanar = false;
+		bool coplanar;
 
-		for(unsigned int i = 0; i < triangles.size(); ++i) {
-			switch(triangles[i]->Classify(this->m_plane)) {
+		for(auto &it : triangles) {
+			switch(it->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_FRONT:
 				front = true;
 				break;
@@ -94,10 +94,12 @@ namespace daidalosengine {
 		this->m_brushes.push_back(brush);
 
 		// Visit the child if necessary
-		if(front)
+		if (front) {
 			this->m_children[BSP_NODE_CHILD_FRONT]->AddBrush(brush, triangles);
-		if(back)
+		}
+		if (back) {
 			this->m_children[BSP_NODE_CHILD_BACK]->AddBrush(brush, triangles);
+		}
 	}
 
 	void CBSPBrushNode::CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush) {

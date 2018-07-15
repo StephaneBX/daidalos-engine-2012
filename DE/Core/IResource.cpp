@@ -36,6 +36,7 @@ namespace daidalosengine {
 		std::ostringstream stream;
 		stream << s_resourceCounter;
 		this->m_name = CFile(stream.str());
+		this->m_referenceCount = 0;
 
 		++s_resourceCounter;
 	}

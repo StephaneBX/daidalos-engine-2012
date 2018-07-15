@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/CMediaManager.hpp"
 
 namespace daidalosengine {
-	CMediaManager::CMediaManager() {}
+	CMediaManager::CMediaManager() = default;
 
 	void CMediaManager::AddSearchPath(const std::string & path) {
 		LOG_TRACE();
@@ -39,8 +39,8 @@ namespace daidalosengine {
 	CFile CMediaManager::FindMedia(const std::string & filename) {
 		LOG_TRACE();
 
-		for(auto i = this->m_paths.begin(); i != this->m_paths.end(); ++i) {
-			CFile file = CFile(*i + filename);
+		for(auto &it : this->m_paths) {
+			CFile file = CFile(it + filename);
 			if(file.FileExists()) {
 				return file;
 			}

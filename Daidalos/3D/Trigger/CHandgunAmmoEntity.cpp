@@ -78,7 +78,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CHandgunAmmoEntity::CanDoAction() {
+	bool CHandgunAmmoEntity::CanDoAction() {
 		return this->m_node->IsEnabled() && GetParent()->GetPlayer()->GetObjectValue(PLAYER_OBJECT_HANDGUN_WEAPON) > 0 && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

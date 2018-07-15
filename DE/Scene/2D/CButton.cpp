@@ -250,7 +250,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool CButton::HitTest(const CVector2I & point) {
+	bool CButton::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
 		SetHit(IsInside(point));
@@ -283,7 +283,7 @@ namespace daidalosengine {
 	* Check if the button is enabled
 	* @return True if the button is enabled, false otherwise
 	*/
-	const bool CButton::IsEnabled() const {
+	bool CButton::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;

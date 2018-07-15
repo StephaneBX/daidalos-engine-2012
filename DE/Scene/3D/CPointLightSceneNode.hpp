@@ -31,7 +31,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <array>
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CColor.hpp"
-#include "../../Scene/3D/CSphere.hpp"
 #include "../../Scene/3D/IBoundedLightSceneNode.hpp"
 #include "../../Scene/3D/CProjectionCameraSceneNode.hpp"
 
@@ -73,14 +72,14 @@ namespace daidalosengine {
 		* Update the light
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Get a camera node
 		* @param id The camera id
 		* @return The camera
 		*/
-		virtual ICameraSceneNode * GetCameraNode(const unsigned int id = 0) const override;
+		virtual ICameraSceneNode * GetCameraNode(const unsigned int id) const override;
 	};
 }
 

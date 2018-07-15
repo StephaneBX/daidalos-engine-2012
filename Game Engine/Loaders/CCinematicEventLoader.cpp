@@ -34,16 +34,12 @@ namespace daidalosgameengine {
 	/**
 	* Constructor
 	*/
-	CCinematicEventLoader::CCinematicEventLoader() {
-
-	}
+	CCinematicEventLoader::CCinematicEventLoader() = default;
 
 	/**
 	* Destructor
 	*/
-	CCinematicEventLoader::~CCinematicEventLoader() {
-
-	}
+	CCinematicEventLoader::~CCinematicEventLoader() = default;
 
 	/**
 	* Load a material from a file
@@ -63,7 +59,7 @@ namespace daidalosgameengine {
 			// Read the camera steps
 			element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
 			for (tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
-				LoadCameraStep(data, tinyxml2::XMLHandle(element));
+				LoadCameraStep(data, tinyxml2::XMLHandle(elementIt));
 			}
 			
 		} else {
@@ -94,7 +90,6 @@ namespace daidalosgameengine {
 		step.rotation = rotation;
 		step.speed = 1000.0F / duration;
 		step.transition = TRANSITION_NONE;
-		step.fade = FADE_NONE;
 		step.fadeDuration = fadeDuration;
 
 		// Transition

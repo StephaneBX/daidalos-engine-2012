@@ -39,27 +39,31 @@ namespace daidaloseditor {
 	protected:
 		/**
 		* Override and use a simple node system
+		* @param scene the scene
 		* @param parent The node parent
-		* @param child The bsp node root
+		* @param handle the xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node);
+		virtual void LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) override;
 
 		/**
 		* Override and use a simple node system
+		* @param scene the scene
 		* @param parent The node parent
-		* @param child The bsp node root
+		* @param handle the xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node);
+		virtual void LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) override;
 
 		/**
 		* Load a sound node
+		* @param scene the scene
 		* @param parent The node parent
-		* @param child The bsp node root
+		* @param handle the xml handle
 		* @param node The node to fill
+		* @param name The name
 		*/
-		virtual void LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name);
+		virtual void LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) override;
 
 		/**
 		* Save the simple structure
@@ -67,7 +71,7 @@ namespace daidaloseditor {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveSimpleStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveSimpleStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) override;
 
 		/**
 		* Save the bsp structure
@@ -75,22 +79,23 @@ namespace daidaloseditor {
 		* @param document The xml document
 		* @param parent The element parent
 		*/
-		virtual void SaveBSPStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
+		virtual void SaveBSPStructure(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) override;
 
 	private:
 		/**
 		* Replace the bsp and simple structure with an editor specific one
+		* @param scene the scene
 		* @param parent The node parent
-		* @param child The bsp node root
+		* @param handle the xml handle
 		* @param node The node to fill
 		*/
 		void LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node);
 
 		/**
 		* Save a node as a brush
-		* @param parent The node parent
-		* @param child The bsp node root
-		* @param node The node to fill
+		* @param node The node
+		* @param document The xml document
+		* @param parent The element parent
 		*/
 		void SaveBrush(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent);
 	};

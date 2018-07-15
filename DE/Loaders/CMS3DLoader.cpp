@@ -32,6 +32,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalosengine {
 	CMS3DLoader::CMS3DLoader() {
 		LOG_TRACE();
+
+		this->m_internalData = nullptr;
+		this->m_data = nullptr;
 	}
 
 	CMS3DLoader::~CMS3DLoader() {

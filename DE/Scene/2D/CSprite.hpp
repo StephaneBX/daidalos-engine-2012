@@ -96,7 +96,7 @@ namespace daidalosengine {
 		* Get the rotation
 		* @return The rotation
 		*/
-		const float GetRotation() const;
+		float GetRotation() const;
 	};
 }
 

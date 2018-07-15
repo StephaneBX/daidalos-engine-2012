@@ -68,19 +68,19 @@ namespace daidalosengine {
 		* Get the variation factor
 		* @return The variation factor
 		*/
-		const float GetVariationFactor() const;
+		float GetVariationFactor() const;
 
 		/**
 		* Get the velocity min
 		* @return The velocity min
 		*/
-		const float GetVelocityMin() const;
+		float GetVelocityMin() const;
 
 		/**
 		* Get the velocity max
 		* @return The velocity max
 		*/
-		const float GetVelocityMax() const;
+		float GetVelocityMax() const;
 
 		/**
 		* Get the direction

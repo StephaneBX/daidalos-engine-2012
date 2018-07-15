@@ -50,7 +50,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	ICollidableEntity::~ICollidableEntity() {}
+	ICollidableEntity::~ICollidableEntity() = default;
 
 	/**
 	* Set the gravity state
@@ -86,7 +86,7 @@ namespace daidalosgameengine {
 
 	/**
 	* Set the collision shape.
-	* @param shame The collision shape
+	* @param shape The collision shape
 	*/
 	void ICollidableEntity::SetCollisionShape(daidalosengine::IShape3DF * shape) {
 		this->m_collisionShape = std::unique_ptr<daidalosengine::IShape3DF>(shape);
@@ -96,7 +96,7 @@ namespace daidalosgameengine {
 	* Get the gravity state
 	* @return The gravity state
 	*/
-	const bool ICollidableEntity::GetGravityState() const {
+	bool ICollidableEntity::GetGravityState() const {
 		return this->m_gravityState;
 	}
 
@@ -104,7 +104,7 @@ namespace daidalosgameengine {
 	* Get the collision state
 	* @return The collision state
 	*/
-	const bool ICollidableEntity::GetCollisionState() const {
+	bool ICollidableEntity::GetCollisionState() const {
 		return this->m_collisionState;
 	}
 
@@ -112,7 +112,7 @@ namespace daidalosgameengine {
 	* Get the collision frequency
 	* @return The collision frequency
 	*/
-	const float ICollidableEntity::GetCollisionFrequency() const {
+	float ICollidableEntity::GetCollisionFrequency() const {
 		return this->m_collisionUpdateFrequency;
 	}
 

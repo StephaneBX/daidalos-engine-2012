@@ -106,7 +106,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CFanEntity::CanDoAction() {
+	bool CFanEntity::CanDoAction() {
 		return this->m_state == FAN_STATE_STARTED || this->m_state == FAN_STATE_STOPPED;
 	}
 

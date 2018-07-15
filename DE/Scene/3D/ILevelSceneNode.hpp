@@ -86,7 +86,7 @@ namespace daidalosengine {
 		* Set the mesh shading type
 		* @param shadingType The mesh shading type
 		*/
-		void SetMeshShadingType(EMeshShadingType shadingType);
+		void SetMeshShadingType(EMeshShadingType shadingType) override;
 
 		/**
 		* Set the ambient color of the level
@@ -122,19 +122,19 @@ namespace daidalosengine {
 		* Get the global ambient color flag
 		* @return The global ambient color flag
 		*/
-		const bool GetUseGlobalAmbientColor() const;
+		bool GetUseGlobalAmbientColor() const;
 
 		/**
 		* Get the number of visible triangles
 		* @return The number of visible triangles
 		*/
-		const int GetNumberOfVisibleTriangles() const;
+		int GetNumberOfVisibleTriangles() const;
 
 		/**
 		* Get the mesh shading type
 		* @return The mesh shading type
 		*/
-		const EMeshShadingType GetMeshShadingType() const;
+		EMeshShadingType GetMeshShadingType() const;
 
 		/**
 		* Get the ambient color
@@ -193,7 +193,7 @@ namespace daidalosengine {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		virtual const bool Slide(IShape3DF & shape, const CVector3F & movement) = 0;
+		virtual bool Slide(IShape3DF & shape, const CVector3F & movement) = 0;
 
 		/**
 		* Get the collision point of a moving point
@@ -202,7 +202,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) = 0;
+		virtual bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) = 0;
 
 		/**
 		* Get the collision point of a moving shape
@@ -211,7 +211,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) = 0;
+		virtual bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) = 0;
 
 	protected:
 		/**
@@ -241,7 +241,7 @@ namespace daidalosengine {
 		* Check if thetexturing is enabled
 		* @return True if the texturing is enabled
 		*/
-		const bool IsTexturingEnabled() const;
+		bool IsTexturingEnabled() const;
 	};
 }
 

@@ -67,14 +67,14 @@ namespace daidalosengine {
 		* Get the number of leafs attached to the portal
 		* @return The number of leafs
 		*/
-		const unsigned int GetNumberOfLeafs() const;
+		unsigned int GetNumberOfLeafs() const;
 
 		/**
 		* Get the leaf master array index
 		* @param index The index: 0 or 1
 		* @return The master leaf array index
 		*/
-		const unsigned int GetLeafIndex(const unsigned int index) const;
+		unsigned int GetLeafIndex(const unsigned int index) const;
 
 		/**
 		* Get the triangle

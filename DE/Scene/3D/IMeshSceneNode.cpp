@@ -258,13 +258,13 @@ namespace daidalosengine {
 	/**
 	* Get the number of groups
 	*/
-	const int IMeshSceneNode::GetNumberOfGroups() const {
+	int IMeshSceneNode::GetNumberOfGroups() const {
 		LOG_TRACE();
 
 		return this->m_numberOfGroups;
 	}
 
-	const EMeshShadingType IMeshSceneNode::GetMeshShadingType() const {
+	EMeshShadingType IMeshSceneNode::GetMeshShadingType() const {
 		LOG_TRACE();
 
 		return this->m_shadingType;

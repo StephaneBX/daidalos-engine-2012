@@ -41,9 +41,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CLinearVelocityParticleInitializer::~CLinearVelocityParticleInitializer() {
-
-	}
+	CLinearVelocityParticleInitializer::~CLinearVelocityParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -75,7 +73,7 @@ namespace daidalosengine {
 	* Get the variation factor
 	* @return The variation factor
 	*/
-	const float CLinearVelocityParticleInitializer::GetVariationFactor() const {
+	float CLinearVelocityParticleInitializer::GetVariationFactor() const {
 		return this->m_variationFactor;
 	}
 
@@ -83,7 +81,7 @@ namespace daidalosengine {
 	* Get the velocity min
 	* @return The velocity min
 	*/
-	const float CLinearVelocityParticleInitializer::GetVelocityMin() const {
+	float CLinearVelocityParticleInitializer::GetVelocityMin() const {
 		return this->m_velocityMin;
 	}
 
@@ -91,7 +89,7 @@ namespace daidalosengine {
 	* Get the velocity max
 	* @return The velocity max
 	*/
-	const float CLinearVelocityParticleInitializer::GetVelocityMax() const {
+	float CLinearVelocityParticleInitializer::GetVelocityMax() const {
 		return this->m_velocityMax;
 	}
 

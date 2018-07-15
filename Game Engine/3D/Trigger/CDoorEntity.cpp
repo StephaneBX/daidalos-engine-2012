@@ -64,14 +64,14 @@ namespace daidalosgameengine {
 		if(meshNode->GetAttribute("closable") == "false") {
 			this->m_closable = false;
 		}
-		if(meshNode->GetAttribute("animationSpeed") != "") {
+		if(!meshNode->GetAttribute("animationSpeed").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("animationSpeed"));
 			ss >> this->m_animationSpeed;
 		}
-		if(meshNode->GetAttribute("openingParticleEmitter") != "") {
+		if(!meshNode->GetAttribute("openingParticleEmitter").empty()) {
 			this->m_emitterNode = static_cast<daidalosengine::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
 		}
-		if(meshNode->GetAttribute("triggerRadius") != "") {
+		if(!meshNode->GetAttribute("triggerRadius").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));
 			ss >> this->m_triggerRadius;
 		}
@@ -146,7 +146,7 @@ namespace daidalosgameengine {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CDoorEntity::CanDoAction() {
+	bool CDoorEntity::CanDoAction() {
 		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

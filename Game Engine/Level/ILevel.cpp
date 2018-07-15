@@ -127,7 +127,7 @@ namespace daidalosgameengine {
 	* Return the level brightness
 	* @return The level brightness
 	*/
-	const float ILevel::GetBrightness() const {
+	float ILevel::GetBrightness() const {
 		return this->m_brightness;
 	}
 

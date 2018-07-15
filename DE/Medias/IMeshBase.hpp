@@ -79,14 +79,14 @@ namespace daidalosengine {
 		* Get the number of groups.
 		* @return The number of groups.
 		*/
-		const int GetNumberOfGroups() const;
+		int GetNumberOfGroups() const;
 
 		/**
 		* Get the size of a group.
 		* @param group Th group number.
 		* @return The size of the group.
 		*/
-		const int GetGroupSize(const int group = 0) const;
+		int GetGroupSize(const int group = 0) const;
 
 		/**
 		* Get the vertices of a group.
@@ -146,9 +146,9 @@ namespace daidalosengine {
 		*/
 		void TangentAndBinormalCalculation();
 
-	private:
-		IMeshBase();
-		IMeshBase(const IMeshBase & copy);
+	public:
+		IMeshBase() = delete;
+		IMeshBase(const IMeshBase & copy) = delete;
 		const IMeshBase & operator=(const IMeshBase & copy) = delete;
 	};
 }

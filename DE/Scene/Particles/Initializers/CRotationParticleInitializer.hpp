@@ -64,13 +64,13 @@ namespace daidalosengine {
 		* Get the rotation min
 		* @return The rotation min
 		*/
-		const float GetRotationMin() const;
+		float GetRotationMin() const;
 
 		/**
 		* Get the rotation max
 		* @return The rotation max
 		*/
-		const float GetRotationMax() const;
+		float GetRotationMax() const;
 
 		/**
 		* Clone the class

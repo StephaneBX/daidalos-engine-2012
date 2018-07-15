@@ -45,7 +45,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CZombieStateWait::~CZombieStateWait() {}
+	CZombieStateWait::~CZombieStateWait() = default;
 
 	/**
 	* Update the entity

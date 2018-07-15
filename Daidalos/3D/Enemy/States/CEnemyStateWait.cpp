@@ -103,7 +103,7 @@ namespace daidalos {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateWait::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
+	bool CEnemyStateWait::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return this->m_active;
 	}
 
@@ -111,7 +111,7 @@ namespace daidalos {
 	* Get the active status.
 	* @return The active status
 	*/
-	const bool CEnemyStateWait::GetActive() {
+	bool CEnemyStateWait::GetActive() {
 		return this->m_active;
 	}
 
@@ -119,7 +119,7 @@ namespace daidalos {
 	* Get the wait time.
 	* @return The wait time
 	*/
-	const float CEnemyStateWait::GetWaitTime() {
+	float CEnemyStateWait::GetWaitTime() {
 		return this->m_waitTime;
 	}
 }

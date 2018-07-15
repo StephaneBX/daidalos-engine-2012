@@ -96,7 +96,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CMagneticCardReaderEntity::CanDoAction() {
+	bool CMagneticCardReaderEntity::CanDoAction() {
 
 		return !this->m_activated && GetParent()->GetPlayer()->GetObjectValue(this->m_magneticCard) > 0 && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}

@@ -40,9 +40,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CSizeParticleUpdater::~CSizeParticleUpdater() {
-
-	}
+	CSizeParticleUpdater::~CSizeParticleUpdater() = default;
 
 	/**
 	* Update the particle

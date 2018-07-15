@@ -47,104 +47,101 @@ namespace daidalosengine {
 	CShaderProgram::~CShaderProgram() {
 		LOG_TRACE();
 
-		if(this->m_shaderProgram != nullptr)
-			delete this->m_shaderProgram;
+		delete this->m_shaderProgram;
 	}
 
 	void CShaderProgram::LoadFromFile(const std::string & name) {
 		LOG_TRACE();
 
-		if(this->m_shaderProgram != nullptr)
-			delete this->m_shaderProgram;
-
+		delete this->m_shaderProgram;
 		this->m_shaderProgram = IRenderer::GetRenderer()->CreateShaderProgram(name);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool value) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const bool value) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int value) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const int value) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float value) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const float value) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
+	void CShaderProgram::SetParameter( EShaderProgramFlag flags, const std::string & name, const bool * value, const int size) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const int * value, const int size) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const float * value, const int size) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, value, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector2F & vec) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector3F & vec) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F & vec) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CColor & color) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CColor & color) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, color);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix & mat) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, mat);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CVector4F * vec, const int size) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);
 		this->m_shaderProgram->SetParameter(flags, name, vec, size);
 	}
 
-	void CShaderProgram::SetParameter(EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
+	void CShaderProgram::SetParameter(const EShaderProgramFlag flags, const std::string & name, const CMatrix * mat, const int size) {
 		LOG_TRACE();
 
 		Assert(this->m_shaderProgram);

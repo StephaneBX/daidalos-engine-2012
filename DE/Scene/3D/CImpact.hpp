@@ -81,19 +81,19 @@ namespace daidalosengine {
 		* Check if an impact has happended (real fraction < 1)
 		* @return True if an impact has happenened
 		*/
-		const bool IsImpact() const;
+		bool IsImpact() const;
 
 		/**
 		* Get the impact fraction
 		* @return The impact fraction
 		*/
-		const float GetImpactFraction() const;
+		float GetImpactFraction() const;
 
 		/**
 		* Get the real fraction
 		* @return The real fraction
 		*/
-		const float GetRealFraction() const;
+		float GetRealFraction() const;
 
 		/**
 		* Return the distance to perform

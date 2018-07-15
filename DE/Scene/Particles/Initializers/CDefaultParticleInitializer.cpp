@@ -37,9 +37,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CDefaultParticleInitializer::~CDefaultParticleInitializer() {
-
-	}
+	CDefaultParticleInitializer::~CDefaultParticleInitializer() = default;
 
 	/**
 	* Initialize the particles

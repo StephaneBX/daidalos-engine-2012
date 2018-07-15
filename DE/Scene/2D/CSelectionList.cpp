@@ -149,8 +149,8 @@ namespace daidalosengine {
 
 		// Update the button size
 		int index = 0;
-		for (auto it = this->m_selections.begin(); it != this->m_selections.end(); ++it) {
-			(*it)->SetBounds(daidalosengine::CRectangleI(0, index * BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, BUTTON_HEIGHT));
+		for (auto &it : this->m_selections) {
+			it->SetBounds(daidalosengine::CRectangleI(0, index * BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, BUTTON_HEIGHT));
 			index++;
 		}
 
@@ -174,7 +174,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool CSelectionList::HitTest(const CVector2I & point) {
+	bool CSelectionList::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
 		bool hitTest = this->m_selectedValue.HitTest(point);
@@ -190,7 +190,7 @@ namespace daidalosengine {
 	* Check if the button is enabled
 	* @return True if the button is enabled, false otherwise
 	*/
-	const bool CSelectionList::IsEnabled() const {
+	bool CSelectionList::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;
@@ -201,11 +201,11 @@ namespace daidalosengine {
 	* @param text The selection text
 	* @return The associated index
 	*/
-	const int CSelectionList::AddSelection(const std::string & text) {
+	int CSelectionList::AddSelection(const std::string & text) {
 		LOG_TRACE();
 
 		this->m_selections.push_back(new daidalosengine::CButton(TRANSPARENT_TEXTURE));
-		int index = this->m_selections.size() - 1;
+		const int index = this->m_selections.size() - 1;
 
 		// Fill the button
 		this->m_selections[index]->GetTitleElement()->SetText(text);
@@ -238,18 +238,18 @@ namespace daidalosengine {
 
 			// Find the clicked button
 			int index = -1;
-			for (auto it = this->m_selections.begin(); it != this->m_selections.end(); ++it) {
-				if ((*it) == button) {
+			for (auto &it : this->m_selections) {
+				if (it == button) {
 					// Mark as selected
-					(*it)->SetDefaultTexture(this->m_selectionTexture);
+					it->SetDefaultTexture(this->m_selectionTexture);
 
 					// Call the listeners
-					for (auto it = this->m_selectionListListeners.begin(); it != this->m_selectionListListeners.end(); ++it) {
-						(*it)->OnValueSelected(index, button->GetTitleElement()->GetText());
+					for (auto &it2 : this->m_selectionListListeners) {
+						it2->OnValueSelected(this, index, button->GetTitleElement()->GetText());
 					}
 				} else {
 					// Mark as unselected
-					(*it)->SetDefaultTexture(TRANSPARENT_TEXTURE);
+					it->SetDefaultTexture(TRANSPARENT_TEXTURE);
 				}
 				index++;
 			}

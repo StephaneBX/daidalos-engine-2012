@@ -153,13 +153,13 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(const CVector2I & point) override;
+		virtual bool HitTest(const CVector2I & point) override;
 
 		/**
 		* Check if the button is enabled
 		* @return True if the button is enabled, false otherwise
 		*/
-		const bool IsEnabled() const;
+		bool IsEnabled() const;
 
 		/**
 		* Get the title

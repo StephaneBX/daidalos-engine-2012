@@ -60,13 +60,13 @@ namespace daidalosgameengine {
 		this->m_meshNode->AddChild(this->m_cameraNode);
 
 		// Read the attributes
-		if(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH) != "") {
+		if(!this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH).empty()) {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH));
 			int health = 0;
 			ss >> health;
 			SetHealth(health);
 		}
-		if(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH) != "") {
+		if(!this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH).empty()) {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH));
 			int maxHealth = 0;
 			ss >> maxHealth;
@@ -77,7 +77,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	IEnemyEntity::~IEnemyEntity() {}
+	IEnemyEntity::~IEnemyEntity() = default;
 
 	/**
 	* Damage the entity
@@ -113,7 +113,7 @@ namespace daidalosgameengine {
 	* Check if the entity is enabled
 	* @return True if the entity is enabled
 	*/
-	const bool IEnemyEntity::IsEnabled() const {
+	bool IEnemyEntity::IsEnabled() const {
 		return this->m_meshNode != nullptr && this->m_meshNode->IsEnabled();
 	}
 

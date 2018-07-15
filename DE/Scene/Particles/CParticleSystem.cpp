@@ -231,7 +231,7 @@ namespace daidalosengine {
 	* Get the system size
 	* @return The system size
 	*/
-	const int CParticleSystem::GetSystemSize() const {
+	int CParticleSystem::GetSystemSize() const {
 		LOG_TRACE();
 
 		return this->m_particleBuffer.GetSize();
@@ -241,7 +241,7 @@ namespace daidalosengine {
 	* Get the number of emitters
 	* @return The number of emitters
 	*/
-	const int CParticleSystem::GetNumberOfEmitters() const {
+	int CParticleSystem::GetNumberOfEmitters() const {
 		LOG_TRACE();
 
 		return this->m_emitters.size();

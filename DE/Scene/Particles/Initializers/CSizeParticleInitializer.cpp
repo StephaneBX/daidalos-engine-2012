@@ -31,17 +31,14 @@ namespace daidalosengine {
 
 	/**
 	* Constructor
-	* @param sizeMin The size min
-	* @param sizeMax The size max
+	* @param size The size
 	*/
 	CSizeParticleInitializer::CSizeParticleInitializer(float size) : m_size(size), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_SIZE) {}
 
 	/**
 	* Destructor
 	*/
-	CSizeParticleInitializer::~CSizeParticleInitializer() {
-
-	}
+	CSizeParticleInitializer::~CSizeParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -60,7 +57,7 @@ namespace daidalosengine {
 	* Get the size
 	* @return The size
 	*/
-	const float CSizeParticleInitializer::GetSize() {
+	float CSizeParticleInitializer::GetSize() {
 		return this->m_size;
 	}
 

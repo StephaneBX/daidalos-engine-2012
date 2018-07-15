@@ -119,13 +119,13 @@ namespace daidalosengine {
 		this->m_looped = loop;
 	}
 
-	const bool IStreamSoundBase::IsLooped() const {
+	bool IStreamSoundBase::IsLooped() const {
 		LOG_TRACE();
 
 		return this->m_looped;
 	}
 
-	const int IStreamSoundBase::ReadChunk(ALuint buffer) {
+	int IStreamSoundBase::ReadChunk(ALuint buffer) {
 		LOG_TRACE();
 
 		int nbSamples = GetSampleRate() * GetChannelsCount();

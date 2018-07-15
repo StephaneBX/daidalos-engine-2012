@@ -70,7 +70,7 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(const CVector2I & point) override;
+		virtual bool HitTest(const CVector2I & point) override;
 	};
 
 	/**
@@ -120,7 +120,7 @@ namespace daidalosengine {
 		/**
 		* Remove all the subviews
 		*/
-		virtual void RemoveAllSubviews();
+		virtual void RemoveAllSubviews() override;
 
 		/**
 		* Set the enabled state
@@ -151,19 +151,19 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(const CVector2I & point) override;
+		virtual bool HitTest(const CVector2I & point) override;
 
 		/**
 		* Check if the button is enabled
 		* @return True if the button is enabled, false otherwise
 		*/
-		const bool IsEnabled() const;
+		bool IsEnabled() const;
 
 		/**
 		* Get te scroll pitch in pixels
 		* @return The scroll pitch
 		*/
-		const int GetScrollPitch() const;
+		int GetScrollPitch() const;
 
 	private:
 		/**
@@ -177,13 +177,13 @@ namespace daidalosengine {
 		* Get the content position relative to the top of the scrollable view
 		* @return The number of pixels away from the top of the scrollable view
 		*/
-		const int GetContentTopPosition() const;
+		int GetContentTopPosition() const;
 
 		/**
 		* Get the content position relative to the bottom of the scrollable view
 		* @return The number of pixels away from the bottom of the scrollable view
 		*/
-		const int GetContentBottomPosition() const;
+		int GetContentBottomPosition() const;
 	};
 }
 

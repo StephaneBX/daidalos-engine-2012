@@ -62,7 +62,7 @@ namespace daidalosengine {
 		* Update the node
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Set the sound status
@@ -152,55 +152,55 @@ namespace daidalosengine {
 		* Get the looped status
 		* @return The looped status
 		*/
-		const bool IsSoundLooped() const;
+		bool IsSoundLooped() const;
 
 		/**
 		* Get if the position relative to the listener
 		* @return If the position relative to the listener
 		*/
-		const bool IsSoundRelativeToListener() const;
+		bool IsSoundRelativeToListener() const;
 
 		/**
 		* Check if the sound should play on startup
 		* @return If the sound should play on startup
 		*/
-		const bool IsSoundAutoStart() const;
+		bool IsSoundAutoStart() const;
 
 		/**
 		* Get the number of channels
 		* @return The number of channels
 		*/
-		const int GetSoundChannelsCount() const;
+		int GetSoundChannelsCount() const;
 
 		/**
 		* Get the soudn gain
 		* @return The sound gain
 		*/
-		const float GetSoundGain() const;
+		float GetSoundGain() const;
 
 		/**
 		* Get the cone inner angle
 		* @return The cone inner angle
 		*/
-		const float GetSoundConeInnerAngle() const;
+		float GetSoundConeInnerAngle() const;
 
 		/**
 		* Get the cone outer angle
 		* @return The cone inner angle
 		*/
-		const float GetSoundConeOuterAngle() const;
+		float GetSoundConeOuterAngle() const;
 
 		/**
 		* Get the distance from wich the gain will be maximal
 		* @return The distance from wich the gain will be maximal
 		*/
-		const float GetSoundReferenceDistance() const;
+		float GetSoundReferenceDistance() const;
 
 		/**
 		* Get the distance from wich the gain will be minimal
 		* @return The distance from wich the gain will be minimal
 		*/
-		const float GetSoundMaxDistance() const;
+		float GetSoundMaxDistance() const;
 
 		/**
 		* Get the sound name

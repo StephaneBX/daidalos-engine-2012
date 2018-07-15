@@ -210,7 +210,7 @@ namespace daidalos {
 
 	/**
 	* Set the player armor
-	* @param health The player armor
+	* @param armor The player armor
 	*/
 	void CFPSCamera::SetArmor(const int armor) {
 		this->m_armor = armor;
@@ -288,7 +288,7 @@ namespace daidalos {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CFPSCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
+	bool CFPSCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -296,7 +296,7 @@ namespace daidalos {
 	* If the player interaction action is active
 	* @return True if the player interaction action is active
 	*/
-	const bool CFPSCamera::IsInteracting() const {
+	bool CFPSCamera::IsInteracting() const {
 		return this->m_inputDevice->IsActionActive(FPS_CAMERA_INTERACT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_INTERACT);
 	}
 
@@ -304,7 +304,7 @@ namespace daidalos {
 	* If the player has moved during the current frame
 	* return True if the player has moved during the current frame
 	*/
-	const bool CFPSCamera::HasMoved() {
+	bool CFPSCamera::HasMoved() {
 		return this->m_hasMoved;
 	}
 
@@ -312,7 +312,7 @@ namespace daidalos {
 	* Check if the entity is enabled
 	* @return True if the entity is enabled
 	*/
-	const bool CFPSCamera::IsEnabled() const {
+	bool CFPSCamera::IsEnabled() const {
 		return GetHealth() > 0 && this->m_node->IsEnabled();
 	}
 
@@ -320,7 +320,7 @@ namespace daidalos {
 	* Get the player health
 	* @return The player health
 	*/
-	const int CFPSCamera::GetArmor() const {
+	int CFPSCamera::GetArmor() const {
 		return this->m_armor;
 	}
 
@@ -328,7 +328,7 @@ namespace daidalos {
 	* Get the player magazine ammo for the current weapon
 	* @return The current magazine ammo
 	*/
-	const unsigned int CFPSCamera::GetCurrentWeaponMagazineAmmo() const {
+	unsigned int CFPSCamera::GetCurrentWeaponMagazineAmmo() const {
 		return this->m_currentWeapon != nullptr ? this->m_currentWeapon->GetMagazineSize() : 0;
 	}
 
@@ -336,7 +336,7 @@ namespace daidalos {
 	* Get the player stock ammo for the current weapon
 	* @return The current stock ammo
 	*/
-	const unsigned int CFPSCamera::GetCurrentWeaponStockAmmo() const {
+	unsigned int CFPSCamera::GetCurrentWeaponStockAmmo() const {
 		return this->m_currentWeapon != nullptr ? this->m_currentWeapon->GetRemainingAmmo() : 0;
 	}
 
@@ -345,7 +345,7 @@ namespace daidalos {
 	* @param object The object id
 	* @return The object value
 	*/
-	const unsigned int CFPSCamera::GetObjectValue(unsigned int object) const {
+	unsigned int CFPSCamera::GetObjectValue(unsigned int object) const {
 
 		switch(object) {
 		case PLAYER_OBJECT_FLASHLIGHT:

@@ -38,9 +38,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CMassParticleInitializer::~CMassParticleInitializer() {
-
-	}
+	CMassParticleInitializer::~CMassParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -59,7 +57,7 @@ namespace daidalosengine {
 	* Get the mass
 	* @return The mass
 	*/
-	const float CMassParticleInitializer::GetMass() {
+	float CMassParticleInitializer::GetMass() {
 		return this->m_mass;
 	}
 

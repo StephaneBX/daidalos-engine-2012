@@ -69,7 +69,7 @@ namespace daidalosengine {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Update The projection
@@ -84,7 +84,7 @@ namespace daidalosengine {
 		* @param shape The shape that need to be tested
 		* @return True if the shape can be culled or false otherwise
 		*/
-		const bool FrustumCull(IShape3DF * shape) const;
+		bool FrustumCull(IShape3DF * shape) const;
 
 		/**
 		* Get the view bounds
@@ -92,9 +92,9 @@ namespace daidalosengine {
 		*/
 		const CRectangleF & GetBounds() const;
 
-	private:
-		COrthographicCameraSceneNode();
-		COrthographicCameraSceneNode(const COrthographicCameraSceneNode & copy);
+	public:
+		COrthographicCameraSceneNode() = delete;
+		COrthographicCameraSceneNode(const COrthographicCameraSceneNode & copy) = delete;
 	};
 }
 

@@ -136,7 +136,7 @@ namespace daidalos {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateFollow::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
+	bool CEnemyStateFollow::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return this->m_target->IsEnabled() && (!entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) || (entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && this->m_searched > 0));
 	}
 
@@ -144,7 +144,7 @@ namespace daidalos {
 	* Get the move speed.
 	* @return The move speed
 	*/
-	const float CEnemyStateFollow::GetMoveSpeed() const {
+	float CEnemyStateFollow::GetMoveSpeed() const {
 		return this->m_moveSpeed;
 	}
 
@@ -152,7 +152,7 @@ namespace daidalos {
 	* Get the rotation speed.
 	* @return The rotation speed
 	*/
-	const float CEnemyStateFollow::GetRotationSpeed() const {
+	float CEnemyStateFollow::GetRotationSpeed() const {
 		return this->m_rotationSpeed;
 	}
 
@@ -160,7 +160,7 @@ namespace daidalos {
 	* Get the stop distance.
 	* @return The stop distance
 	*/
-	const float CEnemyStateFollow::GetStopDistance() const {
+	float CEnemyStateFollow::GetStopDistance() const {
 		return this->m_stopDistance;
 	}
 
@@ -168,7 +168,7 @@ namespace daidalos {
 	* Get the search timer.
 	* @return The search timer
 	*/
-	const float CEnemyStateFollow::GetSearchTimer() const {
+	float CEnemyStateFollow::GetSearchTimer() const {
 		return this->m_searchTimer;
 	}
 

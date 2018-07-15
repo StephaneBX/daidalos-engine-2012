@@ -91,7 +91,7 @@ namespace daidalosgameengine {
 		* If the event is done
 		* @return True if the event is done
 		*/
-		const bool IsDone() const;
+		bool IsDone() const;
 
 		/** 
 		* Get the camera node

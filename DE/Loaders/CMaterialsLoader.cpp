@@ -27,7 +27,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <sstream>
 #include "../Core/Logger/ILogger.hpp"
-#include "../Core/Utility/CFile.hpp"
 #include "../Core/Utility/CVector3.hpp"
 #include "../Core/Utility/CTokenizer.hpp"
 #include "../Loaders/CMaterialsLoader.hpp"

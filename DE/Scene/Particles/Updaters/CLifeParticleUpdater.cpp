@@ -37,9 +37,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CLifeParticleUpdater::~CLifeParticleUpdater() {
-
-	}
+	CLifeParticleUpdater::~CLifeParticleUpdater() = default;
 
 	/**
 	* Update the particle

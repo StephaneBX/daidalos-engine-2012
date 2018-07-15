@@ -40,9 +40,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CRadiusPositionParticleInitializer::~CRadiusPositionParticleInitializer() {
-
-	}
+	CRadiusPositionParticleInitializer::~CRadiusPositionParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -72,7 +70,7 @@ namespace daidalosengine {
 	* Get the inner radius
 	* @return The inner radius
 	*/
-	const float CRadiusPositionParticleInitializer::GetInnerRadius() const {
+	float CRadiusPositionParticleInitializer::GetInnerRadius() const {
 		return this->m_innerRadius;
 	}
 
@@ -80,7 +78,7 @@ namespace daidalosengine {
 	* Get the outer radius
 	* @return The outer radius
 	*/
-	const float CRadiusPositionParticleInitializer::GetOuterRadius() const {
+	float CRadiusPositionParticleInitializer::GetOuterRadius() const {
 		return this->m_outerRadius;
 	}
 

@@ -81,32 +81,32 @@ namespace daidalos {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time) override;
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
+		virtual bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) override;
 
 		/**
 		* Get the current way point.
 		* @return The current way point
 		*/
-		const int GetCurrentWayPoint();
+		int GetCurrentWayPoint();
 
 		/**
 		* Get the walk speed.
 		* @return The walk speed
 		*/
-		const float GetWalkSpeed();
+		float GetWalkSpeed();
 
 		/**
 		* Get the rotation speed.
 		* @return The rotation speed
 		*/
-		const float GetRotationSpeed();
+		float GetRotationSpeed();
 
 	private:
 		/**

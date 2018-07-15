@@ -145,55 +145,55 @@ namespace daidalosengine {
 		return this->m_sound.GetCategory();
 	}
 
-	const bool CSoundSceneNode::IsSoundLooped() const {
+	bool CSoundSceneNode::IsSoundLooped() const {
 		LOG_TRACE();
 
 		return this->m_sound.IsLooped();
 	}
 
-	const bool CSoundSceneNode::IsSoundRelativeToListener() const {
+	bool CSoundSceneNode::IsSoundRelativeToListener() const {
 		LOG_TRACE();
 
 		return this->m_sound.IsRelativeToListener();
 	}
 
-	const bool CSoundSceneNode::IsSoundAutoStart() const {
+	bool CSoundSceneNode::IsSoundAutoStart() const {
 		LOG_TRACE();
 
 		return this->m_autoStart;
 	}
 
-	const int CSoundSceneNode::GetSoundChannelsCount() const {
+	int CSoundSceneNode::GetSoundChannelsCount() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetChannelsCount();
 	}
 
-	const float CSoundSceneNode::GetSoundGain() const {
+	float CSoundSceneNode::GetSoundGain() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetGain();
 	}
 
-	const float CSoundSceneNode::GetSoundConeInnerAngle() const {
+	float CSoundSceneNode::GetSoundConeInnerAngle() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetConeInnerAngle();
 	}
 
-	const float CSoundSceneNode::GetSoundConeOuterAngle() const {
+	float CSoundSceneNode::GetSoundConeOuterAngle() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetConeOuterAngle();
 	}
 
-	const float CSoundSceneNode::GetSoundReferenceDistance() const {
+	float CSoundSceneNode::GetSoundReferenceDistance() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetReferenceDistance();
 	}
 
-	const float CSoundSceneNode::GetSoundMaxDistance() const {
+	float CSoundSceneNode::GetSoundMaxDistance() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetMaxDistance();

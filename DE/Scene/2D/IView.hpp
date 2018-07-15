@@ -31,7 +31,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <vector>
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CVector2.hpp"
-#include "../../Core/Utility/CColor.hpp"
 #include "../../Core/Utility/CRectangle.hpp"
 #include "../../Medias/CTexture2D.hpp"
 #include "../../Medias/CBuffer.hpp"
@@ -111,7 +110,7 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(const CVector2I & point);
+		virtual bool HitTest(const CVector2I & point);
 
 		/**
 		* Perform a hit test, checking if the point is inside one of the subview or in this view
@@ -120,7 +119,7 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(IView * target, const CVector2I & point);
+		virtual bool HitTest(IView * target, const CVector2I & point);
 
 		/**
 		* Set the changed value
@@ -179,33 +178,33 @@ namespace daidalosengine {
 		* Get the changed value
 		* @return The changed value
 		*/
-		const bool IsChanged() const;
+		bool IsChanged() const;
 
 		/**
 		* Get the visible value
 		* @return The visible value
 		*/
-		const bool IsVisible() const;
+		bool IsVisible() const;
 
 		/**
 		* Check if the previous hit test occurred in this view
 		* @return True if the hit test occurred in this view
 		*/
-		const bool IsHit() const;
+		bool IsHit() const;
 
 		/**
 		* Check if a point is inside the gui
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the gui
 		*/
-		const bool IsInside(const CVector2I & point) const;
+		bool IsInside(const CVector2I & point) const;
 
 		/**
 		* Check if a rectangle is inside the gui
 		* @param rectangle The rectangle to test in screen coordinate
 		* @return True if the rectangle is inside the gui
 		*/
-		const bool IsInside(const CRectangleI & rectangle) const;
+		bool IsInside(const CRectangleI & rectangle) const;
 
 		/**
 		* Get the position relative to the parent
@@ -287,14 +286,14 @@ namespace daidalosengine {
 		* Get the data size
 		* @return The data size
 		*/
-		const int GetDataSize() const;
+		int GetDataSize() const;
 
 		/**
 		* = operator override
 		* @param copy A GUI element copy
 		* @return The GUI element
 		*/
-		const IView & operator=(const IView & copy);
+		IView & operator=(const IView & copy);
 
 		/**
 		* Perform a hit test, checking if the point is inside one of the subview or in this view
@@ -302,7 +301,7 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		const bool HitTestAny(IView * target, const CVector2I & point);
+		bool HitTestAny(IView * target, const CVector2I & point);
 
 		/**
 		* Generate and return a quad with a given position and texture coordinates

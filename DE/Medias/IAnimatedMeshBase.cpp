@@ -58,7 +58,7 @@ namespace daidalosengine {
 	* Get the frame
 	* @return The frame
 	*/
-	const float IAnimatedMeshBase::GetFrame() const {
+	float IAnimatedMeshBase::GetFrame() const {
 		return this->m_frame;
 	}
 

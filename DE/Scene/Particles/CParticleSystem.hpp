@@ -133,13 +133,13 @@ namespace daidalosengine {
 		* Get the system size
 		* @return The system size
 		*/
-		const int GetSystemSize() const;
+		int GetSystemSize() const;
 
 		/**
 		* Get the number of emitters
 		* @return The number of emitters
 		*/
-		const int GetNumberOfEmitters() const;
+		int GetNumberOfEmitters() const;
 
 		/**
 		* Get the atlas texture name

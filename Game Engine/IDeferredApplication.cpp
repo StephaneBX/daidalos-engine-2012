@@ -33,7 +33,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Core/CMediaManager.hpp>
 #include <Core/Logger/CLoggerFile.hpp>
 #include <Core/Utility/CMatrix.hpp>
-#include <Medias/CMaterial.hpp>
 #include <Medias/CStaticMesh.hpp>
 #include <Medias/CFont.hpp>
 #include "IDeferredApplication.hpp"

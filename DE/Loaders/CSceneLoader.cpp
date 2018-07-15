@@ -65,19 +65,18 @@ namespace daidalosengine {
 		I3DScene * scene = new I3DScene(filename);
 		this->m_filename = filename;
 		ISceneNode * root = nullptr;
-		tinyxml2::XMLElement * element = nullptr;
 
 		tinyxml2::XMLDocument doc;
-		int loadOk = doc.LoadFile(filename.c_str());
+		const int loadOk = doc.LoadFile(filename.c_str());
 		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			tinyxml2::XMLHandle hDoc(&doc);
 
 			int tmpInt = 0;
 			hDoc.FirstChildElement("scene").ToElement()->QueryIntAttribute("structure", &tmpInt);
-			this->m_structure = (ESceneNodeRootStructureType)tmpInt;
+			this->m_structure = static_cast<ESceneNodeRootStructureType>(tmpInt);
 
 			// Read the particle system declaration
-			element = hDoc.FirstChildElement("scene").FirstChildElement("particleSystem").ToElement();
+			tinyxml2::XMLElement * element = hDoc.FirstChildElement("scene").FirstChildElement("particleSystem").ToElement();
 			if(element != nullptr) {
 				tinyxml2::XMLHandle & handle = tinyxml2::XMLHandle(element);
 				LoadParticleSystem(scene, handle);
@@ -131,8 +130,6 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Global data variables
-		std::map<std::string, std::string> attributes;
-		tinyxml2::XMLElement * child = nullptr;
 		ISceneNode * node = nullptr;
 		int type = -1;
 		handle.ToElement()->QueryIntAttribute("type", &type);
@@ -216,7 +213,7 @@ namespace daidalosengine {
 			node->SetId(id);
 
 			// Get the node attributes
-			attributes = GetNodeAttributes(handle);
+			const std::map<std::string, std::string> attributes = GetNodeAttributes(handle);
 
 			// Add the attributes
 			node->SetAttributes(attributes);
@@ -227,7 +224,7 @@ namespace daidalosengine {
 			}
 
 			// Check for attached nodes
-			child = handle.FirstChildElement("node").ToElement();
+			tinyxml2::XMLElement * child = handle.FirstChildElement("node").ToElement();
 			for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 				// Read only nodes
 				if(std::string(childIt->Name()) == "node") {
@@ -240,7 +237,6 @@ namespace daidalosengine {
 	void CSceneLoader::LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		LOG_TRACE();
 
-		tinyxml2::XMLElement * child;
 		std::vector<SBSPBrushDefinition> brushDefinition;
 		node = new CBSPSceneNode(scene);
 		std::string skyName;
@@ -250,20 +246,20 @@ namespace daidalosengine {
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
-		static_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+		dynamic_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
 		if(handle.ToElement()->Attribute("skyName") != nullptr)
 			skyName = handle.ToElement()->Attribute("skyName");
-		static_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
+		dynamic_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
 		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
 			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
-		static_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
+		dynamic_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
-		child = handle.FirstChildElement("multi_brush").ToElement();
+		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
 		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
@@ -284,7 +280,7 @@ namespace daidalosengine {
 						AddBSPBrushData(tinyxml2::XMLHandle(child2It), brush);
 				}
 
-				if(brush.geometry.size() > 0) {
+				if(!brush.geometry.empty()) {
 					brushDefinition.push_back(brush);
 				}
 			}
@@ -347,13 +343,12 @@ namespace daidalosengine {
 		}
 
 		// Add all the geometry in the bsp scene node
-		static_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
+		dynamic_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
 	void CSceneLoader::LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
 		LOG_TRACE();
 
-		tinyxml2::XMLElement * child;
 		std::vector<SSimpleBrush> brushes;
 		node = new CSimpleSceneNode(scene);
 		std::string skyName;
@@ -363,20 +358,20 @@ namespace daidalosengine {
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
-		static_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+		dynamic_cast<CSimpleSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
 		if(handle.ToElement()->Attribute("skyName") != nullptr)
 			skyName = handle.ToElement()->Attribute("skyName");
-		static_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
+		dynamic_cast<CSimpleSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
 		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
 			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
-		static_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
+		dynamic_cast<CSimpleSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the level geometry
-		child = handle.FirstChildElement("multi_brush").ToElement();
+		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
 		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
@@ -391,7 +386,7 @@ namespace daidalosengine {
 					}
 				}
 
-				if(brush.geometry.size() > 0) {
+				if(!brush.geometry.empty()) {
 					brushes.push_back(brush);
 				}
 			}
@@ -411,7 +406,7 @@ namespace daidalosengine {
 		}
 
 		// Add all the geometry in the bsp scene node
-		static_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
+		dynamic_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
 	}
 
 	void CSceneLoader::LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle) {
@@ -742,7 +737,7 @@ namespace daidalosengine {
 		static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
 		if(playOnStartup) {
 			static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
-			static_cast<CSoundSceneNode*>(node)->Update();
+			static_cast<CSoundSceneNode*>(node)->Update(0);
 			static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
 		}
 	}
@@ -770,7 +765,7 @@ namespace daidalosengine {
 		// Create the node
 		node = new CEmptySceneNode(scene, parent, name, position);
 		node->SetEnabled(enabled);
-		static_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
+		dynamic_cast<CEmptySceneNode*>(node)->SetRotation(rotation);
 	}
 
 	/**
@@ -807,11 +802,11 @@ namespace daidalosengine {
 		GetNodeData(handle, "textureId", emitterTextureId, 0);
 		
 		node = new CParticleEmitterSceneNode(scene, parent, name, emitter);
-		static_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
-		static_cast<CParticleEmitterSceneNode*>(node)->SetTemplateName(templateName);
-		static_cast<CParticleEmitterSceneNode*>(node)->SetEmitterName(emitterName);
-		static_cast<CParticleEmitterSceneNode*>(node)->SetActive(emitterActive);
-		static_cast<CParticleEmitterSceneNode*>(node)->SetTextureId(emitterTextureId);
+		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetPosition(emitterPosition);
+		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetTemplateName(templateName);
+		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetEmitterName(emitterName);
+		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetActive(emitterActive);
+		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetTextureId(emitterTextureId);
 	}
 
 	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
@@ -827,7 +822,7 @@ namespace daidalosengine {
 		std::ostringstream ss;
 		IRenderer * renderer = IRenderer::GetRenderer();
 
-		std::string name = handle.ToElement()->Attribute("file");
+		const std::string name = handle.ToElement()->Attribute("file");
 		int id = SCENE_DEFAULT_ID;
 		handle.ToElement()->QueryIntAttribute("id", &id);
 

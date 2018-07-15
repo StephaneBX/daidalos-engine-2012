@@ -57,18 +57,18 @@ namespace daidalosgameengine {
 		* Update the entity
 		* @param time Elapsed time
 		*/
-		void Update(const float time = 0);
+		void Update(const float time = 0) override;
 
 		/**
 		* Trigger the entity action
 		*/
-		void DoAction();
+		void DoAction() override;
 
 		/**
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction();
+		bool CanDoAction() override;
 	};
 }
 

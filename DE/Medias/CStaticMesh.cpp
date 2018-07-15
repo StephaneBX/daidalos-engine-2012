@@ -80,7 +80,7 @@ namespace daidalosengine {
 		this->m_mesh->FinalizeGeometry(shadingType);
 	}
 
-	const CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy) {
+	CStaticMesh & CStaticMesh::operator=(const CStaticMesh & copy) {
 		LOG_TRACE();
 
 		if (this != &copy) {

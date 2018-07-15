@@ -34,8 +34,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalosengine {
 	/**
 	* Constructor
-	* @param name The ressource name
-	* @param emitters The emitters
 	*/
 	CParticleEmittersTemplates::CParticleEmittersTemplates() {
 		LOG_TRACE();

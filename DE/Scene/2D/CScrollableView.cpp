@@ -166,7 +166,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool CScrollableView::HitTest(const CVector2I & point) {
+	bool CScrollableView::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
 		SetHit(false);
@@ -198,7 +198,7 @@ namespace daidalosengine {
 	* Check if the button is enabled
 	* @return True if the button is enabled, false otherwise
 	*/
-	const bool CScrollableView::IsEnabled() const {
+	bool CScrollableView::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;
@@ -208,7 +208,7 @@ namespace daidalosengine {
 	* Get te scroll pitch in pixels
 	* @return The scroll pitch
 	*/
-	const int CScrollableView::GetScrollPitch() const {
+	int CScrollableView::GetScrollPitch() const {
 		LOG_TRACE();
 
 		return this->m_scrollPitch;
@@ -229,7 +229,7 @@ namespace daidalosengine {
 	* Get the content position relative to the top of the scrollable view
 	* @return The number of pixels away from the top of the scrollable view
 	*/
-	const int CScrollableView::GetContentTopPosition() const {
+	int CScrollableView::GetContentTopPosition() const {
 		LOG_TRACE();
 
 		int topPosition = std::min(GetPreferredSize().y, this->m_contentView.GetPosition().y);
@@ -247,7 +247,7 @@ namespace daidalosengine {
 	* Get the content position relative to the bottom of the scrollable view
 	* @return The number of pixels away from the bottom of the scrollable view
 	*/
-	const int CScrollableView::GetContentBottomPosition() const {
+	int CScrollableView::GetContentBottomPosition() const {
 		LOG_TRACE();
 
 		int bottomPosition = this->m_contentView.GetPosition().y + this->m_contentView.GetPreferredSize().y;
@@ -318,7 +318,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool CScrollableContentView::HitTest(const CVector2I & point) {
+	bool CScrollableContentView::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
 		return HitTestAny(GetParent(), point);

@@ -49,7 +49,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CEnemyStateAttack::~CEnemyStateAttack() {}
+	CEnemyStateAttack::~CEnemyStateAttack() = default;
 
 	/**
 	* Set the damage.
@@ -61,7 +61,7 @@ namespace daidalos {
 
 	/**
 	* Set the range.
-	* @param Range The range.
+	* @param range The range.
 	*/
 	void CEnemyStateAttack::SetRange(const float range) {
 		this->m_range = range;
@@ -118,7 +118,7 @@ namespace daidalos {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateAttack::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
+	bool CEnemyStateAttack::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return  this->m_attackTimer > 0 || (this->m_target->IsEnabled() && !entity->GetCameraNode()->FrustumCull(this->m_target->GetCollisionShape()) && (entity->GetVisiblePosition() - this->m_target->GetVisiblePosition()).Length() <= this->m_range);
 	}
 
@@ -126,7 +126,7 @@ namespace daidalos {
 	* Get the damage.
 	* @return The damage
 	*/
-	const unsigned CEnemyStateAttack::GetDamage() const {
+	unsigned CEnemyStateAttack::GetDamage() const {
 		return this->m_damage;
 	}
 
@@ -134,7 +134,7 @@ namespace daidalos {
 	* Get the range.
 	* @reurn The range
 	*/
-	const float CEnemyStateAttack::GetRange() const {
+	float CEnemyStateAttack::GetRange() const {
 		return this->m_range;
 	}
 
@@ -142,7 +142,7 @@ namespace daidalos {
 	* Get the attack timer.
 	* @return the attack timer
 	*/
-	const float CEnemyStateAttack::GetAttackTimer() const {
+	float CEnemyStateAttack::GetAttackTimer() const {
 		return this->m_attackTimer;
 	}
 
@@ -150,7 +150,7 @@ namespace daidalos {
 	* Get the attack delay.
 	* @return The attack delay
 	*/
-	const float CEnemyStateAttack::GetAttackDelay() const {
+	float CEnemyStateAttack::GetAttackDelay() const {
 		return this->m_attackDelay;
 	}
 

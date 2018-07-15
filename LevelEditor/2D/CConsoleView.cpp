@@ -38,7 +38,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidaloseditor {
 	/**
 	* Constructor
-	* @param texture The view bounds
+	* @param numberOfLines The number of lines
 	*/
 	CConsoleView::CConsoleView(const int numberOfLines) : m_numberOfLines(numberOfLines) {
 		Initialize();
@@ -173,7 +173,7 @@ namespace daidaloseditor {
 		const daidalosengine::TToken tokens = tokenizer.GetTokens();
 		if(tokens.size() == 2) {
 			// Check for known commands
-			if(std::string(CONSOLE_INPUT_LOAD).compare(tokens[0]) == 0) {
+			if(std::string(CONSOLE_INPUT_LOAD) == tokens[0]) {
 				// Load a scene
 				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
 					std::string filename = tokens[1] + ".des";
@@ -181,7 +181,7 @@ namespace daidaloseditor {
 					(*it)->OnConsoleCommandLoad(filename);
 				}
 
-			} else if(std::string(CONSOLE_INPUT_SAVE).compare(tokens[0]) == 0) {
+			} else if(std::string(CONSOLE_INPUT_SAVE) == tokens[0]) {
 				// Save a scene
 				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
 					std::string filename = tokens[1] + ".des";

@@ -102,19 +102,19 @@ namespace daidalosengine {
 		* @param shape The shape that need to be tested
 		* @return True if the shape can be culled or false otherwise
 		*/
-		virtual const bool FrustumCull(IShape3DF * shape) const;
+		virtual bool FrustumCull(IShape3DF * shape) const;
 
 		/**
 		* Get the near distance
 		* @return The near distance
 		*/
-		const float GetNearDistance() const;
+		float GetNearDistance() const;
 
 		/**
 		* Get the far distance
 		* @return The far distance
 		*/
-		const float GetFarDistance() const;
+		float GetFarDistance() const;
 
 		/**
 		* Get the view matrix
@@ -230,9 +230,9 @@ namespace daidalosengine {
 		*/
 		void UpdateDebugBuffer();
 
-	private:
-		ICameraSceneNode();
-		ICameraSceneNode(const ICameraSceneNode & copy);
+	public:
+		ICameraSceneNode() = delete;
+		ICameraSceneNode(const ICameraSceneNode & copy) = delete;
 	};
 }
 

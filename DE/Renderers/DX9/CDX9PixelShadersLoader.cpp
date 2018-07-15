@@ -66,7 +66,7 @@ namespace daidalosengine {
 			throw CExceptionLoad(filename);
 		}
 
-		((CDX9Renderer*)IRenderer::GetRenderer())->GetDevice()->CreatePixelShader((DWORD*)pCode->GetBufferPointer(), &shader);
+		dynamic_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice()->CreatePixelShader((DWORD*)pCode->GetBufferPointer(), &shader);
 		pCode->Release();
 
 		return new CDX9PixelShader(filename, shader, constantTable);

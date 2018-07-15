@@ -26,7 +26,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/Logger/ILogger.hpp"
-#include "../../Scene/3D/CSphere.hpp"
 #include "../../Scene/3D/I3DScene.hpp"
 #include "../../Scene/3D/CPointLightSceneNode.hpp"
 

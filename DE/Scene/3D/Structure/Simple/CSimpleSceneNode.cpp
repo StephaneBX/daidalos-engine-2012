@@ -108,20 +108,20 @@ namespace daidalosengine {
 		// Nothing to do
 	}
 
-	const bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+	bool CSimpleSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
 		shape.SetPosition(shape.GetPosition() + movement);
 		return false;
 	}
 
-	const bool CSimpleSceneNode::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+	bool CSimpleSceneNode::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		return false;
 	}
 
-	const bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+	bool CSimpleSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		return false;

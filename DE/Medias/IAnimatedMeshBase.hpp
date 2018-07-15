@@ -60,7 +60,7 @@ namespace daidalosengine {
 		* Get the frame
 		* @return The frame
 		*/
-		const float GetFrame() const;
+		float GetFrame() const;
 
 		/**
 		* Finalize the geometry.

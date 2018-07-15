@@ -72,13 +72,13 @@ namespace daidalosengine {
 		* Check if the the texture has mipmaps
 		* @return True if the texture has mipmaps
 		*/
-		const bool HasMipmaps() const;
+		bool HasMipmaps() const;
 
 		/**
 		* Check if the auto mipmap is enabled
 		* @return True if the auto mipmap is enabled
 		*/
-		const bool HasAutoMimap() const;
+		bool HasAutoMimap() const;
 
 		/**
 		* Get the texture size
@@ -90,7 +90,7 @@ namespace daidalosengine {
 		* Get the texture format
 		* @return The texture format
 		*/
-		const EPixelFormat GetFormat() const;
+		EPixelFormat GetFormat() const;
 
 		/**
 		* Get the texture image
@@ -121,10 +121,10 @@ namespace daidalosengine {
 		*/
 		virtual void Update(const CRectangleI & rect) = 0;
 
-	private:
-		ITexture2DBase();
-		ITexture2DBase(const ITexture2DBase & copy);
-		const ITexture2DBase & operator=(const ITexture2DBase & copy);
+	public:
+		ITexture2DBase() = delete;
+		ITexture2DBase(const ITexture2DBase & copy) = delete;
+		const ITexture2DBase & operator=(const ITexture2DBase & copy) = delete;
 	};
 }
 

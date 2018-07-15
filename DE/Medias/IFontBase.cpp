@@ -47,31 +47,31 @@ namespace daidalosengine {
 		}
 	}
 
-	const bool IFontBase::IsBold() const {
+	bool IFontBase::IsBold() const {
 		LOG_TRACE();
 
 		return this->m_internalData->bold;
 	}
 
-	const bool IFontBase::IsItalic() const {
+	bool IFontBase::IsItalic() const {
 		LOG_TRACE();
 
 		return this->m_internalData->italic;
 	}
 
-	const int IFontBase::GetSize() const {
+	int IFontBase::GetSize() const {
 		LOG_TRACE();
 
 		return this->m_internalData->size;
 	}
 
-	const int IFontBase::GetLineHeight() const {
+	int IFontBase::GetLineHeight() const {
 		LOG_TRACE();
 
 		return this->m_internalData->lineHeight;
 	}
 
-	const int IFontBase::GetBase() const {
+	int IFontBase::GetBase() const {
 		LOG_TRACE();
 
 		return this->m_internalData->base;

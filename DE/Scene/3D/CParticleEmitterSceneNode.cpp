@@ -41,9 +41,7 @@ namespace daidalosengine {
 		SetType(SCENE_NODE_PARTICLE_EMITTER);
 	}
 
-	CParticleEmitterSceneNode::~CParticleEmitterSceneNode() {
-
-	}
+	CParticleEmitterSceneNode::~CParticleEmitterSceneNode() = default;
 
 	/**
 	* Set the particle emitter active state

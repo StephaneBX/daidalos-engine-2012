@@ -53,13 +53,13 @@ namespace daidalosgameengine {
 
 		/**
 		* Set the player armor
-		* @param health The player armor
+		* @param armor The player armor
 		*/
 		virtual void SetArmor(const int armor) = 0;
 
 		/**
 		* Set a player object
-		* @param id The player object id
+		* @param object The player object
 		* @param value The object value
 		*/
 		virtual void SetObject(unsigned int object, const unsigned int value) = 0;
@@ -74,51 +74,51 @@ namespace daidalosgameengine {
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time = 0) = 0;
+		virtual void Update(const float time = 0) override = 0;
 
 		/**
 		* Check if the player can see a shape
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		virtual const bool IsShapeVisible(daidalosengine::IShape3DF * shape) = 0;
+		virtual bool IsShapeVisible(daidalosengine::IShape3DF * shape) = 0;
 
 		/**
 		* If the player interaction action is active
 		* @return True if the player interaction action is active
 		*/
-		virtual const bool IsInteracting() const = 0;
+		virtual bool IsInteracting() const = 0;
 
 		/**
 		* If the player has moved during the current frame
 		* return True if the player has moved during the current frame
 		*/
-		virtual const bool HasMoved() = 0;
+		virtual bool HasMoved() = 0;
 
 		/**
 		* Get the player health
 		* @return The player health
 		*/
-		virtual const int GetArmor() const = 0;
+		virtual int GetArmor() const = 0;
 
 		/**
 		* Get the player magazine ammo for the current weapon
 		* @return The current magazine ammo
 		*/
-		virtual const unsigned int GetCurrentWeaponMagazineAmmo() const = 0;
+		virtual unsigned int GetCurrentWeaponMagazineAmmo() const = 0;
 
 		/**
 		* Get the player stock ammo for the current weapon
 		* @return The current stock ammo
 		*/
-		virtual const unsigned int GetCurrentWeaponStockAmmo() const = 0;
+		virtual unsigned int GetCurrentWeaponStockAmmo() const = 0;
 
 		/**
 		* Get the player's object value
-		* @param id The object id
+		* @param object The object id
 		* @return The object value
 		*/
-		virtual const unsigned int GetObjectValue(unsigned int object) const = 0;
+		virtual unsigned int GetObjectValue(unsigned int object) const = 0;
 
 		/**
 		* Get the camera node
@@ -131,7 +131,7 @@ namespace daidalosgameengine {
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		virtual void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) = 0;
+		virtual void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) override = 0;
 	};
 }
 

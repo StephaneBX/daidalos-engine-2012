@@ -93,7 +93,7 @@ namespace daidalos {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStateDie::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
+	bool CEnemyStateDie::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return entity->GetHealth() == 0;
 	}
 
@@ -101,7 +101,7 @@ namespace daidalos {
 	* Get the dead status.
 	* @return The dead status
 	*/
-	const bool CEnemyStateDie::IsDead() const {
+	bool CEnemyStateDie::IsDead() const {
 		return this->m_dead;
 	}
 }

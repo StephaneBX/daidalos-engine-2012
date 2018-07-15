@@ -181,7 +181,7 @@ namespace daidalosengine {
 		RenderSubviews();
 	}
 
-	const bool CCheckbox::HitTest(const CVector2I & point) {
+	bool CCheckbox::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
 		SetHit(IsInside(point));
@@ -216,13 +216,13 @@ namespace daidalosengine {
 		return IsHit();
 	}
 
-	const bool CCheckbox::IsEnabled() const {
+	bool CCheckbox::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;
 	}
 
-	const bool CCheckbox::IsChecked() const {
+	bool CCheckbox::IsChecked() const {
 		LOG_TRACE();
 
 		return this->m_checked;

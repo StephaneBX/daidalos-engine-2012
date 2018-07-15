@@ -39,9 +39,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CRotationParticleInitializer::~CRotationParticleInitializer() {
-
-	}
+	CRotationParticleInitializer::~CRotationParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -60,7 +58,7 @@ namespace daidalosengine {
 	* Get the rotation min
 	* @return The rotation min
 	*/
-	const float CRotationParticleInitializer::GetRotationMin() const {
+	float CRotationParticleInitializer::GetRotationMin() const {
 		return this->m_rotationMin;
 	}
 
@@ -68,7 +66,7 @@ namespace daidalosengine {
 	* Get the rotation max
 	* @return The rotation max
 	*/
-	const float CRotationParticleInitializer::GetRotationMax() const {
+	float CRotationParticleInitializer::GetRotationMax() const {
 		return this->m_rotationMax;
 	}
 

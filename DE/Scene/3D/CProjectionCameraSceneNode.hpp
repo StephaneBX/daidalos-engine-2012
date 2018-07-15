@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CPROJECTIONCAMERASCENENODE_HPP
 #define __CPROJECTIONCAMERASCENENODE_HPP
 
-#include "../../Core/Utility/CMatrix.hpp"
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 
@@ -77,23 +76,23 @@ namespace daidalosengine {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Get the angle
 		* @return The angle in radian
 		*/
-		const float GetAngle() const;
+		float GetAngle() const;
 
 		/**
 		* Get the ratio
 		* @return The ratio
 		*/
-		const float GetRatio() const;
+		float GetRatio() const;
 
-	private:
-		CProjectionCameraSceneNode();
-		CProjectionCameraSceneNode(const CProjectionCameraSceneNode & copy);
+	public:
+		CProjectionCameraSceneNode() = delete;
+		CProjectionCameraSceneNode(const CProjectionCameraSceneNode & copy) = delete;
 	};
 }
 

@@ -88,7 +88,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CTeleporterEntity::CanDoAction() {
+	bool CTeleporterEntity::CanDoAction() {
 		return this->m_levelName != "" && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition() + daidalosengine::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 

@@ -131,7 +131,7 @@ namespace daidalosengine {
 		return this->m_font->GetCharDescriptor(id);
 	}
 
-	const CFont & CFont::operator=(const CFont & copy) {
+	CFont & CFont::operator=(const CFont & copy) {
 		LOG_TRACE();
 
 		if (this != &copy) {

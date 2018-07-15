@@ -125,19 +125,19 @@ namespace daidalosengine {
 		* Update the absolute position
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Set the mesh format
 		* @param format The mesh format
 		*/
-		virtual void SetMeshFormat(const int format);
+		virtual void SetMeshFormat(const int format) override;
 
 		/**
 		* Set the mesh shading type
 		* @param shadingType The mesh shading type
 		*/
-		virtual void SetMeshShadingType(EMeshShadingType shadingType);
+		virtual void SetMeshShadingType(EMeshShadingType shadingType) override;
 
 		/**
 		* Render the node
@@ -153,13 +153,13 @@ namespace daidalosengine {
 		/**
 		* Get the number of groups
 		*/
-		const int GetNumberOfGroups() const;
+		int GetNumberOfGroups() const;
 
 		/**
 		* Get the mesh shading type
 		* @return The mesh shading type
 		*/
-		const EMeshShadingType GetMeshShadingType() const;
+		EMeshShadingType GetMeshShadingType() const;
 
 		/**
 		* Get the texture name

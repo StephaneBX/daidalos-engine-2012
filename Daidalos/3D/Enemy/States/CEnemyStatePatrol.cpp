@@ -51,7 +51,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CEnemyStatePatrol::~CEnemyStatePatrol() {}
+	CEnemyStatePatrol::~CEnemyStatePatrol() = default;
 
 	/**
 	* Set the current way point.
@@ -122,7 +122,7 @@ namespace daidalos {
 	* @param entity The entity
 	* @return True if candidate
 	*/
-	const bool CEnemyStatePatrol::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
+	bool CEnemyStatePatrol::IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) {
 		return true;
 	}
 
@@ -130,7 +130,7 @@ namespace daidalos {
 	* Get the current way point.
 	* @return The current way point
 	*/
-	const int CEnemyStatePatrol::GetCurrentWayPoint() {
+	int CEnemyStatePatrol::GetCurrentWayPoint() {
 		return this->m_currentWayPoint;
 	}
 
@@ -138,7 +138,7 @@ namespace daidalos {
 	* Get the walk speed.
 	* @return The walk speed
 	*/
-	const float CEnemyStatePatrol::GetWalkSpeed() {
+	float CEnemyStatePatrol::GetWalkSpeed() {
 		return this->m_walkSpeed;
 	}
 
@@ -146,7 +146,7 @@ namespace daidalos {
 	* Get the rotation speed.
 	* @return The rotation speed
 	*/
-	const float CEnemyStatePatrol::GetRotationSpeed() {
+	float CEnemyStatePatrol::GetRotationSpeed() {
 		return this->m_rotationSpeed;
 	}
 

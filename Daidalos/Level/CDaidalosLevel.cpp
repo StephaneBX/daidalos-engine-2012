@@ -249,14 +249,14 @@ namespace daidalos {
 		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
 		this->m_hudView = new CHudView(daidalosengine::CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 		this->m_hudView->SetDebugMode(false);
-		//GetView()->AddToMainView(this->m_hudView);
+		GetView()->AddToMainView(this->m_hudView);
 
 		// TMP load views
 
 		daidalosengine::CScrollableView * scroll = new daidalosengine::CScrollableView();
 		scroll->SetBounds(daidalosengine::CRectangleI(100, 100, 150, 80));
 		scroll->SetScrollBarThickness(5);
-		//GetView()->AddToMainView(scroll);
+		GetView()->AddToMainView(scroll);
 
 		daidalosengine::CCheckbox * checkbox1 = new daidalosengine::CCheckbox();
 		checkbox1->SetBounds(daidalosengine::CRectangleI(0, 0, 32, 32));
@@ -295,7 +295,7 @@ namespace daidalos {
 		selectionList->AddSelection("VALUE 4");
 		selectionList->AddSelection("VALUE 5");
 		selectionList->AddSelection("VALUE 6");
-		//GetView()->AddToMainView(selectionList);
+		GetView()->AddToMainView(selectionList);
 
 		ILevel::PostLoadLevel();
 	}

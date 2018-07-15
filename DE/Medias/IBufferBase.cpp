@@ -40,7 +40,7 @@ namespace daidalosengine {
 	}
 
 
-	const unsigned long IBufferBase::GetSize() const {
+	unsigned long IBufferBase::GetSize() const {
 		LOG_TRACE();
 
 		return this->m_size;

@@ -72,7 +72,7 @@ namespace daidaloseditor {
 		return this->m_node;
 	}
 
-	const int CEditCamera::GetLayer() const {
+	int CEditCamera::GetLayer() const {
 		return this->m_layer;
 	}
 

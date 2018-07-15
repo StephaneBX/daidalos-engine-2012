@@ -72,19 +72,19 @@ namespace daidalosengine {
 		}
 	}
 
-	const bool CImpact::IsImpact() const {
+	bool CImpact::IsImpact() const {
 		LOG_TRACE();
 
 		return this->m_realFraction < 1.0F;
 	}
 
-	const float CImpact::GetImpactFraction() const {
+	float CImpact::GetImpactFraction() const {
 		LOG_TRACE();
 
 		return this->m_impactFraction;
 	}
 
-	const float CImpact::GetRealFraction() const {
+	float CImpact::GetRealFraction() const {
 		LOG_TRACE();
 
 		return this->m_realFraction;

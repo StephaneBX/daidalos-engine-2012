@@ -127,7 +127,7 @@ namespace daidalosengine {
 		UpdateDebugBuffer();
 	}
 
-	const bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const {
+	bool COrthographicCameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
 		return false;

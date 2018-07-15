@@ -38,9 +38,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CColorParticleUpdater::~CColorParticleUpdater() {
-
-	}
+	CColorParticleUpdater::~CColorParticleUpdater() = default;
 
 	/**
 	* Update the particle

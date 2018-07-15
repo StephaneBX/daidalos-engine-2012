@@ -82,7 +82,7 @@ namespace daidalosgameengine {
 		* Check if the entity is enabled
 		* @return True if the entity is enabled
 		*/
-		virtual const bool IsEnabled() const;
+		virtual bool IsEnabled() const;
 
 		/**
 		* Set the current action state

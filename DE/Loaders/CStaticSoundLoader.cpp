@@ -27,7 +27,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <libsndfile/sndfile.h>
 #include <OpenAL/al.h>
-#include <OpenAL/alc.h>
 #include "../Core/Enums.hpp"
 #include "../Core/Memory/CExceptionLoad.hpp"
 #include "../Core/Logger/ILogger.hpp"

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CMESHBUFFER_HPP
 #define __CMESHBUFFER_HPP
 
-#include <algorithm>
 #include <vector>
 #include "../../Core/Enums.hpp"
 #include "../../Core/Utility/CVector2.hpp"
@@ -100,19 +99,19 @@ namespace daidalosengine {
 		* Get the number of elements in the buffer
 		* @return The number of elements
 		*/
-		const int GetNumberOfElements() const;
+		int GetNumberOfElements() const;
 
 		/**
 		* Get the mesh format
 		* @return The mesh format
 		*/
-		const int GetMeshFormat() const;
+		int GetMeshFormat() const;
 
 		/**
 		* Get the stride
 		* @return The stride
 		*/
-		const unsigned long GetStride() const;
+		unsigned long GetStride() const;
 
 		/**
 		* Get the vertex buffer

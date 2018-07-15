@@ -65,16 +65,18 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the existence of the element
-		auto it = this->m_elements.find(name);
+		const auto it = this->m_elements.find(name);
 		Assert(it != this->m_elements.end());
 
 		// Remove previous attachment to this attachment point
-		for(auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it)
-			if(it->attachment == attachment)
-				this->m_attachments.erase(it);
+		for (auto it2 = this->m_attachments.begin(); it2 != this->m_attachments.end(); ++it2) {
+			if (it2->attachment == attachment) {
+				this->m_attachments.erase(it2);
+			}
+		}
 
 		// Attach the element to this point
-		SFrameBufferAttachment tmp = { attachment, name };
+		const SFrameBufferAttachment tmp = { attachment, name };
 		this->m_attachments.push_back(tmp);
 
 		this->m_ready = false;
@@ -153,19 +155,19 @@ namespace daidalosengine {
 		return this->m_depth;
 	}
 
-	const bool IFrameBufferBase::IsReady() const {
+	bool IFrameBufferBase::IsReady() const {
 		LOG_TRACE();
 
 		return this->m_ready;
 	}
 
-	const int IFrameBufferBase::GetBufferSize() const {
+	int IFrameBufferBase::GetBufferSize() const {
 		LOG_TRACE();
 
 		return this->m_elements.size();
 	}
 
-	const int IFrameBufferBase::GetAttachmentSize() const {
+	int IFrameBufferBase::GetAttachmentSize() const {
 		LOG_TRACE();
 
 		return this->m_attachments.size();

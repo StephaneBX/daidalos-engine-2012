@@ -39,9 +39,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CSphereVelocityParticleInitializer::~CSphereVelocityParticleInitializer() {
-
-	}
+	CSphereVelocityParticleInitializer::~CSphereVelocityParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -69,7 +67,7 @@ namespace daidalosengine {
 	* Get the velocity min
 	* @return The velocity min
 	*/
-	const float CSphereVelocityParticleInitializer::GetVelocityMin() const {
+	float CSphereVelocityParticleInitializer::GetVelocityMin() const {
 		return this->m_velocityMin;
 	}
 
@@ -77,7 +75,7 @@ namespace daidalosengine {
 	* Get the velocity max
 	* @return The velocity max
 	*/
-	const float CSphereVelocityParticleInitializer::GetVelocityMax() const {
+	float CSphereVelocityParticleInitializer::GetVelocityMax() const {
 		return this->m_velocityMax;
 	}
 

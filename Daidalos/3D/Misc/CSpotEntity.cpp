@@ -52,32 +52,32 @@ namespace daidalos {
 		daidalosengine::CColor lightColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 		// Read the attributes
-		if(meshNode->GetAttribute("lightDecalY") != "") {
+		if(!meshNode->GetAttribute("lightDecalY").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("lightDecalY"));
 			ss >> lightDecalY;
 		}
-		if(meshNode->GetAttribute("lightEnabled") != "") {
+		if(!meshNode->GetAttribute("lightEnabled").empty()) {
 			enabled = meshNode->GetAttribute("lightEnabled") == "true" ? true : false;
 		}
-		if(meshNode->GetAttribute("lightShadow_caster") != "") {
+		if(!meshNode->GetAttribute("lightShadow_caster").empty()) {
 			shadowCaster = meshNode->GetAttribute("lightShadow_caster") == "true" ? true : false;
 		}
-		if(meshNode->GetAttribute("lightColor") != "") {
+		if(!meshNode->GetAttribute("lightColor").empty()) {
 			lightColor = daidalosengine::CColor::GetFrom(meshNode->GetAttribute("lightColor"));
 		}
-		if(meshNode->GetAttribute("lightRange") != "") {
+		if(!meshNode->GetAttribute("lightRange").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("lightRange"));
 			ss >> lightRange;
 		}
-		if(meshNode->GetAttribute("lightRadius") != "") {
+		if(!meshNode->GetAttribute("lightRadius").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("lightRadius"));
 			ss >> lightRadius;
 		}
-		if(meshNode->GetAttribute("lightFalloff") != "") {
+		if(!meshNode->GetAttribute("lightFalloff").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("lightFalloff"));
 			ss >> lightFallOf;
 		}
-		if(meshNode->GetAttribute("lightTightness") != "") {
+		if(!meshNode->GetAttribute("lightTightness").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("lightTightness"));
 			ss >> lightTightness;
 		}
@@ -106,7 +106,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CSpotEntity::CanDoAction() const {
+	bool CSpotEntity::CanDoAction() const {
 		return false;
 	}
 }

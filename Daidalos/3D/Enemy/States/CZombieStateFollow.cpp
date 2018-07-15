@@ -59,7 +59,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CZombieStateFollow::~CZombieStateFollow() {}
+	CZombieStateFollow::~CZombieStateFollow() = default;
 
 	/**
 	* Update the entity

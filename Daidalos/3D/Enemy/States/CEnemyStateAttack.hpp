@@ -70,7 +70,7 @@ namespace daidalos {
 
 		/**
 		* Set the range.
-		* @param Range The range.
+		* @param range The range.
 		*/
 		void SetRange(const float range);
 
@@ -97,38 +97,38 @@ namespace daidalos {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time) override;
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
+		virtual bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) override;
 
 		/**
 		* Get the damage.
 		* @return The damage
 		*/
-		const unsigned GetDamage() const;
+		unsigned GetDamage() const;
 
 		/**
 		* Get the range.
 		* @reurn The range
 		*/
-		const float GetRange() const;
+		float GetRange() const;
 
 		/**
 		* Get the attack timer.
 		* @return the attack timer
 		*/
-		const float GetAttackTimer() const;
+		float GetAttackTimer() const;
 
 		/**
 		* Get the attack delay.
 		* @return The attack delay
 		*/
-		const float GetAttackDelay() const;
+		float GetAttackDelay() const;
 
 		/**
 		* Get the target.

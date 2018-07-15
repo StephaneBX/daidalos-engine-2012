@@ -76,12 +76,12 @@ namespace daidalosengine {
 		* Update the absolute position
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Get the mesh name
 		*/
-		const std::string GetMeshName() const;
+		const std::string GetMeshName() const override;
 
 	protected:
 		/**

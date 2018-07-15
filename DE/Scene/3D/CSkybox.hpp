@@ -85,7 +85,7 @@ namespace daidalosengine {
 		* If the skybox is visible
 		* @return True is the skybox is visible and can be rendered
 		*/
-		const bool IsVisible() const;
+		bool IsVisible() const;
 
 	private:
 		/**

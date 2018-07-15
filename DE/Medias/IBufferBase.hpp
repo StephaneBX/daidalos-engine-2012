@@ -63,7 +63,7 @@ namespace daidalosengine {
 		* Get the buffer size in Bits
 		* @return The buffer size
 		*/
-		const unsigned long GetSize() const;
+		unsigned long GetSize() const;
 
 	protected:
 		/**

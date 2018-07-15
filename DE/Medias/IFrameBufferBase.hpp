@@ -169,19 +169,19 @@ namespace daidalosengine {
 		* Check if the frame buffer is ready
 		* @return True if the frame buffer is ready and can be used, false if the buffer needs to be finalized
 		*/
-		const bool IsReady() const;
+		bool IsReady() const;
 
 		/**
 		* Get the frame buffer size
 		* @return The frame buffer size
 		*/
-		const int GetBufferSize() const;
+		int GetBufferSize() const;
 
 		/**
 		* Get the number of attachments
 		* @return The number of attachments
 		*/
-		const int GetAttachmentSize() const;
+		int GetAttachmentSize() const;
 
 	protected:
 		/**

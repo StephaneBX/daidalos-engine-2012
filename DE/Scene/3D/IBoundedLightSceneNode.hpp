@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IBOUNDEDLIGHTSCENENODE_HPP
 #define __IBOUNDEDLIGHTSCENENODE_HPP
 
-#include <limits>
 #include <memory>
 #include "../../Scene/3D/ILightSceneNode.hpp"
 #include "../../Scene/3D/CSphere.hpp"
@@ -66,7 +65,7 @@ namespace daidalosengine {
 		* Update the camera
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Get the light range

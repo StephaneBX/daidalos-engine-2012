@@ -66,13 +66,13 @@ namespace daidalosengine {
 		* Get the inner radius
 		* @return The inner radius
 		*/
-		const float GetInnerRadius() const;
+		float GetInnerRadius() const;
 
 		/**
 		* Get the outer radius
 		* @return The outer radius
 		*/
-		const float GetOuterRadius() const;
+		float GetOuterRadius() const;
 
 		/**
 		* Clone the class

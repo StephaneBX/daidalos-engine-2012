@@ -27,7 +27,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <libsndfile/sndfile.h>
 #include <OpenAL/al.h>
-#include <OpenAL/alc.h>
 #include "../Core/Enums.hpp"
 #include "../Core/Memory/CExceptionLoad.hpp"
 #include "../Core/Logger/ILogger.hpp"
@@ -57,8 +56,8 @@ namespace daidalosengine {
 		}
 
 		// Get the sound information
-		int nbSamples = static_cast<int>(fileInfos.channels * fileInfos.frames);
-		int sampleRate = fileInfos.samplerate;
+		const int nbSamples = static_cast<int>(fileInfos.channels * fileInfos.frames);
+		const int sampleRate = fileInfos.samplerate;
 		ESoundFormat format;
 		ALenum openALFormat;
 

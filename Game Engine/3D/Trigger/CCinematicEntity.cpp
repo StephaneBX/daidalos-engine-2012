@@ -43,11 +43,11 @@ namespace daidalosgameengine {
 		std::string cinematicFile;
 
 		// Read the attributes
-		if (this->m_node->GetAttribute("triggerRadius") != "") {
+		if (!this->m_node->GetAttribute("triggerRadius").empty()) {
 			std::istringstream ss(m_node->GetAttribute("triggerRadius"));
 			ss >> this->m_triggerRadius;
 		}
-		if (this->m_node->GetAttribute("cinematic") != "") {
+		if (!this->m_node->GetAttribute("cinematic").empty()) {
 			std::istringstream ss(m_node->GetAttribute("cinematic"));
 			ss >> cinematicFile;
 		}
@@ -98,7 +98,7 @@ namespace daidalosgameengine {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CCinematicEntity::CanDoAction() {
+	bool CCinematicEntity::CanDoAction() {
 		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= this->m_triggerRadius;
 	}
 }

@@ -247,7 +247,7 @@ namespace daidalosengine {
 
 	/**
 	* Set a capability
-	* @param capablity The capability
+	* @param capability The capability
 	* @param value The value
 	*/
 	void IRenderer::SetCapability(const ECapability capability, const bool value) {

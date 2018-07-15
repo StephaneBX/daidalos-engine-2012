@@ -41,7 +41,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	IEntity::~IEntity() {}
+	IEntity::~IEntity() = default;
 
 	/**
 	* Set the id
@@ -123,7 +123,7 @@ namespace daidalosgameengine {
 	* Get the collision state
 	* @return The collision state
 	*/
-	const bool IEntity::GetCollisionState() const {
+	bool IEntity::GetCollisionState() const {
 		return false;
 	}
 
@@ -131,7 +131,7 @@ namespace daidalosgameengine {
 	* Check if the entity is enabled
 	* @return True if the entity is enabled
 	*/
-	const bool IEntity::IsEnabled() const {
+	bool IEntity::IsEnabled() const {
 		return true;
 	}
 
@@ -139,7 +139,7 @@ namespace daidalosgameengine {
 	* Get the entity id
 	* @return The entity id
 	*/
-	const int IEntity::GetId() const {
+	int IEntity::GetId() const {
 		return this->m_id;
 	}
 
@@ -147,7 +147,7 @@ namespace daidalosgameengine {
 	* Get the entity flag
 	* @return The entity flag
 	*/
-	const int IEntity::GetFlag() const {
+	int IEntity::GetFlag() const {
 		return this->m_flag;
 	}
 
@@ -155,7 +155,7 @@ namespace daidalosgameengine {
 	* Get the entity type
 	* @return The entity type
 	*/
-	const unsigned int IEntity::GetType() const {
+	unsigned int IEntity::GetType() const {
 		return this->m_type;
 	}
 
@@ -179,7 +179,7 @@ namespace daidalosgameengine {
 	* Get the health
 	* @return The health
 	*/
-	const unsigned int IEntity::GetHealth() const {
+	unsigned int IEntity::GetHealth() const {
 		return this->m_health;
 	}
 
@@ -187,7 +187,7 @@ namespace daidalosgameengine {
 	* Get the max health
 	* @return The max health
 	*/
-	const unsigned int IEntity::GetMaxHealth() const {
+	unsigned int IEntity::GetMaxHealth() const {
 		return this->m_maxHealth;
 	}
 

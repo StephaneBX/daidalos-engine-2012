@@ -81,8 +81,6 @@ namespace daidalosengine {
 
 		UpdatePosition();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-
 		SetData(GenerateQuad(this->GetBoundingRectangle(), CRectangleF(0, 0, 1, 1)));
 		UpdateBuffer();
 

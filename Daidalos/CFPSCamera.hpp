@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __DAIDALOS_CFPSCAMERA_HPP
 
 #include <Scene/3D/ICameraSceneNode.hpp>
-#include <Scene/3D/C3DScene.hpp>
 #include <Scene/3D/CEllipse.hpp>
 #include <Core/Utility/CVector3.hpp>
 #include <Core/CInputDevice.hpp>
@@ -134,7 +133,7 @@ namespace daidalos {
 
 		/**
 		* Set the player armor
-		* @param health The player armor
+		* @param armor The player armor
 		*/
 		void SetArmor(const int armor) override;
 
@@ -162,50 +161,50 @@ namespace daidalos {
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(daidalosengine::IShape3DF * shape) override;
+		bool IsShapeVisible(daidalosengine::IShape3DF * shape) override;
 
 		/**
 		* If the player interaction action is active
 		* @return True if the player interaction action is active
 		*/
-		const bool IsInteracting() const override;
+		bool IsInteracting() const override;
 
 		/**
 		* If the player has moved during the current frame
 		* return True if the player has moved during the current frame
 		*/
-		const bool HasMoved() override;
+		bool HasMoved() override;
 
 		/**
 		* Check if the entity is enabled
 		* @return True if the entity is enabled
 		*/
-		const bool IsEnabled() const override;
+		bool IsEnabled() const override;
 
 		/**
 		* Get the player health
 		* @return The player health
 		*/
-		const int GetArmor() const override;
+		int GetArmor() const override;
 
 		/**
 		* Get the player magazine ammo for the current weapon
 		* @return The current magazine ammo
 		*/
-		const unsigned int GetCurrentWeaponMagazineAmmo() const override;
+		unsigned int GetCurrentWeaponMagazineAmmo() const override;
 
 		/**
 		* Get the player stock ammo for the current weapon
 		* @return The current stock ammo
 		*/
-		const unsigned int GetCurrentWeaponStockAmmo() const override;
+		unsigned int GetCurrentWeaponStockAmmo() const override;
 
 		/**
 		* Get the player's object value
 		* @param object The object id
 		* @return The object value
 		*/
-		const unsigned int GetObjectValue(unsigned int object) const override;
+		unsigned int GetObjectValue(unsigned int object) const override;
 
 		/**
 		* Get the camera node

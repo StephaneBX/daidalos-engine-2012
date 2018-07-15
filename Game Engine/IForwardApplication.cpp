@@ -639,7 +639,7 @@ namespace daidalosgameengine {
 	* Check the laoding state
 	* @return true if the level is loading
 	*/
-	const bool IForwardApplication::IsLoading() const {
+	bool IForwardApplication::IsLoading() const {
 		return this->m_loading;
 	}
 
@@ -647,7 +647,7 @@ namespace daidalosgameengine {
 	* Check if the cull is enabled
 	* @return true if the cull is enabled
 	*/
-	const bool IForwardApplication::IsCullEnabled() const {
+	bool IForwardApplication::IsCullEnabled() const {
 		return this->m_cullEnabled;
 	}
 

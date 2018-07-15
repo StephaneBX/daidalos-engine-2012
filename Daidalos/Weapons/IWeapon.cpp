@@ -25,8 +25,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <set>
-#include <Scene/3D/CSphere.hpp>
 #include "IWeapon.hpp"
 
 #define PARTICLE_LIFE 50
@@ -41,7 +39,7 @@ namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
-	* @param meshNode The weapon mesh node
+	* @param playerNode The weapon mesh node
 	*/
 	IWeapon::IWeapon(daidalosgameengine::ILevel * parent) : m_parent(parent) {
 		this->m_state = WEAPON_STATE_NONE;
@@ -289,7 +287,7 @@ namespace daidalos {
 	* Get the magazine size
 	* @return The magazine size
 	*/
-	const unsigned int IWeapon::GetMagazineSize() const {
+	unsigned int IWeapon::GetMagazineSize() const {
 		return this->m_magazineSize;
 	}
 
@@ -297,7 +295,7 @@ namespace daidalos {
 	* Get the remaining ammo
 	* @return The remaining ammo
 	*/
-	const unsigned int IWeapon::GetRemainingAmmo() const {
+	unsigned int IWeapon::GetRemainingAmmo() const {
 		return this->m_remainingAmmo;
 	}
 

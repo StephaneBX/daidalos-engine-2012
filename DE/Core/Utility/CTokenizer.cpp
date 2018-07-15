@@ -149,12 +149,11 @@ namespace daidalosengine {
 
 		bool valid = true;
 		this->m_buffer.clear();
-		int elementCount;
 
 		// Iterate through the tokens.
 		for(unsigned int i = 0; i < this->m_tokens.size() && valid; i++) {
 			// Split each token with the given delimiter.
-			elementCount = SplitString(this->m_tokens[i], delimiter);
+			const int elementCount = SplitString(this->m_tokens[i], delimiter);
 
 			// The tokenization process is valid if the number of split is not over maxSplit or if maxSplit = 0
 			if(maxSplit > 0 && elementCount != 1 && elementCount != maxSplit)
@@ -181,8 +180,8 @@ namespace daidalosengine {
 
 		int count = 0;
 
-		for(unsigned int i = 0; i < this->m_tokens.size(); i++) {
-			if(this->m_tokens[i] == token)
+		for(auto &it : this->m_tokens) {
+			if(it == token)
 				count++;
 		}
 

@@ -130,7 +130,7 @@ namespace daidalosengine {
 		* Get the text size
 		* @return The text size
 		*/
-		const unsigned int GetSize() const;
+		unsigned int GetSize() const;
 
 		/**
 		* Get the font name
@@ -163,7 +163,7 @@ namespace daidalosengine {
 		* @param cursor The current cursor position
 		* @param lineStart The index of each line in the data
 		*/
-		const bool CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart);
+		bool CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart);
 	};
 }
 

@@ -97,45 +97,45 @@ namespace daidalos {
 		/**
 		* Callback when the entity take damage
 		*/
-		virtual void OnEntityTakeDamage();
+		virtual void OnEntityTakeDamage() override;
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time) override;
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
+		virtual bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) override;
 
 		/**
 		* Get the move speed.
 		* @return The move speed
 		*/
-		const float GetMoveSpeed() const;
+		float GetMoveSpeed() const;
 
 		/**
 		* Get the rotation speed.
 		* @return The rotation speed
 		*/
-		const float GetRotationSpeed() const;
+		float GetRotationSpeed() const;
 
 		/**
 		* Get the stop distance.
 		* @return The stop distance
 		*/
-		const float GetStopDistance() const;
+		float GetStopDistance() const;
 
 		/**
 		* Get the search timer.
 		* @return The search timer
 		*/
-		const float GetSearchTimer() const;
+		float GetSearchTimer() const;
 
 		/**
 		* Get the target.

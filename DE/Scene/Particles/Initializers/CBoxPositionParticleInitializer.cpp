@@ -39,9 +39,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CBoxPositionParticleInitializer::~CBoxPositionParticleInitializer() {
-
-	}
+	CBoxPositionParticleInitializer::~CBoxPositionParticleInitializer() = default;
 
 	/**
 	* Initialize the particle

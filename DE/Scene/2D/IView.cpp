@@ -114,7 +114,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool IView::HitTest(const CVector2I & point) {
+	bool IView::HitTest(const CVector2I & point) {
 		return HitTest(this, point);
 	}
 
@@ -125,7 +125,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool IView::HitTest(IView * target, const CVector2I & point) {
+	bool IView::HitTest(IView * target, const CVector2I & point) {
 		LOG_TRACE();
 
 		this->m_hitTest = false;
@@ -239,7 +239,7 @@ namespace daidalosengine {
 	* Get the changed value
 	* @return The changed value
 	*/
-	const bool IView::IsChanged() const {
+	bool IView::IsChanged() const {
 		LOG_TRACE();
 
 		return this->m_changed;
@@ -249,7 +249,7 @@ namespace daidalosengine {
 	* Get the visible value
 	* @return The visible value
 	*/
-	const bool IView::IsVisible() const {
+	bool IView::IsVisible() const {
 		LOG_TRACE();
 
 		return this->m_visible;
@@ -259,7 +259,7 @@ namespace daidalosengine {
 	* Check if the previous hit test occurred in this view
 	* @return True if the hit test occurred in this view
 	*/
-	const bool IView::IsHit() const {
+	bool IView::IsHit() const {
 		LOG_TRACE();
 
 		return this->m_hitTest;
@@ -270,7 +270,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the gui
 	*/
-	const bool IView::IsInside(const CVector2I & point) const {
+	bool IView::IsInside(const CVector2I & point) const {
 		LOG_TRACE();
 
 		return GetAbsoluteBoundingRectangle().Intersect(point) == RECTANGLE_INTERSECTION_INSIDE;
@@ -281,7 +281,7 @@ namespace daidalosengine {
 	* @param rectangle The rectangle to test in screen coordinate
 	* @return True if the rectangle is inside the gui
 	*/
-	const bool IView::IsInside(const CRectangleI & rectangle) const {
+	bool IView::IsInside(const CRectangleI & rectangle) const {
 		LOG_TRACE();
 
 		return GetAbsoluteBoundingRectangle().Intersect(rectangle) != RECTANGLE_INTERSECTION_OUTSIDE;
@@ -449,7 +449,7 @@ namespace daidalosengine {
 	* Get the data size
 	* @return The data size
 	*/
-	const int IView::GetDataSize() const {
+	int IView::GetDataSize() const {
 		LOG_TRACE();
 
 		return this->m_data.size();
@@ -460,7 +460,7 @@ namespace daidalosengine {
 	* @param copy A GUI element copy
 	* @return The GUI element
 	*/
-	const IView & IView::operator=(const IView & copy) {
+	IView & IView::operator=(const IView & copy) {
 		LOG_TRACE();
 
 		if (this != &copy) {
@@ -481,7 +481,7 @@ namespace daidalosengine {
 	* @param point The point to test in screen coordinate
 	* @return True if the point is inside the view on inside one of its subviews
 	*/
-	const bool IView::HitTestAny(IView * target, const CVector2I & point) {
+	bool IView::HitTestAny(IView * target, const CVector2I & point) {
 		this->m_hitTest = false;
 
 		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {

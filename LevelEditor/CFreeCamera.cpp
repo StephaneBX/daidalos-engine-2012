@@ -93,7 +93,7 @@ namespace daidaloseditor {
 	/**
 	* Destructor
 	*/
-	CFreeCamera::~CFreeCamera() {}
+	CFreeCamera::~CFreeCamera() = default;
 
 	/**
 	* Set the player active state
@@ -105,7 +105,7 @@ namespace daidaloseditor {
 
 	/**
 	* Set the player armor
-	* @param health The player armor
+	* @param armor The player armor
 	*/
 	void CFreeCamera::SetArmor(const int armor) {
 		// Nothing to do
@@ -153,7 +153,7 @@ namespace daidaloseditor {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CFreeCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
+	bool CFreeCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -161,7 +161,7 @@ namespace daidaloseditor {
 	* If the player interaction action is active
 	* @return True if the player interaction action is active
 	*/
-	const bool CFreeCamera::IsInteracting() const {
+	bool CFreeCamera::IsInteracting() const {
 		return false;
 	}
 
@@ -169,7 +169,7 @@ namespace daidaloseditor {
 	* If the player has moved during the current frame
 	* return True if the player has moved during the current frame
 	*/
-	const bool CFreeCamera::HasMoved() {
+	bool CFreeCamera::HasMoved() {
 		return true;
 	}
 
@@ -177,7 +177,7 @@ namespace daidaloseditor {
 	* Get the player health
 	* @return The player health
 	*/
-	const int CFreeCamera::GetArmor() const {
+	int CFreeCamera::GetArmor() const {
 		return 0;
 	}
 
@@ -185,7 +185,7 @@ namespace daidaloseditor {
 	* Get the player magazine ammo for the current weapon
 	* @return The current magazine ammo
 	*/
-	const unsigned int CFreeCamera::GetCurrentWeaponMagazineAmmo() const {
+	unsigned int CFreeCamera::GetCurrentWeaponMagazineAmmo() const {
 		return 0;
 	}
 
@@ -193,7 +193,7 @@ namespace daidaloseditor {
 	* Get the player stock ammo for the current weapon
 	* @return The current stock ammo
 	*/
-	const unsigned int CFreeCamera::GetCurrentWeaponStockAmmo() const {
+	unsigned int CFreeCamera::GetCurrentWeaponStockAmmo() const {
 		return 0;
 	}
 
@@ -202,7 +202,7 @@ namespace daidaloseditor {
 	* @param object The object id
 	* @return The object value
 	*/
-	const unsigned int CFreeCamera::GetObjectValue(unsigned int object) const {
+	unsigned int CFreeCamera::GetObjectValue(unsigned int object) const {
 		return 0;
 	}
 

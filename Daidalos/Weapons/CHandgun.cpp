@@ -34,7 +34,7 @@ namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
-	* @param meshNode The player node
+	* @param playerNode The player node
 	*/
 	CHandgun::CHandgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode) : IWeapon(parent) {
 		// Initialize the weapon stats

@@ -99,7 +99,7 @@ namespace daidalosengine {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		virtual const bool Slide(IShape3DF & shape, const CVector3F & movement) override;
+		virtual bool Slide(IShape3DF & shape, const CVector3F & movement) override;
 
 		/**
 		* Get the collision point of a moving point
@@ -108,7 +108,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) override;
+		virtual bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) override;
 
 		/**
 		* Get the collision point of a moving shape
@@ -117,7 +117,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) override;
+		virtual bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) override;
 
 	protected:
 		/**
@@ -132,9 +132,9 @@ namespace daidalosengine {
 		*/
 		void RegisterBrushesForRendering(const int filterId);
 
-	private:
-		CSimpleSceneNode(const CSimpleSceneNode & copy);
-		const CSimpleSceneNode & operator=(const CSimpleSceneNode & copy);
+	public:
+		CSimpleSceneNode(const CSimpleSceneNode & copy) = delete;
+		const CSimpleSceneNode & operator=(const CSimpleSceneNode & copy) = delete;
 	};
 }
 

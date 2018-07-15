@@ -40,9 +40,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CCircularVelocityParticleUpdater::~CCircularVelocityParticleUpdater() {
-
-	}
+	CCircularVelocityParticleUpdater::~CCircularVelocityParticleUpdater() = default;
 
 	/**
 	* Update the particle
@@ -110,7 +108,7 @@ namespace daidalosengine {
 	* Get the damping
 	* @return The damping
 	*/
-	const float CCircularVelocityParticleUpdater::GetDamping() const {
+	float CCircularVelocityParticleUpdater::GetDamping() const {
 		return this->m_damping;
 	}
 

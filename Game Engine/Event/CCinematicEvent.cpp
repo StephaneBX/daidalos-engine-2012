@@ -32,7 +32,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalosgameengine {
 	/**
 	* @param parent The parent
-	* @param data The name
+	* @param parent The parent
 	*/
 	CCinematicEvent::CCinematicEvent(ILevel * parent) : m_parent(parent) {
 
@@ -52,7 +52,7 @@ namespace daidalosgameengine {
 	}
 
 	/**
-	* Load a font file
+	* Load a cinematic file
 	* @param filename The font file name
 	*/
 	void CCinematicEvent::LoadFromFile(const std::string & filename) {
@@ -148,7 +148,7 @@ namespace daidalosgameengine {
 	* If the event is done
 	* @return True if the event is done
 	*/
-	const bool CCinematicEvent::IsDone() const {
+	bool CCinematicEvent::IsDone() const {
 		return this->m_done;
 	}
 

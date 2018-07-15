@@ -68,19 +68,19 @@ namespace daidalosengine {
 		SetFlatNormal(this->m_plane.GetNormal());
 	}
 
-	const bool CBSPTriangle::IsSeparationPlane() const {
+	bool CBSPTriangle::IsSeparationPlane() const {
 		LOG_TRACE();
 
 		return this->m_separationPlane;
 	}
 
-	const bool CBSPTriangle::IsVisible() const {
+	bool CBSPTriangle::IsVisible() const {
 		LOG_TRACE();
 
 		return this->m_visible;
 	}
 
-	const bool CBSPTriangle::IsDrawn() const {
+	bool CBSPTriangle::IsDrawn() const {
 
 		LOG_TRACE();
 		return this->m_drawn;

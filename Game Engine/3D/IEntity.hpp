@@ -119,31 +119,31 @@ namespace daidalosgameengine {
 		* Get the collision state
 		* @return The collision state
 		*/
-		virtual const bool GetCollisionState() const;
+		virtual bool GetCollisionState() const;
 
 		/**
 		* Check if the entity is enabled
 		* @return True if the entity is enabled
 		*/
-		virtual const bool IsEnabled() const;
+		virtual bool IsEnabled() const;
 
 		/**
 		* Get the entity id
 		* @return The entity id
 		*/
-		const int GetId() const;
+		int GetId() const;
 
 		/**
 		* Get the entity flag
 		* @return The entity flag
 		*/
-		const int GetFlag() const;
+		int GetFlag() const;
 
 		/**
 		* Get the entity type
 		* @return The entity type
 		*/
-		const unsigned int GetType() const;
+		unsigned int GetType() const;
 
 		/**
 		* Get the parent
@@ -161,13 +161,13 @@ namespace daidalosgameengine {
 		* Get the health
 		* @return The health
 		*/
-		virtual const unsigned int GetHealth() const;
+		virtual unsigned int GetHealth() const;
 
 		/**
 		* Get the max health
 		* @return The max health
 		*/
-		virtual const unsigned int GetMaxHealth() const;
+		virtual unsigned int GetMaxHealth() const;
 
 		/**
 		* Get the visible position

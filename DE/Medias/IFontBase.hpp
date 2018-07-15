@@ -109,31 +109,31 @@ namespace daidalosengine {
 		* Get the bold value
 		* @return The bold value
 		*/
-		const bool IsBold() const;
+		bool IsBold() const;
 
 		/**
 		* Get the italic value
 		* @return The italic value
 		*/
-		const bool IsItalic() const;
+		bool IsItalic() const;
 
 		/**
 		* Get the size
 		* @return The size
 		*/
-		const int GetSize() const;
+		int GetSize() const;
 
 		/**
 		* Get the line height
 		* @return The line height
 		*/
-		const int GetLineHeight() const;
+		int GetLineHeight() const;
 
 		/**
 		* Get the base
 		* @return The base
 		*/
-		const int GetBase() const;
+		int GetBase() const;
 
 		/**
 		* Get the font name

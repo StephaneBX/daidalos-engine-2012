@@ -50,13 +50,13 @@ namespace daidalosengine {
 		this->m_leafsIndex[index] = leafMasterIndex;
 	}
 
-	const unsigned int CBSPPortal::GetNumberOfLeafs() const {
+	unsigned int CBSPPortal::GetNumberOfLeafs() const {
 		LOG_TRACE();
 
 		return this->m_numberOfLeafs;
 	}
 
-	const unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const {
+	unsigned int CBSPPortal::GetLeafIndex(const unsigned int index) const {
 		LOG_TRACE();
 
 		Assert(index >= 0 && index < 2);

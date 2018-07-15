@@ -168,49 +168,49 @@ namespace daidalosengine {
 		* Check if the position is relative to the listener
 		* @return The relative position state
 		*/
-		const bool IsRelativeToListener() const;
+		bool IsRelativeToListener() const;
 
 		/**
 		* Get the looped status
 		* @return The looped status
 		*/
-		const bool IsLooped() const;
+		bool IsLooped() const;
 
 		/**
 		* Get the number of channels
 		* @return The number of channels
 		*/
-		const int GetChannelsCount() const;
+		int GetChannelsCount() const;
 
 		/**
 		* Get the gain
 		* @return The gain
 		*/
-		const float GetGain() const;
+		float GetGain() const;
 
 		/**
 		* Get the cone inner angle
 		* @return The cone angle
 		*/
-		const float GetConeInnerAngle() const;
+		float GetConeInnerAngle() const;
 
 		/**
 		* Get the cone outer angle
 		* @return The cone angle
 		*/
-		const float GetConeOuterAngle() const;
+		float GetConeOuterAngle() const;
 
 		/**
 		* Get the distance from wich the gain will be maximal
 		* @return The distance from wich the gain will be maximal
 		*/
-		const float GetReferenceDistance() const;
+		float GetReferenceDistance() const;
 
 		/**
 		* Get the distance from wich the gain will be minimal
 		* @return The distance from wich the gain will be minimal
 		*/
-		const float GetMaxDistance() const;
+		float GetMaxDistance() const;
 
 		/**
 		* Get the sound
@@ -218,9 +218,8 @@ namespace daidalosengine {
 		*/
 		ISoundBase * GetSound() const;
 
-	private:
-		CSound(const CSound & copy);
-		const CSound & operator=(const CSound & sound);
+		CSound(const CSound & copy) = delete;
+		const CSound & operator=(const CSound & sound) = delete;
 	};
 }
 

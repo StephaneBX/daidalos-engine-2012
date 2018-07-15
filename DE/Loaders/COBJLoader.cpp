@@ -36,6 +36,8 @@ namespace daidalosengine {
 
 	COBJLoader::COBJLoader() {
 		LOG_TRACE();
+
+		this->m_internalData = nullptr;
 	}
 
 	COBJLoader:: ~COBJLoader() {
@@ -144,7 +146,7 @@ namespace daidalosengine {
 							int vertexNumber = 0;
 							int vertexCountIndex = 1;
 
-							while((i + vertexCountIndex) < (int)token.GetTokens().size() && token.GetTokens().at(i + vertexCountIndex) != "f" && token.GetTokens().at(i + vertexCountIndex) != "g") {
+							while((i + vertexCountIndex) < token.GetTokens().size() && token.GetTokens().at(i + vertexCountIndex) != "f" && token.GetTokens().at(i + vertexCountIndex) != "g") {
 								vertexNumber++;
 								vertexCountIndex += 3;
 							}
@@ -230,7 +232,7 @@ namespace daidalosengine {
 			}
 
 			// If normal information exists, fill the normal buffer
-			if(normalOrder.size() > 0) {
+			if(!normalOrder.empty()) {
 				if(normalOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					// Verify the validity of the normal numbers
 					bool hasNormals = true;
@@ -263,7 +265,7 @@ namespace daidalosengine {
 			}
 
 			// If texture information exists, fill the texture coordinate buffer
-			if(textureOrder.size() > 0) {
+			if(!textureOrder.empty()) {
 				if(textureOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					this->m_internalData->texcoord[groupCounter] = new CVector2F[this->m_internalData->groupSize[groupCounter]];
 					for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {

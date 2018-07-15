@@ -32,7 +32,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/C3DScene.hpp>
 #include <Core/CSoundContextManager.hpp>
 #include <Core/Utility/CVector3.hpp>
-#include <SiniP/SiniP.h>
 #include "../3D/ICollidableEntity.hpp"
 
 namespace daidalosgameengine {
@@ -75,7 +74,6 @@ namespace daidalosgameengine {
 		/**
 		* Constructor
 		* @param parent The parent
-		* @param cameraNode The camera node
 		* @param steps The steps
 		*/
 		CCinematicCamera(ILevel * parent, const std::vector<SCinematicCameraStep> & steps);
@@ -105,26 +103,26 @@ namespace daidalosgameengine {
 		* Update the camera
 		* @param time Elapsed time
 		*/
-		void Update(const float time = 0);
+		void Update(const float time = 0) override;
 
 		/**
 		* Check if the player can see a shape
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		const bool IsShapeVisible(daidalosengine::IShape3DF * shape);
+		bool IsShapeVisible(daidalosengine::IShape3DF * shape);
 
 		/**
 		* If the player interaction action is active
 		* @return True if the player interaction action is active
 		*/
-		const bool IsInteracting() const;
+		bool IsInteracting() const;
 
 		/**
 		* If the cinematic is done
 		* @return True if the  cinematic is done
 		*/
-		const bool IsDone() const;
+		bool IsDone() const;
 
 		/**
 		* Get the camera node
@@ -137,7 +135,7 @@ namespace daidalosgameengine {
 		* Callback used to handle event when the entity fall and touch the ground
 		* @param gravity The gravity value before touching the ground
 		*/
-		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity);
+		void OnEntityTouchedGround(const daidalosengine::CVector3F gravity) override;
 	};
 }
 

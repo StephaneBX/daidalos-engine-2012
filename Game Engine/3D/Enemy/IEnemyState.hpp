@@ -134,19 +134,19 @@ namespace daidalosgameengine {
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(IEnemyEntity * entity) = 0;
+		virtual bool IsCandidateForNextAction(IEnemyEntity * entity) = 0;
 
 		/**
 		* Get the priority
 		* @return The priority
 		*/
-		const unsigned int GetPriority() const;
+		unsigned int GetPriority() const;
 
 		/**
 		* Get the animation speed.
 		* @return The animation speed
 		*/
-		const float GetAnimationSpeed() const;
+		float GetAnimationSpeed() const;
 
 		/**
 		* Get the animation frames.

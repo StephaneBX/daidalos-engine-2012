@@ -37,9 +37,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CGravityParticleUpdater::~CGravityParticleUpdater() {
-
-	}
+	CGravityParticleUpdater::~CGravityParticleUpdater() = default;
 
 	/**
 	* Update the particle

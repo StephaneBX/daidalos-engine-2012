@@ -55,7 +55,7 @@ namespace daidalosengine {
 
 		this->m_filename = filename;
 		tinyxml2::XMLDocument doc;
-		int loadOk = doc.LoadFile(filename.c_str());
+		const int loadOk = doc.LoadFile(filename.c_str());
 		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			tinyxml2::XMLHandle hDoc(&doc);
 
@@ -86,7 +86,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		bool ignoreGravity;
-		std::string emitterName = handle.ToElement()->Attribute("name");
+		const std::string emitterName = handle.ToElement()->Attribute("name");
 		int emitterBlendMode;
 		float emitterEmissionRate;
 		float emitterLife;
@@ -127,7 +127,7 @@ namespace daidalosengine {
 	/**
 	* Load a particle emitter emission rate change
 	* @param emitter The emitter
-	* @param initializersElement The initializers
+	* @param emissionRateChangeElement The emission rate change element
 	*/
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterEmissionRateChange(CParticleEmitter * emitter, tinyxml2::XMLElement * emissionRateChangeElement) {
 		if (emissionRateChangeElement != nullptr) {
@@ -139,7 +139,7 @@ namespace daidalosengine {
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
 				// Read an emission rate
-				if (childName.compare("emissionRate") == 0) {
+				if (childName == "emissionRate") {
 					GetNodeData(childHandle, "time", emitterEmissionRateTime, 0);
 					GetNodeData(childHandle, "value", emitterEmissionRateValue, 0);
 
@@ -180,66 +180,66 @@ namespace daidalosengine {
 				std::string childName = std::string(child->Name());
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
-				if (childName.compare("color") == 0) {
+				if (childName == "color") {
 					GetNodeData(initializersHandle, "color", emitterParticleColor, CColor(1.0F, 1.0F, 1.0F, 1.0F));
-					CColorParticleInitializer * initializer = new CColorParticleInitializer(emitterParticleColor);
+					auto * initializer = new CColorParticleInitializer(emitterParticleColor);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("size") == 0) {
+				} else if (childName == "size") {
 					GetNodeData(initializersHandle, "size", emitterParticleSize, 1);
-					CSizeParticleInitializer * initializer = new CSizeParticleInitializer(emitterParticleSize);
+					auto * initializer = new CSizeParticleInitializer(emitterParticleSize);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("minMaxLife") == 0) {
+				} else if (childName == "minMaxLife") {
 					GetNodeData(childHandle, "min", emitterParticleLifeMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleLifeMax, 1000);
-					CLifeParticleInitializer * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
+					auto * initializer = new CLifeParticleInitializer(emitterParticleLifeMin, emitterParticleLifeMax);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("minMaxRotation") == 0) {
+				} else if (childName == "minMaxRotation") {
 					GetNodeData(childHandle, "min", emitterParticleRotationMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleRotationMax, 0);
-					CRotationParticleInitializer * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
+					auto * initializer = new CRotationParticleInitializer(emitterParticleRotationMin, emitterParticleRotationMax);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("sphereVelocity") == 0) {
+				} else if (childName == "sphereVelocity") {
 					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CSphereVelocityParticleInitializer * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
+					auto * initializer = new CSphereVelocityParticleInitializer(emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("linearVelocity") == 0) {
+				} else if (childName == "linearVelocity") {
 					GetNodeData(childHandle, "direction", emitterParticleVelocityDirection, CVector3F());
 					GetNodeData(childHandle, "variationFactor", emitterParticleLinearVelocityVariation, 0);
 					GetNodeData(childHandle, "min", emitterParticleVelocityMin, 0);
 					GetNodeData(childHandle, "max", emitterParticleVelocityMax, 1);
-					CLinearVelocityParticleInitializer * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
+					auto * initializer = new CLinearVelocityParticleInitializer(emitterParticleVelocityDirection, emitterParticleLinearVelocityVariation, emitterParticleVelocityMin, emitterParticleVelocityMax);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("minMaxBoxPosition") == 0) {
+				} else if (childName == "minMaxBoxPosition") {
 					GetNodeData(childHandle, "min", emitterParticlePositionMin, CVector3F());
 					GetNodeData(childHandle, "max", emitterParticlePositionMax, CVector3F());
-					CBoxPositionParticleInitializer * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
+					auto * initializer = new CBoxPositionParticleInitializer(emitterParticlePositionMin, emitterParticlePositionMax);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("radiusPosition") == 0) {
+				} else if (childName == "radiusPosition") {
 					float emitterParticleInnerRadiusPosition;
 					float emitterParticleOuterRadiusPosition;
 					CVector3F emitterParticleAxis;
 					GetNodeData(childHandle, "innerRadius", emitterParticleInnerRadiusPosition, 0);
 					GetNodeData(childHandle, "outerRadius", emitterParticleOuterRadiusPosition, 0);
 					GetNodeData(childHandle, "axis", emitterParticleAxis, CVector3F());
-					CRadiusPositionParticleInitializer * initializer = new CRadiusPositionParticleInitializer(emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition, emitterParticleAxis);
+					auto * initializer = new CRadiusPositionParticleInitializer(emitterParticleInnerRadiusPosition, emitterParticleOuterRadiusPosition, emitterParticleAxis);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("position") == 0) {
+				} else if (childName == "position") {
 					GetNodeData(initializersHandle, "position", emitterParticlePosition, CVector3F());
-					CPositionParticleInitializer * initializer = new CPositionParticleInitializer(emitterParticlePosition);
+					auto * initializer = new CPositionParticleInitializer(emitterParticlePosition);
 					emitter->AddInitializer(initializer);
 
-				} else if (childName.compare("mass") == 0) {
+				} else if (childName == "mass") {
 					GetNodeData(initializersHandle, "mass", emitterParticleMass, 1);
-					CMassParticleInitializer * initializer = new CMassParticleInitializer(emitterParticleMass);
+					auto * initializer = new CMassParticleInitializer(emitterParticleMass);
 					emitter->AddInitializer(initializer);
 				}
 			}
@@ -258,7 +258,7 @@ namespace daidalosengine {
 				std::string childName = std::string(child->Name());
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);	
 
-				if (childName.compare("colorChange") == 0) {
+				if (childName == "colorChange") {
 					float updaterTime;
 					CVector4F updaterColor;
 
@@ -277,20 +277,20 @@ namespace daidalosengine {
 					}
 
 					// Add the updater if the definition is not empty
-					if (colorChangeVector.size() > 0) {
-						CColorParticleUpdater * updater = new CColorParticleUpdater(colorChangeVector);
+					if (!colorChangeVector.empty()) {
+						auto * updater = new CColorParticleUpdater(colorChangeVector);
 						emitter->AddUpdater(updater);
 					}
 
-				} else if (childName.compare("life") == 0) {
-					CLifeParticleUpdater * updater = new CLifeParticleUpdater();
+				} else if (childName == "life") {
+					auto * updater = new CLifeParticleUpdater();
 					emitter->AddUpdater(updater);
 
-				} else if (childName.compare("rotation") == 0) {
-					CRotationParticleUpdater * updater = new CRotationParticleUpdater();
+				} else if (childName == "rotation") {
+					auto * updater = new CRotationParticleUpdater();
 					emitter->AddUpdater(updater);
 
-				} else if (childName.compare("sizeChange") == 0) {
+				} else if (childName == "sizeChange") {
 					float updaterTime;
 					float updaterSize;
 
@@ -309,12 +309,12 @@ namespace daidalosengine {
 					}
 
 					// Add the updater if the definition is not empty
-					if (sizeChangeVector.size() > 0) {
-						CSizeParticleUpdater * updater = new CSizeParticleUpdater(sizeChangeVector);
+					if (!sizeChangeVector.empty()) {
+						auto * updater = new CSizeParticleUpdater(sizeChangeVector);
 						emitter->AddUpdater(updater);
 					}
 
-				} else if (childName.compare("linearVelocityChange") == 0) {
+				} else if (childName == "linearVelocityChange") {
 					float updaterDamping;
 					float updaterTime;
 					float updaterVariationFactor;
@@ -346,10 +346,10 @@ namespace daidalosengine {
 					}
 
 					// Add the updater if the definition is not empty
-					CLinearVelocityParticleUpdater * updater = new CLinearVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					auto * updater = new CLinearVelocityParticleUpdater(velocityChangeVector, updaterDamping);
 					emitter->AddUpdater(updater);
 
-				} else if (childName.compare("sphereVelocityChange") == 0) {
+				} else if (childName == "sphereVelocityChange") {
 					float updaterDamping;
 					float updaterTime;
 					float updaterVelocityMin;
@@ -375,7 +375,7 @@ namespace daidalosengine {
 					}
 
 					// Add the updater if the definition is not empty
-					CSphereVelocityParticleUpdater * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
+					auto * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
 					emitter->AddUpdater(updater);
 
 				} else if (childName.compare("circularVelocityChange") == 0) {
@@ -408,13 +408,20 @@ namespace daidalosengine {
 					}
 
 					// Add the updater if the definition is not empty
-					CCircularVelocityParticleUpdater * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterAxis, updaterDamping);
+					auto * updater = new CCircularVelocityParticleUpdater(velocityChangeVector, updaterAxis, updaterDamping);
 					emitter->AddUpdater(updater);
 				}
 			}
 		}
 	}
 
+	/**
+	 * Get a node data
+	 * @param handle The xml handle
+	 * @param name The name
+	 * @param data The data
+	 * @param defaultValue The default value
+	 */
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
 		LOG_TRACE();
 
@@ -432,6 +439,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
 		LOG_TRACE();
 
@@ -444,6 +458,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
 		LOG_TRACE();
 
@@ -454,6 +475,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) {
 		LOG_TRACE();
 
@@ -464,6 +492,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
 		LOG_TRACE();
 
@@ -474,6 +509,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
 		LOG_TRACE();
 
@@ -484,6 +526,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) {
 		LOG_TRACE();
 
@@ -517,6 +566,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
 		LOG_TRACE();
 
@@ -529,6 +585,13 @@ namespace daidalosengine {
 		}
 	}
 
+	/**
+	* Get a node data
+	* @param handle The xml handle
+	* @param name The name
+	* @param data The data
+	* @param defaultValue The default value
+	*/
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
 		LOG_TRACE();
 

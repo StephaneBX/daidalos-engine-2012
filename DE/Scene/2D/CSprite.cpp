@@ -83,7 +83,6 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (IsChanged()) {
-			IRenderer * renderer = IRenderer::GetRenderer();
 			SetData(GenerateQuad(GetBoundingRectangle(), this->m_coordinates, this->m_rotation));
 			UpdateBuffer();
 		}
@@ -113,7 +112,7 @@ namespace daidalosengine {
 		IView::Render();
 	}
 
-	const float CSprite::GetRotation() const {
+	float CSprite::GetRotation() const {
 		return this->m_rotation;
 	}
 }

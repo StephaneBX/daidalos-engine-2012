@@ -30,7 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../../../Scene/3D/Structure/BSP/CBSPTreeNode.hpp"
 #include "../../../../Scene/3D/Structure/BSP/CBSPBrushNode.hpp"
-#include "../../../../Scene/3D/CMeshBuffer.hpp"
 #include "../../../../Scene/3D/ICameraSceneNode.hpp"
 #include "../../../../Scene/3D/ILevelSceneNode.hpp"
 
@@ -103,7 +102,7 @@ namespace daidalosengine {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		virtual const bool Slide(IShape3DF & shape, const CVector3F & movement) override;
+		virtual bool Slide(IShape3DF & shape, const CVector3F & movement) override;
 
 		/**
 		* Get the collision point of a moving shape
@@ -112,7 +111,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) override;
+		virtual bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) override;
 
 		/**
 		* Get the collision point of a moving point
@@ -121,7 +120,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		virtual const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) override;
+		virtual bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) override;
 
 	protected:
 		/**

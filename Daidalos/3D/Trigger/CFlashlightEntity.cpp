@@ -79,7 +79,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CFlashlightEntity::CanDoAction() {
+	bool CFlashlightEntity::CanDoAction() {
 		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 }

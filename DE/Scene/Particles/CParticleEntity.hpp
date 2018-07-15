@@ -162,51 +162,51 @@ namespace daidalosengine {
 		* Get the visibility state
 		* @return The visibility state
 		*/
-		const bool GetVisible() const;
+		bool GetVisible() const;
 
 		/**
 		* Get the life
 		* @return The life
 		*/
-		const float GetLife() const;
+		float GetLife() const;
 
 		/**
 		* Get the max life
 		* @return The max life
 		*/
-		const float GetLifeMax() const;
+		float GetLifeMax() const;
 
 		/**
 		* Get the life as a normalized value
 		* @return The normalized life value
 		*/
-		const float GetLifeNormalized() const;
+		float GetLifeNormalized() const;
 
 		/**
 		* Get the size
 		*/
-		const float GetSize() const;
+		float GetSize() const;
 
 		/**
 		* Get the rotation
 		*/
-		const float GetRotation() const;
+		float GetRotation() const;
 
 		/**
 		* Get the rotation speed
 		*/
-		const float GetRotationSpeed() const;
+		float GetRotationSpeed() const;
 
 		/**
 		* Get the mass
 		* @return The mass
 		*/
-		const float GetMass() const;
+		float GetMass() const;
 
 		/**
 		* Get the circular velocity
 		*/
-		const float GetCircularVelocity() const;
+		float GetCircularVelocity() const;
 
 		/**
 		* Get the position

@@ -27,7 +27,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Level/ILevel.hpp>
 #include <Enums.hpp>
-#include "../../Enums.hpp"
 #include "CArmorBonusEntity.hpp"
 
 #define ROTATION_SPEED 70.0F
@@ -78,7 +77,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CArmorBonusEntity::CanDoAction() {
+	bool CArmorBonusEntity::CanDoAction() {
 		return this->m_node->IsEnabled() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->GetArmor() < 200;
 	}
 }

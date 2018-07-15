@@ -36,12 +36,12 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
-class IBufferBase;
-class IDeclaration;
-class CDX9FrameBuffer;
-struct SDeclarationElement;
-
 namespace daidalosengine {
+	class IBufferBase;
+	class IDeclaration;
+	class CDX9FrameBuffer;
+	struct SDeclarationElement;
+
 	/**
 	* DX9 Renderer class
 	*/
@@ -330,7 +330,7 @@ namespace daidalosengine {
 		* @param usage The usage flag
 		* @return True if th format is available on this host, false otherwise
 		*/
-		const bool CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage = 0) const;
+		bool CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage = 0) const;
 
 		/**
 		* Create a Vertex Buffer
@@ -376,8 +376,9 @@ namespace daidalosengine {
 		*/
 		void Initialize();
 
-		CDX9Renderer();
-		CDX9Renderer(const CDX9Renderer & copy);
+	public:
+		CDX9Renderer() = delete;
+		CDX9Renderer(const CDX9Renderer & copy) = delete;
 		const CDX9Renderer & operator=(const CDX9Renderer & copy) = delete;
 	};
 }

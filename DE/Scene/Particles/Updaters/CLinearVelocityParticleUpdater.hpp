@@ -74,7 +74,7 @@ namespace daidalosengine {
 		* Get the damping
 		* @return The damping
 		*/
-		const float GetDamping() const;
+		float GetDamping() const;
 
 		/**
 		* Get the linear velocity changes definition

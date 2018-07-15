@@ -125,7 +125,7 @@ namespace daidalosengine {
 		* @param copy A font
 		* @return The font
 		*/
-		const CFont & operator=(const CFont & copy);
+		CFont & operator=(const CFont & copy);
 
 		/**
 		* Get the font

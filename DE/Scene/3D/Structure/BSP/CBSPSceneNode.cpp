@@ -25,7 +25,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <algorithm>
 #include "../../../../Core/IRenderer.hpp"
 #include "../../../../Core/Logger/ILogger.hpp"
 #include "../../../../Core/Memory/CExceptionAssert.hpp"
@@ -158,7 +157,7 @@ namespace daidalosengine {
 		}
 	}
 
-	const bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
+	bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
 		CVector3F endPoint;
@@ -285,7 +284,7 @@ namespace daidalosengine {
 		return isCollision;
 	}
 
-	const bool CBSPSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+	bool CBSPSceneNode::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		CImpact impact;
@@ -300,7 +299,7 @@ namespace daidalosengine {
 		return impact.IsImpact();
 	}
 
-	const bool CBSPSceneNode::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+	bool CBSPSceneNode::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		CImpact impact;

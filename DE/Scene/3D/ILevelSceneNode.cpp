@@ -38,9 +38,7 @@ namespace daidalosengine {
 		this->m_useGlobalAmbientColor = false;
 	}
 
-	ILevelSceneNode::~ILevelSceneNode() {
-
-	}
+	ILevelSceneNode::~ILevelSceneNode() = default;
 
 	void ILevelSceneNode::SetUseGlobalAmbientColor(const bool useGlobalAmbientColor) {
 		this->m_useGlobalAmbientColor = useGlobalAmbientColor;
@@ -129,7 +127,7 @@ namespace daidalosengine {
 		this->m_normalTextures.insert(texture);
 	}
 
-	const bool ILevelSceneNode::GetUseGlobalAmbientColor() const {
+	bool ILevelSceneNode::GetUseGlobalAmbientColor() const {
 		LOG_TRACE();
 
 		return this->m_useGlobalAmbientColor;
@@ -139,13 +137,13 @@ namespace daidalosengine {
 	* Check if thetexturing is enabled
 	* @return True if the texturing is enabled
 	*/
-	const bool ILevelSceneNode::IsTexturingEnabled() const {
+	bool ILevelSceneNode::IsTexturingEnabled() const {
 		LOG_TRACE();
 
 		return (this->m_levelBuffer.GetMeshFormat() & MESHBUFFER_ELEMENT_TEXCOORD) != 0;
 	}
 
-	const int ILevelSceneNode::GetNumberOfVisibleTriangles() const {
+	int ILevelSceneNode::GetNumberOfVisibleTriangles() const {
 		LOG_TRACE();
 
 		return this->m_numberOfVisibleTriangles;
@@ -155,7 +153,7 @@ namespace daidalosengine {
 	* Get the mesh shading type
 	* @return The mesh shading type
 	*/
-	const EMeshShadingType ILevelSceneNode::GetMeshShadingType() const {
+	EMeshShadingType ILevelSceneNode::GetMeshShadingType() const {
 		LOG_TRACE();
 
 		return this->m_shadingType;

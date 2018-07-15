@@ -45,9 +45,9 @@ namespace daidalosengine {
 	IFontBase * CFontLoader::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
-		SFontInternalData * data = nullptr;
+		SFontInternalData * data;
 		tinyxml2::XMLDocument doc;
-		int loadOk = doc.LoadFile(filename.c_str());
+		const int loadOk = doc.LoadFile(filename.c_str());
 		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			data = new SFontInternalData;
 			std::string tmpString;

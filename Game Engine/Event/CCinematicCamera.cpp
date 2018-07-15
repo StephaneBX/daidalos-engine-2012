@@ -170,7 +170,7 @@ namespace daidalosgameengine {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	const bool CCinematicCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
+	bool CCinematicCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
 		return !this->m_node->FrustumCull(shape);
 	}
 
@@ -178,7 +178,7 @@ namespace daidalosgameengine {
 	* If the player interaction action is active
 	* @return True if the player interaction action is active
 	*/
-	const bool CCinematicCamera::IsInteracting() const {
+	bool CCinematicCamera::IsInteracting() const {
 		return false;
 	}
 
@@ -186,7 +186,7 @@ namespace daidalosgameengine {
 	* If the cinematic is done
 	* @return True if the  cinematic is done
 	*/
-	const bool CCinematicCamera::IsDone() const {
+	bool CCinematicCamera::IsDone() const {
 		return this->m_done;
 	}
 

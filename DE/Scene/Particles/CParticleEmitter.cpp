@@ -41,9 +41,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CParticleEmitter::~CParticleEmitter() {
-
-	}
+	CParticleEmitter::~CParticleEmitter() = default;
 
 	/**
 	* Set the active state
@@ -241,7 +239,7 @@ namespace daidalosengine {
 	* Get the active state
 	* @return The active state
 	*/
-	const bool CParticleEmitter::IsActive() const {
+	bool CParticleEmitter::IsActive() const {
 		return this->m_active;
 	}
 
@@ -249,7 +247,7 @@ namespace daidalosengine {
 	* If the emitter is reusable
 	* @return If the emitter is reusable
 	*/
-	const bool CParticleEmitter::IsReusable() const {
+	bool CParticleEmitter::IsReusable() const {
 		return this->m_reusable;
 	}
 
@@ -257,7 +255,7 @@ namespace daidalosengine {
 	* If the emitter ignore gravity
 	* @return If the emitter ignore gravity
 	*/
-	const bool CParticleEmitter::IsIgnoreGravity() const {
+	bool CParticleEmitter::IsIgnoreGravity() const {
 		return this->m_ignoreGravity;
 	}
 
@@ -265,7 +263,7 @@ namespace daidalosengine {
 	* Get the texture id
 	* @return The texture id
 	*/
-	const int CParticleEmitter::GetTextureId() const {
+	int CParticleEmitter::GetTextureId() const {
 		return this->m_textureId;
 	}
 
@@ -273,7 +271,7 @@ namespace daidalosengine {
 	* Get the blend mode
 	* @return The blend mode
 	*/
-	const int CParticleEmitter::GetBlendMode() const {
+	int CParticleEmitter::GetBlendMode() const {
 		return this->m_blendMode;
 	}
 
@@ -281,7 +279,7 @@ namespace daidalosengine {
 	* Get the life
 	* @return The life
 	*/
-	const float CParticleEmitter::GetLife() const {
+	float CParticleEmitter::GetLife() const {
 		return this->m_life;
 	}
 
@@ -289,7 +287,7 @@ namespace daidalosengine {
 	* Get the  maximum life
 	* @return The maximum life
 	*/
-	const float CParticleEmitter::GetLifeMax() const {
+	float CParticleEmitter::GetLifeMax() const {
 		return this->m_lifeMax;
 	}
 
@@ -297,7 +295,7 @@ namespace daidalosengine {
 	* Get the emission rate
 	* @return The emission rate
 	*/
-	const float CParticleEmitter::GetEmissionRate() const {
+	float CParticleEmitter::GetEmissionRate() const {
 		return this->m_emissionRate;
 	}
 

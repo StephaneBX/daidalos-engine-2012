@@ -845,7 +845,7 @@ namespace daidalosengine {
 			else
 				tempAxis.x = 1;
 		} else {
-			if(std::fabsf(this->m_plane.GetNormal().y <= std::fabsf(this->m_plane.GetNormal().x))) {
+			if(std::fabsf(this->m_plane.GetNormal().y) <= std::fabsf(this->m_plane.GetNormal().x)) {
 				tempAxis.y = 1;
 			} else {
 				tempAxis.x = 1;

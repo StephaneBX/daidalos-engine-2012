@@ -142,7 +142,7 @@ namespace daidalosengine {
 		return this->m_verticalAlignment;
 	}
 
-	const unsigned int CLabel::GetSize() const {
+	unsigned int CLabel::GetSize() const {
 		LOG_TRACE();
 
 		return this->m_size;
@@ -310,7 +310,7 @@ namespace daidalosengine {
 		SetChanged(false);
 	}
 
-	const bool CLabel::CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
+	bool CLabel::CheckWordPlacement(std::vector<SGUIData> & data, const unsigned int wordStartAt, CVector2I & cursor, std::set<unsigned int> & lineStart) {
 		LOG_TRACE();
 
 		// If a preferred width has been set and the line is too long for the last word

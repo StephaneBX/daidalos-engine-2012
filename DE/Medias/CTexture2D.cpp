@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Core/IRenderer.hpp"
 #include "../Core/Utility/CImage.hpp"
 #include "../Core/Utility/CVector2.hpp"
-#include "../Core/Utility/CFile.hpp"
 #include "../Core/Core.hpp"
 #include "../Core/CResourceManager.hpp"
 #include "../Core/CMediaManager.hpp"
@@ -121,7 +120,7 @@ namespace daidalosengine {
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
-			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
+			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
@@ -146,7 +145,7 @@ namespace daidalosengine {
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
-			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
+			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
@@ -161,10 +160,10 @@ namespace daidalosengine {
 		}
 
 		// Check the existence of the resource and load it if necessary
-		ITexture2DBase * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(filename);
+		auto * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(filename);
 
 		if(tmp == nullptr) {
-			CImage * img = CMediaManager::GetInstance()->LoadMediaFromFile<CImage>(filename);
+			auto * img = CMediaManager::GetInstance()->LoadMediaFromFile<CImage>(filename);
 			Load(*img, usedFilter, format, flags, filename);
 			delete img;
 		} else {
@@ -179,7 +178,7 @@ namespace daidalosengine {
 		STexture2DFilterPolicy usedFilter;
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
-			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
+			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.magFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.addressU = TEXTURE_ADDRESS_CLAMP;
 			usedFilter.addressV = TEXTURE_ADDRESS_CLAMP;
@@ -193,7 +192,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 		}
 
-		ITexture2DBase * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(name);
+		auto * tmp = CResourceManager::GetInstance()->GetResource<ITexture2DBase>(name);
 
 		if(tmp == nullptr) {
 			Load(image, usedFilter, format, flags, name);
@@ -237,7 +236,7 @@ namespace daidalosengine {
 
 		this->m_texture = IRenderer::GetRenderer()->CreateTexture2D(size, filter, format, flags);
 
-		if(name != "") {
+		if(!name.empty()) {
 			CResourceManager::GetInstance()->AddResource(name, this->m_texture);
 		}
 

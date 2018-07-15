@@ -41,6 +41,7 @@ namespace daidalosengine {
 
 		SInputAction action;
 		action.state = INPUT_KEY_STATE_DISABLED;
+		action.actionFactor = 1;
 
 		action.actionId = declaration.actionId;
 		action.linkedActionId = declaration.linkedActionId;
@@ -49,8 +50,8 @@ namespace daidalosengine {
 		this->m_actions[declaration.actionId] = action;
 
 		// Gamepad actions
-		for(unsigned int i = 0; i < this->m_gamepadActions.size(); i++) {
-			this->m_gamepadActions[i][declaration.actionId] = action;
+		for(auto &it : this->m_gamepadActions) {
+			it[declaration.actionId] = action;
 		}
 	}
 

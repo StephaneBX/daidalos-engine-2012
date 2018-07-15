@@ -43,10 +43,11 @@ namespace daidalosengine {
 
 		/**
 		* Called when a value is selected
+		* @param selectionList The selection list that trigger the action
 		* @param index The index selected
 		* @param value The associated value
 		*/
-		virtual void OnValueSelected(const int index, const std::string & value) = 0;
+		virtual void OnValueSelected(CSelectionList * selectionList, const int index, const std::string & value) = 0;
 	};
 }
 

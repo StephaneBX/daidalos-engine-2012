@@ -36,8 +36,9 @@ namespace daidaloseditor {
 
 	/**
 	* Override and use a simple node system
+	* @param scene the scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle the xml handle
 	* @param node The node to fill
 	*/
 	void CEditorSceneLoader::LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
@@ -46,8 +47,9 @@ namespace daidaloseditor {
 
 	/**
 	* Override and use a simple node system
+	* @param scene the scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle the xml handle
 	* @param node The node to fill
 	*/
 	void CEditorSceneLoader::LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
@@ -56,9 +58,11 @@ namespace daidaloseditor {
 
 	/**
 	* Load a sound node
+	* @param scene the scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle the xml handle
 	* @param node The node to fill
+	* @param name the name
 	*/
 	void CEditorSceneLoader::LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) {
 
@@ -112,10 +116,10 @@ namespace daidaloseditor {
 		// Search for multi brush elements
 		for(auto it = levelNode->GetChildren().begin(); it != levelNode->GetChildren().end(); it++) {
 
-			if(std::string(EDITOR_NODE_NAME_MULTIBRUSH).compare((*it)->GetName()) == 0) {
+			if(std::string(EDITOR_NODE_NAME_MULTIBRUSH) == (*it)->GetName()) {
 				// The child is part of the multi brush, add it to the multi_brush element
 				SaveBrush((*it), document, multiBrush);
-			} else if(std::string(EDITOR_NODE_NAME_BRUSH).compare((*it)->GetName()) == 0) {
+			} else if(std::string(EDITOR_NODE_NAME_BRUSH) == (*it)->GetName()) {
 				// The child is a brush, add it to the level node
 				SaveBrush((*it), document, levelElement);
 			} else {
@@ -130,8 +134,9 @@ namespace daidaloseditor {
 
 	/**
 	* Replace the bsp and simple structure with an editor specific one
+	* @param scene the scene
 	* @param parent The node parent
-	* @param child The bsp node root
+	* @param handle the xml handle
 	* @param node The node to fill
 	*/
 	void CEditorSceneLoader::LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
@@ -295,9 +300,9 @@ namespace daidaloseditor {
 
 	/**
 	* Save a node as a brush
-	* @param parent The node parent
-	* @param child The bsp node root
 	* @param node The node to fill
+	* @param document the document
+	* @param parent The node parent
 	*/
 	void CEditorSceneLoader::SaveBrush(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 

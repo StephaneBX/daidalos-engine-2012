@@ -84,13 +84,13 @@ namespace daidalosengine {
 		this->m_texcoord[this->m_groupSize.size() - 1] = new CVector2F[numberOfTriangles];
 	}
 
-	const int IMeshBase::GetNumberOfGroups() const {
+	int IMeshBase::GetNumberOfGroups() const {
 
 		LOG_TRACE();
 		return this->m_groupSize.size();
 	}
 
-	const int IMeshBase::GetGroupSize(const int group) const {
+	int IMeshBase::GetGroupSize(const int group) const {
 		LOG_TRACE();
 
 		return this->m_groupSize[group];
@@ -137,6 +137,8 @@ namespace daidalosengine {
 
 		this->m_vertex = nullptr;
 		this->m_normal = nullptr;
+		this->m_tangent = nullptr;
+		this->m_binormal = nullptr;
 		this->m_texcoord = nullptr;
 		this->m_visibilityShape = new CSphereF();
 	}

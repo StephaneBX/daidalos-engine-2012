@@ -44,10 +44,10 @@ namespace daidalosgameengine {
 		// Read the attributes
 		daidalosengine::CVector3F boundingBoxSize = daidalosengine::CVector3F(1, 1, 1);
 		daidalosengine::CVector3F boundingBoxPosition = daidalosengine::CVector3F(0, 0, 0);
-		if(meshNode->GetAttribute("boundingBox_size") != "") {
+		if(!meshNode->GetAttribute("boundingBox_size").empty()) {
 			boundingBoxSize = boundingBoxSize.GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
 		}
-		if(meshNode->GetAttribute("boundingBox_position") != "") {
+		if(!meshNode->GetAttribute("boundingBox_position").empty()) {
 			boundingBoxPosition = boundingBoxPosition.GetFrom(meshNode->GetAttribute("boundingBox_position"), boundingBoxPosition);
 		}
 
@@ -69,7 +69,7 @@ namespace daidalosgameengine {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CLadderEntity::CanDoAction() {
+	bool CLadderEntity::CanDoAction() {
 
 		SetTriggerParam(this->m_boundingBox.IsCollision(GetParent()->GetPlayer()->GetCollisionShape()) ? 1 : 0);
 		return true;

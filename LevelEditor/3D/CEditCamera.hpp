@@ -57,7 +57,6 @@ namespace daidaloseditor {
 	public:
 		/**
 		* @param cameraNode The camera node
-		* @param smooth The smooth view factor
 		*/
 		explicit CEditCamera(daidalosengine::ICameraSceneNode * cameraNode);
 
@@ -95,7 +94,7 @@ namespace daidaloseditor {
 		* Get the layer
 		* @return The layer
 		*/
-		const int GetLayer() const;
+		int GetLayer() const;
 
 	private:
 		/**

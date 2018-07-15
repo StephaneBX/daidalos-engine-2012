@@ -80,19 +80,19 @@ namespace daidalosengine {
 		* Check if the triangle is a separation plane
 		* @return True if the triangle is a separation plane
 		*/
-		const bool IsSeparationPlane() const;
+		bool IsSeparationPlane() const;
 
 		/**
 		* Check if the triangle is visible
 		* @return True if the triangle is visible
 		*/
-		const bool IsVisible() const;
+		bool IsVisible() const;
 
 		/**
 		* Check if the triangle is drawn
 		* @return True if the triangle is drawn
 		*/
-		const bool IsDrawn() const;
+		bool IsDrawn() const;
 
 		/**
 		* Get the plane

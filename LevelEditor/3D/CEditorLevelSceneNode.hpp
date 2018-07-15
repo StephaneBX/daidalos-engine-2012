@@ -74,7 +74,7 @@ namespace daidaloseditor {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		const bool Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement);
+		bool Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement);
 
 		/**
 		* Get the collision point of a moving point
@@ -83,7 +83,7 @@ namespace daidaloseditor {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
+		bool GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
 
 		/**
 		* Get the collision point of a moving shape
@@ -92,7 +92,7 @@ namespace daidaloseditor {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
+		bool GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
 
 	protected:
 		/**

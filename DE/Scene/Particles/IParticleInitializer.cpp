@@ -55,7 +55,7 @@ namespace daidalosengine {
 	* Get the initializer type
 	* @return The initializer type
 	*/
-	const EParticleInitializerType IParticleInitializer::GetType() const {
+	EParticleInitializerType IParticleInitializer::GetType() const {
 		return this->m_type;
 	}
 }

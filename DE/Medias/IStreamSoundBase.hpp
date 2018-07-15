@@ -64,35 +64,35 @@ namespace daidalosengine {
 		* Set the sound status
 		* @param status The status
 		*/
-		void SetStatus(ESoundStatus status);
+		void SetStatus(ESoundStatus status) override;
 
 		/**
 		* Update a sound
 		*/
-		void Update();
+		void Update() override;
 
 		/**
 		* Set the sound as looped
 		* @param loop The loop value
 		*/
-		void SetLooped(const bool loop);
+		void SetLooped(const bool loop) override;
 
 		/**
 		* Get the looped status
 		* @return The looped status
 		*/
-		const bool IsLooped() const;
+		bool IsLooped() const override;
 
 	private:
 		/**
 		* Read a chunk of data
 		* @param buffer The buffer to put the data into
 		*/
-		const int ReadChunk(ALuint buffer);
+		int ReadChunk(ALuint buffer);
 
-	
-		IStreamSoundBase();
-		IStreamSoundBase(const IStreamSoundBase & copy);
+	public:
+		IStreamSoundBase() = delete;
+		IStreamSoundBase(const IStreamSoundBase & copy) = delete;
 		const IStreamSoundBase & operator=(const IStreamSoundBase & copy) = delete;
 	};
 }

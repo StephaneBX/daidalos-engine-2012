@@ -138,67 +138,67 @@ namespace daidalosengine {
 		* Check if the position is relative to the listener
 		* @return The relative position state
 		*/
-		const bool IsRelativeToListener() const;
+		bool IsRelativeToListener() const;
 
 		/**
 		* Get the looped status
 		* @return The looped status
 		*/
-		virtual const bool IsLooped() const;
+		virtual bool IsLooped() const;
 
 		/**
 		* Get the source
 		* @return The source
 		*/
-		const ALuint GetSource() const;
+		ALuint GetSource() const;
 
 		/**
 		* Get the number of channels
 		* @return The number of channels
 		*/
-		const int GetChannelsCount() const;
+		int GetChannelsCount() const;
 
 		/**
 		* Get the samples count
 		* @return The samples count
 		*/
-		const int GetSamplesCount() const;
+		int GetSamplesCount() const;
 
 		/**
 		* Get the sample rate
 		* @return The sample rate
 		*/
-		const int GetSampleRate() const;
+		int GetSampleRate() const;
 
 		/**
 		* Get the gain
 		* @return The gain
 		*/
-		const float GetGain() const;
+		float GetGain() const;
 
 		/**
 		* Get the cone inner angle
 		* @return The cone inner angle
 		*/
-		const float GetConeInnerAngle() const;
+		float GetConeInnerAngle() const;
 
 		/**
 		* Get the cone outer angle
 		* @return The cone outer angle
 		*/
-		const float GetConeOuterAngle() const;
+		float GetConeOuterAngle() const;
 
 		/**
 		* Get the distance from wich the gain will be maximal
 		* @return The distance from wich the gain will be maximal
 		*/
-		const float GetReferenceDistance() const;
+		float GetReferenceDistance() const;
 
 		/**
 		* Get the distance from wich the gain will be minimal
 		* @return The distance from wich the gain will be minimal
 		*/
-		const float GetMaxDistance() const;
+		float GetMaxDistance() const;
 
 	protected:
 		/**
@@ -216,9 +216,9 @@ namespace daidalosengine {
 		*/
 		ALenum GetALFormat() const;
 
-	private:
-		ISoundBase(const ISoundBase & copy);
-		const ISoundBase & operator=(const ISoundBase & copy);
+	public:
+		ISoundBase(const ISoundBase & copy) = delete;
+		const ISoundBase & operator=(const ISoundBase & copy) = delete;
 	};
 }
 

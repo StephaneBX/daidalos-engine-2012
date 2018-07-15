@@ -220,7 +220,7 @@ namespace daidalosengine {
 	* Check if the position is relative to the listener
 	* @return The relative position state
 	*/
-	const bool ISoundBase::IsRelativeToListener() const {
+	bool ISoundBase::IsRelativeToListener() const {
 		LOG_TRACE();
 
 		ALint status;
@@ -233,7 +233,7 @@ namespace daidalosengine {
 	* Get the looped status
 	* @return The looped status
 	*/
-	const bool ISoundBase::IsLooped() const {
+	bool ISoundBase::IsLooped() const {
 		LOG_TRACE();
 
 		ALint status;
@@ -246,7 +246,7 @@ namespace daidalosengine {
 	* Get the source
 	* @return The source
 	*/
-	const ALuint ISoundBase::GetSource() const {
+	ALuint ISoundBase::GetSource() const {
 		LOG_TRACE();
 
 		return this->m_source;
@@ -256,7 +256,7 @@ namespace daidalosengine {
 	* Get the number of channels
 	* @return The number of channels
 	*/
-	const int ISoundBase::GetChannelsCount() const {
+	int ISoundBase::GetChannelsCount() const {
 		LOG_TRACE();
 
 		int channels = 1;
@@ -278,7 +278,7 @@ namespace daidalosengine {
 	* Get the samples count
 	* @return The samples count
 	*/
-	const int ISoundBase::GetSamplesCount() const {
+	int ISoundBase::GetSamplesCount() const {
 		LOG_TRACE();
 
 		return this->m_samplesCount;
@@ -288,7 +288,7 @@ namespace daidalosengine {
 	* Get the sample rate
 	* @return The sample rate
 	*/
-	const int ISoundBase::GetSampleRate() const {
+	int ISoundBase::GetSampleRate() const {
 		LOG_TRACE();
 
 		return this->m_sampleRate;
@@ -298,7 +298,7 @@ namespace daidalosengine {
 	* Get the gain
 	* @return The gain
 	*/
-	const float ISoundBase::GetGain() const {
+	float ISoundBase::GetGain() const {
 		LOG_TRACE();
 
 		float result;
@@ -312,7 +312,7 @@ namespace daidalosengine {
 	* Get the cone inner angle
 	* @return The cone inner angle
 	*/
-	const float ISoundBase::GetConeInnerAngle() const {
+	float ISoundBase::GetConeInnerAngle() const {
 		LOG_TRACE();
 
 		float result;
@@ -326,7 +326,7 @@ namespace daidalosengine {
 	* Get the cone outer angle
 	* @return The cone outer angle
 	*/
-	const float ISoundBase::GetConeOuterAngle() const {
+	float ISoundBase::GetConeOuterAngle() const {
 		LOG_TRACE();
 
 		float result;
@@ -340,7 +340,7 @@ namespace daidalosengine {
 	* Get the distance from wich the gain will be maximal
 	* @return The distance from wich the gain will be maximal
 	*/
-	const float ISoundBase::GetReferenceDistance() const {
+	float ISoundBase::GetReferenceDistance() const {
 		LOG_TRACE();
 
 		float result;
@@ -354,7 +354,7 @@ namespace daidalosengine {
 	* Get the distance from wich the gain will be minimal
 	* @return The distance from wich the gain will be minimal
 	*/
-	const float ISoundBase::GetMaxDistance() const {
+	float ISoundBase::GetMaxDistance() const {
 		LOG_TRACE();
 
 		float result;
@@ -374,6 +374,7 @@ namespace daidalosengine {
 	ISoundBase::ISoundBase(const std::string & name, ESoundFormat format, const int samplesCount, const int sampleRate) : IResource(name) {
 		LOG_TRACE();
 
+		this->m_source = 0;
 		this->m_format = format;
 		this->m_samplesCount = samplesCount;
 		this->m_sampleRate = sampleRate;

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_ILEVEL_HPP
 #define __GAMEENGINE_ILEVEL_HPP
 
-#include <set>
 #include <Scene/3D/C3DScene.hpp>
 #include <Scene/2D/C2DScene.hpp>
 #include "ILevelListener.hpp"
@@ -103,7 +102,7 @@ namespace daidalosgameengine {
 		* Return the level brightness
 		* @return The level brightness
 		*/
-		const float GetBrightness() const;
+		float GetBrightness() const;
 
 		/**
 		* Get the scene graph

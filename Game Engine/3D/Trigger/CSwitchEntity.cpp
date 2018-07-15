@@ -110,7 +110,7 @@ namespace daidalosgameengine {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CSwitchEntity::CanDoAction() {
+	bool CSwitchEntity::CanDoAction() {
 
 		ETriggeredResult triggered = TriggerEntitiesCanDoAction();
 		return triggered == TRIGGERED_RESULT_ALL && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());

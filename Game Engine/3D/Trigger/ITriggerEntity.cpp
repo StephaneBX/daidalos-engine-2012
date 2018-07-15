@@ -40,7 +40,7 @@ namespace daidalosgameengine {
 	/**
 	* Destructor
 	*/
-	ITriggerEntity::~ITriggerEntity() {}
+	ITriggerEntity::~ITriggerEntity() = default;
 
 	/**
 	* Add a target entity
@@ -79,7 +79,7 @@ namespace daidalosgameengine {
 	* Trigger the CanDoAction on all entities
 	* @return the triggered result
 	*/
-	const ETriggeredResult ITriggerEntity::TriggerEntitiesCanDoAction() const {
+	ETriggeredResult ITriggerEntity::TriggerEntitiesCanDoAction() const {
 
 		ETriggeredResult result = TRIGGERED_RESULT_NONE;
 		unsigned int triggred = 0;
@@ -105,7 +105,7 @@ namespace daidalosgameengine {
 	* Get the trigger param
 	* @return the trigger param
 	*/
-	const unsigned int ITriggerEntity::GetTriggerParam() const {
+	unsigned int ITriggerEntity::GetTriggerParam() const {
 		return this->m_triggerParam;
 	}
 

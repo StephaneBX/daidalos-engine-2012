@@ -173,7 +173,7 @@ namespace daidalosengine {
 		return name;
 	}
 
-	const int CAnimatedMeshSceneNode::GetNumberOfFrames() const {
+	int CAnimatedMeshSceneNode::GetNumberOfFrames() const {
 		LOG_TRACE();
 
 		return this->m_mesh.GetNumberOfFrames();

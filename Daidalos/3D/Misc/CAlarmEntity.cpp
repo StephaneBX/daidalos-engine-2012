@@ -45,7 +45,7 @@ namespace daidalos {
 		this->m_speed = ROTATION_SPEED;
 
 		// Read the attributes
-		if(meshNode->GetAttribute("rotation_speed") != "") {
+		if(!meshNode->GetAttribute("rotation_speed").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("rotation_speed"));
 			ss >> this->m_speed;
 		}
@@ -85,7 +85,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CAlarmEntity::CanDoAction() const {
+	bool CAlarmEntity::CanDoAction() const {
 		return false;
 	}
 }

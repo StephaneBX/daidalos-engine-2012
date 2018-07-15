@@ -9135,7 +9135,7 @@
             <rotation>0:0:0</rotation>
             <attributes>
                 <triggerRadius>20</triggerRadius>
-				<cinematic>test.dgc</cinematic>
+				<cinematic>intro.dgc</cinematic>
             </attributes>
         </node>
     </node>

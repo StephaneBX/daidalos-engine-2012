@@ -73,7 +73,7 @@ namespace daidalosengine {
 		* Update the light
 		* @param time The elapsed time
 		*/
-		virtual void Update(const float time = 0) override;
+		virtual void Update(const float time) override;
 
 		/**
 		* Get a camera node

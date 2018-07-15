@@ -148,13 +148,13 @@ namespace daidalosengine {
 		UpdateDebugBuffer();
 	}
 
-	const float CProjectionCameraSceneNode::GetAngle() const {
+	float CProjectionCameraSceneNode::GetAngle() const {
 		LOG_TRACE();
 
 		return this->m_angle;
 	}
 
-	const float CProjectionCameraSceneNode::GetRatio() const {
+	float CProjectionCameraSceneNode::GetRatio() const {
 		LOG_TRACE();
 
 		return this->m_ratio;

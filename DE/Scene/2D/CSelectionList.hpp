@@ -54,7 +54,6 @@ namespace daidalosengine {
 	public:
 		/**
 		* Constructor
-		* @param texture The texture name
 		*/
 		CSelectionList();
 
@@ -66,7 +65,7 @@ namespace daidalosengine {
 		/**
 		* Initialize the content
 		*/
-		virtual void Initialize() final;
+		virtual void Initialize() override final;
 
 		/**
 		* Add a button listener
@@ -120,20 +119,20 @@ namespace daidalosengine {
 		* @param point The point to test in screen coordinate
 		* @return True if the point is inside the view on inside one of its subviews
 		*/
-		virtual const bool HitTest(const CVector2I & point) override;
+		virtual bool HitTest(const CVector2I & point) override;
 
 		/**
 		* Check if the button is enabled
 		* @return True if the button is enabled, false otherwise
 		*/
-		const bool IsEnabled() const;
+		bool IsEnabled() const;
 
 		/**
 		* Add a selection in the list and return the associated index
 		* @param text The selection text
 		* @return The associated index
 		*/
-		const int AddSelection(const std::string & text);
+		int AddSelection(const std::string & text);
 
 		/**
 		* Called when the button is clicked

@@ -37,7 +37,7 @@ namespace daidalosengine {
 	* Check if the the texture has mipmaps
 	* @return True if the texture has mipmaps
 	*/
-	const bool ITexture2DBase::HasMipmaps() const {
+	bool ITexture2DBase::HasMipmaps() const {
 		return this->m_mipmaps;
 	}
 
@@ -45,7 +45,7 @@ namespace daidalosengine {
 	* Check if the auto mipmap is enabled
 	* @return True if the auto mipmap is enabled
 	*/
-	const bool ITexture2DBase::HasAutoMimap() const {
+	bool ITexture2DBase::HasAutoMimap() const {
 		return this->m_autoMipmap;
 	}
 
@@ -61,7 +61,7 @@ namespace daidalosengine {
 	* Get the texture format
 	* @return The texture format
 	*/
-	const EPixelFormat ITexture2DBase::GetFormat() const {
+	EPixelFormat ITexture2DBase::GetFormat() const {
 		return this->m_format;
 	}
 

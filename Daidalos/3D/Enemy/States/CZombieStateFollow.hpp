@@ -66,7 +66,7 @@ namespace daidalos {
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time) override;
 	};
 }
 

@@ -64,13 +64,13 @@ namespace daidalosengine {
 		* Get the life min
 		* @return The life min
 		*/
-		const float GetLifeMin() const;
+		float GetLifeMin() const;
 
 		/**
 		* Get the life max
 		* @return The life max
 		*/
-		const float GetLifeMax() const;
+		float GetLifeMax() const;
 
 		/**
 		* Clone the class

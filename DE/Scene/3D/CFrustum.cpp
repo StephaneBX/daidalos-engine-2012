@@ -26,7 +26,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include "../../Core/Logger/ILogger.hpp"
-#include "../../Core/Core.hpp"
 #include "../../Scene/3D/CFrustum.hpp"
 
 namespace daidalosengine
@@ -141,13 +140,13 @@ namespace daidalosengine
 		this->m_frustum[FRUSTUM_PLANE_FAR].Build(farFrustrum);
 	}
 
-	const bool CFrustum::BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const {
+	bool CFrustum::BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const {
 		LOG_TRACE();
 
 		return (this->m_position - vertex).Normalize().DotProduct(faceNormal) <= 0;
 	}
 
-	const bool CFrustum::FrustumCull(IShape3DF * shape) const {
+	bool CFrustum::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
 		bool result = false;
@@ -162,19 +161,19 @@ namespace daidalosengine
 		return result;
 	}
 
-	const float CFrustum::GetFov() const {
+	float CFrustum::GetFov() const {
 		LOG_TRACE();
 
 		return this->m_angle;
 	}
 
-	const float CFrustum::GetNearDistance() const {
+	float CFrustum::GetNearDistance() const {
 		LOG_TRACE();
 
 		return this->m_nearDistance;
 	}
 
-	const float CFrustum::GetFarDistance() const {
+	float CFrustum::GetFarDistance() const {
 		LOG_TRACE();
 
 		return this->m_farDistance;

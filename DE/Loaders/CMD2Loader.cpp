@@ -31,6 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 namespace daidalosengine {
 	CMD2Loader::CMD2Loader() {
 		LOG_TRACE();
+		this->m_internalData = nullptr;
 	}
 
 	CMD2Loader::~CMD2Loader() {

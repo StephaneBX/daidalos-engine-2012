@@ -98,7 +98,7 @@ namespace daidalosengine {
 		* @param faceNormal The face normal
 		* @return True if the face can be culled or false otherwise
 		*/
-		const bool BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const;
+		bool BackfaceCull(const CVector3F & vertex, const CVector3F & faceNormal) const;
 
 		/**
 		* Perform a frustum culling test with the face to determin if it need to be discared for the rendering process
@@ -108,25 +108,25 @@ namespace daidalosengine {
 		* @param shape The shape that need to be tested
 		* @return True if the shape can be culled or false otherwise
 		*/
-		const bool FrustumCull(IShape3DF * shape) const;
+		bool FrustumCull(IShape3DF * shape) const;
 
 		/**
 		* Get the fov
 		* @return The fov in degree
 		*/
-		const float GetFov() const;
+		float GetFov() const;
 
 		/**
 		* Get the near distance
 		* @return The near distance
 		*/
-		const float GetNearDistance() const;
+		float GetNearDistance() const;
 
 		/**
 		* Get the far distance
 		* @return The far distance
 		*/
-		const float GetFarDistance() const;
+		float GetFarDistance() const;
 
 		/**
 		* Get the position

@@ -80,7 +80,7 @@ namespace daidalosengine {
 		* @param copy A static mesh
 		* @return The static mesh
 		*/
-		const CStaticMesh & operator=(const CStaticMesh & copy);
+		CStaticMesh & operator=(const CStaticMesh & copy);
 
 		/**
 		* Get the static mesh

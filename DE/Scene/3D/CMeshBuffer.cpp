@@ -223,19 +223,19 @@ namespace daidalosengine {
 		}
 	}
 
-	const int CMeshBuffer::GetNumberOfElements() const {
+	int CMeshBuffer::GetNumberOfElements() const {
 		LOG_TRACE();
 
 		return this->m_numberOfElements;
 	}
 
-	const int CMeshBuffer::GetMeshFormat() const {
+	int CMeshBuffer::GetMeshFormat() const {
 		LOG_TRACE();
 
 		return this->m_format;
 	}
 
-	const unsigned long CMeshBuffer::GetStride() const {
+	unsigned long CMeshBuffer::GetStride() const {
 		LOG_TRACE();
 
 		return this->m_stride;

@@ -39,9 +39,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	CLifeParticleInitializer::~CLifeParticleInitializer() {
-
-	}
+	CLifeParticleInitializer::~CLifeParticleInitializer() = default;
 
 	/**
 	* Initialize the particle
@@ -61,7 +59,7 @@ namespace daidalosengine {
 	* Get the life min
 	* @return The life min
 	*/
-	const float CLifeParticleInitializer::GetLifeMin() const {
+	float CLifeParticleInitializer::GetLifeMin() const {
 		return this->m_lifeMin;
 	}
 
@@ -69,7 +67,7 @@ namespace daidalosengine {
 	* Get the life max
 	* @return The life max
 	*/
-	const float CLifeParticleInitializer::GetLifeMax() const {
+	float CLifeParticleInitializer::GetLifeMax() const {
 		return this->m_lifeMax;
 	}
 

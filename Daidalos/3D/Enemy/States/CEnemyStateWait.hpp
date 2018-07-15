@@ -72,33 +72,33 @@ namespace daidalos {
 		* Callback when an entity interrupt its process
 		* @param state The state
 		*/
-		virtual void OnStateInterrupted(daidalosgameengine::IEnemyState * state);
+		virtual void OnStateInterrupted(daidalosgameengine::IEnemyState * state) override;
 
 		/**
 		* Update the entity
 		* @param entity The entity
 		* @param time Elapsed time
 		*/
-		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time);
+		virtual void Update(daidalosgameengine::IEnemyEntity * entity, const float time) override;
 
 		/**
 		* If the state is candidate for the next action
 		* @param entity The entity
 		* @return True if candidate
 		*/
-		virtual const bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity);
+		virtual bool IsCandidateForNextAction(daidalosgameengine::IEnemyEntity * entity) override;
 
 		/**
 		* Get the active status.
 		* @return The active status
 		*/
-		const bool GetActive();
+		bool GetActive();
 
 		/**
 		* Get the wait time.
 		* @return The wait time
 		*/
-		const float GetWaitTime();
+		float GetWaitTime();
 	};
 }
 

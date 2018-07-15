@@ -55,7 +55,7 @@ namespace daidalosengine {
 	* Get the updater type
 	* @return The updater type
 	*/
-	const EParticleUpdaterType IParticleUpdater::GetType() const {
+	EParticleUpdaterType IParticleUpdater::GetType() const {
 		return this->m_type;
 	}
 }
