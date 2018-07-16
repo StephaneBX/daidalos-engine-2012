@@ -52,12 +52,12 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		~IStaticSoundBase();
+		virtual ~IStaticSoundBase();
 
-	private:
-		IStaticSoundBase();
-		IStaticSoundBase(const IStaticSoundBase & copy);
-		const IStaticSoundBase & operator=(const IStaticSoundBase & copy);
+	public:
+		IStaticSoundBase() = delete;
+		IStaticSoundBase(const IStaticSoundBase & copy) = delete;
+		const IStaticSoundBase & operator=(const IStaticSoundBase & copy) = delete;
 	};
 }
 

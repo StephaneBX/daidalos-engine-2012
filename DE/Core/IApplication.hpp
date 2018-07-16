@@ -80,49 +80,49 @@ namespace daidalosengine {
 		* Check if the application is alive
 		* @return True if the application is alive
 		*/
-		const bool IsAlive() const;
+		bool IsAlive() const;
 
 		/**
 		* Check if the fullscreen is enabled
 		* @return True if the fullscreen is enabled
 		*/
-		const bool IsFullScreen() const;
+		bool IsFullScreen() const;
 
 		/**
 		* Check if the vertical synchro is enabled
 		* @return True if the vertical synchro is enabled
 		*/
-		const bool IsVerticalSynchro() const;
+		bool IsVerticalSynchro() const;
 
 		/**
 		* Get the width
 		* @return The width
 		*/
-		const int GetWidth() const;
+		int GetWidth() const;
 
 		/**
 		* Get the height
 		* @return The height
 		*/
-		const int GetHeight() const;
+		int GetHeight() const;
 
 		/**
 		* Get the anisotropic filterting level
 		* @return The anisotropic filterting level
 		*/
-		const int GetAnisotropicFiltering() const;
+		int GetAnisotropicFiltering() const;
 
 		/**
 		* Get the antialiasing level
 		* @return The antialiasing level
 		*/
-		const int GetAntialiasing() const;
+		int GetAntialiasing() const;
 
 		/**
 		* Get the fill mode
 		* @return The fill mode
 		*/
-		const ERenderStateFillMode GetFillMode() const;
+		ERenderStateFillMode GetFillMode() const;
 
 		/**
 		* Get the name
@@ -187,8 +187,8 @@ namespace daidalosengine {
 		*/
 		virtual void Resize(const int width, const int height) = 0;
 
-	private:
-		IApplication(const IApplication & copy);
+	public:
+		IApplication(const IApplication & copy) = delete;
 		const IApplication & operator=(const IApplication & copy) = delete;
 	};
 }

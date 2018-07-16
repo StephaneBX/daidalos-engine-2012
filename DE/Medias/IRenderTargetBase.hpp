@@ -63,10 +63,10 @@ namespace daidalosengine {
 		*/
 		explicit IRenderTargetBase(ERenderTargetType type);
 
-	private:
-		IRenderTargetBase();
-		IRenderTargetBase(const IRenderTargetBase & copy);
-		const IRenderTargetBase & operator=(const IRenderTargetBase & copy);
+	public:
+		IRenderTargetBase() = delete;
+		IRenderTargetBase(const IRenderTargetBase & copy) = delete;
+		const IRenderTargetBase & operator=(const IRenderTargetBase & copy) = delete;
 	};
 }
 

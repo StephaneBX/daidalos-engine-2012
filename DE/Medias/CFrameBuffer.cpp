@@ -49,7 +49,7 @@ namespace daidalosengine {
 		return this->m_frameBuffer;
 	}
 
-	const int CFrameBuffer::GetBufferSize() const {
+	int CFrameBuffer::GetBufferSize() const {
 		LOG_TRACE();
 
 		return this->m_frameBuffer->GetBufferSize();

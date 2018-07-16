@@ -73,7 +73,7 @@ namespace daidalosengine {
 		* @param copy A material
 		* @return The material
 		*/
-		const CMaterial & operator=(const CMaterial & copy);
+		CMaterial & operator=(const CMaterial & copy);
 
 		/**
 		* Get the material

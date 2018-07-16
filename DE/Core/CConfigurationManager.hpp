@@ -96,7 +96,9 @@ namespace daidalosengine {
 		* Constructor
 		*/
 		CConfigurationManager();
-		CConfigurationManager(const CConfigurationManager & copy);
+
+	public:
+		CConfigurationManager(const CConfigurationManager & copy) = delete;
 		const CConfigurationManager & operator=(const CConfigurationManager & copy) = delete;
 	};
 }

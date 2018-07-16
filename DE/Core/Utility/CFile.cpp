@@ -64,7 +64,7 @@ namespace daidalosengine {
 	* Check if a file exists
 	* @return True if the file exists, false otherwise
 	*/
-	const bool CFile::FileExists() const {
+	bool CFile::FileExists() const {
 		LOG_TRACE();
 
 		bool result = false;
@@ -82,7 +82,7 @@ namespace daidalosengine {
 	* Get the file size (in Byte)
 	* @return The file size in Byte
 	*/
-	const int CFile::GetFileSize() const {
+	int CFile::GetFileSize() const {
 		LOG_TRACE();
 
 		int size = 0;

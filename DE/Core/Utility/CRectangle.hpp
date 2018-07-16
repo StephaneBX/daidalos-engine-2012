@@ -63,8 +63,8 @@ namespace daidalosengine {
 		const CRectangle<T> & operator-=(const CVector2<T> & value);
 		const CRectangle<T> & operator*=(const T number);
 		const CRectangle<T> & operator/=(const T number);
-		const bool operator==(const CRectangle<T> & rect) const;
-		const bool operator!=(const CRectangle<T> & rect) const;
+		bool operator==(const CRectangle<T> & rect) const;
+		bool operator!=(const CRectangle<T> & rect) const;
 		ERectangleIntersection Intersect(const CVector2<T> & point) const;
 		ERectangleIntersection Intersect(const CRectangle<T> & rect) const;
 	};
@@ -231,7 +231,7 @@ namespace daidalosengine {
 	* @param rect A CRectangle
 	* @return The equal operation result
 	*/
-	template <class T> inline const bool CRectangle<T>::operator==(const CRectangle<T> & rect) const {
+	template <class T> inline bool CRectangle<T>::operator==(const CRectangle<T> & rect) const {
 		return this->m_topLeft == rect.m_topLeft && this->m_bottomRight == rect.m_bottomRight;
 	}
 
@@ -240,7 +240,7 @@ namespace daidalosengine {
 	* @param rect A CRectangle
 	* @return The non equal operation result
 	*/
-	template <class T> inline const bool CRectangle<T>::operator!=(const CRectangle<T> & rect) const {
+	template <class T> inline bool CRectangle<T>::operator!=(const CRectangle<T> & rect) const {
 		return !(*this == rect);
 	}
 
@@ -277,7 +277,7 @@ namespace daidalosengine {
 
 	/**
 	* + operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
@@ -289,7 +289,7 @@ namespace daidalosengine {
 
 	/**
 	* + operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
@@ -299,7 +299,7 @@ namespace daidalosengine {
 
 	/**
 	* - operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
@@ -311,7 +311,7 @@ namespace daidalosengine {
 
 	/**
 	* - operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param value A CVector2
 	* @return The CRectangle
 	*/
@@ -321,7 +321,7 @@ namespace daidalosengine {
 
 	/**
 	* * operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param number A number
 	* @return The CRectangle
 	*/
@@ -333,7 +333,7 @@ namespace daidalosengine {
 
 	/**
 	* * operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param number A number
 	* @return The CRectangle
 	*/
@@ -343,7 +343,7 @@ namespace daidalosengine {
 
 	/**
 	* / operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param number A number
 	* @return The CRectangle
 	*/
@@ -355,7 +355,7 @@ namespace daidalosengine {
 
 	/**
 	* / operator override
-	* @param vector A CRectangle
+	* @param rectangle A CRectangle
 	* @param number A number
 	* @return The CRectangle
 	*/

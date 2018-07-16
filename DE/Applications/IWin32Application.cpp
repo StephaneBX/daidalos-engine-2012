@@ -320,7 +320,6 @@ namespace daidalosengine {
 		MSG msg;
 		CTimer timer;
 		float time;
-		float realTime;
 		double previousTime = timer.Elapsed();
 		CInputDevice* input = CInputDevice::GetInstance();
 
@@ -332,7 +331,6 @@ namespace daidalosengine {
 
 		while(IsAlive()) {
 			time = (float)((timer.Elapsed() - previousTime) * 1000);
-			realTime = time;
 			previousTime = timer.Elapsed();
 			POINTS point;
 
@@ -466,7 +464,7 @@ namespace daidalosengine {
 				// Update the axis
 				const float axisCenter = 32767;
 				const float axisThreshold = 1.0F - (GetOptions().GetValueFloat(APPLICATION_OPTION_SECTION_GAMEPAD, APPLICATION_OPTION_GAMEPAD_DEAD_ZONE, 0.1F));
-				float axisFactor = 0;
+				float axisFactor;
 
 				// X
 				if(state.lX < axisCenter * axisThreshold) {
@@ -595,7 +593,7 @@ namespace daidalosengine {
 	/**
 	* Get the Direct Input context
 	*/
-	const LPDIRECTINPUT IWin32Application::GetDirectInput() const {
+	LPDIRECTINPUT IWin32Application::GetDirectInput() const {
 		LOG_TRACE();
 		return this->m_directInput;
 	}
@@ -618,12 +616,10 @@ namespace daidalosengine {
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			return 0;
-			break;
 
 		case WM_SETCURSOR:
 			SetCursor(nullptr);
 			return TRUE;
-			break;
 
 		case WM_SETFOCUS:
 			this->m_hasFocus = true;

@@ -49,13 +49,13 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		virtual ~IDeclaration() {}
+		virtual ~IDeclaration() = default;
 
 	protected:
 		/**
 		* Constructor
 		*/
-		IDeclaration() {}
+		IDeclaration() = default;
 	};
 
 	typedef std::shared_ptr<IDeclaration> DeclarationPtr;

@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CLOADEREXTENSIONS_HPP
 
 #include <map>
-#include <memory>
 #include "../Core/ILoader.hpp"
 
 namespace daidalosengine {
@@ -45,7 +44,7 @@ namespace daidalosengine {
 		* @param extension The extension
 		* @return True if the extension is found
 		*/
-		static const bool IsExtensionFound(const std::string & extension) {
+		static bool IsExtensionFound(const std::string & extension) {
 			bool ret = false;
 			for(auto it = s_loaders.begin(); it != s_loaders.end() && !ret; ++it) {
 				if(it->first == extension) {

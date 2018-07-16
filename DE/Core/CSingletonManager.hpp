@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSINGLETONMANAGER_HPP
 #define	__CSINGLETONMANAGER_HPP
 
-#include <iostream>
-
 namespace daidalosengine {
 	/**
 	* CSingletonManager class.

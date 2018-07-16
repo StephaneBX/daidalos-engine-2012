@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IBUFFERBASE_HPP
 #define __IBUFFERBASE_HPP
 
-#include <string>
 #include "../Core/IResource.hpp"
 
 namespace daidalosengine {
@@ -72,10 +71,10 @@ namespace daidalosengine {
 		*/
 		explicit IBufferBase(const unsigned long size);
 
-	private:
-		IBufferBase();
-		IBufferBase(const IBufferBase & copy);
-		const IBufferBase & operator=(const IBufferBase & copy);
+	public:
+		IBufferBase() = delete;
+		IBufferBase(const IBufferBase & copy) = delete;
+		const IBufferBase & operator=(const IBufferBase & copy) = delete;
 	};
 }
 

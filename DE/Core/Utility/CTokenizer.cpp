@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <fstream>
+#include "../../Core/Core.hpp"
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Core/Utility/CTokenizer.hpp"
 
@@ -144,7 +145,7 @@ namespace daidalosengine {
 	* @param maxSplit The maximum split accepted for each split process.
 	* @return True if the split is valid
 	*/
-	const bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit) {
+	bool CTokenizer::Tokenize(const std::string & delimiter, const int maxSplit) {
 		LOG_TRACE();
 
 		bool valid = true;
@@ -175,7 +176,7 @@ namespace daidalosengine {
 	* @param token The token to count.
 	* @return The number of 'token' tokens found.
 	*/
-	const int CTokenizer::Count(const std::string & token) const {
+	int CTokenizer::Count(const std::string & token) const {
 		LOG_TRACE();
 
 		int count = 0;
@@ -204,23 +205,21 @@ namespace daidalosengine {
 	* @param delimiter The delimiter to use.
 	* @return The number of pushed tokens.
 	*/
-	const int CTokenizer::SplitString(const std::string & token, const std::string & delimiter) {
+	int CTokenizer::SplitString(const std::string & token, const std::string & delimiter) {
 		LOG_TRACE();
 
 		int elementCount = 1;
 		unsigned int start = 0;
-		unsigned int end = 0;
-		unsigned int size = 0;
 
 		// While the end of the token is not reached.
 		while(start < token.length()) {
 			// Find the next delimiter position.
-			end = token.find(delimiter, start);
+			unsigned int end = token.find(delimiter, start);
 
 			// If a new split position is found.
 			if(end >= start && end < token.length()) {
 				// Push it in the temporary buffer.
-				size = end - start;
+				unsigned int size = end - start;
 				if(size > 0)
 					this->m_buffer.push_back(token.substr(start, size));
 

@@ -80,7 +80,9 @@ namespace daidalosengine {
 		* Constructor
 		*/
 		CResourceManager();
-		CResourceManager(const CResourceManager & copy);
+
+	public:
+		CResourceManager(const CResourceManager & copy) = delete;
 		const CResourceManager & operator=(const CResourceManager & copy) = delete;
 	};
 

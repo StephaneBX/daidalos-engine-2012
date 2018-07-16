@@ -152,10 +152,10 @@ namespace daidalosengine {
 		*/
 		explicit IShaderBase(const std::string & name);
 
-	private:
-		IShaderBase();
-		IShaderBase(const IShaderBase & copy);
-		const IShaderBase & operator=(const IShaderBase & copy);
+	public:
+		IShaderBase() = delete;
+		IShaderBase(const IShaderBase & copy) = delete;
+		const IShaderBase & operator=(const IShaderBase & copy) = delete;
 	};
 }
 

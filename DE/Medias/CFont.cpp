@@ -75,35 +75,35 @@ namespace daidalosengine {
 			this->m_font = tmp;
 	}
 
-	const bool CFont::IsBold() const {
+	bool CFont::IsBold() const {
 		LOG_TRACE();
 
 		Assert(this->m_font != nullptr);
 		return this->m_font->IsBold();
 	}
 
-	const bool CFont::IsItalic() const {
+	bool CFont::IsItalic() const {
 		LOG_TRACE();
 
 		Assert(this->m_font != nullptr);
 		return this->m_font->IsItalic();
 	}
 
-	const int CFont::GetSize() const {
+	int CFont::GetSize() const {
 		LOG_TRACE();
 
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetSize();
 	}
 
-	const int CFont::GetLineHeight() const {
+	int CFont::GetLineHeight() const {
 		LOG_TRACE();
 
 		Assert(this->m_font != nullptr);
 		return this->m_font->GetLineHeight();
 	}
 
-	const int CFont::GetBase() const {
+	int CFont::GetBase() const {
 		LOG_TRACE();
 
 		Assert(this->m_font != nullptr);

@@ -127,7 +127,7 @@ namespace daidalosengine {
 	* Check if the application is alive
 	* @return True if the application is alive
 	*/
-	const bool IApplication::IsAlive() const {
+	bool IApplication::IsAlive() const {
 		return this->m_alive;
 	}
 
@@ -135,7 +135,7 @@ namespace daidalosengine {
 	* Check if the fullscreen is enabled
 	* @return True if the fullscreen is enabled
 	*/
-	const bool IApplication::IsFullScreen() const {
+	bool IApplication::IsFullScreen() const {
 		return this->m_fullscreen;
 	}
 
@@ -143,7 +143,7 @@ namespace daidalosengine {
 	* Check if the vertical synchro is enabled
 	* @return True if the vertical synchro is enabled
 	*/
-	const bool IApplication::IsVerticalSynchro() const {
+	bool IApplication::IsVerticalSynchro() const {
 		return this->m_verticalSynchro;
 	}
 
@@ -151,7 +151,7 @@ namespace daidalosengine {
 	* Get the width
 	* @return The width
 	*/
-	const int IApplication::GetWidth() const {
+	int IApplication::GetWidth() const {
 		return this->m_width;
 	}
 
@@ -159,7 +159,7 @@ namespace daidalosengine {
 	* Get the height
 	* @return The height
 	*/
-	const int IApplication::GetHeight() const {
+	int IApplication::GetHeight() const {
 		return this->m_height;
 	}
 
@@ -167,7 +167,7 @@ namespace daidalosengine {
 	* Get the anisotropic filterting level
 	* @return The anisotropic filterting level
 	*/
-	const int IApplication::GetAnisotropicFiltering() const {
+	int IApplication::GetAnisotropicFiltering() const {
 		return this->m_anisotropicFiltering;
 	}
 
@@ -175,7 +175,7 @@ namespace daidalosengine {
 	* Get the antialiasing level
 	* @return The antialiasing level
 	*/
-	const int IApplication::GetAntialiasing() const {
+	int IApplication::GetAntialiasing() const {
 		return this->m_antialiasing;
 	}
 
@@ -207,7 +207,7 @@ namespace daidalosengine {
 	* Get the fill mode
 	* @return The fill mode
 	*/
-	const ERenderStateFillMode IApplication::GetFillMode() const {
+	ERenderStateFillMode IApplication::GetFillMode() const {
 		return this->m_fillMode;
 	}
 

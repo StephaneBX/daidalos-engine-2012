@@ -77,7 +77,7 @@ namespace daidalosengine {
 		* Get the current fps
 		* @return The current fps
 		*/
-		const int GetFPS() const;
+		int GetFPS() const;
 
 		/**
 		* Get the current fps as a string

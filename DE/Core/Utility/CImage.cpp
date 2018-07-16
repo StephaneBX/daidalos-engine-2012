@@ -63,7 +63,7 @@ namespace daidalosengine {
 	* Get the image width
 	* @return The image width
 	*/
-	const int CImage::GetWidth() const {
+	int CImage::GetWidth() const {
 		LOG_TRACE();
 		return this->m_size.x;
 	}
@@ -72,7 +72,7 @@ namespace daidalosengine {
 	* Get the image height
 	* @return The image height
 	*/
-	const int CImage::GetHeight() const {
+	int CImage::GetHeight() const {
 		LOG_TRACE();
 		return this->m_size.y;
 	}

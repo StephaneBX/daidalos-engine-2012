@@ -53,20 +53,20 @@ namespace daidalosengine {
 		const CVector4<T> operator/(const CVector4<T> & vec) const;
 		const CVector4<T> operator-() const;
 		const CVector4<T> Normalize() const;
-		const CVector4<T> & operator=(const CVector4<T> & vec);
+		CVector4<T> & operator=(const CVector4<T> & vec);
 		const CVector4<T> & operator+=(const CVector4<T> & vec);
 		const CVector4<T> & operator-=(const CVector4<T> & vec);
 		const CVector4<T> & operator*=(const CVector4<T> & vec);
 		const CVector4<T> & operator/=(const CVector4<T> & vec);
-		const bool operator==(const CVector4<T> & vec) const;
-		const bool operator!=(const CVector4<T> & vec) const;
+		bool operator==(const CVector4<T> & vec) const;
+		bool operator!=(const CVector4<T> & vec) const;
 		const T Length() const;
 		const std::string ToString(const std::string separator = ":") const;
 		operator T * ();
 		operator const T * () const;
 		static const CVector4<T> GetFrom(const std::string text, const CVector4<T> & defaultValue = CVector4<T>(), const std::string separator = ":");
 		static const T Length(const CVector4<T> & vec);
-		static void Normalize(CVector4<T> & vec);
+		static CVector4<T> Normalize(CVector4<T> & vec);
 	};
 
 	template <class T> const CVector4<T> operator*(const CVector4<T> & vec, const T number);
@@ -220,7 +220,7 @@ namespace daidalosengine {
 	* @param vec CVector4
 	* @return The CVector4
 	*/
-	template <class T> inline const CVector4<T> & CVector4<T>::operator=(const CVector4<T> & vec) {
+	template <class T> inline CVector4<T> & CVector4<T>::operator=(const CVector4<T> & vec) {
 		this->x = vec.x;
 		this->y = vec.y;
 		this->z = vec.z;
@@ -285,7 +285,7 @@ namespace daidalosengine {
 	* @param vec CVector4
 	* @return The equal result
 	*/
-	template <class T> inline const bool CVector4<T>::operator==(const CVector4<T> & vec) const {
+	template <class T> inline bool CVector4<T>::operator==(const CVector4<T> & vec) const {
 		return std::abs(this->x - vec.x) < EPSILON && std::abs(this->y - vec.y) < EPSILON && std::abs(this->z - vec.z) < EPSILON && std::abs(this->w - vec.w) < EPSILON;
 	}
 
@@ -294,7 +294,7 @@ namespace daidalosengine {
 	* @param vec CVector4
 	* @return The !equal result
 	*/
-	template <class T> inline const bool CVector4<T>::operator!=(const CVector4<T> & vec) const {
+	template <class T> inline bool CVector4<T>::operator!=(const CVector4<T> & vec) const {
 		return !(*this == vec);
 	}
 
@@ -383,7 +383,7 @@ namespace daidalosengine {
 	/**
 	* Normalize a CVector4
 	*/
-	template <class T> inline void CVector4<T>::Normalize(CVector4<T> & vec) {
+	template <class T> inline CVector4<T> CVector4<T>::Normalize(CVector4<T> & vec) {
 		return vec.Normalize();
 	}
 

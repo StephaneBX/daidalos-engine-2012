@@ -152,17 +152,17 @@ namespace daidalosengine {
 		* Copy the geometry to the output buffers.
 		* @param shadingType The shading type
 		*/
-		void FinalizeGeometry(EMeshShadingType shadingType);
+		void FinalizeGeometry(EMeshShadingType shadingType) override;
 
 		/**
 		* Get the number of frames
 		* @return The number of frames
 		*/
-		const int GetNumberOfFrames() const;
+		int GetNumberOfFrames() const;
 
-	private:
-		CMD2Mesh(const CMD2Mesh & copy);
-		const CMD2Mesh & operator=(const CMD2Mesh & copy);
+	public:
+		CMD2Mesh(const CMD2Mesh & copy) = delete;
+		const CMD2Mesh & operator=(const CMD2Mesh & copy) = delete;
 	};
 }
 

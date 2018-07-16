@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CANIMATEDMESH_HPP
 #define __CANIMATEDMESH_HPP
 
-#include <memory>
 #include "../Medias/IAnimatedMeshBase.hpp"
 
 namespace daidalosengine {

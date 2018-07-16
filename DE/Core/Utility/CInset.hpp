@@ -50,7 +50,7 @@ namespace daidalosengine {
 		void SetTop(const T top);
 		void SetRight(const T right);
 		void SetBottom(const T bottom);
-		const CInset & operator=(const CInset & copy);
+		CInset & operator=(const CInset & copy);
 	};
 
 	/**
@@ -136,7 +136,7 @@ namespace daidalosengine {
 	* @param copy A CGUIText element copy
 	* @return The CGUIText
 	*/
-	template <class T> const CInset<T> & CInset<T>::operator=(const CInset<T> & copy) {
+	template <class T> CInset<T> & CInset<T>::operator=(const CInset<T> & copy) {
 		this->m_left = copy.GetLeft();
 		this->m_top = copy.GetTop();
 		this->m_right = copy.GetRight();

@@ -73,7 +73,7 @@ namespace daidalosengine {
 		* Get the number of frames
 		* @return The number of frames
 		*/
-		virtual const int GetNumberOfFrames() const = 0;
+		virtual int GetNumberOfFrames() const = 0;
 
 	protected:
 		/**
@@ -82,10 +82,10 @@ namespace daidalosengine {
 		*/
 		explicit IAnimatedMeshBase(const std::string & name);
 
-	private:
-		IAnimatedMeshBase();
-		IAnimatedMeshBase(const IAnimatedMeshBase & copy);
-		const IAnimatedMeshBase & operator=(const IAnimatedMeshBase & copy);
+	public:
+		IAnimatedMeshBase() = delete;
+		IAnimatedMeshBase(const IAnimatedMeshBase & copy) = delete;
+		const IAnimatedMeshBase & operator=(const IAnimatedMeshBase & copy) = delete;
 	};
 }
 

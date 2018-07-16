@@ -74,9 +74,9 @@ namespace daidalosengine {
 		*/
 		SMaterialElement * GetElement(const std::string & name) const;
 
-	private:
-		IMaterialBase();
-		IMaterialBase(const IMaterialBase & copy);
+	public:
+		IMaterialBase() = delete;
+		IMaterialBase(const IMaterialBase & copy) = delete;
 		const IMaterialBase & operator=(const IMaterialBase & copy) = delete;
 	};
 }

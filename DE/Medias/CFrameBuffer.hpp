@@ -59,7 +59,7 @@ namespace daidalosengine {
 		* Get the frame buffer size
 		* @return The frame buffer size
 		*/
-		const int GetBufferSize() const;
+		int GetBufferSize() const;
 
 		/**
 		* Create a frame buffer from a declaration structure

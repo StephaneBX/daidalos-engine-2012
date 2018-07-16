@@ -61,13 +61,13 @@ namespace daidalosengine {
 		* Check if a file exists
 		* @return True if the file exists, false otherwise
 		*/
-		const bool FileExists() const;
+		bool FileExists() const;
 
 		/**
 		* Get the file size (in Byte)
 		* @return The file size in Byte
 		*/
-		const int GetFileSize() const;
+		int GetFileSize() const;
 
 		/**
 		* Get the full filename

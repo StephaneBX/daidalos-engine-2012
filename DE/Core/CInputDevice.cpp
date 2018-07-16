@@ -206,7 +206,7 @@ namespace daidalosengine {
 		}
 	}
 
-	const bool CInputDevice::IsActionActive(const unsigned int action) const {
+	bool CInputDevice::IsActionActive(const unsigned int action) const {
 		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
@@ -216,14 +216,14 @@ namespace daidalosengine {
 		return false;
 	}
 
-	const bool CInputDevice::IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const {
+	bool CInputDevice::IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const {
 		LOG_TRACE();
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 
 		return this->m_gamepadActions[gamepadId].at(action).state == INPUT_KEY_STATE_DOWN;
 	}
 
-	const float CInputDevice::GetGamepadActionFactor(const unsigned int gamepadId, const unsigned int action) const {
+	float CInputDevice::GetGamepadActionFactor(const unsigned int gamepadId, const unsigned int action) const {
 		LOG_TRACE();
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 

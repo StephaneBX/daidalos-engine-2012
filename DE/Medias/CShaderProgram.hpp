@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CSHADERPROGRAM_HPP
 
 #include <string>
-#include <memory>
 #include "../Medias/IShaderProgramBase.hpp"
 
 namespace daidalosengine {

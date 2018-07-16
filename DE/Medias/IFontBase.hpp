@@ -154,10 +154,10 @@ namespace daidalosengine {
 		*/
 		const SCharDescriptor * GetCharDescriptor(const unsigned int id) const;
 
-	private:
-		IFontBase();
-		IFontBase(const IFontBase & copy);
-		const IFontBase & operator=(const IFontBase & copy);
+	public:
+		IFontBase() = delete;
+		IFontBase(const IFontBase & copy) = delete;
+		const IFontBase & operator=(const IFontBase & copy) = delete;
 	};
 }
 

@@ -25,7 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
-#include <stdio.h>
+#include <cstdio>
 #include "../Core/Logger/ILogger.hpp"
 #include "../Core/Core.hpp"
 #include "../Core/IRenderer.hpp"
@@ -93,7 +93,7 @@ namespace daidalosengine {
 	* Get the vertical synchro state
 	* @return True if the vertical synchro is enabled
 	*/
-	const bool IRenderer::IsVerticalSynchro() const {
+	bool IRenderer::IsVerticalSynchro() const {
 		return this->m_verticalSynchro;
 	}
 
@@ -173,7 +173,7 @@ namespace daidalosengine {
 		this->m_resolution = resolution;
 	}
 
-	const bool IRenderer::HasCapability(ECapability capability) const {
+	bool IRenderer::HasCapability(ECapability capability) const {
 		LOG_TRACE();
 
 		return this->m_capabilities.at(capability);

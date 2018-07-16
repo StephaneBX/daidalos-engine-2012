@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSTATICMESH_HPP
 #define __CSTATICMESH_HPP
 
-#include <memory>
 #include "../Medias/IMeshBase.hpp"
 
 namespace daidalosengine {

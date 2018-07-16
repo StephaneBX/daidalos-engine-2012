@@ -181,7 +181,7 @@ namespace daidalosengine {
 		}
 	}
 
-	const int CMD2Mesh::GetNumberOfFrames() const {
+	int CMD2Mesh::GetNumberOfFrames() const {
 		LOG_TRACE();
 
 		return this->m_internalData->header.numFrames;

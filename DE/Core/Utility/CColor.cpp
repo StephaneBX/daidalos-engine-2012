@@ -74,7 +74,7 @@ namespace daidalosengine {
 	* Get the alpha channel
 	* @return The alpha channel
 	*/
-	const unsigned char CColor::GetAlpha() const {
+	unsigned char CColor::GetAlpha() const {
 		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0xFF000000) >> 24);
 	}
@@ -83,7 +83,7 @@ namespace daidalosengine {
 	* Get the red channel
 	* @return The red channel
 	*/
-	const unsigned char CColor::GetRed() const {
+	unsigned char CColor::GetRed() const {
 		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0x00FF0000) >> 16);
 	}
@@ -92,7 +92,7 @@ namespace daidalosengine {
 	* Get the green channel
 	* @return The green channel
 	*/
-	const unsigned char CColor::GetGreen() const {
+	unsigned char CColor::GetGreen() const {
 		LOG_TRACE();
 		return static_cast<unsigned char>((this->m_color & 0x0000FF00) >> 8);
 	}
@@ -101,7 +101,7 @@ namespace daidalosengine {
 	* Get the blue channel
 	* @return The blue channel
 	*/
-	const unsigned char CColor::GetBlue() const {
+	unsigned char CColor::GetBlue() const {
 		LOG_TRACE();
 		return static_cast<unsigned char>(this->m_color & 0x0000FF);
 	}
@@ -110,7 +110,7 @@ namespace daidalosengine {
 	* Get an ARGB version of this color
 	* @return The ARGB color
 	*/
-	const unsigned long CColor::ToARGB() const {
+	unsigned long CColor::ToARGB() const {
 		LOG_TRACE();
 		return this->m_color;
 	}
@@ -119,7 +119,7 @@ namespace daidalosengine {
 	* Get an RGBA version of this color
 	* @return The RGBA color
 	*/
-	const unsigned long CColor::ToRGBA() const {
+	unsigned long CColor::ToRGBA() const {
 		LOG_TRACE();
 		return static_cast<unsigned long>((GetRed() << 24) | (GetGreen() << 16) | (GetBlue() << 8) | GetAlpha());
 	}
@@ -128,7 +128,7 @@ namespace daidalosengine {
 	* Get an ABGR version of this color
 	* @return The ABGR color
 	*/
-	const unsigned long CColor::ToABGR() const {
+	unsigned long CColor::ToABGR() const {
 		LOG_TRACE();
 		return static_cast<unsigned long>((GetAlpha() << 24) | (GetBlue() << 16) | (GetGreen() << 8) | GetRed());
 	}
@@ -283,7 +283,7 @@ namespace daidalosengine {
 	* @param color A color
 	* @return True if equal, false otherwise
 	*/
-	const bool CColor::operator==(const CColor & color) const {
+	bool CColor::operator==(const CColor & color) const {
 		LOG_TRACE();
 		return this->m_color == color.m_color;
 	}
@@ -293,7 +293,7 @@ namespace daidalosengine {
 	* @param color A color
 	* @return True if equal, false otherwise
 	*/
-	const bool CColor::operator!=(const CColor & color) const {
+	bool CColor::operator!=(const CColor & color) const {
 		LOG_TRACE();
 		return !(*this == color);
 	}

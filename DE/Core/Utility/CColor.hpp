@@ -75,43 +75,43 @@ namespace daidalosengine {
 		* Get the red channel
 		* @return The red channel
 		*/
-		const unsigned char GetRed() const;
+		unsigned char GetRed() const;
 
 		/**
 		* Get the green channel
 		* @return The green channel
 		*/
-		const unsigned char GetGreen() const;
+		unsigned char GetGreen() const;
 
 		/**
 		* Get the blue channel
 		* @return The blue channel
 		*/
-		const unsigned char GetBlue() const;
+		unsigned char GetBlue() const;
 
 		/**
 		* Get the alpha channel
 		* @return The alpha channel
 		*/
-		const unsigned char GetAlpha() const;
+		unsigned char GetAlpha() const;
 
 		/**
 		* Get an ARGB version of this color
 		* @return The ARGB color
 		*/
-		const unsigned long ToARGB() const;
+		unsigned long ToARGB() const;
 
 		/**
 		* Get an RGBA version of this color
 		* @return The RGBA color
 		*/
-		const unsigned long ToRGBA() const;
+		unsigned long ToRGBA() const;
 
 		/**
 		* Get an ABGR version of this color
 		* @return The ABGR color
 		*/
-		const unsigned long ToABGR() const;
+		unsigned long ToABGR() const;
 
 		/**
 		* Get a string from a CColor
@@ -207,14 +207,14 @@ namespace daidalosengine {
 		* @param color A color
 		* @return True if equal, false otherwise
 		*/
-		const bool operator==(const CColor & color) const;
+		bool operator==(const CColor & color) const;
 
 		/**
 		* != operator override
 		* @param color A color
 		* @return True if equal, false otherwise
 		*/
-		const bool operator!=(const CColor & color) const;
+		bool operator!=(const CColor & color) const;
 
 		/**
 		* >> operator override

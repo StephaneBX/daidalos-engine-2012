@@ -61,7 +61,7 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		~CArraySorter() {}
+		~CArraySorter() = default;
 
 		/**
 		* BubbleSort algorithm
@@ -73,7 +73,7 @@ namespace daidalosengine {
 		void BubbleSort(T * const arrayList, int * const order, const int arraySize, EArraySorterOrder sort) {
 			this->m_arrayList = arrayList;
 			this->m_order = order;
-			BubbleSortPerform(arraySize);
+			BubbleSortPerform(arraySize, sort);
 		}
 
 		/**
@@ -144,7 +144,7 @@ namespace daidalosengine {
 		* @param last The last index
 		* @param pivot The pivot
 		*/
-		const int QuickSortPartition(const int first, const int last, const int pivot, EArraySorterOrder sort) {
+		int QuickSortPartition(const int first, const int last, const int pivot, EArraySorterOrder sort) {
 			int j;
 			Swap(pivot, last);
 			j = first;
@@ -163,7 +163,7 @@ namespace daidalosengine {
 		* @param first The first value
 		* @param last The last value
 		*/
-		const int QuickSortPivotSelection(const int first, const int last) {
+		int QuickSortPivotSelection(const int first, const int last) {
 			return first;
 		}
 	};

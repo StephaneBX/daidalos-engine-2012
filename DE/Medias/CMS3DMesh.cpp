@@ -140,7 +140,7 @@ namespace daidalosengine {
 		}
 	}
 
-	const int CMS3DMesh::GetNumberOfFrames() const {
+	int CMS3DMesh::GetNumberOfFrames() const {
 		LOG_TRACE();
 
 		return this->m_internalData->numberOfFrames;

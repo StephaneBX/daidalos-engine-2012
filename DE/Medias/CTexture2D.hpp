@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CTEXTURE2D_HPP
 #define __CTEXTURE2D_HPP
 
-#include <memory>
 #include "../Medias/ITexture2DBase.hpp"
 
 namespace daidalosengine {
@@ -61,7 +60,7 @@ namespace daidalosengine {
 		* @param texture The texture
 		* @return The texture
 		*/
-		const CTexture2D & operator=(const CTexture2D & texture);
+		CTexture2D & operator=(const CTexture2D & texture);
 
 		/**
 		* Get the texture size

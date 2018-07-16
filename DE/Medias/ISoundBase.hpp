@@ -217,6 +217,7 @@ namespace daidalosengine {
 		ALenum GetALFormat() const;
 
 	public:
+		ISoundBase() = delete;
 		ISoundBase(const ISoundBase & copy) = delete;
 		const ISoundBase & operator=(const ISoundBase & copy) = delete;
 	};

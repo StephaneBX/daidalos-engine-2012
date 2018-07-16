@@ -114,7 +114,7 @@ namespace daidalosengine {
 		/**
 		* Get the Direct Input context
 		*/
-		const LPDIRECTINPUT GetDirectInput() const;
+		LPDIRECTINPUT GetDirectInput() const;
 
 		/**
 		* The global window procedure for messages
@@ -131,9 +131,9 @@ namespace daidalosengine {
 		*/
 		static BOOL CALLBACK CreateDeviceCallback(LPCDIDEVICEINSTANCE instance, void * reference);
 
-	private:
-		IWin32Application(const IWin32Application & copy);
-		const IWin32Application & operator=(const IWin32Application & copy);
+	public:
+		IWin32Application(const IWin32Application & copy) = delete;
+		const IWin32Application & operator=(const IWin32Application & copy) = delete;
 	};
 }
 

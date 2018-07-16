@@ -75,7 +75,7 @@ namespace daidalosengine {
 			this->m_material = tmp;
 	}
 
-	const CMaterial & CMaterial::operator=(const CMaterial & copy) {
+	CMaterial & CMaterial::operator=(const CMaterial & copy) {
 		LOG_TRACE();
 
 		if (this != &copy) {

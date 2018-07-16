@@ -67,7 +67,7 @@ namespace daidalosengine {
 		return this->m_buffer.get();
 	}
 
-	const unsigned long CBuffer::GetSize() const {
+	unsigned long CBuffer::GetSize() const {
 		LOG_TRACE();
 
 		unsigned long ret = 0;

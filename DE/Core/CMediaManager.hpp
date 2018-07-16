@@ -29,9 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CMEDIAMANAGER_HPP
 
 #include <string>
-#include <map>
-#include <memory>
-#include <algorithm>
 #include <set>
 #include "../Core/Utility/CTokenizer.hpp"
 #include "../Core/Utility/CFile.hpp"
@@ -98,7 +95,9 @@ namespace daidalosengine {
 		* Constructor
 		*/
 		CMediaManager();
-		CMediaManager(const CMediaManager & copy);
+
+	public:
+		CMediaManager(const CMediaManager & copy) = delete;
 		const CMediaManager & operator=(const CMediaManager & copy) = delete;
 	};
 

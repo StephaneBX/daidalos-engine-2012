@@ -64,13 +64,13 @@ namespace daidalosengine {
 		* Get the image width
 		* @return The image width
 		*/
-		const int GetWidth() const;
+		int GetWidth() const;
 
 		/**
 		* Get the image height
 		* @return The image height
 		*/
-		const int GetHeight() const;
+		int GetHeight() const;
 
 		/**
 		* Get the image data

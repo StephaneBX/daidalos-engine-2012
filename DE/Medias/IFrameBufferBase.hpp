@@ -189,9 +189,9 @@ namespace daidalosengine {
 		*/
 		IFrameBufferBase();
 
-	private:
-		IFrameBufferBase(const IFrameBufferBase & copy);
-		const IFrameBufferBase & operator=(const IFrameBufferBase & copy);
+	public:
+		IFrameBufferBase(const IFrameBufferBase & copy) = delete;
+		const IFrameBufferBase & operator=(const IFrameBufferBase & copy) = delete;
 	};
 }
 

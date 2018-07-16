@@ -54,7 +54,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 	}
 
-	const CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
+	CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
 		LOG_TRACE();
 
 		if (this != &texture) {

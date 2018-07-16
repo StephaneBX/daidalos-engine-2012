@@ -35,7 +35,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
  
 #include <algorithm>
 #include <atomic>
-#include <cstdint>
 #include <functional>
 #include <memory>
 #include <thread>

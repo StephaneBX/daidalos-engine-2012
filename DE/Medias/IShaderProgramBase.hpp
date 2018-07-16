@@ -196,9 +196,11 @@ namespace daidalosengine {
 		* @param name The name
 		*/
 		void Load(IShaderBase *& shader, const std::string & name);
-		IShaderProgramBase();
-		IShaderProgramBase(const IShaderProgramBase & copy);
-		const IShaderProgramBase & operator=(const IShaderProgramBase & copy);
+
+	public:
+		IShaderProgramBase() = delete;
+		IShaderProgramBase(const IShaderProgramBase & copy) = delete;
+		const IShaderProgramBase & operator=(const IShaderProgramBase & copy) = delete;
 	};
 }
 

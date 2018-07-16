@@ -70,7 +70,7 @@ namespace daidalosengine {
 		* Remove a reference and delete the ressource if not used anymore
 		* @return The reference count
 		*/
-		const int Release();
+		int Release();
 
 		/**
 		* Set the name
@@ -93,8 +93,8 @@ namespace daidalosengine {
 		*/
 		virtual void OnDeviceReset();
 
-	private:
-		IResource(const IResource & resource);
+	public:
+		IResource(const IResource & resource) = delete;
 		const IResource & operator=(const IResource & copy) = delete;
 	};
 }

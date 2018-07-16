@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IINPUTKEYBOARDLISTENER_HPP
 #define __IINPUTKEYBOARDLISTENER_HPP
 
-#include <string>
-
 namespace daidalosengine {
 
 	/**

@@ -60,7 +60,7 @@ namespace daidalosengine {
 		return this->m_name.GetFilename();
 	}
 
-	const int IResource::Release() {
+	int IResource::Release() {
 		LOG_TRACE();
 
 		int tmpRef = --this->m_referenceCount;

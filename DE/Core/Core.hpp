@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define	__CORE_HPP
 
 #include <string>
-#include <time.h>
+#include <ctime>
 #include "../Core/Enums.hpp"
 
 #define SAFE_DELETE(x){ if(x != nullptr){ delete x; x = nullptr; }}
@@ -67,7 +67,7 @@ namespace daidalosengine {
 	* Transform a radian angle into a degree angle
 	* @param angle The angle
 	*/
-	inline const float RadianToDegree(const float angle) {
+	inline float RadianToDegree(const float angle) {
 		return angle * 180.0f / PI;
 	}
 
@@ -75,7 +75,7 @@ namespace daidalosengine {
 	* Transform a degree angle into a radian angle
 	* @param angle The angle
 	*/
-	inline const float DegreeToRadian(const float angle) {
+	inline float DegreeToRadian(const float angle) {
 		return angle * PI_OVER_180;
 	}
 
@@ -83,7 +83,7 @@ namespace daidalosengine {
 	* Truncate the float to two decimals
 	* @param value The float value
 	*/
-	inline const float TruncateDecimal(const float value) {
+	inline float TruncateDecimal(const float value) {
 		return (std::ceilf(value * 100.0f) / 100.0f);
 	}
 
@@ -170,7 +170,7 @@ namespace daidalosengine {
 	* @param format The pixel format
 	* @return The size in Bytes
 	*/
-	inline const unsigned int GetBytesPerPixel(EPixelFormat format) {
+	inline unsigned int GetBytesPerPixel(EPixelFormat format) {
 		switch(format) {
 		case PIXEL_FORMAT_L8: return 1;
 		case PIXEL_FORMAT_A8L8:return 2;
@@ -193,7 +193,7 @@ namespace daidalosengine {
 	* @param format The pixel format
 	* @return True is the format is compressed, false otherwise
 	*/
-	inline const bool IsFormatCompressed(EPixelFormat format) {
+	inline bool IsFormatCompressed(EPixelFormat format) {
 		switch(format) {
 		case PIXEL_FORMAT_DXT1:
 		case PIXEL_FORMAT_DXT3:
@@ -209,7 +209,7 @@ namespace daidalosengine {
 	* @param x Value to test
 	* @return The nearest power of two
 	*/
-	inline const int GetNearestPowerOfTwo(const int x) {
+	inline int GetNearestPowerOfTwo(const int x) {
 		int count = 0;
 		int tmp = x;
 
@@ -229,11 +229,11 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_L8 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_L8(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(destFormat) {
+	inline void ConvertPixel_L8(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			*dest = *src;
 			break;
@@ -289,11 +289,11 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_A8L8 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_A8L8(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(destFormat) {
+	inline void ConvertPixel_A8L8(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			*dest = src[0];
 			break;
@@ -349,12 +349,12 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_A1RG5B5 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_A1R5G5B5(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
+	inline void ConvertPixel_A1R5G5B5(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
 		unsigned short pix;
-		switch(destFormat) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			pix = *reinterpret_cast<const unsigned short*>(src);
 			*dest = static_cast<unsigned char>(((pix & 0x7C00) >> 7) * 0.30 +
@@ -419,11 +419,11 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_A4R4G4B4 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_A4R4G4B4(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(destFormat) {
+	inline void ConvertPixel_A4R4G4B4(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			*dest = static_cast<unsigned char>(((src[1] & 0x0F) << 4) * 0.30 +
 				((src[0] & 0xF0) >> 0) * 0.59 +
@@ -483,11 +483,11 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_R8G8B8 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_R8G8B8(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(destFormat) {
+	inline void ConvertPixel_R8G8B8(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			*dest = static_cast<unsigned char>(src[2] * 0.30 + src[1] * 0.59 + src[0] * 0.11);
 			break;
@@ -543,11 +543,11 @@ namespace daidalosengine {
 	/**
 	* Convertex a PIXEL_FORMAT_A8R8G8B8 pixel to another format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel_A8R8G8B8(EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(destFormat) {
+	inline void ConvertPixel_A8R8G8B8(EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(destinationFormat) {
 		case PIXEL_FORMAT_L8:
 			*dest = static_cast<unsigned char>(src[2] * 0.30 + src[1] * 0.59 + src[0] * 0.11);
 			break;
@@ -604,33 +604,33 @@ namespace daidalosengine {
 	* Convert a pixel from a format to another
 	* @param sourceFormat The source format
 	* @param destinationFormat The destination format
-	* @param source The source data
-	* @param destination The destination data
+	* @param src The source data
+	* @param dest The destination data
 	*/
-	inline void ConvertPixel(EPixelFormat srcFormat, EPixelFormat destFormat, const unsigned char * src, unsigned char * dest) {
-		switch(srcFormat) {
+	inline void ConvertPixel(EPixelFormat sourceFormat, EPixelFormat destinationFormat, const unsigned char * src, unsigned char * dest) {
+		switch(sourceFormat) {
 		case PIXEL_FORMAT_L8:
-			ConvertPixel_L8(destFormat, src, dest);
+			ConvertPixel_L8(destinationFormat, src, dest);
 			break;
 
 		case PIXEL_FORMAT_A8L8:
-			ConvertPixel_A8L8(destFormat, src, dest);
+			ConvertPixel_A8L8(destinationFormat, src, dest);
 			break;
 
 		case PIXEL_FORMAT_A1R5G5B5:
-			ConvertPixel_A1R5G5B5(destFormat, src, dest);
+			ConvertPixel_A1R5G5B5(destinationFormat, src, dest);
 			break;
 
 		case PIXEL_FORMAT_A4R4G4B4:
-			ConvertPixel_A4R4G4B4(destFormat, src, dest);
+			ConvertPixel_A4R4G4B4(destinationFormat, src, dest);
 			break;
 
 		case PIXEL_FORMAT_R8G8B8:
-			ConvertPixel_R8G8B8(destFormat, src, dest);
+			ConvertPixel_R8G8B8(destinationFormat, src, dest);
 			break;
 
 		case PIXEL_FORMAT_A8R8G8B8:
-			ConvertPixel_A8R8G8B8(destFormat, src, dest);
+			ConvertPixel_A8R8G8B8(destinationFormat, src, dest);
 			break;
 
 		default:

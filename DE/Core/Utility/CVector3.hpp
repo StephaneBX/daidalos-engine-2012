@@ -28,7 +28,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CVECTOR3_HPP
 #define __CVECTOR3_HPP
 
-#include <math.h>
+#include <cmath>
 #include <sstream>
 #include "../../Core/Utility/CTokenizer.hpp"
 #include "../../Core/Core.hpp"
@@ -54,7 +54,7 @@ namespace daidalosengine {
 		const CVector3<T> operator/(const CVector3<T> & vec) const;
 		const CVector3<T> operator-() const;
 		const CVector3<T> Normalize() const;
-		const CVector3<T> & operator=(const CVector3<T> & vec);
+		CVector3<T> & operator=(const CVector3<T> & vec);
 		const CVector3<T> & operator+=(const CVector3<T> & vec);
 		const CVector3<T> & operator-=(const CVector3<T> & vec);
 		const CVector3<T> & operator*=(const CVector3<T> & vec);
@@ -65,8 +65,8 @@ namespace daidalosengine {
 		const CVector3<T> CosineInterpolation(const CVector3<T> & vec, const float interpolation) const;
 		const CVector3<T> Min(const CVector3<T> & vec) const;
 		const CVector3<T> Max(const CVector3<T> & vec) const;
-		const bool operator==(const CVector3<T> & vec) const;
-		const bool operator!=(const CVector3<T> & vec) const;
+		bool operator==(const CVector3<T> & vec) const;
+		bool operator!=(const CVector3<T> & vec) const;
 		const T Length() const;
 		const T DotProduct(const CVector3<T> & vec) const;
 		const T Distance(const CVector3<T> & vec) const;
@@ -82,7 +82,7 @@ namespace daidalosengine {
 		static const T Length(const CVector3<T> & vec);
 		static const T DotProduct(const CVector3<T> & vec1, const CVector3<T> & vec2);
 		static const T Distance(const CVector3<T> & vec1, const CVector3<T> & vec2);
-		static void Normalize(CVector3<T> & vec);
+		static CVector3<T> Normalize(CVector3<T> & vec);
 	};
 
 	template <class T> const CVector3<T> operator*(const CVector3<T> & vector, const T number);
@@ -214,7 +214,7 @@ namespace daidalosengine {
 	* @param vec CVector3
 	* @return The CVector3
 	*/
-	template <class T> inline const CVector3<T> & CVector3<T>::operator=(const CVector3<T> & vec) {
+	template <class T> inline CVector3<T> & CVector3<T>::operator=(const CVector3<T> & vec) {
 		this->x = vec.x;
 		this->y = vec.y;
 		this->z = vec.z;
@@ -351,7 +351,7 @@ namespace daidalosengine {
 	* @param vec CVector3
 	* @return The equal result
 	*/
-	template <class T> inline const bool CVector3<T>::operator==(const CVector3<T> & vec) const {
+	template <class T> inline bool CVector3<T>::operator==(const CVector3<T> & vec) const {
 		return std::abs(this->x - vec.x) < EPSILON && std::abs(this->y - vec.y) < EPSILON && std::abs(this->z - vec.z) < EPSILON;
 	}
 
@@ -360,7 +360,7 @@ namespace daidalosengine {
 	* @param vec CVector3
 	* @return The !equal result
 	*/
-	template <class T> inline const bool CVector3<T>::operator!=(const CVector3<T> & vec) const {
+	template <class T> inline bool CVector3<T>::operator!=(const CVector3<T> & vec) const {
 		return !(*this == vec);
 	}
 
@@ -537,7 +537,7 @@ namespace daidalosengine {
 	* Normalize a CVector3
 	* @param vec A CVector3
 	*/
-	template <class T> inline void CVector3<T>::Normalize(CVector3<T> & vec) {
+	template <class T> inline CVector3<T> CVector3<T>::Normalize(CVector3<T> & vec) {
 		return vec.Normalize();
 	}
 

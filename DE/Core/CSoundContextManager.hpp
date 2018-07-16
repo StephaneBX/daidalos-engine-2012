@@ -73,7 +73,9 @@ namespace daidalosengine {
 		* Constructor
 		*/
 		CSoundContextManager();
-		CSoundContextManager(const CSoundContextManager & copy);
+
+	public:
+		CSoundContextManager(const CSoundContextManager & copy) = delete;
 		const CSoundContextManager & operator=(const CSoundContextManager & copy) = delete;
 	};
 }

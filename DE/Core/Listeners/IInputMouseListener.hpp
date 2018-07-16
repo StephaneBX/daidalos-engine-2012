@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IINPUTMOUSELISTENER_HPP
 #define __IINPUTMOUSELISTENER_HPP
 
-#include <string>
 #include "../../Core/Utility/CVector2.hpp"
 
 namespace daidalosengine {
@@ -40,7 +39,7 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		virtual ~IInputMouseListener() {}
+		virtual ~IInputMouseListener() = default;
 
 		/**
 		* Called when the mouse has moved

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CQUATERNION_HPP
 #define __CQUATERNION_HPP
 
-#include <math.h>
 #include "../../Core/Core.hpp"
 #include "../../Core/Utility/CVector3.hpp"
 
@@ -62,21 +61,21 @@ namespace daidalosengine {
 		const CQuaternion YawPitchRoll(const float angleX, const float angleY, const float angleZ) const;
 		const CQuaternion Lerp(const CQuaternion & quat2, const float t) const;
 		const CQuaternion Slerp(const CQuaternion & quat2, const float t) const;
-		const CQuaternion & operator=(const CQuaternion & quat);
+		CQuaternion & operator=(const CQuaternion & quat);
 		const CQuaternion & operator+=(const CQuaternion & quat);
 		const CQuaternion & operator-=(const CQuaternion & quat);
 		const CQuaternion & operator*=(const CQuaternion & quat);
 		const CQuaternion & operator*=(const float number);
 		const CQuaternion & operator/=(const CQuaternion & quat);
 		const CQuaternion & operator/=(const float number);
-		const bool operator==(const CQuaternion & quat) const;
-		const bool operator!=(const CQuaternion & quat) const;
-		const float Length() const;
-		const float DotProduct(const CQuaternion & quat) const;
+		bool operator==(const CQuaternion & quat) const;
+		bool operator!=(const CQuaternion & quat) const;
+		float Length() const;
+		float DotProduct(const CQuaternion & quat) const;
 		operator float * ();
 		operator const float * () const;
-		static const float Length(const CQuaternion & quat);
-		static const float DotProduct(const CQuaternion & quat1, const CQuaternion & quat2);
+		static float Length(const CQuaternion & quat);
+		static float DotProduct(const CQuaternion & quat1, const CQuaternion & quat2);
 		static void Inverse(CQuaternion & quat);
 		static void Normalize(CQuaternion & quat);
 		static void Log(CQuaternion & quat);
@@ -332,7 +331,7 @@ namespace daidalosengine {
 	* @param quat CQuaternion
 	* @return The CQuaternion
 	*/
-	inline const CQuaternion & CQuaternion::operator=(const CQuaternion & quat) {
+	inline CQuaternion & CQuaternion::operator=(const CQuaternion & quat) {
 		this->x = quat.x;
 		this->y = quat.y;
 		this->z = quat.z;
@@ -411,7 +410,7 @@ namespace daidalosengine {
 	* @param quat CQuaternion
 	* @return The equal result
 	*/
-	inline const bool CQuaternion::operator==(const CQuaternion & quat) const {
+	inline bool CQuaternion::operator==(const CQuaternion & quat) const {
 		return std::abs(this->x - quat.x) < EPSILON && std::abs(this->y - quat.y) < EPSILON && std::abs(this->z - quat.z) < EPSILON && std::abs(this->w - quat.w) < EPSILON;
 	}
 
@@ -420,7 +419,7 @@ namespace daidalosengine {
 	* @param quat CQuaternion
 	* @return The !equal result
 	*/
-	inline const bool CQuaternion::operator!=(const CQuaternion & quat) const {
+	inline bool CQuaternion::operator!=(const CQuaternion & quat) const {
 		return !(*this == quat);
 	}
 
@@ -428,7 +427,7 @@ namespace daidalosengine {
 	* Get the length
 	* @return The length
 	*/
-	inline const float CQuaternion::Length() const {
+	inline float CQuaternion::Length() const {
 		return sqrt(this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w);
 	}
 
@@ -437,7 +436,7 @@ namespace daidalosengine {
 	* @param quat The second CQuaternion
 	* @return The dot product
 	*/
-	inline const float CQuaternion::DotProduct(const CQuaternion & quat) const {
+	inline float CQuaternion::DotProduct(const CQuaternion & quat) const {
 		return (this->x * quat.x) + (this->y * quat.y) + (this->z * quat.z) + (this->w * quat.w);
 	}
 
@@ -462,7 +461,7 @@ namespace daidalosengine {
 	* @param quat A CQuaternion
 	* @return The length
 	*/
-	inline const float CQuaternion::Length(const CQuaternion & quat) {
+	inline float CQuaternion::Length(const CQuaternion & quat) {
 		return quat.Length();
 	}
 
@@ -472,7 +471,7 @@ namespace daidalosengine {
 	* @param quat2 The second CQuaternion
 	* @return The dot product
 	*/
-	inline const float CQuaternion::DotProduct(const CQuaternion & quat1, const CQuaternion & quat2) {
+	inline float CQuaternion::DotProduct(const CQuaternion & quat1, const CQuaternion & quat2) {
 		return quat1.DotProduct(quat2);
 	}
 

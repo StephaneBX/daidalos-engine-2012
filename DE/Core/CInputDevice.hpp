@@ -424,7 +424,7 @@ namespace daidalosengine {
 		* @param action The action name
 		* @return True if the action is active
 		*/
-		const bool IsActionActive(const unsigned int action) const;
+		bool IsActionActive(const unsigned int action) const;
 
 		/**
 		* Check if a gamepad action is active
@@ -432,7 +432,7 @@ namespace daidalosengine {
 		* @param action The action name
 		* @return True if the action is active
 		*/
-		const bool IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const;
+		bool IsGamepadActionActive(const unsigned int gamepadId, const unsigned int action) const;
 
 		/**
 		* Get the factor of a gamepad action
@@ -440,7 +440,7 @@ namespace daidalosengine {
 		* @param action The action name
 		* @return The factor
 		*/
-		const float GetGamepadActionFactor(const unsigned int gamepadId, const unsigned int action) const;
+		float GetGamepadActionFactor(const unsigned int gamepadId, const unsigned int action) const;
 
 		/**
 		* Get the mouse position
@@ -479,8 +479,10 @@ namespace daidalosengine {
 		* Constructor
 		*/
 		CInputDevice();
-		CInputDevice(const CInputDevice & copy);
-		const CInputDevice & operator=(const CInputDevice & copy);
+
+	public:
+		CInputDevice(const CInputDevice & copy) = delete;
+		const CInputDevice & operator=(const CInputDevice & copy) = delete;
 	};
 
 

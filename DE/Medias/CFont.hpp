@@ -29,8 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CFONT_HPP
 
 #include <string>
-#include <map>
-#include <memory>
 #include "../Medias/CTexture2D.hpp"
 #include "../Medias/IFontBase.hpp"
 
@@ -75,31 +73,31 @@ namespace daidalosengine {
 		* Get the italic value
 		* @return The italic value
 		*/
-		const bool IsBold() const;
+		bool IsBold() const;
 
 		/**
 		* Get the italic value
 		* @return The italic value
 		*/
-		const bool IsItalic() const;
+		bool IsItalic() const;
 
 		/**
 		* Get the size
 		* @return The size
 		*/
-		const int GetSize() const;
+		int GetSize() const;
 
 		/**
 		* Get the line height
 		* @return The line height
 		*/
-		const int GetLineHeight() const;
+		int GetLineHeight() const;
 
 		/**
 		* Get the base
 		* @return The base
 		*/
-		const int GetBase() const;
+		int GetBase() const;
 
 		/**
 		* Get the font name

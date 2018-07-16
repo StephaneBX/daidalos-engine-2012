@@ -88,14 +88,14 @@ namespace daidalosengine {
 		const CVector3F Transform(const CVector3F & vec, const bool normalize = false) const;
 		const CVector3F GetTranslation() const;
 		const CQuaternion TransformRotation() const;
-		const CMatrix & operator=(const CMatrix & matrix);
+		CMatrix & operator=(const CMatrix & matrix);
 		const CMatrix & operator+=(const CMatrix & matrix);
 		const CMatrix & operator-=(const CMatrix & matrix);
 		const CMatrix & operator*=(const CMatrix & matrix);
 		const CMatrix & operator*=(const float number);
-		const bool operator==(const CMatrix & matrix) const;
-		const bool operator!=(const CMatrix & matrix) const;
-		const float Determinant() const;
+		bool operator==(const CMatrix & matrix) const;
+		bool operator!=(const CMatrix & matrix) const;
+		float Determinant() const;
 		const float & operator() (const unsigned int row, const unsigned int col) const;
 		float & operator() (const unsigned int row, const unsigned int col);
 		operator float * ();
@@ -527,7 +527,7 @@ namespace daidalosengine {
 	* @param matrix A matrix
 	* @return The matrix
 	*/
-	inline const CMatrix & CMatrix::operator=(const CMatrix & matrix) {
+	inline CMatrix & CMatrix::operator=(const CMatrix & matrix) {
 		this->_11 = matrix._11; this->_12 = matrix._12; this->_13 = matrix._13; this->_14 = matrix._14;
 		this->_21 = matrix._21; this->_22 = matrix._22; this->_23 = matrix._23; this->_24 = matrix._24;
 		this->_31 = matrix._31; this->_32 = matrix._32; this->_33 = matrix._33; this->_34 = matrix._34;
@@ -586,7 +586,7 @@ namespace daidalosengine {
 	* @param matrix A matrix
 	* @return The equal operation result
 	*/
-	inline const bool CMatrix::operator==(const CMatrix & matrix) const {
+	inline bool CMatrix::operator==(const CMatrix & matrix) const {
 		return (std::abs(this->_11 - matrix._11) < EPSILON && std::abs(this->_12 - matrix._12) < EPSILON && std::abs(this->_13 - matrix._13) < EPSILON && std::abs(this->_14 - matrix._14) < EPSILON &&
 			std::abs(this->_21 - matrix._21) < EPSILON && std::abs(this->_22 - matrix._22) < EPSILON && std::abs(this->_23 - matrix._23) < EPSILON && std::abs(this->_24 - matrix._24) < EPSILON &&
 			std::abs(this->_31 - matrix._31) < EPSILON && std::abs(this->_32 - matrix._32) < EPSILON && std::abs(this->_33 - matrix._33) < EPSILON && std::abs(this->_34 - matrix._34) < EPSILON &&
@@ -598,7 +598,7 @@ namespace daidalosengine {
 	* @param matrix A matrix
 	* @return The equal operation result
 	*/
-	inline const bool CMatrix::operator!=(const CMatrix & matrix) const {
+	inline bool CMatrix::operator!=(const CMatrix & matrix) const {
 		return !(*this == matrix);
 	}
 
@@ -606,7 +606,7 @@ namespace daidalosengine {
 	* Get the determinant
 	* @return The determinant
 	*/
-	inline const float CMatrix::Determinant() const {
+	inline float CMatrix::Determinant() const {
 		float a0 = this->_11 * this->_22 - this->_12 * this->_21;
 		float a1 = this->_11 * this->_23 - this->_13 * this->_21;
 		float a2 = this->_11 * this->_24 - this->_14 * this->_21;

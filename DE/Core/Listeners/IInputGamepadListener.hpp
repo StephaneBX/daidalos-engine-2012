@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IINPUTGAMEPADLISTENER_HPP
 #define __IINPUTGAMEPADLISTENER_HPP
 
-#include <string>
-
 namespace daidalosengine {
 	/**
 	* Gamepad inputs listener interface.

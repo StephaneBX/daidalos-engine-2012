@@ -75,7 +75,7 @@ namespace daidalosengine {
 		* Get the vertical synchro state
 		* @return True if the vertical synchro is enabled
 		*/
-		const bool IsVerticalSynchro() const;
+		bool IsVerticalSynchro() const;
 
 		/**
 		* Create a vertex declaration
@@ -409,7 +409,7 @@ namespace daidalosengine {
 		* @param capability The capability to test
 		* @return The capability result
 		*/
-		const bool HasCapability(ECapability capability) const;
+		bool HasCapability(ECapability capability) const;
 
 		/**
 		* Set a renderer
@@ -503,8 +503,10 @@ namespace daidalosengine {
 
 	private:
 		IRenderer();
-		IRenderer(const IRenderer & copy);
-		const IRenderer & operator=(const IRenderer & copy);
+
+	public:
+		IRenderer(const IRenderer & copy) = delete;
+		const IRenderer & operator=(const IRenderer & copy) = delete;
 	};
 
 	template <std::size_t N> DeclarationPtr IRenderer::CreateVertexDeclaration(const SDeclarationElement(&elements)[N]) const {

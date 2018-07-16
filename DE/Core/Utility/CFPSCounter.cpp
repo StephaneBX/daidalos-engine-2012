@@ -90,7 +90,7 @@ namespace daidalosengine {
 	* Get the current fps
 	* @return The current fps
 	*/
-	const int CFPSCounter::GetFPS() const {
+	int CFPSCounter::GetFPS() const {
 		LOG_TRACE();
 		return this->m_fps;
 	}

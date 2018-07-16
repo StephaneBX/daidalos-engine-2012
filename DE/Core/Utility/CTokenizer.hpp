@@ -93,14 +93,14 @@ namespace daidalosengine {
 		* @param maxSplit The maximum split accepted for each split process.
 		* @return True if the split is valid
 		*/
-		const bool Tokenize(const std::string & delimiter, const int maxSplit = 0);
+		bool Tokenize(const std::string & delimiter, const int maxSplit = 0);
 
 		/**
 		* Count the number of 'token' tokens.
 		* @param token The token to count.
 		* @return The number of 'token' tokens found.
 		*/
-		const int Count(const std::string & token) const;
+		int Count(const std::string & token) const;
 
 		/**
 		* Get the tokens.
@@ -115,7 +115,7 @@ namespace daidalosengine {
 		* @param delimiter The delimiter to use.
 		* @return The number of pushed tokens.
 		*/
-		const int SplitString(const std::string & token, const std::string & delimiter);
+		int SplitString(const std::string & token, const std::string & delimiter);
 	};
 }
 
