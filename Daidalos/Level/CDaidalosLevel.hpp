@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __DAIDALOS_CDAIDALOSLEVEL_HPP
 #define __DAIDALOS_CDAIDALOSLEVEL_HPP
 
-#include <set>
 #include <Level/ILevel.hpp>
 #include "../2D/CHudView.hpp"
 
@@ -51,7 +50,7 @@ namespace daidalos {
 		* Update the level
 		* @param time The elapsed time
 		*/
-		void Update(const float time);
+		void Update(const float time) override;
 
 		/**
 		* Callback when the cinematic event started
@@ -69,12 +68,12 @@ namespace daidalos {
 		/**
 		* Do pre level loading process
 		*/
-		void PreLoadLevel();
+		void PreLoadLevel() override;
 
 		/**
 		* Do post level loading process
 		*/
-		void PostLoadLevel();
+		void PostLoadLevel() override;
 	};
 }
 

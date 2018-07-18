@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSIMPLESCENENODE_HPP
 #define __CSIMPLESCENENODE_HPP
 
-#include "../../../../Scene/3D/CMeshBuffer.hpp"
 #include "../../../../Scene/3D/ICameraSceneNode.hpp"
 #include "../../../../Scene/3D/ILevelSceneNode.hpp"
 #include "../../../../Scene/3D/CSphere.hpp"

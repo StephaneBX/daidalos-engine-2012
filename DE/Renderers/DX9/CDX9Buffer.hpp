@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CDX9BUFFER_HPP
 #define __CDX9BUFFER_HPP
 
-#include "../../Renderers/DX9/DX9Global.hpp"
 #include "../../Renderers/DX9/CDX9Enums.hpp"
 #include "../../Medias/IBufferBase.hpp"
 
@@ -74,9 +73,10 @@ namespace daidalosengine {
 		*/
 		virtual void Unlock() override;
 
-		CDX9Buffer();
-		CDX9Buffer(const CDX9Buffer & copy);
-		const CDX9Buffer & operator=(const CDX9Buffer & copy) = delete;
+	public:
+		CDX9Buffer() = delete;
+		CDX9Buffer(const CDX9Buffer & copy) = delete;
+		CDX9Buffer & operator=(const CDX9Buffer & copy) = delete;
 	};
 
 	template <class T> inline CDX9Buffer<T>::CDX9Buffer(const unsigned long size, T * buffer) : IBufferBase(size) {

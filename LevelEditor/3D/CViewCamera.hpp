@@ -54,8 +54,8 @@ namespace daidaloseditor {
 
 	public:
 		/**
+		* Constructor
 		* @param cameraNode The camera node
-		* @param smooth The smooth view factor
 		*/
 		explicit CViewCamera(daidalosengine::ICameraSceneNode * cameraNode);
 

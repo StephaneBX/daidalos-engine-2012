@@ -30,9 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <vector>
 #include <memory>
-#include "../../../../Core/Utility/CVector2.hpp"
 #include "../../../../Core/Utility/CVector3.hpp"
-#include "../../../../Core/Utility/CVector4.hpp"
 #include "../../../../Medias/ITexture2DBase.hpp"
 #include "../../../../Scene/3D/CPlane3D.hpp"
 #include "../../../../Scene/3D/CSphere.hpp"
@@ -184,9 +182,9 @@ namespace daidalosengine {
 		*/
 		CBSPTriangle * FindBestSplitter(const std::vector<CBSPTriangle*> & triangles);
 
-	private:
-		CBSPTreeNode(const CBSPTreeNode & copy);
-		const CBSPTreeNode & operator=(const CBSPTreeNode & copy);
+	public:
+		CBSPTreeNode(const CBSPTreeNode & copy) = delete;
+		CBSPTreeNode & operator=(const CBSPTreeNode & copy) = delete;
 	};
 }
 

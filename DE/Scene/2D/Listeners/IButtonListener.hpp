@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __IBUTTONLISTENER_HPP
 #define __IBUTTONLISTENER_HPP
 
-#include <string>
-
 namespace daidalosengine {
 	class CButton;
 
@@ -41,7 +39,7 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		virtual ~IButtonListener() {}
+		virtual ~IButtonListener() = default;
 
 		/**
 		* Called when the button is clicked

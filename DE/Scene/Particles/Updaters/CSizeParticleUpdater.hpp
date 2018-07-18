@@ -66,12 +66,6 @@ namespace daidalosengine {
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
-		* Get the size changes definition
-		* @return The size changes definition
-		*/
-		const std::vector<SSizeParticleChangeUpdater> & GetSizeChanges() const;
-
-		/**
 		* Clone the class
 		* @return The cloned class
 		*/

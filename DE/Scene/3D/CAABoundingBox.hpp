@@ -100,7 +100,7 @@ namespace daidalosengine {
 		* @param plane The plane
 		* @return The offset
 		*/
-		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
+		virtual float GetInnerDepth(const CPlane3D<T> & plane) const override;
 
 		/**
 		* Get the min coordinate
@@ -124,7 +124,7 @@ namespace daidalosengine {
 	template <class T> CAABoundingBox<T>::~CAABoundingBox() {}
 
 	template <class T> void CAABoundingBox<T>::SetPosition(const CVector3<T> & position) {
-		IShape3D::SetPosition(position);
+		IShape3D<T>::SetPosition(position);
 		SetSize(this->m_size);
 	}
 
@@ -140,7 +140,7 @@ namespace daidalosengine {
 		this->m_min = minPosition;
 		this->m_max = maxPosition;
 		this->m_size = maxPosition - minPosition;
-		IShape3D::SetPosition(minPosition + (this->m_size / 2.0f));
+		IShape3D<T>::SetPosition(minPosition + (this->m_size / 2.0f));
 
 		BuildPlanes();
 	}
@@ -165,7 +165,7 @@ namespace daidalosengine {
 		this->m_planes[AABOUNDINGBOX_PLANE_BOTTOM].Build(bottom);
 	}
 
-	template <class T> const float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
+	template <class T> float CAABoundingBox<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		CVector3<T> endSegment = GetPosition() + CVector3<T>(plane.GetNormal().x * this->m_size.x, plane.GetNormal().y * this->m_size.y, plane.GetNormal().z * this->m_size.z);
 		float factor = 1.0f;
 		CVector3<T> intersection;

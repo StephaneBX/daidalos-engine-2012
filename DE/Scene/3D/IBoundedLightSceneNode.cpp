@@ -64,13 +64,13 @@ namespace daidalosengine {
 		SetActive(!GetScene()->GetActiveCamera()->FrustumCull(this->m_visibilityShape.get()) && (this->m_scissor.GetWidth() * this->m_scissor.GetHeight() > 0));
 	}
 
-	const float IBoundedLightSceneNode::GetRange() const {
+	float IBoundedLightSceneNode::GetRange() const {
 		LOG_TRACE();
 
 		return this->m_range;
 	}
 
-	const float IBoundedLightSceneNode::GetFalloff() const {
+	float IBoundedLightSceneNode::GetFalloff() const {
 		LOG_TRACE();
 
 		return this->m_falloff;

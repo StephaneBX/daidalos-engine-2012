@@ -30,9 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <vector>
 #include <memory>
-#include "../../../../Core/Utility/CVector2.hpp"
 #include "../../../../Core/Utility/CVector3.hpp"
-#include "../../../../Core/Utility/CVector4.hpp"
 #include "../../../../Scene/3D/CPlane3D.hpp"
 #include "../../../../Scene/3D/IShape3D.hpp"
 #include "../../../../Scene/3D/CImpact.hpp"
@@ -97,9 +95,9 @@ namespace daidalosengine {
 		*/
 		void CollisionDetection(const CVector3F & position, CImpact & impact, CImpact & iBrush);
 
-	private:
-		CBSPBrushNode(const CBSPBrushNode & copy);
-		const CBSPBrushNode & operator=(const CBSPBrushNode & copy);
+	public:
+		CBSPBrushNode(const CBSPBrushNode & copy) = delete;
+		CBSPBrushNode & operator=(const CBSPBrushNode & copy) = delete;
 	};
 }
 

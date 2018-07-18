@@ -56,21 +56,21 @@ namespace daidalosengine {
 		* @param flags The DE flags
 		* @return The DX9 buffer flag
 		*/
-		static const unsigned long BufferFlags(const unsigned long flags);
+		static unsigned long BufferFlags(const unsigned long flags);
 
 		/**
 		* Get the DX9 lock flags corresponding to the DE flag
 		* @param flags The DE flags
 		* @return The DX9 lock flag
 		*/
-		static const unsigned long LockFlags(const unsigned long flags);
+		static unsigned long LockFlags(const unsigned long flags);
 
 		/**
 		* Get the DX9 surface flags corresponding to the DE flag
 		* @param flags The DE flags
 		* @return The DX9 lock flag
 		*/
-		static const unsigned long SurfaceFlags(const unsigned long flags);
+		static unsigned long SurfaceFlags(const unsigned long flags);
 
 		/**
 		* Get the DX9 primitive type

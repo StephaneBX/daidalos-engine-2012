@@ -53,7 +53,7 @@ namespace daidalos {
 	public:
 		/**
 		* Constructor
-		* @param texture The view bounds
+		* @param bounds The view bounds
 		*/
 		explicit CHudView(const daidalosengine::CRectangleI & bounds);
 

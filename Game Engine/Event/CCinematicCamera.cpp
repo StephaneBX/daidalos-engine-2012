@@ -170,7 +170,7 @@ namespace daidalosgameengine {
 	* @param shape A shape
 	* @return True if the player can see the shape
 	*/
-	bool CCinematicCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) {
+	bool CCinematicCamera::IsShapeVisible(daidalosengine::IShape3DF * shape) const {
 		return !this->m_node->FrustumCull(shape);
 	}
 

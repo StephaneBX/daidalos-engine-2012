@@ -27,6 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <sstream>
 #include "Level/CDaidalosLevel.hpp"
+#include "CFPSCamera.hpp"
 #include "CDaidalosApplication.hpp"
 
 namespace daidalos {

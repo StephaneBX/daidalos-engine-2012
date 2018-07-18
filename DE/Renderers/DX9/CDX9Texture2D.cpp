@@ -26,6 +26,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 */
 
 #include <algorithm>
+#include <d3dx9core.h>
 #include "../../Core/Core.hpp"
 #include "../../Core/Logger/ILogger.hpp"
 #include "../../Renderers/DX9/CDX9Enums.hpp"

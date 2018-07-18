@@ -309,43 +309,43 @@ namespace daidalosengine {
 		return static_cast<ILevelSceneNode*>(this->m_root)->SetBrushCollision(brushId, collision);
 	}
 
-	const bool I3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
+	bool I3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
 	}
 
-	const bool I3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
+	bool I3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(position, movement, point);
 	}
 
-	const bool I3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
+	bool I3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
 		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(shape, movement, point);
 	}
 
-	const int I3DScene::GetNumberOfActiveSpotLights() const {
+	int I3DScene::GetNumberOfActiveSpotLights() const {
 		LOG_TRACE();
 
 		return this->m_activeSpotLights->numberOfLights;
 	}
 
-	const int I3DScene::GetNumberOfActivePointLights() const {
+	int I3DScene::GetNumberOfActivePointLights() const {
 		LOG_TRACE();
 
 		return this->m_activePointLights->numberOfLights;
 	}
 
-	const int I3DScene::GetNumberOfActiveDirectionalLights() const {
+	int I3DScene::GetNumberOfActiveDirectionalLights() const {
 		LOG_TRACE();
 
 		return this->m_activeDirectionalLights->numberOfLights;
 	}
 
-	const int I3DScene::GetNumberOfVisibleTriangles() const {
+	int I3DScene::GetNumberOfVisibleTriangles() const {
 		LOG_TRACE();
 
 		Assert(this->m_root != nullptr);

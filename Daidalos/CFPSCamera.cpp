@@ -55,7 +55,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "Enums.hpp"
 #include "CFPSCamera.hpp"
 #include "Weapons/CHandgun.hpp"
-#include "Weapons/CShotgun.hpp"
 
 namespace daidalos {
 	CFPSCamera::CFPSCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode, daidalosengine::ISceneNode * flashlightNode) : m_node(cameraNode), m_flashlightNode(flashlightNode), IPlayer(parent){

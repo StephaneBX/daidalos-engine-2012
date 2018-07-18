@@ -60,7 +60,7 @@ namespace daidalosengine {
 		* Set the particle emitter active state
 		* @param active The active state
 		*/
-		void SetActive(const bool active);
+		virtual void SetActive(const bool active) override;
 
 		/**
 		* Set the particle emitter texture id

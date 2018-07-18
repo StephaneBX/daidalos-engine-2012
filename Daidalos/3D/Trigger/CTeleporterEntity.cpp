@@ -48,7 +48,7 @@ namespace daidalos {
 		daidalosengine::CParticleEmitter * emitter2 = nullptr;
 
 		// Active of inactive effect
-		if(this->m_levelName != "") {
+		if(!this->m_levelName.empty()) {
 			emitter1 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "activeTeleporterEmitter");
 			emitter2 = parent->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "activeTeleporterEmitter");
 		} else {

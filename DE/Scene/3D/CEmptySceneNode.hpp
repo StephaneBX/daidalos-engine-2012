@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CEMPTYSCENENODE_HPP
 #define __CEMPTYSCENENODE_HPP
 
-#include "../../Core/Enums.hpp"
 #include "../../Scene/3D/ISceneNode.hpp"
 
 namespace daidalosengine {

@@ -296,37 +296,37 @@ namespace daidalosengine {
 		return this->m_type;
 	}
 
-	const bool ISceneNode::IsCollidable() const {
+	bool ISceneNode::IsCollidable() const {
 		LOG_TRACE();
 
 		return false;
 	}
 
-	const bool ISceneNode::IsEnabled() const {
+	bool ISceneNode::IsEnabled() const {
 		LOG_TRACE();
 
 		return this->m_enabled;
 	}
 
-	const bool ISceneNode::IsSaved() const {
+	bool ISceneNode::IsSaved() const {
 		LOG_TRACE();
 
 		return this->m_saved;
 	}
 
-	const bool ISceneNode::IsShadowCaster() const {
+	bool ISceneNode::IsShadowCaster() const {
 		LOG_TRACE();
 
 		return this->m_shadowCaster;
 	}
 
-	const bool ISceneNode::IsActive() const {
+	bool ISceneNode::IsActive() const {
 		LOG_TRACE();
 
 		return this->m_active;
 	}
 
-	const bool ISceneNode::RemoveChild(ISceneNode * child) {
+	bool ISceneNode::RemoveChild(ISceneNode * child) {
 		LOG_TRACE();
 
 		this->m_children.remove(child);
@@ -334,7 +334,7 @@ namespace daidalosengine {
 		return true;
 	}
 
-	const int ISceneNode::GetId() const {
+	int ISceneNode::GetId() const {
 		LOG_TRACE();
 
 		return this->m_id;

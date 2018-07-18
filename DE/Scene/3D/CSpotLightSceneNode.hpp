@@ -98,13 +98,13 @@ namespace daidalosengine {
 		* Get the radius
 		* @return The radius
 		*/
-		const float GetRadius() const;
+		float GetRadius() const;
 
 		/**
 		* Get the tightness
 		* @return The tightness
 		*/
-		const float GetTightness() const;
+		float GetTightness() const;
 
 		/**
 		* Get a camera node

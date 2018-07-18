@@ -60,10 +60,10 @@ namespace daidalosengine {
 		*/
 		IDirect3DVertexDeclaration9 * GetDeclaration() const;
 
-	private:
-		CDX9Declaration();
-		CDX9Declaration(const CDX9Declaration & copy);
-		const CDX9Declaration & operator=(const CDX9Declaration & copy);
+	public:
+		CDX9Declaration() = delete;
+		CDX9Declaration(const CDX9Declaration & copy) = delete;
+		CDX9Declaration & operator=(const CDX9Declaration & copy) = delete;
 	};
 }
 

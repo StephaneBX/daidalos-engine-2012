@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CDX9VERTEXSHADER_HPP
 
 #include <string>
-#include <map>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "../../Renderers/DX9/CDX9Shader.hpp"
@@ -62,10 +61,10 @@ namespace daidalosengine {
 		*/
 		IDirect3DVertexShader9 * GetVertexShader() const;
 
-	private:
-		CDX9VertexShader();
-		CDX9VertexShader(const CDX9VertexShader & copy);
-		const CDX9VertexShader & operator=(const CDX9VertexShader & copy);
+	public:
+		CDX9VertexShader() = delete;
+		CDX9VertexShader(const CDX9VertexShader & copy) = delete;
+		const CDX9VertexShader & operator=(const CDX9VertexShader & copy) = delete;
 	};
 }
 

@@ -31,7 +31,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/CAnimatedMeshSceneNode.hpp>
 #include <Medias/CSound.hpp>
 #include "ITriggerEntity.hpp"
-#include "../../IPlayer.hpp"
 
 namespace daidalosgameengine {
 

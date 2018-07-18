@@ -29,8 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CDX9TEXTURE2D_HPP
 
 #include <d3d9.h>
-#include <d3dx9.h>
-#include <memory>
 #include "../../Medias/ITexture2DBase.hpp"
 
 namespace daidalosengine {
@@ -78,8 +76,9 @@ namespace daidalosengine {
 		*/
 		void UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect);
 
-		CDX9Texture2D();
-		CDX9Texture2D(const CDX9Texture2D & copy);
+	public:
+		CDX9Texture2D() = delete;
+		CDX9Texture2D(const CDX9Texture2D & copy) = delete;
 		const CDX9Texture2D & operator=(const CDX9Texture2D & copy) = delete;
 	};
 }

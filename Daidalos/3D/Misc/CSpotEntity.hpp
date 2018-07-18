@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __DAIDALOS_CSPOTENTITY_HPP
 
 #include <Scene/3D/CStaticMeshSceneNode.hpp>
-#include <Scene/3D/C3DScene.hpp>
 #include <3D/IEntity.hpp>
 
 namespace daidalos {

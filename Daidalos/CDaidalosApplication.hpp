@@ -30,9 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <IForwardApplication.hpp>
 #include <IDeferredApplication.hpp>
-#include <Scene/3D/CSpotLightSceneNode.hpp>
-#include <3D/IEntity.hpp>
-#include "CFPSCamera.hpp"
 
 namespace daidalos
 {

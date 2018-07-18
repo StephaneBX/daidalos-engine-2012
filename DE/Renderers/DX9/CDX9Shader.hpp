@@ -30,7 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <string>
 #include <map>
-#include <d3d9.h>
 #include <d3dx9.h>
 #include "../../Medias/IShaderBase.hpp"
 
@@ -166,10 +165,10 @@ namespace daidalosengine {
 		*/
 		void CheckHandle(const std::string & name);
 
-	private:
-		CDX9Shader();
-		CDX9Shader(const CDX9Shader & copy);
-		const CDX9Shader & operator=(const CDX9Shader & copy);
+	public:
+		CDX9Shader() = delete;
+		CDX9Shader(const CDX9Shader & copy) = delete;
+		const CDX9Shader & operator=(const CDX9Shader & copy) = delete;
 	};
 }
 

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __C2DSCENE_HPP
 #define __C2DSCENE_HPP
 
-#include <set>
 #include "../../Core/Utility/CMatrix.hpp"
 #include "../../Scene/2D/CSprite.hpp"
 #include "../../Scene/2D/CCursor.hpp"

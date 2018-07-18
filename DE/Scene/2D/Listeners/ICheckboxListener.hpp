@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ICHECKBOXLISTENER_HPP
 #define __ICHECKBOXLISTENER_HPP
 
-#include <string>
-
 namespace daidalosengine {
 	class CCheckbox;
 
@@ -41,17 +39,17 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		virtual ~ICheckboxListener() {}
+		virtual ~ICheckboxListener() = default;
 
 		/**
 		* Called when the checkbox is checked
-		* @param button The checkbox that trigger the action
+		* @param checkbox The checkbox that trigger the action
 		*/
 		virtual void OnCheckboxChecked(CCheckbox * checkbox) = 0;
 
 		/**
 		* Called when the checkbox is unchecked
-		* @param button The checkbox that trigger the action
+		* @param checkbox The checkbox that trigger the action
 		*/
 		virtual void OnCheckboxUnchecked(CCheckbox * checkbox) = 0;
 	};

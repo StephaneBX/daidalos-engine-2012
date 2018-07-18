@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CORTHOGRAPHICCAMERASCENENODE_HPP
 #define __CORTHOGRAPHICCAMERASCENENODE_HPP
 
-#include "../../Core/Utility/CMatrix.hpp"
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 
@@ -84,7 +83,7 @@ namespace daidalosengine {
 		* @param shape The shape that need to be tested
 		* @return True if the shape can be culled or false otherwise
 		*/
-		bool FrustumCull(IShape3DF * shape) const;
+		bool FrustumCull(IShape3DF * shape) const override;
 
 		/**
 		* Get the view bounds

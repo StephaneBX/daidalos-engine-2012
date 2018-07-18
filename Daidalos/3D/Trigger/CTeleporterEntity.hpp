@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __DAIDALOS_CTELEPORTERENTITY_HPP
 
 #include <Scene/3D/CAnimatedMeshSceneNode.hpp>
-#include <Scene/3D/C3DScene.hpp>
 #include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 

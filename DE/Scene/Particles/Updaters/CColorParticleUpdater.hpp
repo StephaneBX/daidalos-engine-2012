@@ -66,12 +66,6 @@ namespace daidalosengine {
 		virtual void Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) override;
 
 		/**
-		* Get the color changes definition
-		* @return The color changes definition
-		*/
-		const std::vector<SColorParticleChangeUpdater> & GetColorChanges() const;
-
-		/**
 		* Clone the class
 		* @return The cloned class
 		*/

@@ -89,7 +89,7 @@ namespace daidaloseditor
 
 		/**
 		* Set the player armor
-		* @param health The player armor
+		* @param armor The player armor
 		*/
 		void SetArmor(const int armor) override;
 

@@ -110,7 +110,7 @@ namespace daidalosgameengine {
 		* @param shape A shape
 		* @return True if the player can see the shape
 		*/
-		bool IsShapeVisible(daidalosengine::IShape3DF * shape);
+		bool IsShapeVisible(daidalosengine::IShape3DF * shape) const;
 
 		/**
 		* If the player interaction action is active

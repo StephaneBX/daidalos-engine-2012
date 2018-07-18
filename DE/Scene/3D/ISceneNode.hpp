@@ -31,7 +31,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <list>
 #include <string>
 #include <map>
-#include "../../Scene/3D/IShape3D.hpp"
 #include "../../Medias/ITexture2DBase.hpp"
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CMatrix.hpp"
@@ -120,12 +119,6 @@ namespace daidalosengine {
 		void AddAttribute(const std::string & attributeName, const std::string attributeValue);
 
 		/**
-		* Set the active status
-		* @param active
-		*/
-		void SetActive(const bool active);
-
-		/**
 		* Set the node enabled status
 		* @param enabled The enabled status
 		*/
@@ -160,6 +153,12 @@ namespace daidalosengine {
 		* @param name The node name
 		*/
 		void SetName(const std::string name);
+
+		/**
+		* Set the active status
+		* @param active
+		*/
+		virtual void SetActive(const bool active);
 
 		/**
 		* Set the bounding box name
@@ -233,44 +232,44 @@ namespace daidalosengine {
 		/**
 		* Check if the node is collidable
 		*/
-		virtual const bool IsCollidable() const;
+		virtual bool IsCollidable() const;
 
 		/**
 		* Check if the node is enabled
 		* @return True if the node is enabled
 		*/
-		const bool IsEnabled() const;
+		bool IsEnabled() const;
 
 		/**
 		* Check if the node is saved by the loader
 		* @return True if the node is saved
 		*/
-		const bool IsSaved() const;
+		bool IsSaved() const;
 
 		/**
 		* Check if the node is can cast shadows
 		* @return True if the node can cast shadows
 		*/
-		const bool IsShadowCaster() const;
+		bool IsShadowCaster() const;
 
 		/**
 		* Check if the node is active
 		* @return True if the node is active
 		*/
-		const bool IsActive() const;
+		bool IsActive() const;
 
 		/**
 		* Remove a child from the node
 		* @param child The child to remove
 		* @return The removal result
 		*/
-		const bool RemoveChild(ISceneNode * child);
+		bool RemoveChild(ISceneNode * child);
 
 		/**
 		* Get the node id
 		* return The id
 		*/
-		const int GetId() const;
+		int GetId() const;
 
 		/**
 		* Get the node name

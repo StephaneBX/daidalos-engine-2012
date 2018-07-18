@@ -68,7 +68,7 @@ namespace daidalosengine {
 		* @param plane The plane
 		* @return The offset
 		*/
-		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
+		virtual float GetInnerDepth(const CPlane3D<T> & plane) const override;
 	};
 
 	template <class T> CEllipse<T>::CEllipse() : IShape3D<T>(SHAPE_ELLIPSE) {}
@@ -84,7 +84,7 @@ namespace daidalosengine {
 		this->m_radius = radius;
 	}
 
-	template <class T> const float CEllipse<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
+	template <class T> float CEllipse<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return this->m_radius.x * plane.GetNormal().x * plane.GetNormal().x + this->m_radius.y * plane.GetNormal().y * plane.GetNormal().y + this->m_radius.x * plane.GetNormal().z * plane.GetNormal().z;
 	}
 

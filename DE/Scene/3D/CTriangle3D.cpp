@@ -151,7 +151,7 @@ namespace daidalosengine {
 		}
 	}
 
-	const int CTriangle3D::GetId() const {
+	int CTriangle3D::GetId() const {
 		LOG_TRACE();
 
 		return this->m_id;

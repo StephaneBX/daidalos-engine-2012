@@ -56,17 +56,17 @@ namespace daidaloseditor {
 		/**
 		* Render the transparent elements of the level
 		*/
-		void RenderTransparent();
+		void RenderTransparent() override;
 
 		/**
 		* Render the geometry that will let the skybox pass through
 		*/
-		void RenderSkyboxMask();
+		void RenderSkyboxMask() override;
 
 		/**
 		* Set the collision state of a brush id
 		*/
-		void SetBrushCollision(const int brushId, const bool collision);
+		void SetBrushCollision(const int brushId, const bool collision) override;
 
 		/**
 		* Slide a shape on the bsp
@@ -74,7 +74,7 @@ namespace daidaloseditor {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		bool Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement);
+		bool Slide(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement) override;
 
 		/**
 		* Get the collision point of a moving point
@@ -83,7 +83,7 @@ namespace daidaloseditor {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		bool GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
+		bool GetCollisionPoint(const daidalosengine::CVector3F & position, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) override;
 
 		/**
 		* Get the collision point of a moving shape
@@ -92,7 +92,7 @@ namespace daidaloseditor {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		bool GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point);
+		bool GetCollisionPoint(daidalosengine::IShape3DF & shape, const daidalosengine::CVector3F & movement, daidalosengine::CVector3F & point) override;
 
 	protected:
 		/**
@@ -101,15 +101,9 @@ namespace daidaloseditor {
 		*/
 		void RenderWithOptions(const int filterId);
 
-		/**
-		* Test the brushes and register their geometry for rendering if the brush is visible
-		* @param filterId Limit the geometry to the id filterId or -1 to render all
-		*/
-		void RegisterBrushesForRendering(const int filterId);
-
-	private:
-		CEditorLevelSceneNode(const CEditorLevelSceneNode & copy);
-		const CEditorLevelSceneNode & operator=(const CEditorLevelSceneNode & copy);
+	public:
+		CEditorLevelSceneNode(const CEditorLevelSceneNode & copy) = delete;
+		const CEditorLevelSceneNode & operator=(const CEditorLevelSceneNode & copy) = delete;
 	};
 }
 

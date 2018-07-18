@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_ICOLLIDABLEENTITY_HPP
 #define __GAMEENGINE_ICOLLIDABLEENTITY_HPP
 
-#include <set>
 #include <memory>
 #include <Core/Utility/CVector3.hpp>
 #include <Scene/3D/IShape3D.hpp>

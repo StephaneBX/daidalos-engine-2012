@@ -118,7 +118,7 @@ namespace daidalos {
 	* Check if the action can be triggered
 	* @return True if the action can be triggered, false otherwise
 	*/
-	const bool CSecurityCameraEntity::CanDoAction() const {
+	bool CSecurityCameraEntity::CanDoAction() const {
 		return false;
 	}
 

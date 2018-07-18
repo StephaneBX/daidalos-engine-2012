@@ -28,11 +28,9 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CPOINTLIGHTSCENENODE_HPP
 #define __CPOINTLIGHTSCENENODE_HPP
 
-#include <array>
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CColor.hpp"
 #include "../../Scene/3D/IBoundedLightSceneNode.hpp"
-#include "../../Scene/3D/CProjectionCameraSceneNode.hpp"
 
 namespace daidalosengine {
 	/**

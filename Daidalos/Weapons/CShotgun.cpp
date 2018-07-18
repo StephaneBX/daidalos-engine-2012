@@ -59,7 +59,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CShotgun::~CShotgun() {}
+	CShotgun::~CShotgun() = default;
 
 	/**
 	* Initialize the weapon node

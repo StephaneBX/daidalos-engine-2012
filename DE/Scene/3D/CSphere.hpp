@@ -67,13 +67,13 @@ namespace daidalosengine {
 		* @param plane The plane
 		* @return The offset
 		*/
-		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const override;
+		virtual float GetInnerDepth(const CPlane3D<T> & plane) const override;
 
 		/**
 		* Get the offset of the sphere with a plane
 		* @return The offset
 		*/
-		const float GetInnerDepth() const;
+		float GetInnerDepth() const;
 
 		/**
 		* Get the union sphere of the current sphere with the given sphere
@@ -95,11 +95,11 @@ namespace daidalosengine {
 		this->m_radius = radius;
 	}
 
-	template <class T> const float CSphere<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
+	template <class T> float CSphere<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return this->m_radius;
 	}
 
-	template <class T> const float CSphere<T>::GetInnerDepth() const {
+	template <class T> float CSphere<T>::GetInnerDepth() const {
 		return this->m_radius;
 	}
 

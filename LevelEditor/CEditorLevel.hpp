@@ -43,12 +43,12 @@ namespace daidaloseditor {
 		/**
 		* Do pre level loading process
 		*/
-		void PreLoadLevel();
+		void PreLoadLevel() override;
 
 		/**
 		* Do post level loading process
 		*/
-		void PostLoadLevel();
+		void PostLoadLevel() override;
 	};
 }
 

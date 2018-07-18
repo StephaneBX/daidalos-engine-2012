@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CDX9PIXELSHADER_HPP
 
 #include <string>
-#include <map>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "../../Renderers/DX9/CDX9Shader.hpp"
@@ -62,10 +61,10 @@ namespace daidalosengine {
 		*/
 		IDirect3DPixelShader9 * GetPixelShader() const;
 
-	private:
-		CDX9PixelShader();
-		CDX9PixelShader(const CDX9PixelShader & copy);
-		const CDX9PixelShader & operator=(const CDX9PixelShader & copy);
+	public:
+		CDX9PixelShader() = delete;
+		CDX9PixelShader(const CDX9PixelShader & copy) = delete;
+		CDX9PixelShader & operator=(const CDX9PixelShader & copy) = delete;
 	};
 }
 

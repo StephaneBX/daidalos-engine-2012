@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __GAMEENGINE_IENTITY_HPP
 #define __GAMEENGINE_IENTITY_HPP
 
-#include <set>
 #include <Scene/3D/IShape3D.hpp>
 #include <Scene/Particles/CParticleEmitter.hpp>
 

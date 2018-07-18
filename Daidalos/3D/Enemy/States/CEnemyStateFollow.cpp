@@ -50,7 +50,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CEnemyStateFollow::~CEnemyStateFollow() {}
+	CEnemyStateFollow::~CEnemyStateFollow() = default;
 
 	/**
 	* Set the move speed.

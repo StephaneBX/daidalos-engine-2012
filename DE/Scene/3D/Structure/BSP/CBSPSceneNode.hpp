@@ -148,9 +148,9 @@ namespace daidalosengine {
 		*/
 		void RegisterLeafs(CBSPTreeNode * node);
 
-	private:
-		CBSPSceneNode(const CBSPSceneNode & copy);
-		const CBSPSceneNode & operator=(const CBSPSceneNode & copy);
+	public:
+		CBSPSceneNode(const CBSPSceneNode & copy) = delete;
+		const CBSPSceneNode & operator=(const CBSPSceneNode & copy) = delete;
 	};
 }
 

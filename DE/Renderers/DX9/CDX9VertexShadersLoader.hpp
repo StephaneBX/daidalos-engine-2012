@@ -53,7 +53,7 @@ namespace daidalosengine {
 		* @param filename The vertex shader filename
 		* @return The shader
 		*/
-		IShaderBase * LoadFromFile(const std::string & filename);
+		IShaderBase * LoadFromFile(const std::string & filename) override;
 	};
 }
 

@@ -29,26 +29,16 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __GAMEENGINE_IDEFERREDAPPLICATION_HPP
 
 #include <Scene/3D/C3DScene.hpp>
-#include <Scene/3D/CStaticMeshSceneNode.hpp>
-#include <Scene/3D/CAnimatedMeshSceneNode.hpp>
-#include <Scene/3D/CSpotLightSceneNode.hpp>
-#include <Scene/3D/CPointLightSceneNode.hpp>
-#include <Scene/3D/CDirectionalLightSceneNode.hpp>
 #include <Scene/2D/C2DScene.hpp>
 #include <Medias/CBuffer.hpp>
 #include <Medias/CShaderProgram.hpp>
 #include <Medias/CTexture2D.hpp>
 #include <Medias/CFrameBuffer.hpp>
 #include <Scene/2D/CLabel.hpp>
-#include <Scene/2D/CButton.hpp>
-#include <Scene/2D/CCheckbox.hpp>
-#include <Core/Utility/CColor.hpp>
 #include <Core/Utility/CFPSCounter.hpp>
-#include <Core/IRenderer.hpp>
 #include <Core/IDeclaration.hpp>
 #include <Applications/IWin32Application.hpp>
 #include "2D/CLoadingView.hpp"
-#include "3D/IEntity.hpp"
 #include "IPlayer.hpp"
 #include "Level/ILevel.hpp"
 
@@ -120,12 +110,12 @@ namespace daidalosgameengine
 		* Update the application
 		* @param time Elapsed time
 		*/
-		virtual void Update(const float time);
+		virtual void Update(const float time) override;
 
 		/**
 		* Render the application
 		*/
-		virtual void Render();
+		virtual void Render() override;
 
 	protected:
 		/**
@@ -208,12 +198,12 @@ namespace daidalosgameengine
 		/**
 		* Callback when the level is fully loaded
 		*/
-		virtual void OnLevelLoaded() = 0;
+		virtual void OnLevelLoaded() override  = 0;
 
 		/**
 		* Callback when the next level is triggered
 		*/
-		virtual void OnTriggerNextLevel(const std::string & nextLevel) = 0;
+		virtual void OnTriggerNextLevel(const std::string & nextLevel) override = 0;
 
 		/**
 		* Prepare for light rendering

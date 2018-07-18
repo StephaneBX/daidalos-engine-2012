@@ -33,7 +33,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CVector4.hpp"
 #include "../../Medias/CTexture2D.hpp"
 #include "../../Medias/CMaterial.hpp"
-#include "../../Scene/3D/CPlane3D.hpp"
 #include "../../Scene/3D/CSphere.hpp"
 
 namespace daidalosengine {
@@ -129,7 +128,7 @@ namespace daidalosengine {
 		/**
 		* Get the id
 		*/
-		const int GetId() const;
+		int GetId() const;
 
 		/**
 		* Get a vertex

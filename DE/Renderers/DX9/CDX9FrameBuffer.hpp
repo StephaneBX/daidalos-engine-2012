@@ -28,8 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CDX9FRAMEBUFFER_HPP
 #define __CDX9FRAMEBUFFER_HPP
 
-#include <string>
-#include <map>
 #include "../../Medias/IFrameBufferBase.hpp"
 
 namespace daidalosengine {
@@ -51,11 +49,11 @@ namespace daidalosengine {
 		/**
 		* Finalize the modifications
 		*/
-		void Finalize();
+		void Finalize() override;
 
-	private:
-		CDX9FrameBuffer(const CDX9FrameBuffer & copy);
-		const CDX9FrameBuffer & operator=(const CDX9FrameBuffer & copy);
+	public:
+		CDX9FrameBuffer(const CDX9FrameBuffer & copy) = delete;
+		CDX9FrameBuffer & operator=(const CDX9FrameBuffer & copy) = delete;
 	};
 }
 

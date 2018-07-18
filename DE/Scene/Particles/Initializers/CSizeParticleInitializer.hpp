@@ -42,7 +42,7 @@ namespace daidalosengine {
 	public:
 		/**
 		* Constructor
-		* @param sizeMin The size
+		* @param size The size
 		*/
 		explicit CSizeParticleInitializer(float size);
 

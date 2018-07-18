@@ -29,8 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __DAIDALOS_CSECURITYCAMERAENTITY_HPP
 
 #include <Scene/3D/CStaticMeshSceneNode.hpp>
-#include <Scene/3D/C3DScene.hpp>
-#include <IPlayer.hpp>
 #include <3D/IEntity.hpp>
 
 namespace daidalos {
@@ -73,7 +71,7 @@ namespace daidalos {
 		* Check if the action can be triggered
 		* @return True if the action can be triggered, false otherwise
 		*/
-		const bool CanDoAction() const;
+		bool CanDoAction() const;
 
 	private:
 		/**

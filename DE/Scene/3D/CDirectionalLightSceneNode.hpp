@@ -30,7 +30,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Core/Utility/CColor.hpp"
-#include "../../Scene/3D/CSphere.hpp"
 #include "../../Scene/3D/ILightSceneNode.hpp"
 #include "../../Scene/3D/COrthographicCameraSceneNode.hpp"
 

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __CSCROLLABLEVIEW_HPP
 #define __CSCROLLABLEVIEW_HPP
 
-#include <set>
 #include "../../Scene/2D/IView.hpp"
 #include "../../Scene/2D/CSprite.hpp"
 

@@ -41,7 +41,7 @@ namespace daidalos {
 		/**
 		* Constructor
 		* @param parent The parent
-		* @param meshNode The player node
+		* @param playerNode The player node
 		*/
 		CHandgun(daidalosgameengine::ILevel * parent, daidalosengine::ISceneNode * playerNode);
 

@@ -74,7 +74,7 @@ namespace daidalosengine {
 		* Set the mesh format
 		* @param format The mesh format
 		*/
-		void SetMeshFormat(const int format);
+		void SetMeshFormat(const int format) override;
 
 		/**
 		* Set the numbe of visible triangles

@@ -92,13 +92,13 @@ namespace daidalos {
 		* Get the active status.
 		* @return The active status
 		*/
-		bool GetActive();
+		bool GetActive() const;
 
 		/**
 		* Get the wait time.
 		* @return The wait time
 		*/
-		float GetWaitTime();
+		float GetWaitTime() const;
 	};
 }
 

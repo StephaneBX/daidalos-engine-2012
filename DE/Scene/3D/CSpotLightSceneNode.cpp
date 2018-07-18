@@ -103,13 +103,13 @@ namespace daidalosengine {
 		}
 	}
 
-	const float CSpotLightSceneNode::GetRadius() const {
+	float CSpotLightSceneNode::GetRadius() const {
 		LOG_TRACE();
 
 		return this->m_radius;
 	}
 
-	const float CSpotLightSceneNode::GetTightness() const {
+	float CSpotLightSceneNode::GetTightness() const {
 		LOG_TRACE();
 
 		return this->m_tightness;

@@ -81,14 +81,14 @@ namespace daidalosengine {
 		* @param plane CPlane3D
 		* @return The equal result
 		*/
-		const bool operator==(const CPlane3D<T> & plane) const;
+		bool operator==(const CPlane3D<T> & plane) const;
 
 		/**
 		* != operator override
 		* @param plane CPlane3D
 		* @return The !equal result
 		*/
-		const bool operator!=(const CPlane3D<T> & plane) const;
+		bool operator!=(const CPlane3D<T> & plane) const;
 
 		/**
 		* Inverse the plane equation
@@ -106,7 +106,7 @@ namespace daidalosengine {
 		* @param point The point
 		* @return A positive value if the point is in front of the plane, a negative value if the point is behind the plane or a nul value if the point is on the plane
 		*/
-		const float PointDistance(const CVector3<T> & point) const;
+		float PointDistance(const CVector3<T> & point) const;
 
 		/**
 		* Classify a point
@@ -132,7 +132,7 @@ namespace daidalosengine {
 		const CVector3<T> & GetNormal() const;
 	};
 
-	template <class T> CPlane3D<T>::CPlane3D() {}
+	template <class T> CPlane3D<T>::CPlane3D() = default;
 
 	template <class T> CPlane3D<T>::CPlane3D(const CPlane3D<T> & plane) {
 		this->m_normal = plane.m_normal;
@@ -151,11 +151,11 @@ namespace daidalosengine {
 		return *this;
 	}
 
-	template <class T> const bool CPlane3D<T>::operator==(const CPlane3D<T> & plane) const {
+	template <class T> bool CPlane3D<T>::operator==(const CPlane3D<T> & plane) const {
 		return this->m_normal == plane.m_normal && std::abs(this->m_constant - plane.m_constant) < EPSILON;
 	}
 
-	template <class T> const bool CPlane3D<T>::operator!=(const CPlane3D<T> & plane) const {
+	template <class T> bool CPlane3D<T>::operator!=(const CPlane3D<T> & plane) const {
 		return !(*this == plane);
 	}
 
@@ -173,7 +173,7 @@ namespace daidalosengine {
 		this->m_constant = -(vertex[1].x * this->m_normal.x + vertex[1].y * this->m_normal.y + vertex[1].z * this->m_normal.z);
 	}
 
-	template <class T> const float CPlane3D<T>::PointDistance(const CVector3<T> & point) const {
+	template <class T> float CPlane3D<T>::PointDistance(const CVector3<T> & point) const {
 		return this->m_constant + this->m_normal.DotProduct(point);
 	}
 

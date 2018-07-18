@@ -71,13 +71,13 @@ namespace daidalosengine {
 		* Get the light range
 		* @return The light range
 		*/
-		const float GetRange() const;
+		float GetRange() const;
 
 		/**
 		* Get the light falloff
 		* @return The light falloff
 		*/
-		const float GetFalloff() const;
+		float GetFalloff() const;
 
 		/**
 		* Get the light scissor
@@ -107,9 +107,9 @@ namespace daidalosengine {
 		*/
 		IBoundedLightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const float range, const float falloff, const bool enabled);
 
-	private:
-		IBoundedLightSceneNode();
-		IBoundedLightSceneNode(const IBoundedLightSceneNode & copy);
+	public:
+		IBoundedLightSceneNode() = delete;
+		IBoundedLightSceneNode(const IBoundedLightSceneNode & copy) = delete;
 	};
 }
 

@@ -31,6 +31,8 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/Utility/CMatrix.hpp"
 #include "../../Core/Utility/CVector3.hpp"
 #include "../../Scene/3D/ISceneNode.hpp"
+#include "../../Scene/3D/CPlane3D.hpp"
+#include "../../Scene/3D/IShape3D.hpp"
 #include "../../Medias/CBuffer.hpp"
 
 #define DEBUG_LINES_COUNT 16

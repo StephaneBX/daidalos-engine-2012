@@ -32,12 +32,10 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Core/CConfigurationManager.hpp"
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 #include "../../Scene/3D/ILevelSceneNode.hpp"
-#include "../../Scene/3D/CStaticMeshSceneNode.hpp"
 #include "../../Scene/3D/CAnimatedMeshSceneNode.hpp"
 #include "../../Scene/3D/CAABoundingBox.hpp"
 #include "../../Scene/3D/CSkybox.hpp"
 #include "../../Scene/Particles/CParticleSystem.hpp"
-#include "../../Core/CSingletonManager.hpp"
 #include <thread>
 
 #define MAX_LIGHTS_IN_SHADERS 200
@@ -238,7 +236,7 @@ namespace daidalosengine {
 		* @param movement A CVector3F describing the shape movement
 		* @return True if a collision occurred
 		*/
-		const bool Slide(IShape3DF & shape, const CVector3F & movement);
+		bool Slide(IShape3DF & shape, const CVector3F & movement);
 
 		/**
 		* Get the collision point of a moving point
@@ -247,7 +245,7 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point);
+		bool GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point);
 
 		/**
 		* Get the collision point of a moving shape
@@ -256,31 +254,31 @@ namespace daidalosengine {
 		* @param point The CVector3F that will hold the collision position
 		* @return True if a collision occurred
 		*/
-		const bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point);
+		bool GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point);
 
 		/**
 		* Get the number of active spot lights
 		* @return The number of active spot lights
 		*/
-		const int GetNumberOfActiveSpotLights() const;
+		int GetNumberOfActiveSpotLights() const;
 
 		/**
 		* Get the number of active point lights
 		* @return The number of active point lights
 		*/
-		const int GetNumberOfActivePointLights() const;
+		int GetNumberOfActivePointLights() const;
 
 		/**
 		* Get the number of active directional lights
 		* @return The number of active spot lights
 		*/
-		const int GetNumberOfActiveDirectionalLights() const;
+		int GetNumberOfActiveDirectionalLights() const;
 
 		/**
 		* Get the number of visible triangles
 		* @return The number of visible triangles
 		*/
-		const int GetNumberOfVisibleTriangles() const;
+		int GetNumberOfVisibleTriangles() const;
 
 		/**
 		* Get the scene filename

@@ -39,7 +39,7 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		virtual ~ISelectionListListener() {}
+		virtual ~ISelectionListListener() = default;
 
 		/**
 		* Called when a value is selected

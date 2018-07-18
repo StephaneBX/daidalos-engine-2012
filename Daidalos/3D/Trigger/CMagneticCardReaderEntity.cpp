@@ -47,7 +47,7 @@ namespace daidalos {
 		this->m_activated = false;
 
 		// Read the attributes
-		if(this->m_node->GetAttribute("color") != "") {
+		if(!this->m_node->GetAttribute("color").empty()) {
 			const std::string color = this->m_node->GetAttribute("color");
 			if(color == "red") {
 				this->m_magneticCard = PLAYER_OBJECT_MAGNETIC_CARD_RED;

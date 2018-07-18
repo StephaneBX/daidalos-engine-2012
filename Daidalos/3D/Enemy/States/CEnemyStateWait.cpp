@@ -111,7 +111,7 @@ namespace daidalos {
 	* Get the active status.
 	* @return The active status
 	*/
-	bool CEnemyStateWait::GetActive() {
+	bool CEnemyStateWait::GetActive() const {
 		return this->m_active;
 	}
 
@@ -119,7 +119,7 @@ namespace daidalos {
 	* Get the wait time.
 	* @return The wait time
 	*/
-	float CEnemyStateWait::GetWaitTime() {
+	float CEnemyStateWait::GetWaitTime() const {
 		return this->m_waitTime;
 	}
 }

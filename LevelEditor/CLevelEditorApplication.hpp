@@ -30,6 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <IForwardApplication.hpp>
 #include <Scene/3D/CProjectionCameraSceneNode.hpp>
+#include <Scene/3D/CStaticMeshSceneNode.hpp>
 #include "CEditorConfiguration.hpp"
 #include "3D/CViewCamera.hpp"
 #include "3D/CEditCamera.hpp"

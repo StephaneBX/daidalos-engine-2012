@@ -30,9 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #include <Scene/3D/CStaticMeshSceneNode.hpp>
 #include <Scene/3D/CAABoundingBox.hpp>
-#include <Scene/3D/C3DScene.hpp>
 #include "ITriggerEntity.hpp"
-#include "../../IPlayer.hpp"
 
 namespace daidalosgameengine {
 

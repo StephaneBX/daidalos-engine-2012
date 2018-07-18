@@ -68,7 +68,7 @@ namespace daidalosengine {
 		/**
 		* Destructor
 		*/
-		~IShape3D();
+		virtual ~IShape3D();
 
 		/**
 		* Set the position
@@ -81,28 +81,28 @@ namespace daidalosengine {
 		* @param point The point
 		* @return The collision result
 		*/
-		virtual const bool IsCollision(const CVector3<T> & point) const;
+		virtual bool IsCollision(const CVector3<T> & point) const;
 
 		/**
 		* Check for a plane collision
 		* @param plane The plane
 		* @return The collision result
 		*/
-		virtual const bool IsCollision(const CPlane3D<T> & plane) const;
+		virtual bool IsCollision(const CPlane3D<T> & plane) const;
 
 		/**
 		* Check a collision between two shapes
 		* @param shape The shape to test with
 		* @return If a collision occured
 		*/
-		virtual const bool IsCollision(const IShape3D * shape) const;
+		virtual bool IsCollision(const IShape3D * shape) const;
 
 		/**
 		* Get the offset with a plane
 		* @param plane The plane
 		* @return The offset
 		*/
-		virtual const float GetInnerDepth(const CPlane3D<T> & plane) const;
+		virtual float GetInnerDepth(const CPlane3D<T> & plane) const;
 
 		/**
 		* Get the position
@@ -117,7 +117,7 @@ namespace daidalosengine {
 		EShapeType GetType() const;
 	};
 
-	template <class T> IShape3D<T>::IShape3D() {}
+	template <class T> IShape3D<T>::IShape3D() = default;
 
 	template <class T> IShape3D<T>::IShape3D(EShapeType type) {
 		this->m_type = type;
@@ -134,7 +134,7 @@ namespace daidalosengine {
 		this->m_position = position;
 	}
 
-	template <class T> const bool IShape3D<T>::IsCollision(const CVector3<T> & point) const {
+	template <class T> bool IShape3D<T>::IsCollision(const CVector3<T> & point) const {
 
 		// Special case when the shapes are at the same exact spot
 		if(this->m_position == point) {
@@ -162,11 +162,11 @@ namespace daidalosengine {
 		return distance <= GetInnerDepth(plane);
 	}
 
-	template <class T> const bool IShape3D<T>::IsCollision(const CPlane3D<T> & plane) const {
+	template <class T> bool IShape3D<T>::IsCollision(const CPlane3D<T> & plane) const {
 		return plane.PointDistance(this->m_position) <= GetInnerDepth(plane);
 	}
 
-	template <class T> const bool IShape3D<T>::IsCollision(const IShape3D * shape) const {
+	template <class T> bool IShape3D<T>::IsCollision(const IShape3D * shape) const {
 
 		// Special case when the shapes are at the same exact spot
 		if(this->m_position == shape->GetPosition()) {
@@ -194,7 +194,7 @@ namespace daidalosengine {
 		return distance <= (GetInnerDepth(plane) + shape->GetInnerDepth(plane));
 	}
 
-	template <class T> const float IShape3D<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
+	template <class T> float IShape3D<T>::GetInnerDepth(const CPlane3D<T> & plane) const {
 		return 0;
 	}
 

@@ -153,7 +153,7 @@ namespace daidalosengine {
 		D3DSTREAMSOURCE_INSTANCEDATA
 	};
 
-	const unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
+	unsigned long CDX9Enums::BufferFlags(const unsigned long flags) {
 		LOG_TRACE();
 
 		unsigned long lockFlags = 0;
@@ -167,7 +167,7 @@ namespace daidalosengine {
 		return lockFlags;
 	}
 
-	const unsigned long CDX9Enums::LockFlags(const unsigned long flags) {
+	unsigned long CDX9Enums::LockFlags(const unsigned long flags) {
 		LOG_TRACE();
 
 		unsigned long lockFlags = 0;
@@ -181,7 +181,7 @@ namespace daidalosengine {
 		return lockFlags;
 	}
 
-	const unsigned long CDX9Enums::SurfaceFlags(const unsigned long flags) {
+	unsigned long CDX9Enums::SurfaceFlags(const unsigned long flags) {
 		LOG_TRACE();
 
 		unsigned long surfaceFlags = 0;

@@ -28,7 +28,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #ifndef __ILIGHTSCENENODE_HPP
 #define __ILIGHTSCENENODE_HPP
 
-#include <limits>
 #include "../../Scene/3D/ICameraSceneNode.hpp"
 
 #define LIGHT_DEFAULT_NEAR_DISTANCE 0.1f
@@ -82,9 +81,9 @@ namespace daidalosengine {
 		*/
 		ILightSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const CVector3F & position, const CVector3F & rotation, const CColor & color, const bool shadowCaster, const bool enabled);
 
-	private:
-		ILightSceneNode();
-		ILightSceneNode(const ILightSceneNode & copy);
+	public:
+		ILightSceneNode() = delete;
+		ILightSceneNode(const ILightSceneNode & copy) = delete;
 	};
 }
 

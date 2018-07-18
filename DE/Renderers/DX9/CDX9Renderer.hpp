@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CDX9RENDERER_HPP
 
 #include <d3d9.h>
-#include <d3dx9.h>
 #include "../../Core/IRenderer.hpp"
 
 #pragma comment(lib, "dxguid.lib")

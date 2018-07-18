@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __CDX9RENDERTARGET_HPP
 
 #include <d3d9.h>
-#include <d3dx9.h>
 #include "../../Renderers/DX9/CDX9Texture2D.hpp"
 #include "../../Medias/IRenderTargetBase.hpp"
 
@@ -71,10 +70,10 @@ namespace daidalosengine {
 		*/
 		IDirect3DSurface9 * GetRenderTarget() const;
 
-	private:
-		CDX9RenderTarget();
-		CDX9RenderTarget(const CDX9RenderTarget & copy);
-		const CDX9RenderTarget & operator=(const CDX9RenderTarget & copy);
+	public:
+		CDX9RenderTarget() = delete;
+		CDX9RenderTarget(const CDX9RenderTarget & copy) = delete;
+		const CDX9RenderTarget & operator=(const CDX9RenderTarget & copy) = delete;
 	};
 }
 

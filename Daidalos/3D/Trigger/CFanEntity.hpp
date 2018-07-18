@@ -29,7 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __DAIDALOS_CFANENTITY_HPP
 
 #include <Scene/3D/CAnimatedMeshSceneNode.hpp>
-#include <Medias/CSound.hpp>
 #include <3D/Trigger/ITriggerEntity.hpp>
 
 namespace daidalos {

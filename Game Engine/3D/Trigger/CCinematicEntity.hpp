@@ -29,8 +29,6 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define __GAMEENGINE_CCINEMATICENTITY_HPP
 
 #include <Scene/3D/CProjectionCameraSceneNode.hpp>
-#include <Scene/3D/C3DScene.hpp>
-#include <Medias/CSound.hpp>
 #include "ITriggerEntity.hpp"
 #include "../../Event/CCinematicEvent.hpp"
 
@@ -49,7 +47,7 @@ namespace daidalosgameengine {
 	public:
 		/**
 		* @param parent The parent
-		* @param meshNode The node
+		* @param node The node
 		*/
 		CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node);
 
