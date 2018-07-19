@@ -47,7 +47,7 @@ namespace daidalosengine {
 	void IFrameBufferBase::AddElement(const std::string & name, SFrameBufferElement & element) {
 		LOG_TRACE();
 
-		auto it = this->m_elements.find(name);
+		const auto it = this->m_elements.find(name);
 		Assert(it == this->m_elements.end());
 
 		this->m_elements[name] = element;
@@ -86,7 +86,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the existence of the buffer
-		auto it = this->m_depthElements.find(name);
+		const auto it = this->m_depthElements.find(name);
 		Assert(it != this->m_depthElements.end());
 
 		this->m_depth = it->second;
@@ -96,9 +96,11 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Remove the element attached to this attachment point
-		for(auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it)
-			if(it->attachment == attachment)
+		for (auto it = this->m_attachments.begin(); it != this->m_attachments.end(); ++it) {
+			if (it->attachment == attachment) {
 				this->m_attachments.erase(it);
+			}
+		}
 
 		this->m_ready = false;
 	}
@@ -114,9 +116,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		ITexture2DBase * ret = nullptr;
-		auto it = this->m_elements.find(name);
-		if(it != this->m_elements.end())
+		const auto it = this->m_elements.find(name);
+		if (it != this->m_elements.end()) {
 			ret = it->second.texture;
+		}
 
 		return ret;
 	}
@@ -125,9 +128,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		IRenderTargetBase * ret = nullptr;
-		auto it = this->m_elements.find(name);
-		if(it != this->m_elements.end())
+		const auto it = this->m_elements.find(name);
+		if (it != this->m_elements.end()) {
 			ret = it->second.renderTarget;
+		}
 
 		return ret;
 	}
@@ -142,9 +146,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		IRenderTargetBase * ret = nullptr;
-		auto it = this->m_depthElements.find(name);
-		if(it != this->m_depthElements.end())
+		const auto it = this->m_depthElements.find(name);
+		if (it != this->m_depthElements.end()) {
 			ret = it->second;
+		}
 
 		return ret;
 	}

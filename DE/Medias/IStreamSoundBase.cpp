@@ -36,8 +36,9 @@ namespace daidalosengine {
 		this->m_file = file;
 
 		alGenBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
-		for(int i = 0; i < STREAM_SOUND_BUFFER_SIZE; ++i)
-			ReadChunk(this->m_buffers[i]);
+		for (unsigned int buffer : this->m_buffers) {
+			ReadChunk(buffer);
+		}
 	}
 
 	IStreamSoundBase::~IStreamSoundBase() {
@@ -72,8 +73,9 @@ namespace daidalosengine {
 
 			sf_seek(this->m_file, 0, SEEK_SET);
 
-			for(int i = 0; i < STREAM_SOUND_BUFFER_SIZE; ++i)
-				ReadChunk(this->m_buffers[i]);
+			for (unsigned int i : this->m_buffers) {
+				ReadChunk(i);
+			}
 			break;
 
 		case SOUND_STATUS_PLAY:
@@ -128,11 +130,10 @@ namespace daidalosengine {
 	int IStreamSoundBase::ReadChunk(ALuint buffer) {
 		LOG_TRACE();
 
-		int nbSamples = GetSampleRate() * GetChannelsCount();
-		int read = 0;
+		const int nbSamples = GetSampleRate() * GetChannelsCount();
 		std::vector<ALshort> samples(nbSamples);
 
-		read = (int)sf_read_short(this->m_file, &samples[0], nbSamples);
+		const auto read = static_cast<int>(sf_read_short(this->m_file, &samples[0], nbSamples));
 
 		if(read > 0) {
 			alBufferData(buffer, GetALFormat(), &samples[0], read * sizeof(ALushort), GetSampleRate());

@@ -99,7 +99,7 @@ namespace daidalosengine {
 	* Get the current fps as a string
 	* @return The current fps string
 	*/
-	const std::string CFPSCounter::GetText() const {
+	std::string CFPSCounter::GetText() const {
 		LOG_TRACE();
 		return this->m_fpsStream.str();
 	}

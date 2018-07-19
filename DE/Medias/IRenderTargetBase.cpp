@@ -39,7 +39,7 @@ namespace daidalosengine {
 		return this->m_type;
 	}
 
-	IRenderTargetBase::IRenderTargetBase(ERenderTargetType type) : IResource() {
+	IRenderTargetBase::IRenderTargetBase(ERenderTargetType type) {
 		LOG_TRACE();
 
 		this->m_type = type;

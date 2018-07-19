@@ -76,11 +76,7 @@ namespace daidalosengine {
 
 	/**
 	* Load a particle emitter node
-	* @param scene The scene
-	* @param parent The node parent
-	* @param handle The xml handle
-	* @param node The node to fill
-	* @param name The name
+	* @param handle the xml handle
 	*/
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterNode(tinyxml2::XMLHandle & handle) {
 		LOG_TRACE();
@@ -143,7 +139,7 @@ namespace daidalosengine {
 					GetNodeData(childHandle, "time", emitterEmissionRateTime, 0);
 					GetNodeData(childHandle, "value", emitterEmissionRateValue, 0);
 
-					SParticleEmitterEmissionRateChange emissionRateCHange;
+					SParticleEmitterEmissionRateChange emissionRateCHange{};
 					emissionRateCHange.time = emitterEmissionRateTime;
 					emissionRateCHange.value = emitterEmissionRateValue;
 
@@ -302,7 +298,7 @@ namespace daidalosengine {
 						GetNodeData(sizeChangeHandle, "time", updaterTime, 0);
 						GetNodeData(sizeChangeHandle, "value", updaterSize, 1);
 
-						SSizeParticleChangeUpdater sizeChange;
+						SSizeParticleChangeUpdater sizeChange{};
 						sizeChange.time = updaterTime;
 						sizeChange.size = updaterSize;
 						sizeChangeVector.push_back(sizeChange);
@@ -367,7 +363,7 @@ namespace daidalosengine {
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
 
-						SSphereVelocityParticleChangeUpdater velocityChange;
+						SSphereVelocityParticleChangeUpdater velocityChange{};
 						velocityChange.time = updaterTime;
 						velocityChange.velocityMin = updaterVelocityMin;
 						velocityChange.velocityMax = updaterVelocityMax;
@@ -378,7 +374,7 @@ namespace daidalosengine {
 					auto * updater = new CSphereVelocityParticleUpdater(velocityChangeVector, updaterDamping);
 					emitter->AddUpdater(updater);
 
-				} else if (childName.compare("circularVelocityChange") == 0) {
+				} else if (childName == "circularVelocityChange") {
 					float updaterDamping;
 					float updaterTime;
 					float updaterVelocityMin;
@@ -400,7 +396,7 @@ namespace daidalosengine {
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
 
-						SCircularVelocityParticleChangeUpdater velocityChange;
+						SCircularVelocityParticleChangeUpdater velocityChange{};
 						velocityChange.time = updaterTime;
 						velocityChange.velocityMin = updaterVelocityMin;
 						velocityChange.velocityMax = updaterVelocityMax;

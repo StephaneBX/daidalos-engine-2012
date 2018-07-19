@@ -84,14 +84,14 @@ namespace daidalosengine {
 		* Get the number of frames
 		* @return The number of frames
 		*/
-		const int GetNumberOfFrames() const;
+		int GetNumberOfFrames() const;
 
 		/**
 		* = operator override
 		* @param copy An animated mesh
 		* @return The animated mesh
 		*/
-		const CAnimatedMesh & operator=(const CAnimatedMesh & copy);
+		CAnimatedMesh & operator=(const CAnimatedMesh & copy);
 
 		/**
 		* Get the static mesh

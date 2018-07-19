@@ -66,7 +66,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
 
 		// Check the existence of the resource and load it if necessary
-		IMaterialBase * tmp = CResourceManager::GetInstance()->GetResource<IMaterialBase>(filename);
+		auto * tmp = CResourceManager::GetInstance()->GetResource<IMaterialBase>(filename);
 
 		if(tmp == nullptr) {
 			this->m_material = CMediaManager::GetInstance()->LoadMediaFromFile<IMaterialBase>(filename);

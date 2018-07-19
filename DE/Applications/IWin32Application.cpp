@@ -233,7 +233,7 @@ namespace daidalosengine {
 		this->m_wc.lpfnWndProc = GlobalWindowProc;
 		this->m_wc.hInstance = this->m_hInstance;
 		this->m_wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-		this->m_wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+		this->m_wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW);
 		this->m_wc.lpszClassName = GetName().c_str();
 
 		RegisterClassEx(&this->m_wc);

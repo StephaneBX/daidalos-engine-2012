@@ -65,28 +65,28 @@ namespace daidalosengine {
 
 		int rect[4] = { 0, 0, GetResolution().x, GetResolution().y };
 
-		CVector3F l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
-		CVector3F l2 = l * l;
-		float r = positionRadius.w;
-		float r2 = r * r;
-		float e = 1.2F;
-		float a = GetResolution().x / (float) GetResolution().y;
+		const auto l = CVector3F(positionRadius.x, positionRadius.y, positionRadius.z);
+		const auto l2 = l * l;
+		const auto r = positionRadius.w;
+		const auto r2 = r * r;
+		const auto e = 1.2F;
+		const auto a = GetResolution().x / static_cast<float>(GetResolution().y);
 
-		float d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
+		auto d = r2 * l2.x - (l2.x + l2.z) * (r2 - l2.z);
 		if(d > 0) {
-			float nx1 = ((r * l.x) + sqrtf(d)) / (l2.x + l2.z);
-			float nx2 = ((r * l.x) - sqrtf(d)) / (l2.x + l2.z);
+			const auto nx1 = ((r * l.x) + sqrtf(d)) / (l2.x + l2.z);
+			const auto nx2 = ((r * l.x) - sqrtf(d)) / (l2.x + l2.z);
 
-			float nz1 = (r - nx1 * l.x) / l.z;
-			float nz2 = (r - nx2 * l.x) / l.z;
+			const auto nz1 = (r - nx1 * l.x) / l.z;
+			const auto nz2 = (r - nx2 * l.x) / l.z;
 
-			float pz1 = (l2.x + l2.z - r2) / (l.z - (nz1 / nx1) * l.x);
-			float pz2 = (l2.x + l2.z - r2) / (l.z - (nz2 / nx2) * l.x);
+			const auto pz1 = (l2.x + l2.z - r2) / (l.z - (nz1 / nx1) * l.x);
+			const auto pz2 = (l2.x + l2.z - r2) / (l.z - (nz2 / nx2) * l.x);
 
 			if(pz1 > 0) {
-				float fx = (-nz1 * e) / nx1;
-				int x = (int)((fx + 1) * GetResolution().x * 0.5F);
-				float px = -pz1 * nz1 / nx1;
+				const auto fx = (-nz1 * e) / nx1;
+				auto x = static_cast<int>((fx + 1) * GetResolution().x * 0.5F);
+				const auto px = -pz1 * nz1 / nx1;
 
 				if(px < l.x) {
 					rect[0] = max(rect[0], x);
@@ -96,9 +96,9 @@ namespace daidalosengine {
 			}
 
 			if(pz2 > 0) {
-				float fx = (-nz2 * e) / nx2;
-				int x = (int)((fx + 1) * GetResolution().x * 0.5F);
-				float px = -pz2 * nz2 / nx2;
+				const auto fx = (-nz2 * e) / nx2;
+				auto x = static_cast<int>((fx + 1) * GetResolution().x * 0.5F);
+				const auto px = -pz2 * nz2 / nx2;
 
 				if(px < l.x) {
 					rect[0] = max(rect[0], x);
@@ -110,19 +110,19 @@ namespace daidalosengine {
 
 		d = r2 * l2.y - (l2.y + l2.z) * (r2 - l2.z);
 		if(d > 0) {
-			float ny1 = (r * l.y + sqrtf(d)) / (l2.y + l2.z);
-			float ny2 = (r * l.y - sqrtf(d)) / (l2.y + l2.z);
+			const auto ny1 = (r * l.y + sqrtf(d)) / (l2.y + l2.z);
+			const auto ny2 = (r * l.y - sqrtf(d)) / (l2.y + l2.z);
 
-			float nz1 = (r - ny1 * l.y) / l.z;
-			float nz2 = (r - ny2 * l.y) / l.z;
+			const auto nz1 = (r - ny1 * l.y) / l.z;
+			const auto nz2 = (r - ny2 * l.y) / l.z;
 
-			float pz1 = (l2.y + l2.z - r2) / (l.z - (nz1 / ny1) * l.y);
-			float pz2 = (l2.y + l2.z - r2) / (l.z - (nz2 / ny2) * l.y);
+			const auto pz1 = (l2.y + l2.z - r2) / (l.z - (nz1 / ny1) * l.y);
+			const auto pz2 = (l2.y + l2.z - r2) / (l.z - (nz2 / ny2) * l.y);
 
 			if(pz1 > 0) {
-				float fy = (nz1 * e * a) / ny1;
-				int y = (int)((fy + 1) * GetResolution().y * 0.5F);
-				float py = -pz1 * nz1 / ny1;
+				const auto fy = (nz1 * e * a) / ny1;
+				auto y = static_cast<int>((fy + 1) * GetResolution().y * 0.5F);
+				const auto py = -pz1 * nz1 / ny1;
 
 				if(py < l.y) {
 					rect[3] = min(rect[3], y);
@@ -132,9 +132,9 @@ namespace daidalosengine {
 			}
 
 			if(pz2 > 0) {
-				float fy = (nz2 * e * a) / ny2;
-				int y = (int)((fy + 1) * GetResolution().y * 0.5F);
-				float py = -pz2 * nz2 / ny2;
+				const float fy = (nz2 * e * a) / ny2;
+				auto y = static_cast<int>((fy + 1) * GetResolution().y * 0.5F);
+				const auto py = -pz2 * nz2 / ny2;
 
 				if(py < l.y) {
 					rect[3] = min(rect[3], y);
@@ -144,7 +144,7 @@ namespace daidalosengine {
 			}
 		}
 
-		CRectangleI finalRect = CRectangleI(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
+		auto finalRect = CRectangleI(rect[0], rect[1], rect[2] - rect[0], rect[3] - rect[1]);
 
 		// Boundary check
 		if(finalRect.GetWidth() <= 0 || finalRect.GetHeight() <= 0) {
@@ -200,12 +200,12 @@ namespace daidalosengine {
 	IFrameBufferBase * CDX9Renderer::CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const {
 		LOG_TRACE();
 
-		CDX9FrameBuffer * frameBuffer = new CDX9FrameBuffer();
+		auto frameBuffer = new CDX9FrameBuffer();
 
 		if(elements != nullptr) {
 			for(unsigned int i = 0; i < size; ++i) {
 				SFrameBufferElement element = { CreateTexture2D(elements[i].size, elements[i].textureFilter, elements[i].format, TEXTURE_FLAG_FRAMEBUFFER_TYPE), CreateRT(elements[i].size, elements[i].format) };
-				static_cast<CDX9RenderTarget*>(element.renderTarget)->LinkWithTexture(static_cast<CDX9Texture2D*>(element.texture));
+				dynamic_cast<CDX9RenderTarget*>(element.renderTarget)->LinkWithTexture(dynamic_cast<CDX9Texture2D*>(element.texture));
 
 				frameBuffer->AddElement(elements[i].name, element);
 			}
@@ -230,7 +230,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const CDX9VertexBuffer * vertexBuffer = static_cast<const CDX9VertexBuffer *>(buffer);
+			const auto* vertexBuffer = dynamic_cast<const CDX9VertexBuffer *>(buffer);
 			this->m_device->SetStreamSource(stream, vertexBuffer->GetBuffer() != nullptr ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
@@ -249,7 +249,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const CDX9IndexBuffer * indexBuffer = static_cast<const CDX9IndexBuffer *>(buffer);
+			const auto* indexBuffer = dynamic_cast<const CDX9IndexBuffer *>(buffer);
 			this->m_device->SetIndices(indexBuffer->GetBuffer() != nullptr ? indexBuffer->GetBuffer() : nullptr);
 		} else {
 			this->m_device->SetIndices(nullptr);
@@ -262,8 +262,8 @@ namespace daidalosengine {
 		SetCurrentShaderProgram(shaderProgram);
 
 		if(shaderProgram != nullptr) {
-			const CDX9VertexShader * vertexShader = static_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
-			const CDX9PixelShader * pixelShader = static_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
+			const auto* vertexShader = dynamic_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
+			const auto* pixelShader = dynamic_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
 
 			this->m_device->SetVertexShader(vertexShader ? vertexShader->GetVertexShader() : nullptr);
 			this->m_device->SetPixelShader(pixelShader ? pixelShader->GetPixelShader() : nullptr);
@@ -276,7 +276,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(declaration != nullptr) {
-			const CDX9Declaration * vertexDeclaration = static_cast<const CDX9Declaration *>(declaration);
+			const auto* vertexDeclaration = dynamic_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration->GetDeclaration() != nullptr ? vertexDeclaration->GetDeclaration() : nullptr);
 		} else {
 			this->m_device->SetVertexDeclaration(nullptr);
@@ -287,7 +287,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != nullptr) {
-			const CDX9Texture2D * dx9Texture = static_cast<const CDX9Texture2D*>(texture);
+			const auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture);
 			this->m_device->SetTexture(unit, dx9Texture->GetTexture());
 
 			// Sampler state update
@@ -315,17 +315,17 @@ namespace daidalosengine {
 				frameBuffer->Finalize();
 
 			// Attach the render targets
-			CDX9FrameBuffer * fb = static_cast<CDX9FrameBuffer*>(frameBuffer);
+			auto fb = dynamic_cast<CDX9FrameBuffer*>(frameBuffer);
 			for(int i = 0; i < fb->GetAttachmentSize(); ++i) {
-				this->m_device->SetRenderTarget(fb->GetAttachment(i)->attachment, static_cast<CDX9RenderTarget*>(fb->GetRenderTarget(fb->GetAttachment(i)->name))->GetRenderTarget());
+				this->m_device->SetRenderTarget(fb->GetAttachment(i)->attachment, dynamic_cast<CDX9RenderTarget*>(fb->GetRenderTarget(fb->GetAttachment(i)->name))->GetRenderTarget());
 			}
 
 			// Attach the depth stencil
-			this->m_device->SetDepthStencilSurface(static_cast<CDX9RenderTarget*>(fb->GetDepthRenderTarget())->GetRenderTarget());
+			this->m_device->SetDepthStencilSurface(dynamic_cast<CDX9RenderTarget*>(fb->GetDepthRenderTarget())->GetRenderTarget());
 		} else {
 			// Default frame buffer
-			this->m_device->SetRenderTarget(0, static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"))->GetRenderTarget());
-			this->m_device->SetDepthStencilSurface(static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"))->GetRenderTarget());
+			this->m_device->SetRenderTarget(0, dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"))->GetRenderTarget());
+			this->m_device->SetDepthStencilSurface(dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"))->GetRenderTarget());
 		}
 	}
 
@@ -444,8 +444,8 @@ namespace daidalosengine {
 	void CDX9Renderer::CopyBackBufferToTexture(ITexture2DBase * texture2D) {
 		LOG_TRACE();
 		
-		const CDX9Texture2D * dx9Texture = static_cast<const CDX9Texture2D*>(texture2D);
-		const CDX9RenderTarget * mainBuffer = static_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
+		const auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture2D);
+		const auto * mainBuffer = dynamic_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
 		IDirect3DSurface9 * textureSurface = nullptr;
 		dx9Texture->GetTexture()->GetSurfaceLevel(0, &textureSurface);
 
@@ -460,8 +460,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (frameBuffer != nullptr) {
-			CDX9RenderTarget * mainBufferDepth = static_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
-			const CDX9RenderTarget * frameBufferDepth = static_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
+			CDX9RenderTarget * mainBufferDepth = dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
+			const CDX9RenderTarget * frameBufferDepth = dynamic_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
 
 			this->m_device->StretchRect(frameBufferDepth->GetRenderTarget(), nullptr, mainBufferDepth->GetRenderTarget(), nullptr, D3DTEXF_LINEAR);
 		}
@@ -477,10 +477,10 @@ namespace daidalosengine {
 
 
 		IDirect3DSurface9 * sourceTextureSurface = nullptr;
-		static_cast<const CDX9Texture2D*>(source)->GetTexture()->GetSurfaceLevel(0, &sourceTextureSurface);
+		dynamic_cast<const CDX9Texture2D*>(source)->GetTexture()->GetSurfaceLevel(0, &sourceTextureSurface);
 
 		IDirect3DSurface9 * destinationTextureSurface = nullptr;
-		static_cast<const CDX9Texture2D*>(destination)->GetTexture()->GetSurfaceLevel(0, &destinationTextureSurface);
+		dynamic_cast<const CDX9Texture2D*>(destination)->GetTexture()->GetSurfaceLevel(0, &destinationTextureSurface);
 
 		this->m_device->StretchRect(sourceTextureSurface, nullptr, destinationTextureSurface, nullptr, D3DTEXF_LINEAR);
 	}
@@ -596,7 +596,7 @@ namespace daidalosengine {
 			dx9Elements.push_back(currentElement);
 		}
 
-		D3DVERTEXELEMENT9 EndElement = D3DDECL_END();
+		const D3DVERTEXELEMENT9 EndElement = D3DDECL_END();
 		dx9Elements.push_back(EndElement);
 
 		LPDIRECT3DVERTEXDECLARATION9 declaration = nullptr;
@@ -668,8 +668,8 @@ namespace daidalosengine {
 		RECT rect;
 		GetClientRect(this->m_hwnd, &rect);
 
-		UINT adapterToUse = D3DADAPTER_DEFAULT;
-		D3DDEVTYPE deviceType = D3DDEVTYPE_HAL;
+		const UINT adapterToUse = D3DADAPTER_DEFAULT;
+		const D3DDEVTYPE deviceType = D3DDEVTYPE_HAL;
 
 		this->m_d3dpp.Windowed = true;
 		this->m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;

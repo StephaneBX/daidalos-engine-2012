@@ -65,7 +65,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
 
 		// Check the existence of the resource and load it if necessary
-		IMeshBase * tmp = CResourceManager::GetInstance()->GetResource<IMeshBase>(filename);
+		auto tmp = CResourceManager::GetInstance()->GetResource<IMeshBase>(filename);
 
 		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IMeshBase>(filename);

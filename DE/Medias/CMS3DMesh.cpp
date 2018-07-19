@@ -48,7 +48,7 @@ namespace daidalosengine {
 		CVector3F min;
 		CVector3F max;
 		for(int frame = 0; frame < this->m_internalData->numberOfFrames; ++frame) {
-			SetFrame((float) frame);
+			SetFrame(static_cast<float>(frame));
 			FinalizeGeometry(MESH_SHADING_SMOOTH);
 
 			for(int j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
@@ -94,14 +94,14 @@ namespace daidalosengine {
 	void CMS3DMesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		LOG_TRACE();
 
-		int frameA = (int)floor(GetFrame());
-		int frameB = (int)floor(GetFrame() + 1);
+		auto frameA = static_cast<int>(floor(GetFrame()));
+		auto frameB = static_cast<int>(floor(GetFrame() + 1));
 
 		// Linear
-		float interpolation = GetFrame() - frameA;
+		const float interpolation = GetFrame() - frameA;
 
 		// Cosine
-		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
+		const float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
 
 		// Use the first frame if the choosen frame is less than 0
 		if(frameA < 0) {

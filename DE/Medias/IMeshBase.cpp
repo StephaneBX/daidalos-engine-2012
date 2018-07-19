@@ -152,8 +152,8 @@ namespace daidalosengine {
 			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
 				// Normal calculation
 				CVector3F ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
-				CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
-				CVector3F normal = ab.CrossProduct(ac).Normalize();
+				const CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
+				const CVector3F normal = ab.CrossProduct(ac).Normalize();
 
 				// Replace th previous normals
 				std::fill(&this->m_normal[i][j], &this->m_normal[i][j] + 3, normal);
@@ -164,25 +164,20 @@ namespace daidalosengine {
 	void IMeshBase::TangentAndBinormalCalculation() {
 		LOG_TRACE();
 
-		CVector3F ab;
-		CVector3F ac;
-		CVector2F abuv;
-		CVector2F acuv;
-
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
-				ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
-				ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
-				abuv = this->m_texcoord[i][j + 1] - this->m_texcoord[i][j];
-				acuv = this->m_texcoord[i][j + 2] - this->m_texcoord[i][j];
-				float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
+				const CVector3F ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
+				const CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
+				const CVector2F abuv = this->m_texcoord[i][j + 1] - this->m_texcoord[i][j];
+				const CVector2F acuv = this->m_texcoord[i][j + 2] - this->m_texcoord[i][j];
+				const float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
 
 				for(int k = 0; k < 3; ++k) {
 					if(fDenominator >= -EPSILON && fDenominator <= EPSILON) {
 						this->m_tangent[i][j + k] = CVector3F(1, 0, 0);
 						this->m_binormal[i][j + k] = this->m_tangent[i][j + k].CrossProduct(this->m_normal[i][j + k]).Normalize();
 					} else {
-						float fScale1 = 1.0F / fDenominator;
+						const float fScale1 = 1.0F / fDenominator;
 						this->m_tangent[i][j + k] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
 						// Gram-Schmidt orthogonalization

@@ -117,7 +117,7 @@ namespace daidalosengine {
 	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
 		LOG_TRACE();
 
-		STexture2DFilterPolicy usedFilter;
+		STexture2DFilterPolicy usedFilter{};
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;
@@ -142,7 +142,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// If no filter policy is given, use the default one
-		STexture2DFilterPolicy usedFilter;
+		STexture2DFilterPolicy usedFilter{};
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;
@@ -175,7 +175,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// If no filter policy is given, use the default one
-		STexture2DFilterPolicy usedFilter;
+		STexture2DFilterPolicy usedFilter{};
 		if(filter == nullptr) {
 			usedFilter.minFilter = TEXTURE_FILTER_TYPE_LINEAR;
 			usedFilter.mipFilter = TEXTURE_FILTER_TYPE_LINEAR;

@@ -568,7 +568,7 @@ namespace daidalos {
 		}
 		
 		// Visibility position update based on the state
-		float speedFactor = 1.0F;
+		float speedFactor;
 		switch(this->m_state) {
 		case FPS_CAMERA_STATE_STAND:
 			speedFactor = FPS_CAMERA_WALK_FACTOR;
@@ -584,7 +584,7 @@ namespace daidalos {
 		}
 
 		// Collision test
-		daidalosengine::CVector3F previousVisiblePosition = GetVisiblePosition();
+		const daidalosengine::CVector3F previousVisiblePosition = GetVisiblePosition();
 		PerformLevelCollisions(movement * FPS_CAMERA_MOVEMENT_SPEED * speedFactor, time);
 
 		// Step sounds

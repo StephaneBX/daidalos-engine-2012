@@ -31,7 +31,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "CDaidalosApplication.hpp"
 
 namespace daidalos {
-	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName) : daidalosgameengine::IForwardApplication(hInstance, nCmdShow) {
+	CDaidalosApplication::CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string & levelName) : daidalosgameengine::IForwardApplication(hInstance, nCmdShow) {
 
 		SetLoading(true);
 		GetCursor().SetVisible(true);

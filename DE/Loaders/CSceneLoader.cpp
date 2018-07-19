@@ -431,12 +431,12 @@ namespace daidalosengine {
 		tinyxml2::XMLElement * emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
 		if (emittersTemplates != nullptr) {
 			// Read the templates
-			tinyxml2::XMLHandle & templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
+			tinyxml2::XMLHandle templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
 			tinyxml2::XMLElement * templateElement = templatesHandle.FirstChildElement("template").ToElement();
 
 			if (templateElement != nullptr) {
 				for (tinyxml2::XMLElement * templateElementIt = templateElement; templateElementIt != nullptr; templateElementIt = templateElementIt->NextSiblingElement()) {
-					tinyxml2::XMLHandle & templateHandle = tinyxml2::XMLHandle(templateElementIt);
+					tinyxml2::XMLHandle templateHandle = tinyxml2::XMLHandle(templateElementIt);
 					tinyxml2::XMLText * text = templateHandle.FirstChild().ToText();
 					if(text != nullptr) {
 						scene->GetParticleSystem().LoadEmittersTemplate(text->Value());

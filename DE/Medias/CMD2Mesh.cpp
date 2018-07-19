@@ -44,8 +44,10 @@ namespace daidalosengine {
 		// Copy texture coordinates
 		for(int i = 0; i < this->m_internalData->header.numTriangle; i++) {
 			for(int j = 0; j < 3; j++) {
-				GetTexcoords(0)[i * 3 + j].x = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].u) / ((float)this->m_internalData->header.skinWidth);
-				GetTexcoords(0)[i * 3 + j].y = (float)(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].textureCoordinatesIndice[j]].v) / ((float)this->m_internalData->header.skinHeight);
+				GetTexcoords(0)[i * 3 + j].x = static_cast<float>(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].
+					textureCoordinatesIndice[j]].u) / static_cast<float>(this->m_internalData->header.skinWidth);
+				GetTexcoords(0)[i * 3 + j].y = static_cast<float>(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].
+					textureCoordinatesIndice[j]].v) / static_cast<float>(this->m_internalData->header.skinHeight);
 			}
 		}
 
@@ -53,7 +55,7 @@ namespace daidalosengine {
 		CVector3F min;
 		CVector3F max;
 		for(int frame = 0; frame < this->m_internalData->header.frameSize; ++frame) {
-			SetFrame((float) frame);
+			SetFrame(static_cast<float>(frame));
 			FinalizeGeometry(MESH_SHADING_SMOOTH);
 
 			for(int j = 0; j < this->m_internalData->header.numTriangle * 3; ++j) {
@@ -95,14 +97,14 @@ namespace daidalosengine {
 	void CMD2Mesh::FinalizeGeometry(EMeshShadingType shadingType) {
 		LOG_TRACE();
 
-		int frameA = (int)floor(GetFrame());
-		int frameB = (int)floor(GetFrame() + 1);
+		auto frameA = static_cast<int>(floor(GetFrame()));
+		auto frameB = static_cast<int>(floor(GetFrame() + 1));
 
 		// Linear
-		float interpolation = GetFrame() - frameA;
+		const float interpolation = GetFrame() - frameA;
 
 		// Cosine
-		float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
+		const float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
 
 		// Use the first frame if the choosen frame is less than 0
 		if(frameA < 0) {
@@ -118,16 +120,14 @@ namespace daidalosengine {
 
 		SMD2Frame * currentFrameA = &this->m_internalData->frame[frameA];
 		SMD2Frame * currentFrameB = &this->m_internalData->frame[frameB];
-		SMD2Vertex * currentVertexA;
-		SMD2Vertex * currentVertexB;
 		CVector3F currentNormalA;
 		CVector3F currentNormalB;
 		CVector3F currentPositionA;
 		CVector3F currentPositionB;
 
 		for(int i = 0; i < this->m_internalData->header.numVertices; i++) {
-			currentVertexA = &currentFrameA->vertex[i];
-			currentVertexB = &currentFrameB->vertex[i];
+			SMD2Vertex * currentVertexA = &currentFrameA->vertex[i];
+			SMD2Vertex * currentVertexB = &currentFrameB->vertex[i];
 
 			currentNormalA.x = currentVertexA->averageNormal.x;
 			currentNormalA.z = currentVertexA->averageNormal.y;
@@ -152,7 +152,7 @@ namespace daidalosengine {
 		}
 
 		// Do a 90 degree rotation to match with the engine space coordinates
-		CMatrix rotation(CVector3F(1, 1, 1), CVector3F(0, DegreeToRadian(90), 0), CVector3F(0, 1, 0));
+		const CMatrix rotation(CVector3F(1, 1, 1), CVector3F(0, DegreeToRadian(90), 0), CVector3F(0, 1, 0));
 		CMatrix::TransformArray(this->m_internalData->transformedVertex, this->m_internalData->transformedVertex, rotation, this->m_internalData->header.numVertices, false);
 		CMatrix::TransformArray(this->m_internalData->transformedNormal, this->m_internalData->transformedNormal, rotation, this->m_internalData->header.numVertices, true);
 

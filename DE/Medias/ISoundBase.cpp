@@ -212,8 +212,6 @@ namespace daidalosengine {
 		default:
 			return SOUND_STATUS_UNKNOWN;
 		}
-
-		return SOUND_STATUS_STOP;
 	}
 
 	/**
@@ -259,7 +257,7 @@ namespace daidalosengine {
 	int ISoundBase::GetChannelsCount() const {
 		LOG_TRACE();
 
-		int channels = 1;
+		int channels;
 
 		switch (this->m_format) {
 			case SOUND_FORMAT_STEREO16:

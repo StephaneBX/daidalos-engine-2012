@@ -83,7 +83,7 @@ namespace daidalosengine {
 		* Get the current fps as a string
 		* @return The current fps string
 		*/
-		const std::string GetText() const;
+		std::string GetText() const;
 	};
 }
 

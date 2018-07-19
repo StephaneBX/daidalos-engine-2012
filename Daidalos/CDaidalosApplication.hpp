@@ -44,7 +44,7 @@ namespace daidalos
 		* @param nCmdShow Commands
 		* @param levelName The level name to start
 		*/
-		CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string levelName);
+		CDaidalosApplication(const HINSTANCE hInstance, const int nCmdShow, const std::string & levelName);
 
 		/**
 		* Destructor
@@ -56,24 +56,24 @@ namespace daidalos
 		* Should be called from a new thread
 		* @param filename The level filename
 		*/
-		void LoadLevel(const std::string & filename);
+		void LoadLevel(const std::string & filename) override;
 
 		/**
 		* Update the application
 		* @param time Elapsed time
 		*/
-		void Update(const float time);
+		void Update(const float time) override;
 
 	protected:
 		/**
 		* Callback when the level is fully loaded
 		*/
-		void OnLevelLoaded();
+		void OnLevelLoaded() override;
 
 		/**
 		* Callback when the next level is triggered
 		*/
-		void OnTriggerNextLevel(const std::string & nextLevel);
+		void OnTriggerNextLevel(const std::string & nextLevel) override;
 	};
 }
 

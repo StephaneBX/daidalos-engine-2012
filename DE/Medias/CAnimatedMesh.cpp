@@ -82,8 +82,9 @@ namespace daidalosengine {
 
 		Assert(this->m_mesh != nullptr);
 
-		if(this->m_mesh != nullptr)
+		if (this->m_mesh != nullptr) {
 			this->m_mesh->Animate(frame);
+		}
 	}
 
 	void CAnimatedMesh::FinalizeGeometry(EMeshShadingType shadingType) {
@@ -91,17 +92,18 @@ namespace daidalosengine {
 
 		Assert(this->m_mesh != nullptr);
 
-		if(this->m_mesh != nullptr)
+		if (this->m_mesh != nullptr) {
 			this->m_mesh->FinalizeGeometry(shadingType);
+		}
 	}
 
-	const int CAnimatedMesh::GetNumberOfFrames() const {
+	int CAnimatedMesh::GetNumberOfFrames() const {
 		LOG_TRACE();
 
 		return this->m_mesh->GetNumberOfFrames();
 	}
 
-	const CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy) {
+	CAnimatedMesh & CAnimatedMesh::operator=(const CAnimatedMesh & copy) {
 		LOG_TRACE();
 
 		if (this != &copy) {

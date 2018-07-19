@@ -66,7 +66,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_font->GetName());
 
 		// Check the existence of the resource and load it if necessary
-		IFontBase * tmp = CResourceManager::GetInstance()->GetResource<IFontBase>(filename);
+		auto * tmp = CResourceManager::GetInstance()->GetResource<IFontBase>(filename);
 
 		if(tmp == nullptr) {
 			this->m_font = CMediaManager::GetInstance()->LoadMediaFromFile<IFontBase>(filename);

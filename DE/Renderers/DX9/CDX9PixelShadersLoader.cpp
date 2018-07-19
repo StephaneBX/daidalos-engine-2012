@@ -52,21 +52,20 @@ namespace daidalosengine {
 
 		IDirect3DPixelShader9 * shader;
 		ID3DXConstantTable * constantTable;
-		HRESULT hr;
 		LPD3DXBUFFER pCode;
-		DWORD dwShaderFlags = D3DXSHADER_OPTIMIZATION_LEVEL1;
+		const DWORD dwShaderFlags = D3DXSHADER_OPTIMIZATION_LEVEL1;
 		LPD3DXBUFFER pBufferErrors = nullptr;
 
-		hr = D3DXCompileShaderFromFile(filename.c_str(), nullptr, nullptr, "main", "ps_3_0", dwShaderFlags, &pCode, &pBufferErrors, &constantTable);
+		const HRESULT hr = D3DXCompileShaderFromFile(filename.c_str(), nullptr, nullptr, "main", "ps_3_0", dwShaderFlags, &pCode, &pBufferErrors, &constantTable);
 		if(FAILED(hr)) {
-			LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
-			LOG_ERROR((const char*)pCompilErrors);
+			const LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
+			LOG_ERROR(static_cast<const char*>(pCompilErrors));
 			ILogger::Kill();
 
 			throw CExceptionLoad(filename);
 		}
 
-		dynamic_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice()->CreatePixelShader((DWORD*)pCode->GetBufferPointer(), &shader);
+		dynamic_cast<CDX9Renderer*>(IRenderer::GetRenderer())->GetDevice()->CreatePixelShader(static_cast<DWORD*>(pCode->GetBufferPointer()), &shader);
 		pCode->Release();
 
 		return new CDX9PixelShader(filename, shader, constantTable);

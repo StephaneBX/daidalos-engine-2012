@@ -43,9 +43,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		SMaterialElement * tmp = nullptr;
-		auto it = this->m_elements.find(name);
-		if(it != this->m_elements.end())
+		const auto it = this->m_elements.find(name);
+		if (it != this->m_elements.end()) {
 			tmp = it->second.get();
+		}
 
 		return tmp;
 	}
