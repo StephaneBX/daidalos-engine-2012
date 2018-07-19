@@ -214,12 +214,12 @@ namespace daidalosengine {
 		// While the end of the token is not reached.
 		while(start < token.length()) {
 			// Find the next delimiter position.
-			unsigned int end = token.find(delimiter, start);
+			const auto end = token.find(delimiter, start);
 
 			// If a new split position is found.
 			if(end >= start && end < token.length()) {
 				// Push it in the temporary buffer.
-				unsigned int size = end - start;
+				const auto size = end - start;
 				if(size > 0)
 					this->m_buffer.push_back(token.substr(start, size));
 

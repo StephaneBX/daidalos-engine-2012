@@ -362,7 +362,7 @@ namespace daidalosengine {
 		* @param position The new mouse position
 		* @param movement The movement
 		*/
-		void MoveMouse(const CVector2I & position, const CVector2I movement);
+		void MoveMouse(const CVector2I & position, const CVector2I& movement);
 
 		/**
 		* Set the mouse position

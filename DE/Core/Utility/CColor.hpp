@@ -118,54 +118,54 @@ namespace daidalosengine {
 		* @param separator The separator
 		* @return A string
 		*/
-		const std::string ToString(const std::string separator = ":") const;
+		std::string ToString(const std::string& separator = ":") const;
 
 		/**
 		* Get a RGB vector of this color
 		* @return a RGB color vector
 		*/
-		const CVector3F ToRGBVector() const;
+		CVector3F ToRGBVector() const;
 
 		/**
 		* Get a RGBA vector of this color
 		* @return a RGBA color vector
 		*/
-		const CVector4F ToRGBAVector() const;
+		CVector4F ToRGBAVector() const;
 
 		/**
 		* + operator override
 		* @param color A color
 		* @return The color
 		*/
-		const CColor operator+(const CColor & color) const;
+		CColor operator+(const CColor & color) const;
 
 		/**
 		* - operator override
 		* @param color A color
 		* @return The color
 		*/
-		const CColor operator-(const CColor & color) const;
+		CColor operator-(const CColor & color) const;
 
 		/**
 		* * operator override
 		* @param color A color
 		* @return The color
 		*/
-		const CColor operator*(const CColor & color) const;
+		CColor operator*(const CColor & color) const;
 
 		/**
 		* * operator override
 		* @param number A number
 		* @return The color
 		*/
-		const CColor operator*(const float number) const;
+		CColor operator*(const float number) const;
 
 		/**
 		* / operator override
 		* @param number A number
 		* @return The color
 		*/
-		const CColor operator/(const float number) const;
+		CColor operator/(const float number) const;
 
 		/**
 		* += operator override
@@ -312,7 +312,7 @@ namespace daidalosengine {
 		* @param separator The separator
 		* @return The vector
 		*/
-		static const CColor GetFrom(const std::string text, const CColor & defaultValue = CColor(), const std::string separator = ":");
+		static CColor GetFrom(const std::string& text, const CColor & defaultValue = CColor(), const std::string& separator = ":");
 	};
 }
 

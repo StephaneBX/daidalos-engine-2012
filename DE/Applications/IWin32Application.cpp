@@ -238,8 +238,8 @@ namespace daidalosengine {
 
 		RegisterClassEx(&this->m_wc);
 
-		InitializeWindow();
-		InitializeGamepad();
+		IWin32Application::InitializeWindow();
+		IWin32Application::InitializeGamepad();
 	}
 
 	/**
@@ -256,8 +256,8 @@ namespace daidalosengine {
 		// Release Direct Input related data
 		SAFE_RELEASE(this->m_directInput);
 
-		for(unsigned int i = 0; i < this->m_gamepad.size(); i++) {
-			SAFE_RELEASE(this->m_gamepad[i]);
+		for (auto& i : this->m_gamepad) {
+			SAFE_RELEASE(i);
 		}
 	}
 
@@ -270,9 +270,9 @@ namespace daidalosengine {
 		CInputDevice* input = CInputDevice::GetInstance();
 
 		if(IsFullScreen()) {
-			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, GetWidth(), GetHeight(), NULL, NULL, this->m_hInstance, NULL);
+			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_EX_TOPMOST | WS_POPUP, 0, 0, GetWidth(), GetHeight(), nullptr, nullptr, this->m_hInstance, nullptr);
 		} else {
-			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, GetWidth(), GetHeight(), NULL, NULL, this->m_hInstance, NULL);
+			this->m_hWnd = CreateWindowEx(NULL, GetName().c_str(), GetName().c_str(), WS_OVERLAPPED | WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE, 0, 0, GetWidth(), GetHeight(), nullptr, nullptr, this->m_hInstance, nullptr);
 		}
 		ShowWindow(this->m_hWnd, this->m_nCmdShow);
 
@@ -299,15 +299,15 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Create the direct input context
-		DirectInput8Create(this->m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&this->m_directInput, NULL);
+		DirectInput8Create(this->m_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void**>(&this->m_directInput), nullptr);
 
 		// Enumerate the plugged gamepad and create a device for each one (maximum MAX_GAMEPADS)
-		this->m_directInput->EnumDevices(DI8DEVCLASS_GAMECTRL, CreateDeviceCallback, NULL, DIEDFL_ATTACHEDONLY);
+		this->m_directInput->EnumDevices(DI8DEVCLASS_GAMECTRL, CreateDeviceCallback, nullptr, DIEDFL_ATTACHEDONLY);
 
 		// Change the gamepad data format and acquire them
-		for(unsigned int i = 0; i < this->m_gamepad.size(); i++) {
-			this->m_gamepad[i]->SetDataFormat(&c_dfDIJoystick);
-			this->m_gamepad[i]->Acquire();
+		for (auto& i : this->m_gamepad) {
+			i->SetDataFormat(&c_dfDIJoystick);
+			i->Acquire();
 		}
 	}
 
@@ -319,7 +319,6 @@ namespace daidalosengine {
 
 		MSG msg;
 		CTimer timer;
-		float time;
 		double previousTime = timer.Elapsed();
 		CInputDevice* input = CInputDevice::GetInstance();
 
@@ -330,7 +329,7 @@ namespace daidalosengine {
 		}
 
 		while(IsAlive()) {
-			time = (float)((timer.Elapsed() - previousTime) * 1000);
+			auto time = static_cast<float>((timer.Elapsed() - previousTime) * 1000);
 			previousTime = timer.Elapsed();
 			POINTS point;
 
@@ -439,20 +438,20 @@ namespace daidalosengine {
 		for(unsigned int gamepadId = 0; gamepadId < this->m_gamepad.size(); gamepadId++) {
 			// Get the gamepad state
 			DIJOYSTATE state;
-			HRESULT res = this->m_gamepad[gamepadId]->GetDeviceState(sizeof(state), (LPVOID)&state);
+			const HRESULT res = this->m_gamepad[gamepadId]->GetDeviceState(sizeof(state), static_cast<LPVOID>(&state));
 
 			if(SUCCEEDED(res)) {
 				// If the call succeed, update the gamepad state
 
 				// Update the buttons
-				for(int i = 0; i < INPUT_KEY_GAMEPAD_BUTTON_END; i++) {
+				for(auto i = 0; i < INPUT_KEY_GAMEPAD_BUTTON_END; i++) {
 					float buttonState = 0;
 
 					// If the button is down
 					if(state.rgbButtons[i] & 0x80) {
 						buttonState = 1;
 					}
-					input->SetGamepadKey(gamepadId, (EInputKeyGamepad)(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
+					input->SetGamepadKey(gamepadId, static_cast<EInputKeyGamepad>(INPUT_KEY_GAMEPAD_BUTTON0 + i), buttonState);
 				}
 
 				// Update the pov - the values are angles
@@ -647,7 +646,7 @@ namespace daidalosengine {
 		if(s_instance->GetGamepad().size() < MAX_GAMEPADS) {
 			// Create the device
 			LPDIRECTINPUTDEVICEA device;
-			HRESULT result = s_instance->GetDirectInput()->CreateDevice(instance->guidInstance, &device, NULL);
+			const HRESULT result = s_instance->GetDirectInput()->CreateDevice(instance->guidInstance, &device, nullptr);
 
 			// If the creation succeeded
 			if(SUCCEEDED(result)) {

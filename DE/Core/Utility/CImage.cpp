@@ -92,11 +92,11 @@ namespace daidalosengine {
 	* @param y The y coordinate
 	* @return The color
 	*/
-	const CColor CImage::GetPixel(const int x, const int y) const {
+	CColor CImage::GetPixel(const int x, const int y) const {
 		LOG_TRACE();
 
 		unsigned char tmp[4];
-		const unsigned char * pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
+		const auto pix = &this->m_data[(y * this->m_size.x + x) * GetBytesPerPixel(this->m_format)];
 		ConvertPixel(this->m_format, PIXEL_FORMAT_A8R8G8B8, pix, &tmp[0]);
 
 		return CColor(tmp[2], tmp[1], tmp[0], tmp[3]);
@@ -193,11 +193,12 @@ namespace daidalosengine {
 
 		SetPixel(0, 0, color);
 
-		const unsigned int bpp = GetBytesPerPixel(this->m_format);
-		auto begin = this->m_data.begin();
+		const auto bpp = GetBytesPerPixel(this->m_format);
+		const auto begin = this->m_data.begin();
 
-		for(auto it = begin + bpp; it != this->m_data.end(); it += bpp)
+		for (auto it = begin + bpp; it != this->m_data.end(); it += bpp) {
 			std::copy(begin, begin + bpp, it);
+		}
 	}
 
 	/**
@@ -213,12 +214,12 @@ namespace daidalosengine {
 			if(this->m_format == image.m_format) {
 				this->m_data = image.m_data;
 			} else {
-				const unsigned char * src = &image.m_data[0];
-				unsigned char * dest = &this->m_data[0];
-				const unsigned int srcBpp = GetBytesPerPixel(image.m_format);
-				const unsigned int destBpp = GetBytesPerPixel(this->m_format);
+				auto src = &image.m_data[0];
+				auto dest = &this->m_data[0];
+				const auto srcBpp = GetBytesPerPixel(image.m_format);
+				const auto destBpp = GetBytesPerPixel(this->m_format);
 
-				for(int i = 0; i < this->m_size.x * this->m_size.y; ++i) {
+				for(auto i = 0; i < this->m_size.x * this->m_size.y; ++i) {
 					ConvertPixel(image.m_format, this->m_format, src, dest);
 					src += srcBpp;
 					dest += destBpp;
@@ -230,7 +231,7 @@ namespace daidalosengine {
 			// Compare the format
 			if(this->m_format == image.m_format) {
 				unsigned char pix[4];
-				for(int i = 0; i < this->m_size.y; ++i) {
+				for(auto i = 0; i < this->m_size.y; ++i) {
 					for(int j = 0; j < this->m_size.x; ++j) {
 						image.GetPixel(static_cast<int>(j * pitch.x), static_cast<int>(i * pitch.y), &pix[0]);
 						SetPixel(j, i, &pix[0]);
@@ -239,8 +240,8 @@ namespace daidalosengine {
 			} else {
 				unsigned char srcPix[4];
 				unsigned char destPix[4];
-				for(int i = 0; i < this->m_size.y; ++i) {
-					for(int j = 0; j < this->m_size.x; ++j) {
+				for(auto i = 0; i < this->m_size.y; ++i) {
+					for(auto j = 0; j < this->m_size.x; ++j) {
 						image.GetPixel(static_cast<int>(j * pitch.x), static_cast<int>(i * pitch.y), &srcPix[0]);
 						ConvertPixel(image.m_format, this->m_format, &srcPix[0], &destPix[0]);
 						SetPixel(j, i, &destPix[0]);
@@ -256,9 +257,9 @@ namespace daidalosengine {
 	void CImage::Flip() {
 		LOG_TRACE();
 
-		int bpp = GetBytesPerPixel(this->m_format);
+		const int bpp = GetBytesPerPixel(this->m_format);
 
-		for(int i = 0; i < this->m_size.y / 2; ++i) {
+		for(auto i = 0; i < this->m_size.y / 2; ++i) {
 			std::swap_ranges(&this->m_data[i * this->m_size.x * bpp],
 				&this->m_data[(i + 1) * this->m_size.x * bpp - 1],
 				&this->m_data[(this->m_size.y - i - 1) * this->m_size.x * bpp]);
@@ -271,10 +272,10 @@ namespace daidalosengine {
 	void CImage::Mirror() {
 		LOG_TRACE();
 
-		int bpp = GetBytesPerPixel(this->m_format);
+		const int bpp = GetBytesPerPixel(this->m_format);
 
-		for(int i = 0; i < this->m_size.x / 2; ++i) {
-			for(int j = 0; j < this->m_size.y; ++j) {
+		for(auto i = 0; i < this->m_size.x / 2; ++i) {
+			for(auto j = 0; j < this->m_size.y; ++j) {
 				std::swap_ranges(&this->m_data[(i + j * this->m_size.x) * bpp],
 					&this->m_data[(i + j * this->m_size.x + 1) * bpp],
 					&this->m_data[(this->m_size.x - i - 1 + j * this->m_size.x) * bpp]);

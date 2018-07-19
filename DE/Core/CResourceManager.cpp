@@ -40,7 +40,7 @@ namespace daidalosengine {
 	void CResourceManager::AddResource(const std::string & name, IResource * resource) {
 		LOG_TRACE();
 
-		auto it = this->m_resources.find(name);
+		const auto it = this->m_resources.find(name);
 
 		if(it != this->m_resources.end()) {
 			LOG_WARNING("A resource with the name '" << name << "' is already registered in the resources database.");

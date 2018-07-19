@@ -120,28 +120,26 @@ namespace daidalosengine {
 	void CMD2Loader::ComputeAverageNormals(const int frameId) {
 		LOG_TRACE();
 
-		CVector3F tmpNormal;
-		float facesCount;
-
 		// Stock faces normals in the faces structure
 		ComputeFaceNormals(frameId);
 
 		// Perform normal calculation for each vertex
-		for(int i = 0; i < this->m_internalData->header.numVertices; ++i) {
-			tmpNormal = CVector3F(0, 0, 0);
-			facesCount = 0;
+		for(auto i = 0; i < this->m_internalData->header.numVertices; ++i) {
+			CVector3F tmpNormal = CVector3F(0, 0, 0);
+			float facesCount = 0;
 
-			for(int j = 0; j < this->m_internalData->header.numTriangle; ++j) {
+			for(auto j = 0; j < this->m_internalData->header.numTriangle; ++j) {
 				// This triangle uses this vertex, so we add the face normal to the list
-				if((int)this->m_internalData->triangle[j].vertex[0] == i || (int)this->m_internalData->triangle[j].vertex[1] == i || (int)this->m_internalData->triangle[j].vertex[2] == i) {
+				if(static_cast<int>(this->m_internalData->triangle[j].vertex[0]) == i || static_cast<int>(this->m_internalData->triangle[j].vertex[1]) == i || static_cast<int>(this->m_internalData->triangle[j].vertex[2]) == i) {
 					tmpNormal += this->m_internalData->triangle[j].faceNormal;
 					facesCount++;
 				}
 			}
 
 			// Divide the normal by the number of found triangles and normalize the result
-			if(facesCount > 0)
+			if (facesCount > 0) {
 				tmpNormal = tmpNormal / facesCount;
+			}
 			tmpNormal = tmpNormal.Normalize();
 
 			// We use this normal
@@ -153,10 +151,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Perform face normal calculation for each triangle of the frame
-		for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+		for(auto i = 0; i < this->m_internalData->header.numTriangle; ++i) {
 			// Normal calculation
-			CVector3F ab = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[0]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition;
-			CVector3F ac = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[1]].fullPosition;
+			auto ab = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[0]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition;
+			const auto ac = this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[2]].fullPosition - this->m_internalData->frame[frameId].vertex[this->m_internalData->triangle[i].vertex[1]].fullPosition;
 			this->m_internalData->triangle[i].faceNormal = ab.CrossProduct(ac);
 		}
 	}

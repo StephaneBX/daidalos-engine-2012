@@ -34,7 +34,7 @@ namespace daidalosengine {
 	/**
 	* Destructor
 	*/
-	ILogger::~ILogger() {}
+	ILogger::~ILogger() = default;
 
 	/**
 	* Get the logger

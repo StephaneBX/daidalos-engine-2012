@@ -51,7 +51,7 @@ namespace daidalosengine {
 
 		// Get the file size
 		fseek(file, 0, SEEK_END);
-		long fileSize = ftell(file);
+		const auto fileSize = ftell(file);
 		fseek(file, 0, SEEK_SET);
 
 		fread(&this->m_data->header.id, sizeof(char), 10, file);
@@ -177,17 +177,17 @@ namespace daidalosengine {
 
 		// Read comments
 		char * tmpBuffer;
-		long filePos = ftell(file);
+		const auto filePos = ftell(file);
 		if(filePos < fileSize) {
-			int subVersion = 0;
+			auto subVersion = 0;
 			fread(&subVersion, sizeof(int), 1, file);
 			if(subVersion == 1) {
-				int numComments = 0;
+				auto numComments = 0;
 				unsigned int commentSize = 0;
 
 				// Meshes
 				fread(&numComments, sizeof(int), 1, file);
-				for(int i = 0; i < numComments; i++) {
+				for(auto i = 0; i < numComments; i++) {
 					int index;
 					fread(&index, sizeof(int), 1, file);
 					fread(&commentSize, sizeof(unsigned int), 1, file);
@@ -195,15 +195,16 @@ namespace daidalosengine {
 					if(commentSize > 0) {
 						tmpBuffer = new char[commentSize];
 						fread(tmpBuffer, sizeof(char), commentSize, file);
-						if(index >= 0 && index < (int)this->m_data->numberOfMeshes)
+						if (index >= 0 && index < static_cast<int>(this->m_data->numberOfMeshes)) {
 							this->m_data->mesh[index].comment.append(tmpBuffer);
+						}
 						delete[] tmpBuffer;
 					}
 				}
 
 				// Materials
 				fread(&numComments, sizeof(int), 1, file);
-				for(int i = 0; i < numComments; i++) {
+				for(auto i = 0; i < numComments; i++) {
 					int index;
 					fread(&index, sizeof(int), 1, file);
 					fread(&commentSize, sizeof(unsigned int), 1, file);
@@ -211,15 +212,16 @@ namespace daidalosengine {
 					if(commentSize > 0) {
 						tmpBuffer = new char[commentSize];
 						fread(tmpBuffer, sizeof(char), commentSize, file);
-						if(index >= 0 && index < (int)this->m_data->numberOfMeshes)
+						if (index >= 0 && index < static_cast<int>(this->m_data->numberOfMeshes)) {
 							this->m_data->material[index].comment.append(tmpBuffer);
+						}
 						delete[] tmpBuffer;
 					}
 				}
 
 				// Joints
 				fread(&numComments, sizeof(int), 1, file);
-				for(int i = 0; i < numComments; i++) {
+				for(auto i = 0; i < numComments; i++) {
 					int index;
 					fread(&index, sizeof(int), 1, file);
 					fread(&commentSize, sizeof(unsigned int), 1, file);
@@ -227,7 +229,7 @@ namespace daidalosengine {
 					if(commentSize > 0) {
 						tmpBuffer = new char[commentSize];
 						fread(tmpBuffer, sizeof(char), commentSize, file);
-						if(index >= 0 && index < (int)this->m_data->numberOfMeshes)
+						if(index >= 0 && index < static_cast<int>(this->m_data->numberOfMeshes))
 							this->m_data->joint[index].comment.append(tmpBuffer);
 						delete[] tmpBuffer;
 					}
@@ -235,7 +237,7 @@ namespace daidalosengine {
 
 				// Model
 				fread(&numComments, sizeof(int), 1, file);
-				for(int i = 0; i < numComments; i++) {
+				for(auto i = 0; i < numComments; i++) {
 					fread(&commentSize, sizeof(unsigned int), 1, file);
 
 					if(commentSize > 0) {
@@ -279,12 +281,10 @@ namespace daidalosengine {
 	void CMS3DLoader::InitializeParents() {
 		LOG_TRACE();
 
-		bool parentFound;
-
 		// Search for the parent
-		for(int i = 0; i < this->m_data->numberOfJoints; ++i) {
-			parentFound = false;
-			for(int j = 0; j < this->m_data->numberOfJoints && !parentFound; ++j) {
+		for(auto i = 0; i < this->m_data->numberOfJoints; ++i) {
+			auto parentFound = false;
+			for(auto j = 0; j < this->m_data->numberOfJoints && !parentFound; ++j) {
 				if(strncmp(this->m_data->joint[i].parentName, this->m_data->joint[j].name, 32) == 0) {
 					this->m_data->joint[i].parent = j;
 					parentFound = true;
@@ -292,8 +292,9 @@ namespace daidalosengine {
 			}
 
 			// The joint is the root
-			if(!parentFound)
+			if (!parentFound) {
 				this->m_data->joint[i].parent = MS3D_ROOT_JOINT;
+			}
 		}
 	}
 
@@ -302,23 +303,22 @@ namespace daidalosengine {
 
 		// Local Skeleton Matrix initialization
 		SMS3DJoint * currentJoint;
-		SMS3DJoint * parentJoint;
 
 		// Initialize the local skeleton matrixes that contains translation and rotation information
-		for(int i = 0; i < this->m_data->numberOfJoints; ++i) {
+		for(auto i = 0; i < this->m_data->numberOfJoints; ++i) {
 			currentJoint = &this->m_data->joint[i];
 			currentJoint->matrixLocalSkeleton = CMatrix(CVector3F(1, 1, 1), CVector3F(currentJoint->rotation.x, currentJoint->rotation.y, currentJoint->rotation.z), CVector3F(currentJoint->position.x, currentJoint->position.y, currentJoint->position.z));
 		}
 
 		// Global Skeleton Matrix initialization
 		// Multiply the local skeleton matrix with the global skeleton matrix of the parent
-		for(int i = 0; i < this->m_data->numberOfJoints; ++i) {
+		for(auto i = 0; i < this->m_data->numberOfJoints; ++i) {
 			currentJoint = &this->m_data->joint[i];
 
 			if(currentJoint->parent == MS3D_ROOT_JOINT) {
 				currentJoint->matrixGlobalSkeleton = currentJoint->matrixLocalSkeleton;
 			} else {
-				parentJoint = &this->m_data->joint[currentJoint->parent];
+				const auto parentJoint = &this->m_data->joint[currentJoint->parent];
 				currentJoint->matrixGlobalSkeleton = currentJoint->matrixLocalSkeleton * parentJoint->matrixGlobalSkeleton;
 			}
 		}
@@ -333,22 +333,22 @@ namespace daidalosengine {
 		this->m_internalData->numberOfMeshes = this->m_data->numberOfMeshes;
 		this->m_internalData->mesh = new SMS3DInternalDataMesh[this->m_internalData->numberOfMeshes];
 
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+		for(auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 			this->m_internalData->mesh[i].numberOfFaces = this->m_data->mesh[i].numFaces;
 			this->m_internalData->mesh[i].vertex = new CVector3F*[this->m_internalData->numberOfFrames];
 			this->m_internalData->mesh[i].normal = new CVector3F*[this->m_internalData->numberOfFrames];
 			this->m_internalData->mesh[i].textureCoordinates = new CVector2F[this->m_internalData->mesh[i].numberOfFaces * 3];
 
-			for(int j = 0; j < this->m_internalData->numberOfFrames; ++j) {
+			for(auto j = 0; j < this->m_internalData->numberOfFrames; ++j) {
 				this->m_internalData->mesh[i].vertex[j] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
 				this->m_internalData->mesh[i].normal[j] = new CVector3F[this->m_internalData->mesh[i].numberOfFaces * 3];
 			}
 		}
 
 		// Copy texture coordinates
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-			for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces; ++j) {
-				for(int k = 0; k < 3; ++k) {
+		for(auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+			for(auto j = 0; j < this->m_internalData->mesh[i].numberOfFaces; ++j) {
+				for(auto k = 0; k < 3; ++k) {
 					this->m_internalData->mesh[i].textureCoordinates[j * 3 + k].x = this->m_data->face[this->m_data->mesh[i].facesIndices[j]].texCoords[0][k];
 					this->m_internalData->mesh[i].textureCoordinates[j * 3 + k].y = this->m_data->face[this->m_data->mesh[i].facesIndices[j]].texCoords[1][k];
 				}
@@ -356,12 +356,12 @@ namespace daidalosengine {
 		}
 
 		// Copy vertices and normals
-		for(int i = 0; i < this->m_data->numberOfFrames; ++i) {
-			Animate((float)i);
+		for(auto i = 0; i < this->m_data->numberOfFrames; ++i) {
+			Animate(static_cast<float>(i));
 
-			for(int j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
-				for(int k = 0; k < this->m_internalData->mesh[j].numberOfFaces; ++k) {
-					for(int l = 0; l < 3; ++l) {
+			for(auto j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
+				for(auto k = 0; k < this->m_internalData->mesh[j].numberOfFaces; ++k) {
+					for(auto l = 0; l < 3; ++l) {
 						this->m_internalData->mesh[j].vertex[i][k * 3 + l] = this->m_data->transformedVertex[this->m_data->face[this->m_data->mesh[j].facesIndices[k]].vertexIndices[l]];
 						this->m_internalData->mesh[j].normal[i][k * 3 + l] = this->m_data->transformedNormal[this->m_data->mesh[j].facesIndices[k] * 3 + l];
 					}
@@ -374,21 +374,21 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(frame < 0.0F) {
-			for(int i = 0; i < this->m_data->numberOfJoints; i++) {
+			for(auto i = 0; i < this->m_data->numberOfJoints; i++) {
 				this->m_data->joint[i].matrixLocal = this->m_data->joint[i].matrixLocalSkeleton;
 				this->m_data->joint[i].matrixGlobal = this->m_data->joint[i].matrixGlobalSkeleton;
 			}
 
-			for(int i = 0; i < this->m_data->numberOfVertices; i++)
+			for (auto i = 0; i < this->m_data->numberOfVertices; i++) {
 				this->m_data->transformedVertex[i] = this->m_data->vertex[i].position;
+			}
 
-			for(int i = 0; i < this->m_data->numberOfFaces; i++) {
-				for(int j = 0; j < 3; j++) {
+			for(auto i = 0; i < this->m_data->numberOfFaces; i++) {
+				for(auto j = 0; j < 3; j++) {
 					this->m_data->transformedNormal[i * 3 + j] = this->m_data->face[i].normals[j];
 				}
 			}
 		} else {
-			SMS3DJoint * currentJoint;
 			CVector3F interpolatedVector;
 
 			CMatrix translation;
@@ -396,12 +396,11 @@ namespace daidalosengine {
 			CQuaternion rotation;
 
 			float interpolationFactor;
-			bool keyFrameFound;
 
 			// Update the joints animation matrixes
-			for(int i = 0; i < this->m_data->numberOfJoints; i++) {
-				keyFrameFound = false;
-				currentJoint = &this->m_data->joint[i];
+			for(auto i = 0; i < this->m_data->numberOfJoints; i++) {
+				auto keyFrameFound = false;
+				auto currentJoint = &this->m_data->joint[i];
 				currentJoint->currentTranslationFrame = currentJoint->numTranslationFrames;
 				currentJoint->currentRotationFrame = currentJoint->numRotationFrames;
 				currentJoint->matrixLocal = currentJoint->matrixLocal.Identity();
@@ -410,7 +409,7 @@ namespace daidalosengine {
 				// We need to find the current keyframe
 
 				// Translation
-				for(int j = 0; j < currentJoint->numTranslationFrames - 1 && !keyFrameFound; ++j) {
+				for(auto j = 0; j < currentJoint->numTranslationFrames - 1 && !keyFrameFound; ++j) {
 					if(frame >= currentJoint->translationKeyFrames[j].time && frame < currentJoint->translationKeyFrames[j + 1].time) {
 						currentJoint->currentTranslationFrame = j;
 						keyFrameFound = true;
@@ -420,7 +419,7 @@ namespace daidalosengine {
 				keyFrameFound = false;
 
 				// Rotation
-				for(int j = 0; j < currentJoint->numRotationFrames - 1 && !keyFrameFound; ++j) {
+				for(auto j = 0; j < currentJoint->numRotationFrames - 1 && !keyFrameFound; ++j) {
 					if(frame >= currentJoint->rotationKeyFrames[j].time && frame < currentJoint->rotationKeyFrames[j + 1].time) {
 						currentJoint->currentRotationFrame = j;
 						keyFrameFound = true;
@@ -485,17 +484,14 @@ namespace daidalosengine {
 	void CMS3DLoader::BuildGlobalMatrix() {
 		LOG_TRACE();
 
-		SMS3DJoint * currentJoint;
-		SMS3DJoint * parentJoint;
-
 		// Build the hierarchy for the global matrix
-		for(int i = 0; i < this->m_data->numberOfJoints; ++i) {
-			currentJoint = &this->m_data->joint[i];
+		for(auto i = 0; i < this->m_data->numberOfJoints; ++i) {
+			auto currentJoint = &this->m_data->joint[i];
 
 			if(currentJoint->parent == MS3D_ROOT_JOINT) {
 				currentJoint->matrixGlobal = currentJoint->matrixLocal;
 			} else {
-				parentJoint = &this->m_data->joint[currentJoint->parent];
+				const auto parentJoint = &this->m_data->joint[currentJoint->parent];
 				currentJoint->matrixGlobal = currentJoint->matrixLocal * parentJoint->matrixGlobal;
 			}
 		}
@@ -504,12 +500,10 @@ namespace daidalosengine {
 	void CMS3DLoader::TransformedVerticesCalculation() {
 		LOG_TRACE();
 
-		int currentBone;
-
 		// Apply modifications to vertices
-		for(int i = 0; i < this->m_data->numberOfVertices; ++i) {
+		for(auto i = 0; i < this->m_data->numberOfVertices; ++i) {
 			// Only vertices that are attached to a bone will be updated
-			currentBone = (int)this->m_data->vertex[i].boneId;
+			const auto currentBone = static_cast<int>(this->m_data->vertex[i].boneId);
 			if(currentBone != MS3D_VERTEX_NO_BONES) {
 				this->m_data->transformedVertex[i] = this->m_data->joint[currentBone].matrixGlobal.Transform(this->m_data->joint[currentBone].matrixGlobalSkeleton.Inverse().Transform(this->m_data->vertex[i].position));
 			} else
@@ -520,22 +514,21 @@ namespace daidalosengine {
 	void CMS3DLoader::TransformedNormalsCalculation() {
 		LOG_TRACE();
 
-		int currentBone;
 		SMS3DFace * currentFace;
 
 		// Copy local static normals
-		for(int i = 0; i < this->m_data->numberOfFaces; ++i) {
+		for(auto i = 0; i < this->m_data->numberOfFaces; ++i) {
 			currentFace = &this->m_data->face[i];
-			for(int j = 0; j < 3; ++j) {
+			for(auto j = 0; j < 3; ++j) {
 				this->m_data->transformedNormal[i * 3 + j] = currentFace->normals[j];
 			}
 		}
 
 		// Apply modifications to normals
-		for(int i = 0; i < this->m_data->numberOfFaces; ++i) {
+		for(auto i = 0; i < this->m_data->numberOfFaces; ++i) {
 			currentFace = &this->m_data->face[i];
-			for(int j = 0; j < 3; ++j) {
-				currentBone = this->m_data->vertex[currentFace->vertexIndices[j]].boneId;
+			for(auto j = 0; j < 3; ++j) {
+				const int currentBone = this->m_data->vertex[currentFace->vertexIndices[j]].boneId;
 
 				if(currentBone != MS3D_VERTEX_NO_BONES) {
 					CMatrix rot;

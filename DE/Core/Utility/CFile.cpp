@@ -89,7 +89,7 @@ namespace daidalosengine {
 		std::ifstream file(this->m_name.c_str());
 		if(file.is_open()) {
 			file.seekg(0, std::ios::end);
-			size = (int)file.tellg() * sizeof(char);
+			size = static_cast<int>(file.tellg()) * sizeof(char);
 			file.close();
 		}
 		return size;
@@ -108,34 +108,35 @@ namespace daidalosengine {
 	* Get the filename
 	* @return The filename
 	*/
-	const std::string CFile::GetFilename() const {
+	std::string CFile::GetFilename() const {
 		LOG_TRACE();
 
-		std::string::size_type position = this->m_name.find_last_of("\\/");
+		const auto position = this->m_name.find_last_of("\\/");
 
-		if(position != std::string::npos)
+		if (position != std::string::npos) {
 			return this->m_name.substr(position + 1, std::string::npos);
-		else
+		} else {
 			return this->m_name;
+		}
 	}
 
 	/**
 	* Get the short filename
 	* @return The file full name
 	*/
-	const std::string CFile::GetShortname() const {
+	std::string CFile::GetShortname() const {
 		LOG_TRACE();
-		return GetFilename().substr(0, GetFilename().find_last_of("."));
+		return GetFilename().substr(0, GetFilename().find_last_of('.'));
 	}
 
 	/**
 	* Get the extension
 	* @return The extension
 	*/
-	const std::string CFile::GetExtension() const {
+	std::string CFile::GetExtension() const {
 		LOG_TRACE();
 
-		std::string::size_type position = this->m_name.find_last_of(".");
+		const auto position = this->m_name.find_last_of('.');
 		if(position != std::string::npos)
 			return this->m_name.substr(position + 1, std::string::npos);
 		else

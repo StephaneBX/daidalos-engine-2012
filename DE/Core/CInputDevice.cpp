@@ -55,27 +55,28 @@ namespace daidalosengine {
 		}
 	}
 
-	void CInputDevice::SetActionKey(const unsigned int action, EInputKey key) {
+	void CInputDevice::SetActionKey(const unsigned int action, const EInputKey key) {
 		LOG_TRACE();
 		Assert(this->m_actions.find(action) != this->m_actions.end());
 
-		SInputKey tmp;
-		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING)
+		SInputKey tmp{};
+		if (key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING) {
 			tmp.type = INPUT_TYPE_KEYBOARD;
-		else
+		} else {
 			tmp.type = INPUT_TYPE_MOUSE;
+		}
 		tmp.key = key;
 
 		this->m_actions[action].keys.push_back(tmp);
 		this->m_actions[action].state = INPUT_KEY_STATE_UP;
 	}
 
-	void CInputDevice::SetGamepadActionKey(const unsigned int action, const unsigned int gamepadId, EInputKeyGamepad key) {
+	void CInputDevice::SetGamepadActionKey(const unsigned int action, const unsigned int gamepadId, const EInputKeyGamepad key) {
 		LOG_TRACE();
 
 		Assert(this->m_gamepadActions[gamepadId].find(action) != this->m_gamepadActions[gamepadId].end());
 
-		SInputKey tmp;
+		SInputKey tmp{};
 		tmp.type = INPUT_TYPE_GAMEPAD;
 		tmp.key = key;
 
@@ -91,7 +92,7 @@ namespace daidalosengine {
 	void CInputDevice::RemoveKeyboardListener(IInputKeyboardListener * listener) {
 		LOG_TRACE();
 
-		auto it = std::find(this->m_keyboardListeners.begin(), this->m_keyboardListeners.end(), listener);
+		const auto it = std::find(this->m_keyboardListeners.begin(), this->m_keyboardListeners.end(), listener);
 		if(it != this->m_keyboardListeners.end()) {
 			this->m_keyboardListeners.erase(it);
 		}
@@ -116,15 +117,16 @@ namespace daidalosengine {
 		}
 	}
 
-	void CInputDevice::MoveMouse(const CVector2I & position, const CVector2I movement) {
+	void CInputDevice::MoveMouse(const CVector2I & position, const CVector2I& movement) {
 		LOG_TRACE();
 
 		this->m_mousePosition = position;
 		this->m_mouseMovement += movement;
 
 		// Call the listeners
-		for(auto it = this->m_mouseListeners.begin(); it != this->m_mouseListeners.end(); ++it)
-			(*it)->OnInputMouseMoved(this->m_mousePosition, movement);
+		for (auto& mouseListener : this->m_mouseListeners) {
+			mouseListener->OnInputMouseMoved(this->m_mousePosition, movement);
+		}
 	}
 
 	void CInputDevice::SetMousePosition(const CVector2I & position, const bool triggerEvent) {
@@ -135,10 +137,12 @@ namespace daidalosengine {
 			this->m_mousePosition = position;
 
 			// Call the listeners
-			for(auto it = this->m_mouseListeners.begin(); it != this->m_mouseListeners.end(); ++it)
-				(*it)->OnInputMouseMoved(this->m_mousePosition, position - this->m_mousePosition);
-		} else
+			for (auto& mouseListener : this->m_mouseListeners) {
+				mouseListener->OnInputMouseMoved(this->m_mousePosition, position - this->m_mousePosition);
+			}
+		} else {
 			this->m_mousePosition = position;
+		}
 	}
 
 	void CInputDevice::SetMouseMotion(const CVector2I & movement) {
@@ -148,19 +152,20 @@ namespace daidalosengine {
 		this->m_mousePosition += movement;
 
 		// Call the listeners
-		for(auto it = this->m_mouseListeners.begin(); it != this->m_mouseListeners.end(); ++it)
-			(*it)->OnInputMouseMoved(this->m_mousePosition, this->m_mouseMovement);
+		for (auto& mouseListener : this->m_mouseListeners) {
+			mouseListener->OnInputMouseMoved(this->m_mousePosition, this->m_mouseMovement);
+		}
 	}
 
-	void CInputDevice::SetKeyUp(EInputKey key, const unsigned int ascii) {
+	void CInputDevice::SetKeyUp(const EInputKey key, const unsigned int ascii) {
 		LOG_TRACE();
 
 		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING) {
 			SetKeyUp(this->m_actions, INPUT_TYPE_KEYBOARD, key);
 
 			// Call all the listeners
-			for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2) {
-				(*it2)->OnKeyPressed(ascii);
+			for (auto& keyboardListener : this->m_keyboardListeners) {
+				keyboardListener->OnKeyPressed(ascii);
 			}
 
 		} else {
@@ -168,7 +173,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void CInputDevice::SetKeyDown(EInputKey key, const unsigned int ascii) {
+	void CInputDevice::SetKeyDown(const EInputKey key, const unsigned int ascii) {
 		LOG_TRACE();
 
 		if(key > INPUT_KEY_KEYBOARD_BEGINNING && key < INPUT_KEY_KEYBOARD_ENDING) {
@@ -262,8 +267,9 @@ namespace daidalosengine {
 					it->second.actionFactor = 0;
 
 					// Call all the listeners
-					for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2)
-						(*it2)->OnInputActionStopped(it->second.actionId);
+					for (auto& keyboardListener : this->m_keyboardListeners) {
+						keyboardListener->OnInputActionStopped(it->second.actionId);
+					}
 
 					// Check if it has a linked action to the state FROZEN
 					if(it->second.linkedActionId != INPUT_NO_LINKED_ACTION && action[it->second.linkedActionId].state == INPUT_KEY_STATE_FROZEN) {
@@ -271,8 +277,9 @@ namespace daidalosengine {
 						action[it->second.linkedActionId].state = INPUT_KEY_STATE_DOWN;
 
 						// Call all the listeners
-						for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2)
-							(*it2)->OnInputActionStarted(action[it->second.linkedActionId].actionId);
+						for (auto& keyboardListener : this->m_keyboardListeners) {
+							keyboardListener->OnInputActionStarted(action[it->second.linkedActionId].actionId);
+						}
 					}
 				} else {
 					// If the action state is FROZEN
@@ -281,15 +288,16 @@ namespace daidalosengine {
 						it->second.state = INPUT_KEY_STATE_UP;
 
 						// Call all the listeners
-						for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2)
-							(*it2)->OnInputActionStopped(it->second.actionId);
+						for (auto& keyboardListener : this->m_keyboardListeners) {
+							keyboardListener->OnInputActionStopped(it->second.actionId);
+						}
 					}
 				}
 			}
 		}
 	}
 
-	void CInputDevice::SetKeyDown(std::map<unsigned int, SInputAction> & action, EInputKeyType type, const unsigned int key, const float factor) {
+	void CInputDevice::SetKeyDown(std::map<unsigned int, SInputAction> & action, const EInputKeyType type, const unsigned int key, const float factor) {
 		LOG_TRACE();
 
 		// Loop through the actions
@@ -298,8 +306,9 @@ namespace daidalosengine {
 
 			// Search if the action uses this key
 			for(unsigned int i = 0; i < it->second.keys.size() && !found; ++i) {
-				if(it->second.keys[i].type == type && it->second.keys[i].key == key)
+				if (it->second.keys[i].type == type && it->second.keys[i].key == key) {
 					found = true;
+				}
 			}
 
 			// If the action uses this key, make the changes
@@ -316,13 +325,14 @@ namespace daidalosengine {
 						action[it->second.linkedActionId].state = INPUT_KEY_STATE_FROZEN;
 
 						// Call all the listeners
-						for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2)
-							(*it2)->OnInputActionStopped(action[it->second.linkedActionId].actionId);
+						for (auto& keyboardListener : this->m_keyboardListeners) {
+							keyboardListener->OnInputActionStopped(action[it->second.linkedActionId].actionId);
+						}
 					}
 
 					// Call all the listeners
-					for(auto it2 = this->m_keyboardListeners.begin(); it2 != this->m_keyboardListeners.end(); ++it2) {
-						(*it2)->OnInputActionStarted(it->second.actionId);
+					for (auto& keyboardListener : this->m_keyboardListeners) {
+						keyboardListener->OnInputActionStarted(it->second.actionId);
 					}
 				}
 

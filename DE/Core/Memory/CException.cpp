@@ -31,12 +31,12 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CException::CException() {}
+	CException::CException() = default;
 
 	/**
 	* Destructor
 	*/
-	CException::~CException() throw() {}
+	CException::~CException() = default;
 
 	/**
 	* Set the message

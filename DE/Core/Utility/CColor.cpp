@@ -137,7 +137,7 @@ namespace daidalosengine {
 	* Get a string from a CVector3
 	* @param separator The separator
 	*/
-	const std::string CColor::ToString(const std::string separator) const {
+	std::string CColor::ToString(const std::string& separator) const {
 		LOG_TRACE();
 
 		// Truncate
@@ -154,7 +154,7 @@ namespace daidalosengine {
 	* Get a RGB vector of this color
 	* @return a RGB color vector
 	*/
-	const CVector3F CColor::ToRGBVector() const {
+	CVector3F CColor::ToRGBVector() const {
 		LOG_TRACE();
 		return CVector3F(GetRed() / 255.0F, GetGreen() / 255.0F, GetBlue() / 255.0F);
 	}
@@ -163,7 +163,7 @@ namespace daidalosengine {
 	* Get a RGBA vector of this color
 	* @return a RGBA color vector
 	*/
-	const CVector4F CColor::ToRGBAVector() const {
+	CVector4F CColor::ToRGBAVector() const {
 		LOG_TRACE();
 		return CVector4F(GetRed() / 255.0F, GetGreen() / 255.0F, GetBlue() / 255.0F, GetAlpha() / 255.0F);
 	}
@@ -173,9 +173,9 @@ namespace daidalosengine {
 	* @param color A color
 	* @return The color
 	*/
-	const CColor CColor::operator+(const CColor & color) const {
+	CColor CColor::operator+(const CColor & color) const {
 		LOG_TRACE();
-		return CColor((int)GetRed() + (int)color.GetRed(), static_cast<int>(GetGreen() + color.GetGreen()), static_cast<int>(GetBlue() + color.GetBlue()), static_cast<int>(GetAlpha() + color.GetAlpha()));
+		return CColor(static_cast<int>(GetRed()) + static_cast<int>(color.GetRed()), static_cast<int>(GetGreen() + color.GetGreen()), static_cast<int>(GetBlue() + color.GetBlue()), static_cast<int>(GetAlpha() + color.GetAlpha()));
 	}
 
 	/**
@@ -183,7 +183,7 @@ namespace daidalosengine {
 	* @param color A color
 	* @return The color
 	*/
-	const CColor CColor::operator-(const CColor & color) const {
+	CColor CColor::operator-(const CColor & color) const {
 		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() - color.GetRed()), static_cast<int>(GetGreen() - color.GetGreen()), static_cast<int>(GetBlue() - color.GetBlue()), static_cast<int>(GetAlpha() - color.GetAlpha()));
 	}
@@ -193,7 +193,7 @@ namespace daidalosengine {
 	* @param color A color
 	* @return The color
 	*/
-	const CColor CColor::operator*(const CColor & color) const {
+	CColor CColor::operator*(const CColor & color) const {
 		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() * color.GetRed()), static_cast<int>(GetGreen() * color.GetGreen()), static_cast<int>(GetBlue() * color.GetBlue()), static_cast<int>(GetAlpha() * color.GetAlpha()));
 	}
@@ -203,7 +203,7 @@ namespace daidalosengine {
 	* @param number A number
 	* @return The color
 	*/
-	const CColor CColor::operator*(const float number) const {
+	CColor CColor::operator*(const float number) const {
 		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() * number), static_cast<int>(GetGreen() * number), static_cast<int>(GetBlue() * number), static_cast<int>(GetAlpha() * number));
 	}
@@ -213,7 +213,7 @@ namespace daidalosengine {
 	* @param number A number
 	* @return The color
 	*/
-	const CColor CColor::operator/(const float number) const {
+	CColor CColor::operator/(const float number) const {
 		LOG_TRACE();
 		return CColor(static_cast<int>(GetRed() / number), static_cast<int>(GetGreen() / number), static_cast<int>(GetBlue() / number), static_cast<int>(GetAlpha() / number));
 	}
@@ -305,7 +305,7 @@ namespace daidalosengine {
 	void CColor::SetRed(const int red) {
 		LOG_TRACE();
 
-		int r = ClampNumber(red, 0, 255);
+		const auto r = ClampNumber(red, 0, 255);
 		this->m_color |= r << 16;
 	}
 
@@ -316,7 +316,7 @@ namespace daidalosengine {
 	void CColor::SetGreen(const int green) {
 		LOG_TRACE();
 
-		int g = ClampNumber(green, 0, 255);
+		const auto g = ClampNumber(green, 0, 255);
 		this->m_color |= g << 8;
 	}
 
@@ -327,7 +327,7 @@ namespace daidalosengine {
 	void CColor::SetBlue(const int blue) {
 		LOG_TRACE();
 
-		int b = ClampNumber(blue, 0, 255);
+		const auto b = ClampNumber(blue, 0, 255);
 		this->m_color |= b;
 	}
 
@@ -338,7 +338,7 @@ namespace daidalosengine {
 	void CColor::SetAlpha(const int alpha) {
 		LOG_TRACE();
 
-		int a = ClampNumber(alpha, 0, 255);
+		const auto a = ClampNumber(alpha, 0, 255);
 		this->m_color |= a << 24;
 	}
 
@@ -349,7 +349,7 @@ namespace daidalosengine {
 	void CColor::SetRed(const float red) {
 		LOG_TRACE();
 
-		int r = static_cast<int>(ClampNumber(red, 0.0F, 1.0F) * 255);
+		const auto r = static_cast<int>(ClampNumber(red, 0.0F, 1.0F) * 255);
 		this->m_color |= r << 16;
 	}
 
@@ -360,7 +360,7 @@ namespace daidalosengine {
 	void CColor::SetGreen(const float green) {
 		LOG_TRACE();
 
-		int g = static_cast<int>(ClampNumber(green, 0.0F, 1.0F) * 255);
+		const auto g = static_cast<int>(ClampNumber(green, 0.0F, 1.0F) * 255);
 		this->m_color |= g << 8;
 	}
 
@@ -371,7 +371,7 @@ namespace daidalosengine {
 	void CColor::SetBlue(const float blue) {
 		LOG_TRACE();
 
-		int b = static_cast<int>(ClampNumber(blue, 0.0F, 1.0F) * 255);
+		const auto b = static_cast<int>(ClampNumber(blue, 0.0F, 1.0F) * 255);
 		this->m_color |= b;
 	}
 
@@ -382,7 +382,7 @@ namespace daidalosengine {
 	void CColor::SetAlpha(const float alpha) {
 		LOG_TRACE();
 
-		int a = static_cast<int>(ClampNumber(alpha, 0.0F, 1.0F) * 255);
+		const auto a = static_cast<int>(ClampNumber(alpha, 0.0F, 1.0F) * 255);
 		this->m_color |= a << 24;
 	}
 
@@ -425,10 +425,10 @@ namespace daidalosengine {
 	void CColor::SetInt(const int r, const int g, const int b, const int a) {
 		LOG_TRACE();
 
-		unsigned char red = ClampNumber(r, 0, 255);
-		unsigned char green = ClampNumber(g, 0, 255);
-		unsigned char blue = ClampNumber(b, 0, 255);
-		unsigned char alpha = ClampNumber(a, 0, 255);
+		const unsigned char red = ClampNumber(r, 0, 255);
+		const unsigned char green = ClampNumber(g, 0, 255);
+		const unsigned char blue = ClampNumber(b, 0, 255);
+		const unsigned char alpha = ClampNumber(a, 0, 255);
 
 		SetUnsignedChar(red, green, blue, alpha);
 	}
@@ -472,7 +472,7 @@ namespace daidalosengine {
 	* @param separator The separator
 	* @return The vector
 	*/
-	const CColor CColor::GetFrom(const std::string text, const CColor & defaultValue, const std::string separator) {
+	CColor CColor::GetFrom(const std::string& text, const CColor & defaultValue, const std::string& separator) {
 		CColor result;
 		CTokenizer token;
 

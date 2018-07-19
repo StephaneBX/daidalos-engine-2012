@@ -54,7 +54,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 	}
 
-	const std::string IResource::GetName() const {
+	std::string IResource::GetName() const {
 		LOG_TRACE();
 
 		return this->m_name.GetFilename();
@@ -63,7 +63,7 @@ namespace daidalosengine {
 	int IResource::Release() {
 		LOG_TRACE();
 
-		int tmpRef = --this->m_referenceCount;
+		const auto tmpRef = --this->m_referenceCount;
 
 		if(tmpRef == 0)
 			delete this;

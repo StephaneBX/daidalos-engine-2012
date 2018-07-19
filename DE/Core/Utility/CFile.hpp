@@ -79,19 +79,19 @@ namespace daidalosengine {
 		* Get the filename
 		* @return The filename
 		*/
-		const std::string GetFilename() const;
+		std::string GetFilename() const;
 
 		/**
 		* Get the short filename
 		* @return The file full name
 		*/
-		const std::string GetShortname() const;
+		std::string GetShortname() const;
 
 		/**
 		* Get the extension
 		* @return The extension
 		*/
-		const std::string GetExtension() const;
+		std::string GetExtension() const;
 	};
 }
 

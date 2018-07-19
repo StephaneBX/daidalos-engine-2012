@@ -128,7 +128,7 @@ namespace daidalosengine {
 		* Get the name
 		* @return The name
 		*/
-		const std::string & GetName();
+		const std::string & GetName() const;
 
 		/**
 		* Get the options

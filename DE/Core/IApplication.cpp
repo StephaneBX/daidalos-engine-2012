@@ -53,7 +53,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Seed initialization for the main thread
-		srand((unsigned int)time(nullptr));
+		srand(static_cast<unsigned int>(time(nullptr)));
 
 		this->m_name = name;
 		this->m_renderer = nullptr;
@@ -72,7 +72,7 @@ namespace daidalosengine {
 		this->m_fillMode = RENDER_STATE_FILL_MODE_SOLID;
 		int fillMode = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_GENERAL, APPLICATION_OPTION_GENERAL_FILL_MODE, 0);
 		if(fillMode >= RENDER_STATE_FILL_MODE_POINT && fillMode <= RENDER_STATE_FILL_MODE_SOLID) {
-			this->m_fillMode = (ERenderStateFillMode)fillMode;
+			this->m_fillMode = static_cast<ERenderStateFillMode>(fillMode);
 		}
 		
 
@@ -183,7 +183,7 @@ namespace daidalosengine {
 	* Get the name
 	* @return The name
 	*/
-	const std::string & IApplication::GetName() {
+	const std::string & IApplication::GetName() const {
 		return this->m_name;
 	}
 

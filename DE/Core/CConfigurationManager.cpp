@@ -39,14 +39,15 @@ namespace daidalosengine {
 	SiniP & CConfigurationManager::GetConfiguration(const std::string & filename) {
 		LOG_TRACE();
 
-		auto it = this->m_files.find(filename);
+		const auto it = this->m_files.find(filename);
 
 		// Load the file if it has not been loaded yet
-		if(it == this->m_files.end())
+		if (it == this->m_files.end()) {
 			this->m_files[filename] = SiniP(filename);
+		}
 
 		return this->m_files[filename];
 	}
 
-	CConfigurationManager::CConfigurationManager() {}
+	CConfigurationManager::CConfigurationManager() = default;
 }

@@ -65,7 +65,7 @@ namespace daidalosengine {
 		this->m_fpsUpdateRateTimer += time;
 
 		if(this->m_fpsUpdateRateTimer >= FPS_UPDATE_RATE) {
-			this->m_fps = (int)(this->m_frameCountRate / (this->m_fpsUpdateRateTimer / 1000.0F));
+			this->m_fps = static_cast<int>(this->m_frameCountRate / (this->m_fpsUpdateRateTimer / 1000.0F));
 			this->m_fpsUpdateRateTimer = 0;
 			this->m_frameCountRate = 0;
 			this->m_fpsStream.str("");

@@ -61,7 +61,7 @@ namespace daidalosengine {
 		ilBindImage(texture);
 
 		if(!ilLoadImage(const_cast<ILstring>(filename.c_str()))) {
-			ILenum devilError = ilGetError();
+			const ILenum devilError = ilGetError();
 			LOG_ERROR("Unable to load the image '" << filename << "' : " << devilError);
 			ILogger::Kill();
 
@@ -71,7 +71,7 @@ namespace daidalosengine {
 		const CVector2I size = CVector2I(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
 		const unsigned char * pixels = ilGetData();
 
-		CImage * image = new CImage(size, PIXEL_FORMAT_A8R8G8B8, pixels);
+		const auto image = new CImage(size, PIXEL_FORMAT_A8R8G8B8, pixels);
 		//image->Mirror();
 
 		ilBindImage(0);
@@ -92,8 +92,8 @@ namespace daidalosengine {
 		ilGenImages(1, &texture);
 		ilBindImage(texture);
 
-		const int width = image.GetWidth();
-		const int height = image.GetHeight();
+		const auto width = image.GetWidth();
+		const auto height = image.GetHeight();
 
 		if(!ilTexImage(width, height, 1, GetBytesPerPixel(image.GetFormat()), IL_BGRA, IL_UNSIGNED_BYTE, (void*)image.GetData())) {
 			LOG_ERROR("Unable to save the file '" << filename << "'");

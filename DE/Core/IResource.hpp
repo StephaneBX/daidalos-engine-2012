@@ -64,7 +64,7 @@ namespace daidalosengine {
 		* Get the ressource name
 		* @return The name
 		*/
-		const std::string GetName() const;
+		std::string GetName() const;
 
 		/**
 		* Remove a reference and delete the ressource if not used anymore

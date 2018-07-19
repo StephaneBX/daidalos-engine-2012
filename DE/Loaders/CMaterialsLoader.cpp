@@ -43,23 +43,23 @@ namespace daidalosengine {
 	IMaterialBase * CMaterialsLoader::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
-		IMaterialBase * material = new IMaterialBase(filename);
+		auto material = new IMaterialBase(filename);
 		SMaterialElement * element = nullptr;
 		std::string elementName;
 		std::istringstream iss;
 
 		std::vector<std::string> filterList;
-		filterList.push_back("newmtl ");
-		filterList.push_back("Kd ");
-		filterList.push_back("Ka ");
-		filterList.push_back("Ks ");
-		filterList.push_back("Ke ");
-		filterList.push_back("Ns ");
+		filterList.emplace_back("newmtl ");
+		filterList.emplace_back("Kd ");
+		filterList.emplace_back("Ka ");
+		filterList.emplace_back("Ks ");
+		filterList.emplace_back("Ke ");
+		filterList.emplace_back("Ns ");
 
 		CTokenizer tokenizer(filename, filterList);
 		tokenizer.Tokenize(" ");
 
-		if(tokenizer.GetTokens().size() > 0) {
+		if(!tokenizer.GetTokens().empty()) {
 			for(unsigned int i = 0; i < tokenizer.GetTokens().size();) {
 				if(tokenizer.GetTokens().at(i) == "newmtl") {
 					if (element != nullptr) {

@@ -84,7 +84,7 @@ namespace daidalosengine {
 		* @param y The y coordinate
 		* @return The color
 		*/
-		const CColor GetPixel(const int x, const int y) const;
+		CColor GetPixel(const int x, const int y) const;
 
 		/**
 		* Get the image size

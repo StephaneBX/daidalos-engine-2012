@@ -50,7 +50,6 @@ namespace daidalosengine {
 		const int loadOk = doc.LoadFile(filename.c_str());
 		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			data = new SFontInternalData;
-			std::string tmpString;
 			tinyxml2::XMLHandle hDoc(&doc);
 
 			/**
@@ -62,7 +61,7 @@ namespace daidalosengine {
 			info->QueryBoolAttribute("italic", &data->italic);
 			info->QueryIntAttribute("size", &data->size);
 
-			tmpString = info->Attribute("padding");
+			std::string tmpString = info->Attribute("padding");
 			data->padding = CVector4I::GetFrom(tmpString, CVector4I(), ",");
 
 			tmpString = info->Attribute("spacing");
@@ -99,7 +98,7 @@ namespace daidalosengine {
 			*/
 			tinyxml2::XMLElement * kerning = hDoc.FirstChildElement("font").FirstChildElement("kernings").FirstChildElement("kerning").ToElement();
 			for(tinyxml2::XMLElement * kerningIt = kerning; kerningIt != nullptr; kerningIt = kerningIt->NextSiblingElement()) {
-				SKerningPair kerningData;
+				SKerningPair kerningData{};
 				kerningIt->QueryUnsignedAttribute("first", &kerningData.first);
 				kerningIt->QueryUnsignedAttribute("second", &kerningData.second);
 				kerningIt->QueryIntAttribute("amount", &kerningData.amount);
