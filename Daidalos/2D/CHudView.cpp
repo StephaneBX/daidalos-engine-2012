@@ -30,7 +30,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace daidalos {
 
-	CHudView::CHudView(const daidalosengine::CRectangleI & bounds) : IView() {
+	CHudView::CHudView(const daidalosengine::CRectangleI & bounds) {
 
 		SetBounds(bounds);
 		Initialize();
@@ -140,7 +140,7 @@ namespace daidalos {
 	*/
 	void CHudView::SetPosition(const daidalosengine::CVector3F position) {
 		std::stringstream ss;
-		ss << "POSITION: " << (int)position.x << " : " << (int)position.y << " : " << (int)position.z;
+		ss << "POSITION: " << static_cast<int>(position.x) << " : " << static_cast<int>(position.y) << " : " << static_cast<int>(position.z);
 		this->m_positionLabel.SetText(ss.str());
 	}
 
@@ -150,7 +150,7 @@ namespace daidalos {
 	*/
 	void CHudView::SetGravity(const float gravity) {
 		std::stringstream ss;
-		ss << "GRAVITY: " << (int)gravity;
+		ss << "GRAVITY: " << static_cast<int>(gravity);
 		this->m_gravityLabel.SetText(ss.str());
 	}
 
@@ -160,7 +160,7 @@ namespace daidalos {
 	*/
 	void CHudView::SetHealth(const int health) {
 		std::stringstream ss;
-		ss << (int)health << "%";
+		ss << static_cast<int>(health) << "%";
 		this->m_healthLabel.SetText(ss.str());
 		this->m_healthLabel.SetColor(GetStateColor(health));
 	}
@@ -171,7 +171,7 @@ namespace daidalos {
 	*/
 	void CHudView::SetArmor(const int armor) {
 		std::stringstream ss;
-		ss << (int)armor << "%";
+		ss << static_cast<int>(armor) << "%";
 		this->m_armorLabel.SetText(ss.str());
 		this->m_armorLabel.SetColor(GetStateColor(armor));
 	}
@@ -183,7 +183,7 @@ namespace daidalos {
 	*/
 	void CHudView::SetAmmo(const unsigned int magazine, const unsigned int stock) {
 		std::stringstream ss;
-		ss << (int)magazine << " / " << (int)stock;
+		ss << static_cast<int>(magazine) << " / " << static_cast<int>(stock);
 		this->m_ammoLabel.SetText(ss.str());
 	}
 
@@ -191,7 +191,7 @@ namespace daidalos {
 	* Get the color for a state value
 	* @param state The state value
 	*/
-	const daidalosengine::CColor CHudView::GetStateColor(const int state) {
+	daidalosengine::CColor CHudView::GetStateColor(const int state) {
 
 		daidalosengine::CColor color;
 

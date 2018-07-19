@@ -138,7 +138,7 @@ namespace daidalosgameengine {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformLevelCollisions(daidalosengine::CVector3F movement, const float time) {
+	void ICollidableEntity::PerformLevelCollisions(const daidalosengine::CVector3F& movement, const float time) {
 
 		const float timeSecond = time / 1000.0F;
 		SetVisiblePosition(GetVisiblePosition() + movement * timeSecond);
@@ -147,12 +147,12 @@ namespace daidalosgameengine {
 		this->m_lastCollisionUpdateTimer += time;
 		if(this->m_lastCollisionUpdateTimer >= this->m_collisionUpdateFrequency) {
 			// Collision test with only the movement
-			daidalosengine::CVector3F finalMovement = GetVisiblePosition() - this->m_collisionShape->GetPosition();
-			GetParent()->GetScene()->Slide(*this->m_collisionShape.get(), finalMovement);
+			auto finalMovement = GetVisiblePosition() - this->m_collisionShape->GetPosition();
+			GetParent()->GetScene()->Slide(*this->m_collisionShape, finalMovement);
 
 			// Collision test of the gravity
 			finalMovement = this->m_gravity * timeSecond;
-			daidalosengine::CVector3F finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
+			const auto finalPosition = this->m_collisionShape->GetPosition() + finalMovement;
 			GetParent()->GetScene()->Slide(*this->m_collisionShape, finalMovement);
 
 			// Reset gravity and state if the entity has touched the ground
@@ -187,7 +187,7 @@ namespace daidalosgameengine {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void ICollidableEntity::PerformEntityCollisions(daidalosengine::CVector3F movement, const float time) {
+	void ICollidableEntity::PerformEntityCollisions(const daidalosengine::CVector3F& movement, const float time) {
 		// Nothing to do
 	}
 }

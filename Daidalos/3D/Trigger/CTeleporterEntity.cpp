@@ -44,8 +44,8 @@ namespace daidalos {
 		this->m_levelName = this->m_node->GetAttribute("nextLevelName");
 
 		// Create the particle emitters
-		daidalosengine::CParticleEmitter * emitter1 = nullptr;
-		daidalosengine::CParticleEmitter * emitter2 = nullptr;
+		daidalosengine::CParticleEmitter * emitter1;
+		daidalosengine::CParticleEmitter * emitter2;
 
 		// Active of inactive effect
 		if(!this->m_levelName.empty()) {
@@ -89,7 +89,7 @@ namespace daidalos {
 	* @return True if the action can be triggered, false otherwise
 	*/
 	bool CTeleporterEntity::CanDoAction() {
-		return this->m_levelName != "" && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition() + daidalosengine::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
+		return !this->m_levelName.empty() && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition() + daidalosengine::CVector3F(0, 4, 0), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS;
 	}
 
 	/**

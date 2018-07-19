@@ -94,19 +94,19 @@ namespace daidalos {
 		* Get the current way point.
 		* @return The current way point
 		*/
-		int GetCurrentWayPoint();
+		int GetCurrentWayPoint() const;
 
 		/**
 		* Get the walk speed.
 		* @return The walk speed
 		*/
-		float GetWalkSpeed();
+		float GetWalkSpeed() const;
 
 		/**
 		* Get the rotation speed.
 		* @return The rotation speed
 		*/
-		float GetRotationSpeed();
+		float GetRotationSpeed() const;
 
 	private:
 		/**

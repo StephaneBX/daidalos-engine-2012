@@ -156,7 +156,7 @@ namespace daidalosgameengine {
 	* Get the camera node
 	* @return The camera node
 	*/
-	daidalosengine::ICameraSceneNode * CCinematicEvent::GetCameraNode() {
+	daidalosengine::ICameraSceneNode * CCinematicEvent::GetCameraNode() const {
 		return this->m_camera->GetCameraNode();
 	}
 }

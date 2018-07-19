@@ -48,7 +48,7 @@ namespace daidalos {
 		this->m_sound.SetRelativeToListener(true);
 
 		// Read the attributes
-		if(this->m_node->GetAttribute("color") != "") {
+		if(!this->m_node->GetAttribute("color").empty()) {
 			const std::string color = this->m_node->GetAttribute("color");
 			if(color == "red") {
 				this->m_playerObject = PLAYER_OBJECT_MAGNETIC_CARD_RED;
@@ -66,7 +66,7 @@ namespace daidalos {
 		if(this->m_node->IsEnabled()) {
 			const float timePerSecond = time / 1000.0F;
 
-			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
+			const float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
 			this->m_node->SetRotation(daidalosengine::CVector3F(0, rotation, 0));
 		}
 	}

@@ -110,7 +110,7 @@ namespace daidalos {
 		* Get the color for a state value
 		* @param state The state value
 		*/
-		const daidalosengine::CColor GetStateColor(const int state);
+		static daidalosengine::CColor GetStateColor(const int state);
 	};
 }
 

@@ -111,7 +111,6 @@ namespace daidalos {
 			this->m_searched -= time;
 		}
 
-		daidalosengine::CVector3F movement = daidalosengine::CVector3F();
 		if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING) {
 			entity->GetMeshNode()->SetLooped(true);
 			entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
@@ -123,7 +122,7 @@ namespace daidalos {
 		}
 
 		// Follow the target
-		movement = entity->GetCameraNode()->GetForwardVector() * this->m_moveSpeed;
+		const daidalosengine::CVector3F movement = entity->GetCameraNode()->GetForwardVector() * this->m_moveSpeed;
 
 		// Update the rotation
 		UpdateRotation(entity, time);
@@ -189,13 +188,13 @@ namespace daidalos {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
-		float rotation = this->m_rotationSpeed * timePerSecond;
+		const float rotation = this->m_rotationSpeed * timePerSecond;
 
 		// Check the entity - waypoint angle
-		daidalosengine::CVector3F entityToTarget = (this->m_target->GetVisiblePosition() - entity->GetVisiblePosition()).Normalize();
+		const daidalosengine::CVector3F entityToTarget = (this->m_target->GetVisiblePosition() - entity->GetVisiblePosition()).Normalize();
 
 		// Horizontal rotation way
-		daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToTarget.x, entityToTarget.z).Normalize();
+		const daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToTarget.x, entityToTarget.z).Normalize();
 		daidalosengine::CVector2F entityForwardHorizontal = daidalosengine::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
 
 		float rotationY = entity->GetMeshNode()->GetRotation().y;

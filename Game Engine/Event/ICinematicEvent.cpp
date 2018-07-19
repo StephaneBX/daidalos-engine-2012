@@ -41,7 +41,7 @@ namespace daidalosgameengine {
 	* Get the data
 	* @return The data
 	*/
-	SCinematicEventInternalData * ICinematicEvent::GetData() {
+	SCinematicEventInternalData * ICinematicEvent::GetData() const {
 		return this->m_data.get();
 	}
 }

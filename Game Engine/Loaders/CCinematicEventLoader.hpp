@@ -58,7 +58,7 @@ namespace daidalosgameengine {
 		virtual ICinematicEvent * LoadFromFile(const std::string & filename) override;
 
 	private:
-		void LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle & handle);
+		void LoadCameraStep(SCinematicEventInternalData* data, tinyxml2::XMLHandle handle);
 	};
 }
 

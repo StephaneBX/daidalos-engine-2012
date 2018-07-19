@@ -86,14 +86,14 @@ namespace daidalosgameengine {
 	}
 
 	void CCinematicCamera::Update(const float time) {
-		float timeSecond = time / 1000.0F;
+		const float timeSecond = time / 1000.0F;
 		
 		if(this->m_enabled) {
 			daidalosengine::CVector3F position;
 			daidalosengine::CVector3F rotation;
 
 			// Update the step
-			this->m_currentStep += this->m_steps[(int)this->m_currentStep].speed * timeSecond;
+			this->m_currentStep += this->m_steps[static_cast<int>(this->m_currentStep)].speed * timeSecond;
 			if (this->m_currentStep >= this->m_steps.size() - 1) {
 				position = this->m_steps.back().position;
 				rotation = this->m_steps.back().rotation;
@@ -106,45 +106,45 @@ namespace daidalosgameengine {
 			} else {
 
 				// Depending on the transition type
-				if (this->m_steps[(int)this->m_currentStep].transition == TRANSITION_NONE) {
-					position = this->m_steps[(int)this->m_currentStep].position;
-					rotation = this->m_steps[(int)this->m_currentStep].rotation;
+				if (this->m_steps[static_cast<int>(this->m_currentStep)].transition == TRANSITION_NONE) {
+					position = this->m_steps[static_cast<int>(this->m_currentStep)].position;
+					rotation = this->m_steps[static_cast<int>(this->m_currentStep)].rotation;
 
-				} else if (this->m_steps[(int)this->m_currentStep].transition == TRANSITION_INTERPOLATE) {
-					float diff = this->m_currentStep - (int)this->m_currentStep;
+				} else if (this->m_steps[static_cast<int>(this->m_currentStep)].transition == TRANSITION_INTERPOLATE) {
+					const float diff = this->m_currentStep - static_cast<int>(this->m_currentStep);
 
 					// Position interpolation - Splines
-					daidalosengine::CVector3F y0 = this->m_steps[(int)this->m_currentStep].position;
-					daidalosengine::CVector3F y1 = this->m_steps[(int)this->m_currentStep].position;
-					daidalosengine::CVector3F y2 = this->m_steps[(int)this->m_currentStep + 1].position;
-					daidalosengine::CVector3F y3 = this->m_steps[(int)this->m_currentStep + 1].position;
+					daidalosengine::CVector3F y0 = this->m_steps[static_cast<int>(this->m_currentStep)].position;
+					const daidalosengine::CVector3F y1 = this->m_steps[static_cast<int>(this->m_currentStep)].position;
+					const daidalosengine::CVector3F y2 = this->m_steps[static_cast<int>(this->m_currentStep) + 1].position;
+					daidalosengine::CVector3F y3 = this->m_steps[static_cast<int>(this->m_currentStep) + 1].position;
 
 					if (this->m_currentStep >= 1) {
-						y0 = this->m_steps[(int)this->m_currentStep - 1].position;
+						y0 = this->m_steps[static_cast<int>(this->m_currentStep) - 1].position;
 					}
 					if ((this->m_currentStep + 2) <= this->m_steps.size() - 1) {
-						y3 = this->m_steps[(int)this->m_currentStep + 2].position;
+						y3 = this->m_steps[static_cast<int>(this->m_currentStep) + 2].position;
 					}
 					position = daidalosengine::CubicInterpolate<daidalosengine::CVector3F>(y0, y1, y2, y3, diff);
 
 					// Rotation interpolation - Cosine
-					float interpolation = (1 - cos(diff * PI)) / 2.0F;
-					rotation = (this->m_steps[(int)this->m_currentStep].rotation * (1 - interpolation) + this->m_steps[(int)this->m_currentStep + 1].rotation * interpolation);
+					const float interpolation = (1 - cos(diff * PI)) / 2.0F;
+					rotation = (this->m_steps[static_cast<int>(this->m_currentStep)].rotation * (1 - interpolation) + this->m_steps[static_cast<int>(this->m_currentStep) + 1].rotation * interpolation);
 				}
 			}
 
 			// Update the fade value
 			GetParent()->SetBrightness(0);
-			if (this->m_steps[(int)this->m_currentStep].fade != FADE_NONE) {
-				float diff = this->m_currentStep - (int)this->m_currentStep;
-				float fadeDiff = this->m_steps[(int)this->m_currentStep].speed * (this->m_steps[(int)this->m_currentStep].fadeDuration / 1000.0F);
+			if (this->m_steps[static_cast<int>(this->m_currentStep)].fade != FADE_NONE) {
+				const float diff = this->m_currentStep - static_cast<int>(this->m_currentStep);
+				const float fadeDiff = this->m_steps[static_cast<int>(this->m_currentStep)].speed * (this->m_steps[static_cast<int>(this->m_currentStep)].fadeDuration / 1000.0F);
 
-				if (diff < fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_IN || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
+				if (diff < fadeDiff && (this->m_steps[static_cast<int>(this->m_currentStep)].fade == FADE_IN || this->m_steps[static_cast<int>(this->m_currentStep)].fade == FADE_BOTH)) {
 					// Fade in
 					GetParent()->SetBrightness(-1.0F + (diff / fadeDiff));
 				}
 
-				if (diff >= 1.0F - fadeDiff && (this->m_steps[(int)this->m_currentStep].fade == FADE_OUT || this->m_steps[(int)this->m_currentStep].fade == FADE_BOTH)) {
+				if (diff >= 1.0F - fadeDiff && (this->m_steps[static_cast<int>(this->m_currentStep)].fade == FADE_OUT || this->m_steps[static_cast<int>(this->m_currentStep)].fade == FADE_BOTH)) {
 					// Fade out
 					GetParent()->SetBrightness(-(diff - (1.0F - fadeDiff)) / fadeDiff);
 				}

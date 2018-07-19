@@ -44,19 +44,19 @@ namespace daidalosengine {
 		* Called when a keyboard action is started
 		* @param actionId The action id
 		*/
-		virtual void OnInputActionStarted(const unsigned int actionId) = 0;
+		virtual void OnInputActionStarted(unsigned int actionId) = 0;
 
 		/**
 		* Called when a keyboard action is stopped
 		* @param actionId The action id
 		*/
-		virtual void OnInputActionStopped(const unsigned int actionId) = 0;
+		virtual void OnInputActionStopped(unsigned int actionId) = 0;
 
 		/**
 		* Called when a key has been pressed
 		* @param key The key
 		*/
-		virtual void OnKeyPressed(const unsigned int key) = 0;
+		virtual void OnKeyPressed(unsigned int key) = 0;
 	};
 }
 

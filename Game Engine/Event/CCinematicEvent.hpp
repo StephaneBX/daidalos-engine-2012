@@ -97,7 +97,7 @@ namespace daidalosgameengine {
 		* Get the camera node
 		* @return The camera node
 		*/
-		daidalosengine::ICameraSceneNode * GetCameraNode();
+		daidalosengine::ICameraSceneNode * GetCameraNode() const;
 	};
 }
 

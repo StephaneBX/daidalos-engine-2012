@@ -230,7 +230,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const auto* vertexBuffer = dynamic_cast<const CDX9VertexBuffer *>(buffer);
+			const auto vertexBuffer = dynamic_cast<const CDX9VertexBuffer *>(buffer);
 			this->m_device->SetStreamSource(stream, vertexBuffer->GetBuffer() != nullptr ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
@@ -249,7 +249,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const auto* indexBuffer = dynamic_cast<const CDX9IndexBuffer *>(buffer);
+			const auto indexBuffer = dynamic_cast<const CDX9IndexBuffer *>(buffer);
 			this->m_device->SetIndices(indexBuffer->GetBuffer() != nullptr ? indexBuffer->GetBuffer() : nullptr);
 		} else {
 			this->m_device->SetIndices(nullptr);
@@ -262,8 +262,8 @@ namespace daidalosengine {
 		SetCurrentShaderProgram(shaderProgram);
 
 		if(shaderProgram != nullptr) {
-			const auto* vertexShader = dynamic_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
-			const auto* pixelShader = dynamic_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
+			const auto vertexShader = dynamic_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
+			const auto pixelShader = dynamic_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
 
 			this->m_device->SetVertexShader(vertexShader ? vertexShader->GetVertexShader() : nullptr);
 			this->m_device->SetPixelShader(pixelShader ? pixelShader->GetPixelShader() : nullptr);
@@ -276,7 +276,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(declaration != nullptr) {
-			const auto* vertexDeclaration = dynamic_cast<const CDX9Declaration *>(declaration);
+			const auto vertexDeclaration = dynamic_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration->GetDeclaration() != nullptr ? vertexDeclaration->GetDeclaration() : nullptr);
 		} else {
 			this->m_device->SetVertexDeclaration(nullptr);
@@ -287,7 +287,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != nullptr) {
-			const auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture);
+			const auto dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture);
 			this->m_device->SetTexture(unit, dx9Texture->GetTexture());
 
 			// Sampler state update
@@ -444,7 +444,7 @@ namespace daidalosengine {
 	void CDX9Renderer::CopyBackBufferToTexture(ITexture2DBase * texture2D) {
 		LOG_TRACE();
 		
-		const auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture2D);
+		const auto dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture2D);
 		const auto * mainBuffer = dynamic_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
 		IDirect3DSurface9 * textureSurface = nullptr;
 		dx9Texture->GetTexture()->GetSurfaceLevel(0, &textureSurface);

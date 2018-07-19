@@ -59,7 +59,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CHandgun::~CHandgun() {}
+	CHandgun::~CHandgun() = default;
 
 	/**
 	* Initialize the weapon node

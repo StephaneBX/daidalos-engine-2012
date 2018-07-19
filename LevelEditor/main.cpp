@@ -10,7 +10,7 @@ void mainTest(HINSTANCE hInstance, int nCmdShow) {
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #ifdef _WIN32
 	// Debuging code
-	int BreakAlloc = -1;
+	auto BreakAlloc = -1;
 	_CrtSetBreakAlloc(BreakAlloc);
 	// Debuging code
 #endif

@@ -57,10 +57,10 @@ namespace daidalos {
 			ss >> lightDecalY;
 		}
 		if(!meshNode->GetAttribute("lightEnabled").empty()) {
-			enabled = meshNode->GetAttribute("lightEnabled") == "true" ? true : false;
+			enabled = meshNode->GetAttribute("lightEnabled") == "true";
 		}
 		if(!meshNode->GetAttribute("lightShadow_caster").empty()) {
-			shadowCaster = meshNode->GetAttribute("lightShadow_caster") == "true" ? true : false;
+			shadowCaster = meshNode->GetAttribute("lightShadow_caster") == "true";
 		}
 		if(!meshNode->GetAttribute("lightColor").empty()) {
 			lightColor = daidalosengine::CColor::GetFrom(meshNode->GetAttribute("lightColor"));

@@ -42,7 +42,8 @@ namespace daidaloseditor {
 	* @param parent The parent
 	* @param cameraNode The camera node
 	*/
-	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode), IPlayer(parent) {
+	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) :
+		m_node(cameraNode), m_scene(nullptr), IPlayer(parent) {
 		this->m_state = 0;
 
 		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
@@ -51,15 +52,15 @@ namespace daidaloseditor {
 
 		daidalosengine::SInputActionDeclaration decl[] =
 		{
-			{ FPS_CAMERA_EXIT, -1 },
-			{ FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT },
-			{ FPS_CAMERA_STRAFERIGHT, FPS_CAMERA_STRAFELEFT },
-			{ FPS_CAMERA_FORWARD, FPS_CAMERA_BACKWARD },
-			{ FPS_CAMERA_BACKWARD, FPS_CAMERA_FORWARD },
-			{ FPS_CAMERA_LOOKUP, FPS_CAMERA_LOOKDOWN },
-			{ FPS_CAMERA_LOOKDOWN, FPS_CAMERA_LOOKUP },
-			{ FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT },
-			{ FPS_CAMERA_LOOKRIGHT, FPS_CAMERA_LOOKLEFT },
+			{FPS_CAMERA_EXIT, -1},
+			{FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT},
+			{FPS_CAMERA_STRAFERIGHT, FPS_CAMERA_STRAFELEFT},
+			{FPS_CAMERA_FORWARD, FPS_CAMERA_BACKWARD},
+			{FPS_CAMERA_BACKWARD, FPS_CAMERA_FORWARD},
+			{FPS_CAMERA_LOOKUP, FPS_CAMERA_LOOKDOWN},
+			{FPS_CAMERA_LOOKDOWN, FPS_CAMERA_LOOKUP},
+			{FPS_CAMERA_LOOKLEFT, FPS_CAMERA_LOOKRIGHT},
+			{FPS_CAMERA_LOOKRIGHT, FPS_CAMERA_LOOKLEFT},
 		};
 
 		this->m_inputDevice->AddActions(decl);
@@ -129,7 +130,7 @@ namespace daidaloseditor {
 	}
 
 	void CFreeCamera::Update(const float time) {
-		float timeSecond = time / 1000.0F;
+		const float timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateView(timeSecond);
@@ -292,8 +293,8 @@ namespace daidaloseditor {
 		}
 
 		movement = movement.Normalize();
-		daidalosengine::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
-		daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		const daidalosengine::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
+		const daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 
@@ -301,8 +302,8 @@ namespace daidaloseditor {
 		// Mouse view
 		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0) {
 			// Update the movement
-			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
-			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
+			this->m_previousMouseMovement.x = static_cast<float>(this->m_inputDevice->GetMouseMovement().x);
+			this->m_previousMouseMovement.y = static_cast<float>(this->m_inputDevice->GetMouseMovement().y);
 
 			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);

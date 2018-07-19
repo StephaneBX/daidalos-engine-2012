@@ -131,7 +131,7 @@ namespace daidalosengine {
 		* Set the visible value
 		* @param visible The visible value
 		*/
-		virtual void SetVisible(const bool visible);
+		virtual void SetVisible(bool visible);
 
 		/**
 		* Set the hit

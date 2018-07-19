@@ -45,10 +45,10 @@ namespace daidalosgameengine {
 		daidalosengine::CVector3F boundingBoxSize = daidalosengine::CVector3F(1, 1, 1);
 		daidalosengine::CVector3F boundingBoxPosition = daidalosengine::CVector3F(0, 0, 0);
 		if(!meshNode->GetAttribute("boundingBox_size").empty()) {
-			boundingBoxSize = boundingBoxSize.GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
+			boundingBoxSize = daidalosengine::CVector3F::GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
 		}
 		if(!meshNode->GetAttribute("boundingBox_position").empty()) {
-			boundingBoxPosition = boundingBoxPosition.GetFrom(meshNode->GetAttribute("boundingBox_position"), boundingBoxPosition);
+			boundingBoxPosition = daidalosengine::CVector3F::GetFrom(meshNode->GetAttribute("boundingBox_position"), boundingBoxPosition);
 		}
 
 		// Set the bounding box

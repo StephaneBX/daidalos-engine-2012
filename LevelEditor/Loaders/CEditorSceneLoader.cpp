@@ -67,7 +67,7 @@ namespace daidaloseditor {
 	void CEditorSceneLoader::LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) {
 
 		daidalosengine::CSceneLoader::LoadSoundNode(scene, parent, handle, node, name);
-		static_cast<daidalosengine::CSoundSceneNode*>(node)->SetSoundStatus(daidalosengine::SOUND_STATUS_PAUSE);
+		dynamic_cast<daidalosengine::CSoundSceneNode*>(node)->SetSoundStatus(daidalosengine::SOUND_STATUS_PAUSE);
 	}
 
 	/**
@@ -90,7 +90,7 @@ namespace daidaloseditor {
 
 		parent->InsertEndChild(document.NewComment(" BSP Level Node "));
 
-		daidalosengine::ILevelSceneNode * levelNode = static_cast<daidalosengine::ILevelSceneNode*>(node);
+		const auto levelNode = dynamic_cast<daidalosengine::ILevelSceneNode*>(node);
 
 		// Level node
 		tinyxml2::XMLElement * levelElement = document.NewElement("node");
@@ -114,17 +114,17 @@ namespace daidaloseditor {
 		tinyxml2::XMLElement * multiBrush = document.NewElement("multi_brush");
 
 		// Search for multi brush elements
-		for(auto it = levelNode->GetChildren().begin(); it != levelNode->GetChildren().end(); it++) {
+		for (auto it : levelNode->GetChildren()) {
 
-			if(std::string(EDITOR_NODE_NAME_MULTIBRUSH) == (*it)->GetName()) {
+			if(std::string(EDITOR_NODE_NAME_MULTIBRUSH) == it->GetName()) {
 				// The child is part of the multi brush, add it to the multi_brush element
-				SaveBrush((*it), document, multiBrush);
-			} else if(std::string(EDITOR_NODE_NAME_BRUSH) == (*it)->GetName()) {
+				SaveBrush(it, document, multiBrush);
+			} else if(std::string(EDITOR_NODE_NAME_BRUSH) == it->GetName()) {
 				// The child is a brush, add it to the level node
-				SaveBrush((*it), document, levelElement);
+				SaveBrush(it, document, levelElement);
 			} else {
 				// The child is not part on multi brush, add it to the level node
-				SaveNode((*it), document, levelElement);
+				SaveNode(it, document, levelElement);
 			}
 		}
 
@@ -140,7 +140,6 @@ namespace daidaloseditor {
 	* @param node The node to fill
 	*/
 	void CEditorSceneLoader::LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
-		tinyxml2::XMLElement * child;
 		node = new CEditorLevelSceneNode(scene);
 		std::string skyName;
 		daidalosengine::CVector3F ambientColor;
@@ -150,20 +149,20 @@ namespace daidaloseditor {
 		// Get the ambient color
 		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
 			ambientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
-		static_cast<CEditorLevelSceneNode*>(node)->SetAmbientColor(daidalosengine::CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
+		dynamic_cast<CEditorLevelSceneNode*>(node)->SetAmbientColor(daidalosengine::CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
 		if(handle.ToElement()->Attribute("skyName") != nullptr)
 			skyName = handle.ToElement()->Attribute("skyName");
-		static_cast<CEditorLevelSceneNode*>(node)->SetSkyName(skyName);
+		dynamic_cast<CEditorLevelSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
 		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
 			skyAmbientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
-		static_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(daidalosengine::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
+		dynamic_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(daidalosengine::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
-		child = handle.FirstChildElement("multi_brush").ToElement();
+		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
 		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
@@ -259,7 +258,7 @@ namespace daidaloseditor {
 				GetNodeData(nodeHandle, "boundingBox", boundingBox, "");
 
 				// Create a bounding box if necessary
-				if(boundingBox != "") {
+				if(!boundingBox.empty()) {
 					// Create the node
 					daidalosengine::CStaticMeshSceneNode * meshNode = new daidalosengine::CStaticMeshSceneNode(scene, node, EDITOR_NODE_NAME_BOUNDINGBOX, boundingBox, position, rotation, scale);
 					meshNode->SetId(id);
@@ -306,7 +305,7 @@ namespace daidaloseditor {
 	*/
 	void CEditorSceneLoader::SaveBrush(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		daidalosengine::IMeshSceneNode * meshNode = static_cast<daidalosengine::IMeshSceneNode *>(node);
+		const auto meshNode = dynamic_cast<daidalosengine::IMeshSceneNode *>(node);
 		tinyxml2::XMLElement * brush = document.NewElement("brush");
 
 		// Id
@@ -333,14 +332,14 @@ namespace daidaloseditor {
 		brush->InsertEndChild(child);
 
 		// Diffuse texture
-		if(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE) != "") {
+		if(!meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE).empty()) {
 			child = document.NewElement("diffuse_texture");
 			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_DIFFUSE).c_str()));
 			brush->InsertEndChild(child);
 		}
 
 		// Normal texture
-		if(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_NORMAL) != "") {
+		if(!meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_NORMAL).empty()) {
 			child = document.NewElement("normal_texture");
 			child->InsertEndChild(document.NewText(meshNode->GetMeshTextureName(daidalosengine::TEXTURE_TYPE_NORMAL).c_str()));
 			brush->InsertEndChild(child);

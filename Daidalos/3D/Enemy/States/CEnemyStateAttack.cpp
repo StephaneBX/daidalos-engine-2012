@@ -37,7 +37,8 @@ namespace daidalos {
 	* @param animationSpeed The animation speed
 	* @param target The target
 	* @param damage The damage
-	* @param The range
+	* @param range The range
+	* @param attackDelay the delay between attacks
 	*/
 	CEnemyStateAttack::CEnemyStateAttack(const unsigned int priority, const float startAnimation, const float endAnimation, const float animationSpeed, daidalosgameengine::ICollidableEntity * target, const unsigned int damage, const float range, const float attackDelay) : m_damage(damage),  m_range(range), m_target(target), m_attackDelay(attackDelay) ,IEnemyState(priority) {
 

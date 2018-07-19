@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_ROTATION_SPEED 90.0F
 #define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_FACTOR 0.28F
 #define FPS_CAMERA_ROTATION_SPEED_GAMEPAD_VERTICAL_FACTOR 0.23F
-#define FPS_CAMERA_GRAVITY -20.0F
+#define FPS_CAMERA_GRAVITY (-20.0F)
 #define FPS_CAMERA_JUMP_IMPULSION 10.0F
 #define FPS_CAMERA_JUMP_DELAY 350
 #define FPS_CAMERA_COLLISION_UPDATE 16
@@ -41,7 +41,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH 1.0F
 #define FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD 0.5F
 #define FPS_CAMERA_STEP_DISTANCE 7.0F
-#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY -9.0F
+#define FPS_CAMERA_FALL_STEP_MIN_GRAVITY (-9.0F)
 #define FPS_CAMERA_LADDER_DISTANCE 3.0F
 
 #define FIRST_WEAPON PLAYER_OBJECT_HANDGUN_WEAPON
@@ -61,7 +61,7 @@ namespace daidalos {
 		this->m_hasMoved = false;
 		this->m_actionState = 0;
 		this->m_state = FPS_CAMERA_STATE_STAND;
-		SetHealth(80);
+		CFPSCamera::SetHealth(80);
 		this->m_armor = 0;
 		this->m_stepDistance = 0;
 		this->m_ladderDistance = 0;
@@ -72,8 +72,7 @@ namespace daidalos {
 		this->m_soundContext = daidalosengine::CSoundContextManager::GetInstance();
 		this->m_options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
-		daidalosengine::SInputActionDeclaration decl[] =
-		{
+		daidalosengine::SInputActionDeclaration decl[] = {
 			{ FPS_CAMERA_EXIT, -1 },
 			{ FPS_CAMERA_STRAFELEFT, FPS_CAMERA_STRAFERIGHT },
 			{ FPS_CAMERA_STRAFERIGHT, FPS_CAMERA_STRAFELEFT },
@@ -144,7 +143,7 @@ namespace daidalos {
 
 		// Initialize the step sounds
 		for(int i = 1; i <= 4; ++i) {
-			this->m_stepSounds.push_back(std::unique_ptr<daidalosengine::CSound>(new daidalosengine::CSound()));
+			this->m_stepSounds.push_back(std::make_unique<daidalosengine::CSound>());
 			this->m_stepSounds[i - 1]->LoadFromFile("footstep" + std::to_string(i) + ".wav", daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 			this->m_stepSounds[i - 1]->SetRelativeToListener(true);
 		}
@@ -170,7 +169,7 @@ namespace daidalos {
 		this->m_dieSound.SetRelativeToListener(true);
 
 		// Initialize the weapons
-		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::unique_ptr<IWeapon>(new CHandgun(GetParent(), this->m_node));
+		this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON] = std::make_unique<CHandgun>(GetParent(), this->m_node);
 		this->m_currentWeaponIndex = PLAYER_OBJECT_HANDGUN_WEAPON;
 		this->m_currentWeapon = this->m_weapons[PLAYER_OBJECT_HANDGUN_WEAPON].get();
 		this->m_weaponsOrder.push_back(PLAYER_OBJECT_HANDGUN_WEAPON);
@@ -179,7 +178,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CFPSCamera::~CFPSCamera() {}
+	CFPSCamera::~CFPSCamera() = default;
 
 	/**
 	* Damage the entity
@@ -191,7 +190,7 @@ namespace daidalos {
 		if(GetHealth() > 0) {
 			this->m_hurtSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		} else {
-			daidalosengine::CEllipseF * collisionShapeEllipse = static_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
+			auto collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
 			collisionShapeEllipse->SetRadius(daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
 
 			this->m_dieSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
@@ -225,7 +224,7 @@ namespace daidalos {
 		switch(object) {
 		case PLAYER_OBJECT_FLASHLIGHT:
 			if(this->m_flashlightNode != nullptr) {
-				this->m_flashlightNode->SetEnabled(value >= 1 ? true : false);
+				this->m_flashlightNode->SetEnabled(value >= 1);
 			}
 			break;
 
@@ -253,7 +252,7 @@ namespace daidalos {
 	}
 
 	void CFPSCamera::Update(const float time) {
-		float timeSecond = time / 1000.0F;
+		const float timeSecond = time / 1000.0F;
 
 		this->m_actionState = this->m_actionState & FPS_CAMERA_JUMP;
 		if(IsEnabled()) {
@@ -356,7 +355,7 @@ namespace daidalos {
 
 		default:
 			// Check for a misc object
-			auto it = this->m_objects.find(object);
+			const auto it = this->m_objects.find(object);
 			if(it != this->m_objects.end()) {
 				return (*it).second;
 			}
@@ -473,11 +472,12 @@ namespace daidalos {
 
 	/**
 	* Update the movement
-	* @param timeSecond Elapsed time
+	* @param timeSecond Elapsed time in secondes
+	* @param time Elipsed time
 	*/
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		daidalosengine::CVector3F movement;
-		daidalosengine::CEllipseF * collisionShapeEllipse = static_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
+		auto collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
 
 		this->m_jumpTimer -= time;
 		if(this->m_jumpTimer < 0) {
@@ -491,7 +491,7 @@ namespace daidalos {
 		} else if((this->m_actionState & FPS_CAMERA_CROUCH) != 0 && this->m_state == FPS_CAMERA_STATE_CROUCH && this->GetGravity().y == 0) {
 
 			// Check if the player can stand up
-			daidalosengine::CVector3F movementUp = daidalosengine::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
+			const daidalosengine::CVector3F movementUp = daidalosengine::CVector3F(0, (FPS_CAMERA_SHAPE_VERTICAL_RADIUS_STAND - FPS_CAMERA_SHAPE_VERTICAL_RADIUS_CROUCH) * 2, 0);
 			daidalosengine::CVector3F collisionPoint;
 
 			// If no up collision detected at the standing position
@@ -621,8 +621,8 @@ namespace daidalos {
 		// Mouse view
 		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0) {
 			// Update the movement
-			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
-			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
+			this->m_previousMouseMovement.x = static_cast<float>(this->m_inputDevice->GetMouseMovement().x);
+			this->m_previousMouseMovement.y = static_cast<float>(this->m_inputDevice->GetMouseMovement().y);
 
 			this->m_rotation.y += this->m_previousMouseMovement.x * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 			this->m_rotation.x += this->m_previousMouseMovement.y * FPS_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);

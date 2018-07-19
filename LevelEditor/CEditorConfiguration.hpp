@@ -78,7 +78,7 @@ namespace daidaloseditor {
 	class CEditorConfiguration {
 	private:
 		SiniP m_configuration;
-		daidalosengine::CInputDevice * m_inputDevice;
+		daidalosengine::CInputDevice * m_inputDevice{};
 
 		std::vector<std::string> m_groundMeshFilename;
 		std::vector<std::string> m_wallMeshFilename;

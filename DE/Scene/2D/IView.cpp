@@ -154,7 +154,7 @@ namespace daidalosengine {
 	* Set the visible value
 	* @param visible The visible value
 	*/
-	void IView::SetVisible(const bool visible) {
+	void IView::SetVisible(bool visible) {
 		LOG_TRACE();
 
 		this->m_visible = visible;

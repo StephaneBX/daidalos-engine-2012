@@ -37,7 +37,7 @@ namespace daidalos {
 		GetCursor().SetVisible(true);
 		std::thread(&CDaidalosApplication::LoadLevel, this, levelName).detach();
 
-		MainLoop();
+		CDaidalosApplication::MainLoop();
 	}
 
 	CDaidalosApplication::~CDaidalosApplication() = default;

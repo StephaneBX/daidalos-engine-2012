@@ -52,7 +52,7 @@ namespace daidalosgameengine {
 			ss >> cinematicFile;
 		}
 
-		this->m_cinematicEvent = std::auto_ptr<CCinematicEvent>(new CCinematicEvent(parent));
+		this->m_cinematicEvent = std::make_unique<CCinematicEvent>(parent);
 		this->m_cinematicEvent->LoadFromFile(cinematicFile);
 	}
 

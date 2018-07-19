@@ -84,9 +84,9 @@ namespace daidalos {
 		
 		// Activate the trigger entities with the same id
 		auto vector = GetParent()->GetTriggerEntities(GetId());
-		for(auto it = vector.begin(); it != vector.end(); ++it) {
-			if((*it) != this) {
-				(*it)->DoAction();
+		for (auto& it : vector) {
+			if(it != this) {
+				it->DoAction();
 			}
 		}
 		this->m_activated = true;

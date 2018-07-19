@@ -85,7 +85,7 @@ namespace daidalos {
 	void CEnemyStatePatrol::Update(daidalosgameengine::IEnemyEntity * entity, const float time) {
 
 		daidalosengine::CVector3F movement = daidalosengine::CVector3F();
-		if(this->GetWayPoints().size() > 0) {
+		if(!this->GetWayPoints().empty()) {
 			if(entity->GetMeshNode()->GetAnimationState() != daidalosengine::MESH_ANIMATION_STATE_PLAYING) {
 				entity->GetMeshNode()->SetLooped(true);
 				entity->GetMeshNode()->StartAnimation(this->GetAnimationFrames().x, this->GetAnimationFrames().y, this->GetAnimationSpeed());
@@ -97,8 +97,8 @@ namespace daidalos {
 				entity->GetMeshNode()->StopAnimation();
 
 				// Interrupted
-				for(auto it = this->GetListeners().begin(); it != this->GetListeners().end(); ++it) {
-					(*it)->OnStateInterrupted(this);
+				for (auto& it : this->GetListeners()) {
+					it->OnStateInterrupted(this);
 				}
 			}
 
@@ -109,8 +109,8 @@ namespace daidalos {
 			UpdateRotation(entity, time);
 		} else {
 			// Interrupted
-			for(auto it = this->GetListeners().begin(); it != this->GetListeners().end(); ++it) {
-				(*it)->OnStateInterrupted(this);
+			for (auto& it : this->GetListeners()) {
+				it->OnStateInterrupted(this);
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace daidalos {
 	* Get the current way point.
 	* @return The current way point
 	*/
-	int CEnemyStatePatrol::GetCurrentWayPoint() {
+	int CEnemyStatePatrol::GetCurrentWayPoint() const {
 		return this->m_currentWayPoint;
 	}
 
@@ -138,7 +138,7 @@ namespace daidalos {
 	* Get the walk speed.
 	* @return The walk speed
 	*/
-	float CEnemyStatePatrol::GetWalkSpeed() {
+	float CEnemyStatePatrol::GetWalkSpeed() const {
 		return this->m_walkSpeed;
 	}
 
@@ -146,7 +146,7 @@ namespace daidalos {
 	* Get the rotation speed.
 	* @return The rotation speed
 	*/
-	float CEnemyStatePatrol::GetRotationSpeed() {
+	float CEnemyStatePatrol::GetRotationSpeed() const {
 		return this->m_rotationSpeed;
 	}
 
@@ -159,13 +159,13 @@ namespace daidalos {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the entity rotation so that it follows the waypoint during the walk
-		float rotation = this->m_rotationSpeed * timePerSecond;
+		const float rotation = this->m_rotationSpeed * timePerSecond;
 
 		// Check the entity - waypoint angle
-		daidalosengine::CVector3F entityToWaypoint = (this->GetWayPoints()[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
+		const daidalosengine::CVector3F entityToWaypoint = (this->GetWayPoints()[this->m_currentWayPoint] - entity->GetVisiblePosition()).Normalize();
 
 		// Horizontal rotation way
-		daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();
+		const daidalosengine::CVector2F entityToWaypointHorizontal = daidalosengine::CVector2F(entityToWaypoint.x, entityToWaypoint.z).Normalize();
 		daidalosengine::CVector2F entityForwardHorizontal = daidalosengine::CVector2F(entity->GetCameraNode()->GetForwardVector().x, entity->GetCameraNode()->GetForwardVector().z).Normalize();
 
 		float rotationY = entity->GetMeshNode()->GetRotation().y;

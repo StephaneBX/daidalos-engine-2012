@@ -29,10 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include <Scene/3D/ICameraSceneNode.hpp>
 #include <Scene/3D/CSpotLightSceneNode.hpp>
 #include <Scene/3D/IMeshSceneNode.hpp>
-#include <Core/Core.hpp>
 #include <Core/CMediaManager.hpp>
-#include <Core/Logger/CLoggerFile.hpp>
-#include <Core/Utility/CMatrix.hpp>
 #include <Medias/CStaticMesh.hpp>
 #include <Medias/CFont.hpp>
 #include "IDeferredApplication.hpp"
@@ -73,7 +70,7 @@ namespace daidalosgameengine {
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
 
-		daidalosengine::STexture2DFilterPolicy textureFilter2;
+		daidalosengine::STexture2DFilterPolicy textureFilter2{};
 		textureFilter2.minFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
 		textureFilter2.magFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
 		textureFilter2.mipFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
@@ -525,7 +522,7 @@ namespace daidalosgameengine {
 
 		// Blur
 		renderer->SetShaderProgram(this->m_shaderScreenBlur.GetShaderProgram());
-		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_RESOLUTION), daidalosengine::CVector2F((float)renderer->GetResolution().x, (float)renderer->GetResolution().y));
+		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_RESOLUTION), daidalosengine::CVector2F(static_cast<float>(renderer->GetResolution().x), static_cast<float>(renderer->GetResolution().y)));
 		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 10);
 
 		// Horizontal convolution
@@ -580,7 +577,7 @@ namespace daidalosgameengine {
 	*/
 	void IDeferredApplication::SpotLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
 			if(scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
@@ -639,7 +636,7 @@ namespace daidalosgameengine {
 	*/
 	void IDeferredApplication::PointLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		// Add the light effect to the lightRT
 		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, false);
@@ -673,7 +670,7 @@ namespace daidalosgameengine {
 	*/
 	void IDeferredApplication::DirectionalLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			if(scene3D->GetActiveDirectionalLightsBuffer()->shadowCaster[i]) {

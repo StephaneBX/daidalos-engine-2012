@@ -48,7 +48,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CEnemyStateDie::~CEnemyStateDie() {}
+	CEnemyStateDie::~CEnemyStateDie() = default;
 
 	/**
 	* Set the dead status.

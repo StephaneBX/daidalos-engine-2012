@@ -59,32 +59,32 @@ namespace daidalos {
 
 		// Get the camera node
 		auto meshChildren = this->m_meshRootNode->GetChildren();
-		if(meshChildren.size() > 0) {
-			this->m_meshCameraNode = static_cast<daidalosengine::CStaticMeshSceneNode *>(meshChildren.front());
+		if(!meshChildren.empty()) {
+			this->m_meshCameraNode = dynamic_cast<daidalosengine::CStaticMeshSceneNode *>(meshChildren.front());
 		}
 
 		// Read the attributes
-		if(meshNode->GetAttribute("horizontal_rotation_speed") != "") {
+		if(!meshNode->GetAttribute("horizontal_rotation_speed").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("horizontal_rotation_speed"));
 			ss >> this->m_horizontalRotationSpeed;
 		}
-		if(meshNode->GetAttribute("vertical_rotation_speed") != "") {
+		if(!meshNode->GetAttribute("vertical_rotation_speed").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("vertical_rotation_speed"));
 			ss >> this->m_verticalRotationSpeed;
 		}
-		if(meshNode->GetAttribute("max_horizontal_rotation") != "") {
+		if(!meshNode->GetAttribute("max_horizontal_rotation").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("max_horizontal_rotation"));
 			ss >> this->m_maxHorizontalRotation;
 		}
-		if(meshNode->GetAttribute("max_vertical_rotation") != "") {
+		if(!meshNode->GetAttribute("max_vertical_rotation").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("max_vertical_rotation"));
 			ss >> this->m_maxVerticalRotation;
 		}
-		if(meshNode->GetAttribute("range") != "") {
+		if(!meshNode->GetAttribute("range").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("range"));
 			ss >> range;
 		}
-		if(meshNode->GetAttribute("light_color") != "") {
+		if(!meshNode->GetAttribute("light_color").empty()) {
 			lightColor = daidalosengine::CColor::GetFrom(meshNode->GetAttribute("light_color"), lightColor);
 		}
 
@@ -129,16 +129,16 @@ namespace daidalos {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the camera rotation so that it follows the player
-		float horizontalRotation = this->m_horizontalRotationSpeed * timePerSecond;
+		const float horizontalRotation = this->m_horizontalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
 		daidalosengine::CVector3F cameraForward = daidalosengine::CVector3F(0, 0, 1.0F);
-		daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
+		const daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshRootNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshRootNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Horizontal rotation way
-		daidalosengine::CVector2F cameraToPlayerHorizontal = daidalosengine::CVector2F(cameraToPlayer.x, cameraToPlayer.z).Normalize();
-		daidalosengine::CVector2F cameraForwardHorizontal = daidalosengine::CVector2F(cameraForward.x, cameraForward.z).Normalize();
+		const daidalosengine::CVector2F cameraToPlayerHorizontal = daidalosengine::CVector2F(cameraToPlayer.x, cameraToPlayer.z).Normalize();
+		const daidalosengine::CVector2F cameraForwardHorizontal = daidalosengine::CVector2F(cameraForward.x, cameraForward.z).Normalize();
 		float rotationY = this->m_meshRootNode->GetRotation().y;
 		if(atan2f(cameraForwardHorizontal.y, cameraForwardHorizontal.x) - atan2f(cameraToPlayerHorizontal.y, cameraToPlayerHorizontal.x) > 0) {
 			rotationY += horizontalRotation;
@@ -166,16 +166,16 @@ namespace daidalos {
 		const float timePerSecond = time / 1000.0F;
 
 		// Update the camera rotation so that it follows the player
-		float verticalRotation = this->m_verticalRotationSpeed * timePerSecond;
+		const float verticalRotation = this->m_verticalRotationSpeed * timePerSecond;
 
 		// Check the camera - player angle
 		daidalosengine::CVector3F cameraForward = daidalosengine::CVector3F(0, 0, 1.0F);
-		daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
+		const daidalosengine::CVector3F cameraToPlayer = (this->GetParent()->GetPlayer()->GetVisiblePosition() - this->m_meshCameraNode->GetAbsolutePosition()).Normalize();
 		cameraForward = this->m_meshCameraNode->GetAbsoluteRotationMatrix().Transform(cameraForward, false).Normalize();
 
 		// Vertical rotation way
-		daidalosengine::CVector2F cameraToPlayerVertical = daidalosengine::CVector2F(cameraToPlayer.y, cameraToPlayer.z).Normalize();
-		daidalosengine::CVector2F cameraForwardVertical = daidalosengine::CVector2F(cameraForward.y, cameraForward.z).Normalize();
+		const daidalosengine::CVector2F cameraToPlayerVertical = daidalosengine::CVector2F(cameraToPlayer.y, cameraToPlayer.z).Normalize();
+		const daidalosengine::CVector2F cameraForwardVertical = daidalosengine::CVector2F(cameraForward.y, cameraForward.z).Normalize();
 		float rotationX = this->m_meshCameraNode->GetRotation().x;
 		if(atan2f(cameraForwardVertical.y, cameraForwardVertical.x) - atan2f(cameraToPlayerVertical.y, cameraToPlayerVertical.x) > 0) {
 			rotationX -= verticalRotation;

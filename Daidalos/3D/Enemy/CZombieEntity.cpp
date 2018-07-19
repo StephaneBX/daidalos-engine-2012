@@ -40,26 +40,26 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define VIEW_ANGLE 60.0F
 #define VIEW_DISTANCE 35.0F
 #define ATTACK_RANGE 4.0F
-#define ATTACK_POWER 12
-#define ATTACK_DELAY 800
+#define ATTACK_POWER 12U
+#define ATTACK_DELAY 800.0F
 
-#define ANIMATION_WALK_START 22
-#define ANIMATION_WALK_END 36
+#define ANIMATION_WALK_START 22.0F
+#define ANIMATION_WALK_END 36.0F
 #define ANIMATION_WALK_SPEED 8.0F
 #define WALK_SPEED 2.0F
 #define ROTATION_SPEED 70.0F
 
-#define ANIMATION_WAIT_START 137
-#define ANIMATION_WAIT_END 168
+#define ANIMATION_WAIT_START 137.0F
+#define ANIMATION_WAIT_END 168.0F
 #define ANIMATION_WAIT_SPEED 10.0F
 #define WAIT_TIME 6000.0F
 
-#define ANIMATION_DIE_START 91
-#define ANIMATION_DIE_END 103
+#define ANIMATION_DIE_START 91.0F
+#define ANIMATION_DIE_END 103.0F
 #define ANIMATION_DIE_SPEED 9.0F
 
-#define ANIMATION_ATTACK_START 116
-#define ANIMATION_ATTACK_END 128
+#define ANIMATION_ATTACK_START 116.0F
+#define ANIMATION_ATTACK_END 128.0F
 #define ANIMATION_ATTACK_SPEED 8.0F
 
 #define FOLLOW_SEARCH_TIME 9000.0F
@@ -74,35 +74,43 @@ namespace daidalos {
 	* @param parent The parent
 	* @param node The mesh node
 	*/
-	CZombieEntity::CZombieEntity(daidalosgameengine::ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * node) : IEnemyEntity(parent, node) {
+	CZombieEntity::CZombieEntity(daidalosgameengine::ILevel* parent, daidalosengine::CAnimatedMeshSceneNode* node) : IEnemyEntity(parent, node) {
 
 		this->SetGravity(daidalosengine::CVector3F(0, GRAVITY, 0));
-		this->SetCollisionShape(new daidalosengine::CEllipseF(this->GetMeshNode()->GetPosition() + daidalosengine::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0), daidalosengine::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
+		this->SetCollisionShape(new daidalosengine::CEllipseF(this->GetMeshNode()->GetPosition() + daidalosengine::CVector3F(0, COLLISION_SHAPE_HEIGHT, 0),
+		                                                      daidalosengine::CVector2F(COLLISION_SHAPE_WIDTH, COLLISION_SHAPE_HEIGHT)));
 
 		// Read the waypoints
-		std::string waypointsString = this->GetMeshNode()->GetAttribute("patrol_waypoints");
+		const std::string waypointsString = this->GetMeshNode()->GetAttribute("patrol_waypoints");
 		std::vector<daidalosengine::CVector3F> wayPoints;
-		if(waypointsString != "") {
+		if (!waypointsString.empty()) {
 			daidalosengine::CTokenizer tokenizer;
 			tokenizer.AddLine(waypointsString);
-			if(tokenizer.Tokenize("|")) {
-				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
-					wayPoints.push_back(daidalosengine::CVector3F(this->GetMeshNode()->GetAbsolutePosition() + daidalosengine::CVector3F::GetFrom(*it)));
+			if (tokenizer.Tokenize("|")) {
+				for (auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
+					wayPoints.emplace_back(this->GetMeshNode()->GetAbsolutePosition() + daidalosengine::CVector3F::GetFrom(*it));
 				}
 			}
 		}
-		
-		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStatePatrol(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
-		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CZombieStateWait(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
-		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CZombieStateFollow(2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE, FOLLOW_SEARCH_TIME)));
-		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStateAttack(3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
-		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(new CEnemyStateDie(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
+
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(
+			std::make_unique<CEnemyStatePatrol>(0, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, WALK_SPEED, ROTATION_SPEED, wayPoints)));
+		this->GetActionStates().push_back(
+			std::unique_ptr<daidalosgameengine::IEnemyState
+			>(std::make_unique<CZombieStateWait>(1, ANIMATION_WAIT_START, ANIMATION_WAIT_END, ANIMATION_WAIT_SPEED, WAIT_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(std::make_unique<CZombieStateFollow>(
+			2, ANIMATION_WALK_START, ANIMATION_WALK_END, ANIMATION_WALK_SPEED, this->GetParent()->GetPlayer(), WALK_SPEED, ROTATION_SPEED, ATTACK_RANGE,
+			FOLLOW_SEARCH_TIME)));
+		this->GetActionStates().push_back(std::unique_ptr<daidalosgameengine::IEnemyState>(std::make_unique<CEnemyStateAttack>(
+			3, ANIMATION_ATTACK_START, ANIMATION_ATTACK_END, ANIMATION_ATTACK_SPEED, this->GetParent()->GetPlayer(), ATTACK_POWER, ATTACK_RANGE, ATTACK_DELAY)));
+		this->GetActionStates().push_back(
+			std::unique_ptr<daidalosgameengine::IEnemyState>(std::make_unique<CEnemyStateDie>(99, ANIMATION_DIE_START, ANIMATION_DIE_END, ANIMATION_DIE_SPEED)));
 
 		// Link the wait state with the patrol interruption callback
 		this->GetActionStates().front()->AddListener(this->GetActionStates()[1].get());
 
 		this->SetCurrentActionState(this->GetActionStates().front().get());
-		this->SetVisiblePosition(this->GetCollisionShape()->GetPosition());
+		this->SetVisiblePosition(CZombieEntity::GetCollisionShape()->GetPosition());
 
 		// Change the default camera settings
 		this->GetCameraNode()->SetAngle(daidalosengine::DegreeToRadian(VIEW_ANGLE));
@@ -110,8 +118,8 @@ namespace daidalos {
 		this->GetCameraNode()->SetFarDistance(VIEW_DISTANCE);
 
 		// Initialize the impact particle emitters
-		for(int i = 0; i < IMPACT_PARTICLE_EMITTERS; i++) {
-			daidalosengine::CParticleEmitter * emitter = this->GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
+		for (int i = 0; i < IMPACT_PARTICLE_EMITTERS; i++) {
+			daidalosengine::CParticleEmitter* emitter = this->GetParent()->GetScene()->GetParticleSystem().InstanciateEmitter("default.dept", "fleshImpactEmitter");
 			emitter->SetTextureId(1);
 			emitter->SetActive(false);
 			emitter->SetReusable(true);
@@ -134,19 +142,19 @@ namespace daidalos {
 	* Determine the next active state
 	*/
 	void CZombieEntity::SelectNextActionState() {
-		if(this->GetCurrentActionState() != nullptr) {
+		if (this->GetCurrentActionState() != nullptr) {
 
-			daidalosgameengine::IEnemyState * nextState = nullptr;
-			for(auto it = this->GetActionStates().begin(); it != this->GetActionStates().end(); ++it) {
-				if((*it)->IsCandidateForNextAction(this)) {
+			daidalosgameengine::IEnemyState* nextState = nullptr;
+			for (auto& it : this->GetActionStates()) {
+				if (it->IsCandidateForNextAction(this)) {
 
-					if(nextState == nullptr || (*it)->GetPriority() > nextState->GetPriority()) {
-						nextState = (*it).get();
-					} 
+					if (nextState == nullptr || it->GetPriority() > nextState->GetPriority()) {
+						nextState = it.get();
+					}
 				}
 			}
 
-			if(this->GetCurrentActionState() != nextState) {
+			if (this->GetCurrentActionState() != nextState) {
 				// Get the next available state
 				this->SetCurrentActionState(nextState);
 				this->GetCurrentActionState()->Reset(this);
@@ -158,10 +166,10 @@ namespace daidalos {
 	* Generate impact particles from a position
 	* @param position The emitter position
 	*/
-	void CZombieEntity::GenerateImpactParticles(const daidalosengine::CVector3F & position) {
+	void CZombieEntity::GenerateImpactParticles(const daidalosengine::CVector3F& position) {
 		bool freeParticleEmitterFound = false;
-		for(unsigned int index = 0; index < GetImpactParticleEmitters().size() && !freeParticleEmitterFound; index++) {
-			if(!GetImpactParticleEmitters()[index]->IsActive()) {
+		for (unsigned int index = 0; index < GetImpactParticleEmitters().size() && !freeParticleEmitterFound; index++) {
+			if (!GetImpactParticleEmitters()[index]->IsActive()) {
 				freeParticleEmitterFound = true;
 				GetImpactParticleEmitters()[index]->SetLife(0);
 				GetImpactParticleEmitters()[index]->SetLifeMax(IMPACT_PARTICLE_LIFE);

@@ -46,7 +46,7 @@ namespace daidalosgameengine {
 		this->m_cursor.SetTexture("cursor.png");
 		this->m_cursor.SetVisible(false);
 
-		daidalosengine::STexture2DFilterPolicy textureFilter2;
+		daidalosengine::STexture2DFilterPolicy textureFilter2{};
 		textureFilter2.minFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
 		textureFilter2.magFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
 		textureFilter2.mipFilter = daidalosengine::TEXTURE_FILTER_TYPE_POINT;
@@ -442,7 +442,7 @@ namespace daidalosgameengine {
 		// Blur the copied back buffer
 		renderer->SetFrameBuffer(this->m_frameBufferPostProcess.GetFrameBuffer());
 		renderer->Clear(daidalosengine::SURFACE_TYPE_TARGET | daidalosengine::SURFACE_TYPE_DEPTH, daidalosengine::CColor(0.0F, 0.0F, 0.0F, 0.0F));
-		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_RESOLUTION), daidalosengine::CVector2F((float)renderer->GetResolution().x, (float)renderer->GetResolution().y));
+		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_RESOLUTION), daidalosengine::CVector2F(static_cast<float>(renderer->GetResolution().x), static_cast<float>(renderer->GetResolution().y)));
 		this->m_shaderScreenBlur.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_BLUR_RADIUS), 15);
 
 		// Horizontal convolution
@@ -506,7 +506,7 @@ namespace daidalosgameengine {
 	void IForwardApplication::SpotLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
 
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_NONE);
 
 		// Clear the shadow map framebuffer
@@ -574,7 +574,7 @@ namespace daidalosgameengine {
 	void IForwardApplication::PointLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
 
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
 		renderer->SetBlendFunction(daidalosengine::RENDER_STATE_BLEND_FUNCTION_ONE, daidalosengine::RENDER_STATE_BLEND_FUNCTION_ONE);
@@ -608,7 +608,7 @@ namespace daidalosgameengine {
 	void IForwardApplication::DirectionalLightsRendering(daidalosengine::C3DScene * scene3D) {
 		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
 
-		daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
+		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
 		renderer->SetBlendFunction(daidalosengine::RENDER_STATE_BLEND_FUNCTION_ONE, daidalosengine::RENDER_STATE_BLEND_FUNCTION_ONE);

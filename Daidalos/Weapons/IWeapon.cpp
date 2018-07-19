@@ -39,7 +39,6 @@ namespace daidalos {
 	/**
 	* Constructor
 	* @param parent The parent
-	* @param playerNode The weapon mesh node
 	*/
 	IWeapon::IWeapon(daidalosgameengine::ILevel * parent) : m_parent(parent) {
 		this->m_state = WEAPON_STATE_NONE;
@@ -66,7 +65,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	IWeapon::~IWeapon() {}
+	IWeapon::~IWeapon() = default;
 
 	/**
 	* Fire the weapon
@@ -93,9 +92,9 @@ namespace daidalos {
 
 					// Add a direction variation
 					daidalosengine::CVector3F directionAltered = this->m_parent->GetScene()->GetActiveCamera()->GetForwardVector();
-					directionAltered.x += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
-					directionAltered.y += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
-					directionAltered.z += daidalosengine::RandomNumber<float>(-(100 - (float)this->m_precision) / 400.0F, (100 - (float)this->m_precision) / 400.0F);
+					directionAltered.x += daidalosengine::RandomNumber<float>(-(100 - static_cast<float>(this->m_precision)) / 400.0F, (100 - static_cast<float>(this->m_precision)) / 400.0F);
+					directionAltered.y += daidalosengine::RandomNumber<float>(-(100 - static_cast<float>(this->m_precision)) / 400.0F, (100 - static_cast<float>(this->m_precision)) / 400.0F);
+					directionAltered.z += daidalosengine::RandomNumber<float>(-(100 - static_cast<float>(this->m_precision)) / 400.0F, (100 - static_cast<float>(this->m_precision)) / 400.0F);
 					directionAltered = directionAltered.Normalize();
 
 					// Create the projectile
@@ -198,7 +197,7 @@ namespace daidalos {
 			this->m_state = WEAPON_STATE_NONE;
 			
 			// Update the magazine size and the remaining ammo
-			unsigned int ammoToShift = std::min(this->m_maxMagazineSize - this->m_magazineSize, this->m_remainingAmmo);
+			const unsigned int ammoToShift = std::min(this->m_maxMagazineSize - this->m_magazineSize, this->m_remainingAmmo);
 			this->m_magazineSize += ammoToShift;
 			this->m_remainingAmmo -= ammoToShift;
 		}
@@ -226,8 +225,8 @@ namespace daidalos {
 
 					// If the projectile movement is greater or equal than the projectile/entity distance
 					if(((*it2)->GetVisiblePosition() - projectile.position).Length() <= movement.Length()) {
-						for(int i = 1; i < ((int)movement.Length() + 1) * 4 && !hit; i++) {
-							daidalosengine::CVector3F movementStep = (movement * (float)i) / (movement.Length() * 4.0F);
+						for(int i = 1; i < (static_cast<int>(movement.Length()) + 1) * 4 && !hit; i++) {
+							const daidalosengine::CVector3F movementStep = (movement * static_cast<float>(i)) / (movement.Length() * 4.0F);
 
 							// Collision check
 							if((*it2)->GetCollisionShape()->IsCollision(projectile.position + movementStep)) {
@@ -277,7 +276,7 @@ namespace daidalos {
 					this->m_projectiles.Delete(*it);
 					it = this->m_activeProjectiles.erase(it);
 				} else {
-					it++;
+					++it;
 				}
 			}
 		}
@@ -338,7 +337,7 @@ namespace daidalos {
 		this->m_damage = damage;
 		this->m_hitCount = hitCount;
 		this->m_precision = precision;
-		this->m_range = range;
+		this->m_range = static_cast<float>(range);
 	}
 
 	/**
@@ -365,7 +364,7 @@ namespace daidalos {
 	* Set the fire sound
 	* @param soundFile The sound file
 	*/
-	void IWeapon::SetFireSound(const std::string soundFile) {
+	void IWeapon::SetFireSound(const std::string& soundFile) {
 		this->m_fireSound.LoadFromFile(soundFile, daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_fireSound.SetRelativeToListener(true);
 	}
@@ -374,7 +373,7 @@ namespace daidalos {
 	* Set the fire sound
 	* @param soundFile The sound file
 	*/
-	void IWeapon::SetReloadSound(const std::string soundFile) {
+	void IWeapon::SetReloadSound(const std::string& soundFile) {
 		this->m_reloadSound.LoadFromFile(soundFile, daidalosengine::SOUND_TYPE_STATIC, daidalosengine::SOUND_CATEGORY_ENVIRONMENT);
 		this->m_reloadSound.SetRelativeToListener(true);
 	}

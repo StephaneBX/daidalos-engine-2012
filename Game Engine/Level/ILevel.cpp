@@ -34,7 +34,7 @@ namespace daidalosgameengine {
 	/**
 	* Destrictor
 	*/
-	ILevel::~ILevel() {}
+	ILevel::~ILevel() = default;
 
 	/**
 	* Load the level. Should be called from a specific thread.
@@ -43,11 +43,11 @@ namespace daidalosgameengine {
 	void ILevel::LoadLevel(const std::string & filename) {
 
 		this->m_brightness = 0.0F;
-		this->m_view = std::unique_ptr<daidalosengine::C2DScene>(new daidalosengine::C2DScene());
+		this->m_view = std::make_unique<daidalosengine::C2DScene>();
 
-		this->m_scene = std::unique_ptr<daidalosengine::C3DScene>(new daidalosengine::C3DScene());
+		this->m_scene = std::make_unique<daidalosengine::C3DScene>();
 		this->m_scene->LoadScene(filename);
-		this->m_activeCamera = (daidalosengine::ICameraSceneNode*)this->m_scene->GetNode(PLAYER_NODE_NAME);
+		this->m_activeCamera = dynamic_cast<daidalosengine::ICameraSceneNode*>(this->m_scene->GetNode(PLAYER_NODE_NAME));
 
 		this->m_scene->GetRootNode()->SetMeshShadingType(daidalosengine::MESH_SHADING_FLAT);
 		this->m_scene->SetActiveCamera(this->m_activeCamera);
@@ -63,8 +63,8 @@ namespace daidalosgameengine {
 	* @param levelName The level name
 	*/
 	void ILevel::TriggerNextLevel(const std::string & levelName) {
-		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnTriggerNextLevel(levelName);
+		for (auto& listener : this->m_listeners) {
+			listener->OnTriggerNextLevel(levelName);
 		}
 	}
 
@@ -118,8 +118,8 @@ namespace daidalosgameengine {
 		this->m_view->Update(time);
 
 		// Update the entities
-		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); it++) {
-			(*it)->Update(time);
+		for (auto& entitie : this->m_entities) {
+			entitie->Update(time);
 		}
 	}
 
@@ -135,7 +135,7 @@ namespace daidalosgameengine {
 	* Get the scene graph
 	* @return The scene graph
 	*/
-	daidalosengine::C3DScene * ILevel::GetScene() {
+	daidalosengine::C3DScene * ILevel::GetScene() const {
 		return this->m_scene.get();
 	}
 
@@ -143,7 +143,7 @@ namespace daidalosgameengine {
 	* Get the 2d view
 	* @return The 2d view
 	*/
-	daidalosengine::C2DScene * ILevel::GetView() {
+	daidalosengine::C2DScene * ILevel::GetView() const {
 		return this->m_view.get();
 	}
 
@@ -151,7 +151,7 @@ namespace daidalosgameengine {
 	* Get the active camera
 	* @return The active camera
 	*/
-	daidalosengine::ICameraSceneNode * ILevel::GetActiveCamera() {
+	daidalosengine::ICameraSceneNode * ILevel::GetActiveCamera() const {
 		return this->m_activeCamera;
 	}
 
@@ -159,7 +159,7 @@ namespace daidalosgameengine {
 	* Get the player
 	* @return The player
 	*/
-	IPlayer * ILevel::GetPlayer() {
+	IPlayer * ILevel::GetPlayer() const {
 		return this->m_player.get();
 	}
 
@@ -178,9 +178,9 @@ namespace daidalosgameengine {
 	std::vector<IEntity*> ILevel::GetEntities(const int id) const {
 		std::vector<IEntity*> entities;
 
-		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); ++it) {
-			if((*it)->GetId() == id) {
-				entities.push_back((*it).get());
+		for (const auto& entity : this->m_entities) {
+			if(entity->GetId() == id) {
+				entities.push_back(entity.get());
 			}
 		}
 		return entities;
@@ -193,9 +193,9 @@ namespace daidalosgameengine {
 	std::vector<ITriggerEntity*> ILevel::GetTriggerEntities(const int id) const {
 		std::vector<ITriggerEntity*> entities;
 
-		for(auto it = this->m_entities.begin(); it != this->m_entities.end(); ++it) {
-			if((*it)->GetId() == id && ((*it)->GetFlag() & ENTITY_FLAG_TRIGGER) != 0) {
-				entities.push_back((ITriggerEntity*)(*it).get());
+		for (const auto& entity : this->m_entities) {
+			if(entity->GetId() == id && (entity->GetFlag() & ENTITY_FLAG_TRIGGER) != 0) {
+				entities.push_back(dynamic_cast<ITriggerEntity*>(entity.get()));
 			}
 		}
 		return entities;
@@ -239,8 +239,8 @@ namespace daidalosgameengine {
 	void ILevel::PostLoadLevel() {
 
 		// End of loading callback
-		for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-			(*it)->OnLevelLoaded();
+		for (auto& listener : this->m_listeners) {
+			listener->OnLevelLoaded();
 		}
 	}
 }

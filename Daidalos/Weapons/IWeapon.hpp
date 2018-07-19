@@ -201,13 +201,13 @@ namespace daidalos {
 		* Set the fire sound
 		* @param soundFile The sound file
 		*/
-		void SetFireSound(const std::string soundFile);
+		void SetFireSound(const std::string& soundFile);
 
 		/**
 		* Set the fire sound
 		* @param soundFile The sound file
 		*/
-		void SetReloadSound(const std::string soundFile);
+		void SetReloadSound(const std::string& soundFile);
 
 		/**
 		* Set the fire animation

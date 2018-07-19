@@ -47,7 +47,7 @@ namespace daidalos {
 	/**
 	* Destructor
 	*/
-	CEnemyStateWait::~CEnemyStateWait() {}
+	CEnemyStateWait::~CEnemyStateWait() = default;
 
 	/**
 	* Set the active status.

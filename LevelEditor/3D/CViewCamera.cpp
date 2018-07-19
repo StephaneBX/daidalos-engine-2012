@@ -36,7 +36,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../3D/CViewCamera.hpp"
 
 namespace daidaloseditor {
-	CViewCamera::CViewCamera(daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode) {
+	CViewCamera::CViewCamera(daidalosengine::ICameraSceneNode * cameraNode) : m_node(cameraNode), m_scene(nullptr) {
 		this->m_state = 0;
 
 		// Override camera visibility
@@ -64,7 +64,7 @@ namespace daidaloseditor {
 	}
 
 	void CViewCamera::Update(const float time) {
-		float timeSecond = time / 1000.0F;
+		const float timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateView(timeSecond);
@@ -139,8 +139,8 @@ namespace daidaloseditor {
 		}
 
 		movement = movement.Normalize();
-		daidalosengine::CVector3F finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
-		daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		const daidalosengine::CVector3F finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
+		const daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 
@@ -148,8 +148,8 @@ namespace daidaloseditor {
 		// Mouse view
 		if(this->m_inputDevice->GetMouseMovement().x != 0 || this->m_inputDevice->GetMouseMovement().y != 0) {
 			// Update the movement
-			this->m_previousMouseMovement.x = (float)this->m_inputDevice->GetMouseMovement().x;
-			this->m_previousMouseMovement.y = (float)this->m_inputDevice->GetMouseMovement().y;
+			this->m_previousMouseMovement.x = static_cast<float>(this->m_inputDevice->GetMouseMovement().x);
+			this->m_previousMouseMovement.y = static_cast<float>(this->m_inputDevice->GetMouseMovement().y);
 
 			this->m_rotation.y += this->m_previousMouseMovement.x * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);

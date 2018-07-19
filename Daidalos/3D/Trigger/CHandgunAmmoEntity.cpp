@@ -60,7 +60,7 @@ namespace daidalos {
 		if(this->m_node->IsEnabled()) {
 			const float timePerSecond = time / 1000.0F;
 
-			float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
+			const float rotation = this->m_node->GetRotation().y + ROTATION_SPEED * timePerSecond;
 			this->m_node->SetRotation(daidalosengine::CVector3F(0, rotation, 0));
 		}
 	}

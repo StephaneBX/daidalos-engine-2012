@@ -48,16 +48,15 @@ namespace daidalosgameengine {
 	*/
 	ICinematicEvent * CCinematicEventLoader::LoadFromFile(const std::string & filename) {
 		this->m_filename = filename;
-		tinyxml2::XMLElement * element = nullptr;
-		SCinematicEventInternalData * data = new SCinematicEventInternalData();
+		const auto data = new SCinematicEventInternalData();
 
 		tinyxml2::XMLDocument doc;
-		int loadOk = doc.LoadFile(filename.c_str());
+		const int loadOk = doc.LoadFile(filename.c_str());
 		if (loadOk == tinyxml2::XML_NO_ERROR) {
 			tinyxml2::XMLHandle hDoc(&doc);
 
 			// Read the camera steps
-			element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
+			tinyxml2::XMLElement * element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
 			for (tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadCameraStep(data, tinyxml2::XMLHandle(elementIt));
 			}
@@ -70,7 +69,7 @@ namespace daidalosgameengine {
 		return new ICinematicEvent(filename, data);
 	}
 
-	void CCinematicEventLoader::LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle & handle) {
+	void CCinematicEventLoader::LoadCameraStep(SCinematicEventInternalData * data, tinyxml2::XMLHandle handle) {
 		daidalosengine::CVector3F position;
 		daidalosengine::CVector3F rotation;
 		std::string transition;

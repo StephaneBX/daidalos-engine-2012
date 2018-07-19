@@ -108,25 +108,25 @@ namespace daidalosgameengine {
 		* Get the scene graph
 		* @return The scene graph
 		*/
-		daidalosengine::C3DScene * GetScene();
+		daidalosengine::C3DScene * GetScene() const;
 
 		/**
 		* Get the 2d view
 		* @return The 2d view
 		*/
-		daidalosengine::C2DScene * GetView();
+		daidalosengine::C2DScene * GetView() const;
 
 		/**
 		* Get the active camera
 		* @eturn The active camera
 		*/
-		daidalosengine::ICameraSceneNode * GetActiveCamera();
+		daidalosengine::ICameraSceneNode * GetActiveCamera() const;
 
 		/**
 		* Get the player
 		* @return The player
 		*/
-		IPlayer * GetPlayer();
+		IPlayer * GetPlayer() const;
 
 		/**
 		* Get the entities

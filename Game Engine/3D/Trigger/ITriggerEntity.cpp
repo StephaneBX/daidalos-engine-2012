@@ -70,8 +70,8 @@ namespace daidalosgameengine {
 	* Trigger the DoAction on all entities
 	*/
 	void ITriggerEntity::TriggerEntitiesDoAction() {
-		for (auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
-			(*it)->DoAction();
+		for (auto it : this->m_targetsEntity) {
+			it->DoAction();
 		}
 	}
 
@@ -83,8 +83,8 @@ namespace daidalosgameengine {
 
 		ETriggeredResult result = TRIGGERED_RESULT_NONE;
 		unsigned int triggred = 0;
-		for (auto it = this->m_targetsEntity.begin(); it != this->m_targetsEntity.end(); it++) {
-			if ((*it)->CanDoAction()) {
+		for (auto it : this->m_targetsEntity) {
+			if (it->CanDoAction()) {
 				triggred++;
 			}
 		}

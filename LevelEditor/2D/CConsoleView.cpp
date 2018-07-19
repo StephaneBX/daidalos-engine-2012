@@ -66,14 +66,14 @@ namespace daidaloseditor {
 		// Create the history labels
 		this->m_historyLabel.resize(this->m_numberOfLines);
 		int i = 0;
-		for (auto it = this->m_historyLabel.begin(); it != this->m_historyLabel.end(); it++) {
-			(*it).SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, GetBoundingRectangle().GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
-			(*it).SetSize(LABEL_HEIGHT);
-			(*it).SetColor(daidalosengine::CColor(255, 255, 255, 255));
-			(*it).SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
-			(*it).SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
-			(*it).SetText("");
-			AddSubview(&(*it));
+		for (auto& it : this->m_historyLabel) {
+			it.SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, GetBoundingRectangle().GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
+			it.SetSize(LABEL_HEIGHT);
+			it.SetColor(daidalosengine::CColor(255, 255, 255, 255));
+			it.SetHorizontalAlignment(daidalosengine::TEXT_HORIZONTAL_ALIGNMENT_LEFT);
+			it.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
+			it.SetText("");
+			AddSubview(&it);
 			i++;
 		}
 
@@ -84,7 +84,7 @@ namespace daidaloseditor {
 	* Set the visible value
 	* @param visible The visible value
 	*/
-	void CConsoleView::SetVisible(const bool visible) {
+	void CConsoleView::SetVisible(bool visible) {
 		IView::SetVisible(visible);
 
 		if(visible) {

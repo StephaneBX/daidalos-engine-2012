@@ -49,9 +49,9 @@ namespace daidaloseditor {
 	public:
 		/**
 		* Constructor
-		* @param texture The view bounds
+		* @param numberOfLines The number of lines in the console
 		*/
-		explicit CConsoleView(const int numberOfLines);
+		explicit CConsoleView(int numberOfLines);
 
 		/**
 		* Initialize the content
@@ -62,7 +62,7 @@ namespace daidaloseditor {
 		* Set the visible value
 		* @param visible The visible value
 		*/
-		void SetVisible(const bool visible) final;
+		void SetVisible(bool visible) final;
 
 		/**
 		* Add a listener
@@ -80,19 +80,19 @@ namespace daidaloseditor {
 		* Called when a keyboard action is started
 		* @param actionId The action id
 		*/
-		void OnInputActionStarted(const unsigned int actionId);
+		void OnInputActionStarted(unsigned int actionId) override;
 
 		/**
 		* Called when a keyboard action is stopped
 		* @param actionId The action id
 		*/
-		void OnInputActionStopped(const unsigned int actionId);
+		void OnInputActionStopped(unsigned int actionId) override;
 
 		/**
 		* Called when a key has been pressed
 		* @param key The key
 		*/
-		void OnKeyPressed(const unsigned int key);
+		void OnKeyPressed(unsigned int key) override;
 
 	private:
 		/**

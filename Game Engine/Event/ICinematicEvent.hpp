@@ -60,7 +60,7 @@ namespace daidalosgameengine {
 		* Get the data
 		* @return The data
 		*/
-		SCinematicEventInternalData * GetData();
+		SCinematicEventInternalData * GetData() const;
 	};
 }
 
