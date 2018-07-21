@@ -82,8 +82,8 @@ namespace daidalosengine {
 		SetPreferredSize(daidalosengine::CVector2I(this->m_contentView.GetPreferredSize().x + this->m_scrollBarView.GetPreferredSize().x, GetPreferredSize().y));
 
 		// Calculate the scroll bar new position and size
-		float sizeFactor = GetPreferredSize().y / (float)this->m_contentView.GetPreferredSize().y;
-		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -(int)(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, (int)(GetPreferredSize().y * sizeFactor)));
+		const auto sizeFactor = GetPreferredSize().y / static_cast<float>(this->m_contentView.GetPreferredSize().y);
+		this->m_scrollBarView.SetBounds(daidalosengine::CRectangleI(GetPreferredSize().x - this->m_scrollBarView.GetPreferredSize().x, -static_cast<int>(this->m_contentView.GetPosition().y * sizeFactor), this->m_scrollBarView.GetPreferredSize().x, static_cast<int>(GetPreferredSize().y * sizeFactor)));
 
 		// Update the scroll bar
 		this->m_scrollBarView.Update(time);
@@ -173,16 +173,16 @@ namespace daidalosengine {
 
 		if (this->m_enabled) {
 			SetHit(IsInside(point));
-			CInputDevice * inputDevice = CInputDevice::GetInstance();
+			const auto inputDevice = CInputDevice::GetInstance();
 
 			if (IsHit() && inputDevice->IsActionActive(GUI_VIEW_WHEEL_UP)) {
 				// Move up
-				const int offset = std::min(this->m_scrollPitch, GetContentTopPosition());
+				const auto offset = std::min(this->m_scrollPitch, GetContentTopPosition());
 				OffsetContent(offset);
 
 			} else if (IsHit() && inputDevice->IsActionActive(GUI_VIEW_WHEEL_DOWN)) {
 				// Move down
-				const int offset = std::min(this->m_scrollPitch, GetContentBottomPosition());
+				const auto offset = std::min(this->m_scrollPitch, GetContentBottomPosition());
 				OffsetContent(-offset);
 
 			} else {
@@ -232,7 +232,7 @@ namespace daidalosengine {
 	int CScrollableView::GetContentTopPosition() const {
 		LOG_TRACE();
 
-		int topPosition = std::min(GetPreferredSize().y, this->m_contentView.GetPosition().y);
+		auto topPosition = std::min(GetPreferredSize().y, this->m_contentView.GetPosition().y);
 
 		// The top position should be positive to allow scrolling, otherwise the content view is too small
 		if (topPosition > 0) {
@@ -250,7 +250,7 @@ namespace daidalosengine {
 	int CScrollableView::GetContentBottomPosition() const {
 		LOG_TRACE();
 
-		int bottomPosition = this->m_contentView.GetPosition().y + this->m_contentView.GetPreferredSize().y;
+		auto bottomPosition = this->m_contentView.GetPosition().y + this->m_contentView.GetPreferredSize().y;
 
 		// The bottom position should be lower than the scroll bottom to allow scrolling, otherwise the subviews are too high
 		if (bottomPosition < GetPreferredSize().y) {
@@ -294,7 +294,7 @@ namespace daidalosengine {
 		IView::Update(time);
 
 		// Set the size to max its content
-		CRectangleI subviewsBoundingRectangle = GetSubviewsBoundingRectangle();
+		auto subviewsBoundingRectangle = GetSubviewsBoundingRectangle();
 		if (subviewsBoundingRectangle.GetSize().x > 0 && subviewsBoundingRectangle.GetSize().y > 0) {
 			SetBounds(CRectangleI(GetPosition(), CVector2I(subviewsBoundingRectangle.GetWidth(), subviewsBoundingRectangle.GetHeight())));
 		}

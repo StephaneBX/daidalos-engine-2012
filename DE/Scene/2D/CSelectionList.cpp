@@ -148,7 +148,7 @@ namespace daidalosengine {
 		this->m_selectedValue.Update(time);
 
 		// Update the button size
-		int index = 0;
+		auto index = 0;
 		for (auto &it : this->m_selections) {
 			it->SetBounds(daidalosengine::CRectangleI(0, index * BUTTON_HEIGHT, this->m_selectedValue.GetPreferredSize().x, BUTTON_HEIGHT));
 			index++;
@@ -177,7 +177,7 @@ namespace daidalosengine {
 	bool CSelectionList::HitTest(const CVector2I & point) {
 		LOG_TRACE();
 
-		bool hitTest = this->m_selectedValue.HitTest(point);
+		auto hitTest = this->m_selectedValue.HitTest(point);
 
 		if (!hitTest && this->m_scrollableView.IsVisible()) {
 			hitTest = this->m_scrollableView.HitTest(point);
@@ -237,7 +237,7 @@ namespace daidalosengine {
 			this->m_scrollableView.SetVisible(false);
 
 			// Find the clicked button
-			int index = -1;
+			auto index = -1;
 			for (auto &it : this->m_selections) {
 				if (it == button) {
 					// Mark as selected

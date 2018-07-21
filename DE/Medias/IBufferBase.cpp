@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../Medias/IBufferBase.hpp"
 
 namespace daidalosengine {
-	IBufferBase::IBufferBase(const unsigned long size) : IResource() {
+	IBufferBase::IBufferBase(const unsigned long size) {
 		LOG_TRACE();
 
 		this->m_size = size;

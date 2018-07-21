@@ -197,7 +197,8 @@ namespace daidalosengine {
 	void CDX9Shader::CheckHandle(const std::string & name) {
 		LOG_TRACE();
 
-		if(this->m_handles.find(name) == this->m_handles.end())
+		if (this->m_handles.find(name) == this->m_handles.end()) {
 			this->m_handles[name] = this->m_constantTable->GetConstantByName(nullptr, name.c_str());
+		}
 	}
 }

@@ -81,7 +81,7 @@ namespace daidalosengine {
 		* @param parent The node parent
 		* @param handle The xml handle
 		*/
-		virtual void LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle);
+		virtual void LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle);
 
 		/**
 		* Load a BSP structure
@@ -90,7 +90,7 @@ namespace daidalosengine {
 		* @param handle The xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		virtual void LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node);
 
 		/**
 		* Load a simple structure
@@ -99,14 +99,14 @@ namespace daidalosengine {
 		* @param handle The xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node);
+		virtual void LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node);
 
 		/**
 		* Load the particle system declaration
 		* @param scene The scene
 		* @param handle The xml handle
 		*/
-		virtual void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle);
+		virtual void LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle handle);
 
 		/**
 		* Load a default particle system
@@ -122,7 +122,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a spot light node
@@ -132,7 +132,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a point light node
@@ -142,7 +142,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a directional light node
@@ -152,7 +152,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a static mesh node
@@ -162,7 +162,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a animated mesh node
@@ -172,7 +172,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a sound node
@@ -182,7 +182,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load an empty node
@@ -192,7 +192,7 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Load a particle emitter node
@@ -202,14 +202,14 @@ namespace daidalosengine {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name);
+		virtual void LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name);
 
 		/**
 		* Add data into the bsp brush definition by reading the handle
 		* @param handle The handle for the data
 		* @param brushDefinition The brush definition
 		*/
-		virtual void AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition);
+		virtual void AddBSPBrushData(tinyxml2::XMLHandle handle, SBSPBrushDefinition & brushDefinition);
 
 		/**
 		* Add data into the bsp brush definition
@@ -219,14 +219,14 @@ namespace daidalosengine {
 		* @param scale The scale
 		* @param brushDefinition The brush definition
 		*/
-		virtual void AddBSPBoundingBoxData(const std::string file, const CVector3F position, const CVector3F rotation, const CVector3F scale, SBSPBrushDefinition & brushDefinition);
+		virtual void AddBSPBoundingBoxData(const std::string& file, const CVector3F& position, const CVector3F& rotation, const CVector3F& scale, SBSPBrushDefinition & brushDefinition);
 
 		/**
 		* Add data into the simple brush by reading the handle
 		* @param handle The handle for the data
 		* @param brush The brush definition
 		*/
-		virtual void AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush);
+		virtual void AddSimpleBrushData(tinyxml2::XMLHandle handle, SSimpleBrush & brush);
 
 		/**
 		* Save a node into an xml element
@@ -417,7 +417,7 @@ namespace daidalosengine {
 		* @param handle The handle
 		* @return The attributes map
 		*/
-		const std::map<std::string, std::string> GetNodeAttributes(tinyxml2::XMLHandle & handle);
+		std::map<std::string, std::string> GetNodeAttributes(tinyxml2::XMLHandle & handle);
 	};
 }
 

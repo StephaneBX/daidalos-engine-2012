@@ -50,7 +50,7 @@ namespace daidalosengine {
 
 		this->m_hwnd = hWnd;
 		Initialize();
-		CheckCapabilities();
+		CDX9Renderer::CheckCapabilities();
 	}
 
 	CDX9Renderer::~CDX9Renderer() {
@@ -132,7 +132,7 @@ namespace daidalosengine {
 			}
 
 			if(pz2 > 0) {
-				const float fy = (nz2 * e * a) / ny2;
+				const auto fy = (nz2 * e * a) / ny2;
 				auto y = static_cast<int>((fy + 1) * GetResolution().y * 0.5F);
 				const auto py = -pz2 * nz2 / ny2;
 
@@ -172,9 +172,9 @@ namespace daidalosengine {
 	ITexture2DBase * CDX9Renderer::CreateTexture2D(const CVector2I & size, const STexture2DFilterPolicy & filter, EPixelFormat format, const unsigned long flags) const {
 		LOG_TRACE();
 
-		const bool mipmap = (flags & TEXTURE_FLAG_NOMIPMAP) != 0;
-		const bool frameBufferType = (flags & TEXTURE_FLAG_FRAMEBUFFER_TYPE) != 0;
-		const bool autoMipmap = HasCapability(CAPABILITY_HARDWARE_MIPMAP) && CheckFormat(CDX9Enums::Get(format), D3DRTYPE_TEXTURE, D3DUSAGE_AUTOGENMIPMAP);
+		const auto mipmap = (flags & TEXTURE_FLAG_NOMIPMAP) != 0;
+		const auto frameBufferType = (flags & TEXTURE_FLAG_FRAMEBUFFER_TYPE) != 0;
+		const auto autoMipmap = HasCapability(CAPABILITY_HARDWARE_MIPMAP) && CheckFormat(CDX9Enums::Get(format), D3DRTYPE_TEXTURE, D3DUSAGE_AUTOGENMIPMAP);
 		unsigned long usage;
 		D3DPOOL pool;
 
@@ -306,7 +306,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Default values for the optional render targets
-		for(int i = 1; i < 4; ++i)
+		for(auto i = 1; i < 4; ++i)
 			this->m_device->SetRenderTarget(i, nullptr);
 
 		if(frameBuffer != nullptr) {
@@ -460,8 +460,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (frameBuffer != nullptr) {
-			CDX9RenderTarget * mainBufferDepth = dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
-			const CDX9RenderTarget * frameBufferDepth = dynamic_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
+			const auto mainBufferDepth = dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
+			const auto frameBufferDepth = dynamic_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
 
 			this->m_device->StretchRect(frameBufferDepth->GetRenderTarget(), nullptr, mainBufferDepth->GetRenderTarget(), nullptr, D3DTEXF_LINEAR);
 		}
@@ -516,7 +516,7 @@ namespace daidalosengine {
 		this->m_device->DrawIndexedPrimitive(CDX9Enums::Get(type), 0, this->m_minVertexIndex, this->m_numVertices, offset, count);
 	}
 
-	bool CDX9Renderer::CheckFormat(D3DFORMAT format, D3DRESOURCETYPE resourceType, const unsigned long usage) const {
+	bool CDX9Renderer::CheckFormat(const D3DFORMAT format, const D3DRESOURCETYPE resourceType, const unsigned long usage) const {
 		LOG_TRACE();
 
 		return SUCCEEDED(this->m_d3d->CheckDeviceFormat(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_X8R8G8B8, usage, resourceType, format));
@@ -657,7 +657,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Options
-		SiniP options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		auto options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		CMediaManager::GetInstance()->AddLoader(new CDX9PixelShadersLoader(), "psh");
 		CMediaManager::GetInstance()->AddLoader(new CDX9VertexShadersLoader(), "vsh");
@@ -669,7 +669,7 @@ namespace daidalosengine {
 		GetClientRect(this->m_hwnd, &rect);
 
 		const UINT adapterToUse = D3DADAPTER_DEFAULT;
-		const D3DDEVTYPE deviceType = D3DDEVTYPE_HAL;
+		const auto deviceType = D3DDEVTYPE_HAL;
 
 		this->m_d3dpp.Windowed = true;
 		this->m_d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -683,10 +683,11 @@ namespace daidalosengine {
 
 		this->m_d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 
-		if(IsVerticalSynchro())
+		if (IsVerticalSynchro()) {
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-		else
+		} else {
 			this->m_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+		}
 
 
 #ifdef PERFHUD_VERSION
@@ -737,7 +738,7 @@ namespace daidalosengine {
 		this->m_mainFrameBuffer->AddDepth("default", new CDX9RenderTarget(mainDSS, RENDER_TARGET_TYPE_DEPTH));
 
 		// Canvas resolution
-		CRectangleI viewport = GetViewport();
+		auto viewport = GetViewport();
 		SetResolution(CVector2I(viewport.GetWidth(), viewport.GetHeight()));
 
 		// Screen quad information

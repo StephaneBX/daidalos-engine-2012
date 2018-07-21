@@ -62,8 +62,9 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Release previously used resource
-		if(this->m_material != nullptr)
+		if (this->m_material != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_material->GetName());
+		}
 
 		// Check the existence of the resource and load it if necessary
 		auto * tmp = CResourceManager::GetInstance()->GetResource<IMaterialBase>(filename);

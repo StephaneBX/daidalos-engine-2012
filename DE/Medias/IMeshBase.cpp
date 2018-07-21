@@ -34,20 +34,25 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
-			if(this->m_vertex != nullptr)
+			if (this->m_vertex != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_vertex[i]);
+			}
 
-			if(this->m_normal != nullptr)
+			if (this->m_normal != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_normal[i]);
+			}
 
-			if(this->m_tangent != nullptr)
+			if (this->m_tangent != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_tangent[i]);
+			}
 
-			if(this->m_binormal != nullptr)
+			if (this->m_binormal != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_binormal[i]);
+			}
 
-			if(this->m_texcoord != nullptr)
+			if (this->m_texcoord != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_texcoord[i]);
+			}
 		}
 
 		SAFE_DELETE_ARRAY(this->m_vertex);
@@ -149,11 +154,11 @@ namespace daidalosengine {
 		// Loop through the groups
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
 			// Loop through the vertices
-			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
+			for(auto j = 0; j < this->m_groupSize[i]; j += 3) {
 				// Normal calculation
-				CVector3F ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
-				const CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
-				const CVector3F normal = ab.CrossProduct(ac).Normalize();
+				auto ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
+				const auto ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
+				const auto normal = ab.CrossProduct(ac).Normalize();
 
 				// Replace th previous normals
 				std::fill(&this->m_normal[i][j], &this->m_normal[i][j] + 3, normal);
@@ -165,19 +170,19 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		for(unsigned int i = 0; i < this->m_groupSize.size(); ++i) {
-			for(int j = 0; j < this->m_groupSize[i]; j += 3) {
-				const CVector3F ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
-				const CVector3F ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
-				const CVector2F abuv = this->m_texcoord[i][j + 1] - this->m_texcoord[i][j];
-				const CVector2F acuv = this->m_texcoord[i][j + 2] - this->m_texcoord[i][j];
-				const float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
+			for(auto j = 0; j < this->m_groupSize[i]; j += 3) {
+				const auto ab = this->m_vertex[i][j + 1] - this->m_vertex[i][j];
+				const auto ac = this->m_vertex[i][j + 2] - this->m_vertex[i][j];
+				const auto abuv = this->m_texcoord[i][j + 1] - this->m_texcoord[i][j];
+				const auto acuv = this->m_texcoord[i][j + 2] - this->m_texcoord[i][j];
+				const auto fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
 
-				for(int k = 0; k < 3; ++k) {
+				for(auto k = 0; k < 3; ++k) {
 					if(fDenominator >= -EPSILON && fDenominator <= EPSILON) {
 						this->m_tangent[i][j + k] = CVector3F(1, 0, 0);
 						this->m_binormal[i][j + k] = this->m_tangent[i][j + k].CrossProduct(this->m_normal[i][j + k]).Normalize();
 					} else {
-						const float fScale1 = 1.0F / fDenominator;
+						const auto fScale1 = 1.0F / fDenominator;
 						this->m_tangent[i][j + k] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
 						// Gram-Schmidt orthogonalization

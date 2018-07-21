@@ -40,7 +40,7 @@ namespace daidalosengine {
 			descriptor.id = it->second.id;
 			descriptor.xadvance = it->second.xadvance;
 			descriptor.kerning = it->second.kerning;
-			descriptor.coordinates = CRectangleF(it->second.x / static_cast<float>(this->m_internalData->texture.GetSize().x), it->second.y / static_cast<float>(this->m_internalData->texture.GetSize().y), it->second.width / (float)this->m_internalData->texture.GetSize().x, it->second.height / (float)this->m_internalData->texture.GetSize().y);
+			descriptor.coordinates = CRectangleF(it->second.x / static_cast<float>(this->m_internalData->texture.GetSize().x), it->second.y / static_cast<float>(this->m_internalData->texture.GetSize().y), it->second.width / static_cast<float>(this->m_internalData->texture.GetSize().x), it->second.height / static_cast<float>(this->m_internalData->texture.GetSize().y));
 			descriptor.position = CRectangleI(it->second.xoffset, it->second.yoffset, it->second.width, it->second.height);
 
 			this->m_charDescriptor[descriptor.id] = descriptor;

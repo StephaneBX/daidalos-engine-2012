@@ -29,7 +29,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #include "../../Renderers/DX9/CDX9FrameBuffer.hpp"
 
 namespace daidalosengine {
-	CDX9FrameBuffer::CDX9FrameBuffer() : IFrameBufferBase() {
+	CDX9FrameBuffer::CDX9FrameBuffer() {
 		LOG_TRACE();
 	}
 

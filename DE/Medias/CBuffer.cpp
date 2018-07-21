@@ -44,7 +44,7 @@ namespace daidalosengine {
 	void CBuffer::Fill(const void * data, const unsigned long stride, const unsigned long count) {
 		LOG_TRACE();
 
-		void * buf = Lock(stride);
+		const auto buf = Lock(stride);
 		memcpy(buf, data, stride * count);
 		Unlock();
 	}

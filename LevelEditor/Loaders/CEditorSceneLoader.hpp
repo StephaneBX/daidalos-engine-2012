@@ -44,7 +44,7 @@ namespace daidaloseditor {
 		* @param handle the xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) override;
+		virtual void LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node) override;
 
 		/**
 		* Override and use a simple node system
@@ -53,7 +53,7 @@ namespace daidaloseditor {
 		* @param handle the xml handle
 		* @param node The node to fill
 		*/
-		virtual void LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) override;
+		virtual void LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node) override;
 
 		/**
 		* Load a sound node
@@ -63,7 +63,7 @@ namespace daidaloseditor {
 		* @param node The node to fill
 		* @param name The name
 		*/
-		virtual void LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) override;
+		virtual void LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node, const std::string & name) override;
 
 		/**
 		* Save the simple structure
@@ -89,7 +89,7 @@ namespace daidaloseditor {
 		* @param handle the xml handle
 		* @param node The node to fill
 		*/
-		void LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node);
+		void LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node);
 
 		/**
 		* Save a node as a brush

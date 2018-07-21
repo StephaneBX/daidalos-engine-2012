@@ -68,18 +68,18 @@ namespace daidalosengine {
 
 		// File filter
 		std::vector<std::string> filterList;
-		filterList.push_back("vt ");
-		filterList.push_back("vn ");
-		filterList.push_back("v ");
-		filterList.push_back("f ");
-		filterList.push_back("o ");
-		filterList.push_back("g ");
+		filterList.emplace_back("vt ");
+		filterList.emplace_back("vn ");
+		filterList.emplace_back("v ");
+		filterList.emplace_back("f ");
+		filterList.emplace_back("o ");
+		filterList.emplace_back("g ");
 
 		CTokenizer token(filename, filterList);
 		token.Tokenize(" ");
 		token.Tokenize("/", 3);
 
-		int numberOfGroups = token.Count("g");
+		const auto numberOfGroups = token.Count("g");
 
 		// Data initialization
 		this->m_internalData->groupSize.resize(numberOfGroups);
@@ -143,8 +143,8 @@ namespace daidalosengine {
 							// Face declaration
 							// Count the number of vertex for this face
 
-							int vertexNumber = 0;
-							int vertexCountIndex = 1;
+							auto vertexNumber = 0;
+							auto vertexCountIndex = 1;
 
 							while((i + vertexCountIndex) < token.GetTokens().size() && token.GetTokens().at(i + vertexCountIndex) != "f" && token.GetTokens().at(i + vertexCountIndex) != "g") {
 								vertexNumber++;
@@ -153,53 +153,63 @@ namespace daidalosengine {
 
 							// Accept only triangles and quads
 							if(vertexNumber == 3 || vertexNumber == 4) {
-								for(int k = 0; k < 3; k++) {
-									if(token.GetTokens().at(i + k * 3 + 1) != "")
+								for(auto k = 0; k < 3; k++) {
+									if (!token.GetTokens().at(i + k * 3 + 1).empty()) {
 										vertexOrder.push_back(atoi(token.GetTokens().at(i + k * 3 + 1).c_str()));
+									}
 
-									if(token.GetTokens().at(i + k * 3 + 2) != "")
+									if (!token.GetTokens().at(i + k * 3 + 2).empty()) {
 										textureOrder.push_back(atoi(token.GetTokens().at(i + k * 3 + 2).c_str()));
+									}
 
-									if(token.GetTokens().at(i + k * 3 + 3) != "")
+									if (!token.GetTokens().at(i + k * 3 + 3).empty()) {
 										normalOrder.push_back(atoi(token.GetTokens().at(i + k * 3 + 3).c_str()));
+									}
 								}
 
 								// Quad detected, need to add a second triangle
 								if(vertexNumber == 4) {
 									for(int k = 2; k < 5; k++) {
-										if(token.GetTokens().at(i + (k % 4) * 3 + 1) != "")
+										if (!token.GetTokens().at(i + (k % 4) * 3 + 1).empty()) {
 											vertexOrder.push_back(atoi(token.GetTokens().at(i + (k % 4) * 3 + 1).c_str()));
+										}
 
-										if(token.GetTokens().at(i + (k % 4) * 3 + 2) != "")
+										if (!token.GetTokens().at(i + (k % 4) * 3 + 2).empty()) {
 											textureOrder.push_back(atoi(token.GetTokens().at(i + (k % 4) * 3 + 2).c_str()));
+										}
 
-										if(token.GetTokens().at(i + (k % 4) * 3 + 3) != "")
+										if (!token.GetTokens().at(i + (k % 4) * 3 + 3).empty()) {
 											normalOrder.push_back(atoi(token.GetTokens().at(i + (k % 4) * 3 + 3).c_str()));
+										}
 									}
 									i += 13;
-								} else
+								} else {
 									i += 10;
+								}
 							}
 						} else {
 							if(token.GetTokens().at(i) == "o") {
 								// New object detected, we add the previus and clear all the temporary buffers
-								if(groupCounter >= 0)
+								if (groupCounter >= 0) {
 									FillBuffers(tmpVertex, tmpNormal, tmpTexture, vertexOrder, normalOrder, textureOrder, groupCounter);
+								}
 
 								i += 2;
 							} else {
 								if(token.GetTokens().at(i) == "g") {
 									// Clear the face buffer
-									if(groupCounter >= 0)
+									if (groupCounter >= 0) {
 										FillBuffers(tmpVertex, tmpNormal, tmpTexture, vertexOrder, normalOrder, textureOrder, groupCounter);
+									}
 									vertexOrder.clear();
 									normalOrder.clear();
 									textureOrder.clear();
 									groupCounter++;
 
 									i += 2;
-								} else
+								} else {
 									i++;
+								}
 							}
 						}
 					}
@@ -220,8 +230,8 @@ namespace daidalosengine {
 			this->m_internalData->vertex[groupCounter] = new CVector3F[this->m_internalData->groupSize[groupCounter]];
 
 			// Fill the vertex buffer
-			for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-				if(vertexOrder[i] >= 1 && vertexOrder[i] <= (int)tmpVertex.size()) {
+			for(auto i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+				if(vertexOrder[i] >= 1 && vertexOrder[i] <= static_cast<int>(tmpVertex.size())) {
 					this->m_internalData->vertex[groupCounter][i] = tmpVertex[vertexOrder[i] - 1];
 				} else {
 					LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid vertex id)");
@@ -235,16 +245,16 @@ namespace daidalosengine {
 			if(!normalOrder.empty()) {
 				if(normalOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					// Verify the validity of the normal numbers
-					bool hasNormals = true;
-					for(int i = 0; i < this->m_internalData->groupSize[groupCounter] && hasNormals; i++) {
-						if(normalOrder[i] < 1 || normalOrder[i] > (int)tmpNormal.size())
+					auto hasNormals = true;
+					for(auto i = 0; i < this->m_internalData->groupSize[groupCounter] && hasNormals; i++) {
+						if(normalOrder[i] < 1 || normalOrder[i] > static_cast<int>(tmpNormal.size()))
 							hasNormals = false;
 					}
 
 					if(hasNormals) {
 						this->m_internalData->normal[groupCounter] = new CVector3F[this->m_internalData->groupSize[groupCounter]];
-						for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-							if(normalOrder[i] >= 1 && normalOrder[i] <= (int)tmpNormal.size()) {
+						for(auto i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+							if(normalOrder[i] >= 1 && normalOrder[i] <= static_cast<int>(tmpNormal.size())) {
 								this->m_internalData->normal[groupCounter][i] = tmpNormal[normalOrder[i] - 1];
 							} else {
 								if(normalOrder[i] != 0) {
@@ -268,8 +278,8 @@ namespace daidalosengine {
 			if(!textureOrder.empty()) {
 				if(textureOrder.size() == this->m_internalData->groupSize[groupCounter]) {
 					this->m_internalData->texcoord[groupCounter] = new CVector2F[this->m_internalData->groupSize[groupCounter]];
-					for(int i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
-						if(textureOrder[i] >= 1 && textureOrder[i] <= (int)tmpTexture.size()) {
+					for(auto i = 0; i < this->m_internalData->groupSize[groupCounter]; i++) {
+						if(textureOrder[i] >= 1 && textureOrder[i] <= static_cast<int>(tmpTexture.size())) {
 							this->m_internalData->texcoord[groupCounter][i] = tmpTexture[textureOrder[i] - 1];
 						} else {
 							LOG_ERROR("Unable to load the mesh '" << this->m_filename << "' (Invalid texcoord id)");

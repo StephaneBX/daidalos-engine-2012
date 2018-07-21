@@ -69,7 +69,7 @@ namespace daidalosengine {
 		}
 
 		// Set the gain
-		SiniP options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
+		auto options = daidalosengine::CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 		switch(category) {
 		case SOUND_CATEGORY_MUSIC:
 			this->m_sound->SetGain(options.GetValueFloat(APPLICATION_OPTION_SECTION_SOUND, APPLICATION_OPTION_SOUND_MUSIC, 1.0F));

@@ -57,9 +57,9 @@ namespace daidalosengine {
 
 		if(GetFormat() == GetImage().GetFormat()) {
 			D3DLOCKED_RECT lockedRect;
-			RECT Lock = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
+			RECT lock = { rect.GetLeft(), rect.GetTop(), rect.GetRight(), rect.GetBottom() };
 
-			this->m_texture->LockRect(0, &lockedRect, &Lock, 0);
+			this->m_texture->LockRect(0, &lockedRect, &lock, 0);
 			UpdateSurface(lockedRect, rect);
 			this->m_texture->UnlockRect(0);
 		} else {
@@ -74,9 +74,9 @@ namespace daidalosengine {
 				throw CDX9Exception("CreateOffscreenPlainSurface", "CDX9Texture::Update");
 			}
 
-			D3DLOCKED_RECT LockedRect;
-			src->LockRect(&LockedRect, nullptr, 0);
-			UpdateSurface(LockedRect, rect);
+			D3DLOCKED_RECT lockedRect;
+			src->LockRect(&lockedRect, nullptr, 0);
+			UpdateSurface(lockedRect, rect);
 			src->UnlockRect();
 
 			IDirect3DSurface9 * dest = nullptr;
@@ -103,9 +103,9 @@ namespace daidalosengine {
 	void CDX9Texture2D::UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect) {
 		LOG_TRACE();
 
-		unsigned char * destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
-		const unsigned char * srcPix = GetImage().GetData() + (rect.GetLeft() + rect.GetTop() * GetSize().x) * GetBytesPerPixel(GetImage().GetFormat());
-		const unsigned int bpp = GetBytesPerPixel(GetImage().GetFormat());
+		auto destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
+		auto srcPix = GetImage().GetData() + (rect.GetLeft() + rect.GetTop() * GetSize().x) * GetBytesPerPixel(GetImage().GetFormat());
+		const auto bpp = GetBytesPerPixel(GetImage().GetFormat());
 
 		for(int i = 0; i < rect.GetHeight(); ++i) {
 			std::copy(srcPix, srcPix + rect.GetWidth() * bpp, destPix);

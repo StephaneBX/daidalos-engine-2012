@@ -44,11 +44,13 @@ namespace daidalosengine {
 	IShaderProgramBase::~IShaderProgramBase() {
 		LOG_TRACE();
 
-		if(this->m_vertexShader != nullptr)
+		if (this->m_vertexShader != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_vertexShader->GetName());
+		}
 
-		if(this->m_pixelShader != nullptr)
+		if (this->m_pixelShader != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_pixelShader->GetName());
+		}
 	}
 
 	void IShaderProgramBase::SetShader(const std::string & name) {
@@ -273,11 +275,12 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Release previously used resource
-		if(shader != nullptr)
+		if (shader != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(shader->GetName());
+		}
 
 		// Check the existence of the resource and load it if necessary
-		IShaderBase * tmp = CResourceManager::GetInstance()->GetResource<IShaderBase>(name);
+		const auto tmp = CResourceManager::GetInstance()->GetResource<IShaderBase>(name);
 
 		if(tmp == nullptr) {
 			shader = CMediaManager::GetInstance()->LoadMediaFromFile<IShaderBase>(name);

@@ -41,7 +41,7 @@ namespace daidaloseditor {
 	* @param handle the xml handle
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadBSPStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
 	}
 
@@ -52,7 +52,7 @@ namespace daidaloseditor {
 	* @param handle the xml handle
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadSimpleStructure(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node) {
 		LoadEditorLevelStucture(scene, parent, handle, node);
 	}
 
@@ -64,7 +64,7 @@ namespace daidaloseditor {
 	* @param node The node to fill
 	* @param name the name
 	*/
-	void CEditorSceneLoader::LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node, const std::string & name) {
+	void CEditorSceneLoader::LoadSoundNode(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node, const std::string & name) {
 
 		daidalosengine::CSceneLoader::LoadSoundNode(scene, parent, handle, node, name);
 		dynamic_cast<daidalosengine::CSoundSceneNode*>(node)->SetSoundStatus(daidalosengine::SOUND_STATUS_PAUSE);
@@ -139,36 +139,39 @@ namespace daidaloseditor {
 	* @param handle the xml handle
 	* @param node The node to fill
 	*/
-	void CEditorSceneLoader::LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle & handle, daidalosengine::ISceneNode *& node) {
+	void CEditorSceneLoader::LoadEditorLevelStucture(daidalosengine::I3DScene * scene, daidalosengine::ISceneNode *& parent, tinyxml2::XMLHandle handle, daidalosengine::ISceneNode *& node) {
 		node = new CEditorLevelSceneNode(scene);
 		std::string skyName;
 		daidalosengine::CVector3F ambientColor;
 		daidalosengine::CVector3F skyAmbientColor;
-		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
+		auto renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Get the ambient color
-		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
+		if (handle.ToElement()->Attribute("ambientColor") != nullptr) {
 			ambientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
+		}
 		dynamic_cast<CEditorLevelSceneNode*>(node)->SetAmbientColor(daidalosengine::CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
-		if(handle.ToElement()->Attribute("skyName") != nullptr)
+		if (handle.ToElement()->Attribute("skyName") != nullptr) {
 			skyName = handle.ToElement()->Attribute("skyName");
+		}
 		dynamic_cast<CEditorLevelSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
-		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
+		if (handle.ToElement()->Attribute("skyAmbientColor") != nullptr) {
 			skyAmbientColor = daidalosengine::CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		}
 		dynamic_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(daidalosengine::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
-		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
-		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		auto child = handle.FirstChildElement("multi_brush").ToElement();
+		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
-				tinyxml2::XMLElement * child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
+				const auto child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
 
-				for(tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2It);
 

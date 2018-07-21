@@ -114,7 +114,7 @@ namespace daidalosengine {
 	void CCheckbox::SetUncheckedTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_uncheckedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_uncheckedTexture = CTexture2D();
@@ -124,7 +124,7 @@ namespace daidalosengine {
 	void CCheckbox::SetCheckedTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_checkedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_checkedTexture = CTexture2D();
@@ -134,7 +134,7 @@ namespace daidalosengine {
 	void CCheckbox::SetClickedTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_clickedTexture = CTexture2D();
@@ -158,15 +158,15 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0) {
-			IRenderer * renderer = IRenderer::GetRenderer();
+			auto renderer = IRenderer::GetRenderer();
 
 			// Handle the disabled gray color
-			CColor color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
+			auto color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 			if (!this->m_enabled) {
 				color = CColor(0.5F, 0.5F, 0.5F, 1.0F);
 			}
 
-			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			auto shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
@@ -191,7 +191,7 @@ namespace daidalosengine {
 			this->m_clicked = false;
 		}
 
-		CInputDevice * inputDevice = CInputDevice::GetInstance();
+		const auto inputDevice = CInputDevice::GetInstance();
 
 		// Click start test
 		if(inputDevice->IsActionActive(GUI_VIEW_LEFT_CLICK) && !this->m_clicked && IsHit()) {
@@ -203,11 +203,11 @@ namespace daidalosengine {
 				this->m_checked = !this->m_checked;
 
 				// Call the listeners
-				for (auto it = this->m_checkboxListeners.begin(); it != this->m_checkboxListeners.end(); ++it) {
+				for (auto checkboxListener : this->m_checkboxListeners) {
 					if (this->m_checked) {
-						(*it)->OnCheckboxChecked(this);
+						checkboxListener->OnCheckboxChecked(this);
 					} else {
-						(*it)->OnCheckboxUnchecked(this);
+						checkboxListener->OnCheckboxUnchecked(this);
 					}
 				}
 			}
@@ -237,7 +237,7 @@ namespace daidalosengine {
 	void CCheckbox::GenerateGeometry() {
 		LOG_TRACE();
 
-		CRectangleI positionRectangle = GetPositionRectangle();
+		auto positionRectangle = GetPositionRectangle();
 		SetData(GenerateQuad(positionRectangle, CRectangleF(0, 0, 1, 1)));
 
 		// Update the label position
@@ -246,7 +246,7 @@ namespace daidalosengine {
 		SetChanged(false);
 	}
 
-	CRectangleI CCheckbox::GetPositionRectangle() {
+	CRectangleI CCheckbox::GetPositionRectangle() const {
 		LOG_TRACE();
 
 		CRectangleI positionRectangle;
@@ -263,7 +263,7 @@ namespace daidalosengine {
 		return positionRectangle;
 	}
 
-	ITexture2DBase * CCheckbox::GetTextureToRender() {
+	ITexture2DBase * CCheckbox::GetTextureToRender() const {
 		LOG_TRACE();
 
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {

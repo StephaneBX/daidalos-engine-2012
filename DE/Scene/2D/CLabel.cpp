@@ -43,9 +43,7 @@ namespace daidalosengine {
 		this->m_verticalAlignment = TEXT_VERTICAL_ALIGNMENT_TOP;
 	}
 
-	CLabel::~CLabel() {
-
-	}
+	CLabel::~CLabel() = default;
 
 	/**
 	* Initialize the content
@@ -58,7 +56,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_font.LoadFromFile(font);
-		this->m_scale = this->m_size / (float)this->m_font.GetSize();
+		this->m_scale = this->m_size / static_cast<float>(this->m_font.GetSize());
 		SetChanged(true);
 	}
 
@@ -69,14 +67,14 @@ namespace daidalosengine {
 		SetChanged(true);
 	}
 
-	void CLabel::SetHorizontalAlignment(ETextHorizontalAlignment alignment) {
+	void CLabel::SetHorizontalAlignment(const ETextHorizontalAlignment alignment) {
 		LOG_TRACE();
 
 		this->m_horizontalAlignment = alignment;
 		SetChanged(true);
 	}
 
-	void CLabel::SetVerticalAlignment(ETextVerticalAlignment alignment) {
+	void CLabel::SetVerticalAlignment(const ETextVerticalAlignment alignment) {
 		LOG_TRACE();
 
 		this->m_verticalAlignment = alignment;
@@ -87,7 +85,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_size = size;
-		this->m_scale = this->m_size / (float)this->m_font.GetSize();
+		this->m_scale = this->m_size / static_cast<float>(this->m_font.GetSize());
 	}
 
 	void CLabel::SetColor(const CColor & color) {
@@ -173,7 +171,7 @@ namespace daidalosengine {
 		std::set<unsigned int> lineStart;
 		lineStart.insert(0);
 		CVector2I cursor;
-		unsigned char currentCharacter;
+		unsigned char currentCharacter = 0;
 		unsigned int lastWordStartAt = 0;
 
 		for (unsigned int i = 0; i < this->m_text.length(); ++i) {
@@ -181,7 +179,7 @@ namespace daidalosengine {
 				case '\n':
 
 					// End of a word, check its placement
-					if (data.size() > 0) {
+					if (!data.empty()) {
 						if (CheckWordPlacement(data, lastWordStartAt, cursor, lineStart))
 							break;
 					}
@@ -190,11 +188,12 @@ namespace daidalosengine {
 					if ((i + 1) < this->m_text.length()) {
 						lastWordStartAt = data.size();
 						cursor.x = 0;
-						cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+						cursor.y += static_cast<int>(this->m_font.GetLineHeight() * this->m_scale);
 
 						// If a preferred height has been set and the text is too high, stop here
-						if (GetPreferredSize().y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y)
+						if (GetPreferredSize().y > 0 && (cursor.y + static_cast<int>(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y) {
 							break;
+						}
 
 						lineStart.insert(data.size());
 					}
@@ -217,22 +216,22 @@ namespace daidalosengine {
 			}
 
 			// Create the geometry
-			const SCharDescriptor * descriptor = this->m_font.GetCharDescriptor(currentCharacter);
+			const auto descriptor = this->m_font.GetCharDescriptor(currentCharacter);
 
 			// Check the character compatibility with the font
 			if (descriptor != nullptr) {
 				// No need to create geometry for ' '
 				if (currentCharacter != ' ') {
-					CRectangleF coord = descriptor->coordinates;
-					CRectangleI pos = CRectangleI((int)(descriptor->position.GetLeft() * this->m_scale), (int)(descriptor->position.GetTop() * this->m_scale), (int)(descriptor->position.GetWidth() * this->m_scale), (int)(descriptor->position.GetHeight() * this->m_scale)) + cursor;
+					const auto coord = descriptor->coordinates;
+					const auto pos = CRectangleI(static_cast<int>(descriptor->position.GetLeft() * this->m_scale), static_cast<int>(descriptor->position.GetTop() * this->m_scale), static_cast<int>(descriptor->position.GetWidth() * this->m_scale), static_cast<int>(descriptor->position.GetHeight() * this->m_scale)) + cursor;
 
 					// Add the geometry
-					std::vector<SGUIData> tmpData = GenerateQuad(pos, coord);
+					auto tmpData = GenerateQuad(pos, coord);
 					data.insert(data.end(), tmpData.begin(), tmpData.end());
 				}
 
 				// Advance the cursor
-				cursor.x += (int)(descriptor->xadvance * this->m_scale);
+				cursor.x += static_cast<int>(descriptor->xadvance * this->m_scale);
 			}
 		}
 
@@ -240,21 +239,21 @@ namespace daidalosengine {
 		CVector2F boundingBoxMax;
 
 		// Final calculation if there is a geometry 
-		if (data.size() > 0) {
+		if (!data.empty()) {
 			// Last word, check its placement
 			CheckWordPlacement(data, lastWordStartAt, cursor, lineStart);
 
-			if (data.size() > 0) {
+			if (!data.empty()) {
 				// Perform alignment calculation
-				int verticalDecal = 0;
-				int horizontalDecal = 0;
+				auto verticalDecal = 0;
+				auto horizontalDecal = 0;
 				switch (this->m_verticalAlignment) {
 					case TEXT_VERTICAL_ALIGNMENT_BOTTOM:
-						verticalDecal = (int)(GetPreferredSize().y - data[data.size() - 1].position.y);
+						verticalDecal = static_cast<int>(GetPreferredSize().y - data[data.size() - 1].position.y);
 						break;
 
 					case TEXT_VERTICAL_ALIGNMENT_CENTERED:
-						verticalDecal = (int)(GetPreferredSize().y - data[data.size() - 1].position.y) / 2;
+						verticalDecal = static_cast<int>(GetPreferredSize().y - data[data.size() - 1].position.y) / 2;
 						break;
 
 					default:
@@ -268,7 +267,7 @@ namespace daidalosengine {
 
 				// Update each line
 				for (auto it = lineStart.begin(); it != lineStart.end(); ++it) {
-					unsigned int lineEnd = data.size() - 1;
+					auto lineEnd = data.size() - 1;
 					auto next = it;
 					++next;
 
@@ -277,18 +276,18 @@ namespace daidalosengine {
 
 					switch (this->m_horizontalAlignment) {
 						case TEXT_HORIZONTAL_ALIGNMENT_RIGHT:
-							horizontalDecal = (int)(GetPreferredSize().x - data[lineEnd].position.x);
+							horizontalDecal = static_cast<int>(GetPreferredSize().x - data[lineEnd].position.x);
 							break;
 
 						case TEXT_HORIZONTAL_ALIGNMENT_CENTERED:
-							horizontalDecal = (int)(GetPreferredSize().x - data[lineEnd].position.x) / 2;
+							horizontalDecal = static_cast<int>(GetPreferredSize().x - data[lineEnd].position.x) / 2;
 							break;
 
 						default:
 							break;
 					}
 
-					for (unsigned int j = *it; j <= lineEnd; ++j) {
+					for (auto j = *it; j <= lineEnd; ++j) {
 						// Apply horizontal and vertical alignment
 						data[j].position.x = data[j].position.x + horizontalDecal + GetPosition().x;
 						data[j].position.y = data[j].position.y + verticalDecal + GetPosition().y;
@@ -305,7 +304,7 @@ namespace daidalosengine {
 		SetData(data);
 
 		// Final bounding box calculation
-		SetBoundingRectangle(CRectangleI(GetPosition().x, GetPosition().y, (int)(boundingBoxMax.x - boundingBoxMin.x), (int)(boundingBoxMax.y - boundingBoxMin.y)));
+		SetBoundingRectangle(CRectangleI(GetPosition().x, GetPosition().y, static_cast<int>(boundingBoxMax.x - boundingBoxMin.x), static_cast<int>(boundingBoxMax.y - boundingBoxMin.y)));
 
 		SetChanged(false);
 	}
@@ -315,12 +314,12 @@ namespace daidalosengine {
 
 		// If a preferred width has been set and the line is too long for the last word
 		if (GetPreferredSize().x > 0 && cursor.x > GetPreferredSize().x) {
-			float decal = data[wordStartAt].position.x;
-			cursor.x -= (int)decal;
-			cursor.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+			const auto decal = data[wordStartAt].position.x;
+			cursor.x -= static_cast<int>(decal);
+			cursor.y += static_cast<int>(this->m_font.GetLineHeight() * this->m_scale);
 
 			// If a preferred height has been set and the text is too high, stop here and remove the word
-			if (GetPreferredSize().y > 0 && (cursor.y + (int)(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y) {
+			if (GetPreferredSize().y > 0 && (cursor.y + static_cast<int>(this->m_font.GetLineHeight() * this->m_scale)) > GetPreferredSize().y) {
 				data.erase(data.begin() + wordStartAt, data.end());
 				return true;
 			}
@@ -329,9 +328,9 @@ namespace daidalosengine {
 			lineStart.insert(wordStartAt);
 
 			// Replace the last word at the beginning of the next line
-			for (unsigned int j = wordStartAt; j < data.size(); ++j) {
+			for (auto j = wordStartAt; j < data.size(); ++j) {
 				data[j].position.x -= decal;
-				data[j].position.y += (int)(this->m_font.GetLineHeight() * this->m_scale);
+				data[j].position.y += static_cast<int>(this->m_font.GetLineHeight() * this->m_scale);
 			}
 		}
 

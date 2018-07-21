@@ -50,8 +50,9 @@ namespace daidalosengine {
 	CTexture2D::~CTexture2D() {
 		LOG_TRACE();
 
-		if(this->m_texture != nullptr)
+		if (this->m_texture != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
+		}
 	}
 
 	CTexture2D & CTexture2D::operator=(const CTexture2D & texture) {
@@ -114,7 +115,7 @@ namespace daidalosengine {
 		return !(*this == texture);
 	}
 
-	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
+	void CTexture2D::CreateEmpty(const std::string name, const CVector2I & size, const EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
 		LOG_TRACE();
 
 		STexture2DFilterPolicy usedFilter{};
@@ -133,12 +134,12 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 		}
 
-		CImage * img = new CImage(size, format);
+		const auto img = new CImage(size, format);
 		Load(*img, usedFilter, format, flags, name);
 		delete img;
 	}
 
-	void CTexture2D::CreateFromFile(const std::string & filename, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
+	void CTexture2D::CreateFromFile(const std::string & filename, const EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags) {
 		LOG_TRACE();
 
 		// If no filter policy is given, use the default one
@@ -171,7 +172,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void CTexture2D::CreateFromImage(const CImage & image, EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name) {
+	void CTexture2D::CreateFromImage(const CImage & image, const EPixelFormat format, const STexture2DFilterPolicy * filter, const unsigned long flags, const std::string & name) {
 		LOG_TRACE();
 
 		// If no filter policy is given, use the default one

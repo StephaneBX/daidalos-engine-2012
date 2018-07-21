@@ -78,7 +78,7 @@ namespace daidalosengine {
 	* Load a particle emitter node
 	* @param handle the xml handle
 	*/
-	void CParticleEmittersTemplateLoader::LoadParticleEmitterNode(tinyxml2::XMLHandle & handle) {
+	void CParticleEmittersTemplateLoader::LoadParticleEmitterNode(tinyxml2::XMLHandle handle) {
 		LOG_TRACE();
 
 		bool ignoreGravity;
@@ -89,14 +89,14 @@ namespace daidalosengine {
 		float emitterLifeMax;
 
 		// Basic values
-		GetNodeData(handle, "blendMode", emitterBlendMode, (int)RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA);
+		GetNodeData(handle, "blendMode", emitterBlendMode, static_cast<int>(RENDER_STATE_BLEND_FUNCTION_INVSRCALPHA));
 		GetNodeData(handle, "life", emitterLife, -1);
 		GetNodeData(handle, "lifeMax", emitterLifeMax, -1);
 		GetNodeData(handle, "emissionRate", emitterEmissionRate, 10);
 		GetNodeData(handle, "ignoreGravity", ignoreGravity, false);
 
 		// Create the emitter
-		CParticleEmitter * emitter = new CParticleEmitter();
+		auto emitter = new CParticleEmitter();
 		emitter->SetActive(true);
 		emitter->SetTextureId(0);
 		emitter->SetBlendMode(emitterBlendMode);
@@ -131,7 +131,7 @@ namespace daidalosengine {
 			float emitterEmissionRateValue;
 
 			for (tinyxml2::XMLElement* child = emissionRateChangeElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
+				const auto childName = std::string(child->Name());
 				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
 
 				// Read an emission rate
@@ -172,9 +172,9 @@ namespace daidalosengine {
 			CVector3F emitterParticlePositionMax;
 			CColor emitterParticleColor;
 
-			for (tinyxml2::XMLElement* child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);
+			for (auto child = initializersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				const auto childName = std::string(child->Name());
+				auto childHandle = tinyxml2::XMLHandle(child);
 
 				if (childName == "color") {
 					GetNodeData(initializersHandle, "color", emitterParticleColor, CColor(1.0F, 1.0F, 1.0F, 1.0F));
@@ -250,9 +250,9 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::LoadParticleEmitterUpdaters(CParticleEmitter * emitter, tinyxml2::XMLElement * updatersElement) {
 		if (updatersElement != nullptr) {
 
-			for (tinyxml2::XMLElement* child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
-				std::string childName = std::string(child->Name());
-				tinyxml2::XMLHandle childHandle = tinyxml2::XMLHandle(child);	
+			for (auto child = updatersElement->FirstChildElement(); child != nullptr; child = child->NextSiblingElement()) {
+				const auto childName = std::string(child->Name());
+				auto childHandle = tinyxml2::XMLHandle(child);	
 
 				if (childName == "colorChange") {
 					float updaterTime;
@@ -260,9 +260,9 @@ namespace daidalosengine {
 
 					// Read each step
 					std::vector<SColorParticleChangeUpdater> colorChangeVector;
-					tinyxml2::XMLElement * colorElement = childHandle.FirstChildElement("color").ToElement();
-					for (tinyxml2::XMLElement * colorElementIt = colorElement; colorElementIt != nullptr; colorElementIt = colorElementIt->NextSiblingElement()) {
-						tinyxml2::XMLHandle colorChangeHandle = tinyxml2::XMLHandle(colorElementIt);
+					const auto colorElement = childHandle.FirstChildElement("color").ToElement();
+					for (auto colorElementIt = colorElement; colorElementIt != nullptr; colorElementIt = colorElementIt->NextSiblingElement()) {
+						auto colorChangeHandle = tinyxml2::XMLHandle(colorElementIt);
 						GetNodeData(colorChangeHandle, "time", updaterTime, 0);
 						GetNodeData(colorChangeHandle, "value", updaterColor, CVector4F(1.0F, 1.0F, 1.0F, 1.0F));
 
@@ -292,9 +292,9 @@ namespace daidalosengine {
 
 					// Read each step
 					std::vector<SSizeParticleChangeUpdater> sizeChangeVector;
-					tinyxml2::XMLElement * sizeElement = childHandle.FirstChildElement("size").ToElement();
-					for (tinyxml2::XMLElement * sizeElementIt = sizeElement; sizeElementIt != nullptr; sizeElementIt = sizeElementIt->NextSiblingElement()) {
-						tinyxml2::XMLHandle sizeChangeHandle = tinyxml2::XMLHandle(sizeElementIt);
+					const auto sizeElement = childHandle.FirstChildElement("size").ToElement();
+					for (auto sizeElementIt = sizeElement; sizeElementIt != nullptr; sizeElementIt = sizeElementIt->NextSiblingElement()) {
+						auto sizeChangeHandle = tinyxml2::XMLHandle(sizeElementIt);
 						GetNodeData(sizeChangeHandle, "time", updaterTime, 0);
 						GetNodeData(sizeChangeHandle, "value", updaterSize, 1);
 
@@ -323,9 +323,9 @@ namespace daidalosengine {
 
 					// Read each step
 					std::vector<SLinearVelocityParticleChangeUpdater> velocityChangeVector;
-					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
-						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
+					const auto velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+						auto velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "direction", updaterDirection, CVector3F(0.0F, 0.0F, 0.0F));
 						GetNodeData(velocityChangeHandle, "variationFactor", updaterVariationFactor, 0);
@@ -356,9 +356,9 @@ namespace daidalosengine {
 
 					// Read each step
 					std::vector<SSphereVelocityParticleChangeUpdater> velocityChangeVector;
-					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
-						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
+					const auto velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+						auto velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
@@ -389,9 +389,9 @@ namespace daidalosengine {
 
 					// Read each step
 					std::vector<SCircularVelocityParticleChangeUpdater> velocityChangeVector;
-					tinyxml2::XMLElement * velocityElement = childHandle.FirstChildElement("velocity").ToElement();
-					for (tinyxml2::XMLElement * velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
-						tinyxml2::XMLHandle velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
+					const auto velocityElement = childHandle.FirstChildElement("velocity").ToElement();
+					for (auto velocityElementIt = velocityElement; velocityElementIt != nullptr; velocityElementIt = velocityElementIt->NextSiblingElement()) {
+						auto velocityChangeHandle = tinyxml2::XMLHandle(velocityElementIt);
 						GetNodeData(velocityChangeHandle, "time", updaterTime, 0);
 						GetNodeData(velocityChangeHandle, "velocityMin", updaterVelocityMin, 1);
 						GetNodeData(velocityChangeHandle, "velocityMax", updaterVelocityMax, 1);
@@ -418,18 +418,20 @@ namespace daidalosengine {
 	 * @param data The data
 	 * @param defaultValue The default value
 	 */
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) const {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
-			std::string tmpText = TrimString(text->Value());
+			auto tmpText = TrimString(text->Value());
 			std::transform(tmpText.begin(), tmpText.end(), tmpText.begin(), tolower);
 
-			if(tmpText == "true" || tmpText == "1")
+			if (tmpText == "true" || tmpText == "1") {
 				data = true;
-			if(tmpText == "false" || tmpText == "0")
+			}
+			if (tmpText == "false" || tmpText == "0") {
 				data = false;
+			}
 		} else {
 			data = defaultValue;
 		}
@@ -442,10 +444,10 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) const {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
@@ -461,11 +463,11 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) const {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector2I::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -478,11 +480,11 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) const {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if (text != nullptr) {
 			data = CVector2F::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -495,11 +497,11 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) const {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector3F::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -512,11 +514,11 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) const {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector4F::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -529,13 +531,14 @@ namespace daidalosengine {
 	* @param data The data
 	* @param defaultValue The default value
 	*/
-	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) {
+	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) const {
 		LOG_TRACE();
 
 		CTokenizer tokenizer;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		if (text != nullptr) {
 			tokenizer.AddLine(text->Value());
+		}
 
 		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 			std::istringstream ss;
@@ -572,7 +575,7 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
@@ -591,7 +594,7 @@ namespace daidalosengine {
 	void CParticleEmittersTemplateLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = text->Value();
 		} else {

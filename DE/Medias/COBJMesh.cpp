@@ -55,8 +55,8 @@ namespace daidalosengine {
 		// Visibilty shape calculation
 		CVector3F min;
 		CVector3F max;
-		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
-			for(int j = 0; j < this->m_internalData->groupSize[i]; ++j) {
+		for(auto i = 0U; i < this->m_internalData->groupSize.size(); ++i) {
+			for(auto j = 0; j < this->m_internalData->groupSize[i]; ++j) {
 				max.x = std::max(max.x, GetVertices(i)[j].x);
 				max.y = std::max(max.y, GetVertices(i)[j].y);
 				max.z = std::max(max.z, GetVertices(i)[j].z);
@@ -80,14 +80,17 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
-			if(this->m_internalData->vertex != nullptr)
+			if (this->m_internalData->vertex != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_internalData->vertex[i]);
+			}
 
-			if(this->m_internalData->normal != nullptr)
+			if (this->m_internalData->normal != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_internalData->normal[i]);
+			}
 
-			if(this->m_internalData->texcoord != nullptr)
+			if (this->m_internalData->texcoord != nullptr) {
 				SAFE_DELETE_ARRAY(this->m_internalData->texcoord[i]);
+			}
 		}
 
 		SAFE_DELETE_ARRAY(this->m_internalData->vertex);
@@ -107,7 +110,7 @@ namespace daidalosengine {
 		case MESH_SHADING_SMOOTH:
 			// Use the declared normal if possible
 			if(this->m_internalData->normal != nullptr) {
-				for(unsigned int i = 0; i < this->m_internalData->groupSize.size(); ++i) {
+				for(auto i = 0U; i < this->m_internalData->groupSize.size(); ++i) {
 					memcpy(GetNormals(i), this->m_internalData->normal[i], sizeof(CVector3F) * this->m_internalData->groupSize[i]);
 				}
 			} else {

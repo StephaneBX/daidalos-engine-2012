@@ -1047,4 +1047,8 @@
       <Filter>Fichiers sources\Scene\2D</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
+  </ItemGroup>
 </Project>

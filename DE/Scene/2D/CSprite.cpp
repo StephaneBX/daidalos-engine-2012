@@ -33,19 +33,17 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 #define PANEL_TEXTURE_NAME "white.png"
 
 namespace daidalosengine {
-	CSprite::CSprite() : IView() {
+	CSprite::CSprite()  {
 		LOG_TRACE();
 
-		SetChanged(true);
+		CSprite::SetChanged(true);
 		this->m_coordinates = CRectangleF(0, 0, 1, 1);
 		this->m_backgroundColor = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 		this->m_texture.CreateFromFile(PANEL_TEXTURE_NAME, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
 		this->m_rotation = 0;
 	}
 
-	CSprite::~CSprite() {
-
-	}
+	CSprite::~CSprite() = default;
 
 	/**
 	* Initialize the content
@@ -61,7 +59,7 @@ namespace daidalosengine {
 		SetChanged(true);
 	}
 
-	void CSprite::SetTexture(const std::string texture) {
+	void CSprite::SetTexture(const std::string& texture) {
 		LOG_TRACE();
 
 		this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultBasicTextureFilter());
@@ -95,9 +93,9 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
-			IRenderer * renderer = IRenderer::GetRenderer();
+			auto renderer = IRenderer::GetRenderer();
 
-			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			auto shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());

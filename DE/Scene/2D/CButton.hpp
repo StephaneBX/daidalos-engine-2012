@@ -181,7 +181,7 @@ namespace daidalosengine {
 		/**
 		* Get the texture to used for rendering
 		*/
-		ITexture2DBase * GetTextureToRender();
+		ITexture2DBase * GetTextureToRender() const;
 	};
 }
 

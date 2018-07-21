@@ -42,8 +42,8 @@ namespace daidalosengine {
 		InitializeBufferGroup(this->m_internalData->header.numTriangle * 3);
 
 		// Copy texture coordinates
-		for(int i = 0; i < this->m_internalData->header.numTriangle; i++) {
-			for(int j = 0; j < 3; j++) {
+		for(auto i = 0; i < this->m_internalData->header.numTriangle; i++) {
+			for(auto j = 0; j < 3; j++) {
 				GetTexcoords(0)[i * 3 + j].x = static_cast<float>(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].
 					textureCoordinatesIndice[j]].u) / static_cast<float>(this->m_internalData->header.skinWidth);
 				GetTexcoords(0)[i * 3 + j].y = static_cast<float>(this->m_internalData->textureCoordinates[this->m_internalData->triangle[i].
@@ -54,11 +54,11 @@ namespace daidalosengine {
 		// Visibility shape calculation
 		CVector3F min;
 		CVector3F max;
-		for(int frame = 0; frame < this->m_internalData->header.frameSize; ++frame) {
+		for(auto frame = 0; frame < this->m_internalData->header.frameSize; ++frame) {
 			SetFrame(static_cast<float>(frame));
-			FinalizeGeometry(MESH_SHADING_SMOOTH);
+			CMD2Mesh::FinalizeGeometry(MESH_SHADING_SMOOTH);
 
-			for(int j = 0; j < this->m_internalData->header.numTriangle * 3; ++j) {
+			for(auto j = 0; j < this->m_internalData->header.numTriangle * 3; ++j) {
 
 				max.x = std::max(max.x, GetVertices(0)[j].x);
 				max.y = std::max(max.y, GetVertices(0)[j].y);
@@ -88,8 +88,9 @@ namespace daidalosengine {
 		SAFE_DELETE_ARRAY(this->m_internalData->transformedVertex);
 		SAFE_DELETE_ARRAY(this->m_internalData->transformedNormal);
 
-		for(int i = 0; i < this->m_internalData->header.numFrames; ++i)
+		for (int i = 0; i < this->m_internalData->header.numFrames; ++i) {
 			SAFE_DELETE_ARRAY(this->m_internalData->frame[i].vertex);
+		}
 		SAFE_DELETE_ARRAY(this->m_internalData->frame);
 		SAFE_DELETE(this->m_internalData);
 	}
@@ -101,10 +102,10 @@ namespace daidalosengine {
 		auto frameB = static_cast<int>(floor(GetFrame() + 1));
 
 		// Linear
-		const float interpolation = GetFrame() - frameA;
+		const auto interpolation = GetFrame() - frameA;
 
 		// Cosine
-		const float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
+		const auto interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
 
 		// Use the first frame if the choosen frame is less than 0
 		if(frameA < 0) {
@@ -118,16 +119,16 @@ namespace daidalosengine {
 			frameB = this->m_internalData->header.numFrames - 1;
 		}
 
-		SMD2Frame * currentFrameA = &this->m_internalData->frame[frameA];
-		SMD2Frame * currentFrameB = &this->m_internalData->frame[frameB];
+		const auto currentFrameA = &this->m_internalData->frame[frameA];
+		const auto currentFrameB = &this->m_internalData->frame[frameB];
 		CVector3F currentNormalA;
 		CVector3F currentNormalB;
 		CVector3F currentPositionA;
 		CVector3F currentPositionB;
 
-		for(int i = 0; i < this->m_internalData->header.numVertices; i++) {
-			SMD2Vertex * currentVertexA = &currentFrameA->vertex[i];
-			SMD2Vertex * currentVertexB = &currentFrameB->vertex[i];
+		for(auto i = 0; i < this->m_internalData->header.numVertices; i++) {
+			const auto currentVertexA = &currentFrameA->vertex[i];
+			const auto currentVertexB = &currentFrameB->vertex[i];
 
 			currentNormalA.x = currentVertexA->averageNormal.x;
 			currentNormalA.z = currentVertexA->averageNormal.y;
@@ -161,8 +162,8 @@ namespace daidalosengine {
 		*/
 		switch(shadingType) {
 		case MESH_SHADING_SMOOTH:
-			for(int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
-				for(int j = 0; j < 3; ++j) {
+			for(auto i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+				for(auto j = 0; j < 3; ++j) {
 					GetVertices(0)[i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
 					GetNormals(0)[i * 3 + j] = this->m_internalData->transformedNormal[this->m_internalData->triangle[i].vertex[j]];
 				}
@@ -171,8 +172,8 @@ namespace daidalosengine {
 
 		default:
 			// Flat shading
-			for (int i = 0; i < this->m_internalData->header.numTriangle; ++i) {
-				for (int j = 0; j < 3; ++j) {
+			for (auto i = 0; i < this->m_internalData->header.numTriangle; ++i) {
+				for (auto j = 0; j < 3; ++j) {
 					GetVertices(0)[i * 3 + j] = this->m_internalData->transformedVertex[this->m_internalData->triangle[i].vertex[j]];
 				}
 			}

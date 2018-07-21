@@ -40,10 +40,10 @@ namespace daidalosengine {
 		this->m_cursor = nullptr;
 
 		const IRenderer * renderer = IRenderer::GetRenderer();
-		this->m_proj.OrthographicView(0, (float)renderer->GetResolution().x, (float)renderer->GetResolution().y, 0, 0.0F, 1.0F);
+		this->m_proj.OrthographicView(0, static_cast<float>(renderer->GetResolution().x), static_cast<float>(renderer->GetResolution().y), 0, 0.0F, 1.0F);
 
 		// Create the main view
-		this->m_mainView = std::unique_ptr<CSprite>(new CSprite());
+		this->m_mainView = std::make_unique<CSprite>();
 		this->m_mainView->SetBackgroundColor(CColor(0, 0, 0, 0));
 		this->m_mainView->SetBounds(CRectangleI(0, 0, renderer->GetResolution().x, renderer->GetResolution().y));
 	}
@@ -84,7 +84,7 @@ namespace daidalosengine {
 		}
 
 		// Draw all the elements
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_SCISSORTEST, true);
 
 		this->m_mainView->Render();

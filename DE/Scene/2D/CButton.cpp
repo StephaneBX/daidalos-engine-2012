@@ -42,7 +42,7 @@ namespace daidalosengine {
 		this->m_enabled = true;
 		this->m_clicked = false;
 		this->m_imageInset = CInsetF(0, 0, 0, 0);
-		SetChanged(true);
+		CButton::SetChanged(true);
 
 		this->m_title.SetVerticalAlignment(daidalosengine::TEXT_VERTICAL_ALIGNMENT_CENTERED);
 		this->m_defaultTitleColor = daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -126,7 +126,7 @@ namespace daidalosengine {
 	void CButton::SetDefaultTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_defaultTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_defaultTexture = CTexture2D();
@@ -140,7 +140,7 @@ namespace daidalosengine {
 	void CButton::SetClickedTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_clickedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_clickedTexture = CTexture2D();
@@ -154,7 +154,7 @@ namespace daidalosengine {
 	void CButton::SetFocusedTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_focusedTexture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, GetTextureFilter());
 		} else {
 			this->m_focusedTexture = CTexture2D();
@@ -216,17 +216,17 @@ namespace daidalosengine {
 	void CButton::Render() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		if (GetDataSize() > 0) {
 
 			// Handle the disabled gray color
-			CColor color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
+			auto color = CColor(1.0F, 1.0F, 1.0F, 1.0F);
 			if (!this->m_enabled) {
 				color = CColor(0.5F, 0.5F, 0.5F, 1.0F);
 			}
 
-			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			auto shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
@@ -271,8 +271,9 @@ namespace daidalosengine {
 				this->m_clicked = false;
 
 				// Call the listeners
-				for(auto it = this->m_buttonListeners.begin(); it != this->m_buttonListeners.end(); ++it)
-					(*it)->OnButtonClicked(this);
+				for (auto buttonListener : this->m_buttonListeners) {
+					buttonListener->OnButtonClicked(this);
+				}
 			}
 		}
 
@@ -314,56 +315,56 @@ namespace daidalosengine {
 			std::vector<SGUIData> data;
 
 			// Create the top left part
-			CRectangleI topLeftPosition = CRectangleI(GetPosition().x, GetPosition().y, (int)(this->m_imageInset.GetLeft() * this->m_defaultTexture.GetSize().x), (int)(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
-			CRectangleF topLeftCoordinates = CRectangleF(0, 0, this->m_imageInset.GetLeft(), this->m_imageInset.GetTop());
-			std::vector<SGUIData> topLeft = GenerateQuad(topLeftPosition, topLeftCoordinates);
+			auto topLeftPosition = CRectangleI(GetPosition().x, GetPosition().y, static_cast<int>(this->m_imageInset.GetLeft() * this->m_defaultTexture.GetSize().x), static_cast<int>(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
+			const auto topLeftCoordinates = CRectangleF(0, 0, this->m_imageInset.GetLeft(), this->m_imageInset.GetTop());
+			auto topLeft = GenerateQuad(topLeftPosition, topLeftCoordinates);
 			data.insert(data.end(), topLeft.begin(), topLeft.end());
 
 			// Create the bottom left part
-			CRectangleI bottomLeftPosition = CRectangleI(GetPosition().x, GetPosition().y + (GetPreferredSize().y - (int)(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y)), topLeftPosition.GetWidth(), (int)(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y));
-			CRectangleF bottomLeftCoordinates = CRectangleF(0, (1.0F - this->m_imageInset.GetBottom()), this->m_imageInset.GetLeft(), this->m_imageInset.GetBottom());
-			std::vector<SGUIData> bottomLeft = GenerateQuad(bottomLeftPosition, bottomLeftCoordinates);
+			auto bottomLeftPosition = CRectangleI(GetPosition().x, GetPosition().y + (GetPreferredSize().y - static_cast<int>(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y)), topLeftPosition.GetWidth(), static_cast<int>(this->m_imageInset.GetBottom() * this->m_defaultTexture.GetSize().y));
+			const auto bottomLeftCoordinates = CRectangleF(0, (1.0F - this->m_imageInset.GetBottom()), this->m_imageInset.GetLeft(), this->m_imageInset.GetBottom());
+			auto bottomLeft = GenerateQuad(bottomLeftPosition, bottomLeftCoordinates);
 			data.insert(data.end(), bottomLeft.begin(), bottomLeft.end());
 
 			// Create the middle left part
-			CRectangleI middleLeftPosition = CRectangleI(topLeftPosition.GetLeft(), topLeftPosition.GetBottom(), topLeftPosition.GetWidth(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
-			CRectangleF middleLeftCoordinates = CRectangleF(0, this->m_imageInset.GetTop(), this->m_imageInset.GetLeft(), 1 - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
-			std::vector<SGUIData> middleLeft = GenerateQuad(middleLeftPosition, middleLeftCoordinates);
+			const auto middleLeftPosition = CRectangleI(topLeftPosition.GetLeft(), topLeftPosition.GetBottom(), topLeftPosition.GetWidth(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
+			const auto middleLeftCoordinates = CRectangleF(0, this->m_imageInset.GetTop(), this->m_imageInset.GetLeft(), 1 - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
+			auto middleLeft = GenerateQuad(middleLeftPosition, middleLeftCoordinates);
 			data.insert(data.end(), middleLeft.begin(), middleLeft.end());
 
 			// Create the top right part
-			CRectangleI topRightPosition = CRectangleI(GetPosition().x + (GetPreferredSize().x - (int)(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x)), GetPosition().y, (int)(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x), (int)(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
-			CRectangleF topRightCoordinates = CRectangleF((1.0F - this->m_imageInset.GetRight()), 0, this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
-			std::vector<SGUIData> topRight = GenerateQuad(topRightPosition, topRightCoordinates);
+			auto topRightPosition = CRectangleI(GetPosition().x + (GetPreferredSize().x - static_cast<int>(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x)), GetPosition().y, static_cast<int>(this->m_imageInset.GetRight() * this->m_defaultTexture.GetSize().x), static_cast<int>(this->m_imageInset.GetTop() * this->m_defaultTexture.GetSize().y));
+			const auto topRightCoordinates = CRectangleF((1.0F - this->m_imageInset.GetRight()), 0, this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
+			auto topRight = GenerateQuad(topRightPosition, topRightCoordinates);
 			data.insert(data.end(), topRight.begin(), topRight.end());
 
 			// Create the top part
-			CRectangleI topPosition = CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetTop(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), topLeftPosition.GetHeight());
-			CRectangleF topCoordinates = CRectangleF(this->m_imageInset.GetLeft(), 0, 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
-			std::vector<SGUIData> top = GenerateQuad(topPosition, topCoordinates);
+			const auto topPosition = CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetTop(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), topLeftPosition.GetHeight());
+			const auto topCoordinates = CRectangleF(this->m_imageInset.GetLeft(), 0, 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetTop());
+			auto top = GenerateQuad(topPosition, topCoordinates);
 			data.insert(data.end(), top.begin(), top.end());
 
 			// Create the bottom right part
-			CRectangleI bottomRightPosition = CRectangleI(topRightPosition.GetLeft(), bottomLeftPosition.GetTop(), topRightPosition.GetWidth(), bottomLeftPosition.GetHeight());
-			CRectangleF bottomRightCoordinates = CRectangleF(1.0F - this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetBottom(), this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
-			std::vector<SGUIData> bottomRight = GenerateQuad(bottomRightPosition, bottomRightCoordinates);
+			auto bottomRightPosition = CRectangleI(topRightPosition.GetLeft(), bottomLeftPosition.GetTop(), topRightPosition.GetWidth(), bottomLeftPosition.GetHeight());
+			const auto bottomRightCoordinates = CRectangleF(1.0F - this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetBottom(), this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
+			auto bottomRight = GenerateQuad(bottomRightPosition, bottomRightCoordinates);
 			data.insert(data.end(), bottomRight.begin(), bottomRight.end());
 
 			// Create the middle right part
-			CRectangleI middleRightPosition = CRectangleI(topRightPosition.GetLeft(), topRightPosition.GetBottom(), topRightPosition.GetWidth(), bottomRightPosition.GetTop() - topRightPosition.GetBottom());
-			CRectangleF middleRightCoordinates = CRectangleF(1.0F - this->m_imageInset.GetRight(), this->m_imageInset.GetTop(), this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
-			std::vector<SGUIData> middleRight = GenerateQuad(middleRightPosition, middleRightCoordinates);
+			const auto middleRightPosition = CRectangleI(topRightPosition.GetLeft(), topRightPosition.GetBottom(), topRightPosition.GetWidth(), bottomRightPosition.GetTop() - topRightPosition.GetBottom());
+			const auto middleRightCoordinates = CRectangleF(1.0F - this->m_imageInset.GetRight(), this->m_imageInset.GetTop(), this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom());
+			auto middleRight = GenerateQuad(middleRightPosition, middleRightCoordinates);
 			data.insert(data.end(), middleRight.begin(), middleRight.end());
 
 			// Create the bottom part
-			CRectangleI bottomPosition = CRectangleI(bottomLeftPosition.GetRight(), bottomLeftPosition.GetTop(), bottomRightPosition.GetLeft() - bottomLeftPosition.GetRight(), bottomLeftPosition.GetHeight());
-			CRectangleF bottomCoordinates = CRectangleF(this->m_imageInset.GetLeft(), 1.0F - this->m_imageInset.GetBottom(), 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
-			std::vector<SGUIData> bottom = GenerateQuad(bottomPosition, bottomCoordinates);
+			const auto bottomPosition = CRectangleI(bottomLeftPosition.GetRight(), bottomLeftPosition.GetTop(), bottomRightPosition.GetLeft() - bottomLeftPosition.GetRight(), bottomLeftPosition.GetHeight());
+			const auto bottomCoordinates = CRectangleF(this->m_imageInset.GetLeft(), 1.0F - this->m_imageInset.GetBottom(), 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), this->m_imageInset.GetBottom());
+			auto bottom = GenerateQuad(bottomPosition, bottomCoordinates);
 			data.insert(data.end(), bottom.begin(), bottom.end());
 
 			// Create the center part
-			CRectangleI centerPosition = CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetBottom(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
-			std::vector<SGUIData> center = GenerateQuad(centerPosition, CRectangleF(this->m_imageInset.GetLeft(), this->m_imageInset.GetTop(), 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom()));
+			const auto centerPosition = CRectangleI(topLeftPosition.GetRight(), topLeftPosition.GetBottom(), topRightPosition.GetLeft() - topLeftPosition.GetRight(), bottomLeftPosition.GetTop() - topLeftPosition.GetBottom());
+			auto center = GenerateQuad(centerPosition, CRectangleF(this->m_imageInset.GetLeft(), this->m_imageInset.GetTop(), 1.0F - this->m_imageInset.GetLeft() - this->m_imageInset.GetRight(), 1.0F - this->m_imageInset.GetTop() - this->m_imageInset.GetBottom()));
 			data.insert(data.end(), center.begin(), center.end());
 
 			SetData(data);
@@ -392,7 +393,7 @@ namespace daidalosengine {
 	/**
 	* Get the texture to used for rendering
 	*/
-	ITexture2DBase * CButton::GetTextureToRender() {
+	ITexture2DBase * CButton::GetTextureToRender() const {
 		LOG_TRACE();
 
 		if(this->m_clicked && this->m_clickedTexture.GetTexture() != nullptr) {

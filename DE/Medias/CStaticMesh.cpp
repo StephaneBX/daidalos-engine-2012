@@ -53,19 +53,21 @@ namespace daidalosengine {
 	CStaticMesh::~CStaticMesh() {
 		LOG_TRACE();
 
-		if(this->m_mesh != nullptr)
+		if (this->m_mesh != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+		}
 	}
 
 	void CStaticMesh::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
 		// Release previously used resource
-		if(this->m_mesh != nullptr)
+		if (this->m_mesh != nullptr) {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_mesh->GetName());
+		}
 
 		// Check the existence of the resource and load it if necessary
-		auto tmp = CResourceManager::GetInstance()->GetResource<IMeshBase>(filename);
+		const auto tmp = CResourceManager::GetInstance()->GetResource<IMeshBase>(filename);
 
 		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IMeshBase>(filename);

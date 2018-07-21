@@ -62,7 +62,7 @@ namespace daidalosengine {
 	I3DScene * CSceneLoader::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
-		I3DScene * scene = new I3DScene(filename);
+		auto scene = new I3DScene(filename);
 		this->m_filename = filename;
 		ISceneNode * root = nullptr;
 
@@ -71,14 +71,14 @@ namespace daidalosengine {
 		if(loadOk == tinyxml2::XML_NO_ERROR) {
 			tinyxml2::XMLHandle hDoc(&doc);
 
-			int tmpInt = 0;
+			auto tmpInt = 0;
 			hDoc.FirstChildElement("scene").ToElement()->QueryIntAttribute("structure", &tmpInt);
 			this->m_structure = static_cast<ESceneNodeRootStructureType>(tmpInt);
 
 			// Read the particle system declaration
-			tinyxml2::XMLElement * element = hDoc.FirstChildElement("scene").FirstChildElement("particleSystem").ToElement();
+			auto element = hDoc.FirstChildElement("scene").FirstChildElement("particleSystem").ToElement();
 			if(element != nullptr) {
-				tinyxml2::XMLHandle & handle = tinyxml2::XMLHandle(element);
+				const auto handle = tinyxml2::XMLHandle(element);
 				LoadParticleSystem(scene, handle);
 			} else {
 				LoadDefaultParticleSystem(scene);
@@ -86,7 +86,7 @@ namespace daidalosengine {
 
 			// Read the structure nodes
 			element = hDoc.FirstChildElement("scene").FirstChildElement("node").ToElement();
-			for(tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
+			for(auto elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadNode(scene, root, tinyxml2::XMLHandle(elementIt));
 			}
 		} else {
@@ -109,7 +109,7 @@ namespace daidalosengine {
 		tinyxml2::XMLDocument document;
 
 		// Create the root element
-		tinyxml2::XMLElement * sceneElement = document.NewElement("scene");
+		auto sceneElement = document.NewElement("scene");
 		sceneElement->SetAttribute("structure", SCENE_NODE_ROOT_STRUCTURE_TYPE_BSP);
 		document.InsertEndChild(sceneElement);
 
@@ -126,7 +126,7 @@ namespace daidalosengine {
 		object->SetFilename(filename);
 	}
 
-	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle) {
+	void CSceneLoader::LoadNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle) {
 		LOG_TRACE();
 
 		// Global data variables
@@ -213,7 +213,7 @@ namespace daidalosengine {
 			node->SetId(id);
 
 			// Get the node attributes
-			const std::map<std::string, std::string> attributes = GetNodeAttributes(handle);
+			const auto attributes = GetNodeAttributes(handle);
 
 			// Add the attributes
 			node->SetAttributes(attributes);
@@ -224,8 +224,8 @@ namespace daidalosengine {
 			}
 
 			// Check for attached nodes
-			tinyxml2::XMLElement * child = handle.FirstChildElement("node").ToElement();
-			for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+			const auto child = handle.FirstChildElement("node").ToElement();
+			for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 				// Read only nodes
 				if(std::string(childIt->Name()) == "node") {
 					LoadNode(scene, node, tinyxml2::XMLHandle(childIt));
@@ -234,7 +234,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void CSceneLoader::LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadBSPStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node) {
 		LOG_TRACE();
 
 		std::vector<SBSPBrushDefinition> brushDefinition;
@@ -244,27 +244,30 @@ namespace daidalosengine {
 		CVector3F skyAmbientColor;
 
 		// Get the ambient color
-		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
+		if (handle.ToElement()->Attribute("ambientColor") != nullptr) {
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
+		}
 		dynamic_cast<CBSPSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
-		if(handle.ToElement()->Attribute("skyName") != nullptr)
+		if (handle.ToElement()->Attribute("skyName") != nullptr) {
 			skyName = handle.ToElement()->Attribute("skyName");
+		}
 		dynamic_cast<CBSPSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
-		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
+		if (handle.ToElement()->Attribute("skyAmbientColor") != nullptr) {
 			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		}
 		dynamic_cast<CBSPSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
-		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
-		for(tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		auto child = handle.FirstChildElement("multi_brush").ToElement();
+		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
-				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
+				const auto child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SBSPBrushDefinition brush;
 
 				// Default values
@@ -275,9 +278,10 @@ namespace daidalosengine {
 				bspHandle.ToElement()->QueryBoolAttribute("collisions", &brush.collision);
 				bspHandle.ToElement()->QueryIntAttribute("id", &brush.id);
 
-				for(tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
-					if(std::string(child2It->Name()) == "brush")
+				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+					if (std::string(child2It->Name()) == "brush") {
 						AddBSPBrushData(tinyxml2::XMLHandle(child2It), brush);
+					}
 				}
 
 				if(!brush.geometry.empty()) {
@@ -287,7 +291,7 @@ namespace daidalosengine {
 		}
 
 		child = handle.FirstChildElement("brush").ToElement();
-		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -308,7 +312,7 @@ namespace daidalosengine {
 
 		// Check for bounding box declared in nodes
 		child = handle.FirstChildElement("node").ToElement();
-		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for (auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "node") {
 				tinyxml2::XMLHandle bspHandle(childIt);
@@ -317,7 +321,7 @@ namespace daidalosengine {
 				GetNodeData(bspHandle, "boundingBox", boundBoxFile, "");
 
 				// Bounding box detected
-				if(boundBoxFile != "") {
+				if(!boundBoxFile.empty()) {
 					CVector3F position;
 					CVector3F rotation;
 					CVector3F scale;
@@ -346,7 +350,7 @@ namespace daidalosengine {
 		dynamic_cast<CBSPSceneNode*>(node)->LoadGeometry(brushDefinition);
 	}
 
-	void CSceneLoader::LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node) {
+	void CSceneLoader::LoadSimpleStructure(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node) {
 		LOG_TRACE();
 
 		std::vector<SSimpleBrush> brushes;
@@ -356,30 +360,33 @@ namespace daidalosengine {
 		CVector3F skyAmbientColor;
 
 		// Get the ambient color
-		if(handle.ToElement()->Attribute("ambientColor") != nullptr)
+		if (handle.ToElement()->Attribute("ambientColor") != nullptr) {
 			ambientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("ambientColor"));
+		}
 		dynamic_cast<CSimpleSceneNode*>(node)->SetAmbientColor(CVector4F(ambientColor.x, ambientColor.y, ambientColor.z, 1));
 
 		// Get the sky name
-		if(handle.ToElement()->Attribute("skyName") != nullptr)
+		if (handle.ToElement()->Attribute("skyName") != nullptr) {
 			skyName = handle.ToElement()->Attribute("skyName");
+		}
 		dynamic_cast<CSimpleSceneNode*>(node)->SetSkyName(skyName);
 
 		// Get the sky ambient color
-		if(handle.ToElement()->Attribute("skyAmbientColor") != nullptr)
+		if (handle.ToElement()->Attribute("skyAmbientColor") != nullptr) {
 			skyAmbientColor = CVector3F::GetFrom(handle.ToElement()->Attribute("skyAmbientColor"));
+		}
 		dynamic_cast<CSimpleSceneNode*>(node)->SetSkyAmbientColor(CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the level geometry
-		tinyxml2::XMLElement * child = handle.FirstChildElement("multi_brush").ToElement();
-		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		auto child = handle.FirstChildElement("multi_brush").ToElement();
+		for (auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				tinyxml2::XMLHandle bspHandle(childIt);
-				tinyxml2::XMLElement * child2 = bspHandle.FirstChildElement("brush").ToElement();
+				const auto child2 = bspHandle.FirstChildElement("brush").ToElement();
 				SSimpleBrush brush;
 
-				for (tinyxml2::XMLElement * child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for (auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
 						AddSimpleBrushData(tinyxml2::XMLHandle(child2It), brush);
 						brush.isMultiBrush = true;
@@ -396,7 +403,7 @@ namespace daidalosengine {
 		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A simple brush
 			if(std::string(childIt->Name()) == "brush") {
-				tinyxml2::XMLHandle bspHandle(childIt);
+				const tinyxml2::XMLHandle bspHandle(childIt);
 				SSimpleBrush brush;
 
 				AddSimpleBrushData(bspHandle, brush);
@@ -409,7 +416,7 @@ namespace daidalosengine {
 		dynamic_cast<CSimpleSceneNode*>(node)->LoadGeometry(brushes);
 	}
 
-	void CSceneLoader::LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle & handle) {
+	void CSceneLoader::LoadParticleSystem(I3DScene * scene, tinyxml2::XMLHandle handle) {
 		LOG_TRACE();
 
 		int particleSystemSize;
@@ -428,16 +435,16 @@ namespace daidalosengine {
 		GetNodeData(handle, "gravity", gravity, CVector3F());
 
 		// Read the emitters templates
-		tinyxml2::XMLElement * emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
+		const auto emittersTemplates = handle.FirstChildElement("particleEmittersTemplates").ToElement();
 		if (emittersTemplates != nullptr) {
 			// Read the templates
-			tinyxml2::XMLHandle templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
-			tinyxml2::XMLElement * templateElement = templatesHandle.FirstChildElement("template").ToElement();
+			auto templatesHandle = tinyxml2::XMLHandle(emittersTemplates);
+			const auto templateElement = templatesHandle.FirstChildElement("template").ToElement();
 
 			if (templateElement != nullptr) {
-				for (tinyxml2::XMLElement * templateElementIt = templateElement; templateElementIt != nullptr; templateElementIt = templateElementIt->NextSiblingElement()) {
-					tinyxml2::XMLHandle templateHandle = tinyxml2::XMLHandle(templateElementIt);
-					tinyxml2::XMLText * text = templateHandle.FirstChild().ToText();
+				for (auto templateElementIt = templateElement; templateElementIt != nullptr; templateElementIt = templateElementIt->NextSiblingElement()) {
+					auto templateHandle = tinyxml2::XMLHandle(templateElementIt);
+					const auto text = templateHandle.FirstChild().ToText();
 					if(text != nullptr) {
 						scene->GetParticleSystem().LoadEmittersTemplate(text->Value());
 					}
@@ -465,7 +472,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadCameraNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		float fov;
@@ -475,14 +482,14 @@ namespace daidalosengine {
 		CVector3F position;
 		CVector3F rotation;
 		CVector3F scale;
-		IRenderer * renderer = IRenderer::GetRenderer();
+		const auto renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
 		GetNodeData(handle, "scale", scale, CVector3F(1, 1, 1));
 		GetNodeData(handle, "fov", fov, DegreeToRadian(this->m_nodesConf.GetValueFloat("ICameraSceneNode", "fov", 55)));
-		GetNodeData(handle, "ratio", ratio, renderer->GetResolution().x / (float)renderer->GetResolution().y);
+		GetNodeData(handle, "ratio", ratio, renderer->GetResolution().x / static_cast<float>(renderer->GetResolution().y));
 		GetNodeData(handle, "near", near, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "near", 0.1F));
 		GetNodeData(handle, "far", far, this->m_nodesConf.GetValueFloat("ICameraSceneNode", "far", 100.0F));
 
@@ -499,7 +506,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadSpotLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
@@ -510,7 +517,6 @@ namespace daidalosengine {
 		float tightness;
 		CVector3F position;
 		CVector3F rotation;
-		CVector4F nodeDefaultColor;
 		CColor color;
 
 		// Search for defined values in the element or use default values
@@ -518,7 +524,7 @@ namespace daidalosengine {
 		GetNodeData(handle, "shadow_caster", shadowCaster, false);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("ISpotLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		const auto nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("ISpotLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 		GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "range", 100.0F));
 		GetNodeData(handle, "radius", radius, this->m_nodesConf.GetValueFloat("ISpotLightSceneNode", "radius", 30.0F));
@@ -537,7 +543,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadPointLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
@@ -545,14 +551,13 @@ namespace daidalosengine {
 		float range;
 		float falloff;
 		CVector3F position;
-		CVector4F nodeDefaultColor;
 		CColor color;
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "shadow_caster", shadowCaster, false);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
-		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		const auto nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 		GetNodeData(handle, "range", range, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "range", 100.0F));
 		GetNodeData(handle, "falloff", falloff, this->m_nodesConf.GetValueFloat("IPointLightSceneNode", "falloff", 0.8F));
@@ -569,12 +574,11 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadDirectionalLightNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
 		bool shadowCaster;
-		CVector4F nodeDefaultColor;
 		CVector3F rotation;
 		CColor color;
 
@@ -582,7 +586,7 @@ namespace daidalosengine {
 		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "shadow_caster", shadowCaster, false);
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-		nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
+		const auto nodeDefaultColor = CVector4F::GetFrom(this->m_nodesConf.GetValueString("IPointLightSceneNode", "color", "1.0f:1.0f:1.0f:1.0f"));
 		GetNodeData(handle, "color", color, CColor(nodeDefaultColor.x, nodeDefaultColor.y, nodeDefaultColor.z, nodeDefaultColor.w));
 
 		// Create the node
@@ -597,7 +601,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadStaticMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
@@ -606,37 +610,35 @@ namespace daidalosengine {
 		std::string diffuseTexture;
 		std::string normalTexture;
 		std::string material;
-		std::string file;
 		std::string boundingBox;
 		CVector3F position;
 		CVector3F rotation;
 		CVector3F scale;
-		CVector3F nodeDefaultScale;
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "shadow_caster", shadowCaster, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
+		const auto nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
 		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
 		GetNodeData(handle, "meshShading", meshShading, 0);
 		GetNodeData(handle, "material", material, "default.mtl");
 		GetNodeData(handle, "boundingBox", boundingBox, "");
-		file = handle.ToElement()->Attribute("file");
+		const std::string file = handle.ToElement()->Attribute("file");
 
 		// Create the node
 		node = new CStaticMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		node->SetEnabled(enabled);
 		node->SetShadowCaster(shadowCaster);
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
-		static_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
-		static_cast<CStaticMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
+		dynamic_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		dynamic_cast<CStaticMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		dynamic_cast<CStaticMeshSceneNode*>(node)->SetMeshShadingType(static_cast<EMeshShadingType>(meshShading));
+		dynamic_cast<CStaticMeshSceneNode*>(node)->SetMeshMaterial(material);
+		dynamic_cast<CStaticMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
 	}
 
 	/**
@@ -647,7 +649,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadAnimatedMeshNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
@@ -656,37 +658,35 @@ namespace daidalosengine {
 		std::string diffuseTexture;
 		std::string normalTexture;
 		std::string material;
-		std::string file;
 		std::string boundingBox;
 		CVector3F position;
 		CVector3F rotation;
 		CVector3F scale;
-		CVector3F nodeDefaultScale;
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		// Search for defined values in the element or use default values
 		GetNodeData(handle, "enabled", enabled, true);
 		GetNodeData(handle, "shadow_caster", shadowCaster, true);
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-		nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
+		const auto nodeDefaultScale = CVector3F::GetFrom(this->m_nodesConf.GetValueString("IStaticMeshSceneNode", "scale", "1.0f:1.0f:1.0f"));
 		GetNodeData(handle, "scale", scale, CVector3F(nodeDefaultScale.x, nodeDefaultScale.y, nodeDefaultScale.z));
 		GetNodeData(handle, "diffuse_texture", diffuseTexture, "default.png");
 		GetNodeData(handle, "normal_texture", normalTexture, "default.png");
 		GetNodeData(handle, "meshShading", meshShading, 0);
 		GetNodeData(handle, "material", material, "default.mtl");
 		GetNodeData(handle, "boundingBox", boundingBox, "");
-		file = handle.ToElement()->Attribute("file");
+		const std::string file = handle.ToElement()->Attribute("file");
 
 		// Create the node
 		node = new CAnimatedMeshSceneNode(scene, parent, name, file, position, rotation, scale);
 		node->SetEnabled(enabled);
 		node->SetShadowCaster(shadowCaster);
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType((EMeshShadingType)meshShading);
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
-		static_cast<CAnimatedMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
+		dynamic_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_DIFFUSE, diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		dynamic_cast<CAnimatedMeshSceneNode*>(node)->SetMeshTexture(TEXTURE_TYPE_NORMAL, normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
+		dynamic_cast<CAnimatedMeshSceneNode*>(node)->SetMeshShadingType(static_cast<EMeshShadingType>(meshShading));
+		dynamic_cast<CAnimatedMeshSceneNode*>(node)->SetMeshMaterial(material);
+		dynamic_cast<CAnimatedMeshSceneNode*>(node)->SetBoundingBox(boundingBox);
 	}
 
 	/**
@@ -697,7 +697,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadSoundNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool relativeToListener;
@@ -715,8 +715,8 @@ namespace daidalosengine {
 		
 		GetNodeData(handle, "position", position, CVector3F(0, 0, 0));
 		GetNodeData(handle, "rotation", rotation, CVector3F(0, 0, 0));
-		GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", 0));
-		GetNodeData(handle, "category", soundCategory, this->m_nodesConf.GetValueBool("ISoundSceneNode", "category", 0));
+		GetNodeData(handle, "type", soundType, this->m_nodesConf.GetValueBool("ISoundSceneNode", "type", false));
+		GetNodeData(handle, "category", soundCategory, this->m_nodesConf.GetValueBool("ISoundSceneNode", "category", false));
 		GetNodeData(handle, "cone_inner_angle", coneInnerAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_inner_angle", 360.0F));
 		GetNodeData(handle, "cone_outer_angle", coneOuterAngle, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "cone_outer_angle", 360.0F));
 		GetNodeData(handle, "reference_distance", referenceDistance, this->m_nodesConf.GetValueFloat("ISoundSceneNode", "reference_distance", 2));
@@ -727,18 +727,18 @@ namespace daidalosengine {
 		GetNodeData(handle, "file", file, "");
 
 		node = new CSoundSceneNode(scene, file, static_cast<ESoundType>(soundType), static_cast<ESoundCategory>(soundCategory), parent, name);
-		static_cast<CSoundSceneNode*>(node)->SetPosition(position);
-		static_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
-		static_cast<CSoundSceneNode*>(node)->SetSoundConeInnerAngle(coneInnerAngle);
-		static_cast<CSoundSceneNode*>(node)->SetSoundConeOuterAngle(coneInnerAngle);
-		static_cast<CSoundSceneNode*>(node)->SetSoundReferenceDistance(referenceDistance);
-		static_cast<CSoundSceneNode*>(node)->SetSoundMaxDistance(maxDistance);
-		static_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
-		static_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
+		dynamic_cast<CSoundSceneNode*>(node)->SetPosition(position);
+		dynamic_cast<CSoundSceneNode*>(node)->SetRotation(rotation);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundConeInnerAngle(coneInnerAngle);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundConeOuterAngle(coneInnerAngle);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundReferenceDistance(referenceDistance);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundMaxDistance(maxDistance);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundRelativeToListener(relativeToListener);
+		dynamic_cast<CSoundSceneNode*>(node)->SetSoundLooped(looped);
 		if(playOnStartup) {
-			static_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
-			static_cast<CSoundSceneNode*>(node)->Update(0);
-			static_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
+			dynamic_cast<CSoundSceneNode*>(node)->SetSoundAutoStart(true);
+			dynamic_cast<CSoundSceneNode*>(node)->Update(0);
+			dynamic_cast<CSoundSceneNode*>(node)->SetSoundStatus(SOUND_STATUS_PLAY);
 		}
 	}
 
@@ -750,7 +750,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadEmptyNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool enabled;
@@ -776,7 +776,7 @@ namespace daidalosengine {
 	* @param node The node to fill
 	* @param name The name
 	*/
-	void CSceneLoader::LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle & handle, ISceneNode *& node, const std::string & name) {
+	void CSceneLoader::LoadParticleEmitterNode(I3DScene * scene, ISceneNode *& parent, tinyxml2::XMLHandle handle, ISceneNode *& node, const std::string & name) {
 		LOG_TRACE();
 
 		bool emitterActive;
@@ -794,7 +794,7 @@ namespace daidalosengine {
 		}
 
 		// Create the emitter with a template
-		CParticleEmitter * emitter = scene->GetParticleSystem().InstanciateEmitter(templateName, emitterName);
+		const auto emitter = scene->GetParticleSystem().InstanciateEmitter(templateName, emitterName);
 
 		// Basic values
 		GetNodeData(handle, "active", emitterActive, emitter->IsActive());
@@ -809,7 +809,7 @@ namespace daidalosengine {
 		dynamic_cast<CParticleEmitterSceneNode*>(node)->SetTextureId(emitterTextureId);
 	}
 
-	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle & handle, SBSPBrushDefinition & brushDefinition) {
+	void CSceneLoader::AddBSPBrushData(tinyxml2::XMLHandle handle, SBSPBrushDefinition & brushDefinition) {
 		LOG_TRACE();
 
 		bool visible;
@@ -820,10 +820,10 @@ namespace daidalosengine {
 		std::string normalTexture;
 		std::string material;
 		std::ostringstream ss;
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		const std::string name = handle.ToElement()->Attribute("file");
-		int id = SCENE_DEFAULT_ID;
+		auto id = SCENE_DEFAULT_ID;
 		handle.ToElement()->QueryIntAttribute("id", &id);
 
 		GetNodeData(handle, "visible", visible, true);
@@ -835,33 +835,33 @@ namespace daidalosengine {
 		GetNodeData(handle, "material", material, "default.mtl");
 
 		// Modification matrixes
-		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
-		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
+		auto worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
+		auto rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
 
-		CMaterial mat(material);
+		const CMaterial mat(material);
 
 		// Create the geometry
 		CStaticMesh mesh(name);
-		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
+		for(auto i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 			CTexture2D diffuse;
 			CTexture2D normal;
 
-			if(diffuseTexture != "") {
+			if(!diffuseTexture.empty()) {
 				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
-			if(normalTexture != "") {
+			if(!normalTexture.empty()) {
 				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
-			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
-				CBSPTriangle * triangle = new CBSPTriangle();
+			for(auto j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
+				auto triangle = new CBSPTriangle();
 				triangle->SetId(id);
 
 				ss.str("");
 				ss << "group_" << (i + 1);
 
-				for(int k = 0; k < 3; ++k) {
+				for(auto k = 0; k < 3; ++k) {
 					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
 					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
 					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
@@ -888,23 +888,23 @@ namespace daidalosengine {
 	* @param scale The scale
 	* @param brushDefinition The brush definition
 	*/
-	void CSceneLoader::AddBSPBoundingBoxData(const std::string file, const CVector3F position, const CVector3F rotation, const CVector3F scale, SBSPBrushDefinition & brushDefinition) {
+	void CSceneLoader::AddBSPBoundingBoxData(const std::string& file, const CVector3F& position, const CVector3F &rotation, const CVector3F& scale, SBSPBrushDefinition & brushDefinition) {
 		LOG_TRACE();
 
 		std::stringstream ss;
 
 		// Modification matrixes
-		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
-		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
+		auto worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
+		auto rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
 
-		CMaterial mat("default.mtl");
+		const CMaterial mat("default.mtl");
 
 		// Create the geometry
 		CStaticMesh mesh(file);
-		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
+		for(auto i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 
-			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
-				CBSPTriangle * triangle = new CBSPTriangle();
+			for(auto j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
+				auto triangle = new CBSPTriangle();
 				triangle->SetId(brushDefinition.id);
 
 				ss.str("");
@@ -927,7 +927,7 @@ namespace daidalosengine {
 		}
 	}
 
-	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle & handle, SSimpleBrush & brush) {
+	void CSceneLoader::AddSimpleBrushData(tinyxml2::XMLHandle handle, SSimpleBrush & brush) {
 		LOG_TRACE();
 
 		bool visible;
@@ -938,10 +938,10 @@ namespace daidalosengine {
 		std::string normalTexture;
 		std::string material;
 		std::ostringstream ss;
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		std::string name = handle.ToElement()->Attribute("file");
-		int id = SCENE_DEFAULT_ID;
+		auto id = SCENE_DEFAULT_ID;
 		handle.ToElement()->QueryIntAttribute("id", &id);
 
 		GetNodeData(handle, "visible", visible, true);
@@ -953,35 +953,35 @@ namespace daidalosengine {
 		GetNodeData(handle, "material", material, "default.mtl");
 
 		// Modification matrixes
-		CMatrix worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
-		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
+		auto worldMatrix = CMatrix(scale, CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), position);
+		auto rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(DegreeToRadian(rotation.x), DegreeToRadian(rotation.y), DegreeToRadian(rotation.z)), CVector3F(0, 0, 0));
 
-		CMaterial mat(material);
+		const CMaterial mat(material);
 
 		// Create the geometry
 		CStaticMesh mesh(name);
-		CVector3F minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-		CVector3F maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
-		for(int i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
+		auto minVector = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		auto maxVector = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+		for(auto i = 0; i < mesh.GetMesh()->GetNumberOfGroups(); ++i) {
 			CTexture2D diffuse;
 			CTexture2D normal;
 			
-			if(diffuseTexture != "") {
+			if(!diffuseTexture.empty()) {
 				diffuse.CreateFromFile(diffuseTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			} 
 
-			if(normalTexture != "") {
+			if(!normalTexture.empty()) {
 				normal.CreateFromFile(normalTexture, PIXEL_FORMAT_A8R8G8B8, renderer->GetDefaultTextureFilter());
 			}
 
-			for(int j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
-				CTriangle3D * triangle = new CTriangle3D();
+			for(auto j = 0; j < mesh.GetMesh()->GetGroupSize(i); j += 3) {
+				auto triangle = new CTriangle3D();
 				triangle->SetId(id);
 
 				ss.str("");
 				ss << "group_" << (i + 1);
 
-				for(int k = 0; k < 3; ++k) {
+				for(auto k = 0; k < 3; ++k) {
 					triangle->SetTexcoord(mesh.GetMesh()->GetTexcoords(i)[j + k], k);
 					triangle->SetVertex(worldMatrix.Transform(mesh.GetMesh()->GetVertices(i)[j + k]), k);
 					triangle->SetNormal(rotationMatrix.Transform(mesh.GetMesh()->GetNormals(i)[j + k], true), k);
@@ -1003,7 +1003,7 @@ namespace daidalosengine {
 
 				// Find the triangle plane
 				CVector3F tmp[] = { triangle->GetVertex(0), triangle->GetVertex(1), triangle->GetVertex(2) };
-				CPlane3DF plane = CPlane3DF(tmp);
+				auto plane = CPlane3DF(tmp);
 				triangle->SetFlatNormal(plane.GetNormal());
 
 				// Add the triangle to the geometry
@@ -1078,29 +1078,29 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" Particle System Parameters "));
 
-		tinyxml2::XMLElement * particleSystemNode = document.NewElement("particleSystem");
+		auto particleSystemNode = document.NewElement("particleSystem");
 
-		tinyxml2::XMLElement * atlasTextureFileNode = document.NewElement("atlasTextureFile");
+		auto atlasTextureFileNode = document.NewElement("atlasTextureFile");
 		atlasTextureFileNode->InsertEndChild(document.NewText(scene->GetParticleSystem().GetAtlasTextureName().c_str()));
 		particleSystemNode->InsertEndChild(atlasTextureFileNode);
 
-		tinyxml2::XMLElement * atlasTextureSizeNode = document.NewElement("atlasTextureSize");
+		auto atlasTextureSizeNode = document.NewElement("atlasTextureSize");
 		atlasTextureSizeNode->InsertEndChild(document.NewText(scene->GetParticleSystem().GetAtlasTextureSize().ToString().c_str()));
 		particleSystemNode->InsertEndChild(atlasTextureSizeNode);
 
-		tinyxml2::XMLElement * systemSizeNode = document.NewElement("systemSize");
+		auto systemSizeNode = document.NewElement("systemSize");
 		systemSizeNode->InsertEndChild(document.NewText(std::to_string(scene->GetParticleSystem().GetSystemSize()).c_str()));
 		particleSystemNode->InsertEndChild(systemSizeNode);
 
-		std::vector<std::string> emitterTemplates = scene->GetParticleSystem().GetEmittersTemplatesName();
-		if(emitterTemplates.size() > 0) {
+		auto emitterTemplates = scene->GetParticleSystem().GetEmittersTemplatesName();
+		if(!emitterTemplates.empty()) {
 			// Templates
-			tinyxml2::XMLElement * particleSystemEmitterTemplatesNode = document.NewElement("particleEmittersTemplates");
+			auto particleSystemEmitterTemplatesNode = document.NewElement("particleEmittersTemplates");
 			
 			// Template
-			for(auto it = emitterTemplates.begin(); it != emitterTemplates.end(); ++it) {
-				tinyxml2::XMLElement * templateNode = document.NewElement("template");
-				templateNode->InsertEndChild(document.NewText((*it).c_str()));
+			for (auto& emitterTemplate : emitterTemplates) {
+				auto templateNode = document.NewElement("template");
+				templateNode->InsertEndChild(document.NewText(emitterTemplate.c_str()));
 				particleSystemEmitterTemplatesNode->InsertEndChild(templateNode);
 			}
 			particleSystemNode->InsertEndChild(particleSystemEmitterTemplatesNode);
@@ -1140,8 +1140,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" Projection Camera Node "));
 
 		std::stringstream ss;
-		CProjectionCameraSceneNode * sceneNode = static_cast<CProjectionCameraSceneNode*>(node);
-		tinyxml2::XMLElement * cameraNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CProjectionCameraSceneNode*>(node);
+		auto cameraNode = document.NewElement("node");
 
 		// Type
 		cameraNode->SetAttribute("type", SCENE_NODE_CAMERA);
@@ -1155,7 +1155,7 @@ namespace daidalosengine {
 		cameraNode->SetAttribute("name", sceneNode->GetName().c_str());
 		
 		// Position
-		tinyxml2::XMLElement * child = document.NewElement("position");
+		auto child = document.NewElement("position");
 		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
 		cameraNode->InsertEndChild(child);
 
@@ -1195,8 +1195,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(cameraNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, cameraNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, cameraNode);
 		}
 	}
 
@@ -1211,8 +1211,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" SpotLight Node "));
 
 		std::stringstream ss;
-		CSpotLightSceneNode * sceneNode = static_cast<CSpotLightSceneNode*>(node);
-		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CSpotLightSceneNode*>(node);
+		auto lightNode = document.NewElement("node");
 
 		// Type
 		lightNode->SetAttribute("type", SCENE_NODE_SPOTLIGHT);
@@ -1226,7 +1226,7 @@ namespace daidalosengine {
 		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Enabled
-		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		auto child = document.NewElement("enabled");
 		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
 		lightNode->InsertEndChild(child);
 
@@ -1283,8 +1283,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(lightNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, lightNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, lightNode);
 		}
 	}
 
@@ -1299,8 +1299,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" PointLight Node "));
 
 		std::stringstream ss;
-		CPointLightSceneNode * sceneNode = static_cast<CPointLightSceneNode*>(node);
-		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CPointLightSceneNode*>(node);
+		auto lightNode = document.NewElement("node");
 
 		// Type
 		lightNode->SetAttribute("type", SCENE_NODE_POINTLIGHT);
@@ -1314,7 +1314,7 @@ namespace daidalosengine {
 		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Enabled
-		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		auto child = document.NewElement("enabled");
 		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
 		lightNode->InsertEndChild(child);
 
@@ -1357,8 +1357,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(lightNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, lightNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, lightNode);
 		}
 	}
 
@@ -1372,8 +1372,8 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" DirectionalLight Node "));
 
-		CDirectionalLightSceneNode * sceneNode = static_cast<CDirectionalLightSceneNode*>(node);
-		tinyxml2::XMLElement * lightNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CDirectionalLightSceneNode*>(node);
+		auto lightNode = document.NewElement("node");
 
 		// Type
 		lightNode->SetAttribute("type", SCENE_NODE_DIRECTIONALLIGHT);
@@ -1387,7 +1387,7 @@ namespace daidalosengine {
 		lightNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Enabled
-		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		auto child = document.NewElement("enabled");
 		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
 		lightNode->InsertEndChild(child);
 
@@ -1417,8 +1417,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(lightNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, lightNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, lightNode);
 		}
 	}
 
@@ -1433,8 +1433,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" Static Mesh Node "));
 
 		std::stringstream ss;
-		CStaticMeshSceneNode * sceneNode = static_cast<CStaticMeshSceneNode*>(node);
-		tinyxml2::XMLElement * meshNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CStaticMeshSceneNode*>(node);
+		auto meshNode = document.NewElement("node");
 
 		// Type
 		meshNode->SetAttribute("type", SCENE_NODE_STATICMESH);
@@ -1451,7 +1451,7 @@ namespace daidalosengine {
 		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
 
 		// Enabled
-		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		auto child = document.NewElement("enabled");
 		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
 		meshNode->InsertEndChild(child);
 
@@ -1476,14 +1476,14 @@ namespace daidalosengine {
 		meshNode->InsertEndChild(child);
 
 		// Diffuse texture
-		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE) != "") {
+		if(!sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).empty()) {
 			child = document.NewElement("diffuse_texture");
 			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).c_str()));
 			meshNode->InsertEndChild(child);
 		}
 
 		// Normal texture
-		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL) != "") {
+		if(!sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).empty()) {
 			child = document.NewElement("normal_texture");
 			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).c_str()));
 			meshNode->InsertEndChild(child);
@@ -1500,7 +1500,7 @@ namespace daidalosengine {
 		meshNode->InsertEndChild(child);
 
 		// Bounding box
-		if(sceneNode->GetBoundingBox() != "") {
+		if(!sceneNode->GetBoundingBox().empty()) {
 			child = document.NewElement("boundingBox");
 			child->InsertEndChild(document.NewText(sceneNode->GetBoundingBox().c_str()));
 			meshNode->InsertEndChild(child);
@@ -1512,8 +1512,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(meshNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, meshNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, meshNode);
 		}
 	}
 
@@ -1527,8 +1527,8 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" Animated Mesh Node "));
 
-		CAnimatedMeshSceneNode * sceneNode = static_cast<CAnimatedMeshSceneNode*>(node);
-		tinyxml2::XMLElement * meshNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CAnimatedMeshSceneNode*>(node);
+		auto meshNode = document.NewElement("node");
 
 		// Type
 		meshNode->SetAttribute("type", SCENE_NODE_ANIMATEDMESH);
@@ -1545,7 +1545,7 @@ namespace daidalosengine {
 		meshNode->SetAttribute("file", sceneNode->GetMeshName().c_str());
 
 		// Enabled
-		tinyxml2::XMLElement * child = document.NewElement("enabled");
+		auto child = document.NewElement("enabled");
 		child->InsertEndChild(document.NewText(sceneNode->IsEnabled() ? "true" : "false"));
 		meshNode->InsertEndChild(child);
 
@@ -1570,14 +1570,14 @@ namespace daidalosengine {
 		meshNode->InsertEndChild(child);
 
 		// Diffuse texture
-		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE) != "") {
+		if(!sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).empty()) {
 			child = document.NewElement("diffuse_texture");
 			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_DIFFUSE).c_str()));
 			meshNode->InsertEndChild(child);
 		}
 
 		// Normal texture
-		if(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL) != "") {
+		if(!sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).empty()) {
 			child = document.NewElement("normal_texture");
 			child->InsertEndChild(document.NewText(sceneNode->GetMeshTextureName(TEXTURE_TYPE_NORMAL).c_str()));
 			meshNode->InsertEndChild(child);
@@ -1594,7 +1594,7 @@ namespace daidalosengine {
 		meshNode->InsertEndChild(child);
 
 		// Bounding box
-		if(sceneNode->GetBoundingBox() != "") {
+		if(!sceneNode->GetBoundingBox().empty()) {
 			child = document.NewElement("boundingBox");
 			child->InsertEndChild(document.NewText(sceneNode->GetBoundingBox().c_str()));
 			meshNode->InsertEndChild(child);
@@ -1606,8 +1606,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(meshNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, meshNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, meshNode);
 		}
 	}
 
@@ -1622,8 +1622,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" Sound Node "));
 
 		std::stringstream ss;
-		CSoundSceneNode * sceneNode = static_cast<CSoundSceneNode*>(node);
-		tinyxml2::XMLElement * soundNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CSoundSceneNode*>(node);
+		auto soundNode = document.NewElement("node");
 
 		// Type
 		soundNode->SetAttribute("type", SCENE_NODE_SOUND);
@@ -1637,7 +1637,7 @@ namespace daidalosengine {
 		soundNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Position
-		tinyxml2::XMLElement * child = document.NewElement("position");
+		auto child = document.NewElement("position");
 		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
 		soundNode->InsertEndChild(child);
 
@@ -1716,8 +1716,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(soundNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, soundNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, soundNode);
 		}
 	}
 
@@ -1731,8 +1731,8 @@ namespace daidalosengine {
 
 		parent->InsertEndChild(document.NewComment(" Empty Node "));
 
-		CEmptySceneNode * sceneNode = static_cast<CEmptySceneNode*>(node);
-		tinyxml2::XMLElement * emptyNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CEmptySceneNode*>(node);
+		auto emptyNode = document.NewElement("node");
 
 		// Type
 		emptyNode->SetAttribute("type", SCENE_NODE_EMPTY);
@@ -1746,7 +1746,7 @@ namespace daidalosengine {
 		emptyNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Position
-		tinyxml2::XMLElement * child = document.NewElement("position");
+		auto child = document.NewElement("position");
 		child->InsertEndChild(document.NewText(sceneNode->GetPosition().ToString().c_str()));
 		emptyNode->InsertEndChild(child);
 
@@ -1761,8 +1761,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(emptyNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, emptyNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, emptyNode);
 		}
 	}
 
@@ -1777,8 +1777,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(document.NewComment(" Particle Emitter Node "));
 
 		std::stringstream ss;
-		CParticleEmitterSceneNode * sceneNode = static_cast<CParticleEmitterSceneNode*>(node);
-		tinyxml2::XMLElement * emitterNode = document.NewElement("node");
+		const auto sceneNode = dynamic_cast<CParticleEmitterSceneNode*>(node);
+		auto emitterNode = document.NewElement("node");
 
 		// Type
 		emitterNode->SetAttribute("type", SCENE_NODE_PARTICLE_EMITTER);
@@ -1792,18 +1792,18 @@ namespace daidalosengine {
 		emitterNode->SetAttribute("name", sceneNode->GetName().c_str());
 
 		// Template name
-		if(sceneNode->GetTemplateName() != "") {
+		if(!sceneNode->GetTemplateName().empty()) {
 			emitterNode->SetAttribute("templateName", sceneNode->GetTemplateName().c_str());
 		}
 
 		// Emitter name
-		if(sceneNode->GetEmitterName() != "") {
+		if(!sceneNode->GetEmitterName().empty()) {
 			emitterNode->SetAttribute("emitterName", sceneNode->GetEmitterName().c_str());
 		}
 
 		// Active
 		ss.str("");
-		tinyxml2::XMLElement * child = document.NewElement("active");
+		auto child = document.NewElement("active");
 		ss << sceneNode->IsActive();
 		child->InsertEndChild(document.NewText(ss.str().c_str()));
 		emitterNode->InsertEndChild(child);
@@ -1826,8 +1826,8 @@ namespace daidalosengine {
 		parent->InsertEndChild(emitterNode);
 
 		// Save the children
-		for(auto it = node->GetChildren().begin(); it != node->GetChildren().end(); it++) {
-			SaveNode((*it), document, emitterNode);
+		for (auto it : node->GetChildren()) {
+			SaveNode(it, document, emitterNode);
 		}
 	}
 
@@ -1839,14 +1839,14 @@ namespace daidalosengine {
 	*/
 	void CSceneLoader::SaveNodeAttributes(ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		std::map<std::string, std::string> attributes = node->GetAttributes();
+		auto attributes = node->GetAttributes();
 
 		if(!attributes.empty()) {
-			tinyxml2::XMLElement * child = document.NewElement("attributes");
+			auto child = document.NewElement("attributes");
 
-			for(auto it = attributes.begin(); it != attributes.end(); it++) {
-				tinyxml2::XMLElement * element = document.NewElement((*it).first.c_str());
-				element->InsertEndChild(document.NewText((*it).second.c_str()));
+			for (auto& attribute : attributes) {
+				auto element = document.NewElement(attribute.first.c_str());
+				element->InsertEndChild(document.NewText(attribute.second.c_str()));
 				child->InsertEndChild(element);
 			}
 
@@ -1857,15 +1857,17 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
-			std::string tmpText = TrimString(text->Value());
+			auto tmpText = TrimString(text->Value());
 			std::transform(tmpText.begin(), tmpText.end(), tmpText.begin(), tolower);
 
-			if(tmpText == "true" || tmpText == "1")
+			if (tmpText == "true" || tmpText == "1") {
 				data = true;
-			if(tmpText == "false" || tmpText == "0")
+			}
+			if (tmpText == "false" || tmpText == "0") {
 				data = false;
+			}
 		} else {
 			data = defaultValue;
 		}
@@ -1874,7 +1876,7 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
@@ -1887,7 +1889,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector2I::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -1897,7 +1899,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector3F::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -1907,7 +1909,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		data = defaultValue;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = CVector4F::GetFrom(std::string(text->Value()), defaultValue);
 		}
@@ -1917,9 +1919,10 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		CTokenizer tokenizer;
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
-		if(text != nullptr)
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		if (text != nullptr) {
 			tokenizer.AddLine(text->Value());
+		}
 
 		if(tokenizer.Tokenize(":", 4) && tokenizer.GetTokens().size() == 4) {
 			std::istringstream ss;
@@ -1949,7 +1952,7 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, float & data, const float defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			std::istringstream ss(text->Value());
 			ss >> data;
@@ -1961,7 +1964,7 @@ namespace daidalosengine {
 	void CSceneLoader::GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, std::string & data, const std::string & defaultValue) {
 		LOG_TRACE();
 
-		tinyxml2::XMLText * text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
+		const auto text = handle.FirstChildElement(name.c_str()).FirstChild().ToText();
 		if(text != nullptr) {
 			data = text->Value();
 		} else {
@@ -1969,22 +1972,20 @@ namespace daidalosengine {
 		}
 	}
 
-	const std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle) {
+	std::map<std::string, std::string> CSceneLoader::GetNodeAttributes(tinyxml2::XMLHandle & handle) {
 		LOG_TRACE();
 
 		std::map<std::string, std::string> attributes;
-		tinyxml2::XMLElement * child;
-		std::string attributeName;
 
-		child = handle.FirstChildElement("attributes").FirstChild().ToElement();
-		for (tinyxml2::XMLElement * childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		const auto child = handle.FirstChildElement("attributes").FirstChild().ToElement();
+		for (auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			tinyxml2::XMLHandle attributeHandle(childIt);
 
 			// Get the attribute name
-			attributeName = attributeHandle.ToElement()->Name();
+			const std::string attributeName = attributeHandle.ToElement()->Name();
 
 			// Get the attribute value
-			tinyxml2::XMLText * valueText = attributeHandle.FirstChild().ToText();
+			const auto valueText = attributeHandle.FirstChild().ToText();
 
 			// Add the attribue only if the two elements are valid
 			if(valueText != nullptr) {

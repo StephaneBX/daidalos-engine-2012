@@ -49,9 +49,9 @@ namespace daidalosengine {
 	void IView::Update(const float time) {
 		LOG_TRACE();
 
-		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if((*it)->IsVisible()) {
-				(*it)->Update(time);
+		for (auto& m_subview : this->m_subviews) {
+			if(m_subview->IsVisible()) {
+				m_subview->Update(time);
 			}
 		}
 	}
@@ -62,12 +62,12 @@ namespace daidalosengine {
 	void IView::Render() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
-		for(auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if((*it)->IsVisible()) {
+		for (auto& subview : this->m_subviews) {
+			if(subview->IsVisible()) {
 				renderer->SetScissor(GetAbsoluteBoundingRectangle());
-				(*it)->Render();
+				subview->Render();
 			}
 		}
 	}
@@ -90,7 +90,7 @@ namespace daidalosengine {
 	void IView::RemoveSubview(IView * view) {
 		LOG_TRACE();
 
-		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
+		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); ++it) {
 			if ((*it) == view) {
 				this->m_subviews.erase(it);
 				view->SetParent(nullptr);
@@ -130,7 +130,7 @@ namespace daidalosengine {
 
 		this->m_hitTest = false;
 
-		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
+		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); ++rit) {
 			if (target->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
 				return true;
 			}
@@ -301,7 +301,7 @@ namespace daidalosengine {
 	* Get the absolute position
 	* @return The absolute position
 	*/
-	const CVector2I IView::GetAbsolutePosition() const {
+	CVector2I IView::GetAbsolutePosition() const {
 		LOG_TRACE();
 
 		if(this->m_parent != nullptr) {
@@ -334,7 +334,7 @@ namespace daidalosengine {
 	* Get the absolute bounding rectangle
 	* @return The absolute bounding rectangle
 	*/
-	const CRectangleI IView::GetAbsoluteBoundingRectangle() const {
+	CRectangleI IView::GetAbsoluteBoundingRectangle() const {
 		LOG_TRACE();
 
 		if(this->m_parent != nullptr) {
@@ -347,7 +347,7 @@ namespace daidalosengine {
 	* Get the parent
 	* @return The parent
 	*/
-	IView * IView::GetParent() {
+	IView * IView::GetParent() const {
 		return this->m_parent;
 	}
 
@@ -395,13 +395,14 @@ namespace daidalosengine {
 	void IView::UpdateBuffer() {
 		LOG_TRACE();
 
-		if (this->m_data.size() > 0) {
+		if (!this->m_data.empty()) {
 			// Create a new buffer if the current one is too small
-			if ((int)this->m_buffer.GetSize() < this->m_data.size() * sizeof(SGUIData))
+			if (static_cast<int>(this->m_buffer.GetSize()) < this->m_data.size() * sizeof(SGUIData)) {
 				this->m_buffer = IRenderer::GetRenderer()->CreateVertexBuffer(sizeof(SGUIData), this->m_data.size(), BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
+			}
 
 			// Lock and copy the data
-			unsigned char * lock = (unsigned char*)this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY);
+			const auto lock = static_cast<unsigned char*>(this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY));
 			memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
 			this->m_buffer.Unlock();
 		}
@@ -413,7 +414,7 @@ namespace daidalosengine {
 	void IView::RenderPrimitives() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
 	}
@@ -426,13 +427,13 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Set the scissor if enabled
-		IRenderer * renderer = IRenderer::GetRenderer();
-		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			if ((*it)->IsVisible()) {
+		auto renderer = IRenderer::GetRenderer();
+		for (auto& subview : this->m_subviews) {
+			if (subview->IsVisible()) {
 				if (scissor) {
 					renderer->SetScissor(this->m_parent->GetAbsoluteBoundingRectangle());
 				}
-				(*it)->Render();
+				subview->Render();
 			}
 		}
 	}
@@ -484,7 +485,7 @@ namespace daidalosengine {
 	bool IView::HitTestAny(IView * target, const CVector2I & point) {
 		this->m_hitTest = false;
 
-		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); rit++) {
+		for (auto rit = this->m_subviews.rbegin(); rit != this->m_subviews.rend(); ++rit) {
 			if (target->IsInside((*rit)->GetAbsoluteBoundingRectangle()) && (*rit)->HitTest(point)) {
 				this->m_hitTest = true;
 			}
@@ -499,43 +500,43 @@ namespace daidalosengine {
 	* @param rotation The rotation
 	* @return The quad
 	*/
-	const std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation) {
+	std::vector<SGUIData> IView::GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation) {
 		LOG_TRACE();
 
-		CRectangleI centeredPosition = CRectangleI(-(position.GetWidth() / 2), -(position.GetHeight() / 2), position.GetWidth(), position.GetHeight());
-		CMatrix rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(0, 0, DegreeToRadian(rotation)), CVector3F(0, 0, 0));
-		CVector3F translation = CVector3F((float)(position.GetLeft() + position.GetWidth() / 2), (float)(position.GetTop() + (position.GetHeight() / 2)), 0);
+		auto centeredPosition = CRectangleI(-(position.GetWidth() / 2), -(position.GetHeight() / 2), position.GetWidth(), position.GetHeight());
+		auto rotationMatrix = CMatrix(CVector3F(1, 1, 1), CVector3F(0, 0, DegreeToRadian(rotation)), CVector3F(0, 0, 0));
+		const auto translation = CVector3F(static_cast<float>(position.GetLeft() + position.GetWidth() / 2), static_cast<float>(position.GetTop() + (position.GetHeight() / 2)), 0);
 		std::vector<SGUIData> dataSet;
 		SGUIData data;
 
 		// First triangle
-		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetTop(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetLeft()), static_cast<float>(centeredPosition.GetTop()), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetBottom(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetRight()), static_cast<float>(centeredPosition.GetBottom()), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetBottom());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetBottom(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetLeft()), static_cast<float>(centeredPosition.GetBottom()), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetBottom());
 		dataSet.push_back(data);
 
 		// Second triangle
-		data.position = CVector3F((float)centeredPosition.GetLeft(), (float)centeredPosition.GetTop(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetLeft()), static_cast<float>(centeredPosition.GetTop()), 0);
 		data.texcoords = CVector2F(coordinates.GetLeft(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetTop(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetRight()), static_cast<float>(centeredPosition.GetTop()), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetTop());
 		dataSet.push_back(data);
 
-		data.position = CVector3F((float)centeredPosition.GetRight(), (float)centeredPosition.GetBottom(), 0);
+		data.position = CVector3F(static_cast<float>(centeredPosition.GetRight()), static_cast<float>(centeredPosition.GetBottom()), 0);
 		data.texcoords = CVector2F(coordinates.GetRight(), coordinates.GetBottom());
 		dataSet.push_back(data);
 
-		for(auto it = dataSet.begin(); it != dataSet.end(); it++) {
-			(*it).position = rotationMatrix.Transform((*it).position) + translation;
+		for (auto& it : dataSet) {
+			it.position = rotationMatrix.Transform(it.position) + translation;
 		}
 
 		return dataSet;
@@ -545,19 +546,19 @@ namespace daidalosengine {
 	* Calculate the subviews bounding rectangle
 	* @return The bounding rectangle
 	*/
-	const CRectangleI IView::GetSubviewsBoundingRectangle() const {
+	CRectangleI IView::GetSubviewsBoundingRectangle() const {
 		LOG_TRACE();
 
 		CVector2I minSize;
 		CVector2I maxSize;
-		for (auto it = this->m_subviews.begin(); it != this->m_subviews.end(); it++) {
-			minSize.x = std::min(minSize.x, (*it)->GetPosition().x);
-			minSize.y = std::min(minSize.y, (*it)->GetPosition().y);
+		for (auto subview : this->m_subviews) {
+			minSize.x = std::min(minSize.x, subview->GetPosition().x);
+			minSize.y = std::min(minSize.y, subview->GetPosition().y);
 
-			maxSize.x = std::max(maxSize.x, (*it)->GetPosition().x + (*it)->GetPreferredSize().x);
-			maxSize.y = std::max(maxSize.y, (*it)->GetPosition().y + (*it)->GetPreferredSize().y);
+			maxSize.x = std::max(maxSize.x, subview->GetPosition().x + subview->GetPreferredSize().x);
+			maxSize.y = std::max(maxSize.y, subview->GetPosition().y + subview->GetPreferredSize().y);
 		}
 
-		return CRectangleI(minSize, maxSize - minSize);
+		return { minSize, maxSize - minSize };
 	}
 }

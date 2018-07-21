@@ -37,7 +37,7 @@ namespace daidalosengine {
 		this->m_internalData = data;
 		InitializeBuffers(this->m_internalData->numberOfMeshes);
 
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+		for(auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
 			InitializeBufferGroup(this->m_internalData->mesh[i].numberOfFaces * 3);
 
 			// Copy texture coordinates
@@ -47,12 +47,12 @@ namespace daidalosengine {
 		// Visibility shape calculation
 		CVector3F min;
 		CVector3F max;
-		for(int frame = 0; frame < this->m_internalData->numberOfFrames; ++frame) {
+		for(auto frame = 0; frame < this->m_internalData->numberOfFrames; ++frame) {
 			SetFrame(static_cast<float>(frame));
-			FinalizeGeometry(MESH_SHADING_SMOOTH);
+			CMS3DMesh::FinalizeGeometry(MESH_SHADING_SMOOTH);
 
-			for(int j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
-				for(int k = 0; k < this->m_internalData->mesh[j].numberOfFaces * 3; ++k) {
+			for(auto j = 0; j < this->m_internalData->numberOfMeshes; ++j) {
+				for(auto k = 0; k < this->m_internalData->mesh[j].numberOfFaces * 3; ++k) {
 					max.x = std::max(max.x, GetVertices(j)[k].x);
 					max.y = std::max(max.y, GetVertices(j)[k].y);
 					max.z = std::max(max.z, GetVertices(j)[k].z);
@@ -76,8 +76,8 @@ namespace daidalosengine {
 	CMS3DMesh::~CMS3DMesh() {
 		LOG_TRACE();
 
-		for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-			for(int j = 0; j < this->m_internalData->numberOfFrames; ++j) {
+		for(auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+			for(auto j = 0; j < this->m_internalData->numberOfFrames; ++j) {
 				SAFE_DELETE_ARRAY(this->m_internalData->mesh[i].vertex[j]);
 				SAFE_DELETE_ARRAY(this->m_internalData->mesh[i].normal[j]);
 			}
@@ -98,10 +98,10 @@ namespace daidalosengine {
 		auto frameB = static_cast<int>(floor(GetFrame() + 1));
 
 		// Linear
-		const float interpolation = GetFrame() - frameA;
+		const auto interpolation = GetFrame() - frameA;
 
 		// Cosine
-		const float interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
+		const auto interpolation2 = (1 - cos(interpolation * PI)) / 2.0F;
 
 		// Use the first frame if the choosen frame is less than 0
 		if(frameA < 0) {
@@ -120,8 +120,8 @@ namespace daidalosengine {
 		*/
 		switch(shadingType) {
 		case MESH_SHADING_SMOOTH:
-			for(int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-				for(int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+			for(auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for(auto j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
 					GetVertices(i)[j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
 					GetNormals(i)[j] = this->m_internalData->mesh[i].normal[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].normal[frameB][j], interpolation2);
 				}
@@ -130,8 +130,8 @@ namespace daidalosengine {
 
 		default:
 			// Flat shading
-			for (int i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
-				for (int j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
+			for (auto i = 0; i < this->m_internalData->numberOfMeshes; ++i) {
+				for (auto j = 0; j < this->m_internalData->mesh[i].numberOfFaces * 3; ++j) {
 					GetVertices(i)[j] = this->m_internalData->mesh[i].vertex[frameA][j].LinearInterpolation(this->m_internalData->mesh[i].vertex[frameB][j], interpolation2);
 				}
 			}

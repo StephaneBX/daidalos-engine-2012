@@ -38,9 +38,7 @@ namespace daidalosengine {
 		Initialize();
 	}
 
-	CCursor::~CCursor() {
-
-	}
+	CCursor::~CCursor() = default;
 
 	/**
 	* Initialize the content
@@ -49,7 +47,7 @@ namespace daidalosengine {
 		SetChanged(true);
 
 		// Add the cursor actions
-		CInputDevice * inputDevice = CInputDevice::GetInstance();
+		auto inputDevice = CInputDevice::GetInstance();
 		SInputActionDeclaration cursorActions[] = {
 			{ GUI_VIEW_LEFT_CLICK, -1 },
 			{ GUI_VIEW_WHEEL_UP, -1 },
@@ -67,7 +65,7 @@ namespace daidalosengine {
 	void CCursor::SetTexture(const std::string & texture) {
 		LOG_TRACE();
 
-		if(texture != "") {
+		if(!texture.empty()) {
 			this->m_texture.CreateFromFile(texture, PIXEL_FORMAT_A8R8G8B8, IRenderer::GetRenderer()->GetDefaultTextureFilter());
 			SetPreferredSize(this->m_texture.GetSize());
 			SetChanged(true);
@@ -92,9 +90,9 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0) {
-			IRenderer * renderer = IRenderer::GetRenderer();
+			auto renderer = IRenderer::GetRenderer();
 
-			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			auto shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
@@ -112,10 +110,10 @@ namespace daidalosengine {
 	void CCursor::UpdatePosition() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		const auto renderer = IRenderer::GetRenderer();
 
 		// Update the cursor position
-		CInputDevice * inputDevice = CInputDevice::GetInstance();
+		const auto inputDevice = CInputDevice::GetInstance();
 		SetPosition(CVector2I(ClampNumber(GetPosition().x + inputDevice->GetMouseMovement().x, 0, renderer->GetResolution().x), ClampNumber(GetPosition().y + inputDevice->GetMouseMovement().y, 0, renderer->GetResolution().y)));
 		SetBounds(CRectangleI(GetPosition(), GetPreferredSize()));
 	}

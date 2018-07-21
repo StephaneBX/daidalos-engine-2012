@@ -166,12 +166,12 @@ namespace daidalosengine {
 		/**
 		* Get the position rectangle
 		*/
-		CRectangleI GetPositionRectangle();
+		CRectangleI GetPositionRectangle() const;
 
 		/**
 		* Get the texture to used for rendering
 		*/
-		ITexture2DBase * GetTextureToRender();
+		ITexture2DBase * GetTextureToRender() const;
 	};
 }
 

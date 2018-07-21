@@ -318,6 +318,10 @@
     <ClCompile Include="Scene\Particles\Updaters\CLinearVelocityParticleUpdater.cpp" />
     <ClCompile Include="Scene\Particles\Updaters\CSphereVelocityParticleUpdater.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF4560DD-C97C-422C-88C4-85F1C4FDE022}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

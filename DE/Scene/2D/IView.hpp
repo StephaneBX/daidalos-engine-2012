@@ -216,7 +216,7 @@ namespace daidalosengine {
 		* Get the absolute position
 		* @return The absolute position
 		*/
-		const CVector2I GetAbsolutePosition() const;
+		CVector2I GetAbsolutePosition() const;
 
 		/**
 		* Get the preferred size
@@ -234,13 +234,13 @@ namespace daidalosengine {
 		* Get the absolute bounding rectangle
 		* @return The absolute bounding rectangle
 		*/
-		const CRectangleI GetAbsoluteBoundingRectangle() const;
+		CRectangleI GetAbsoluteBoundingRectangle() const;
 
 		/**
 		* Get the parent
 		* @return The parent
 		*/
-		IView * GetParent();
+		IView * GetParent() const;
 
 		/**
 		* Get the texture filter
@@ -310,13 +310,13 @@ namespace daidalosengine {
 		* @param rotation The rotation
 		* @return The quad
 		*/
-		const std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation = 0);
+		std::vector<SGUIData> GenerateQuad(const CRectangleI & position, const CRectangleF & coordinates, const float rotation = 0);
 
 		/**
 		* Calculate the subviews bounding rectangle
 		* @return The bounding rectangle
 		*/
-		const CRectangleI GetSubviewsBoundingRectangle() const;
+		CRectangleI GetSubviewsBoundingRectangle() const;
 	};
 }
 

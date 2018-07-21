@@ -56,9 +56,9 @@ namespace daidalosengine {
 		const DWORD dwShaderFlags = D3DXSHADER_OPTIMIZATION_LEVEL1;
 		LPD3DXBUFFER pBufferErrors = nullptr;
 
-		const HRESULT hr = D3DXCompileShaderFromFile(filename.c_str(), nullptr, nullptr, "main", "ps_3_0", dwShaderFlags, &pCode, &pBufferErrors, &constantTable);
+		const auto hr = D3DXCompileShaderFromFile(filename.c_str(), nullptr, nullptr, "main", "ps_3_0", dwShaderFlags, &pCode, &pBufferErrors, &constantTable);
 		if(FAILED(hr)) {
-			const LPVOID pCompilErrors = pBufferErrors->GetBufferPointer();
+			const auto pCompilErrors = pBufferErrors->GetBufferPointer();
 			LOG_ERROR(static_cast<const char*>(pCompilErrors));
 			ILogger::Kill();
 

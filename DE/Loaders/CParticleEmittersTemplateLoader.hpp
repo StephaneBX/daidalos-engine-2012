@@ -65,7 +65,7 @@ namespace daidalosengine {
 		* Load the particle emitter template
 		* @param handle The handle
 		*/
-		void LoadParticleEmitterNode(tinyxml2::XMLHandle & handle);
+		void LoadParticleEmitterNode(tinyxml2::XMLHandle handle);
 
 		/**
 		* Load the particle emitter emission rate change
@@ -95,7 +95,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, bool & data, const bool defaultValue) const;
 
 		/**
 		* Get a node data
@@ -104,7 +104,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, int & data, const int defaultValue) const;
 
 		/**
 		* Get a node data
@@ -113,7 +113,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2I & data, const CVector2I & defaultValue) const;
 
 		/**
 		* Get a node data
@@ -122,7 +122,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector2F & data, const CVector2F & defaultValue) const;
 
 		/**
 		* Get a node data
@@ -131,7 +131,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector3F & data, const CVector3F & defaultValue) const;
 
 		/**
 		* Get a node data
@@ -140,7 +140,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CVector4F & data, const CVector4F & defaultValue) const;
 
 		/**
 		* Get a node data
@@ -149,7 +149,7 @@ namespace daidalosengine {
 		* @param data The data type
 		* @param defaultValue The default value to use if no data is found in the node
 		*/
-		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue);
+		void GetNodeData(tinyxml2::XMLHandle & handle, const std::string & name, CColor & data, const CColor & defaultValue) const;
 
 		/**
 		* Get a node data

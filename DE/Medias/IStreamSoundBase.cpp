@@ -36,7 +36,7 @@ namespace daidalosengine {
 		this->m_file = file;
 
 		alGenBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
-		for (unsigned int buffer : this->m_buffers) {
+		for (auto buffer : this->m_buffers) {
 			ReadChunk(buffer);
 		}
 	}
@@ -47,8 +47,9 @@ namespace daidalosengine {
 		ALint nbQueued;
 		ALuint buffer;
 		alGetSourcei(GetSource(), AL_BUFFERS_QUEUED, &nbQueued);
-		for(ALint i = 0; i < nbQueued; ++i)
+		for (auto i = 0; i < nbQueued; ++i) {
 			alSourceUnqueueBuffers(GetSource(), 1, &buffer);
+		}
 
 		sf_close(this->m_file);
 		alDeleteBuffers(STREAM_SOUND_BUFFER_SIZE, this->m_buffers);
@@ -68,12 +69,13 @@ namespace daidalosengine {
 			ALint nbQueued;
 			ALuint buffer;
 			alGetSourcei(GetSource(), AL_BUFFERS_QUEUED, &nbQueued);
-			for(ALint i = 0; i < nbQueued; ++i)
+			for (auto i = 0; i < nbQueued; ++i) {
 				alSourceUnqueueBuffers(GetSource(), 1, &buffer);
+			}
 
 			sf_seek(this->m_file, 0, SEEK_SET);
 
-			for (unsigned int i : this->m_buffers) {
+			for (auto i : this->m_buffers) {
 				ReadChunk(i);
 			}
 			break;
@@ -96,18 +98,19 @@ namespace daidalosengine {
 
 		if(GetStatus() == SOUND_STATUS_PLAY) {
 			ALint nbProcessed;
-			int read = 0;
+			auto read = 0;
 			alGetSourcei(GetSource(), AL_BUFFERS_PROCESSED, &nbProcessed);
 
-			for(ALint i = 0; i < nbProcessed; ++i) {
+			for(auto i = 0; i < nbProcessed; ++i) {
 				ALuint buffer;
 				alSourceUnqueueBuffers(GetSource(), 1, &buffer);
 
 				read = ReadChunk(buffer);
 			}
 
-			if(read == 0 && nbProcessed > 0)
+			if (read == 0 && nbProcessed > 0) {
 				SetStatus(SOUND_STATUS_STOP);
+			}
 
 		} else if(GetStatus() == SOUND_STATUS_STOP && IsLooped()) {
 			SetStatus(SOUND_STATUS_STOP);
@@ -130,7 +133,7 @@ namespace daidalosengine {
 	int IStreamSoundBase::ReadChunk(ALuint buffer) {
 		LOG_TRACE();
 
-		const int nbSamples = GetSampleRate() * GetChannelsCount();
+		const auto nbSamples = GetSampleRate() * GetChannelsCount();
 		std::vector<ALshort> samples(nbSamples);
 
 		const auto read = static_cast<int>(sf_read_short(this->m_file, &samples[0], nbSamples));

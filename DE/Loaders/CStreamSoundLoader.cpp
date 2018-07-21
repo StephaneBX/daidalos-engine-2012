@@ -45,7 +45,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		SF_INFO fileInfos;
-		SNDFILE* file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
+		const auto file = sf_open(filename.c_str(), SFM_READ, &fileInfos);
 
 		// Open the file
 		if(!file) {
@@ -56,8 +56,8 @@ namespace daidalosengine {
 		}
 
 		// Get the sound information
-		const int nbSamples = static_cast<int>(fileInfos.channels * fileInfos.frames);
-		const int sampleRate = fileInfos.samplerate;
+		const auto nbSamples = static_cast<int>(fileInfos.channels * fileInfos.frames);
+		const auto sampleRate = fileInfos.samplerate;
 		ESoundFormat format;
 		ALenum openALFormat;
 

@@ -68,7 +68,7 @@ namespace daidalosengine {
 		* Set the texture
 		* @param texture The texture name
 		*/
-		void SetTexture(const std::string texture);
+		void SetTexture(const std::string& texture);
 
 		/**
 		* Set the coordinates

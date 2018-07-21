@@ -67,7 +67,7 @@ namespace daidalosengine {
 		}
 
 		// Check the existence of the resource and load it if necessary
-		IAnimatedMeshBase * tmp = CResourceManager::GetInstance()->GetResource<IAnimatedMeshBase>(filename);
+		const auto tmp = CResourceManager::GetInstance()->GetResource<IAnimatedMeshBase>(filename);
 
 		if(tmp == nullptr) {
 			this->m_mesh = CMediaManager::GetInstance()->LoadMediaFromFile<IAnimatedMeshBase>(filename);

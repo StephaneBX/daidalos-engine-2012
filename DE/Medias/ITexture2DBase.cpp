@@ -79,7 +79,7 @@ namespace daidalosengine {
 		return this->m_filter;
 	}
 
-	ITexture2DBase::ITexture2DBase(const CVector2I& size, const STexture2DFilterPolicy & filter, EPixelFormat format, const bool mipmap, const bool autoMipmap) : IResource("texture") {
+	ITexture2DBase::ITexture2DBase(const CVector2I& size, const STexture2DFilterPolicy & filter, const EPixelFormat format, const bool mipmap, const bool autoMipmap) : IResource("texture") {
 		LOG_TRACE();
 
 		this->m_size = size;
