@@ -43,7 +43,7 @@ namespace daidalosengine {
 	IMaterialBase * CMaterialsLoader::LoadFromFile(const std::string & filename) {
 		LOG_TRACE();
 
-		auto material = new IMaterialBase(filename);
+		auto* material = new IMaterialBase(filename);
 		SMaterialElement * element = nullptr;
 		std::string elementName;
 		std::istringstream iss;

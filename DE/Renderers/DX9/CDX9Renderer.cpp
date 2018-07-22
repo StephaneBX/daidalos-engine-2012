@@ -200,7 +200,7 @@ namespace daidalosengine {
 	IFrameBufferBase * CDX9Renderer::CreateFrameBuffer(const SFrameBufferDeclaration * elements, const std::size_t size, const SFrameBufferDepthDeclaration * depth, const std::size_t size2) const {
 		LOG_TRACE();
 
-		auto frameBuffer = new CDX9FrameBuffer();
+		auto* frameBuffer = new CDX9FrameBuffer();
 
 		if(elements != nullptr) {
 			for(unsigned int i = 0; i < size; ++i) {
@@ -230,7 +230,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const auto vertexBuffer = dynamic_cast<const CDX9VertexBuffer *>(buffer);
+			auto* vertexBuffer = dynamic_cast<const CDX9VertexBuffer *>(buffer);
 			this->m_device->SetStreamSource(stream, vertexBuffer->GetBuffer() != nullptr ? vertexBuffer->GetBuffer() : nullptr, offset, stride);
 			this->m_minVertexIndex = offset;
 			this->m_numVertices = count;
@@ -249,7 +249,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(buffer != nullptr) {
-			const auto indexBuffer = dynamic_cast<const CDX9IndexBuffer *>(buffer);
+			auto* indexBuffer = dynamic_cast<const CDX9IndexBuffer *>(buffer);
 			this->m_device->SetIndices(indexBuffer->GetBuffer() != nullptr ? indexBuffer->GetBuffer() : nullptr);
 		} else {
 			this->m_device->SetIndices(nullptr);
@@ -262,8 +262,8 @@ namespace daidalosengine {
 		SetCurrentShaderProgram(shaderProgram);
 
 		if(shaderProgram != nullptr) {
-			const auto vertexShader = dynamic_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
-			const auto pixelShader = dynamic_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
+			auto* vertexShader = dynamic_cast<const CDX9VertexShader *>(shaderProgram->GetVertexShader());
+			auto* pixelShader = dynamic_cast<const CDX9PixelShader *>(shaderProgram->GetPixelShader());
 
 			this->m_device->SetVertexShader(vertexShader ? vertexShader->GetVertexShader() : nullptr);
 			this->m_device->SetPixelShader(pixelShader ? pixelShader->GetPixelShader() : nullptr);
@@ -276,7 +276,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(declaration != nullptr) {
-			const auto vertexDeclaration = dynamic_cast<const CDX9Declaration *>(declaration);
+			auto* vertexDeclaration = dynamic_cast<const CDX9Declaration *>(declaration);
 			this->m_device->SetVertexDeclaration(vertexDeclaration->GetDeclaration() != nullptr ? vertexDeclaration->GetDeclaration() : nullptr);
 		} else {
 			this->m_device->SetVertexDeclaration(nullptr);
@@ -287,7 +287,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if(texture != nullptr) {
-			const auto dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture);
+			auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture);
 			this->m_device->SetTexture(unit, dx9Texture->GetTexture());
 
 			// Sampler state update
@@ -315,8 +315,8 @@ namespace daidalosengine {
 				frameBuffer->Finalize();
 
 			// Attach the render targets
-			auto fb = dynamic_cast<CDX9FrameBuffer*>(frameBuffer);
-			for(int i = 0; i < fb->GetAttachmentSize(); ++i) {
+			auto* fb = dynamic_cast<CDX9FrameBuffer*>(frameBuffer);
+			for(auto i = 0; i < fb->GetAttachmentSize(); ++i) {
 				this->m_device->SetRenderTarget(fb->GetAttachment(i)->attachment, dynamic_cast<CDX9RenderTarget*>(fb->GetRenderTarget(fb->GetAttachment(i)->name))->GetRenderTarget());
 			}
 
@@ -444,8 +444,8 @@ namespace daidalosengine {
 	void CDX9Renderer::CopyBackBufferToTexture(ITexture2DBase * texture2D) {
 		LOG_TRACE();
 		
-		const auto dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture2D);
-		const auto * mainBuffer = dynamic_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
+		auto* dx9Texture = dynamic_cast<const CDX9Texture2D*>(texture2D);
+		auto* mainBuffer = dynamic_cast<const CDX9RenderTarget*>(this->m_mainFrameBuffer->GetRenderTarget("default"));
 		IDirect3DSurface9 * textureSurface = nullptr;
 		dx9Texture->GetTexture()->GetSurfaceLevel(0, &textureSurface);
 
@@ -460,8 +460,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (frameBuffer != nullptr) {
-			const auto mainBufferDepth = dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
-			const auto frameBufferDepth = dynamic_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
+			auto* mainBufferDepth = dynamic_cast<CDX9RenderTarget*>(this->m_mainFrameBuffer->GetDepthRenderTarget("default"));
+			auto* frameBufferDepth = dynamic_cast<const CDX9RenderTarget*>(frameBuffer->GetDepthRenderTarget("depth"));
 
 			this->m_device->StretchRect(frameBufferDepth->GetRenderTarget(), nullptr, mainBufferDepth->GetRenderTarget(), nullptr, D3DTEXF_LINEAR);
 		}

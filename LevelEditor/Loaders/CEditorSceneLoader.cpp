@@ -90,7 +90,7 @@ namespace daidaloseditor {
 
 		parent->InsertEndChild(document.NewComment(" BSP Level Node "));
 
-		const auto levelNode = dynamic_cast<daidalosengine::ILevelSceneNode*>(node);
+		auto* levelNode = dynamic_cast<daidalosengine::ILevelSceneNode*>(node);
 
 		// Level node
 		tinyxml2::XMLElement * levelElement = document.NewElement("node");
@@ -144,7 +144,7 @@ namespace daidaloseditor {
 		std::string skyName;
 		daidalosengine::CVector3F ambientColor;
 		daidalosengine::CVector3F skyAmbientColor;
-		auto renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Get the ambient color
 		if (handle.ToElement()->Attribute("ambientColor") != nullptr) {
@@ -165,11 +165,11 @@ namespace daidaloseditor {
 		dynamic_cast<CEditorLevelSceneNode*>(node)->SetSkyAmbientColor(daidalosengine::CVector4F(skyAmbientColor.x, skyAmbientColor.y, skyAmbientColor.z, 1));
 
 		// Read the bsp geometry
-		auto child = handle.FirstChildElement("multi_brush").ToElement();
+		auto* child = handle.FirstChildElement("multi_brush").ToElement();
 		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
-				const auto child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
+				auto* child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
 
 				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
@@ -308,7 +308,7 @@ namespace daidaloseditor {
 	*/
 	void CEditorSceneLoader::SaveBrush(daidalosengine::ISceneNode * node, tinyxml2::XMLDocument & document, tinyxml2::XMLElement * parent) {
 
-		const auto meshNode = dynamic_cast<daidalosengine::IMeshSceneNode *>(node);
+		auto* meshNode = dynamic_cast<daidalosengine::IMeshSceneNode *>(node);
 		tinyxml2::XMLElement * brush = document.NewElement("brush");
 
 		// Id

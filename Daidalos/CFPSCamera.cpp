@@ -190,7 +190,7 @@ namespace daidalos {
 		if(GetHealth() > 0) {
 			this->m_hurtSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
 		} else {
-			auto collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
+			auto* collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
 			collisionShapeEllipse->SetRadius(daidalosengine::CVector2F(FPS_CAMERA_SHAPE_HORIZONTAL_RADIUS, FPS_CAMERA_SHAPE_VERTICAL_RADIUS_DEAD));
 
 			this->m_dieSound.SetStatus(daidalosengine::SOUND_STATUS_PLAY);
@@ -477,7 +477,7 @@ namespace daidalos {
 	*/
 	void CFPSCamera::UpdateMovement(const float timeSecond, const float time) {
 		daidalosengine::CVector3F movement;
-		auto collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
+		auto* collisionShapeEllipse = dynamic_cast<daidalosengine::CEllipseF *>(this->GetCollisionShape());
 
 		this->m_jumpTimer -= time;
 		if(this->m_jumpTimer < 0) {

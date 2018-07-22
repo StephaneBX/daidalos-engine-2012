@@ -71,7 +71,7 @@ namespace daidalosengine {
 		const CVector2I size = CVector2I(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
 		const unsigned char * pixels = ilGetData();
 
-		const auto image = new CImage(size, PIXEL_FORMAT_A8R8G8B8, pixels);
+		auto* image = new CImage(size, PIXEL_FORMAT_A8R8G8B8, pixels);
 		//image->Mirror();
 
 		ilBindImage(0);

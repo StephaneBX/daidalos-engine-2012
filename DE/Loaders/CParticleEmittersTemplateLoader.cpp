@@ -96,7 +96,7 @@ namespace daidalosengine {
 		GetNodeData(handle, "ignoreGravity", ignoreGravity, false);
 
 		// Create the emitter
-		auto emitter = new CParticleEmitter();
+		auto* emitter = new CParticleEmitter();
 		emitter->SetActive(true);
 		emitter->SetTextureId(0);
 		emitter->SetBlendMode(emitterBlendMode);

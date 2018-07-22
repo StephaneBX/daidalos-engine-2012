@@ -134,7 +134,7 @@ namespace daidalosengine {
 			CResourceManager::GetInstance()->ReleaseResource(this->m_texture->GetName());
 		}
 
-		const auto img = new CImage(size, format);
+		auto* img = new CImage(size, format);
 		Load(*img, usedFilter, format, flags, name);
 		delete img;
 	}

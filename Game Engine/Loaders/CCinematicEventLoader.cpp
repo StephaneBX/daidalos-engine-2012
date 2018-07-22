@@ -48,7 +48,7 @@ namespace daidalosgameengine {
 	*/
 	ICinematicEvent * CCinematicEventLoader::LoadFromFile(const std::string & filename) {
 		this->m_filename = filename;
-		const auto data = new SCinematicEventInternalData();
+		auto* data = new SCinematicEventInternalData();
 
 		tinyxml2::XMLDocument doc;
 		const int loadOk = doc.LoadFile(filename.c_str());
