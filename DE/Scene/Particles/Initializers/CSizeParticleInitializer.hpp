@@ -62,7 +62,7 @@ namespace daidalosengine {
 		* Get the size
 		* @return The size
 		*/
-		float GetSize();
+		float GetSize() const;
 
 		/**
 		* Clone the class

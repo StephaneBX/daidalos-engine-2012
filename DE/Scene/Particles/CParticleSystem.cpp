@@ -132,8 +132,8 @@ namespace daidalosengine {
 	void CParticleSystem::RemoveEmitter(CParticleEmitter * emitter) {
 		LOG_TRACE();
 
-		bool found = false;
-		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end() && !found; it++) {
+		auto found = false;
+		for (auto it = this->m_emitters.begin(); it != this->m_emitters.end() && !found; ++it) {
 			if (emitter == (*it).get()) {
 				this->m_emitters.erase(it);
 				found = true;
@@ -158,10 +158,10 @@ namespace daidalosengine {
 			}
 
 			// Remove the dead emitters
-			if(!(*it)->IsReusable() && !(*it)->IsActive() && (*it)->GetParticleIndex().size() == 0) {
+			if(!(*it)->IsReusable() && !(*it)->IsActive() && (*it)->GetParticleIndex().empty()) {
 				it = this->m_emitters.erase(it);
 			} else {
-				it++;
+				++it;
 			}
 		}
 	}
@@ -182,13 +182,13 @@ namespace daidalosengine {
 		this->m_renderer->SetTexture(0, this->m_atlasTexture.GetTexture());
 
 		// Prepare the billboard matrix
-		CMatrix billboardMatrix = this->m_activeCamera->GetViewMatrix().GetBillboard();
+		const auto billboardMatrix = this->m_activeCamera->GetViewMatrix().GetBillboard();
 
 		// Set the shader attributes
 		this->m_renderer->SetShaderProgram(this->m_shader.GetShaderProgram());
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_activeCamera->GetViewProjMatrix());
 		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_BILLBOARD_MATRIX), billboardMatrix);
-		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F((float)this->m_atlasSize.x, (float)this->m_atlasSize.y));
+		this->m_shader.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_TEXTURE_ATLAS_SIZE), CVector2F(static_cast<float>(this->m_atlasSize.x), static_cast<float>(this->m_atlasSize.y)));
 		this->m_shader.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_activeCamera->GetFarDistance());
 		this->m_shader.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
@@ -202,7 +202,7 @@ namespace daidalosengine {
 		for(int i = RENDER_STATE_BLEND_FUNCTION_ZERO; i <= RENDER_STATE_BLEND_FUNCTION_INVSRCCOLOR2; i++) {
 			FillParticlesData(i);
 			if(this->m_particleSize > 0) {
-				this->m_renderer->SetBlendFunction(daidalosengine::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, (daidalosengine::ERenderStateBlendFunction)i);
+				this->m_renderer->SetBlendFunction(daidalosengine::RENDER_STATE_BLEND_FUNCTION_SRCALPHA, static_cast<daidalosengine::ERenderStateBlendFunction>(i));
 				this->m_renderer->SetVertexBuffer(1, this->m_particleInstanceVB.GetBuffer(), sizeof(SParticleData), 0, this->m_particleSize);
 				this->m_renderer->SetStreamSourceFrequency(0, STREAM_SOURCE_TYPE_INDEX, this->m_particleSize * 4);
 				this->m_renderer->DrawIndexedPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
@@ -251,7 +251,7 @@ namespace daidalosengine {
 	* Get the atlas texture name
 	* @return The atlas texture name
 	*/
-	const std::string CParticleSystem::GetAtlasTextureName() const {
+	std::string CParticleSystem::GetAtlasTextureName() const {
 		LOG_TRACE();
 
 		return this->m_atlasTexture.GetTexture()->GetName();
@@ -271,7 +271,7 @@ namespace daidalosengine {
 	* Get a vector containing the templates names
 	* @return The templates names in a vector
 	*/
-	const std::vector<std::string> CParticleSystem::GetEmittersTemplatesName() const {
+	std::vector<std::string> CParticleSystem::GetEmittersTemplatesName() const {
 		LOG_TRACE();
 
 		return this->m_particleEmittersTemplates.GetTemplatesName();
@@ -284,11 +284,11 @@ namespace daidalosengine {
 	CParticleEmitter * CParticleSystem::InstanciateEmitter() {
 		LOG_TRACE();
 
-		CParticleEmitter * emitter = new CParticleEmitter();
+		auto emitter = new CParticleEmitter();
 
 		// Add the gravity updater
 		if (!emitter->IsIgnoreGravity()) {
-			CGravityParticleUpdater * updater = new CGravityParticleUpdater(this->m_gravity);
+			const auto updater = new CGravityParticleUpdater(this->m_gravity);
 			emitter->AddUpdater(updater);
 		}
 
@@ -302,17 +302,17 @@ namespace daidalosengine {
 	* @param emitterName The emitter name
 	* @return The emitter
 	*/
-	CParticleEmitter * CParticleSystem::InstanciateEmitter(const std::string templateName, const std::string emitterName) {
+	CParticleEmitter * CParticleSystem::InstanciateEmitter(const std::string& templateName, const std::string& emitterName) {
 		LOG_TRACE();
 
-		CParticleEmitter * emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
+		auto emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
 		if(emitter == nullptr) {
 			emitter = new CParticleEmitter();
 		}
 
 		// Add the gravity updater
 		if (!emitter->IsIgnoreGravity()) {
-			CGravityParticleUpdater * updater = new CGravityParticleUpdater(this->m_gravity);
+			const auto updater = new CGravityParticleUpdater(this->m_gravity);
 			emitter->AddUpdater(updater);
 		}
 
@@ -329,13 +329,13 @@ namespace daidalosengine {
 
 		// Get the live particles for each visible emitter
 		this->m_particleSize = 0;
-		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); it++) {
+		for (auto& emitter : this->m_emitters) {
 			// If the particle is not culled
-			if((*it)->GetBlendMode() == blendMode && !this->m_activeCamera->FrustumCull((*it)->GetVisibilitySphere())) {
+			if(emitter->GetBlendMode() == blendMode && !this->m_activeCamera->FrustumCull(emitter->GetVisibilitySphere())) {
 				// Get the particle index and the distance to camera
-				for(auto it2 = (*it)->GetParticleIndex().begin(); it2 != (*it)->GetParticleIndex().end(); it2++) {
-					this->m_particleIndex.get()[this->m_particleSize] = *it2;
-					this->m_particleDistance.get()[this->m_particleSize] = (this->m_particleBuffer.GetAt((*it2))->GetPosition() - this->m_activeCamera->GetPosition()).Length();
+				for (auto it2 : emitter->GetParticleIndex()) {
+					this->m_particleIndex.get()[this->m_particleSize] = it2;
+					this->m_particleDistance.get()[this->m_particleSize] = (this->m_particleBuffer.GetAt(it2)->GetPosition() - this->m_activeCamera->GetPosition()).Length();
 					this->m_particleSize++;
 				}
 			}
@@ -347,9 +347,9 @@ namespace daidalosengine {
 			distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1, ARRAY_SORTER_ORDER_DESC);
 
 			// Fill the instance vertex buffer
-			char * buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
+			const auto buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
 			for(unsigned int i = 0; i < this->m_particleSize; i++) {
-				auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
+				const auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
 				memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
 			}
 			this->m_particleInstanceVB.Unlock();

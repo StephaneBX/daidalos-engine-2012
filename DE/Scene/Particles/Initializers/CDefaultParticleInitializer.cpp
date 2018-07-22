@@ -46,8 +46,8 @@ namespace daidalosengine {
 	*/
 	void CDefaultParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Apply default values
 			particle->SetColor(CColor());

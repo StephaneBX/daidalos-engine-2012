@@ -64,7 +64,7 @@ namespace daidalosengine {
 		* Get a vector containing the templates names
 		* @return The templates names in a vector
 		*/
-		const std::vector<std::string> GetTemplatesName() const;
+		std::vector<std::string> GetTemplatesName() const;
 
 		/**
 		* Instanciate a particle emitter from a given template and with a given name

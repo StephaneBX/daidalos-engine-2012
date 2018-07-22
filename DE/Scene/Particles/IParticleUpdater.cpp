@@ -32,16 +32,14 @@ namespace daidalosengine {
 	* Constructor
 	* @param type The type
 	*/
-	IParticleUpdater::IParticleUpdater(EParticleUpdaterType type) {
+	IParticleUpdater::IParticleUpdater(const EParticleUpdaterType type) {
 		this->m_type = type;
 	}
 
 	/**
 	* Destructor
 	*/
-	IParticleUpdater::~IParticleUpdater() {
-
-	}
+	IParticleUpdater::~IParticleUpdater() = default;
 
 	/**
 	* Set the type

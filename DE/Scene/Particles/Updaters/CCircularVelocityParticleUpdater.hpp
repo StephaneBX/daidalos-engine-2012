@@ -55,7 +55,7 @@ namespace daidalosengine {
 		* @param axis The rotation axis
 		* @param damping The damping factor
 		*/
-		CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping);
+		CCircularVelocityParticleUpdater(std::vector<SCircularVelocityParticleChangeUpdater> circularVelocityChanges, const CVector3F & axis, const float damping);
 
 		/**
 		* Destructor

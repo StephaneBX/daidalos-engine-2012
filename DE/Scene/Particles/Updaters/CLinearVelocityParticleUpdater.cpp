@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <utility>
 #include "../../../Scene/Particles/Updaters/CLinearVelocityParticleUpdater.hpp"
 
 namespace daidalosengine {
@@ -34,7 +35,7 @@ namespace daidalosengine {
 	* @param linearVelocityChanges The linear velocity changes definition
 	* @param damping The damping factor
 	*/
-	CLinearVelocityParticleUpdater::CLinearVelocityParticleUpdater(const std::vector<SLinearVelocityParticleChangeUpdater> & linearVelocityChanges, const float damping) : m_damping(damping), m_linearVelocityChanges(linearVelocityChanges), IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY) {}
+	CLinearVelocityParticleUpdater::CLinearVelocityParticleUpdater(std::vector<SLinearVelocityParticleChangeUpdater> linearVelocityChanges, const float damping) : IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY), m_damping(damping), m_linearVelocityChanges(std::move(linearVelocityChanges)) {}
 
 	/**
 	* Destructor
@@ -48,29 +49,29 @@ namespace daidalosengine {
 	* @param particles The particles id to initialize
 	*/
 	void CLinearVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Next normalized life
-			float nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
+			const auto nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
 
 			// Check if a new linear velocity must be applied
-			for (auto it = this->m_linearVelocityChanges.begin(); it != this->m_linearVelocityChanges.end(); ++it) {
-				if ((*it).time >= particle->GetLifeNormalized() && (*it).time < nextNormalizedLife) {
+			for (auto& linearVelocityChange : this->m_linearVelocityChanges) {
+				if (linearVelocityChange.time >= particle->GetLifeNormalized() && linearVelocityChange.time < nextNormalizedLife) {
 					// A new linear velocity must be add to the current particle's velocity
 
 					// Create the altered direction
-					CVector3F velocity = (*it).direction;
-					if ((*it).variationFactor > 0) {
-						velocity.x *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
-						velocity.y *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
-						velocity.z *= (1.0F - RandomNumber<float>(0, (*it).variationFactor));
+					auto velocity = linearVelocityChange.direction;
+					if (linearVelocityChange.variationFactor > 0) {
+						velocity.x *= (1.0F - RandomNumber<float>(0, linearVelocityChange.variationFactor));
+						velocity.y *= (1.0F - RandomNumber<float>(0, linearVelocityChange.variationFactor));
+						velocity.z *= (1.0F - RandomNumber<float>(0, linearVelocityChange.variationFactor));
 					}
 
 					// Apply the velocity value
-					float velocityForce = RandomNumber<float>((*it).velocityMin, (*it).velocityMax);
+					const auto velocityForce = RandomNumber<float>(linearVelocityChange.velocityMin, linearVelocityChange.velocityMax);
 					velocity *= velocityForce;
 
 					// Add the linear velocity

@@ -31,9 +31,9 @@ namespace daidalosengine {
 
 	/**
 	* Constructor
-	* @param colorMin The color
+	* @param color The color
 	*/
-	CColorParticleInitializer::CColorParticleInitializer(const CColor & color) : m_color(color), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_COLOR) {}
+	CColorParticleInitializer::CColorParticleInitializer(const CColor & color) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_COLOR), m_color(color) {}
 
 	/**
 	* Destructor
@@ -47,8 +47,8 @@ namespace daidalosengine {
 	*/
 	void CColorParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			particle->SetColor(this->m_color);
 		}

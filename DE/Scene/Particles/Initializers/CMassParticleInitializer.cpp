@@ -33,7 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param mass The mass
 	*/
-	CMassParticleInitializer::CMassParticleInitializer(float mass) : m_mass(mass), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MASS) {}
+	CMassParticleInitializer::CMassParticleInitializer(const float mass) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MASS), m_mass(mass) {}
 
 	/**
 	* Destructor
@@ -47,8 +47,8 @@ namespace daidalosengine {
 	*/
 	void CMassParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetMass(this->m_mass);
 		}
 	}
@@ -57,7 +57,7 @@ namespace daidalosengine {
 	* Get the mass
 	* @return The mass
 	*/
-	float CMassParticleInitializer::GetMass() {
+	float CMassParticleInitializer::GetMass() const {
 		return this->m_mass;
 	}
 

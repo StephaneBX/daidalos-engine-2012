@@ -53,7 +53,7 @@ namespace daidalosengine {
 		* @param sphereVelocityChanges The sphere velocity changes definition
 		* @param damping The damping factor
 		*/
-		CSphereVelocityParticleUpdater(const std::vector<SSphereVelocityParticleChangeUpdater> & sphereVelocityChanges, const float damping);
+		CSphereVelocityParticleUpdater(std::vector<SSphereVelocityParticleChangeUpdater> sphereVelocityChanges, const float damping);
 
 		/**
 		* Destructor

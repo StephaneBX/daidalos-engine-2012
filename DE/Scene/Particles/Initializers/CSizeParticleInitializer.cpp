@@ -33,7 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param size The size
 	*/
-	CSizeParticleInitializer::CSizeParticleInitializer(float size) : m_size(size), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_SIZE) {}
+	CSizeParticleInitializer::CSizeParticleInitializer(const float size) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_SIZE), m_size(size) {}
 
 	/**
 	* Destructor
@@ -47,8 +47,8 @@ namespace daidalosengine {
 	*/
 	void CSizeParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetSize(this->m_size);
 		}
 	}
@@ -57,7 +57,7 @@ namespace daidalosengine {
 	* Get the size
 	* @return The size
 	*/
-	float CSizeParticleInitializer::GetSize() {
+	float CSizeParticleInitializer::GetSize() const {
 		return this->m_size;
 	}
 

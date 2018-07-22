@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <utility>
 #include "../../../Scene/Particles/Updaters/CSphereVelocityParticleUpdater.hpp"
 
 namespace daidalosengine {
@@ -34,7 +35,7 @@ namespace daidalosengine {
 	* @param sphereVelocityChanges The sphere velocity changes definition
 	* @param damping The damping factor
 	*/
-	CSphereVelocityParticleUpdater::CSphereVelocityParticleUpdater(const std::vector<SSphereVelocityParticleChangeUpdater> & sphereVelocityChanges, const float damping) : m_damping(damping), m_sphereVelocityChanges(sphereVelocityChanges), IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY) {}
+	CSphereVelocityParticleUpdater::CSphereVelocityParticleUpdater(std::vector<SSphereVelocityParticleChangeUpdater> sphereVelocityChanges, const float damping) : IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY), m_damping(damping), m_sphereVelocityChanges(std::move(sphereVelocityChanges)) {}
 
 	/**
 	* Destructor
@@ -48,17 +49,17 @@ namespace daidalosengine {
 	* @param particles The particles id to initialize
 	*/
 	void CSphereVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Next normalized life
-			float nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
+			const auto nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
 
 			// Check if a new linear velocity must be applied
-			for (auto it = this->m_sphereVelocityChanges.begin(); it != this->m_sphereVelocityChanges.end(); ++it) {
-				if ((*it).time >= particle->GetLifeNormalized() && (*it).time < nextNormalizedLife) {
+			for (auto& sphereVelocityChange : this->m_sphereVelocityChanges) {
+				if (sphereVelocityChange.time >= particle->GetLifeNormalized() && sphereVelocityChange.time < nextNormalizedLife) {
 					// A new linear velocity must be add to the current particle's velocity
 					
 					// Random direction
@@ -66,8 +67,8 @@ namespace daidalosengine {
 					velocity = velocity.Normalize();
 
 					// Apply the velocity value
-					if ((*it).velocityMin != 0 && (*it).velocityMax != 0) {
-						float velocityForce = RandomNumber<float>((*it).velocityMin, (*it).velocityMax);
+					if (sphereVelocityChange.velocityMin != 0 && sphereVelocityChange.velocityMax != 0) {
+						const auto velocityForce = RandomNumber<float>(sphereVelocityChange.velocityMin, sphereVelocityChange.velocityMax);
 						velocity *= velocityForce * particle->GetMass();
 
 						// Add the linear velocity

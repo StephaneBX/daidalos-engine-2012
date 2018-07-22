@@ -33,7 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param position The position
 	*/
-	CPositionParticleInitializer::CPositionParticleInitializer(const CVector3F & position) : m_position(position), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_POSITION) {}
+	CPositionParticleInitializer::CPositionParticleInitializer(const CVector3F & position) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_POSITION), m_position(position) {}
 
 	/**
 	* Destructor
@@ -47,8 +47,8 @@ namespace daidalosengine {
 	*/
 	void CPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + this->m_position);

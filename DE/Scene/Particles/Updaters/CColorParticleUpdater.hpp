@@ -50,7 +50,7 @@ namespace daidalosengine {
 		* Constructor
 		* @param colorChanges The color changes definition
 		*/
-		explicit CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges);
+		explicit CColorParticleUpdater(std::vector<SColorParticleChangeUpdater> colorChanges);
 
 		/**
 		* Destructor

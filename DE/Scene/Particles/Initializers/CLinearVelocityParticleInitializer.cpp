@@ -36,7 +36,7 @@ namespace daidalosengine {
 	* @param velocityMin The velocity min
 	* @param velocityMax The velocity max
 	*/
-	CLinearVelocityParticleInitializer::CLinearVelocityParticleInitializer(const CVector3F & direction, float variationFactor, float velocityMin, float velocityMax) : m_direction(direction), m_variationFactor(variationFactor), m_velocityMin(velocityMin), m_velocityMax(velocityMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_LINEAR_VELOCITY) {}
+	CLinearVelocityParticleInitializer::CLinearVelocityParticleInitializer(const CVector3F & direction, const float variationFactor, const float velocityMin, const float velocityMax) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_LINEAR_VELOCITY), m_direction(direction), m_variationFactor(variationFactor), m_velocityMin(velocityMin), m_velocityMax(velocityMax) {}
 
 	/**
 	* Destructor
@@ -50,11 +50,11 @@ namespace daidalosengine {
 	*/
 	void CLinearVelocityParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Create the altered direction
-			CVector3F velocity = this->m_direction;
+			auto velocity = this->m_direction;
 			if (this->m_variationFactor > 0) {
 				velocity.x *= (1.0F - RandomNumber<float>(0, this->m_variationFactor));
 				velocity.y *= (1.0F - RandomNumber<float>(0, this->m_variationFactor));
@@ -62,7 +62,7 @@ namespace daidalosengine {
 			}
 
 			// Apply the velocity value
-			float velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
+			const auto velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
 			velocity *= velocityForce;
 
 			particle->SetLinearVelocity(velocity);

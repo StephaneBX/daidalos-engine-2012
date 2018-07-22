@@ -34,7 +34,7 @@ namespace daidalosengine {
 	* @param velocityMin The velocity min
 	* @param velocityMax The velocity max
 	*/
-	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(float velocityMin, float velocityMax) : m_velocityMin(velocityMin), m_velocityMax(velocityMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY) {}
+	CSphereVelocityParticleInitializer::CSphereVelocityParticleInitializer(const float velocityMin, const float velocityMax) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_SPHERE_VELOCITY), m_velocityMin(velocityMin), m_velocityMax(velocityMax) {}
 
 	/**
 	* Destructor
@@ -48,15 +48,15 @@ namespace daidalosengine {
 	*/
 	void CSphereVelocityParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Get the normalized vector
 			CVector3F velocity(RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F), RandomNumber<float>(-1.0F, 1.0F));
 			velocity = velocity.Normalize();
 			
 			// Get the velocity value
-			float velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
+			const auto velocityForce = RandomNumber<float>(this->m_velocityMin, this->m_velocityMax);
 			velocity = velocity * velocityForce;
 
 			particle->SetLinearVelocity(velocity);

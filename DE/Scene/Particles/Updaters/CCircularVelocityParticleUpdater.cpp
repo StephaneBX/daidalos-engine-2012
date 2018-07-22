@@ -25,17 +25,18 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <utility>
 #include "../../../Scene/Particles/Updaters/CCircularVelocityParticleUpdater.hpp"
 
 namespace daidalosengine {
 
 	/**
 	* Constructor
-	* @param linearVelocityChanges The linear velocity changes definition
+	* @param circularVelocityChanges The circular velocity changes definition
 	* @param axis The rotation axis
 	* @param damping The damping factor
 	*/
-	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(const std::vector<SCircularVelocityParticleChangeUpdater> & circularVelocityChanges, const CVector3F & axis, const float damping) : m_damping(damping), m_axis(axis), m_circularVelocityChanges(circularVelocityChanges), IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY) {}
+	CCircularVelocityParticleUpdater::CCircularVelocityParticleUpdater(std::vector<SCircularVelocityParticleChangeUpdater> circularVelocityChanges, const CVector3F & axis, const float damping) : IParticleUpdater(PARTICLE_UPDATER_TYPE_VELOCITY), m_damping(damping), m_axis(axis), m_circularVelocityChanges(std::move(circularVelocityChanges)) {}
 
 	/**
 	* Destructor
@@ -49,48 +50,48 @@ namespace daidalosengine {
 	* @param particles The particles id to initialize
 	*/
 	void CCircularVelocityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Next normalized life
-			float nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
+			const auto nextNormalizedLife = (particle->GetLife() + time) / particle->GetLifeMax();
 
 			// Check if a new linear velocity must be applied
-			for (auto it = this->m_circularVelocityChanges.begin(); it != this->m_circularVelocityChanges.end(); ++it) {
-				if ((*it).time >= particle->GetLifeNormalized() && (*it).time < nextNormalizedLife) {
+			for (auto& circularVelocityChange : this->m_circularVelocityChanges) {
+				if (circularVelocityChange.time >= particle->GetLifeNormalized() && circularVelocityChange.time < nextNormalizedLife) {
 					// A new circular velocity must be add to the current particle's velocity
 
 					// Add the circular velocity
-					particle->SetCircularVelocity(particle->GetCircularVelocity() + (RandomNumber<float>((*it).velocityMin, (*it).velocityMax) * particle->GetMass()));
+					particle->SetCircularVelocity(particle->GetCircularVelocity() + (RandomNumber<float>(circularVelocityChange.velocityMin, circularVelocityChange.velocityMax) * particle->GetMass()));
 				}
 			}
 
 			if (particle->GetCircularVelocity() != 0) {
 				// Calculate the emitter - particle distance
-				CVector3F distance = particle->GetPosition() - particle->GetEmitterPosition();
+				auto distance = particle->GetPosition() - particle->GetEmitterPosition();
 
 				// Axis bound check
 				if (this->m_axis.Length() == 1) {
-					for (int i = 0; i < 3; ++i) {
+					for (auto i = 0; i < 3; ++i) {
 						if (this->m_axis[i] == 1 || this->m_axis[i] == -1) {
 							distance[i] = 0;
 						}
 					}
 				}
-				CVector3F distanceNormalized = distance.Normalize();
+				const auto distanceNormalized = distance.Normalize();
 
 				// Calculate the velocity direction (tangent to the up vector and the distance)
-				CVector3F circularVelocity = this->m_axis.CrossProduct(distanceNormalized).Normalize() * particle->GetCircularVelocity();
+				const auto circularVelocity = this->m_axis.CrossProduct(distanceNormalized).Normalize() * particle->GetCircularVelocity();
 
 				// Update the particle position
 				particle->SetPosition(particle->GetPosition() + circularVelocity * timeSecond);
 
 				// Put back the particle in the correct radius
-				CVector3F distance2 = particle->GetPosition() - particle->GetEmitterPosition();
+				auto distance2 = particle->GetPosition() - particle->GetEmitterPosition();
 				if (this->m_axis.Length() == 1) {
-					for (int i = 0; i < 3; ++i) {
+					for (auto i = 0; i < 3; ++i) {
 						if (this->m_axis[i] == 1 || this->m_axis[i] == -1) {
 							distance2[i] = 0;
 						}

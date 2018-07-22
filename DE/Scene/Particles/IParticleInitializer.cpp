@@ -32,16 +32,14 @@ namespace daidalosengine {
 	* Constructor
 	* @param type The type
 	*/
-	IParticleInitializer::IParticleInitializer(EParticleInitializerType type) {
+	IParticleInitializer::IParticleInitializer(const EParticleInitializerType type) {
 		this->m_type = type;
 	}
 
 	/**
 	* Destructor
 	*/
-	IParticleInitializer::~IParticleInitializer() {
-
-	}
+	IParticleInitializer::~IParticleInitializer() = default;
 
 	/**
 	* Set the type

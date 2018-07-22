@@ -34,7 +34,7 @@ namespace daidalosengine {
 	* @param lifeMin The life min
 	* @param lifeMax The life max
 	*/
-	CLifeParticleInitializer::CLifeParticleInitializer(float lifeMin, float lifeMax) : m_lifeMin(lifeMin), m_lifeMax(lifeMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE) {}
+	CLifeParticleInitializer::CLifeParticleInitializer(const float lifeMin, const float lifeMax) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_LIFE), m_lifeMin(lifeMin), m_lifeMax(lifeMax) {}
 
 	/**
 	* Destructor
@@ -48,8 +48,8 @@ namespace daidalosengine {
 	*/
 	void CLifeParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetLife(0);
 			particle->SetLifeMax(RandomNumber<float>(this->m_lifeMin, this->m_lifeMax));
 		}

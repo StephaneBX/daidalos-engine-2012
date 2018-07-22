@@ -32,7 +32,7 @@ namespace daidalosengine {
 	/**
 	* Constructor
 	*/
-	CGravityParticleUpdater::CGravityParticleUpdater(const CVector3F & gravity) : m_gravity(gravity), IParticleUpdater(PARTICLE_UPDATER_TYPE_GRAVITY) {}
+	CGravityParticleUpdater::CGravityParticleUpdater(const CVector3F & gravity) : IParticleUpdater(PARTICLE_UPDATER_TYPE_GRAVITY), m_gravity(gravity) {}
 
 	/**
 	* Destructor
@@ -46,10 +46,10 @@ namespace daidalosengine {
 	* @param particles The particles id to initialize
 	*/
 	void CGravityParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetGravityVelocity(particle->GetGravityVelocity() + (this->m_gravity * particle->GetMass() * timeSecond));
 			particle->SetPosition(particle->GetPosition() + (particle->GetGravityVelocity() * timeSecond));
 		}

@@ -68,14 +68,14 @@ namespace daidalosengine {
 	*/
 	class CParticleEmitter : public IClonable {
 	private:
-		bool m_active;
+		bool m_active{};
 		bool m_reusable;
 		bool m_ignoreGravity;
-		int m_textureId;
-		int m_blendMode;
-		float m_life;
-		float m_lifeMax;
-		float m_emissionRate;
+		int m_textureId{};
+		int m_blendMode{};
+		float m_life{};
+		float m_lifeMax{};
+		float m_emissionRate{};
 		float m_pendingTime;
 		CVector3F m_position;
 		CSphereF m_visibilityShape;

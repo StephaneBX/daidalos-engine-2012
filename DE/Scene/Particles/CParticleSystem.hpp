@@ -145,7 +145,7 @@ namespace daidalosengine {
 		* Get the atlas texture name
 		* @return The atlas texture name
 		*/
-		const std::string GetAtlasTextureName() const;
+		std::string GetAtlasTextureName() const;
 
 		/**
 		* Get the atlas texture size
@@ -157,7 +157,7 @@ namespace daidalosengine {
 		* Get a vector containing the templates names
 		* @return The templates names in a vector
 		*/
-		const std::vector<std::string> GetEmittersTemplatesName() const;
+		std::vector<std::string> GetEmittersTemplatesName() const;
 
 		/**
 		* Create a basic particle emitter and return it
@@ -171,7 +171,7 @@ namespace daidalosengine {
 		* @param emitterName The emitter name
 		* @return The emitter
 		*/
-		CParticleEmitter * InstanciateEmitter(const std::string templateName, const std::string emitterName);
+		CParticleEmitter * InstanciateEmitter(const std::string& templateName, const std::string& emitterName);
 
 	private:
 		/**

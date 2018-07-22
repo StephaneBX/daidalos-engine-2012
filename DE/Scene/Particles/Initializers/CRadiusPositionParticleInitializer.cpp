@@ -35,7 +35,7 @@ namespace daidalosengine {
 	* @param outerRadius The outer radius
 	* @param axis The axis
 	*/
-	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis) : m_innerRadius(innerRadius), m_outerRadius(outerRadius), m_axis(axis), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION) {}
+	CRadiusPositionParticleInitializer::CRadiusPositionParticleInitializer(const float innerRadius, const float outerRadius, const CVector3F & axis) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_RADIUS_POSITION), m_innerRadius(innerRadius), m_outerRadius(outerRadius), m_axis(axis) {}
 
 	/**
 	* Destructor
@@ -49,12 +49,12 @@ namespace daidalosengine {
 	*/
 	void CRadiusPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			// Randomized direction
 			CVector3F direction;
-			for (int i = 0; i < 3; ++i) {
+			for (auto i = 0; i < 3; ++i) {
 				if (this->m_axis[i] == 1) {
 					direction[i] = RandomNumber<float>(-1, 1);
 				}

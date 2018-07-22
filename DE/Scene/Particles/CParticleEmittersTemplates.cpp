@@ -46,8 +46,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Release all the templates
-		for(auto it = this->m_particleEmittersTemplates.begin(); it != this->m_particleEmittersTemplates.end(); ++it) {
-			CResourceManager::GetInstance()->ReleaseResource((*it).first);
+		for (auto& particleEmittersTemplate : this->m_particleEmittersTemplates) {
+			CResourceManager::GetInstance()->ReleaseResource(particleEmittersTemplate.first);
 		}
 	}
 
@@ -59,7 +59,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the existence of the resource and load it if necessary
-		IParticleEmittersTemplate * tmp = CResourceManager::GetInstance()->GetResource<IParticleEmittersTemplate>(filename);
+		const auto tmp = CResourceManager::GetInstance()->GetResource<IParticleEmittersTemplate>(filename);
 
 		if(tmp == nullptr) {
 			this->m_particleEmittersTemplates[filename] = CMediaManager::GetInstance()->LoadMediaFromFile<IParticleEmittersTemplate>(filename);
@@ -73,12 +73,12 @@ namespace daidalosengine {
 	* Get a vector containing the templates names
 	* @return The templates names in a vector
 	*/
-	const std::vector<std::string> CParticleEmittersTemplates::GetTemplatesName() const {
+	std::vector<std::string> CParticleEmittersTemplates::GetTemplatesName() const {
 		LOG_TRACE();
 
 		std::vector<std::string> templateNames;
-		for(auto it = this->m_particleEmittersTemplates.begin(); it != this->m_particleEmittersTemplates.end(); ++it) {
-			templateNames.push_back((*it).first);
+		for (const auto& particleEmittersTemplate : this->m_particleEmittersTemplates) {
+			templateNames.push_back(particleEmittersTemplate.first);
 		}
 
 		return templateNames;
@@ -94,13 +94,13 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check for the template
-		IParticleEmittersTemplate * emitterTemplate = this->m_particleEmittersTemplates[templateName];
+		auto emitterTemplate = this->m_particleEmittersTemplates[templateName];
 		if(emitterTemplate != nullptr) {
 			// Check the emitter name
-			CParticleEmitter * emitter = emitterTemplate->GetEmitter(emitterName);
+			auto emitter = emitterTemplate->GetEmitter(emitterName);
 			if(emitterTemplate != nullptr) {
 				// Clone the emitter
-				return (CParticleEmitter*)emitter->Clone();
+				return dynamic_cast<CParticleEmitter*>(emitter->Clone());
 			}
 		}
 		return nullptr;

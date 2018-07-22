@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <utility>
 #include "../../../Scene/Particles/Updaters/CColorParticleUpdater.hpp"
 
 namespace daidalosengine {
@@ -33,7 +34,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param colorChanges The color changes definition
 	*/
-	CColorParticleUpdater::CColorParticleUpdater(const std::vector<SColorParticleChangeUpdater> & colorChanges) : m_colorChanges(colorChanges), IParticleUpdater(PARTICLE_UPDATER_TYPE_COLOR) {}
+	CColorParticleUpdater::CColorParticleUpdater(std::vector<SColorParticleChangeUpdater> colorChanges) : IParticleUpdater(PARTICLE_UPDATER_TYPE_COLOR), m_colorChanges(std::move(colorChanges)) {}
 
 	/**
 	* Destructor
@@ -48,29 +49,29 @@ namespace daidalosengine {
 	*/
 	void CColorParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			SColorParticleChangeUpdater * currentColor = nullptr;
 			SColorParticleChangeUpdater * targetColor = nullptr;
 
 			// Search for the right colors
-			for (auto it = this->m_colorChanges.begin(); it != this->m_colorChanges.end(); ++it) {
+			for (auto& colorChange : this->m_colorChanges) {
 
 				// Current color
-				if ((*it).time <= particle->GetLifeNormalized()) {
-					currentColor = &(*it);
+				if (colorChange.time <= particle->GetLifeNormalized()) {
+					currentColor = &colorChange;
 				}
 
 				// Target color
-				if (targetColor == nullptr && (*it).time > particle->GetLifeNormalized()) {
-					targetColor = &(*it);
+				if (targetColor == nullptr && colorChange.time > particle->GetLifeNormalized()) {
+					targetColor = &colorChange;
 				}
 			}
 
 			// Set the interpolated color
 			if (currentColor != nullptr && targetColor != nullptr) {
-				CVector4F color = currentColor->color + (targetColor->color - currentColor->color) * (particle->GetLifeNormalized() - currentColor->time) / (targetColor->time - currentColor->time);
+				const auto color = currentColor->color + (targetColor->color - currentColor->color) * (particle->GetLifeNormalized() - currentColor->time) / (targetColor->time - currentColor->time);
 				particle->SetColor(CColor(color.x, color.y, color.z, color.w));
 			} else if (currentColor != nullptr) {
 				// Current color

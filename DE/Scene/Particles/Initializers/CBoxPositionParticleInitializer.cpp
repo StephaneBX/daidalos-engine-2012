@@ -34,7 +34,7 @@ namespace daidalosengine {
 	* @param positionMin The min position
 	* @param positionMax The max position
 	*/
-	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(const CVector3F & positionMin, const CVector3F & positionMax) : m_positionMin(positionMin), m_positionMax(positionMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION) {}
+	CBoxPositionParticleInitializer::CBoxPositionParticleInitializer(const CVector3F & positionMin, const CVector3F & positionMax) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_BOX_POSITION), m_positionMin(positionMin), m_positionMax(positionMax) {}
 
 	/**
 	* Destructor
@@ -48,9 +48,9 @@ namespace daidalosengine {
 	*/
 	void CBoxPositionParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
-			CVector3F position = CVector3F(RandomNumber<float>(this->m_positionMin.x, this->m_positionMax.x), RandomNumber<float>(this->m_positionMin.y, this->m_positionMax.y), RandomNumber<float>(this->m_positionMin.z, this->m_positionMax.z));
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
+			const auto position = CVector3F(RandomNumber<float>(this->m_positionMin.x, this->m_positionMax.x), RandomNumber<float>(this->m_positionMin.y, this->m_positionMax.y), RandomNumber<float>(this->m_positionMin.z, this->m_positionMax.z));
 			// Keep the current position that hold the emitter's position
 			particle->SetPosition(particle->GetPosition() + position);
 		}

@@ -46,10 +46,10 @@ namespace daidalosengine {
 	* @param particles The particles id to initialize
 	*/
 	void CRotationParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetRotation(particle->GetRotation() + particle->GetRotationSpeed() * timeSecond);
 		}
 	}

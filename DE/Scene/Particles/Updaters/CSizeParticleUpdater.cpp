@@ -33,7 +33,7 @@ namespace daidalosengine {
 	* Constructor
 	* @param sizeChanges The size changes definbitions
 	*/
-	CSizeParticleUpdater::CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges) : m_sizeChanges(sizeChanges), IParticleUpdater(PARTICLE_UPDATER_TYPE_SIZE) {
+	CSizeParticleUpdater::CSizeParticleUpdater(const std::vector<SSizeParticleChangeUpdater> & sizeChanges) : IParticleUpdater(PARTICLE_UPDATER_TYPE_SIZE), m_sizeChanges(sizeChanges) {
 		this->m_sizeChanges = sizeChanges;
 	}
 
@@ -50,29 +50,29 @@ namespace daidalosengine {
 	*/
 	void CSizeParticleUpdater::Update(const float time, CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for(auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 
 			SSizeParticleChangeUpdater * currentSize = nullptr;
 			SSizeParticleChangeUpdater * targetSize = nullptr;
 
 			// Search for the right sizes
-			for (auto it = this->m_sizeChanges.begin(); it != this->m_sizeChanges.end(); ++it) {
+			for (auto& sizeChange : this->m_sizeChanges) {
 
 				// Current size
-				if ((*it).time <= particle->GetLifeNormalized()) {
-					currentSize = &(*it);
+				if (sizeChange.time <= particle->GetLifeNormalized()) {
+					currentSize = &sizeChange;
 				}
 
 				// Target size
-				if (targetSize == nullptr && (*it).time > particle->GetLifeNormalized()) {
-					targetSize = &(*it);
+				if (targetSize == nullptr && sizeChange.time > particle->GetLifeNormalized()) {
+					targetSize = &sizeChange;
 				}
 			}
 
 			// Set the interpolated size
 			if (currentSize != nullptr && targetSize != nullptr) {
-				float size = currentSize->size + (targetSize->size - currentSize->size) * (particle->GetLifeNormalized() - currentSize->time) / (targetSize->time - currentSize->time);
+				const auto size = currentSize->size + (targetSize->size - currentSize->size) * (particle->GetLifeNormalized() - currentSize->time) / (targetSize->time - currentSize->time);
 				particle->SetSize(size);
 			} else if (currentSize != nullptr) {
 				// Current size

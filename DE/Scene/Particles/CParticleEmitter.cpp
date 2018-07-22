@@ -153,42 +153,42 @@ namespace daidalosengine {
 			this->m_life += time;
 
 			// Update the emitter emission rate
-			for (auto it = this->m_emitterEmissionRatesChange.begin(); it != this->m_emitterEmissionRatesChange.end(); ++it) {
-				if ((*it).time >= (this->m_life - time) && (*it).time < this->m_life) {
+			for (auto& it : this->m_emitterEmissionRatesChange) {
+				if (it.time >= (this->m_life - time) && it.time < this->m_life) {
 
 					// For infinite emitters
-					if (this->m_lifeMax <= 0 && (*it).value == -1) {
+					if (this->m_lifeMax <= 0 && it.value == -1) {
 						this->m_emissionRate = 0;
 						this->m_life = 0;
 
 					} else {
-						this->m_emissionRate = (*it).value;
+						this->m_emissionRate = it.value;
 					}
 				}
 			}
 
 			// New particle emission
 			this->m_pendingTime += time;
-			float msPerParticle = 1000.0F / this->m_emissionRate;
-			int numberOfNewParticles = (int)(this->m_pendingTime / msPerParticle);
+			const auto msPerParticle = 1000.0F / this->m_emissionRate;
+			const auto numberOfNewParticles = static_cast<int>(this->m_pendingTime / msPerParticle);
 
 			// We have new particles to create
 			if(numberOfNewParticles > 0) {
 
 				std::vector<int> newParticlesIndex;
 
-				for(int i = 0; i < numberOfNewParticles; i++) {
+				for(auto i = 0; i < numberOfNewParticles; i++) {
 					// Get a free particle element from the buffer, if possible
-					int newParticleId = buffer.New();
+					auto newParticleId = buffer.New();
 					if(newParticleId > -1) {
 						this->m_particleIndex.push_back(newParticleId);
 						newParticlesIndex.push_back(newParticleId);
 
 						// Set the initial position and the texture id
-						CParticleEntity * entity = buffer.GetAt(newParticleId);
+						auto entity = buffer.GetAt(newParticleId);
 						entity->SetPosition(this->m_position);
 						entity->SetEmitterPosition(this->m_position);
-						entity->SetTextureId((float)this->m_textureId);
+						entity->SetTextureId(static_cast<float>(this->m_textureId));
 					}
 				}
 
@@ -199,37 +199,37 @@ namespace daidalosengine {
 				}
 
 				// Call the initializers for each new particle
-				for(auto it = this->m_initializers.begin(); it != this->m_initializers.end(); it++) {
-					(*it)->Initialize(buffer, newParticlesIndex);
+				for (auto& initializer : this->m_initializers) {
+					initializer->Initialize(buffer, newParticlesIndex);
 				}
 			}
 		}
 
 		// Update the particles
-		if(this->m_particleIndex.size() > 0) {
-			for(auto it = this->m_updaters.begin(); it != this->m_updaters.end(); it++) {
-				(*it)->Update(time, buffer, this->m_particleIndex);
+		if(!this->m_particleIndex.empty()) {
+			for (auto& updater : this->m_updaters) {
+				updater->Update(time, buffer, this->m_particleIndex);
 			}
 		}
 
 		// Remove dead particles
 		for(auto it = this->m_particleIndex.begin(); it != this->m_particleIndex.end();) {
-			CParticleEntity & entity = buffer.GetReferenceAt(*it);
+			auto& entity = buffer.GetReferenceAt(*it);
 
 			// If its life is expired, remove it
 			if(entity.GetLifeNormalized() >= 1.0F) {
 				buffer.Delete(*it);
 				it = this->m_particleIndex.erase(it);
 			} else {
-				it++;
+				++it;
 			}
 		}
 
 		// Update the visibility shape
 		this->m_visibilityShape.SetPosition(this->m_position);
 		float maxRadius = 0;
-		for(auto it = this->m_particleIndex.begin(); it != this->m_particleIndex.end(); it++) {
-			CParticleEntity & entity = buffer.GetReferenceAt(*it);
+		for (auto& it : this->m_particleIndex) {
+			auto& entity = buffer.GetReferenceAt(it);
 			maxRadius = std::max(maxRadius, (entity.GetPosition() - this->m_position).Length());
 		}
 		this->m_visibilityShape.SetRadius(maxRadius);
@@ -336,7 +336,7 @@ namespace daidalosengine {
 	* @return The cloned class
 	*/
 	IClonable * CParticleEmitter::Clone() {
-		CParticleEmitter * emitter = new CParticleEmitter();
+		auto emitter = new CParticleEmitter();
 		emitter->SetActive(this->m_active);
 		emitter->SetReusable(this->m_reusable);
 		emitter->SetTextureId(this->m_textureId);
@@ -348,18 +348,18 @@ namespace daidalosengine {
 		emitter->SetPosition(this->m_position);
 
 		// Clone the emission rates
-		for (auto it = this->m_emitterEmissionRatesChange.begin(); it != this->m_emitterEmissionRatesChange.end(); ++it) {
-			emitter->AddEmissionRateChange(*it);
+		for (auto& it : this->m_emitterEmissionRatesChange) {
+			emitter->AddEmissionRateChange(it);
 		}
 
 		// Clone the initializers
-		for (auto it = this->m_initializers.begin(); it != this->m_initializers.end(); ++it) {
-			emitter->AddInitializer((IParticleInitializer*)(*it)->Clone());
+		for (auto& initializer : this->m_initializers) {
+			emitter->AddInitializer(dynamic_cast<IParticleInitializer*>(initializer->Clone()));
 		}
 
 		// Clone the updaters
-		for (auto it = this->m_updaters.begin(); it != this->m_updaters.end(); ++it) {
-			emitter->AddUpdater((IParticleUpdater*)(*it)->Clone());
+		for (auto& updater : this->m_updaters) {
+			emitter->AddUpdater(dynamic_cast<IParticleUpdater*>(updater->Clone()));
 		}
 
 		return emitter;

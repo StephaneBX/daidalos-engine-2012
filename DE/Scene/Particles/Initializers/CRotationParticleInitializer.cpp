@@ -34,7 +34,7 @@ namespace daidalosengine {
 	* @param rotationMin The rotation min
 	* @param rotationMax The rotation max
 	*/
-	CRotationParticleInitializer::CRotationParticleInitializer(float rotationMin, float rotationMax) : m_rotationMin(rotationMin), m_rotationMax(rotationMax), IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION) {}
+	CRotationParticleInitializer::CRotationParticleInitializer(const float rotationMin, const float rotationMax) : IParticleInitializer(PARTICLE_INITIALIZER_TYPE_MINMAX_ROTATION), m_rotationMin(rotationMin), m_rotationMax(rotationMax) {}
 
 	/**
 	* Destructor
@@ -48,8 +48,8 @@ namespace daidalosengine {
 	*/
 	void CRotationParticleInitializer::Initialize(CMemoryAllocator<CParticleEntity> & buffer, const std::vector<int> & particles) {
 
-		for (auto it = particles.begin(); it != particles.end(); it++) {
-			CParticleEntity * particle = buffer.GetAt(*it);
+		for (auto it : particles) {
+			auto particle = buffer.GetAt(it);
 			particle->SetRotationSpeed(RandomNumber<float>(this->m_rotationMin, this->m_rotationMax));
 		}
 	}

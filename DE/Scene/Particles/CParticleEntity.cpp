@@ -197,7 +197,7 @@ namespace daidalosengine {
 	* @return The normalized life value
 	*/
 	float CParticleEntity::GetLifeNormalized() const {
-		float value = GetLife() / GetLifeMax();
+		auto value = GetLife() / GetLifeMax();
 		if(value > 1.0F) {
 			value = 1.0F;
 		}

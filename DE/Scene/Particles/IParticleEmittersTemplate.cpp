@@ -25,6 +25,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 ==============================================================================================================================================================
 */
 
+#include <utility>
 #include "../../Scene/Particles/IParticleEmittersTemplate.hpp"
 
 namespace daidalosengine {
@@ -34,14 +35,14 @@ namespace daidalosengine {
 	* @param name The ressource name
 	* @param emitters The emitters
 	*/
-	IParticleEmittersTemplate::IParticleEmittersTemplate(std::string name, const std::map<std::string, CParticleEmitter *> emitters) : m_emitters(emitters), IResource(name) {}
+	IParticleEmittersTemplate::IParticleEmittersTemplate(const std::string& name, std::map<std::string, CParticleEmitter *> emitters) : IResource(name), m_emitters(std::move(emitters)) {}
 
 	/**
 	* Destructor
 	*/
 	IParticleEmittersTemplate::~IParticleEmittersTemplate() {
-		for(auto it = this->m_emitters.begin(); it != this->m_emitters.end(); ++it) {
-			delete (*it).second;
+		for (auto& emitter : this->m_emitters) {
+			delete emitter.second;
 		}
 	}
 
@@ -52,7 +53,7 @@ namespace daidalosengine {
 	*/
 	CParticleEmitter * IParticleEmittersTemplate::GetEmitter(const std::string & name) {
 
-		CParticleEmitter * emitter = this->m_emitters[name];
+		const auto emitter = this->m_emitters[name];
 		if(emitter != nullptr) {
 			return (emitter);
 		}

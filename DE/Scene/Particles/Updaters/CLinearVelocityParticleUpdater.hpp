@@ -55,7 +55,7 @@ namespace daidalosengine {
 		* @param linearVelocityChanges The linear velocity changes definition
 		* @param damping The damping factor
 		*/
-		CLinearVelocityParticleUpdater(const std::vector<SLinearVelocityParticleChangeUpdater> & linearVelocityChanges, const float damping);
+		CLinearVelocityParticleUpdater(std::vector<SLinearVelocityParticleChangeUpdater> linearVelocityChanges, const float damping);
 
 		/**
 		* Destructor
