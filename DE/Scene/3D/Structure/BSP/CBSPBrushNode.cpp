@@ -37,16 +37,19 @@ namespace daidalosengine {
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
 
-		if(this->m_type != BSP_NODE_TYPE_NODE)
+		if (this->m_type != BSP_NODE_TYPE_NODE) {
 			return;
+		}
 
 		this->m_plane = root->GetPlane();
 
-		if(root->GetChild(BSP_NODE_CHILD_FRONT) != nullptr)
+		if (root->GetChild(BSP_NODE_CHILD_FRONT) != nullptr) {
 			this->m_children[BSP_NODE_CHILD_FRONT] = new CBSPBrushNode(root->GetChild(BSP_NODE_CHILD_FRONT));
+		}
 
-		if(root->GetChild(BSP_NODE_CHILD_BACK) != nullptr)
+		if (root->GetChild(BSP_NODE_CHILD_BACK) != nullptr) {
 			this->m_children[BSP_NODE_CHILD_BACK] = new CBSPBrushNode(root->GetChild(BSP_NODE_CHILD_BACK));
+		}
 	}
 
 	CBSPBrushNode::~CBSPBrushNode() {
@@ -59,11 +62,12 @@ namespace daidalosengine {
 	void CBSPBrushNode::AddBrush(SBSPBrush * brush, const std::vector<CBSPTriangle*> & triangles) {
 		LOG_TRACE();
 
-		if(this->m_type != BSP_NODE_TYPE_NODE)
+		if (this->m_type != BSP_NODE_TYPE_NODE) {
 			return;
+		}
 
-		bool front = false;
-		bool back = false;
+		auto front = false;
+		auto back = false;
 		bool coplanar;
 
 		for(auto &it : triangles) {
@@ -109,8 +113,8 @@ namespace daidalosengine {
 			return;
 
 		// Get the distances
-		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
-		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+		const auto d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		const auto d2 = this->m_plane.PointDistance(impact.GetEndPoint());
 
 		// Front check
 		if(d1 > 0 && d2 > 0) {
@@ -128,9 +132,9 @@ namespace daidalosengine {
 
 		// Cross check
 		if(d1 > 0 && d2 <= 0) {
-			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
-				if(this->m_brushes[i]->enabled) {
-					this->m_brushes[i]->root->CollisionDetection(position, impact, iBrush);
+			for (auto& brushe : this->m_brushes) {
+				if(brushe->enabled) {
+					brushe->root->CollisionDetection(position, impact, iBrush);
 				}
 			}
 		}
@@ -147,11 +151,11 @@ namespace daidalosengine {
 			return;
 
 		// Get the distances
-		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
-		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+		const auto d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		const auto d2 = this->m_plane.PointDistance(impact.GetEndPoint());
 
 		// Get the offset
-		float offset = shape.GetInnerDepth(this->m_plane);
+		const auto offset = shape.GetInnerDepth(this->m_plane);
 
 		// Front check
 		if(d1 > offset && d2 > offset) {
@@ -161,7 +165,7 @@ namespace daidalosengine {
 		}
 
 		this->m_plane.Inverse();
-		float offset2 = shape.GetInnerDepth(this->m_plane);
+		const auto offset2 = shape.GetInnerDepth(this->m_plane);
 		this->m_plane.Inverse();
 
 		// Back check
@@ -173,9 +177,9 @@ namespace daidalosengine {
 
 		// Cross check
 		if(d1 > offset && d2 <= offset2) {
-			for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
-				if(this->m_brushes[i]->enabled) {
-					this->m_brushes[i]->root->CollisionDetection(shape, impact, iBrush);
+			for (auto& brushe : this->m_brushes) {
+				if(brushe->enabled) {
+					brushe->root->CollisionDetection(shape, impact, iBrush);
 				}
 			}
 		}

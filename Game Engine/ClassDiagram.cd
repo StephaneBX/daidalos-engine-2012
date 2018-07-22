@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="daidalosgameengine::IDeferredApplication" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQxIDCIBKgIAQQIq4EAAAMkEFAAIAIAACjRAQVAQkjA=</HashCode>
+      <FileName>IDeferredApplication.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::IForwardApplication" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQVKBCIBqkAAQYIIYkAyBAAFFAAIAIAAAHRUAFAQghI=</HashCode>
+      <FileName>IForwardApplication.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::IPlayer" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQBAAACAAABAAAAAgAAAAAAAAAQCggIAAEQAAIAAAA=</HashCode>
+      <FileName>IPlayer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CLoadingView" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABgAAAQAEAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>2D\CLoadingView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ICollidableEntity" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACASCCQAAAAKAAAAAAAEAIEgAAgAKBAAAAAAFQAA=</HashCode>
+      <FileName>3D\ICollidableEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ILevel" Collapsed="true">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AATAEAMAAABAERAJAAVEAAAECAAAgAACGAiBABAAAAA=</HashCode>
+      <FileName>Level\ILevel.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::IEntity" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAKAAACAAIoAIAAAEAAQAoBAgCIAUYwCAAgiYAAIA=</HashCode>
+      <FileName>3D\IEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::IEnemyEntity" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAQAAAAAAACBEEEAAEQAAAAAAgIgAAAAgAACAAA=</HashCode>
+      <FileName>3D\Enemy\IEnemyEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::IEnemyState" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiQgIEAAAgBArhAAAgBgAEAAAAQAIAAAACCABQAAKAA=</HashCode>
+      <FileName>3D\Enemy\IEnemyState.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CAreaTriggerEntity" Collapsed="true">
+    <Position X="12.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAIAAIAAAgAAAAAAgAAQA=</HashCode>
+      <FileName>3D\Trigger\CAreaTriggerEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CCinematicEntity" Collapsed="true">
+    <Position X="17" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAAAAAAAAAAAEBAAAAIAAAgAAAAAAgAAQA=</HashCode>
+      <FileName>3D\Trigger\CCinematicEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CDoorEntity" Collapsed="true">
+    <Position X="8" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAACAAABAAAAAAAAAAAAAAAIAIAgAAAAASggAQQ=</HashCode>
+      <FileName>3D\Trigger\CDoorEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CLadderEntity" Collapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAEAAAAAAAAAAAAIAAAgAAAAAAgAAAA=</HashCode>
+      <FileName>3D\Trigger\CLadderEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CSwitchEntity" Collapsed="true">
+    <Position X="14.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAABAAAAAgAAgAACAAAIAAAgAAAAAAgABQA=</HashCode>
+      <FileName>3D\Trigger\CSwitchEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ITriggerEntity" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIQAAAABAAAAAAgAAAAiAAAAAoAAEAAGAAAAgAAAA=</HashCode>
+      <FileName>3D\Trigger\ITriggerEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CCinematicCamera" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IASgACCCYCgAACAAAAAAAAAAAAABCAAgIAAAAAIAAIA=</HashCode>
+      <FileName>Event\CCinematicCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CCinematicEvent" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQgACIAICBAAIAAAAAAAAAAAAAhIAAAIAAAAAAAEAA=</HashCode>
+      <FileName>Event\CCinematicEvent.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ICinematicEvent" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Event\ICinematicEvent.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ICinematicEventListener" Collapsed="true">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAABAAAAAAAAAAAAAAACAAgAAAAAAAA=</HashCode>
+      <FileName>Event\ICinematicEventListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::ILevelListener" Collapsed="true">
+    <Position X="1.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAABEAAAAAAA=</HashCode>
+      <FileName>Level\ILevelListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosgameengine::CCinematicEventLoader" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAEAA=</HashCode>
+      <FileName>Loaders\CCinematicEventLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="daidalosgameengine::STest" Collapsed="true">
+    <Position X="21.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDeferredApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosgameengine::SScreenQuadVertexLight" Collapsed="true">
+    <Position X="19.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDeferredApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosgameengine::SLightVertexGeometry" Collapsed="true">
+    <Position X="23" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDeferredApplication.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosgameengine::SCinematicCameraStep" Collapsed="true">
+    <Position X="19.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAIAgAAAQAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Event\CCinematicCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosgameengine::SCinematicEventInternalData" Collapsed="true">
+    <Position X="21.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Event\ICinematicEvent.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="daidalosgameengine::EEntityFlag" Collapsed="true">
+    <Position X="21.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAQAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::EEntityType" Collapsed="true">
+    <Position X="23" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAIAAIgCgACAAAQAYCAAABACCAAAAEAAAAAgA=</HashCode>
+      <FileName>Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::ETriggeredResult" Collapsed="true">
+    <Position X="19.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::EDoorState" Collapsed="true">
+    <Position X="19.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAAACAAAAIAAA=</HashCode>
+      <FileName>3D\Trigger\CDoorEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::ESwitchState" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAEAAAAAAAAAAAAAACBAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>3D\Trigger\CSwitchEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::ETransitionType" Collapsed="true">
+    <Position X="23" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Event\CCinematicCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosgameengine::EFadeType" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEEAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Event\CCinematicCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

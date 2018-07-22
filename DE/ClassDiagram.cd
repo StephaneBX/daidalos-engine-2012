@@ -1,0 +1,2083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="daidalosengine::CConfigurationManager" Collapsed="true">
+    <Position X="4.25" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAIgAAgCAAAAAA=</HashCode>
+      <FileName>Core\CConfigurationManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSingletonManager&lt;T&gt;" Collapsed="true">
+    <Position X="11.25" Y="11.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAkAAAAAAAgAAgAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CSingletonManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSoundContextManager" Collapsed="true">
+    <Position X="7.75" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAACACAAAAQAIAAgAAAAAAI=</HashCode>
+      <FileName>Core\CSoundContextManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IApplication" Collapsed="true">
+    <Position X="15.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQQAAECBAAAgAEABAEAAgABwBAABBIGAQJBgCUEEBAA=</HashCode>
+      <FileName>Core\IApplication.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IClonable" Collapsed="true">
+    <Position X="33.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Core\IClonable.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IDeclaration" Collapsed="true">
+    <Position X="16.5" Y="21.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CInputDevice" Collapsed="true">
+    <Position X="11.25" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>RAAAAABmAABUgAAEgAAoEBAhAA4BCAAAAUBwQAgwAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ILoader&lt;T&gt;" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Core\ILoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLoaderExtensions&lt;T&gt;" Collapsed="true">
+    <Position X="64.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CLoaderExtensions.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMediaManager" Collapsed="true">
+    <Position X="14.25" Y="12.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAACIAAAAIAAAAAEAAAASAAAAAAggAAAAAAA=</HashCode>
+      <FileName>Core\CMediaManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IRenderer" Collapsed="true">
+    <Position X="3.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABCR0elBCGCLINIggpEggAAIAHAZBCFNZ6YgSAhYIAM=</HashCode>
+      <FileName>Core\IRenderer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IResource" Collapsed="true">
+    <Position X="35.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAABAEAAAAAAAQAACAAAIAAAAgQBAAFAA=</HashCode>
+      <FileName>Core\IResource.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CResourceManager" Collapsed="true">
+    <Position X="17.5" Y="12.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAQAAAAAAABAAgCASAAAA=</HashCode>
+      <FileName>Core\CResourceManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CException" Collapsed="true">
+    <Position X="8.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAACAQAAIAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CException.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CExceptionAssert" Collapsed="true">
+    <Position X="6.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionAssert.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CExceptionDelete" Collapsed="true">
+    <Position X="8.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionDelete.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CExceptionLoad" Collapsed="true">
+    <Position X="10.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionLoad.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CExceptionSave" Collapsed="true">
+    <Position X="13" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Memory\CExceptionSave.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMemoryAllocator&lt;T&gt;" Collapsed="true">
+    <Position X="70" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCQABAAEAAAAACCgAIAAAAAABAOBAAAAAAAAAAYAAAQ=</HashCode>
+      <FileName>Core\Memory\CMemoryAllocator.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLoggerFile" Collapsed="true">
+    <Position X="27" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAABAAAAAAAIAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\CLoggerFile.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLoggerMsgBox" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\CLoggerMsgBox.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ILogger" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAEAAAAAAAACAAABAAAgAgAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Core\Logger\ILogger.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CArraySorter&lt;T&gt;" Collapsed="true">
+    <Position X="68.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABEAgEBAAAAAgAAAAAAAEgFAAAAAEAAAAAAAAg=</HashCode>
+      <FileName>Core\Utility\CArraySorter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CColor" Collapsed="true">
+    <Position X="63" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARCYgAEAACAAEgAcAAAAAQACAAAAAABACAAgAAwAACI=</HashCode>
+      <FileName>Core\Utility\CColor.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFile" Collapsed="true">
+    <Position X="66.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAEAAAAABACAAAAAAAAAAAABAAQAAAAAQAA=</HashCode>
+      <FileName>Core\Utility\CFile.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFPSCounter" Collapsed="true">
+    <Position X="70" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACCAAQEADQAIAAAACAAAAAAAAAAAABIAAACAAAA=</HashCode>
+      <FileName>Core\Utility\CFPSCounter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CImage" Collapsed="true">
+    <Position X="75.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQBAAEQAAAACAAMAAAAFAggAACAAAAAAAAEIAAAA=</HashCode>
+      <FileName>Core\Utility\CImage.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CInset&lt;T&gt;" Collapsed="true">
+    <Position X="30" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAAAAAIAAiAAIgAAQAEQBAAAAAAAgAAAAgAI=</HashCode>
+      <FileName>Core\Utility\CInset.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMatrix" Collapsed="true">
+    <Position X="68.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAgARAACAggAAECYIIWQAAAAEBCiQIEIiIggAAAI=</HashCode>
+      <FileName>Core\Utility\CMatrix.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CQuaternion" Collapsed="true">
+    <Position X="64.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKQgIAAAAAAAAAEAIAAUBAAAhAAAABgAhgAQAAAAA=</HashCode>
+      <FileName>Core\Utility\CQuaternion.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CRectangle&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="26.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAICAAACMgQRQAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CTimer" Collapsed="true">
+    <Position X="66.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIAAAACAAAAABABAAAACAAAEAAAAAAAIAAgAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CTimer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CTokenizer" Collapsed="true">
+    <Position X="68.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAiAAQQAAAAAIAgAAAAIAAQAAAAAAEAAAAAAAABAABA=</HashCode>
+      <FileName>Core\Utility\CTokenizer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CVector2&lt;T&gt;" Collapsed="true">
+    <Position X="19" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQEIAAAAAAAAEEAAAAQBAAAAAAABACABgAEAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CVector3&lt;T&gt;" Collapsed="true">
+    <Position X="15" Y="25.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQEIAABAAAAAEMAAAAQBAAAAAAABACABgAcAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CVector4&lt;T&gt;" Collapsed="true">
+    <Position X="26" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEIAAAAAAAAEEAAAAQBAAAAAAAAACAxgAQAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IInputGamepadListener" Collapsed="true">
+    <Position X="73.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputGamepadListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IInputKeyboardListener" Collapsed="true">
+    <Position X="75.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAEAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputKeyboardListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IInputMouseListener" Collapsed="true">
+    <Position X="63" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAgEAAAAAA=</HashCode>
+      <FileName>Core\Listeners\IInputMouseListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CTaskFuture&lt;T&gt;" Collapsed="true">
+    <Position X="73.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAABAQAAAAAAAAAAAAAAAAAAgIAAAAAA=</HashCode>
+      <FileName>Core\Thread\CTaskFuture.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CThreadPool" Collapsed="true">
+    <Position X="63" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAIAIAAAAAAAAACAAAAABAAAAAAAAgAQgAAAE=</HashCode>
+      <FileName>Core\Thread\CThreadPool.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CThreadSafeQueue&lt;T&gt;" Collapsed="true">
+    <Position X="64.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gABAAAAEAAAAIAAAAAgAAIAAAAhAAAAAAAgAAABICAA=</HashCode>
+      <FileName>Core\Thread\CThreadSafeQueue.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CThreadTask&lt;Func&gt;" Collapsed="true">
+    <Position X="3.5" Y="23.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Core\Thread\CThreadTask.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IThreadTask" Collapsed="true">
+    <Position X="3.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAEAAAABAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Core\Thread\IThreadTask.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFontLoader" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CFontLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CImagesLoader" Collapsed="true">
+    <Position X="28" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgABAABAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CImagesLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMaterialsLoader" Collapsed="true">
+    <Position X="30.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Loaders\CMaterialsLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMD2Loader" Collapsed="true">
+    <Position X="32.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAACAAAAAAAAAAAAAIAIAAAAIQBAEAA=</HashCode>
+      <FileName>Loaders\CMD2Loader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMS3DLoader" Collapsed="true">
+    <Position X="5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAgAAAAAAAAAAAAAAIEAAASAAAAwAACMAAAAIAAAEAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::COBJLoader" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAEAAAAAIAEAAIAAAEAA=</HashCode>
+      <FileName>Loaders\COBJLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleEmittersTemplateLoader" Collapsed="true">
+    <Position X="10" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAACAAAAABAAAECAAACIAAAAAAAAAAAAIAAAEgA=</HashCode>
+      <FileName>Loaders\CParticleEmittersTemplateLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSceneLoader" Collapsed="true">
+    <Position X="13.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIqEWQEgAAACw0AJIAAhBAAIABAEBAEIQQAAOAQUEwA=</HashCode>
+      <FileName>Loaders\CSceneLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CStaticSoundLoader" Collapsed="true">
+    <Position X="15.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAIAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CStaticSoundLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CStreamSoundLoader" Collapsed="true">
+    <Position X="18" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Loaders\CStreamSoundLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IXmlLoader&lt;T&gt;" Collapsed="true">
+    <Position X="23" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Loaders\IXmlLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CAnimatedMesh" Collapsed="true">
+    <Position X="66.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAEQAAAAAAAAAAAAgAIAA8AA=</HashCode>
+      <FileName>Medias\CAnimatedMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBuffer" Collapsed="true">
+    <Position X="75.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAQAAAAAAACAAAAAAAAAAAAACAAAAAIAABAAAAA=</HashCode>
+      <FileName>Medias\CBuffer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFont" Collapsed="true">
+    <Position X="68.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIACIAAAAACAABBAACAIAAggAAAAEAAgAAAAEAA=</HashCode>
+      <FileName>Medias\CFont.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFrameBuffer" Collapsed="true">
+    <Position X="71.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAgAAAAIBAgAAAGAABAAAAASAAQAAAAAAAAAAAQA=</HashCode>
+      <FileName>Medias\CFrameBuffer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMaterial" Collapsed="true">
+    <Position X="66.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgABEAAAAAAAAAAAACAAAAAAAAAAAAAAAAgAAAAEAA=</HashCode>
+      <FileName>Medias\CMaterial.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMD2Mesh" Collapsed="true">
+    <Position X="40.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgBAAAAAAAAAAAAAAAAAAAAAAAIAAAgAAAAwAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMS3DMesh" Collapsed="true">
+    <Position X="42.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAICAAgAAAAwAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::COBJMesh" Collapsed="true">
+    <Position X="38" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAIAAAgAAAAgAA=</HashCode>
+      <FileName>Medias\COBJMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CShaderProgram" Collapsed="true">
+    <Position X="66.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAJAAAACAABAAAAEAA=</HashCode>
+      <FileName>Medias\CShaderProgram.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSound" Collapsed="true">
+    <Position X="70" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAwDKCQEAAAAxIAAAIAAAAAEQhAQggEAEAAgAQAAFDE=</HashCode>
+      <FileName>Medias\CSound.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CStaticMesh" Collapsed="true">
+    <Position X="71.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAQBAAAAAAAAAEAAAAAAAAAAAAAgAAAAkAA=</HashCode>
+      <FileName>Medias\CStaticMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CTexture2D" Collapsed="true">
+    <Position X="75.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAgQAiAIAAAgCAAAAAAUAwAgAAAAAAAAAgAAAAAAE=</HashCode>
+      <FileName>Medias\CTexture2D.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IAnimatedMeshBase" Collapsed="true">
+    <Position X="41.25" Y="13" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAAAAQAAAAgAAAAAAEQAAAAAAAAAAAAgAAAAwAA=</HashCode>
+      <FileName>Medias\IAnimatedMeshBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IBufferBase" Collapsed="true">
+    <Position X="35.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAAAAAACAACAAAAAAAAAAAAAAAAAAACgAAIAAAA=</HashCode>
+      <FileName>Medias\IBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IFontBase" Collapsed="true">
+    <Position X="23.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIACAAAAAACAABBAIAAIgAAgAAAIAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IFontBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IFrameBufferBase" Collapsed="true">
+    <Position X="28.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABCAACAgABAgAQAGIABAAIAAAAggAAKAAgAAAIAQI=</HashCode>
+      <FileName>Medias\IFrameBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IMaterialBase" Collapsed="true">
+    <Position X="30.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAgAAAAAAAAAAgAAAIAAI=</HashCode>
+      <FileName>Medias\IMaterialBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IMeshBase" Collapsed="true">
+    <Position X="40.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQMAAAAAgAQBgAAAGIoAAAAAAAABAAAgBECIhgA=</HashCode>
+      <FileName>Medias\IMeshBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IRenderTargetBase" Collapsed="true">
+    <Position X="43.75" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAACgAQAAAAA=</HashCode>
+      <FileName>Medias\IRenderTargetBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IShaderBase" Collapsed="true">
+    <Position X="54.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IShaderBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IShaderProgramBase" Collapsed="true">
+    <Position X="47" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAABAAAAAAAAAAAACBAAABBACgAAIBAAA=</HashCode>
+      <FileName>Medias\IShaderProgramBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ISoundBase" Collapsed="true">
+    <Position X="50.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gARBCiQEBACgwIAAAMgAAAIEQhAAAgEAEAAgAQQAALE=</HashCode>
+      <FileName>Medias\ISoundBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IStaticSoundBase" Collapsed="true">
+    <Position X="49.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAABAAAAAAAAAAAAAAAAAQAAAAgAAAAAAA=</HashCode>
+      <FileName>Medias\IStaticSoundBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IStreamSoundBase" Collapsed="true">
+    <Position X="51.75" Y="13" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gASAAAQAAAIAAIAAAAAQAACAQBAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>Medias\IStreamSoundBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ITexture2DBase" Collapsed="true">
+    <Position X="26" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAACAAGAAACAwAgAAAADAAAAgAEIRAAA=</HashCode>
+      <FileName>Medias\ITexture2DBase.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Buffer&lt;T&gt;" Collapsed="true">
+    <Position X="35.75" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQQAAQAAAAAAEAAAAAAAAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Declaration" Collapsed="true">
+    <Position X="16.5" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAEAAAAAAAAAAAAgAEEAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Declaration.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Enums" Collapsed="true">
+    <Position X="64.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAhABAAAAQmBgABgAAAAAAQABAIAAAAEA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Exception" Collapsed="true">
+    <Position X="4" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Exception.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9FrameBuffer" Collapsed="true">
+    <Position X="28.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAgEAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9FrameBuffer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9PixelShader" Collapsed="true">
+    <Position X="53.25" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAACAAAABAAAgAAAAAAg=</HashCode>
+      <FileName>Renderers\DX9\CDX9PixelShader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9PixelShadersLoader" Collapsed="true">
+    <Position X="25.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACAAEAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9PixelShadersLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Renderer" Collapsed="true">
+    <Position X="3.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gBCD8elAACALAYAgAJkAAAUAAHAQAAgMRiYgSAhAAAE=</HashCode>
+      <FileName>Renderers\DX9\CDX9Renderer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9RenderTarget" Collapsed="true">
+    <Position X="43.75" Y="13" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAABAAACIAAgAAAAACA=</HashCode>
+      <FileName>Renderers\DX9\CDX9RenderTarget.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Shader" Collapsed="true">
+    <Position X="54.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAEAAAAABAAAEQAIgAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Shader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9Texture2D" Collapsed="true">
+    <Position X="26" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAGAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Texture2D.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9VertexShader" Collapsed="true">
+    <Position X="55.5" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAABBAAAAAAAAAAAAAAAAAAAAAgAAABAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9VertexShader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDX9VertexShadersLoader" Collapsed="true">
+    <Position X="35.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAEAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9VertexShadersLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::C2DScene" Collapsed="true">
+    <Position X="63" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEAAAIAAAAAAAAAAAAAAAAAACgABEgAAAQAQA=</HashCode>
+      <FileName>Scene\2D\C2DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CButton" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQICQAACABAIQAAACUAAAAFQABhABAhQBIAAAAABOE=</HashCode>
+      <FileName>Scene\2D\CButton.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CCheckbox" Collapsed="true">
+    <Position X="21.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAASAAACFgAQAkAQEAACAASAAhAAggQjAIAAAAAMY=</HashCode>
+      <FileName>Scene\2D\CCheckbox.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CCursor" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAASAAAAAAAAAAACACAAAAABACAAAAAAA=</HashCode>
+      <FileName>Scene\2D\CCursor.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLabel" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCACAAICAAByCYAIAIABCAAAABAAKAABgACAoAAAA=</HashCode>
+      <FileName>Scene\2D\CLabel.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSelectionList" Collapsed="true">
+    <Position X="12.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AA6AAAABAARIoUAgAAUAAAAAAAABAAgAgBQAAAAAAKA=</HashCode>
+      <FileName>Scene\2D\CSelectionList.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSprite" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAACAAQIAACCAAAAAACAAAAgAABAQAIEAAAA=</HashCode>
+      <FileName>Scene\2D\CSprite.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CScrollableContentView" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAIABAAQAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Scene\2D\CScrollableView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CScrollableView" Collapsed="true">
+    <Position X="17.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAogAQBAAQAAEBUAAAQAJAABAAgCAABAAAAQAIA=</HashCode>
+      <FileName>Scene\2D\CScrollableView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IView" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIxBMAaBACBIESAgEJAEMEByAQABJgACCFAiAQQMQBA=</HashCode>
+      <FileName>Scene\2D\IView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IButtonListener" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Scene\2D\Listeners\IButtonListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ICheckboxListener" Collapsed="true">
+    <Position X="71.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Scene\2D\Listeners\ICheckboxListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ISelectionListListener" Collapsed="true">
+    <Position X="64.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Scene\2D\Listeners\ISelectionListListener.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::C3DScene" Collapsed="true">
+    <Position X="64.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAKABFgAAQAAAARAQBRwKGAAMEAIgAiACzAgAAAAVAg=</HashCode>
+      <FileName>Scene\3D\C3DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CAABoundingBox&lt;T&gt;" Collapsed="true">
+    <Position X="22.75" Y="10" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ARAAACACAAgAIAAAAAAICAAAAAAEAgAAAAAAABIAAAA=</HashCode>
+      <FileName>Scene\3D\CAABoundingBox.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CAnimatedMeshSceneNode" Collapsed="true">
+    <Position X="27.25" Y="21.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAAAIAAEAEAAAAEAMAAABCAAQAAAgKACQEI4wA=</HashCode>
+      <FileName>Scene\3D\CAnimatedMeshSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDirectionalLightSceneNode" Collapsed="true">
+    <Position X="24.25" Y="21.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IIQAAAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CDirectionalLightSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CEllipse&lt;T&gt;" Collapsed="true">
+    <Position X="25.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAKAIBA=</HashCode>
+      <FileName>Scene\3D\CEllipse.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CEmptySceneNode" Collapsed="true">
+    <Position X="35.5" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CEmptySceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CFrustum" Collapsed="true">
+    <Position X="73.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAACwCCEAFAAEABgIIAAIEgBACAgIAIAAAIAAhQA=</HashCode>
+      <FileName>Scene\3D\CFrustum.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CImpact" Collapsed="true">
+    <Position X="63" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAEBBAAABEAQAAAAAAEQAAAEAAAAGAAAAARAAAgAg=</HashCode>
+      <FileName>Scene\3D\CImpact.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::I3DScene" Collapsed="true">
+    <Position X="70" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>lIIAjFgAAwAAAARAQBRwKGQAkkQIoaAAUzApIAAAVCg=</HashCode>
+      <FileName>Scene\3D\I3DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMeshBuffer" Collapsed="true">
+    <Position X="71.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAKAAgAAEAAAAAAAAEAAAQQQBAAAAAAAAACAAIAAEAg=</HashCode>
+      <FileName>Scene\3D\CMeshBuffer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::COrthographicCameraSceneNode" Collapsed="true">
+    <Position X="5" Y="21.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAgAAAgAAAAAAAEQAAAAAAgAAAACAAAAAAA=</HashCode>
+      <FileName>Scene\3D\COrthographicCameraSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleEmitterSceneNode" Collapsed="true">
+    <Position X="16" Y="19.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QCUUAEAAAAAAAABAQAAAAAABAIAAAAAAAAABAIAAAAA=</HashCode>
+      <FileName>Scene\3D\CParticleEmitterSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CPlane3D&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="24.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgBAAAAAAAIBAQAAAAIAgEABIAAgAEAAAAA=</HashCode>
+      <FileName>Scene\3D\CPlane3D.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CPointLightSceneNode" Collapsed="true">
+    <Position X="19" Y="22.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkA=</HashCode>
+      <FileName>Scene\3D\CPointLightSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CProjectionCameraSceneNode" Collapsed="true">
+    <Position X="8.25" Y="21.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAQEAAAAAAACMAAAABAAAAACAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CProjectionCameraSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSkybox" Collapsed="true">
+    <Position X="68.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAQQQAAAEEAAAEAAAAAAAIAAAAAAAAhCAQAAAAAg=</HashCode>
+      <FileName>Scene\3D\CSkybox.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSoundSceneNode" Collapsed="true">
+    <Position X="33" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAgAAAIAAAACAFAAAA4UAQSgAEBWAAAIAQCCBEA=</HashCode>
+      <FileName>Scene\3D\CSoundSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSphere&lt;T&gt;" Collapsed="true">
+    <Position X="20.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAAAFAAAKAAAA=</HashCode>
+      <FileName>Scene\3D\CSphere.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSpotLightSceneNode" Collapsed="true">
+    <Position X="21.75" Y="22.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAAAAAAIAICEAAAAAAAAAAAAAAgAAAACAAiIAAA=</HashCode>
+      <FileName>Scene\3D\CSpotLightSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CStaticMeshSceneNode" Collapsed="true">
+    <Position X="30.25" Y="21.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAEAAAAAAAAEAAAAAAAAAAAAAAAAAAgUA=</HashCode>
+      <FileName>Scene\3D\CStaticMeshSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CTriangle3D" Collapsed="true">
+    <Position X="3.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICQABAECHBCAIAAAAAAAECYAEiYIAAWEAkgAAEIEAAo=</HashCode>
+      <FileName>Scene\3D\CTriangle3D.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IBoundedLightSceneNode" Collapsed="true">
+    <Position X="20.25" Y="21.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAQAQAAAAAAAAAAEAEACAAIAAAgpABAAAAAA=</HashCode>
+      <FileName>Scene\3D\IBoundedLightSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ICameraSceneNode" Collapsed="true">
+    <Position X="7" Y="19.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQECA6gQAQIAASQCAAJAACAMCBARAgCBoAhBAAAAQA=</HashCode>
+      <FileName>Scene\3D\ICameraSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ILevelSceneNode" Collapsed="true">
+    <Position X="12.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAkFFMAASEBAAARBBTQoDAIBAAAkAAACBAAQAkgDEg=</HashCode>
+      <FileName>Scene\3D\ILevelSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ILightSceneNode" Collapsed="true">
+    <Position X="22" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAASAAAAAAAAAAAAAAAAAAAAAAAACAAAgAAAgAAAA=</HashCode>
+      <FileName>Scene\3D\ILightSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IMeshSceneNode" Collapsed="true">
+    <Position X="29" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YFQABAQAASCAFAQgAAQAEAAIEAAABIAAABAYZAAYgQg=</HashCode>
+      <FileName>Scene\3D\IMeshSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::ISceneNode" Collapsed="true">
+    <Position X="20.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFSQIBgAASCAMOMIEAEECTKiABIhah9QKDDBQoYABIo=</HashCode>
+      <FileName>Scene\3D\ISceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IShape3D&lt;T&gt;" Collapsed="true">
+    <Position X="22.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIQAAACAAAAAAAAAAAAAAAAAAAgEAAAAQAQIAAAA=</HashCode>
+      <FileName>Scene\3D\IShape3D.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBSPTreeNode" Collapsed="true">
+    <Position X="73.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAdAMQARADAAAIEACJIAQAQgAAAAAAMAAAIgAEAAAAA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPTreeNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBSPBrushNode" Collapsed="true">
+    <Position X="70" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAABABAAAAAAAAAAAAAAAAAAAAIQEAAgCAAAAAA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPBrushNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBSPPortal" Collapsed="true">
+    <Position X="71.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAQAAAAAAAIAABAAAAQAAAABAAAAAAAAIAgAAA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPPortal.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBSPSceneNode" Collapsed="true">
+    <Position X="13.75" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAIABAAAQAAAAACABAAACIAAAAAAAEAkhAgAEAADEA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBSPTriangle" Collapsed="true">
+    <Position X="3.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAiBAAAJEIAAEoiACAAAAEAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPTriangle.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSimpleSceneNode" Collapsed="true">
+    <Position X="11.25" Y="21.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAAIABABAQAAAAAAABAAACAAAAAAAAEQEBAgEAAABAA=</HashCode>
+      <FileName>Scene\3D\Structure\Simple\CSimpleSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleEmitter" Collapsed="true">
+    <Position X="6.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAUAIAAIBCAEAAgYkAAAAAAAEgAUApRBQQJBLIQg0LA=</HashCode>
+      <FileName>Scene\Particles\CParticleEmitter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleEmittersTemplates" Collapsed="true">
+    <Position X="73.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAAAAAAAAAAQAAAAAAAAAAAAAEAAEAAAAAAAAAEAA=</HashCode>
+      <FileName>Scene\Particles\CParticleEmittersTemplates.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleEntity" Collapsed="true">
+    <Position X="75.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgEAIAhIGqCIAAiIEIIMAIQEAAQAAgyEAMwBBIggUAA=</HashCode>
+      <FileName>Scene\Particles\CParticleEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CParticleSystem" Collapsed="true">
+    <Position X="63" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACxACAIAIAAAgQABRAQBEBIAAQoQoAEABAAgAQBAQAA=</HashCode>
+      <FileName>Scene\Particles\CParticleSystem.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IParticleEmittersTemplate" Collapsed="true">
+    <Position X="32.75" Y="11.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAABAAACAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\IParticleEmittersTemplate.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IParticleInitializer" Collapsed="true">
+    <Position X="23.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAAAQAAAAAAAAAAAEAAAAEQAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\IParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IParticleUpdater" Collapsed="true">
+    <Position X="50.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAEAAAAAAAAAAAAAAEAAAEQAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\IParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CBoxPositionParticleInitializer" Collapsed="true">
+    <Position X="29" Y="17.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAAQEAAAAAAAAAAAAAAAAAAUABQ=</HashCode>
+      <FileName>Scene\Particles\Initializers\CBoxPositionParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CColorParticleInitializer" Collapsed="true">
+    <Position X="32" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAgAAQAAAAAAAAAACAAAAAAAgAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CColorParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CDefaultParticleInitializer" Collapsed="true">
+    <Position X="34.75" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CDefaultParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLifeParticleInitializer" Collapsed="true">
+    <Position X="37.5" Y="17.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgQIAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAoAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CLifeParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLinearVelocityParticleInitializer" Collapsed="true">
+    <Position X="8.5" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACCCAAJAQAAAAgAAQAAAAIAAAAIAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CLinearVelocityParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CMassParticleInitializer" Collapsed="true">
+    <Position X="11.75" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAQAAAAAAAAAEAAAAAAAAAQAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CMassParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CPositionParticleInitializer" Collapsed="true">
+    <Position X="14.5" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgADAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CPositionParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CRadiusPositionParticleInitializer" Collapsed="true">
+    <Position X="17.25" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAQAAAIACAEAAAAAAAAAAABAAgAAABBA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CRadiusPositionParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CRotationParticleInitializer" Collapsed="true">
+    <Position X="20.5" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQAIACIAAAAAQAAAAAAABAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CRotationParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSizeParticleInitializer" Collapsed="true">
+    <Position X="23.25" Y="17.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAQCAAAAAAAAAAAAAACAAAAAAAAIAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CSizeParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSphereVelocityParticleInitializer" Collapsed="true">
+    <Position X="25.75" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCCCAAAAQAAAAAAAAAAAIAAAAAIAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Initializers\CSphereVelocityParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CCircularVelocityParticleUpdater" Collapsed="true">
+    <Position X="43.25" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAAAAIIgAAgAAAAAAAACCAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CCircularVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CColorParticleUpdater" Collapsed="true">
+    <Position X="46.5" Y="17.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAACAAAAAAAACAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CColorParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CGravityParticleUpdater" Collapsed="true">
+    <Position X="49" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAICAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CGravityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLifeParticleUpdater" Collapsed="true">
+    <Position X="51.75" Y="17.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CLifeParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CRotationParticleUpdater" Collapsed="true">
+    <Position X="54.25" Y="17.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CRotationParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSizeParticleUpdater" Collapsed="true">
+    <Position X="57" Y="17.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAAAAAAAAAAABAAAAABAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CSizeParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CLinearVelocityParticleUpdater" Collapsed="true">
+    <Position X="59.5" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAQAAAIEAAAAAAAAQAAAAAAAAACAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CLinearVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::CSphereVelocityParticleUpdater" Collapsed="true">
+    <Position X="40" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQICAAAAAAIAAAAAAAAEAAAAAAAAAgCAAAAAAAAABA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CSphereVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalosengine::IWin32Application" Collapsed="true">
+    <Position X="15.5" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAABACgggAgECAAAABAEiARBAgAgEAEAY=</HashCode>
+      <FileName>Applications\IWin32Application.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="daidalosengine::SSkyboxElement" Collapsed="true">
+    <Position X="73.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CSkybox.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SDeclarationElement" Collapsed="true">
+    <Position X="73.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAABAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SInputKey" Collapsed="true">
+    <Position X="63" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SInputAction" Collapsed="true">
+    <Position X="73.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAABAAACAAAAAAAAQAEAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SInputActionDeclaration" Collapsed="true">
+    <Position X="75.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SScreenQuadElement" Collapsed="true">
+    <Position X="68.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IRenderer.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DHeader" Collapsed="true">
+    <Position X="73.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DVertex" Collapsed="true">
+    <Position X="71.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAEAAAAAIIAIAAAAAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DFace" Collapsed="true">
+    <Position X="71.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAAAYAEAAAAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DMesh" Collapsed="true">
+    <Position X="70" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAAAAAAAAAAAEAAAEQAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DMaterial" Collapsed="true">
+    <Position X="68.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQBAAAAAAAAAACIAAAAAIIAAAAEAgAAAAAQAABAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DKeyFrame" Collapsed="true">
+    <Position X="66.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DJoint" Collapsed="true">
+    <Position X="64.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQMIABAAAAAAABgAECAIAAAAAAGgAAAAAAQAAAQAAQ=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DData" Collapsed="true">
+    <Position X="70" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAQAABAABMAACQAAACACAAQBAAgAAAAAAABAAAA=</HashCode>
+      <FileName>Loaders\CMS3DLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Header" Collapsed="true">
+    <Position X="73.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAVCAAAAAAAAAABAYAAAAEAgAIABEAKAAAAAAAAgI=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Vertex" Collapsed="true">
+    <Position X="68.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAAAACAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Triangle" Collapsed="true">
+    <Position X="66.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2TextureCoordinates" Collapsed="true">
+    <Position X="64.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Frame" Collapsed="true">
+    <Position X="71.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAQAAAAACAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Skin" Collapsed="true">
+    <Position X="63" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2Face" Collapsed="true">
+    <Position X="70" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAIAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMD2InternalData" Collapsed="true">
+    <Position X="75.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAIAACAAAAQAAAAAAAAgABAAAAQAAAAA=</HashCode>
+      <FileName>Medias\CMD2Mesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DInternalDataMesh" Collapsed="true">
+    <Position X="63" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAACQAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMS3DInternalData" Collapsed="true">
+    <Position X="75.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\CMS3DMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SOBJInternalData" Collapsed="true">
+    <Position X="73.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAgAAgAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\COBJMesh.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SKerningPair" Collapsed="true">
+    <Position X="64.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgEAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFontBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SCharData" Collapsed="true">
+    <Position X="66.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAABhgAQAAAgA=</HashCode>
+      <FileName>Medias\IFontBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SCharDescriptor" Collapsed="true">
+    <Position X="68.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAABAAAQAAAgA=</HashCode>
+      <FileName>Medias\IFontBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SFontInternalData" Collapsed="true">
+    <Position X="63" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAQIAAAEAAAAAAIAgAAAAAAAAAgAAAAAAAAACAEA=</HashCode>
+      <FileName>Medias\IFontBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SFrameBufferElement" Collapsed="true">
+    <Position X="70" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SFrameBufferAttachment" Collapsed="true">
+    <Position X="64.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SFrameBufferDeclaration" Collapsed="true">
+    <Position X="66.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAACAAAAAAHAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SFrameBufferDepthDeclaration" Collapsed="true">
+    <Position X="68.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IFrameBufferBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SMaterialElement" Collapsed="true">
+    <Position X="68.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAQAAAAAAAAAAAgAAAAIAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Medias\IMaterialBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::STexture2DFilterPolicy" Collapsed="true">
+    <Position X="64.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAQEAAAABAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Medias\ITexture2DBase.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SGUIData" Collapsed="true">
+    <Position X="71.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\2D\IView.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SSPotLightsShaderData" Collapsed="true">
+    <Position X="63" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAIAAAAAAAAIAAAAQCAIAAAAAAIAACAIAAQQAAAAAA=</HashCode>
+      <FileName>Scene\3D\I3DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SPointLightsShaderData" Collapsed="true">
+    <Position X="66.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQCAAAIgAAAIAAAAIAAQQAAAAAA=</HashCode>
+      <FileName>Scene\3D\I3DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SDirectionalLightsShaderData" Collapsed="true">
+    <Position X="75.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAIAAAAACAIAAAAAAIAACAAAAAQAAAAAA=</HashCode>
+      <FileName>Scene\3D\I3DScene.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SViewFrustum" Collapsed="true">
+    <Position X="66.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAQQAAAAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\ICameraSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SBSPBrush" Collapsed="true">
+    <Position X="63" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACgAAAAAEAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPBrushNode.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SBSPBrushDefinition" Collapsed="true">
+    <Position X="64.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Scene\3D\Structure\BSP\CBSPSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SSimpleBrush" Collapsed="true">
+    <Position X="70" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAARAAAAAAAAAAACAIAACABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\Structure\Simple\CSimpleSceneNode.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SParticleEmitterEmissionRateChange" Collapsed="true">
+    <Position X="64.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\CParticleEmitter.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SParticleData" Collapsed="true">
+    <Position X="75.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Scene\Particles\CParticleEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SParticleElement" Collapsed="true">
+    <Position X="63" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\CParticleSystem.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SCircularVelocityParticleChangeUpdater" Collapsed="true">
+    <Position X="70" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CCircularVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SColorParticleChangeUpdater" Collapsed="true">
+    <Position X="71.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CColorParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SSizeParticleChangeUpdater" Collapsed="true">
+    <Position X="71.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CSizeParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SLinearVelocityParticleChangeUpdater" Collapsed="true">
+    <Position X="66.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAIAAAAIAgAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CLinearVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="daidalosengine::SSphereVelocityParticleChangeUpdater" Collapsed="true">
+    <Position X="75.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\Particles\Updaters\CSphereVelocityParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="daidalosengine::DeclarationPtr" Collapsed="true">
+    <Position X="63" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\IDeclaration.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CInsetI" Collapsed="true">
+    <Position X="29.75" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CInset.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CInsetF" Collapsed="true">
+    <Position X="29.75" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CInset.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CRectangleI" Collapsed="true">
+    <Position X="0.5" Y="26.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CRectangleF" Collapsed="true">
+    <Position X="3.5" Y="28.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::TToken" Collapsed="true">
+    <Position X="64.75" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CTokenizer.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector2I" Collapsed="true">
+    <Position X="21.75" Y="26.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector2F" Collapsed="true">
+    <Position X="18.5" Y="27.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector2.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector3I" Collapsed="true">
+    <Position X="13.75" Y="23.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector3F" Collapsed="true">
+    <Position X="14.5" Y="27.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector3.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector4I" Collapsed="true">
+    <Position X="22.75" Y="24.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CVector4F" Collapsed="true">
+    <Position X="25.5" Y="26.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CVector4.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CDX9VertexBuffer" Collapsed="true">
+    <Position X="30.5" Y="13.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CDX9IndexBuffer" Collapsed="true">
+    <Position X="30.5" Y="13" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Renderers\DX9\CDX9Buffer.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CAABoundingBoxI" Collapsed="true">
+    <Position X="19.5" Y="11" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CAABoundingBox.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CAABoundingBoxF" Collapsed="true">
+    <Position X="19.5" Y="12" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CAABoundingBox.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CEllipseI" Collapsed="true">
+    <Position X="27.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CEllipse.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CEllipseF" Collapsed="true">
+    <Position X="25.25" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CEllipse.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CPlane3DI" Collapsed="true">
+    <Position X="10.5" Y="24.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CPlane3D.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CPlane3DF" Collapsed="true">
+    <Position X="7.5" Y="26.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CPlane3D.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CSphereI" Collapsed="true">
+    <Position X="19" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CSphere.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::CSphereF" Collapsed="true">
+    <Position X="17" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CSphere.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::IShape3DI" Collapsed="true">
+    <Position X="22" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\IShape3D.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Typedef Name="daidalosengine::IShape3DF" Collapsed="true">
+    <Position X="19" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\IShape3D.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="daidalosengine::EBuffersType" Collapsed="true">
+    <Position X="73.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABQAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EBuffersLock" Collapsed="true">
+    <Position X="71.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EMatrixType" Collapsed="true">
+    <Position X="63" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAHoAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EVertexDeclarationUsage" Collapsed="true">
+    <Position X="73.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAgAAAAAAAAAAMADAAAgAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EVertexDeclarationTYPE" Collapsed="true">
+    <Position X="71.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAACAQAAAACAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EPrimitiveType" Collapsed="true">
+    <Position X="63" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAIEAAAQAACAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EPixelFormat" Collapsed="true">
+    <Position X="73.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIQIQAgAAgAIAAAAAAAAAAIBAAAgICIAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ECapability" Collapsed="true">
+    <Position X="75.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAECAAAAAAAAAAAAAAACAAAAAAAAAAAgAAACAEA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextureFlag" Collapsed="true">
+    <Position X="66.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextureFilterType" Collapsed="true">
+    <Position X="64.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAACAAAAACABAAAAIAAAAAAAgAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextureAddress" Collapsed="true">
+    <Position X="63" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAg=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateType" Collapsed="true">
+    <Position X="75.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAABAAAAACAAIFAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ECompare" Collapsed="true">
+    <Position X="63" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAEAAAAAAAABAQAAEAAgAAAAAAIAAAAI=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateShadeType" Collapsed="true">
+    <Position X="73.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateCullType" Collapsed="true">
+    <Position X="70" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateFillMode" Collapsed="true">
+    <Position X="71.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateBlendFunction" Collapsed="true">
+    <Position X="66.5" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgQIAAAAAAEAAAAIBMAEoAAAABIABAAAABAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderStateBlendOperation" Collapsed="true">
+    <Position X="68.25" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBIAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EStencilOperation" Collapsed="true">
+    <Position X="70" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAAAAAAAAAQAEAQAAAAAIAgAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextureType" Collapsed="true">
+    <Position X="68.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEgAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EMeshShadingType" Collapsed="true">
+    <Position X="68.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EMeshAnimationState" Collapsed="true">
+    <Position X="64.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAIAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EFrameBufferAttachmentType" Collapsed="true">
+    <Position X="64.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EScreenQuadPoint" Collapsed="true">
+    <Position X="68.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAIAAAAAECAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EStreamSourceType" Collapsed="true">
+    <Position X="71.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESceneNodeType" Collapsed="true">
+    <Position X="66.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAEAAAAJEAAACAAAEAAABAAAAABAAAAAIAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EFrustumPoint" Collapsed="true">
+    <Position X="68.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAJAAAAAAAAgAAAAAAAAAAAAAAAAjAQAACAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EFrustumPlane" Collapsed="true">
+    <Position X="66.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAABAgAAAAAAAggAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESceneNodeRootStructureType" Collapsed="true">
+    <Position X="64.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EBSPNodeType" Collapsed="true">
+    <Position X="68.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EBSPNodeChild" Collapsed="true">
+    <Position X="66.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EBSPTriangleOrientation" Collapsed="true">
+    <Position X="70" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESoundFormat" Collapsed="true">
+    <Position X="64.75" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESoundType" Collapsed="true">
+    <Position X="68.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESoundCategory" Collapsed="true">
+    <Position X="63" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESoundStatus" Collapsed="true">
+    <Position X="66.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAgQAIAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextHorizontalAlignment" Collapsed="true">
+    <Position X="75.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAABAAAAAAAAIAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ETextVerticalAlignment" Collapsed="true">
+    <Position X="70" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESurfaceType" Collapsed="true">
+    <Position X="73.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EShaderProgramFlag" Collapsed="true">
+    <Position X="70" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EShaderProgramParameter" Collapsed="true">
+    <Position X="71.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBEAAaAMBEAAAAEEIAYIgEgAhoQYAAAACAAAAhECHI=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ESkyboxFace" Collapsed="true">
+    <Position X="75.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAACCAAAAAAAAAAAAAoAAAAABAAAAAAAAACAAA=</HashCode>
+      <FileName>Core\Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EInputKey" Collapsed="true">
+    <Position X="70" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>lFACIvoYjHpOkxiyoieFQBaA/9nEgIAKx+goI4hAajE=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EInputKeyGamepad" Collapsed="true">
+    <Position X="71.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAGcAAAAAAAAAAMBgAAAAWPg3AAAAgwMcACBwwJg=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EInputKeyType" Collapsed="true">
+    <Position X="75.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACBAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EInputKeyState" Collapsed="true">
+    <Position X="73.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAIAIAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Core\CInputDevice.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EArraySorterOrder" Collapsed="true">
+    <Position X="64.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Utility\CArraySorter.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERectangleIntersection" Collapsed="true">
+    <Position X="64.75" Y="16.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAAAQAAAAAA=</HashCode>
+      <FileName>Core\Utility\CRectangle.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::ERenderTargetType" Collapsed="true">
+    <Position X="63" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Medias\IRenderTargetBase.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EAABoundingBoxPlane" Collapsed="true">
+    <Position X="63" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAgCAAAAAEAAAAEAAAAAQA=</HashCode>
+      <FileName>Scene\3D\CAABoundingBox.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EMeshBufferElement" Collapsed="true">
+    <Position X="66.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Scene\3D\CMeshBuffer.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EPointOrientation" Collapsed="true">
+    <Position X="75.25" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\CPlane3D.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EShapeType" Collapsed="true">
+    <Position X="73.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene\3D\IShape3D.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EParticleInitializerType" Collapsed="true">
+    <Position X="70" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAYAAAQIAAIAAAABAAAAACAgAAQAAAAAAQA=</HashCode>
+      <FileName>Scene\Particles\IParticleInitializer.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalosengine::EParticleUpdaterType" Collapsed="true">
+    <Position X="71.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAEAAAAAAAAAAAAAAAIAAAAAAgAQAAAAAAAgA=</HashCode>
+      <FileName>Scene\Particles\IParticleUpdater.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

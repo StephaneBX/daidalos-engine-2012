@@ -168,7 +168,7 @@ namespace daidalosengine {
 		* Calculate the node's visibility sphere
 		* @param triangles A list of triangles
 		*/
-		void CalculateVisibilitySphere(const std::vector<CBSPTriangle*> triangles);
+		void CalculateVisibilitySphere(const std::vector<CBSPTriangle*>& triangles);
 
 		/**
 		* Build the initial portal of the node

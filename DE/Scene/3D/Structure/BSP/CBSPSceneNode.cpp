@@ -41,7 +41,7 @@ namespace daidalosengine {
 		SetType(SCENE_NODE_ROOT);
 		this->m_bsp = nullptr;
 		this->m_collisionBsp = nullptr;
-		SetMeshShadingType(MESH_SHADING_SMOOTH);
+		CBSPSceneNode::SetMeshShadingType(MESH_SHADING_SMOOTH);
 	}
 
 	CBSPSceneNode::~CBSPSceneNode() {
@@ -59,62 +59,63 @@ namespace daidalosengine {
 		std::vector<CBSPTriangle*> brushGeometry;
 
 		// Bounding box variables
-		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+		auto minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		auto maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		// Loop through the brushes
-		for(unsigned int i = 0; i < brushDefinition.size(); ++i) {
+		for (const auto& i : brushDefinition) {
 			brushGeometry.clear();
-			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j) {
+			for (auto j : i.geometry) {
 				// Add the diffuse texture to the diffuse textures vector
 				//if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE) != nullptr && std::find(this->m_diffuseTextures.begin(), this->m_diffuseTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE)) == this->m_diffuseTextures.end())
-				AddDiffuseTexture(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_DIFFUSE));
+				AddDiffuseTexture(j->GetTexture(TEXTURE_TYPE_DIFFUSE));
 
 				// Add the normal texture to the normal textures vector
 				//if(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL) != nullptr && std::find(this->m_normalTextures.begin(), this->m_normalTextures.end(), brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL)) == this->m_normalTextures.end())
-				AddNormalTexture(brushDefinition[i].geometry[j]->GetTexture(TEXTURE_TYPE_NORMAL));
+				AddNormalTexture(j->GetTexture(TEXTURE_TYPE_NORMAL));
 
 				// Add a copy in the global vector
-				global.push_back(new CBSPTriangle(*brushDefinition[i].geometry[j]));
+				global.push_back(new CBSPTriangle(*j));
 
 				// Add a copy in the brush vector
-				brushGeometry.push_back(new CBSPTriangle(*brushDefinition[i].geometry[j]));
+				brushGeometry.push_back(new CBSPTriangle(*j));
 			}
 
 			// Create the brush and add it to the brush list
-			SBSPBrush * brush = new SBSPBrush();
-			brush->enabled = brushDefinition[i].collision;
+			auto brush = new SBSPBrush();
+			brush->enabled = i.collision;
 			brush->tested = false;
-			brush->id = brushDefinition[i].id;
-			brush->root = std::unique_ptr<CBSPTreeNode>(new CBSPTreeNode());
+			brush->id = i.id;
+			brush->root = std::make_unique<CBSPTreeNode>();
 			brush->root->LoadTriangleList(brushGeometry, true);
 
 			this->m_brushes.push_back(std::unique_ptr<SBSPBrush>(brush));
 		}
 
 		// Add the triangles to the bsp geometry
-		this->m_bsp = std::unique_ptr<CBSPTreeNode>(new CBSPTreeNode());
+		this->m_bsp = std::make_unique<CBSPTreeNode>();
 		this->m_bsp->LoadTriangleList(global, true);
 		RegisterLeafs(this->m_bsp.get());
 
 		// Create the collision bsp by cloning the main bsp nodes
-		this->m_collisionBsp = std::unique_ptr<CBSPBrushNode>(new CBSPBrushNode(this->m_bsp.get()));
+		this->m_collisionBsp = std::make_unique<CBSPBrushNode>(this->m_bsp.get());
 
 		for(unsigned int i = 0; i < this->m_brushes.size(); ++i) {
 			// Add the brushes to the collision bsp
 			this->m_collisionBsp->AddBrush(this->m_brushes[i].get(), brushDefinition[i].geometry);
 
 			// Update the bounding box
-			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j) {
-				for(unsigned int k = 0; k < 3; k++) {
-					minPosition = minPosition.Min(brushDefinition[i].geometry[j]->GetVertex(k));
-					maxPosition = maxPosition.Max(brushDefinition[i].geometry[j]->GetVertex(k));
+			for (auto j : brushDefinition[i].geometry) {
+				for(auto k = 0U; k < 3; k++) {
+					minPosition = minPosition.Min(j->GetVertex(k));
+					maxPosition = maxPosition.Max(j->GetVertex(k));
 				}
 			}
 
 			// Delete the triangles as they're no longer needed
-			for(unsigned int j = 0; j < brushDefinition[i].geometry.size(); ++j)
-				delete brushDefinition[i].geometry[j];
+			for (auto j : brushDefinition[i].geometry) {
+				delete j;
+			}
 		}
 
 		// Set the bounding box
@@ -135,7 +136,7 @@ namespace daidalosengine {
 	void CBSPSceneNode::RenderTransparent() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, false);
@@ -150,9 +151,9 @@ namespace daidalosengine {
 	void CBSPSceneNode::SetBrushCollision(const int brushId, const bool collision) {
 		LOG_TRACE();
 
-		for(auto it = this->m_brushes.begin(); it != this->m_brushes.end(); it++) {
-			if((*it)->id == brushId) {
-				(*it)->enabled = collision;
+		for (auto& brush : this->m_brushes) {
+			if(brush->id == brushId) {
+				brush->enabled = collision;
 			}
 		}
 	}
@@ -160,26 +161,23 @@ namespace daidalosengine {
 	bool CBSPSceneNode::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
-		CVector3F endPoint;
-		CVector3F edge;
-		CVector3F distance;
-		bool isCollision = false;
+		auto isCollision = false;
 		float dot;
 		float fraction = 1;
-		int normalIndex = 0;
-		int i = 0;
-		int j = 0;
-		CVector3F startPoint = shape.GetPosition();
-		CVector3F velocity = movement;
-		CVector3F remainingDistance = movement;
+		auto normalIndex = 0;
+		auto i = 0;
+		auto j = 0;
+		auto startPoint = shape.GetPosition();
+		const auto& velocity = movement;
+		auto remainingDistance = movement;
 
 		CImpact impact;
 		CImpact iBrush;
 
-		bool elevated = false;
+		auto elevated = false;
 
-		for(int impactLoop = 0; impactLoop < BSP_MAX_IMPACT; ++impactLoop) {
-			endPoint = startPoint + remainingDistance;
+		for(auto impactLoop = 0; impactLoop < BSP_MAX_IMPACT; ++impactLoop) {
+			const auto endPoint = startPoint + remainingDistance;
 
 			// Impacts initialization
 			impact.Initialize(startPoint, endPoint);
@@ -193,7 +191,7 @@ namespace daidalosengine {
 				if(!elevated && impact.GetPlaneNormal().y <= 0) {
 					CImpact impactEpsilon;
 					CImpact iBrushEpsilon;
-					CVector3F shapePositionOld = shape.GetPosition();
+					const auto shapePositionOld = shape.GetPosition();
 					elevated = true;
 
 					impactEpsilon.Initialize(CVector3F(startPoint.x, startPoint.y + BSP_HEIGHT_EPSILON, startPoint.z), CVector3F(endPoint.x, endPoint.y + BSP_HEIGHT_EPSILON, endPoint.z));
@@ -226,7 +224,7 @@ namespace daidalosengine {
 			}
 
 			fraction -= fraction * impact.GetImpactFraction();
-			distance = impact.GetDistance() * impact.GetImpactFraction();
+			auto distance = impact.GetDistance() * impact.GetImpactFraction();
 
 			// Reset the normal index if the distance shape-impact is too big
 			if(distance.Length() > BSP_MIN_MOVE) {
@@ -246,19 +244,21 @@ namespace daidalosengine {
 
 				for(j = 0; j < normalIndex; ++j) {
 					if(i != j) {
-						if(remainingDistance.DotProduct(this->m_normals[j]) < 0)
+						if (remainingDistance.DotProduct(this->m_normals[j]) < 0) {
 							break;
+						}
 					}
 				}
 
-				if(j == normalIndex)
+				if (j == normalIndex) {
 					break;
+				}
 			}
 
 			// Position modification depending on the number of normals
 			if(i == normalIndex) {
 				if(normalIndex == 2) {
-					edge = this->m_normals[0].CrossProduct(this->m_normals[1]).Normalize();
+					auto edge = this->m_normals[0].CrossProduct(this->m_normals[1]).Normalize();
 					dot = edge.DotProduct(velocity);
 					remainingDistance = edge * dot;
 				} else {
@@ -321,14 +321,14 @@ namespace daidalosengine {
 		this->m_visibleTriangles.clear();
 		//this->m_bsp->ResetDraw();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		SetActiveCamera(GetScene()->GetActiveCamera());
 		RegisterNodeForRendering(this->m_bsp.get(),filterId);
 		SetNumberOfVisibleTriangles(this->m_visibleTriangles.size());
-		if (this->m_visibleTriangles.size() > 0) {
+		if (!this->m_visibleTriangles.empty()) {
 
 			// World matrixes
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_WORLD_MATRIX), GetAbsoluteTransformationMatrix());
@@ -336,17 +336,14 @@ namespace daidalosengine {
 
 			// Sort the triangles
 			std::vector<CTriangle3D*> batchTriangles;
-			ITexture2DBase * batchDiffuseTexture;
-			ITexture2DBase * batchNormalTexture;
-			SMaterialElement * batchMaterialElement;
 
 			// Sort with the diffuse texture and the material
-			while (this->m_visibleTriangles.size() > 0) {
+			while (!this->m_visibleTriangles.empty()) {
 				batchTriangles.clear();
 				batchTriangles.push_back(this->m_visibleTriangles[0]);
-				batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
-				batchNormalTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_NORMAL);
-				batchMaterialElement = batchTriangles[0]->GetMaterialElement();
+				const auto batchDiffuseTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_DIFFUSE);
+				const auto batchNormalTexture = batchTriangles[0]->GetTexture(TEXTURE_TYPE_NORMAL);
+				const auto batchMaterialElement = batchTriangles[0]->GetMaterialElement();
 
 				this->m_visibleTriangles.erase(this->m_visibleTriangles.begin());
 
@@ -393,7 +390,7 @@ namespace daidalosengine {
 	void CBSPSceneNode::RegisterNodeForRendering(const int filterId) {
 		LOG_TRACE();
 
-		bool isFiltered = filterId != SCENE_DEFAULT_ID;
+		const auto isFiltered = filterId != SCENE_DEFAULT_ID;
 
 		// Loop through each leaf
 		for(auto it = this->m_geometryLeafs.begin(); it != m_geometryLeafs.end(); ++it) {
@@ -401,9 +398,10 @@ namespace daidalosengine {
 			// Check the visibility for the leaf before testing each triangle
 			if(!GetActiveCamera()->FrustumCull(&(*it)->GetVisibilitySphere())) {
 				// Loop through each triangle
-				for(auto it2 = (*it)->GetTriangles().begin(); it2 != (*it)->GetTriangles().end(); ++it2) {
-					if((*it2)->IsVisible()/* && !(*it2)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&(*it2)->GetCircumSphere()) && ((isFiltered && (*it2)->GetId() == filterId) || (!isFiltered && (*it2)->GetId() >= -1))) {
-						this->m_visibleTriangles.push_back((*it2).get());
+				for (const auto& it2 : (*it)->GetTriangles()) {
+					if(it2->IsVisible()/* && !(*it2)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&it2->GetCircumSphere()) && ((isFiltered && it2->GetId() == filterId) || (!isFiltered &&
+						it2->GetId() >= -1))) {
+						this->m_visibleTriangles.push_back(it2.get());
 						//(*it2)->SetDrawn(true);
 					}
 				}
@@ -418,12 +416,13 @@ namespace daidalosengine {
 			return;
 		}
 
-		bool isFiltered = filterId != SCENE_DEFAULT_ID;
+		const auto isFiltered = filterId != SCENE_DEFAULT_ID;
 
 		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF) {
-			for(auto it = node->GetTriangles().begin(); it != node->GetTriangles().end(); ++it) {
-				if((*it)->IsVisible()/* && !(*it)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&(*it)->GetCircumSphere()) && ((isFiltered && (*it)->GetId() == filterId) || (!isFiltered && (*it)->GetId() >= -1))) {
-					this->m_visibleTriangles.push_back((*it).get());
+			for (const auto& it : node->GetTriangles()) {
+				if(it->IsVisible()/* && !(*it)->IsDrawn()*/ && !GetActiveCamera()->FrustumCull(&it->GetCircumSphere()) && ((isFiltered && it->GetId() == filterId) || (!isFiltered &&
+					it->GetId() >= -1))) {
+					this->m_visibleTriangles.push_back(it.get());
 					//(*it)->SetDrawn(true);
 				}
 			}
@@ -441,13 +440,16 @@ namespace daidalosengine {
 	void CBSPSceneNode::RegisterLeafs(CBSPTreeNode * node) {
 		LOG_TRACE();
 
-		if(node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF)
+		if (node->GetType() == BSP_NODE_TYPE_EMPTY_LEAF) {
 			this->m_geometryLeafs.push_back(node);
+		}
 
-		if(node->GetChild(BSP_NODE_CHILD_FRONT) != nullptr)
+		if (node->GetChild(BSP_NODE_CHILD_FRONT) != nullptr) {
 			RegisterLeafs(node->GetChild(BSP_NODE_CHILD_FRONT));
+		}
 
-		if(node->GetChild(BSP_NODE_CHILD_BACK) != nullptr)
+		if (node->GetChild(BSP_NODE_CHILD_BACK) != nullptr) {
 			RegisterLeafs(node->GetChild(BSP_NODE_CHILD_BACK));
+		}
 	}
 }

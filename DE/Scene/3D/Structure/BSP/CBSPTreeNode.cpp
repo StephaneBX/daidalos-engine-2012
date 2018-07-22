@@ -37,7 +37,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_type = BSP_NODE_TYPE_NODE;
-		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
+		this->m_boundingBox = std::make_unique<CAABoundingBoxF>();
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
 	}
@@ -46,7 +46,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_type = type;
-		this->m_boundingBox = std::unique_ptr<CAABoundingBoxF>(new CAABoundingBoxF());
+		this->m_boundingBox = std::make_unique<CAABoundingBoxF>();
 		this->m_children[BSP_NODE_CHILD_FRONT] = nullptr;
 		this->m_children[BSP_NODE_CHILD_BACK] = nullptr;
 	}
@@ -68,7 +68,7 @@ namespace daidalosengine {
 		CalculateVisibilitySphere(triangles);
 
 		// Find a splitter
-		CBSPTriangle * splitter = FindBestSplitter(triangles);
+		const auto splitter = FindBestSplitter(triangles);
 
 		// Get its plane
 		this->m_plane = splitter->GetPlane();
@@ -77,40 +77,40 @@ namespace daidalosengine {
 		std::vector<CBSPTriangle*> front;
 		std::vector<CBSPTriangle*> back;
 
-		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
-			switch((*it)->Classify(this->m_plane)) {
+		for (auto triangle : triangles) {
+			switch(triangle->Classify(this->m_plane)) {
 			case BSP_TRIANGLE_ORIENTATION_COPLANAR:
 				// Goes to the front child
-				front.push_back(*it);
+				front.push_back(triangle);
 				break;
 
 			case BSP_TRIANGLE_ORIENTATION_FRONT:
 				// Goes to the front child
-				front.push_back(*it);
+				front.push_back(triangle);
 				break;
 
 			case BSP_TRIANGLE_ORIENTATION_BACK:
 				// Goes to the back child
-				back.push_back(*it);
+				back.push_back(triangle);
 				break;
 
 			default:
 				// Spanning
 				if(split) {
 					// Split the triangle
-					SplitTriangle(*it, front, back);
+					SplitTriangle(triangle, front, back);
 				} else {
-					front.push_back(*it);
-					back.push_back(*it);
+					front.push_back(triangle);
+					back.push_back(triangle);
 				}
 				break;
 			}
 		}
 
 		// Check front splitters
-		int usableCount = 0;
-		for(auto it = front.begin(); it != front.end(); ++it) {
-			if(!(*it)->IsSeparationPlane()) {
+		auto usableCount = 0;
+		for (auto& it : front) {
+			if(!it->IsSeparationPlane()) {
 				++usableCount;
 			}
 		}
@@ -127,12 +127,12 @@ namespace daidalosengine {
 		}
 
 		// Back child
-		if(back.size() == 0) {
+		if(back.empty()) {
 			this->m_children[BSP_NODE_CHILD_BACK] = new CBSPTreeNode(BSP_NODE_TYPE_SOLID_LEAF);
 		} else {
 			usableCount = 0;
-			for(auto it = back.begin(); it != back.end(); ++it) {
-				if(!(*it)->IsSeparationPlane()) {
+			for (auto& it : back) {
+				if(!it->IsSeparationPlane()) {
 					++usableCount;
 				}
 			}
@@ -152,8 +152,8 @@ namespace daidalosengine {
 	void CBSPTreeNode::ResetDraw() {
 		LOG_TRACE();
 
-		for(auto it = this->m_triangles.begin(); it != this->m_triangles.end(); ++it) {
-			(*it)->SetDrawn(false);
+		for (auto& triangle : this->m_triangles) {
+			triangle->SetDrawn(false);
 		}
 
 		if(this->m_children[BSP_NODE_CHILD_FRONT] != nullptr)
@@ -184,8 +184,8 @@ namespace daidalosengine {
 		}
 
 		// Get the distances
-		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
-		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+		const auto d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		const auto d2 = this->m_plane.PointDistance(impact.GetEndPoint());
 
 		// Front check
 		if(d1 > 0 && d2 > 0) {
@@ -205,8 +205,9 @@ namespace daidalosengine {
 		if(d1 > 0 && d2 <= 0) {
 			realFraction = d1 / (d1 - d2);
 
-			if(realFraction >= impact.GetRealFraction())
+			if (realFraction >= impact.GetRealFraction()) {
 				return;
+			}
 
 			if(realFraction < iBrush.GetRealFraction()) {
 				normalTemp = this->m_plane.GetNormal();
@@ -253,11 +254,11 @@ namespace daidalosengine {
 		// A node
 
 		// Get the distances
-		float d1 = this->m_plane.PointDistance(impact.GetStartPoint());
-		float d2 = this->m_plane.PointDistance(impact.GetEndPoint());
+		const auto d1 = this->m_plane.PointDistance(impact.GetStartPoint());
+		const auto d2 = this->m_plane.PointDistance(impact.GetEndPoint());
 
 		// Get the offset
-		float offset = shape.GetInnerDepth(this->m_plane);
+		const auto offset = shape.GetInnerDepth(this->m_plane);
 
 		// Front check
 		if(d1 > offset && d2 > offset) {
@@ -267,7 +268,7 @@ namespace daidalosengine {
 		}
 
 		this->m_plane.Inverse();
-		float offset2 = shape.GetInnerDepth(this->m_plane);
+		const auto offset2 = shape.GetInnerDepth(this->m_plane);
 		this->m_plane.Inverse();
 
 		// Back check
@@ -279,12 +280,13 @@ namespace daidalosengine {
 
 		// Cross check
 		if(d1 > offset && d2 <= offset2) {
-			float d1r = d1 - offset;
-			float d2r = d2 - offset;
+			const auto d1r = d1 - offset;
+			const auto d2r = d2 - offset;
 			realFraction = d1r / (d1r - d2r);
 
-			if(realFraction >= impact.GetRealFraction())
+			if (realFraction >= impact.GetRealFraction()) {
 				return;
+			}
 
 			if(realFraction < iBrush.GetRealFraction()) {
 				normalTemp = this->m_plane.GetNormal();
@@ -316,8 +318,9 @@ namespace daidalosengine {
 			return;
 		}
 
-		if(this->m_type == BSP_NODE_TYPE_SOLID_LEAF)
+		if (this->m_type == BSP_NODE_TYPE_SOLID_LEAF) {
 			return;
+		}
 
 		this->m_children[BSP_NODE_CHILD_FRONT]->ClearTriangles();
 		this->m_children[BSP_NODE_CHILD_BACK]->ClearTriangles();
@@ -354,7 +357,7 @@ namespace daidalosengine {
 		return this->m_triangles;
 	}
 
-	CBSPTreeNode * CBSPTreeNode::GetChild(EBSPNodeChild child) {
+	CBSPTreeNode * CBSPTreeNode::GetChild(const EBSPNodeChild child) {
 		LOG_TRACE();
 
 		return this->m_children[child];
@@ -372,9 +375,9 @@ namespace daidalosengine {
 
 		CVector3F intersection1;
 		CVector3F intersection2;
-		bool split = true;
+		auto split = true;
 		EPointOrientation orientation[3];
-		int orientationCounter = 0;
+		auto orientationCounter = 0;
 		int positiveIndex1;
 		int positiveIndex2;
 		int negativeIndex1;
@@ -388,7 +391,7 @@ namespace daidalosengine {
 		int thirdOrderIndex;
 
 		// Test the triangle in order to know its position regarding the plane
-		for(int i = 0; i < 3; ++i) {
+		for(auto i = 0; i < 3; ++i) {
 			orientation[i] = this->m_plane.ClassifyPoint(triangle->GetVertex(i));
 			switch(orientation[i]) {
 			case POINT_ORIENTATION_POSITIVE_SIDE:
@@ -529,9 +532,10 @@ namespace daidalosengine {
 			// The triangle has two vertices on the plane and on vertex on the positive side
 		case 1:
 			// Check the presence of vertice on the plane
-			for(int i = 0; i < 3; ++i) {
-				if(orientation[i] == POINT_ORIENTATION_ON_PLANE)
+			for (auto& i : orientation) {
+				if (i == POINT_ORIENTATION_ON_PLANE) {
 					split = false;
+				}
 			}
 
 			// Fill the variables depending on the orientation of the vertices
@@ -647,8 +651,9 @@ namespace daidalosengine {
 
 				// Delete the original triangle
 				delete triangle;
-			} else
+			} else {
 				front.push_back(triangle);
+			}
 			break;
 
 			// The triangle has two vertices on the negative side and one vertex on the positive side
@@ -656,9 +661,10 @@ namespace daidalosengine {
 			// The triangle has two vertices on the plane and one vertex on the negative side
 		case -1:
 			// Check the presence of vertice on the plane
-			for(int i = 0; i < 3; ++i) {
-				if(orientation[i] == POINT_ORIENTATION_ON_PLANE)
+			for (auto& i : orientation) {
+				if (i == POINT_ORIENTATION_ON_PLANE) {
 					split = false;
+				}
 			}
 
 			// Fill the variables depending on the orientation of the vertices
@@ -774,8 +780,9 @@ namespace daidalosengine {
 
 				// Delete the original triangle
 				delete triangle;
-			} else
+			} else {
 				back.push_back(triangle);
+			}
 
 			break;
 
@@ -788,42 +795,42 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Initial values
-		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+		auto minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		auto maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		// Read each vertex for each triangle
-		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
-			for(int i = 0; i < 3; ++i) {
-				minPosition.x = std::min(minPosition.x, (*it)->GetVertex(i).x);
-				minPosition.y = std::min(minPosition.y, (*it)->GetVertex(i).y);
-				minPosition.z = std::min(minPosition.z, (*it)->GetVertex(i).z);
+		for (auto triangle : triangles) {
+			for(auto i = 0; i < 3; ++i) {
+				minPosition.x = std::min(minPosition.x, triangle->GetVertex(i).x);
+				minPosition.y = std::min(minPosition.y, triangle->GetVertex(i).y);
+				minPosition.z = std::min(minPosition.z, triangle->GetVertex(i).z);
 
-				maxPosition.x = std::max(maxPosition.x, (*it)->GetVertex(i).x);
-				maxPosition.y = std::max(maxPosition.y, (*it)->GetVertex(i).y);
-				maxPosition.z = std::max(maxPosition.z, (*it)->GetVertex(i).z);
+				maxPosition.x = std::max(maxPosition.x, triangle->GetVertex(i).x);
+				maxPosition.y = std::max(maxPosition.y, triangle->GetVertex(i).y);
+				maxPosition.z = std::max(maxPosition.z, triangle->GetVertex(i).z);
 			}
 		}
 
 		this->m_boundingBox->SetMinMax(minPosition, maxPosition);
 	}
 
-	void CBSPTreeNode::CalculateVisibilitySphere(const std::vector<CBSPTriangle*> triangles) {
+	void CBSPTreeNode::CalculateVisibilitySphere(const std::vector<CBSPTriangle*>& triangles) {
 		LOG_TRACE();
 
 		// Initial values
-		CVector3F minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-		CVector3F maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+		auto minPosition = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+		auto maxPosition = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 		// Read each vertex for each triangle
-		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
-			for(int i = 0; i < 3; ++i) {
-				minPosition.x = std::min(minPosition.x, (*it)->GetVertex(i).x);
-				minPosition.y = std::min(minPosition.y, (*it)->GetVertex(i).y);
-				minPosition.z = std::min(minPosition.z, (*it)->GetVertex(i).z);
+		for (auto triangle : triangles) {
+			for(auto i = 0; i < 3; ++i) {
+				minPosition.x = std::min(minPosition.x, triangle->GetVertex(i).x);
+				minPosition.y = std::min(minPosition.y, triangle->GetVertex(i).y);
+				minPosition.z = std::min(minPosition.z, triangle->GetVertex(i).z);
 
-				maxPosition.x = std::max(maxPosition.x, (*it)->GetVertex(i).x);
-				maxPosition.y = std::max(maxPosition.y, (*it)->GetVertex(i).y);
-				maxPosition.z = std::max(maxPosition.z, (*it)->GetVertex(i).z);
+				maxPosition.x = std::max(maxPosition.x, triangle->GetVertex(i).x);
+				maxPosition.y = std::max(maxPosition.y, triangle->GetVertex(i).y);
+				maxPosition.z = std::max(maxPosition.z, triangle->GetVertex(i).z);
 			}
 		}
 
@@ -834,8 +841,8 @@ namespace daidalosengine {
 	void CBSPTreeNode::BuildInitialPortal() {
 		LOG_TRACE();
 
-		float distanceBoundingBoxToPlane = this->m_plane.PointDistance(this->m_boundingBox->GetPosition());
-		CVector3F portalCenter = this->m_boundingBox->GetPosition() + (this->m_plane.GetNormal() * distanceBoundingBoxToPlane);
+		const auto distanceBoundingBoxToPlane = this->m_plane.PointDistance(this->m_boundingBox->GetPosition());
+		const auto portalCenter = this->m_boundingBox->GetPosition() + (this->m_plane.GetNormal() * distanceBoundingBoxToPlane);
 
 		CVector3F tempAxis;
 		// Get the valid axis 
@@ -853,11 +860,11 @@ namespace daidalosengine {
 		}
 
 		// Get the right and up vectors
-		CVector3F u = tempAxis.CrossProduct(this->m_plane.GetNormal()).Normalize();
-		CVector3F v = this->m_plane.GetNormal().CrossProduct(u).Normalize();
+		auto u = tempAxis.CrossProduct(this->m_plane.GetNormal()).Normalize();
+		auto v = this->m_plane.GetNormal().CrossProduct(u).Normalize();
 
 		// Get the correct u and v length
-		CVector3F boxHalfLength = this->m_boundingBox->GetMax() - this->m_boundingBox->GetPosition();
+		auto boxHalfLength = this->m_boundingBox->GetMax() - this->m_boundingBox->GetPosition();
 		u *= boxHalfLength.Length();
 		v *= boxHalfLength.Length();
 
@@ -874,26 +881,26 @@ namespace daidalosengine {
 	CBSPTriangle * CBSPTreeNode::FindBestSplitter(const std::vector<CBSPTriangle*> & triangles) {
 		LOG_TRACE();
 
-		float score;
-		float bspScore = DEFAULT_BSP_SCORE;
+		auto bspScore = DEFAULT_BSP_SCORE;
 		CBSPTriangle * chosenSplitter = nullptr;
 
 		// No splitter chosen if there is no triangles!
-		if(triangles.size() == 0)
+		if (triangles.empty()) {
 			return nullptr;
+		}
 
 		for(auto it = triangles.begin(); it != triangles.end(); ++it) {
 			if(!(*it)->IsSeparationPlane()) {
-				int frontCounter = 0;
-				int backCounter = 0;
-				int splitCounter = 0;
-				int coplanarCounter = 0;
+				auto frontCounter = 0;
+				auto backCounter = 0;
+				auto splitCounter = 0;
+				auto coplanarCounter = 0;
 
-				for(auto it2 = triangles.begin(); it2 != triangles.end(); ++it2) {
+				for (auto triangle : triangles) {
 					// Avoid comparing the same triangle or an already used triangle as a splitter
-					if((*it) != (*it2) && !(*it2)->IsSeparationPlane()) {
+					if((*it) != triangle && !triangle->IsSeparationPlane()) {
 						// Classify test
-						switch((*it2)->Classify((*it)->GetPlane())) {
+						switch(triangle->Classify((*it)->GetPlane())) {
 						case BSP_TRIANGLE_ORIENTATION_FRONT:
 							++frontCounter;
 							break;
@@ -914,7 +921,7 @@ namespace daidalosengine {
 				}
 
 				// Score calculation
-				score = (float)(2 * splitCounter + abs(frontCounter - backCounter) + coplanarCounter);
+				const auto score = static_cast<float>(2 * splitCounter + abs(frontCounter - backCounter) + coplanarCounter);
 
 				// Update the chosen splitter if necessary
 				if(score >= 0 && score < bspScore) {
@@ -926,9 +933,10 @@ namespace daidalosengine {
 
 		// Set the triangle with the same plane as the chosen splitter to used
 		if(chosenSplitter != nullptr) {
-			for(auto it = triangles.begin(); it != triangles.end(); ++it) {
-				if((*it)->Classify(chosenSplitter->GetPlane()) == BSP_TRIANGLE_ORIENTATION_COPLANAR && (*it)->GetPlane().GetNormal().DotProduct(chosenSplitter->GetPlane().GetNormal()) >= 0)
-					(*it)->SetSeparationPlane(true);
+			for (auto triangle : triangles) {
+				if (triangle->Classify(chosenSplitter->GetPlane()) == BSP_TRIANGLE_ORIENTATION_COPLANAR && triangle->GetPlane().GetNormal().DotProduct(chosenSplitter->GetPlane().GetNormal()) >= 0) {
+					triangle->SetSeparationPlane(true);
+				}
 			}
 		}
 

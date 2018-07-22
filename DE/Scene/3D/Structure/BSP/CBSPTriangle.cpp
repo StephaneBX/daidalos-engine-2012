@@ -95,12 +95,12 @@ namespace daidalosengine {
 	EBSPTriangleOrientation CBSPTriangle::Classify(const CPlane3DF & plane) {
 		LOG_TRACE();
 
-		int frontCounter = 0;
-		int backCounter = 0;
-		int onCounter = 0;
+		auto frontCounter = 0;
+		auto backCounter = 0;
+		auto onCounter = 0;
 
 		// Test the vertices
-		for(int i = 0; i < 3; ++i) {
+		for(auto i = 0; i < 3; ++i) {
 			switch(plane.ClassifyPoint(GetVertex(i))) {
 			case POINT_ORIENTATION_POSITIVE_SIDE:
 				++frontCounter;
@@ -128,10 +128,11 @@ namespace daidalosengine {
 			if(frontCounter == 3) {
 				return BSP_TRIANGLE_ORIENTATION_FRONT;
 			} else {
-				if(backCounter == 3)
+				if (backCounter == 3) {
 					return BSP_TRIANGLE_ORIENTATION_BACK;
-				else
+				} else {
 					return BSP_TRIANGLE_ORIENTATION_SPANNING;
+				}
 			}
 		}
 	}

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="daidalos::CDaidalosApplication" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAgAAAAAAAAAIAAAEAAAAAAAAAABAAABAAAA=</HashCode>
+      <FileName>CDaidalosApplication.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CFPSCamera" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAwBFSCKABABEIIMAkEgCADEAQAQCoAoCAEwlAMFAIQ=</HashCode>
+      <FileName>CFPSCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CCrosshairView" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAQAAIAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>2D\CCrosshairView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CHudView" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQACAgAAAAwAACAEAQAAAFAhAAgAAAAEAGgEACAI=</HashCode>
+      <FileName>2D\CHudView.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CZombieEntity" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAAACAAAAAAAAAAAgAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>3D\Enemy\CZombieEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CEnemyStateAttack" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICUAAACAQQgEAAAAABAAAAAAAAAIkYEAAAgAAAAAAAI=</HashCode>
+      <FileName>3D\Enemy\States\CEnemyStateAttack.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CEnemyStateDie" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAEAAAAAAAAAIgAECAAEAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>3D\Enemy\States\CEnemyStateDie.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CEnemyStateFollow" Collapsed="true">
+    <Position X="3.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>KCQAAQAAiACAgAAAgAAAAAAQAAAAAQQEAAAgAAAKoII=</HashCode>
+      <FileName>3D\Enemy\States\CEnemyStateFollow.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CEnemyStatePatrol" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCQAgAAACAAAkAAAAAAAIABAAAAAAAQEAAIAAAEAAAA=</HashCode>
+      <FileName>3D\Enemy\States\CEnemyStatePatrol.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CEnemyStateWait" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAACAAgAEAAAEABIAAAAAABAAAAAIAIAAAAE=</HashCode>
+      <FileName>3D\Enemy\States\CEnemyStateWait.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CZombieStateFollow" Collapsed="true">
+    <Position X="3.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAAAAAAAAAAAAAAAAAAAAAAACAgAACEAAAAAA=</HashCode>
+      <FileName>3D\Enemy\States\CZombieStateFollow.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CZombieStateWait" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACIAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>3D\Enemy\States\CZombieStateWait.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CAlarmEntity" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAIAgAggAAAAAgAAAA=</HashCode>
+      <FileName>3D\Misc\CAlarmEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CSecurityCameraEntity" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAAAACgAAIAACAAAAqBAAIAAAIEAAAAAgAAAA=</HashCode>
+      <FileName>3D\Misc\CSecurityCameraEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CSpotEntity" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAIAAAgBAAAAAgAAAA=</HashCode>
+      <FileName>3D\Misc\CSpotEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CArmorBonusEntity" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAAAAAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CArmorBonusEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CFanEntity" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACABAAAAAAAAAAAAAAAIAgEgIAAAAAgAAAA=</HashCode>
+      <FileName>3D\Trigger\CFanEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CFlashlightEntity" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAIIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CFlashlightEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CHandgunAmmoEntity" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAAAAAAAAAAAAAAAAAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CHandgunAmmoEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CHealthBonusEntity" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAACAAAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CHealthBonusEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CMagneticCardEntity" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAIAAAgAAIAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CMagneticCardEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CMagneticCardReaderEntity" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAAAAAAAAAAgAAAAwAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CMagneticCardReaderEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CShotgunAmmoEntity" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAQAAAAAAAAAAAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CShotgunAmmoEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CTeleporterEntity" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAQAAgAAAAAAAAAAAAAIAAAgAAAAAAgABAA=</HashCode>
+      <FileName>3D\Trigger\CTeleporterEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CDaidalosLevel" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAEAAAAgAAAAAAAAAAAACAAAAAAAAAgAAAAAAQA=</HashCode>
+      <FileName>Level\CDaidalosLevel.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CHandgun" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAABAAAApAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Weapons\CHandgun.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::CShotgun" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAEAAAAAAAAAAAAAAAApAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Weapons\CShotgun.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="daidalos::IWeapon" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QRUiQGoAaQAFIUKEMQQHI0IAAACuKAIwCAAEAEQKBUQ=</HashCode>
+      <FileName>Weapons\IWeapon.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="daidalos::SProjectile" Collapsed="true">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAoAAAAAAAIAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Weapons\IWeapon.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="daidalos::EFPSCameraAction" Collapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAAAgEgAiABAAAgAQEAQAAAAAIAAAAAAACAAIk=</HashCode>
+      <FileName>CFPSCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalos::EFPSCameraState" Collapsed="true">
+    <Position X="9.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAABAAAAAAAAAQAAAAEAAgAAAAA=</HashCode>
+      <FileName>CFPSCamera.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalos::EPlayerObject" Collapsed="true">
+    <Position X="11.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAEAAEAA=</HashCode>
+      <FileName>Enums.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalos::EFanState" Collapsed="true">
+    <Position X="6.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAABAAQABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>3D\Trigger\CFanEntity.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="daidalos::EWeaponState" Collapsed="true">
+    <Position X="13.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAABAAEAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Weapons\IWeapon.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
