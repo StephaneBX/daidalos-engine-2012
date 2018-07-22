@@ -79,7 +79,7 @@ namespace daidalosengine {
 		SetForwardVector((GetAbsoluteLookAt() - GetAbsolutePosition()).Normalize());
 
 		// Find the absolute points
-		CMatrix viewProjMatrixInv = GetViewProjMatrix().Inverse();
+		auto viewProjMatrixInv = GetViewProjMatrix().Inverse();
 		CVector4F frustumCorner[FRUSTUM_POINT_SIZE];
 
 		// Screen space coordinates
@@ -93,18 +93,18 @@ namespace daidalosengine {
 		frustumCorner[FRUSTUM_POINT_FAR_BOTTOM_RIGHT] = CVector4F(1.0F, -1.0F, 1.0F, 1.0F);
 
 		// Screen space to world space
-		for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
+		for(auto i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
 			frustumCorner[i] = viewProjMatrixInv.Transform(frustumCorner[i]);
 			frustumCorner[i].x /= frustumCorner[i].w;
 			frustumCorner[i].y /= frustumCorner[i].w;
 			frustumCorner[i].z /= frustumCorner[i].w;
 
-			SetViewFrustumAbsolutePoint((EFrustumPoint) i, CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z) + GetAbsolutePosition());
+			SetViewFrustumAbsolutePoint(static_cast<EFrustumPoint>(i), CVector3F(frustumCorner[i].x, frustumCorner[i].y, frustumCorner[i].z) + GetAbsolutePosition());
 		}
 
 		// Find the relative points
-		for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
-			SetViewFrustumRelativePoint((EFrustumPoint)i, GetViewFrustumAbsolutePoint((EFrustumPoint)i) - GetAbsolutePosition());
+		for(auto i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
+			SetViewFrustumRelativePoint(static_cast<EFrustumPoint>(i), GetViewFrustumAbsolutePoint(static_cast<EFrustumPoint>(i)) - GetAbsolutePosition());
 		}
 
 		// Table creation for the frustum planes

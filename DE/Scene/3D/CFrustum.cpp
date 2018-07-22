@@ -63,30 +63,25 @@ namespace daidalosengine
 		LOG_TRACE();
 
 		this->m_lookAt = lookAt;
-		CVector3F up = CVector3F(0,1,0);
-		CVector3F nearCenter;
-		CVector3F farCenter;
-		CVector3F x;
-		CVector3F y;
-		CVector3F z;
+		auto up = CVector3F(0,1,0);
 
 		this->m_position = position;
 
 		// Z axis camera
-		z = (lookAt - this->m_position).Normalize();
+		const auto z = (lookAt - this->m_position).Normalize();
 
 		// X axis camera
-		x = up.CrossProduct(z).Normalize();
+		const auto x = up.CrossProduct(z).Normalize();
 
 		// Y axis camera
-		y = z.CrossProduct(x).Normalize();
+		const auto y = z.CrossProduct(x).Normalize();
 		this->m_up = y;
 
 		// World space calculation
 
 		// Find the center of the planes
-		nearCenter = this->m_position + z * this->m_nearDistance;
-		farCenter = this->m_position + z * this->m_farDistance;
+		auto nearCenter = this->m_position + z * this->m_nearDistance;
+		auto farCenter = this->m_position + z * this->m_farDistance;
 
 		// Find the forward vector
 		this->m_forward = (nearCenter - this->m_position).Normalize();
@@ -149,10 +144,10 @@ namespace daidalosengine
 	bool CFrustum::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
-		bool result = false;
+		auto result = false;
 
-		for(int i = 0; i < FRUSTUM_PLANE_SIZE && !result; i++) {
-			float dist = this->m_frustum[i].PointDistance(shape->GetPosition());
+		for(auto i = 0; i < FRUSTUM_PLANE_SIZE && !result; i++) {
+			const auto dist = this->m_frustum[i].PointDistance(shape->GetPosition());
 			if(dist < -shape->GetInnerDepth(this->m_frustum[FRUSTUM_PLANE_NEAR])) {
 				result = true;
 			}

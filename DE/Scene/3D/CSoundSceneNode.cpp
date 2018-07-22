@@ -53,7 +53,7 @@ namespace daidalosengine {
 			CVector3F lookAt(0, 0, this->m_sound.GetMaxDistance());
 			CVector3F up(0, 1, 0);
 			lookAt = GetAbsoluteRotationMatrix().Transform(lookAt);
-			up = GetAbsoluteRotationMatrix().Transform(lookAt, true);
+			up = GetAbsoluteRotationMatrix().Transform(up, true);
 
 			float orientation[] = { lookAt.x, lookAt.y, lookAt.z, up.x, up.y, up.z };
 			this->m_sound.SetOrientation(orientation);
@@ -199,7 +199,7 @@ namespace daidalosengine {
 		return this->m_sound.GetMaxDistance();
 	}
 
-	const std::string CSoundSceneNode::GetSoundName() const {
+	std::string CSoundSceneNode::GetSoundName() const {
 		LOG_TRACE();
 
 		return this->m_sound.GetSound()->GetName();

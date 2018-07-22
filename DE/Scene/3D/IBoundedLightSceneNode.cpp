@@ -54,7 +54,7 @@ namespace daidalosengine {
 		// Update the activation shape
 		this->m_visibilityShape->SetPosition(GetAbsolutePosition());
 
-		CVector3F radius = GetAbsoluteScaleMatrix().Transform(CVector3F(this->m_range, this->m_range, this->m_range));
+		const auto radius = GetAbsoluteScaleMatrix().Transform(CVector3F(this->m_range, this->m_range, this->m_range));
 		this->m_visibilityShape->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 
 		// Get the light scissor
@@ -94,6 +94,6 @@ namespace daidalosengine {
 		SetRange(range);
 		SetFalloff(falloff);
 
-		this->m_visibilityShape = std::unique_ptr<CSphereF>(new CSphereF(position, range));
+		this->m_visibilityShape = std::make_unique<CSphereF>(position, range);
 	}
 }

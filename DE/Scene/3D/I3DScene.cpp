@@ -51,7 +51,7 @@ namespace daidalosengine {
 		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		// Create the debug data
-		IRenderer * renderer = IRenderer::GetRenderer();
+		const auto renderer = IRenderer::GetRenderer();
 		this->m_debugShader.LoadFromFile("simple");
 
 		// Create the vertex declaration
@@ -86,8 +86,8 @@ namespace daidalosengine {
 		this->m_root = root;
 
 		// Update the skybox
-		if(((ILevelSceneNode*)this->m_root)->GetSkyName() != "") {
-			this->m_skybox.SetName(((ILevelSceneNode*)this->m_root)->GetSkyName());
+		if(!dynamic_cast<ILevelSceneNode*>(this->m_root)->GetSkyName().empty()) {
+			this->m_skybox.SetName(dynamic_cast<ILevelSceneNode*>(this->m_root)->GetSkyName());
 		}
 	}
 
@@ -111,6 +111,7 @@ namespace daidalosengine {
 	/**
 	* Set the particle system atlas texture
 	* @param filename The filename
+	* @param size The atlas size
 	*/
 	void I3DScene::SetParticleSystemAtlasTexture(const std::string & filename, const CVector2I & size) {
 		this->m_particleSystem.SetAtlasTexture(filename, size);
@@ -146,8 +147,9 @@ namespace daidalosengine {
 		this->m_lighteningUpdateTimer = LIGHTNING_UPDATE_DELAY;
 
 		// Update the active camera first, as it will be necessary for other nodes updates
-		if(this->m_activeCamera != nullptr)
+		if (this->m_activeCamera != nullptr) {
 			this->m_activeCamera->Update(time);
+		}
 
 		// Update the nodes
 		Assert(this->m_root != nullptr);
@@ -167,8 +169,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -191,8 +193,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -210,8 +212,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -235,7 +237,7 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		// Disable writing to the z-buffer
 		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTHTEST, false);
@@ -280,8 +282,8 @@ namespace daidalosengine {
 
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, "pointLightPositionRange", this->m_activePointLights->positionRange[id]);
@@ -295,8 +297,8 @@ namespace daidalosengine {
 
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
-		IRenderer * renderer = IRenderer::GetRenderer();
-		IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto renderer = IRenderer::GetRenderer();
+		auto shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_DIRECTION), this->m_activeDirectionalLights->direction[id]);
@@ -306,25 +308,25 @@ namespace daidalosengine {
 	void I3DScene::SetBrushCollision(const int brushId, const bool collision) {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->SetBrushCollision(brushId, collision);
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->SetBrushCollision(brushId, collision);
 	}
 
 	bool I3DScene::Slide(IShape3DF & shape, const CVector3F & movement) {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->Slide(shape, movement);
 	}
 
 	bool I3DScene::GetCollisionPoint(const CVector3F & position, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(position, movement, point);
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(position, movement, point);
 	}
 
 	bool I3DScene::GetCollisionPoint(IShape3DF & shape, const CVector3F & movement, CVector3F & point) {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(shape, movement, point);
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetCollisionPoint(shape, movement, point);
 	}
 
 	int I3DScene::GetNumberOfActiveSpotLights() const {
@@ -350,7 +352,7 @@ namespace daidalosengine {
 
 		Assert(this->m_root != nullptr);
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetNumberOfVisibleTriangles();
 	}
 
 	const std::string & I3DScene::GetFilename() const {
@@ -362,19 +364,19 @@ namespace daidalosengine {
 	const CVector4F & I3DScene::GetAmbientColor() const {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetAmbientColor();
 	}
 
 	const CVector4F & I3DScene::GetSkyAmbientColor() const {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetSkyAmbientColor();
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetSkyAmbientColor();
 	}
 
-	const CAABoundingBoxF I3DScene::GetSceneBoundingBox() {
+	CAABoundingBoxF I3DScene::GetSceneBoundingBox() {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root)->GetLevelBoundingBox();
+		return dynamic_cast<ILevelSceneNode*>(this->m_root)->GetLevelBoundingBox();
 	}
 
 	CParticleSystem & I3DScene::GetParticleSystem() {
@@ -433,7 +435,7 @@ namespace daidalosengine {
 	ILevelSceneNode * I3DScene::GetRootNode() const {
 		LOG_TRACE();
 
-		return static_cast<ILevelSceneNode*>(this->m_root);
+		return dynamic_cast<ILevelSceneNode*>(this->m_root);
 	}
 
 	ICameraSceneNode * I3DScene::GetActiveCamera() const {
@@ -466,14 +468,14 @@ namespace daidalosengine {
 		CArraySorter<float> sorter;
 
 		// Sort the spot lights
-		for(int i = 0; i < this->m_activeSpotLights->numberOfLights; i++) {
+		for(auto i = 0; i < this->m_activeSpotLights->numberOfLights; i++) {
 			this->m_activeSpotLights->visibilityOrder[i] = i;
 			this->m_activeSpotLights->distanceToCamera[i] = CVector3F(this->m_activeSpotLights->position[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
 		sorter.QuickSort(this->m_activeSpotLights->distanceToCamera, this->m_activeSpotLights->visibilityOrder, 0, this->m_activeSpotLights->numberOfLights, ARRAY_SORTER_ORDER_ASC);
 
 		// Sort the point lights
-		for(int i = 0; i < this->m_activePointLights->numberOfLights; i++) {
+		for(auto i = 0; i < this->m_activePointLights->numberOfLights; i++) {
 			this->m_activePointLights->visibilityOrder[i] = i;
 			this->m_activePointLights->distanceToCamera[i] = CVector3F(this->m_activePointLights->positionRange[i]).Distance(this->m_activeCamera->GetAbsolutePosition());
 		}
@@ -484,19 +486,19 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the number of active spot light versus the maximum allowed in the options
-		int maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
+		const auto maxSpotLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_SPOTLIGHT_SOURCES, this->m_activeSpotLights->numberOfLights);
 		if(maxSpotLight < this->m_activeSpotLights->numberOfLights) {
 			this->m_activeSpotLights->numberOfLights = maxSpotLight;
 		}
 
 		// Check the number of active point light versus the maximum allowed in the options
-		int maxPointLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_POINTLIGHT_SOURCES, this->m_activePointLights->numberOfLights);
+		const auto maxPointLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_POINTLIGHT_SOURCES, this->m_activePointLights->numberOfLights);
 		if(maxPointLight < this->m_activePointLights->numberOfLights) {
 			this->m_activePointLights->numberOfLights = maxPointLight;
 		}
 
 		// Check the number of active directional light versus the maximum allowed in the options
-		int maxDirectionalLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_DIRECTIONALLIGHT_SOURCES, this->m_activeDirectionalLights->numberOfLights);
+		const auto maxDirectionalLight = this->m_options.GetValueInt(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_MAX_DIRECTIONALLIGHT_SOURCES, this->m_activeDirectionalLights->numberOfLights);
 		if(maxDirectionalLight < this->m_activeDirectionalLights->numberOfLights) {
 			this->m_activeDirectionalLights->numberOfLights = maxDirectionalLight;
 		}
@@ -509,8 +511,8 @@ namespace daidalosengine {
 			vector.push_back(currentNode);
 		}
 
-		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
-			FindAllNodes(*it, name, vector);
+		for (auto it : currentNode->GetChildren()) {
+			FindAllNodes(it, name, vector);
 		}
 	}
 
@@ -521,8 +523,8 @@ namespace daidalosengine {
 			vector.push_back(currentNode);
 		}
 
-		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
-			FindAllNodes(*it, nodeType, vector);
+		for (auto it : currentNode->GetChildren()) {
+			FindAllNodes(it, nodeType, vector);
 		}
 	}
 
@@ -533,8 +535,8 @@ namespace daidalosengine {
 			vector.push_back(currentNode);
 		}
 
-		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
-			FindAllNodes(*it, id, vector);
+		for (auto it : currentNode->GetChildren()) {
+			FindAllNodes(it, id, vector);
 		}
 	}
 
@@ -545,11 +547,11 @@ namespace daidalosengine {
 			return currentNode;
 		}
 
-		ISceneNode * result;
-		for(auto it = currentNode->GetChildren().begin(); it != currentNode->GetChildren().end(); ++it) {
-			result = FindNode(*it, name);
-			if(result != nullptr)
+		for (auto it : currentNode->GetChildren()) {
+			const auto result = FindNode(it, name);
+			if (result != nullptr) {
 				return result;
+			}
 		}
 
 		return nullptr;

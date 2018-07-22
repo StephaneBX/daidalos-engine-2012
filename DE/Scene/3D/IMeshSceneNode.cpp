@@ -52,7 +52,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_shadingType = MESH_SHADING_SMOOTH;
-		SetScale(scale);
+		IMeshSceneNode::SetScale(scale);
 		this->m_visibilityShape = new CSphereF();
 		this->m_needGeometryUpdate = true;
 
@@ -90,13 +90,13 @@ namespace daidalosengine {
 		this->m_defaultMaterialElement.clear();
 		this->m_activeMaterialElement.clear();
 
-		SiniP materialConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
-		for(int i = 0; i < this->m_numberOfGroups; ++i) {
+		auto materialConf = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_MATERIALS_CONFIGURATION);
+		for(auto i = 0; i < this->m_numberOfGroups; ++i) {
 			ss.str("");
 			ss << "group_" << (i + 1);
 
-			std::string name = materialConf.GetValueString(this->m_filename, ss.str(), "default");
-			SMaterialElement * element = this->m_material.GetMaterial()->GetElement(name);
+			const auto name = materialConf.GetValueString(this->m_filename, ss.str(), "default");
+			auto element = this->m_material.GetMaterial()->GetElement(name);
 
 			// If the element is not found, choose the default one
 			if(element == nullptr) {
@@ -111,7 +111,7 @@ namespace daidalosengine {
 	void IMeshSceneNode::SetActiveMeshMaterialElement(const std::string & name) {
 		LOG_TRACE();
 
-		SMaterialElement * element = this->m_material.GetMaterial()->GetElement(name);
+		const auto element = this->m_material.GetMaterial()->GetElement(name);
 		if(element != nullptr) {
 			for(int i = 0; i < this->m_numberOfGroups; ++i) {
 				this->m_activeMaterialElement[i] = element;
@@ -122,7 +122,7 @@ namespace daidalosengine {
 	void IMeshSceneNode::RestoreDefaultMeshMaterialElement() {
 		LOG_TRACE();
 
-		for(int i = 0; i < this->m_numberOfGroups; ++i) {
+		for(auto i = 0; i < this->m_numberOfGroups; ++i) {
 			this->m_activeMaterialElement[i] = this->m_defaultMaterialElement[i];
 		}
 	}
@@ -185,7 +185,7 @@ namespace daidalosengine {
 		ISceneNode::SetMeshFormat(format);
 	}
 
-	void IMeshSceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
+	void IMeshSceneNode::SetMeshShadingType(const EMeshShadingType shadingType) {
 		LOG_TRACE();
 
 		this->m_shadingType = shadingType;
@@ -216,8 +216,8 @@ namespace daidalosengine {
 				FinalizeGeometry();
 			}
 
-			IRenderer * renderer = IRenderer::GetRenderer();
-			IShaderProgramBase * shaderProgram = renderer->GetCurrentShaderProgram();
+			auto renderer = IRenderer::GetRenderer();
+			auto shaderProgram = renderer->GetCurrentShaderProgram();
 
 			Assert(shaderProgram != nullptr);
 
@@ -226,7 +226,7 @@ namespace daidalosengine {
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_ROTATION_MATRIX), GetAbsoluteRotationMatrix());
 
 			// Group paramaters
-			for(int i = 0; i < this->m_numberOfGroups; ++i) {
+			for(auto i = 0; i < this->m_numberOfGroups; ++i) {
 				// Material
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_DIFFUSE), this->m_activeMaterialElement[i]->m_kDiffuse);
 				shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_MATERIAL_SPECULAR), this->m_activeMaterialElement[i]->m_kSpecular);
@@ -270,10 +270,10 @@ namespace daidalosengine {
 		return this->m_shadingType;
 	}
 
-	const std::string IMeshSceneNode::GetMeshTextureName(ETextureType textureType) const {
+	std::string IMeshSceneNode::GetMeshTextureName(ETextureType textureType) const {
 		LOG_TRACE();
 
-		std::string name = "";
+		std::string name;
 		switch(textureType) {
 		case TEXTURE_TYPE_DIFFUSE:
 			if(this->m_diffuseTexture != nullptr) {
@@ -295,10 +295,10 @@ namespace daidalosengine {
 		return name;
 	}
 
-	const std::string IMeshSceneNode::GetMeshMaterialName() const {
+	std::string IMeshSceneNode::GetMeshMaterialName() const {
 		LOG_TRACE();
 
-		std::string name = "";
+		std::string name;
 
 		if(this->m_material.GetMaterial() != nullptr) {
 			name = this->m_material.GetMaterial()->GetName();
@@ -307,7 +307,7 @@ namespace daidalosengine {
 		return name;
 	}
 
-	CSphereF * IMeshSceneNode::GetVisibilityShape() {
+	CSphereF * IMeshSceneNode::GetVisibilityShape() const {
 		LOG_TRACE();
 
 		return this->m_visibilityShape;

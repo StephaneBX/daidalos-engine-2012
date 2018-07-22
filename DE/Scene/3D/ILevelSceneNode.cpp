@@ -177,7 +177,7 @@ namespace daidalosengine {
 		return this->m_skyAmbientColor;
 	}
 
-	const CAABoundingBoxF ILevelSceneNode::GetLevelBoundingBox() {
+	const CAABoundingBoxF & ILevelSceneNode::GetLevelBoundingBox() {
 		LOG_TRACE();
 
 		return this->m_levelBoundingBox;
@@ -197,7 +197,7 @@ namespace daidalosengine {
 	* Set the level buffer
 	* @param triangles The triangles
 	*/
-	void ILevelSceneNode::SetLevelBuffer(const std::vector<CTriangle3D *> triangles) {
+	void ILevelSceneNode::SetLevelBuffer(const std::vector<CTriangle3D *>& triangles) {
 		LOG_TRACE();
 
 		this->m_levelBuffer.Transform(triangles, this->m_shadingType);
@@ -209,7 +209,7 @@ namespace daidalosengine {
 	void ILevelSceneNode::RenderPrimitives() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer().GetBuffer(), this->m_levelBuffer.GetStride());
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
 	}

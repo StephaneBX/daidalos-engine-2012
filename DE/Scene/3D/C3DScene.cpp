@@ -225,7 +225,7 @@ namespace daidalosengine {
 		return this->m_scene->GetSkyAmbientColor();
 	}
 
-	const CAABoundingBoxF C3DScene::GetSceneBoundingBox() {
+	CAABoundingBoxF C3DScene::GetSceneBoundingBox() {
 		LOG_TRACE();
 
 		Assert(this->m_scene != nullptr);

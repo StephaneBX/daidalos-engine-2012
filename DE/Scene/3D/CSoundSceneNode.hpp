@@ -206,7 +206,7 @@ namespace daidalosengine {
 		* Get the sound name
 		* @return The sound name
 		*/
-		const std::string GetSoundName() const;
+		std::string GetSoundName() const;
 	};
 }
 

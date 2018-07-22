@@ -36,8 +36,8 @@ namespace daidalosengine {
 		this->m_looped = false;
 		SetType(SCENE_NODE_ANIMATEDMESH);
 
-		SetMesh(filename);
-		SetMeshMaterial("default.mtl");
+		CAnimatedMeshSceneNode::SetMesh(filename);
+		CAnimatedMeshSceneNode::SetMeshMaterial("default.mtl");
 
 		this->m_animationStart = 0;
 		this->m_animationEnd = 0;
@@ -54,8 +54,8 @@ namespace daidalosengine {
 		this->m_looped = false;
 		SetType(SCENE_NODE_ANIMATEDMESH);
 		
-		SetMesh(filename);
-		SetMeshMaterial("default.mtl");
+		CAnimatedMeshSceneNode::SetMesh(filename);
+		CAnimatedMeshSceneNode::SetMeshMaterial("default.mtl");
 
 		this->m_animationStart = 0;
 		this->m_animationEnd = 0;
@@ -66,9 +66,7 @@ namespace daidalosengine {
 		this->m_mesh.Animate(0);
 	}
 
-	CAnimatedMeshSceneNode::~CAnimatedMeshSceneNode() {
-
-	}
+	CAnimatedMeshSceneNode::~CAnimatedMeshSceneNode() = default;
 
 	void CAnimatedMeshSceneNode::SetMesh(const std::string & filename) {
 		LOG_TRACE();
@@ -157,15 +155,15 @@ namespace daidalosengine {
 		SetNeedGeometryUpdate(true);
 
 		// Update the activation shape
-		CVector3F radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
+		const auto radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
 		GetVisibilityShape()->SetPosition(GetAbsoluteTransformationMatrix().Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 		GetVisibilityShape()->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 
-	const std::string CAnimatedMeshSceneNode::GetMeshName() const {
+	std::string CAnimatedMeshSceneNode::GetMeshName() const {
 		LOG_TRACE();
 
-		std::string name = "";
+		std::string name;
 		if(this->m_mesh.GetMesh() != nullptr) {
 			name = this->m_mesh.GetMesh()->GetName();
 		}
@@ -190,7 +188,7 @@ namespace daidalosengine {
 
 		this->m_mesh.Animate(this->m_animationCurrent);
 		this->m_mesh.FinalizeGeometry(GetMeshShadingType());
-		for (int i = 0; i < GetNumberOfGroups(); ++i) {
+		for (auto i = 0; i < GetNumberOfGroups(); ++i) {
 			PushMeshData(this->m_mesh.GetMesh(), i);
 		}
 		SetNeedGeometryUpdate(false);

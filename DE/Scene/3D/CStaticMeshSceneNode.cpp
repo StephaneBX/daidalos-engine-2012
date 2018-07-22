@@ -36,8 +36,8 @@ namespace daidalosengine {
 
 		SetType(SCENE_NODE_STATICMESH);
 
-		SetMesh(filename);
-		SetMeshMaterial("default.mtl");
+		CStaticMeshSceneNode::SetMesh(filename);
+		CStaticMeshSceneNode::SetMeshMaterial("default.mtl");
 	}
 
 	CStaticMeshSceneNode::CStaticMeshSceneNode(I3DScene * scene, ISceneNode * parent, const std::string & name, const std::string & filename, const CVector3F & position, const CVector3F & rotation, const CVector3F & scale) : IMeshSceneNode(scene, parent, name, position, rotation, scale) {
@@ -45,13 +45,11 @@ namespace daidalosengine {
 
 		SetType(SCENE_NODE_STATICMESH);
 
-		SetMesh(filename);
-		SetMeshMaterial("default.mtl");
+		CStaticMeshSceneNode::SetMesh(filename);
+		CStaticMeshSceneNode::SetMeshMaterial("default.mtl");
 	}
 
-	CStaticMeshSceneNode::~CStaticMeshSceneNode() {
-
-	}
+	CStaticMeshSceneNode::~CStaticMeshSceneNode() = default;
 
 	/**
 	* Set the mesh
@@ -72,15 +70,15 @@ namespace daidalosengine {
 		IMeshSceneNode::Update(time);
 
 		// Update the activation shape
-		CVector3F radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
+		const auto radius = GetAbsoluteTransformationMatrix().GetScale().Transform(CVector3F(this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth(), this->m_mesh.GetMesh()->GetVisibilityShape()->GetInnerDepth()));
 		GetVisibilityShape()->SetPosition(GetAbsoluteTransformationMatrix().Transform(this->m_mesh.GetMesh()->GetVisibilityShape()->GetPosition()));
 		GetVisibilityShape()->SetRadius(std::max(radius.x, std::max(radius.y, radius.z)));
 	}
 
-	const std::string CStaticMeshSceneNode::GetMeshName() const {
+	std::string CStaticMeshSceneNode::GetMeshName() const {
 		LOG_TRACE();
 
-		std::string name = "";
+		std::string name;
 		if(this->m_mesh.GetMesh() != nullptr) {
 			name = this->m_mesh.GetMesh()->GetName();
 		}
@@ -92,7 +90,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		this->m_mesh.FinalizeGeometry(GetMeshShadingType());
-		for(int i = 0; i < GetNumberOfGroups(); ++i) {
+		for(auto i = 0; i < GetNumberOfGroups(); ++i) {
 			PushMeshData(this->m_mesh.GetMesh(), i);
 		}
 		SetNeedGeometryUpdate(false);

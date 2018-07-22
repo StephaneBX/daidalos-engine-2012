@@ -307,7 +307,7 @@ namespace daidalosengine {
 		* Get the scene bounding box
 		* @return The scene bounding box
 		*/
-		const CAABoundingBoxF GetSceneBoundingBox();
+		CAABoundingBoxF GetSceneBoundingBox();
 
 		/**
 		* Get the root node

@@ -81,7 +81,7 @@ namespace daidalosengine {
 		/**
 		* Get the mesh name
 		*/
-		const std::string GetMeshName() const override;
+		std::string GetMeshName() const override;
 
 	protected:
 		/**

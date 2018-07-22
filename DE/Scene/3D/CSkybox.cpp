@@ -114,7 +114,7 @@ namespace daidalosengine {
 	void CSkybox::Render() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 
 		// Disable writing to the z-buffer
 		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
@@ -130,7 +130,7 @@ namespace daidalosengine {
 		this->m_shaderProgram.SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_VIEWPROJ_MATRIX), this->m_scene->GetActiveCamera()->GetViewProjMatrix());
 
 		// Draw each part of the skybox
-		for(int i = 0; i < SKYBOX_FACE_SIZE; i++) {
+		for(auto i = 0; i < SKYBOX_FACE_SIZE; i++) {
 			renderer->SetVertexBuffer(0, this->m_buffers[i].GetBuffer(), sizeof(daidalosengine::SSkyboxElement), 0, 4);
 			renderer->SetTexture(0, this->m_textures[i].GetTexture());
 			renderer->DrawIndexedPrimitives(daidalosengine::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
@@ -156,7 +156,7 @@ namespace daidalosengine {
 	void CSkybox::CreateGeometry() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		const auto renderer = IRenderer::GetRenderer();
 
 		// Create the buffers
 		SSkyboxElement front[] =

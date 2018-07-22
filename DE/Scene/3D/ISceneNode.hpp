@@ -116,7 +116,7 @@ namespace daidalosengine {
 		* @param attributeName The attribute name
 		* @param attributeValue The attribute value
 		*/
-		void AddAttribute(const std::string & attributeName, const std::string attributeValue);
+		void AddAttribute(const std::string & attributeName, const std::string& attributeValue);
 
 		/**
 		* Set the node enabled status
@@ -152,7 +152,7 @@ namespace daidalosengine {
 		* Set the node name
 		* @param name The node name
 		*/
-		void SetName(const std::string name);
+		void SetName(const std::string& name);
 
 		/**
 		* Set the active status
@@ -164,7 +164,7 @@ namespace daidalosengine {
 		* Set the bounding box name
 		* @param boundingBox The bounding box name
 		*/
-		void SetBoundingBox(const std::string boundingBox);
+		void SetBoundingBox(const std::string& boundingBox);
 
 		/**
 		* Set the local position

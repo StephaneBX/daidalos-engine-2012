@@ -158,7 +158,7 @@ namespace daidalosengine {
 		* Get the level bounding box
 		* @return The level bounding box
 		*/
-		const CAABoundingBoxF GetLevelBoundingBox();
+		const CAABoundingBoxF & GetLevelBoundingBox();
 
 		/**
 		* Get the active camera
@@ -230,7 +230,7 @@ namespace daidalosengine {
 		* Set the level buffer
 		* @param triangles The triangles
 		*/
-		void SetLevelBuffer(const std::vector<CTriangle3D *> triangles);
+		void SetLevelBuffer(const std::vector<CTriangle3D *>& triangles);
 
 		/**
 		* Render the primtives from the buffer

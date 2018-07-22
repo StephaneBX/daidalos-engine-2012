@@ -64,17 +64,16 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Get the light direction
-		CVector3F direction = GetAbsoluteRotationMatrix().Transform(CVector3F(0, 0, 1)).Normalize();
+		const auto direction = GetAbsoluteRotationMatrix().Transform(CVector3F(0, 0, 1)).Normalize();
 
-		CVector3F centroid;
 		CAABoundingBoxF boundingBox;
 		if(GetScene()->GetActiveCamera() != this->m_camera) {
 			// If the active camera is not the light camera, use the active camera frustum as a bounding box
-			CVector3F boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-			CVector3F boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+			auto boundingBoxMin = CVector3F(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+			auto boundingBoxMax = CVector3F(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
 			// Find the min and max
-			for(int i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
+			for(auto i = 0; i < FRUSTUM_POINT_SIZE; ++i) {
 				boundingBoxMin = boundingBoxMin.Min(GetScene()->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
 				boundingBoxMax = boundingBoxMax.Max(GetScene()->GetActiveCamera()->GetViewFrustumAbsolutePoint((EFrustumPoint)i));
 			}
@@ -87,10 +86,10 @@ namespace daidalosengine {
 		}
 
 		// Find the centroid
-		centroid = boundingBox.GetPosition();
+		const auto centroid = boundingBox.GetPosition();
 
 		// Find the distance from the centroid to one corner
-		float distance = (boundingBox.GetMin()).Distance(centroid);
+		const auto distance = (boundingBox.GetMin()).Distance(centroid);
 
 		// Find the light position based on the centroid
 		SetPosition(centroid);
@@ -101,8 +100,8 @@ namespace daidalosengine {
 		ILightSceneNode::Update(time);
 
 		// Transform the bounding box to the light view space
-		CVector3F minPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Min(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
-		CVector3F maxPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Max(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
+		const auto minPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Min(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
+		const auto maxPosition = this->m_camera->GetViewMatrix().Transform(boundingBox.GetMin()).Max(this->m_camera->GetViewMatrix().Transform(boundingBox.GetMax()));
 
 
 		// Update the camera rect/near/far values

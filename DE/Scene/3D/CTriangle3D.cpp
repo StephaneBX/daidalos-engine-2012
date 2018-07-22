@@ -34,8 +34,8 @@ namespace daidalosengine {
 
 		this->m_id = 0;
 
-		for(int i = 0; i < 3; ++i) {
-			this->m_colors[i] = CVector4F(1, 1, 1, 1);
+		for (auto& color : this->m_colors) {
+			color = CVector4F(1, 1, 1, 1);
 		}
 
 		this->m_material.LoadFromFile("default.mtl");
@@ -102,8 +102,7 @@ namespace daidalosengine {
 
 		if(this->m_material.GetMaterial()->GetElement(elementName) != nullptr) {
 			this->m_materialElement = elementName;
-		}
-		else {
+		} else {
 			this->m_materialElement = "default";
 		}
 	}
@@ -117,31 +116,26 @@ namespace daidalosengine {
 	void CTriangle3D::Update() {
 		LOG_TRACE();
 
-		// Circum sphere
-		float alpha;
-		float beta;
-		float gamma;
-
-		alpha = (std::pow((this->m_vertices[1] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[0] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
-		beta = (std::pow((this->m_vertices[0] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[1] - this->m_vertices[0], this->m_vertices[1] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
-		gamma = (std::pow((this->m_vertices[0] - this->m_vertices[1]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[2] - this->m_vertices[0], this->m_vertices[2] - this->m_vertices[1])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+		const auto alpha = (std::pow((this->m_vertices[1] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[0] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+		const auto beta = (std::pow((this->m_vertices[0] - this->m_vertices[2]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[1] - this->m_vertices[0], this->m_vertices[1] - this->m_vertices[2])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
+		const auto gamma = (std::pow((this->m_vertices[0] - this->m_vertices[1]).Length(), 2) * CVector3F::DotProduct(this->m_vertices[2] - this->m_vertices[0], this->m_vertices[2] - this->m_vertices[1])) / (2 * std::pow(CVector3F::CrossProduct(this->m_vertices[0] - this->m_vertices[1], this->m_vertices[1] - this->m_vertices[2]).Length(), 2));
 
 		this->m_circumSphere.SetPosition(alpha * this->m_vertices[0] + beta * this->m_vertices[1] + gamma * this->m_vertices[2]);
 		this->m_circumSphere.SetRadius((this->m_circumSphere.GetPosition() - this->m_vertices[0]).Length() * 1.5F);
 
 		// Update the tangents and binormals
-		CVector3F ab = this->m_vertices[1] - this->m_vertices[0];
-		CVector3F ac = this->m_vertices[2] - this->m_vertices[0];
-		CVector2F abuv = this->m_texcoords[1] - this->m_texcoords[0];
-		CVector2F acuv = this->m_texcoords[2] - this->m_texcoords[0];
-		float fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
+		const auto ab = this->m_vertices[1] - this->m_vertices[0];
+		const auto ac = this->m_vertices[2] - this->m_vertices[0];
+		const auto abuv = this->m_texcoords[1] - this->m_texcoords[0];
+		const auto acuv = this->m_texcoords[2] - this->m_texcoords[0];
+		const auto fDenominator = acuv.y * abuv.x - abuv.y * acuv.x;
 
-		for(int j = 0; j < 3; ++j) {
+		for(auto j = 0; j < 3; ++j) {
 			if(fDenominator >= -EPSILON && fDenominator <= EPSILON) {
 				this->m_tangents[j] = CVector3F(1, 0, 0);
 				this->m_binormals[j] = this->m_tangents[j].CrossProduct(this->m_normals[j]).Normalize();
 			} else {
-				float fScale1 = 1.0F / fDenominator;
+				const auto fScale1 = 1.0F / fDenominator;
 				this->m_tangents[j] = ((acuv.y * ab - abuv.y * ac) * fScale1).Normalize();
 
 				// Gram-Schmidt orthogonalization
@@ -199,7 +193,7 @@ namespace daidalosengine {
 		return this->m_colors[index];
 	}
 
-	const CVector3F CTriangle3D::GetIncenter() const {
+	CVector3F CTriangle3D::GetIncenter() const {
 		LOG_TRACE();
 
 		return (this->m_vertices[0] + this->m_vertices[1] + this->m_vertices[2]) / 3.0F;
@@ -211,21 +205,18 @@ namespace daidalosengine {
 		return this->m_circumSphere;
 	}
 
-	ITexture2DBase * CTriangle3D::GetTexture(ETextureType type) const {
+	ITexture2DBase * CTriangle3D::GetTexture(const ETextureType type) const {
 		LOG_TRACE();
 
 		switch(type) {
 		case TEXTURE_TYPE_DIFFUSE:
 			return this->m_diffuseTexture.GetTexture();
-			break;
 
 		case TEXTURE_TYPE_NORMAL:
 			return this->m_normalTexture.GetTexture();
-			break;
 
 		default:
 			return this->m_diffuseTexture.GetTexture();
-			break;
 		}
 	}
 

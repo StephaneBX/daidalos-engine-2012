@@ -148,7 +148,7 @@ namespace daidalosengine {
 		/**
 		* Get the mesh name
 		*/
-		virtual const std::string GetMeshName() const = 0;
+		virtual std::string GetMeshName() const = 0;
 
 		/**
 		* Get the number of groups
@@ -165,19 +165,19 @@ namespace daidalosengine {
 		* Get the texture name
 		* @param textureType The texture type
 		* @return The texture name
-		*/ 
-		const std::string GetMeshTextureName(ETextureType textureType) const;
+		*/
+		std::string GetMeshTextureName(ETextureType textureType) const;
 
 		/**
 		* Get the material name
 		* @return The material name
 		*/
-		const std::string GetMeshMaterialName() const;
+		std::string GetMeshMaterialName() const;
 
 		/**
 		* Get the visibility shape
 		*/
-		CSphereF * GetVisibilityShape();
+		CSphereF * GetVisibilityShape() const;
 
 	protected:
 		/**

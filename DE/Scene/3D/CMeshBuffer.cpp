@@ -43,25 +43,25 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the vertex buffer size
-		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * numberOfElements) {
+		if(static_cast<unsigned long>(this->m_vertexBuffer.GetSize()) < this->m_stride * numberOfElements) {
 			// Create a new one if the current one can't hold the data
 			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, numberOfElements, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
 
-		int pitch = 0;
-		int index = 0;
-		unsigned char * lock = (unsigned char*)this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY);
+		auto pitch = 0;
+		auto index = 0;
+		const auto lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
 
-		for(int i = 0; i < numberOfElements; i += 3) {
+		for(auto i = 0; i < numberOfElements; i += 3) {
 			// Vertex transformation
-			for(int j = 0; j < 3; ++j) {
+			for(auto j = 0; j < 3; ++j) {
 				memcpy(lock + (this->m_stride * (index + j)) + pitch, vertex[i + j], sizeof(CVector3F));
 			}
 			pitch += sizeof(CVector3F);
 
 			// Texcoord transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
-				for(int j = 0; j < 3; ++j) {
+				for(auto j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, texcoord[i + j], sizeof(CVector2F));
 				}
 				pitch += sizeof(CVector2F);
@@ -69,7 +69,7 @@ namespace daidalosengine {
 
 			// Normal transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_NORMAL) != 0) {
-				for(int j = 0; j < 3; ++j) {
+				for(auto j = 0; j < 3; ++j) {
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, normal[i + j], sizeof(CVector3F));
 				}
 				pitch += sizeof(CVector3F);
@@ -77,7 +77,7 @@ namespace daidalosengine {
 
 			// Normal Tangent and Binormal transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_NTB) != 0) {
-				for(int j = 0; j < 3; ++j) {
+				for(auto j = 0; j < 3; ++j) {
 					// Normal
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, normal[i + j], sizeof(CVector3F));
 
@@ -103,26 +103,26 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Check the vertex buffer size
-		if((int)this->m_vertexBuffer.GetSize() < this->m_stride * triangles.size() * 3) {
+		if(static_cast<unsigned long>(this->m_vertexBuffer.GetSize()) < this->m_stride * triangles.size() * 3) {
 			// Create a new one if the current one can't hold the data
 			this->m_vertexBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(this->m_stride, triangles.size() * 3, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
 
-		int pitch = 0;
-		int index = 0;
-		unsigned char * lock = (unsigned char*)this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY);
+		auto pitch = 0;
+		auto index = 0;
+		const auto lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
 
-		for(int i = 0; i < (int)triangles.size(); ++i) {
+		for (auto triangle : triangles) {
 			// Vertex transformation
-			for(int j = 0; j < 3; ++j) {
-				memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetVertex(j), sizeof(CVector3F));
+			for(auto j = 0; j < 3; ++j) {
+				memcpy(lock + (this->m_stride * (index + j)) + pitch, triangle->GetVertex(j), sizeof(CVector3F));
 			}
 			pitch += sizeof(CVector3F);
 
 			// Texcoord transformation
 			if((this->m_format & MESHBUFFER_ELEMENT_TEXCOORD) != 0) {
-				for(int j = 0; j < 3; ++j) {
-					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetTexcoord(j), sizeof(CVector2F));
+				for(auto j = 0; j < 3; ++j) {
+					memcpy(lock + (this->m_stride * (index + j)) + pitch, triangle->GetTexcoord(j), sizeof(CVector2F));
 				}
 				pitch += sizeof(CVector2F);
 			}
@@ -131,14 +131,14 @@ namespace daidalosengine {
 			if((this->m_format & MESHBUFFER_ELEMENT_NORMAL) != 0) {
 				switch(shadingType) {
 				case MESH_SHADING_FLAT:
-					for(int j = 0; j < 3; ++j) {
-						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetFlatNormal(), sizeof(CVector3F));
+					for(auto j = 0; j < 3; ++j) {
+						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangle->GetFlatNormal(), sizeof(CVector3F));
 					}
 					break;
 
 				default:
-					for(int j = 0; j < 3; ++j) {
-						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangles[i]->GetNormal(j), sizeof(CVector3F));
+					for(auto j = 0; j < 3; ++j) {
+						memcpy(lock + (this->m_stride * (index + j)) + pitch, triangle->GetNormal(j), sizeof(CVector3F));
 					}
 					break;
 				}
@@ -151,27 +151,27 @@ namespace daidalosengine {
 				CVector3F tmpNormal[3];
 				switch(shadingType) {
 				case MESH_SHADING_FLAT:
-					for(int j = 0; j < 3; ++j) {
-						tmpNormal[j] = triangles[i]->GetFlatNormal();
+					for (auto& normal : tmpNormal) {
+						normal = triangle->GetFlatNormal();
 					}
 					break;
 
 				default:
-					for(int j = 0; j < 3; ++j) {
-						triangles[i]->GetNormal(j);
+					for(auto j = 0; j < 3; ++j) {
+						tmpNormal[j] = triangle->GetNormal(j);
 					}
 					break;
 				}
 
-				for(int j = 0; j < 3; ++j) {
+				for(auto j = 0; j < 3; ++j) {
 					// Normal
 					memcpy(lock + (this->m_stride * (index + j)) + pitch, tmpNormal[j], sizeof(CVector3F));
 
 					// Tangent
-					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F), triangles[i]->GetTangent(j), sizeof(CVector3F));
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F), triangle->GetTangent(j), sizeof(CVector3F));
 
 					// Binormal
-					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F) * 2, triangles[i]->GetBinormal(j), sizeof(CVector3F));
+					memcpy(lock + (this->m_stride * (index + j)) + pitch + sizeof(CVector3F) * 2, triangle->GetBinormal(j), sizeof(CVector3F));
 				}
 				pitch += sizeof(CVector3F) * 3;
 			}

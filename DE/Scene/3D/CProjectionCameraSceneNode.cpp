@@ -68,17 +68,10 @@ namespace daidalosengine {
 		// Update the view proj matrix
 		SetViewProjMatrix(GetViewMatrix() * GetProjMatrix());
 
-		/**
-		* Update the view frustum information
-		*/
-		float tang;
-		CVector3F nearCenter;
-		CVector3F farCenter;
 		CVector2F nearSize;
 		CVector2F farSize;
-		CVector3F x;
 
-		tang = this->m_angle * 0.5F;
+		const auto tang = this->m_angle * 0.5F;
 		nearSize.y = GetNearDistance() * tang;
 		nearSize.x = nearSize.y * this->m_ratio;
 		farSize.y = GetFarDistance() * tang;
@@ -88,13 +81,13 @@ namespace daidalosengine {
 		SetForwardVector((GetAbsoluteLookAt() - GetAbsolutePosition()).Normalize());
 
 		// X axis camera
-		x = GetUpVector().CrossProduct(GetForwardVector()).Normalize();
+		const auto x = GetUpVector().CrossProduct(GetForwardVector()).Normalize();
 
 		// World space calculation
 
 		// Find the center of the planes
-		nearCenter = GetAbsolutePosition() + GetForwardVector() * GetNearDistance();
-		farCenter = GetAbsolutePosition() + GetForwardVector() * GetFarDistance();
+		auto nearCenter = GetAbsolutePosition() + GetForwardVector() * GetNearDistance();
+		auto farCenter = GetAbsolutePosition() + GetForwardVector() * GetFarDistance();
 
 		// Find the absolute points of the near plane
 		SetViewFrustumAbsolutePoint(FRUSTUM_POINT_NEAR_TOP_LEFT, nearCenter + GetUpVector() * nearSize.y - x * nearSize.x);

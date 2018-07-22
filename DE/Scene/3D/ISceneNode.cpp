@@ -36,8 +36,9 @@ namespace daidalosengine {
 
 		this->m_scene = scene;
 		this->m_parent = nullptr;
-		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
+		if (parent != nullptr && parent->GetType() != SCENE_NODE_ROOT) {
 			this->m_parent = parent;
+		}
 
 		this->m_id = 0;
 		this->m_name = name;
@@ -56,8 +57,9 @@ namespace daidalosengine {
 
 		this->m_scene = scene;
 		this->m_parent = nullptr;
-		if(parent != nullptr && parent->GetType() != SCENE_NODE_ROOT)
+		if (parent != nullptr && parent->GetType() != SCENE_NODE_ROOT) {
 			this->m_parent = parent;
+		}
 
 		this->m_id = 0;
 		this->m_name = name;
@@ -74,8 +76,8 @@ namespace daidalosengine {
 	ISceneNode::~ISceneNode() {
 		LOG_TRACE();
 
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			SAFE_DELETE(*it);
+		for (auto& it : this->m_children) {
+			SAFE_DELETE(it);
 		}
 	}
 
@@ -91,7 +93,7 @@ namespace daidalosengine {
 		this->m_attributes = attributes;
 	}
 
-	void ISceneNode::AddAttribute(const std::string & attributeName, const std::string attributeValue) {
+	void ISceneNode::AddAttribute(const std::string & attributeName, const std::string& attributeValue) {
 		LOG_TRACE();
 
 		this->m_attributes[attributeName] = attributeValue;
@@ -129,7 +131,7 @@ namespace daidalosengine {
 	* Set the node type
 	* @param type The type
 	*/
-	void ISceneNode::SetType(ESceneNodeType type) {
+	void ISceneNode::SetType(const ESceneNodeType type) {
 		LOG_TRACE();
 
 		this->m_type = type;
@@ -141,13 +143,13 @@ namespace daidalosengine {
 		this->m_id = id;
 	}
 
-	void ISceneNode::SetName(const std::string name) {
+	void ISceneNode::SetName(const std::string& name) {
 		LOG_TRACE();
 
 		this->m_name = name;
 	}
 
-	void ISceneNode::SetBoundingBox(const std::string boundingBox) {
+	void ISceneNode::SetBoundingBox(const std::string& boundingBox) {
 		LOG_TRACE();
 
 		this->m_boundingBox = boundingBox;
@@ -165,7 +167,7 @@ namespace daidalosengine {
 		this->m_localRotation = rotation;
 
 		// Boundary check
-		for(int i = 0; i < 3; ++i) {
+		for(auto i = 0; i < 3; ++i) {
 			if(this->m_localRotation[i] < 0) {
 				this->m_localRotation[i] += 360.0F;
 			}
@@ -184,7 +186,7 @@ namespace daidalosengine {
 	void ISceneNode::Update(const float time) {
 		LOG_TRACE();
 
-		CVector3F rot = CVector3F(DegreeToRadian(this->m_localRotation.x), DegreeToRadian(this->m_localRotation.y), DegreeToRadian(this->m_localRotation.z));
+		const auto rot = CVector3F(DegreeToRadian(this->m_localRotation.x), DegreeToRadian(this->m_localRotation.y), DegreeToRadian(this->m_localRotation.z));
 		this->m_localPositionMatrix = this->m_localPositionMatrix.SetTranslation(this->m_localPosition.x, this->m_localPosition.y, this->m_localPosition.z);
 		this->m_localRotationMatrix = CMatrix(CVector3F(1, 1, 1), rot, CVector3F(0, 0, 0));
 		this->m_localScaleMatrix = this->m_localScaleMatrix.SetScale(this->m_localScale.x, this->m_localScale.y, this->m_localScale.z);
@@ -227,8 +229,8 @@ namespace daidalosengine {
 			}
 		} else {*/
 			// If not, stay in the current thread
-			for (auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-				(*it)->Update(time);
+			for (auto& it : this->m_children) {
+				it->Update(time);
 			}
 		//}
 	}
@@ -237,17 +239,17 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Set the mesh format for the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->SetMeshFormat(format);
+		for (auto& it : this->m_children) {
+			it->SetMeshFormat(format);
 		}
 	}
 
-	void ISceneNode::SetMeshShadingType(EMeshShadingType shadingType) {
+	void ISceneNode::SetMeshShadingType(const EMeshShadingType shadingType) {
 		LOG_TRACE();
 
 		// Set the mesh shading type for the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->SetMeshShadingType(shadingType);
+		for (auto& it : this->m_children) {
+			it->SetMeshShadingType(shadingType);
 		}
 	}
 
@@ -259,8 +261,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Render the children
-		for(auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->Render(filterId);
+		for (auto& it : this->m_children) {
+			it->Render(filterId);
 		}
 	}
 
@@ -285,8 +287,8 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Render the children
-		for (auto it = this->m_children.begin(); it != this->m_children.end(); ++it) {
-			(*it)->RenderDebugInformation();
+		for (auto& it : this->m_children) {
+			it->RenderDebugInformation();
 		}
 	}
 

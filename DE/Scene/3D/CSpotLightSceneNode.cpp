@@ -57,7 +57,7 @@ namespace daidalosengine {
 		AddChild(this->m_camera);
 	}
 
-	CSpotLightSceneNode::~CSpotLightSceneNode() {}
+	CSpotLightSceneNode::~CSpotLightSceneNode() = default;
 
 	void CSpotLightSceneNode::SetRadius(const float radius) {
 		LOG_TRACE();
@@ -80,11 +80,11 @@ namespace daidalosengine {
 
 		// If active and enabled, add it to the active lights list
 		if(IsActive() && IsEnabled()) {
-			SSPotLightsShaderData * lights = GetScene()->GetActiveSpotLightsBuffer();
+			auto lights = GetScene()->GetActiveSpotLightsBuffer();
 
 			// Check if the light hasn't already been added
-			bool lightFound = false;
-			for(int i = 0; i < lights->numberOfLights && !lightFound; i++) {
+			auto lightFound = false;
+			for(auto i = 0; i < lights->numberOfLights && !lightFound; i++) {
 				lightFound = lights->node[i] == this->m_camera;
 			}
 

@@ -182,7 +182,7 @@ namespace daidalosengine {
 		* Get the incenter (center of gravity) of the triangle
 		* @return The incenter
 		*/
-		const CVector3F GetIncenter() const;
+		CVector3F GetIncenter() const;
 
 		/**
 		* Get the circum Sphere of the triangles

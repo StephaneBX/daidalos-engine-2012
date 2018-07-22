@@ -71,7 +71,7 @@ namespace daidalosengine {
 	void ICameraSceneNode::RenderDebugInformation() {
 		LOG_TRACE();
 
-		IRenderer * renderer = IRenderer::GetRenderer();
+		auto renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_debugBuffer.GetBuffer(), DEBUG_LINES_STRIDE);
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 
@@ -81,10 +81,10 @@ namespace daidalosengine {
 	bool ICameraSceneNode::FrustumCull(IShape3DF * shape) const {
 		LOG_TRACE();
 
-		int count = 0;
+		auto count = 0;
 
-		for(int i = 0; i < FRUSTUM_PLANE_SIZE && count < 1; i++) {
-			float dist = GetViewFrustumPlane((EFrustumPlane)i).PointDistance(shape->GetPosition());
+		for(auto i = 0; i < FRUSTUM_PLANE_SIZE && count < 1; i++) {
+			const auto dist = GetViewFrustumPlane(static_cast<EFrustumPlane>(i)).PointDistance(shape->GetPosition());
 			if(dist < -shape->GetInnerDepth(GetViewFrustumPlane(FRUSTUM_PLANE_NEAR))) {
 				count++;
 			}
@@ -123,19 +123,19 @@ namespace daidalosengine {
 		return this->m_viewProjMatrix;
 	}
 
-	const CVector3F & ICameraSceneNode::GetViewFrustumRelativePoint(EFrustumPoint point) const {
+	const CVector3F & ICameraSceneNode::GetViewFrustumRelativePoint(const EFrustumPoint point) const {
 		LOG_TRACE();
 
 		return this->m_frustum.relativePoints[point];
 	}
 
-	const CVector3F & ICameraSceneNode::GetViewFrustumAbsolutePoint(EFrustumPoint point) const {
+	const CVector3F & ICameraSceneNode::GetViewFrustumAbsolutePoint(const EFrustumPoint point) const {
 		LOG_TRACE();
 
 		return this->m_frustum.absolutePoints[point];
 	}
 
-	const CPlane3DF & ICameraSceneNode::GetViewFrustumPlane(EFrustumPlane plane) const {
+	const CPlane3DF & ICameraSceneNode::GetViewFrustumPlane(const EFrustumPlane plane) const {
 		LOG_TRACE();
 
 		return this->m_frustum.planes[plane];
@@ -240,7 +240,7 @@ namespace daidalosengine {
 	*/
 	void ICameraSceneNode::UpdateDebugBuffer() {
 		// Check the vertex buffer size
-		if ((int)this->m_debugBuffer.GetSize() < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
+		if (static_cast<int>(this->m_debugBuffer.GetSize()) < DEBUG_LINES_STRIDE * DEBUG_LINES_COUNT * 2) {
 			// Create a new one if the current one can't hold the data
 			this->m_debugBuffer = IRenderer::GetRenderer()->CreateVertexBuffer(DEBUG_LINES_STRIDE, DEBUG_LINES_COUNT * 2, BUFFER_DYNAMIC | BUFFER_WRITEONLY, nullptr);
 		}
@@ -266,7 +266,7 @@ namespace daidalosengine {
 		};
 
 		// Update the buffer
-		unsigned char * lock = (unsigned char*)this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY);
+		const auto lock = static_cast<unsigned char*>(this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY));
 		memcpy(lock, pointsData, sizeof(pointsData));
 		this->m_debugBuffer.Unlock();
 	}
