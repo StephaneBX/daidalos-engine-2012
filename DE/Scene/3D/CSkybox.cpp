@@ -114,7 +114,7 @@ namespace daidalosengine {
 	void CSkybox::Render() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 
 		// Disable writing to the z-buffer
 		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTH_BUFFER_WRITE, false);
@@ -156,7 +156,7 @@ namespace daidalosengine {
 	void CSkybox::CreateGeometry() {
 		LOG_TRACE();
 
-		const auto renderer = IRenderer::GetRenderer();
+		const auto* renderer = IRenderer::GetRenderer();
 
 		// Create the buffers
 		SSkyboxElement front[] =

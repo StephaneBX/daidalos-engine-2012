@@ -82,7 +82,7 @@ namespace daidalosengine {
 			}
 
 			// Create the brush and add it to the brush list
-			auto brush = new SBSPBrush();
+			auto* brush = new SBSPBrush();
 			brush->enabled = i.collision;
 			brush->tested = false;
 			brush->id = i.id;
@@ -136,7 +136,7 @@ namespace daidalosengine {
 	void CBSPSceneNode::RenderTransparent() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, false);
@@ -321,8 +321,8 @@ namespace daidalosengine {
 		this->m_visibleTriangles.clear();
 		//this->m_bsp->ResetDraw();
 
-		auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		SetActiveCamera(GetScene()->GetActiveCamera());

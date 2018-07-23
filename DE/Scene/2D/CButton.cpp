@@ -216,7 +216,7 @@ namespace daidalosengine {
 	void CButton::Render() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 
 		if (GetDataSize() > 0) {
 

@@ -80,7 +80,7 @@ namespace daidalosengine {
 
 		// If active and enabled, add it to the active lights list
 		if(IsActive() && IsEnabled()) {
-			auto lights = GetScene()->GetActiveSpotLightsBuffer();
+			auto* lights = GetScene()->GetActiveSpotLightsBuffer();
 
 			// Check if the light hasn't already been added
 			auto lightFound = false;

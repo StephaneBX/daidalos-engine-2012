@@ -209,7 +209,7 @@ namespace daidalosengine {
 	void ILevelSceneNode::RenderPrimitives() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_levelBuffer.GetVertexBuffer().GetBuffer(), this->m_levelBuffer.GetStride());
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_levelBuffer.GetNumberOfElements() / 3);
 	}

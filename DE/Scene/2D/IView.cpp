@@ -62,7 +62,7 @@ namespace daidalosengine {
 	void IView::Render() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 
 		for (auto& subview : this->m_subviews) {
 			if(subview->IsVisible()) {
@@ -402,7 +402,7 @@ namespace daidalosengine {
 			}
 
 			// Lock and copy the data
-			const auto lock = static_cast<unsigned char*>(this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY));
+			auto* lock = static_cast<unsigned char*>(this->m_buffer.Lock(sizeof(SGUIData), 0, 0, LOCK_WRITEONLY));
 			memcpy(lock, &this->m_data[0], this->m_data.size() * sizeof(SGUIData));
 			this->m_buffer.Unlock();
 		}
@@ -414,7 +414,7 @@ namespace daidalosengine {
 	void IView::RenderPrimitives() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_buffer.GetBuffer(), sizeof(SGUIData));
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_TRIANGLE_LIST, 0, this->m_data.size() / 3);
 	}
@@ -427,7 +427,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		// Set the scissor if enabled
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		for (auto& subview : this->m_subviews) {
 			if (subview->IsVisible()) {
 				if (scissor) {

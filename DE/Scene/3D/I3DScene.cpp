@@ -51,7 +51,7 @@ namespace daidalosengine {
 		this->m_options = CConfigurationManager::GetInstance()->GetConfiguration(APPLICATION_OPTIONS);
 
 		// Create the debug data
-		const auto renderer = IRenderer::GetRenderer();
+		const auto* renderer = IRenderer::GetRenderer();
 		this->m_debugShader.LoadFromFile("simple");
 
 		// Create the vertex declaration
@@ -169,8 +169,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		const auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -193,8 +193,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		const auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -212,8 +212,8 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		const auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		// Global parameters of the scene
@@ -237,7 +237,7 @@ namespace daidalosengine {
 		Assert(this->m_root != nullptr);
 		Assert(this->m_activeCamera != nullptr);
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 
 		// Disable writing to the z-buffer
 		renderer->SetRenderState(RENDER_STATE_TYPE_DEPTHTEST, false);
@@ -282,8 +282,8 @@ namespace daidalosengine {
 
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
-		auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, "pointLightPositionRange", this->m_activePointLights->positionRange[id]);
@@ -297,8 +297,8 @@ namespace daidalosengine {
 
 		Assert(id >= 0 && id < MAX_LIGHTS_IN_SHADERS);
 
-		const auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		const auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		shaderProgram->SetParameter(SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_DIRECTIONALLIGHT_DIRECTION), this->m_activeDirectionalLights->direction[id]);

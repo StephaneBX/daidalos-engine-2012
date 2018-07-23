@@ -93,9 +93,9 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0 && this->m_backgroundColor.GetAlpha() > 0) {
-			auto renderer = IRenderer::GetRenderer();
+			auto* renderer = IRenderer::GetRenderer();
 
-			auto shaderProgram = renderer->GetCurrentShaderProgram();
+			auto* shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());

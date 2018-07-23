@@ -216,8 +216,8 @@ namespace daidalosengine {
 				FinalizeGeometry();
 			}
 
-			auto renderer = IRenderer::GetRenderer();
-			auto shaderProgram = renderer->GetCurrentShaderProgram();
+			auto* renderer = IRenderer::GetRenderer();
+			auto* shaderProgram = renderer->GetCurrentShaderProgram();
 
 			Assert(shaderProgram != nullptr);
 

@@ -103,11 +103,11 @@ namespace daidalosengine {
 	void CDX9Texture2D::UpdateSurface(const D3DLOCKED_RECT & lockedRect, const CRectangleI & rect) {
 		LOG_TRACE();
 
-		auto destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
+		auto* destPix = reinterpret_cast<unsigned char*>(lockedRect.pBits);
 		auto srcPix = GetImage().GetData() + (rect.GetLeft() + rect.GetTop() * GetSize().x) * GetBytesPerPixel(GetImage().GetFormat());
 		const auto bpp = GetBytesPerPixel(GetImage().GetFormat());
 
-		for(int i = 0; i < rect.GetHeight(); ++i) {
+		for(auto i = 0; i < rect.GetHeight(); ++i) {
 			std::copy(srcPix, srcPix + rect.GetWidth() * bpp, destPix);
 			srcPix += GetSize().x * bpp;
 			destPix += lockedRect.Pitch;

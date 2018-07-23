@@ -90,9 +90,9 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0) {
-			auto renderer = IRenderer::GetRenderer();
+			auto* renderer = IRenderer::GetRenderer();
 
-			auto shaderProgram = renderer->GetCurrentShaderProgram();
+			auto* shaderProgram = renderer->GetCurrentShaderProgram();
 			Assert(shaderProgram != nullptr);
 
 			shaderProgram->SetParameter(SHADERPROGRAM_FLAG_VERTEX, daidalosengine::IRenderer::GetShaderProgramParameterString(SHADERPROGRAM_PARAMETER_GUI_TRANSLATION), GetParent() != nullptr ? GetParent()->GetAbsolutePosition() : CVector2I());
@@ -110,10 +110,10 @@ namespace daidalosengine {
 	void CCursor::UpdatePosition() {
 		LOG_TRACE();
 
-		const auto renderer = IRenderer::GetRenderer();
+		const auto* renderer = IRenderer::GetRenderer();
 
 		// Update the cursor position
-		const auto inputDevice = CInputDevice::GetInstance();
+		const auto* inputDevice = CInputDevice::GetInstance();
 		SetPosition(CVector2I(ClampNumber(GetPosition().x + inputDevice->GetMouseMovement().x, 0, renderer->GetResolution().x), ClampNumber(GetPosition().y + inputDevice->GetMouseMovement().y, 0, renderer->GetResolution().y)));
 		SetBounds(CRectangleI(GetPosition(), GetPreferredSize()));
 	}

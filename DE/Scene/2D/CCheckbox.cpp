@@ -158,7 +158,7 @@ namespace daidalosengine {
 		LOG_TRACE();
 
 		if (GetDataSize() > 0) {
-			auto renderer = IRenderer::GetRenderer();
+			auto* renderer = IRenderer::GetRenderer();
 
 			// Handle the disabled gray color
 			auto color = CColor(1.0F, 1.0F, 1.0F, 1.0F);

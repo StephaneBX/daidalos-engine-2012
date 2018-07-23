@@ -92,7 +92,7 @@ namespace daidalosengine {
 	void CSimpleSceneNode::RenderTransparent() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, true);
 		RenderWithOptions(SCENE_TRANSPARENT_ID);
 		renderer->SetRenderState(RENDER_STATE_TYPE_ALPHATEST, false);
@@ -133,8 +133,8 @@ namespace daidalosengine {
 		// Reset the data
 		this->m_visibleTriangles.clear();
 
-		auto renderer = IRenderer::GetRenderer();
-		auto shaderProgram = renderer->GetCurrentShaderProgram();
+		auto* renderer = IRenderer::GetRenderer();
+		auto* shaderProgram = renderer->GetCurrentShaderProgram();
 		Assert(shaderProgram != nullptr);
 
 		SetActiveCamera(GetScene()->GetActiveCamera());

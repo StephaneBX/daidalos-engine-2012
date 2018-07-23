@@ -284,11 +284,11 @@ namespace daidalosengine {
 	CParticleEmitter * CParticleSystem::InstanciateEmitter() {
 		LOG_TRACE();
 
-		auto emitter = new CParticleEmitter();
+		auto* emitter = new CParticleEmitter();
 
 		// Add the gravity updater
 		if (!emitter->IsIgnoreGravity()) {
-			const auto updater = new CGravityParticleUpdater(this->m_gravity);
+			auto* updater = new CGravityParticleUpdater(this->m_gravity);
 			emitter->AddUpdater(updater);
 		}
 
@@ -305,14 +305,14 @@ namespace daidalosengine {
 	CParticleEmitter * CParticleSystem::InstanciateEmitter(const std::string& templateName, const std::string& emitterName) {
 		LOG_TRACE();
 
-		auto emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
+		auto* emitter = this->m_particleEmittersTemplates.InstanciateEmitter(templateName, emitterName);
 		if(emitter == nullptr) {
 			emitter = new CParticleEmitter();
 		}
 
 		// Add the gravity updater
 		if (!emitter->IsIgnoreGravity()) {
-			const auto updater = new CGravityParticleUpdater(this->m_gravity);
+			auto* updater = new CGravityParticleUpdater(this->m_gravity);
 			emitter->AddUpdater(updater);
 		}
 
@@ -347,9 +347,9 @@ namespace daidalosengine {
 			distanceSorter.QuickSort(this->m_particleDistance.get(), this->m_particleIndex.get(), 0, this->m_particleSize - 1, ARRAY_SORTER_ORDER_DESC);
 
 			// Fill the instance vertex buffer
-			const auto buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
+			auto* buffer = static_cast<char*>(this->m_particleInstanceVB.Lock(sizeof(SParticleData), this->m_particleSize, 0, 0));
 			for(unsigned int i = 0; i < this->m_particleSize; i++) {
-				const auto particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
+				auto* particleData = this->m_particleBuffer.GetAt(this->m_particleIndex.get()[i])->GetData();
 				memcpy(buffer + (sizeof(SParticleData) * i), particleData, sizeof(SParticleData));
 			}
 			this->m_particleInstanceVB.Unlock();

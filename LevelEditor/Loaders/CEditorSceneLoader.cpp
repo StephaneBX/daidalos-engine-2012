@@ -166,12 +166,12 @@ namespace daidaloseditor {
 
 		// Read the bsp geometry
 		auto* child = handle.FirstChildElement("multi_brush").ToElement();
-		for(auto childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
+		for(auto* childIt = child; childIt != nullptr; childIt = childIt->NextSiblingElement()) {
 			// A brush created with a bunch of static models
 			if(std::string(childIt->Name()) == "multi_brush") {
 				auto* child2 = tinyxml2::XMLHandle(childIt).FirstChildElement("brush").ToElement();
 
-				for(auto child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
+				for(auto* child2It = child2; child2It != nullptr; child2It = child2It->NextSiblingElement()) {
 					if(std::string(child2It->Name()) == "brush") {
 						tinyxml2::XMLHandle brushHandle(child2It);
 

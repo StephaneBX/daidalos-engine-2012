@@ -216,7 +216,7 @@ namespace daidalosengine {
 			}
 
 			// Create the geometry
-			const auto descriptor = this->m_font.GetCharDescriptor(currentCharacter);
+			const auto* descriptor = this->m_font.GetCharDescriptor(currentCharacter);
 
 			// Check the character compatibility with the font
 			if (descriptor != nullptr) {

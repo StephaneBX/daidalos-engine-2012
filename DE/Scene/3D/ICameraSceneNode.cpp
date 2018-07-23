@@ -71,7 +71,7 @@ namespace daidalosengine {
 	void ICameraSceneNode::RenderDebugInformation() {
 		LOG_TRACE();
 
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetVertexBuffer(0, this->m_debugBuffer.GetBuffer(), DEBUG_LINES_STRIDE);
 		renderer->DrawPrimitives(PRIMITIVE_TYPE_LINE_LIST, 0, DEBUG_LINES_COUNT);
 
@@ -266,7 +266,7 @@ namespace daidalosengine {
 		};
 
 		// Update the buffer
-		const auto lock = static_cast<unsigned char*>(this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY));
+		auto* lock = static_cast<unsigned char*>(this->m_debugBuffer.Lock(DEBUG_LINES_STRIDE, 0, 0, LOCK_WRITEONLY));
 		memcpy(lock, pointsData, sizeof(pointsData));
 		this->m_debugBuffer.Unlock();
 	}

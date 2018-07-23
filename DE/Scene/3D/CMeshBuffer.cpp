@@ -50,7 +50,7 @@ namespace daidalosengine {
 
 		auto pitch = 0;
 		auto index = 0;
-		const auto lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
+		auto* lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
 
 		for(auto i = 0; i < numberOfElements; i += 3) {
 			// Vertex transformation
@@ -110,7 +110,7 @@ namespace daidalosengine {
 
 		auto pitch = 0;
 		auto index = 0;
-		const auto lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
+		auto* lock = static_cast<unsigned char*>(this->m_vertexBuffer.Lock(this->m_stride, 0, 0, LOCK_WRITEONLY));
 
 		for (auto triangle : triangles) {
 			// Vertex transformation

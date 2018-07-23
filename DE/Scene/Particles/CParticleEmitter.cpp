@@ -336,7 +336,7 @@ namespace daidalosengine {
 	* @return The cloned class
 	*/
 	IClonable * CParticleEmitter::Clone() {
-		auto emitter = new CParticleEmitter();
+		auto* emitter = new CParticleEmitter();
 		emitter->SetActive(this->m_active);
 		emitter->SetReusable(this->m_reusable);
 		emitter->SetTextureId(this->m_textureId);

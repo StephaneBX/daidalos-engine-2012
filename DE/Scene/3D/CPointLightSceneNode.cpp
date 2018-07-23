@@ -55,7 +55,7 @@ namespace daidalosengine {
 
 		// If active and enabled, add it to the active lights list
 		if(IsActive() && IsEnabled()) {
-			auto lights = GetScene()->GetActivePointLightsBuffer();
+			auto* lights = GetScene()->GetActivePointLightsBuffer();
 
 			// Add the light if the limit has not been reached
 			if(lights->numberOfLights < MAX_LIGHTS_IN_SHADERS) {

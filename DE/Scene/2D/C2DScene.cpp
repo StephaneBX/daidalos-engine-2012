@@ -84,7 +84,7 @@ namespace daidalosengine {
 		}
 
 		// Draw all the elements
-		auto renderer = IRenderer::GetRenderer();
+		auto* renderer = IRenderer::GetRenderer();
 		renderer->SetRenderState(RENDER_STATE_TYPE_SCISSORTEST, true);
 
 		this->m_mainView->Render();
