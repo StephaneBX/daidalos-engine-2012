@@ -35,7 +35,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param node The node
 	*/
-	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node) : m_node(node), ITriggerEntity(parent) {
+	CAreaTriggerEntity::CAreaTriggerEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent), m_node(node) {
 
 		SetId(node->GetId());
 		SetType(ENTITY_TYPE_AREA_TRIGGER);
@@ -49,9 +49,9 @@ namespace daidalosgameengine {
 			daidalosengine::CTokenizer tokenizer;
 			tokenizer.AddLine(this->m_node->GetAttribute("triggerNodeIds"));
 			if(tokenizer.Tokenize("|")) {
-				for(auto it = tokenizer.GetTokens().begin(); it != tokenizer.GetTokens().end(); ++it) {
+				for (const auto& it : tokenizer.GetTokens()) {
 					int nodeId;
-					std::istringstream ss(*it);
+					std::istringstream ss(it);
 					ss >> nodeId;
 					this->m_triggerNodeIds.push_back(nodeId);
 				}
@@ -66,12 +66,12 @@ namespace daidalosgameengine {
 		this->m_node->SetEnabled(false);
 
 		// Loop through the ids
-		for(auto it = this->m_triggerNodeIds.begin(); it != this->m_triggerNodeIds.end(); ++it) {
-			std::vector<daidalosengine::ISceneNode*> nodes = GetParent()->GetScene()->GetNodeArray(*it);
+		for (auto& triggerNodeId : this->m_triggerNodeIds) {
+			auto nodes = GetParent()->GetScene()->GetNodeArray(triggerNodeId);
 
 			// Loop through the nodes
-			for(auto it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-				(*it2)->SetEnabled(!(*it2)->IsEnabled());
+			for (auto& node : nodes) {
+				node->SetEnabled(!node->IsEnabled());
 			}
 		}
 	}

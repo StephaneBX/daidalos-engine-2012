@@ -58,7 +58,7 @@ namespace daidalosgameengine {
 		daidalosengine::CVector3F vertex;
 	};
 
-	IDeferredApplication::IDeferredApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+	IDeferredApplication::IDeferredApplication(HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 
 		// Cinematic loader
 		daidalosengine::CMediaManager::GetInstance()->AddLoader(new CCinematicEventLoader(), "dgc");
@@ -78,7 +78,7 @@ namespace daidalosgameengine {
 		textureFilter2.addressV = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		textureFilter2.maxAnisotropy = 0;
 
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		// --------------------------------------------------------------------------------------------------
 		// 2D Rendering 
 		// --------------------------------------------------------------------------------------------------
@@ -366,7 +366,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::InitializeRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		renderer->SetFrameBuffer(nullptr);
@@ -378,7 +378,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::SkyboxRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Sky box mask
@@ -417,7 +417,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::DiffuseRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Deferred Shading : Fill
@@ -446,7 +446,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::DiffuseTopLayerRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Forward rendering: diffuse top layer
@@ -468,7 +468,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::TransparentRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
 		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -491,7 +491,7 @@ namespace daidalosgameengine {
 	* Do the post process rendering
 	*/
 	void IDeferredApplication::PostProcessRendering() {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		renderer->CopyTextureToTexture(this->m_DSFB.GetFrameBuffer()->GetTexture("postProcessRT"), this->m_texture2DPostProcess.GetTexture());
 
 		// Draw a quad with alpha blending and alpha test
@@ -543,7 +543,7 @@ namespace daidalosgameengine {
 	* Apply the brightness
 	*/
 	void IDeferredApplication::ApplyBrightness() {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Level brightness factor
 		if (this->m_currentLevel->GetBrightness() != 0) {
@@ -576,10 +576,10 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::SpotLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
-		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
 			if(scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -635,7 +635,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::PointLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
 		// Add the light effect to the lightRT
@@ -658,7 +658,7 @@ namespace daidalosgameengine {
 
 		this->m_DSPointLight.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_CAMERA_POSITION_DISTANCE), cameraPositionDistance);
 
-		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
 			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			renderer->DrawIndexedPrimitives(daidalosengine::PRIMITIVE_TYPE_TRIANGLE_LIST, 0, 2);
 		}
@@ -669,10 +669,10 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::DirectionalLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
-		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			if(scene3D->GetActiveDirectionalLightsBuffer()->shadowCaster[i]) {
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -728,7 +728,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::PreLightRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Deferred Shading : Lights
@@ -758,7 +758,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::PostLightRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Deferred Shading: Draw
@@ -797,7 +797,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::ParticleSystemRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		this->m_DSFB.DetachAllElements();
 		this->m_DSFB.AttachElement("postProcessRT", 0);
@@ -813,7 +813,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IDeferredApplication::FinalizeDeferredRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Deferred Shading: Draw the post process

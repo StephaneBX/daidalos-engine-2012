@@ -33,7 +33,7 @@ namespace daidalosgameengine {
 	* Constructor
 	* @param priority The priority
 	*/
-	IEnemyState::IEnemyState(const unsigned int priority) : m_priority(priority) {}
+	IEnemyState::IEnemyState(const unsigned int priority) : m_priority(priority), m_animationSpeed(0) {}
 
 	/**
 	* Destructor
@@ -85,7 +85,7 @@ namespace daidalosgameengine {
 	* @param state The state
 	*/
 	void IEnemyState::RemoveListener(IEnemyState * state) {
-		auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), state);
+		const auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), state);
 		if(it != this->m_listeners.end()) {
 			this->m_listeners.erase(it);
 		}
@@ -177,7 +177,7 @@ namespace daidalosgameengine {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time) {
+	void IEnemyState::PerformEnemyLevelCollisions(IEnemyEntity * entity, const daidalosengine::CVector3F& movement, const float time) {
 		entity->PerformLevelCollisions(movement, time);
 	}
 
@@ -188,7 +188,7 @@ namespace daidalosgameengine {
 	* @param movement The raw movement in unit per second
 	* @param time The elapsed time
 	*/
-	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time) {
+	void IEnemyState::PerformEnemyEntityCollisions(IEnemyEntity * entity, const daidalosengine::CVector3F& movement, const float time) {
 		entity->PerformEntityCollisions(movement, time);
 	}
 }

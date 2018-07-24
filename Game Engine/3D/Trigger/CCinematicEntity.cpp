@@ -35,7 +35,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param node The node
 	*/
-	CCinematicEntity::CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node) : m_node(node), ITriggerEntity(parent) {
+	CCinematicEntity::CCinematicEntity(ILevel * parent, daidalosengine::ISceneNode * node) : ITriggerEntity(parent), m_node(node) {
 
 		this->m_triggered = false;
 		SetId(node->GetId());
@@ -85,7 +85,6 @@ namespace daidalosgameengine {
 
 		// Disable the player
 		GetParent()->GetPlayer()->SetEnabled(false);
-		//this->m_parent->GetHud()->
 
 		// Attach the camera
 		GetParent()->SetActiveCamera(this->m_cinematicEvent->GetCameraNode());

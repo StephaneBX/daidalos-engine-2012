@@ -99,7 +99,7 @@ namespace daidalosgameengine
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		IDeferredApplication(const HINSTANCE hInstance, const int nCmdShow);
+		IDeferredApplication(HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor

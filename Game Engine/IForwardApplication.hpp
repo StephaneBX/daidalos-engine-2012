@@ -93,7 +93,7 @@ namespace daidalosgameengine {
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		IForwardApplication(const HINSTANCE hInstance, const int nCmdShow);
+		IForwardApplication(HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor

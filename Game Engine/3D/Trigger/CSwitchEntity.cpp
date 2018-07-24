@@ -38,7 +38,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The switch node
 	*/
-	CSwitchEntity::CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
+	CSwitchEntity::CSwitchEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent), m_node(meshNode) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_SWITCH);
@@ -112,7 +112,7 @@ namespace daidalosgameengine {
 	*/
 	bool CSwitchEntity::CanDoAction() {
 
-		ETriggeredResult triggered = TriggerEntitiesCanDoAction();
+		const auto triggered = TriggerEntitiesCanDoAction();
 		return triggered == TRIGGERED_RESULT_ALL && (this->m_state == SWITCH_STATE_OFF || this->m_state == SWITCH_STATE_ON) && daidalosengine::CVector3F::Distance(this->m_node->GetAbsolutePosition(), GetParent()->GetPlayer()->GetVisiblePosition()) <= TRIGGER_RADIUS && GetParent()->GetPlayer()->IsShapeVisible(this->m_node->GetVisibilityShape());
 	}
 

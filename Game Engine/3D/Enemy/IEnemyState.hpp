@@ -174,7 +174,7 @@ namespace daidalosgameengine {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyLevelCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time);
+		void PerformEnemyLevelCollisions(IEnemyEntity * entity, const daidalosengine::CVector3F& movement, const float time);
 
 		/**
 		* Process the entity collisions (movement + gravity) based on the shape.
@@ -183,7 +183,7 @@ namespace daidalosgameengine {
 		* @param movement The raw movement in unit per second
 		* @param time The elapsed time
 		*/
-		void PerformEnemyEntityCollisions(IEnemyEntity * entity, daidalosengine::CVector3F movement, const float time);
+		void PerformEnemyEntityCollisions(IEnemyEntity * entity, const daidalosengine::CVector3F& movement, const float time);
 	};
 }
 

@@ -39,7 +39,7 @@ namespace daidalosgameengine {
 	*/
 	class ITriggerEntity : public IEntity {
 	private:
-		unsigned int m_triggerParam;
+		unsigned int m_triggerParam{};
 		std::set<ITriggerEntity*> m_targetsEntity;
 
 	public:

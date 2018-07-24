@@ -39,7 +39,7 @@ namespace daidalosgameengine {
 	*/
 	class CAreaTriggerEntity : public ITriggerEntity {
 	private:
-		float m_triggerRadius;
+		float m_triggerRadius{};
 		daidalosengine::ISceneNode * m_node;
 		std::vector<int> m_triggerNodeIds;
 

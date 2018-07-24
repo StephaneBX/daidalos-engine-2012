@@ -40,7 +40,7 @@ namespace daidalosgameengine {
 	class CCinematicEntity : public ITriggerEntity {
 	private:
 		bool m_triggered;
-		float m_triggerRadius;
+		float m_triggerRadius{};
 		daidalosengine::ISceneNode * m_node;
 		std::unique_ptr<CCinematicEvent> m_cinematicEvent;
 

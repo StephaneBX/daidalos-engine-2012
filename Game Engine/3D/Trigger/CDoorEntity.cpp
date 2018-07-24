@@ -40,7 +40,7 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The door node
 	*/
-	CDoorEntity::CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
+	CDoorEntity::CDoorEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ITriggerEntity(parent), m_node(meshNode) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_DOOR);
@@ -69,7 +69,7 @@ namespace daidalosgameengine {
 			ss >> this->m_animationSpeed;
 		}
 		if(!meshNode->GetAttribute("openingParticleEmitter").empty()) {
-			this->m_emitterNode = static_cast<daidalosengine::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
+			this->m_emitterNode = dynamic_cast<daidalosengine::CParticleEmitterSceneNode*>(GetParent()->GetScene()->GetNode(meshNode->GetAttribute("openingParticleEmitter")));
 		}
 		if(!meshNode->GetAttribute("triggerRadius").empty()) {
 			std::istringstream ss(meshNode->GetAttribute("triggerRadius"));

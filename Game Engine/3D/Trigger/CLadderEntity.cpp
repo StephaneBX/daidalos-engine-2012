@@ -35,15 +35,15 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The ladder node
 	*/
-	CLadderEntity::CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : m_node(meshNode), ITriggerEntity(parent) {
+	CLadderEntity::CLadderEntity(ILevel * parent, daidalosengine::CStaticMeshSceneNode * meshNode) : ITriggerEntity(parent), m_node(meshNode) {
 
 		SetId(meshNode->GetId());
 		SetType(ENTITY_TYPE_LADDER);
 		this->m_node->SetMeshShadingType(daidalosengine::MESH_SHADING_SMOOTH);
 
 		// Read the attributes
-		daidalosengine::CVector3F boundingBoxSize = daidalosengine::CVector3F(1, 1, 1);
-		daidalosengine::CVector3F boundingBoxPosition = daidalosengine::CVector3F(0, 0, 0);
+		auto boundingBoxSize = daidalosengine::CVector3F(1, 1, 1);
+		auto boundingBoxPosition = daidalosengine::CVector3F(0, 0, 0);
 		if(!meshNode->GetAttribute("boundingBox_size").empty()) {
 			boundingBoxSize = daidalosengine::CVector3F::GetFrom(meshNode->GetAttribute("boundingBox_size"), boundingBoxSize);
 		}

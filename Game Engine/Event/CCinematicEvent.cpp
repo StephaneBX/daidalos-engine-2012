@@ -62,7 +62,7 @@ namespace daidalosgameengine {
 		}
 
 		// Check the existence of the resource and load it if necessary
-		ICinematicEvent * tmp = daidalosengine::CResourceManager::GetInstance()->GetResource<ICinematicEvent>(filename);
+		auto* tmp = daidalosengine::CResourceManager::GetInstance()->GetResource<ICinematicEvent>(filename);
 
 		if (tmp == nullptr) {
 			this->m_cinematicEventData = daidalosengine::CMediaManager::GetInstance()->LoadMediaFromFile<ICinematicEvent>(filename);
@@ -72,7 +72,7 @@ namespace daidalosgameengine {
 		}
 
 		// Create the camera from the loaded data
-		this->m_camera = std::auto_ptr<CCinematicCamera>(new CCinematicCamera(this->m_parent, this->m_cinematicEventData->GetData()->cameraSteps));
+		this->m_camera = std::make_unique<CCinematicCamera>(this->m_parent, this->m_cinematicEventData->GetData()->cameraSteps);
 	}
 
 	/**
@@ -92,8 +92,8 @@ namespace daidalosgameengine {
 				this->m_enabled = false;
 
 				// Call the listeners
-				for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-					(*it)->OnCinematicEventEnded(this);
+				for (auto& listener : this->m_listeners) {
+					listener->OnCinematicEventEnded(this);
 				}
 			}
 		}
@@ -108,8 +108,8 @@ namespace daidalosgameengine {
 			this->m_enabled = true;
 
 			// Call the listeners
-			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-				(*it)->OnCinematicEventStarted(this);
+			for (auto& listener : this->m_listeners) {
+				listener->OnCinematicEventStarted(this);
 			}
 		}
 	}
@@ -123,8 +123,8 @@ namespace daidalosgameengine {
 			this->m_enabled = false;
 
 			// Call the listeners
-			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-				(*it)->OnCinematicEventPaused(this);
+			for (auto& listener : this->m_listeners) {
+				listener->OnCinematicEventPaused(this);
 			}
 		}
 	}
@@ -138,8 +138,8 @@ namespace daidalosgameengine {
 			this->m_enabled = false;
 
 			// Call the listeners
-			for (auto it = this->m_listeners.begin(); it != this->m_listeners.end(); ++it) {
-				(*it)->OnCinematicEventStopped(this);
+			for (auto& listener : this->m_listeners) {
+				listener->OnCinematicEventStopped(this);
 			}
 		}
 	}

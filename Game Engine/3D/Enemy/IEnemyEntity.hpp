@@ -105,19 +105,19 @@ namespace daidalosgameengine {
 		* Get the current action state.
 		* @return The current action state
 		*/
-		IEnemyState * GetCurrentActionState();
+		IEnemyState * GetCurrentActionState() const;
 
 		/**
 		* Get the player
 		* @return The player
 		*/
-		IPlayer * GetPlayer();
+		IPlayer * GetPlayer() const;
 
 		/**
 		* Get the mesh node
 		* @return The mesh node
 		*/
-		daidalosengine::CAnimatedMeshSceneNode * GetMeshNode();
+		daidalosengine::CAnimatedMeshSceneNode * GetMeshNode() const;
 	};
 }
 

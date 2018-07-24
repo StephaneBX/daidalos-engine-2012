@@ -56,8 +56,8 @@ namespace daidalosgameengine {
 			tinyxml2::XMLHandle hDoc(&doc);
 
 			// Read the camera steps
-			tinyxml2::XMLElement * element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
-			for (tinyxml2::XMLElement * elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
+			auto* element = hDoc.FirstChildElement("cinematic").FirstChildElement("camera").FirstChildElement("step").ToElement();
+			for (auto* elementIt = element; elementIt != nullptr; elementIt = elementIt->NextSiblingElement()) {
 				LoadCameraStep(data, tinyxml2::XMLHandle(elementIt));
 			}
 			

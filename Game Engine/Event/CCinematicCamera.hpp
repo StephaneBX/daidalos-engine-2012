@@ -76,7 +76,7 @@ namespace daidalosgameengine {
 		* @param parent The parent
 		* @param steps The steps
 		*/
-		CCinematicCamera(ILevel * parent, const std::vector<SCinematicCameraStep> & steps);
+		CCinematicCamera(ILevel * parent, std::vector<SCinematicCameraStep> steps);
 
 		/**
 		* Set the player active state

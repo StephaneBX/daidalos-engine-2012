@@ -33,7 +33,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 namespace daidalosgameengine {
 
-	IForwardApplication::IForwardApplication(const HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
+	IForwardApplication::IForwardApplication(HINSTANCE hInstance, const int nCmdShow) : IWin32Application(hInstance, nCmdShow, "Daidalos Engine") {
 		// Cinematic loader
 		daidalosengine::CMediaManager::GetInstance()->AddLoader(new CCinematicEventLoader(), "dgc");
 		daidalosengine::CMediaManager::GetInstance()->AddSearchPath("Resources/Cinematics/");
@@ -54,7 +54,7 @@ namespace daidalosgameengine {
 		textureFilter2.addressV = daidalosengine::TEXTURE_ADDRESS_CLAMP;
 		textureFilter2.maxAnisotropy = 0;
 
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		// --------------------------------------------------------------------------------------------------
 		// 2D Rendering 
 		// --------------------------------------------------------------------------------------------------
@@ -172,7 +172,7 @@ namespace daidalosgameengine {
 	}
 
 	void IForwardApplication::Render() {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		renderer->BeginScene();
 
@@ -277,7 +277,7 @@ namespace daidalosgameengine {
 	* Render a 2D scene
 	*/
 	void IForwardApplication::Render2DScene(daidalosengine::C2DScene * scene2D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// 2D elements: Prepare the renderer and draw
@@ -300,7 +300,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::InitializeRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		scene3D->SetActiveCamera(this->m_currentLevel->GetActiveCamera());
 		renderer->SetFrameBuffer(nullptr);
@@ -312,7 +312,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::SkyboxRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Sky box mask
@@ -349,7 +349,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::DiffuseRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Forward rendering: diffuse
@@ -375,7 +375,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::DiffuseTopLayerRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// ------------------------------
 		// Forward rendering: diffuse top layer
@@ -398,7 +398,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::TransparentRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_CCW);
 		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHABLEND, true);
@@ -418,8 +418,7 @@ namespace daidalosgameengine {
 	* Do the post process rendering
 	*/
 	void IForwardApplication::PostProcessRendering() {
-
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Get the back buffer as a texture
 		renderer->CopyBackBufferToTexture(this->m_texture2DPostProcess.GetTexture());
@@ -471,7 +470,7 @@ namespace daidalosgameengine {
 	* Apply the brightness
 	*/
 	void IForwardApplication::ApplyBrightness() {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		// Level brightness factor
 		if (this->m_currentLevel->GetBrightness() != 0) {
@@ -504,7 +503,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::SpotLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		renderer->SetCullType(daidalosengine::RENDER_STATE_CULL_TYPE_NONE);
@@ -517,7 +516,7 @@ namespace daidalosgameengine {
 		renderer->Clear(daidalosengine::SURFACE_TYPE_TARGET | daidalosengine::SURFACE_TYPE_DEPTH, daidalosengine::CColor(1.0F, 1.0F, 1.0F, 1.0F));
 
 		// Loop through the lights
-		for(int i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActiveSpotLights(); ++i) {
 			if(GetOptions().GetValueBool(APPLICATION_OPTION_SECTION_LIGHTING, APPLICATION_OPTION_LIGHTING_ENABLED, false) && scene3D->GetActiveSpotLightsBuffer()->shadowCaster[scene3D->GetActiveSpotLightsBuffer()->visibilityOrder[i]]) {
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_DEPTHTEST, true);
 				renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHABLEND, false);
@@ -572,7 +571,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::PointLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
@@ -594,7 +593,7 @@ namespace daidalosgameengine {
 		this->m_shaderPointLight.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
-		for(int i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActivePointLights(); ++i) {
 			// Add the light effect to the backbuffer
 			scene3D->SendPointLightDataToShader(scene3D->GetActivePointLightsBuffer()->visibilityOrder[i]);
 			scene3D->Render();
@@ -606,7 +605,7 @@ namespace daidalosgameengine {
 	* @param scene3D The scene
 	*/
 	void IForwardApplication::DirectionalLightsRendering(daidalosengine::C3DScene * scene3D) {
-		daidalosengine::IRenderer* renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 
 		const daidalosengine::CVector4F cameraPositionDistance(this->m_currentLevel->GetActiveCamera()->GetPosition(), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 
@@ -628,7 +627,7 @@ namespace daidalosgameengine {
 		this->m_shaderPointLight.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_VIEW_DISTANCE), this->m_currentLevel->GetActiveCamera()->GetFarDistance());
 		this->m_shaderPointLight.SetParameter(daidalosengine::SHADERPROGRAM_FLAG_PIXEL, daidalosengine::IRenderer::GetShaderProgramParameterString(daidalosengine::SHADERPROGRAM_PARAMETER_FOG_FALLOFF), 0.7F);
 
-		for(int i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
+		for(auto i = 0; i < scene3D->GetNumberOfActiveDirectionalLights(); ++i) {
 			// Add the light effect to the backbuffer
 			scene3D->SendDirectionalLightDataToShader(i);
 			scene3D->Render();

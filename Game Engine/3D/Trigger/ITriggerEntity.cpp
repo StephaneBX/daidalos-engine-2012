@@ -81,7 +81,7 @@ namespace daidalosgameengine {
 	*/
 	ETriggeredResult ITriggerEntity::TriggerEntitiesCanDoAction() const {
 
-		ETriggeredResult result = TRIGGERED_RESULT_NONE;
+		auto result = TRIGGERED_RESULT_NONE;
 		unsigned int triggred = 0;
 		for (auto it : this->m_targetsEntity) {
 			if (it->CanDoAction()) {

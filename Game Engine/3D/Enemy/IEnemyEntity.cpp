@@ -44,13 +44,13 @@ namespace daidalosgameengine {
 	* @param parent The parent
 	* @param meshNode The mesh node
 	*/
-	IEnemyEntity::IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : m_meshNode(meshNode), ICollidableEntity(parent) {
+	IEnemyEntity::IEnemyEntity(ILevel * parent, daidalosengine::CAnimatedMeshSceneNode * meshNode) : ICollidableEntity(parent), m_meshNode(meshNode) {
 
 		SetId(meshNode->GetId());
 		SetFlag(GetFlag() | ENTITY_FLAG_ENEMY);
 
-		SetHealth(DEFAULT_HEALTH);
-		SetMaxHealth(DEFAULT_HEALTH);
+		IEnemyEntity::SetHealth(DEFAULT_HEALTH);
+		IEnemyEntity::SetMaxHealth(DEFAULT_HEALTH);
 
 		this->m_currentActionState = nullptr;
 
@@ -62,15 +62,15 @@ namespace daidalosgameengine {
 		// Read the attributes
 		if(!this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH).empty()) {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_HEALTH));
-			int health = 0;
+			auto health = 0;
 			ss >> health;
-			SetHealth(health);
+			IEnemyEntity::SetHealth(health);
 		}
 		if(!this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH).empty()) {
 			std::istringstream ss(this->m_meshNode->GetAttribute(ATTRIBUTE_MAXHEALTH));
-			int maxHealth = 0;
+			auto maxHealth = 0;
 			ss >> maxHealth;
-			SetMaxHealth(maxHealth);
+			IEnemyEntity::SetMaxHealth(maxHealth);
 		}
 	}
 
@@ -87,8 +87,8 @@ namespace daidalosgameengine {
 		IEntity::TakeDamage(damage);
 
 		// Entity states callback
-		for(auto it = this->m_actionStates.begin(); it != this->m_actionStates.end(); ++it) {
-			(*it)->OnEntityTakeDamage();
+		for (auto&  actionState : this->m_actionStates) {
+			actionState->OnEntityTakeDamage();
 		}
 	}
 
@@ -145,7 +145,7 @@ namespace daidalosgameengine {
 	* Get the current action state.
 	* @return The current action state
 	*/
-	IEnemyState * IEnemyEntity::GetCurrentActionState() {
+	IEnemyState * IEnemyEntity::GetCurrentActionState() const {
 		return this->m_currentActionState;
 	}
 
@@ -153,7 +153,7 @@ namespace daidalosgameengine {
 	* Get the player
 	* @return The player
 	*/
-	IPlayer * IEnemyEntity::GetPlayer() {
+	IPlayer * IEnemyEntity::GetPlayer() const {
 		return GetParent()->GetPlayer();
 	}
 
@@ -161,7 +161,7 @@ namespace daidalosgameengine {
 	* Get the mesh node
 	* @return The mesh node
 	*/
-	daidalosengine::CAnimatedMeshSceneNode * IEnemyEntity::GetMeshNode() {
+	daidalosengine::CAnimatedMeshSceneNode * IEnemyEntity::GetMeshNode() const {
 		return this->m_meshNode;
 	}
 }
