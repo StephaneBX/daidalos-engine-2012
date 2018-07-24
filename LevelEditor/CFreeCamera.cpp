@@ -27,7 +27,7 @@ Notice - For any reuse or distribution, you must make clear to others the licens
 
 #define FPS_CAMERA_MOVEMENT_SPEED 10.0F
 #define FPS_CAMERA_ROTATION_SPEED 60.0F
-#define FPS_CAMERA_GRAVITY -20.0F
+#define FPS_CAMERA_GRAVITY (-20.0F)
 #define FPS_CAMERA_JUMP_IMPULSION 10.0F
 
 #include <limits>
@@ -43,7 +43,7 @@ namespace daidaloseditor {
 	* @param cameraNode The camera node
 	*/
 	CFreeCamera::CFreeCamera(daidalosgameengine::ILevel * parent, daidalosengine::ICameraSceneNode * cameraNode) :
-		m_node(cameraNode), m_scene(nullptr), IPlayer(parent) {
+		IPlayer(parent), m_node(cameraNode), m_scene(nullptr) {
 		this->m_state = 0;
 
 		this->m_inputDevice = daidalosengine::CInputDevice::GetInstance();
@@ -130,7 +130,7 @@ namespace daidaloseditor {
 	}
 
 	void CFreeCamera::Update(const float time) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateView(timeSecond);
@@ -218,29 +218,37 @@ namespace daidaloseditor {
 	void CFreeCamera::UpdateState() {
 		this->m_state = 0;
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFELEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFELEFT)) {
 			this->m_state |= FPS_CAMERA_STRAFELEFT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFERIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_STRAFERIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_STRAFERIGHT)) {
 			this->m_state |= FPS_CAMERA_STRAFERIGHT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_FORWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_FORWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_FORWARD)) {
 			this->m_state |= FPS_CAMERA_FORWARD;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_BACKWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_BACKWARD) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_BACKWARD)) {
 			this->m_state |= FPS_CAMERA_BACKWARD;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKUP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKUP) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKUP)) {
 			this->m_state |= FPS_CAMERA_LOOKUP;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKDOWN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKDOWN) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKDOWN)) {
 			this->m_state |= FPS_CAMERA_LOOKDOWN;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKLEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKLEFT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKLEFT)) {
 			this->m_state |= FPS_CAMERA_LOOKLEFT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT))
+		if (this->m_inputDevice->IsActionActive(FPS_CAMERA_LOOKRIGHT) || this->m_inputDevice->IsGamepadActionActive(0, FPS_CAMERA_LOOKRIGHT)) {
 			this->m_state |= FPS_CAMERA_LOOKRIGHT;
+		}
 	}
 
 	void CFreeCamera::UpdateMovement(const float timeSecond) {
@@ -293,8 +301,8 @@ namespace daidaloseditor {
 		}
 
 		movement = movement.Normalize();
-		const daidalosengine::CVector3F finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
-		const daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		const auto finalMovement = movement * FPS_CAMERA_MOVEMENT_SPEED * timeSecond;
+		const auto finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 
@@ -357,16 +365,20 @@ namespace daidaloseditor {
 		}
 
 
-		if(this->m_rotation.x >= 80.0F)
+		if (this->m_rotation.x >= 80.0F) {
 			this->m_rotation.x = 80;
+		}
 
-		if(this->m_rotation.x < -80)
+		if (this->m_rotation.x < -80) {
 			this->m_rotation.x = -80;
+		}
 
-		if(this->m_rotation.y >= 360.0F)
+		if (this->m_rotation.y >= 360.0F) {
 			this->m_rotation.y -= 360.0F;
+		}
 
-		if(this->m_rotation.y < 0)
+		if (this->m_rotation.y < 0) {
 			this->m_rotation.y += 360.0F;
+		}
 	}
 }

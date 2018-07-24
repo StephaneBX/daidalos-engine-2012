@@ -64,7 +64,7 @@ namespace daidaloseditor {
 	}
 
 	void CViewCamera::Update(const float time) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateView(timeSecond);
@@ -86,23 +86,29 @@ namespace daidaloseditor {
 	void CViewCamera::UpdateState() {
 		this->m_state = 0;
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LEFT))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_LEFT)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_LEFT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_RIGHT))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_RIGHT)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_RIGHT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_UP))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_UP)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_UP;
+		}
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_DOWN))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_DOWN)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_DOWN;
+		}
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_OUT))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_OUT)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_OUT;
+		}
 
-		if(this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_IN))
+		if (this->m_inputDevice->IsActionActive(EDITOR_ACTION_CAMERA_ZOOM_IN)) {
 			this->m_state |= EDITOR_ACTION_CAMERA_ZOOM_IN;
+		}
 	}
 
 	void CViewCamera::UpdateMovement(const float timeSecond) {
@@ -139,8 +145,8 @@ namespace daidaloseditor {
 		}
 
 		movement = movement.Normalize();
-		const daidalosengine::CVector3F finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
-		const daidalosengine::CVector3F finalPosition = this->m_shape.GetPosition() + finalMovement;
+		const auto finalMovement = movement * VIEW_CAMERA_MOVEMENT_SPEED * timeSecond;
+		const auto finalPosition = this->m_shape.GetPosition() + finalMovement;
 		this->m_shape.SetPosition(finalPosition);
 	}
 
@@ -161,16 +167,20 @@ namespace daidaloseditor {
 			this->m_rotation.x += this->m_previousMouseMovement.y * VIEW_CAMERA_ROTATION_SPEED * timeSecond * this->m_options.GetValueFloat(APPLICATION_OPTION_SECTION_MOUSE, APPLICATION_OPTION_MOUSE_SENSIBILITY, 0.5F);
 		}
 
-		if(this->m_rotation.x >= 80.0F)
+		if (this->m_rotation.x >= 80.0F) {
 			this->m_rotation.x = 80;
+		}
 
-		if(this->m_rotation.x < -80)
+		if (this->m_rotation.x < -80) {
 			this->m_rotation.x = -80;
+		}
 
-		if(this->m_rotation.y >= 360.0F)
+		if (this->m_rotation.y >= 360.0F) {
 			this->m_rotation.y -= 360.0F;
+		}
 
-		if(this->m_rotation.y < 0)
+		if (this->m_rotation.y < 0) {
 			this->m_rotation.y += 360.0F;
+		}
 	}
 }

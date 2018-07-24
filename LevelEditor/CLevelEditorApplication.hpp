@@ -79,7 +79,7 @@ namespace daidaloseditor {
 		* @param hInstance Instance
 		* @param nCmdShow Commands
 		*/
-		CLevelEditorApplication(const HINSTANCE hInstance, const int nCmdShow);
+		CLevelEditorApplication(HINSTANCE hInstance, const int nCmdShow);
 
 		/**
 		* Destructor

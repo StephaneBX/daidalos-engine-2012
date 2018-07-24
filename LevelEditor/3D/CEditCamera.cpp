@@ -37,6 +37,7 @@ namespace daidaloseditor {
 		this->m_state = 0;
 		this->m_layer = 0;
 		this->m_zoom = 8;
+		this->m_scene = nullptr;
 
 		// Override camera visibility
 		this->m_node->SetFarDistance(200);
@@ -59,7 +60,7 @@ namespace daidaloseditor {
 	}
 
 	void CEditCamera::Update(const float time) {
-		const float timeSecond = time / 1000.0F;
+		const auto timeSecond = time / 1000.0F;
 
 		UpdateState();
 		UpdateMovement(timeSecond);

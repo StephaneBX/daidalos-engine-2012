@@ -65,7 +65,7 @@ namespace daidaloseditor {
 
 		// Create the history labels
 		this->m_historyLabel.resize(this->m_numberOfLines);
-		int i = 0;
+		auto i = 0;
 		for (auto& it : this->m_historyLabel) {
 			it.SetBounds(daidalosengine::CRectangleI(MARGIN, i * LABEL_HEIGHT, GetBoundingRectangle().GetWidth() - (MARGIN * 2), LABEL_HEIGHT));
 			it.SetSize(LABEL_HEIGHT);
@@ -111,7 +111,7 @@ namespace daidaloseditor {
 	*/
 	void CConsoleView::RemoveListener(IConsoleListener * listener) {
 
-		auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), listener);
+		const auto it = std::find(this->m_listeners.begin(), this->m_listeners.end(), listener);
 		if(it != this->m_listeners.end()) {
 			this->m_listeners.erase(it);
 		}
@@ -144,7 +144,7 @@ namespace daidaloseditor {
 
 			if((this->m_inputLabel.GetBoundingRectangle().GetWidth() + LABEL_HEIGHT) < GetBoundingRectangle().GetWidth()) {
 				std::ostringstream ss;
-				ss << this->m_inputLabel.GetText() << (char)key;
+				ss << this->m_inputLabel.GetText() << static_cast<char>(key);
 
 				this->m_inputLabel.SetText(ss.str());
 			}
@@ -170,23 +170,23 @@ namespace daidaloseditor {
 		tokenizer.AddLine(this->m_inputLabel.GetText());
 		tokenizer.Tokenize(" ");
 
-		const daidalosengine::TToken tokens = tokenizer.GetTokens();
+		const auto tokens = tokenizer.GetTokens();
 		if(tokens.size() == 2) {
 			// Check for known commands
 			if(std::string(CONSOLE_INPUT_LOAD) == tokens[0]) {
 				// Load a scene
-				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
-					std::string filename = tokens[1] + ".des";
+				for (auto& listener : this->m_listeners) {
+					auto filename = tokens[1] + ".des";
 					std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
-					(*it)->OnConsoleCommandLoad(filename);
+					listener->OnConsoleCommandLoad(filename);
 				}
 
 			} else if(std::string(CONSOLE_INPUT_SAVE) == tokens[0]) {
 				// Save a scene
-				for(auto it = this->m_listeners.begin(); it != this->m_listeners.end(); it++) {
-					std::string filename = tokens[1] + ".des";
+				for (auto& listener : this->m_listeners) {
+					auto filename = tokens[1] + ".des";
 					std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
-					(*it)->OnConsoleCommandSave(filename);
+					listener->OnConsoleCommandSave(filename);
 				}
 			}
 		}

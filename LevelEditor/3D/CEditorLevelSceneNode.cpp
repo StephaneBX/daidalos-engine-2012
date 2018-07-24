@@ -49,7 +49,7 @@ namespace daidaloseditor {
 	*/
 	void CEditorLevelSceneNode::RenderTransparent() {
 
-		daidalosengine::IRenderer * renderer = daidalosengine::IRenderer::GetRenderer();
+		auto* renderer = daidalosengine::IRenderer::GetRenderer();
 		renderer->SetRenderState(daidalosengine::RENDER_STATE_TYPE_ALPHATEST, true);
 		renderer->SetAlphaReference(0x00000001);
 		renderer->SetAlphaFunction(daidalosengine::COMPARE_GREATEREQUAL);
